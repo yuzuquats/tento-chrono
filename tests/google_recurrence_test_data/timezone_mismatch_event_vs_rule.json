@@ -1,0 +1,15 @@
+{
+  "description": "Event in UTC but EXDATE rules specify different timezone",
+  "event": {
+    "start": "2025-01-01T12:00:00Z",
+    "time_zone": "UTC",
+    "rules": [
+      "EXDATE;TZID=America/New_York:20250108T070000,20250115T070000",
+      "RRULE:FREQ=WEEKLY;BYDAY=WE"
+    ]
+  },
+  "query_range": {
+    "start": "2025-01-01T00:00:00Z",
+    "end": "2025-02-01T00:00:00Z"
+  }
+}

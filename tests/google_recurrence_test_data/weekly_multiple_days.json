@@ -1,0 +1,12 @@
+{
+  "description": "Weekly recurrence on Monday and Wednesday until specific date",
+  "event": {
+    "start": "2014-08-11T23:00:00Z",
+    "time_zone": null,
+    "rules": ["RRULE:FREQ=WEEKLY;UNTIL=20140813T230000Z;BYDAY=MO,WE"]
+  },
+  "query_range": {
+    "start": "2014-08-01T00:00:00Z",
+    "end": "2014-09-01T00:00:00Z"
+  }
+}

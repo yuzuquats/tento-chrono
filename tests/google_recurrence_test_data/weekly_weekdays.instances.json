@@ -1,0 +1,21 @@
+{
+  "description": "Weekly recurrence on all weekdays (Monday through Friday)",
+  "event": {
+    "start": "2014-08-11T17:00:00Z",
+    "time_zone": null,
+    "rules": [
+      "RRULE:FREQ=WEEKLY;UNTIL=20140815T170000Z;BYDAY=MO,TU,WE,TH,FR"
+    ]
+  },
+  "query_range": {
+    "start": "2014-08-01T00:00:00Z",
+    "end": "2014-09-01T00:00:00Z"
+  },
+  "recorded_instances": [
+    "2014-08-11T17:00:00Z",
+    "2014-08-12T17:00:00Z",
+    "2014-08-13T17:00:00Z",
+    "2014-08-14T17:00:00Z",
+    "2014-08-15T17:00:00Z"
+  ]
+}

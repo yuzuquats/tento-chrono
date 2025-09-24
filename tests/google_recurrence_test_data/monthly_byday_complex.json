@@ -1,0 +1,12 @@
+{
+  "description": "Monthly recurrence on second Tuesday with UNTIL and timezone",
+  "event": {
+    "start": "2024-12-10T09:30:00-05:00",
+    "time_zone": "America/New_York",
+    "rules": ["RRULE:FREQ=MONTHLY;UNTIL=20250610;BYDAY=2TU"]
+  },
+  "query_range": {
+    "start": "2024-12-01T00:00:00Z",
+    "end": "2025-07-01T00:00:00Z"
+  }
+}

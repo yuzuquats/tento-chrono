@@ -1,0 +1,24 @@
+{
+  "description": "Weekly recurrence where week spans multiple months (WKST edge case)",
+  "event": {
+    "start": "2025-01-30T11:00:00-05:00",
+    "time_zone": "America/New_York",
+    "rules": [
+      "RRULE:FREQ=WEEKLY;WKST=SU;BYDAY=TH,SA;COUNT=8"
+    ]
+  },
+  "query_range": {
+    "start": "2025-01-25T00:00:00Z",
+    "end": "2025-03-05T00:00:00Z"
+  },
+  "recorded_instances": [
+    "2025-01-30T16:00:00Z",
+    "2025-02-01T16:00:00Z",
+    "2025-02-06T16:00:00Z",
+    "2025-02-08T16:00:00Z",
+    "2025-02-13T16:00:00Z",
+    "2025-02-15T16:00:00Z",
+    "2025-02-20T16:00:00Z",
+    "2025-02-22T16:00:00Z"
+  ]
+}

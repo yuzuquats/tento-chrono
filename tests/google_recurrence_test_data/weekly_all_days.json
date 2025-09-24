@@ -1,0 +1,12 @@
+{
+  "description": "Weekly recurrence on all days of the week",
+  "event": {
+    "start": "2015-02-07T04:30:00Z",
+    "time_zone": null,
+    "rules": ["RRULE:FREQ=WEEKLY;UNTIL=20150209T043000Z;BYDAY=SU,MO,TU,WE,TH,FR,SA"]
+  },
+  "query_range": {
+    "start": "2015-02-01T00:00:00Z",
+    "end": "2015-02-15T00:00:00Z"
+  }
+}

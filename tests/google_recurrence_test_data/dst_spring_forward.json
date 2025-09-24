@@ -1,0 +1,12 @@
+{
+  "description": "Daily recurrence during DST spring forward transition (2025-03-09 in US)",
+  "event": {
+    "start": "2025-03-08T02:30:00-08:00",
+    "time_zone": "America/Los_Angeles",
+    "rules": ["RRULE:FREQ=DAILY;COUNT=5"]
+  },
+  "query_range": {
+    "start": "2025-03-07T00:00:00Z",
+    "end": "2025-03-15T00:00:00Z"
+  }
+}

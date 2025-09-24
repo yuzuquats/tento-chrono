@@ -1,0 +1,12 @@
+{
+  "description": "Monthly recurrence on 31st - months without 31 days",
+  "event": {
+    "start": "2025-01-31T15:00:00Z",
+    "time_zone": null,
+    "rules": ["RRULE:FREQ=MONTHLY;COUNT=6;BYMONTHDAY=31"]
+  },
+  "query_range": {
+    "start": "2025-01-01T00:00:00Z",
+    "end": "2025-07-01T00:00:00Z"
+  }
+}

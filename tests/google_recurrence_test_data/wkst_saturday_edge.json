@@ -1,0 +1,14 @@
+{
+  "description": "Weekly recurrence with WKST=SA starting on different weekday",
+  "event": {
+    "start": "2025-03-25T10:00:00+00:00",
+    "time_zone": "Europe/London",
+    "rules": [
+      "RRULE:FREQ=WEEKLY;WKST=SA;COUNT=6;BYDAY=TU"
+    ]
+  },
+  "query_range": {
+    "start": "2025-03-20T00:00:00Z", 
+    "end": "2025-05-15T00:00:00Z"
+  }
+}

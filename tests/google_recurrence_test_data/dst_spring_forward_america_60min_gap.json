@@ -1,0 +1,12 @@
+{
+  "description": "America/Los_Angeles spring forward with exactly 60-minute gap - boundary test",
+  "event": {
+    "start": "2025-03-07T03:00:00-08:00",
+    "time_zone": "America/Los_Angeles",
+    "rules": ["RRULE:FREQ=DAILY;COUNT=5"]
+  },
+  "query_range": {
+    "start": "2025-03-06T00:00:00Z",
+    "end": "2025-03-13T00:00:00Z"
+  }
+}

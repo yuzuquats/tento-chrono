@@ -1,0 +1,26 @@
+{
+  "description": "Monthly recurrence spanning February-March boundary in leap vs non-leap years",
+  "event": {
+    "start": "2024-02-28T20:00:00+00:00",
+    "time_zone": "UTC",
+    "rules": [
+      "RRULE:FREQ=DAILY;COUNT=10"
+    ]
+  },
+  "query_range": {
+    "start": "2024-02-25T00:00:00Z",
+    "end": "2024-03-10T00:00:00Z"
+  },
+  "recorded_instances": [
+    "2024-02-28T20:00:00Z",
+    "2024-02-29T20:00:00Z",
+    "2024-03-01T20:00:00Z",
+    "2024-03-02T20:00:00Z",
+    "2024-03-03T20:00:00Z",
+    "2024-03-04T20:00:00Z",
+    "2024-03-05T20:00:00Z",
+    "2024-03-06T20:00:00Z",
+    "2024-03-07T20:00:00Z",
+    "2024-03-08T20:00:00Z"
+  ]
+}

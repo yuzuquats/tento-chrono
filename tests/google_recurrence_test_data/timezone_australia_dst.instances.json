@@ -1,0 +1,19 @@
+{
+  "description": "Weekly recurrence in Australian timezone with reverse DST transition",
+  "event": {
+    "start": "2025-04-03T14:30:00+11:00",
+    "time_zone": "Australia/Sydney",
+    "rules": [
+      "RRULE:FREQ=WEEKLY;COUNT=3;BYDAY=TH"
+    ]
+  },
+  "query_range": {
+    "start": "2025-03-30T00:00:00Z",
+    "end": "2025-04-20T00:00:00Z"
+  },
+  "recorded_instances": [
+    "2025-04-03T03:30:00Z",
+    "2025-04-10T04:30:00Z",
+    "2025-04-17T04:30:00Z"
+  ]
+}

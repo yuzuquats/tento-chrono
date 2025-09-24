@@ -1,0 +1,12 @@
+{
+  "description": "Daily recurrence with UNTIL date in the past",
+  "event": {
+    "start": "2019-07-01T14:30:00Z",
+    "time_zone": null,
+    "rules": ["RRULE:FREQ=DAILY;UNTIL=20190811T195959Z"]
+  },
+  "query_range": {
+    "start": "2019-07-01T00:00:00Z",
+    "end": "2019-09-01T00:00:00Z"
+  }
+}

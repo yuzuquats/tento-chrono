@@ -1,0 +1,17 @@
+{
+  "description": "Monthly recurrence on the 20th day of the month",
+  "event": {
+    "start": "2019-03-20T00:00:00Z",
+    "time_zone": null,
+    "rules": [
+      "RRULE:FREQ=MONTHLY;UNTIL=20190419;BYMONTHDAY=20"
+    ]
+  },
+  "query_range": {
+    "start": "2019-03-01T00:00:00Z",
+    "end": "2019-05-01T00:00:00Z"
+  },
+  "recorded_instances": [
+    "2019-03-20T00:00:00Z"
+  ]
+}

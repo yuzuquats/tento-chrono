@@ -1,0 +1,21 @@
+{
+  "description": "Spring forward transition with 59-minute gap - just under 1 hour boundary",
+  "event": {
+    "start": "2025-03-28T01:59:00+00:00",
+    "time_zone": "Europe/London",
+    "rules": [
+      "RRULE:FREQ=DAILY;COUNT=5"
+    ]
+  },
+  "query_range": {
+    "start": "2025-03-27T00:00:00Z",
+    "end": "2025-04-02T00:00:00Z"
+  },
+  "recorded_instances": [
+    "2025-03-28T01:59:00Z",
+    "2025-03-29T01:59:00Z",
+    "2025-03-30T01:59:00Z",
+    "2025-03-31T00:59:00Z",
+    "2025-04-01T00:59:00Z"
+  ]
+}

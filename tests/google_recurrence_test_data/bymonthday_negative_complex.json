@@ -1,0 +1,14 @@
+{
+  "description": "Multiple negative BYMONTHDAY values (-1, -2, -3 = last 3 days of month)",
+  "event": {
+    "start": "2025-01-31T12:00:00-05:00",
+    "time_zone": "America/New_York",
+    "rules": [
+      "RRULE:FREQ=MONTHLY;BYMONTHDAY=-1,-2,-3;COUNT=15"
+    ]
+  },
+  "query_range": {
+    "start": "2025-01-25T00:00:00Z",
+    "end": "2025-06-05T00:00:00Z"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "description": "Yearly recurrence with BYMONTH and nth BYDAY (2nd Tuesday of May and September)",
+  "event": {
+    "start": "2025-05-13T10:30:00-04:00",
+    "time_zone": "America/New_York",
+    "rules": [
+      "RRULE:FREQ=YEARLY;BYMONTH=5,9;BYDAY=2TU;COUNT=8"
+    ]
+  },
+  "query_range": {
+    "start": "2025-05-01T00:00:00Z",
+    "end": "2028-10-01T00:00:00Z"
+  }
+}

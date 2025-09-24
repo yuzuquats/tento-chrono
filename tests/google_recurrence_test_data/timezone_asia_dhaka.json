@@ -1,0 +1,14 @@
+{
+  "description": "Asia/Dhaka - +6:00 offset with no DST, testing South Asian timezone",
+  "event": {
+    "start": "2025-04-15T14:30:00+06:00",
+    "time_zone": "Asia/Dhaka",
+    "rules": [
+      "RRULE:FREQ=WEEKLY;BYDAY=TU;COUNT=5"
+    ]
+  },
+  "query_range": {
+    "start": "2025-04-10T00:00:00Z",
+    "end": "2025-05-20T00:00:00Z"
+  }
+}

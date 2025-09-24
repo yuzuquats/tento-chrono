@@ -1,0 +1,12 @@
+{
+  "description": "Weekly recurrence on Monday with COUNT=20",
+  "event": {
+    "start": "2025-01-06T09:30:00Z",
+    "time_zone": null,
+    "rules": ["RRULE:FREQ=WEEKLY;COUNT=20;BYDAY=MO"]
+  },
+  "query_range": {
+    "start": "2025-01-01T00:00:00Z",
+    "end": "2025-06-01T00:00:00Z"
+  }
+}

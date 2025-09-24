@@ -1,0 +1,17 @@
+{
+  "description": "Bi-weekly recurrence (every 2 weeks) on Monday",
+  "event": {
+    "start": "2022-06-27T06:59:59Z",
+    "time_zone": null,
+    "rules": [
+      "RRULE:FREQ=WEEKLY;WKST=SU;UNTIL=20220627T065959Z;INTERVAL=2;BYDAY=MO"
+    ]
+  },
+  "query_range": {
+    "start": "2022-06-01T00:00:00Z",
+    "end": "2022-08-01T00:00:00Z"
+  },
+  "recorded_instances": [
+    "2022-06-27T06:59:59Z"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "event": {
+    "start": "2025-07-14T05:03:57Z",
+    "time_zone": null,
+    "rules": ["RRULE:FREQ=DAILY;COUNT=2"]
+  },
+  "query_range": {
+    "start": "2025-01-01T00:00:00Z",
+    "end": "2026-01-01T00:00:00Z"
+  }
+}

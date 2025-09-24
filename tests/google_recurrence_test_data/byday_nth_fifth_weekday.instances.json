@@ -1,0 +1,20 @@
+{
+  "description": "Monthly recurrence on 5th weekday (months that don't have 5th occurrence should be skipped)",
+  "event": {
+    "start": "2025-01-30T14:00:00-08:00",
+    "time_zone": "America/Los_Angeles",
+    "rules": [
+      "RRULE:FREQ=MONTHLY;BYDAY=5TH;COUNT=6"
+    ]
+  },
+  "query_range": {
+    "start": "2025-01-25T00:00:00Z",
+    "end": "2025-12-31T00:00:00Z"
+  },
+  "recorded_instances": [
+    "2025-01-30T22:00:00Z",
+    "2025-05-29T21:00:00Z",
+    "2025-07-31T21:00:00Z",
+    "2025-10-30T21:00:00Z"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "description": "Simple yearly recurrence - infinite",
+  "event": {
+    "start": "2025-01-01T12:00:00Z",
+    "time_zone": null,
+    "rules": [
+      "RRULE:FREQ=YEARLY"
+    ]
+  },
+  "query_range": {
+    "start": "2025-01-01T00:00:00Z",
+    "end": "2030-01-01T00:00:00Z"
+  },
+  "recorded_instances": [
+    "2025-01-01T12:00:00Z",
+    "2026-01-01T12:00:00Z",
+    "2027-01-01T12:00:00Z",
+    "2028-01-01T12:00:00Z",
+    "2029-01-01T12:00:00Z"
+  ]
+}

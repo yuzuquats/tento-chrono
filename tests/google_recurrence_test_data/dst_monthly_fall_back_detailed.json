@@ -1,0 +1,12 @@
+{
+  "description": "Monthly recurrence spanning DST fall back - detailed timing analysis",
+  "event": {
+    "start": "2025-09-15T14:00:00-07:00",
+    "time_zone": "America/Los_Angeles",
+    "rules": ["RRULE:FREQ=MONTHLY;COUNT=3;BYMONTHDAY=15"]
+  },
+  "query_range": {
+    "start": "2025-09-01T00:00:00Z",
+    "end": "2025-12-01T00:00:00Z"
+  }
+}

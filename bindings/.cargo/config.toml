@@ -1,0 +1,3 @@
+[env]
+LONA_JS_CHRONO = { value = "../chrono", relative = true }
+LONA_JS_CHRONO_OUTPUT_JS = { value = "pkg/output.js", relative = true }

@@ -1,0 +1,14 @@
+{
+  "description": "Weekly recurrence with BYWEEKNO=1 (tests week-level filtering)",
+  "event": {
+    "start": "2025-01-06T10:00:00+00:00",
+    "time_zone": "UTC",
+    "rules": [
+      "RRULE:FREQ=WEEKLY;BYWEEKNO=1;COUNT=10"
+    ]
+  },
+  "query_range": {
+    "start": "2025-01-01T00:00:00Z",
+    "end": "2025-03-31T00:00:00Z"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "description": "Weekly recurrence with multiple EXDATE rules in different timezones",
+  "event": {
+    "start": "2025-01-06T16:00:00+00:00",
+    "time_zone": "Europe/London",
+    "rules": [
+      "RRULE:FREQ=WEEKLY;COUNT=8;BYDAY=MO",
+      "EXDATE:20250113T160000",
+      "EXDATE:20250210T160000",
+      "EXDATE:20250224T160000"
+    ]
+  },
+  "query_range": {
+    "start": "2025-01-01T00:00:00Z",
+    "end": "2025-03-10T00:00:00Z"
+  }
+}

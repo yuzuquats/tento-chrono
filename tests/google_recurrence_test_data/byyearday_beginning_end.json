@@ -1,0 +1,14 @@
+{
+  "description": "Yearly recurrence by day of year (1st and last day of year)",
+  "event": {
+    "start": "2025-01-01T00:00:00+09:00",
+    "time_zone": "Asia/Tokyo",
+    "rules": [
+      "RRULE:FREQ=YEARLY;BYYEARDAY=1,-1;COUNT=8"
+    ]
+  },
+  "query_range": {
+    "start": "2024-12-31T00:00:00Z",
+    "end": "2029-01-02T00:00:00Z"
+  }
+}

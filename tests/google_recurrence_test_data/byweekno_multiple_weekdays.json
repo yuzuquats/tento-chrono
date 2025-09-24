@@ -1,0 +1,14 @@
+{
+  "description": "BYWEEKNO=1 with multiple weekdays",
+  "event": {
+    "start": "2025-01-06T10:00:00+00:00",
+    "time_zone": "UTC",
+    "rules": [
+      "RRULE:FREQ=YEARLY;BYWEEKNO=1;BYDAY=MO,WE,FR;COUNT=6"
+    ]
+  },
+  "query_range": {
+    "start": "2025-01-01T00:00:00Z",
+    "end": "2030-01-31T00:00:00Z"
+  }
+}

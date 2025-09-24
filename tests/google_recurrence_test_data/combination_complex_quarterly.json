@@ -1,0 +1,14 @@
+{
+  "description": "Complex quarterly meeting: 1st Wednesday of Jan/Apr/Jul/Oct with INTERVAL=3",
+  "event": {
+    "start": "2025-01-01T09:00:00-08:00",
+    "time_zone": "America/Los_Angeles",
+    "rules": [
+      "RRULE:FREQ=MONTHLY;INTERVAL=3;BYMONTH=1,4,7,10;BYDAY=1WE;COUNT=12"
+    ]
+  },
+  "query_range": {
+    "start": "2025-01-01T00:00:00Z",
+    "end": "2028-01-01T00:00:00Z"
+  }
+}

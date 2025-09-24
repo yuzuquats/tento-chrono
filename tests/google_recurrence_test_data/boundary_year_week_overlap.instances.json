@@ -1,0 +1,22 @@
+{
+  "description": "Weekly recurrence spanning year boundary with ISO week numbering edge case",
+  "event": {
+    "start": "2024-12-30T15:00:00+01:00",
+    "time_zone": "Europe/Berlin",
+    "rules": [
+      "RRULE:FREQ=WEEKLY;BYDAY=MO;COUNT=6"
+    ]
+  },
+  "query_range": {
+    "start": "2024-12-25T00:00:00Z",
+    "end": "2025-02-10T00:00:00Z"
+  },
+  "recorded_instances": [
+    "2024-12-30T14:00:00Z",
+    "2025-01-06T14:00:00Z",
+    "2025-01-13T14:00:00Z",
+    "2025-01-20T14:00:00Z",
+    "2025-01-27T14:00:00Z",
+    "2025-02-03T14:00:00Z"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "description": "Yearly recurrence on leap day February 29",
+  "event": {
+    "start": "2024-02-29T12:00:00Z",
+    "time_zone": null,
+    "rules": ["RRULE:FREQ=YEARLY;COUNT=3"]
+  },
+  "query_range": {
+    "start": "2024-01-01T00:00:00Z",
+    "end": "2028-01-01T00:00:00Z"
+  }
+}

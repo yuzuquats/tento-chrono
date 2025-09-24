@@ -1,0 +1,14 @@
+{
+  "description": "Monthly recurrence with BYWEEKNO=1",
+  "event": {
+    "start": "2025-01-06T10:00:00+00:00",
+    "time_zone": "UTC",
+    "rules": [
+      "RRULE:FREQ=MONTHLY;BYWEEKNO=1;BYDAY=MO;COUNT=12"
+    ]
+  },
+  "query_range": {
+    "start": "2025-01-01T00:00:00Z",
+    "end": "2026-01-31T00:00:00Z"
+  }
+}

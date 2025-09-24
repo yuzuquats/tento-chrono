@@ -1,0 +1,21 @@
+{
+  "description": "Spring forward transition with 90-minute gap - should use post-transition timezone",
+  "event": {
+    "start": "2025-03-28T02:30:00+00:00",
+    "time_zone": "Europe/London",
+    "rules": [
+      "RRULE:FREQ=DAILY;COUNT=5"
+    ]
+  },
+  "query_range": {
+    "start": "2025-03-27T00:00:00Z",
+    "end": "2025-04-02T00:00:00Z"
+  },
+  "recorded_instances": [
+    "2025-03-28T02:30:00Z",
+    "2025-03-29T02:30:00Z",
+    "2025-03-30T01:30:00Z",
+    "2025-03-31T01:30:00Z",
+    "2025-04-01T01:30:00Z"
+  ]
+}

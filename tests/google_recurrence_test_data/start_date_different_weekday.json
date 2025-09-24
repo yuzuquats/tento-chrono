@@ -1,0 +1,12 @@
+{
+  "description": "Event starts on Tuesday but recurs on Friday - Google should include start date",
+  "event": {
+    "start": "2025-01-14T10:00:00Z",
+    "time_zone": null,
+    "rules": ["RRULE:FREQ=WEEKLY;COUNT=3;BYDAY=FR"]
+  },
+  "query_range": {
+    "start": "2025-01-13T00:00:00Z",
+    "end": "2025-02-01T00:00:00Z"
+  }
+}

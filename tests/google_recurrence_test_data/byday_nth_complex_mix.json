@@ -1,0 +1,14 @@
+{
+  "description": "Monthly recurrence mixing positive and negative nth weekdays (2nd Monday, last Wednesday)",
+  "event": {
+    "start": "2025-01-13T11:30:00-05:00",
+    "time_zone": "America/New_York",
+    "rules": [
+      "RRULE:FREQ=MONTHLY;BYDAY=2MO,-1WE;COUNT=10"
+    ]
+  },
+  "query_range": {
+    "start": "2025-01-10T00:00:00Z",
+    "end": "2025-06-01T00:00:00Z"
+  }
+}

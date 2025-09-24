@@ -1,0 +1,10 @@
+{
+  "imports": {
+    "@std/assert": "jsr:@std/assert@^1.0.7",
+    "@tento-chrono": "../../chrono/mod.ts"
+  },
+  "unstable": ["unstable-sloppy-imports"],
+  "compilerOptions": {
+    "types": ["../../../lona-js/lona-js/types/option.d.ts"]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "description": "Monthly recurrence with multiple BYMONTHDAY values (1st, 15th, and last day)",
+  "event": {
+    "start": "2025-01-01T14:00:00-08:00",
+    "time_zone": "America/Los_Angeles",
+    "rules": [
+      "RRULE:FREQ=MONTHLY;BYMONTHDAY=1,15,-1;COUNT=12"
+    ]
+  },
+  "query_range": {
+    "start": "2025-01-01T00:00:00Z",
+    "end": "2025-05-01T00:00:00Z"
+  },
+  "recorded_instances": [
+    "2025-01-01T22:00:00Z",
+    "2025-01-15T22:00:00Z",
+    "2025-01-31T22:00:00Z",
+    "2025-02-01T22:00:00Z",
+    "2025-02-15T22:00:00Z",
+    "2025-02-28T22:00:00Z",
+    "2025-03-01T22:00:00Z",
+    "2025-03-15T21:00:00Z",
+    "2025-03-31T21:00:00Z",
+    "2025-04-01T21:00:00Z",
+    "2025-04-15T21:00:00Z",
+    "2025-04-30T21:00:00Z"
+  ]
+}

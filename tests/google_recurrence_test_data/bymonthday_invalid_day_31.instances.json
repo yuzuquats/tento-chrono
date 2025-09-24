@@ -1,0 +1,23 @@
+{
+  "description": "BYMONTHDAY=31 in months that don't have 31 days (should skip those months)",
+  "event": {
+    "start": "2025-01-31T16:00:00+00:00",
+    "time_zone": "UTC",
+    "rules": [
+      "RRULE:FREQ=MONTHLY;BYMONTHDAY=31;COUNT=12"
+    ]
+  },
+  "query_range": {
+    "start": "2025-01-01T00:00:00Z",
+    "end": "2026-01-01T00:00:00Z"
+  },
+  "recorded_instances": [
+    "2025-01-31T16:00:00Z",
+    "2025-03-31T16:00:00Z",
+    "2025-05-31T16:00:00Z",
+    "2025-07-31T16:00:00Z",
+    "2025-08-31T16:00:00Z",
+    "2025-10-31T16:00:00Z",
+    "2025-12-31T16:00:00Z"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "description": "Yearly recurrence on leap day with timezone spanning multiple leap years",
+  "event": {
+    "start": "2024-02-29T12:00:00-05:00",
+    "time_zone": "America/New_York",
+    "rules": [
+      "RRULE:FREQ=YEARLY;COUNT=5"
+    ]
+  },
+  "query_range": {
+    "start": "2024-01-01T00:00:00Z",
+    "end": "2030-01-01T00:00:00Z"
+  },
+  "recorded_instances": [
+    "2024-02-29T17:00:00Z",
+    "2028-02-29T17:00:00Z"
+  ]
+}

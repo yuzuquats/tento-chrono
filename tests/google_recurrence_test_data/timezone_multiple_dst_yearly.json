@@ -1,0 +1,12 @@
+{
+  "description": "Yearly recurrence spanning multiple DST transitions",
+  "event": {
+    "start": "2024-03-15T10:00:00-07:00",
+    "time_zone": "America/Los_Angeles",
+    "rules": ["RRULE:FREQ=YEARLY;COUNT=3"]
+  },
+  "query_range": {
+    "start": "2024-01-01T00:00:00Z",
+    "end": "2027-01-01T00:00:00Z"
+  }
+}

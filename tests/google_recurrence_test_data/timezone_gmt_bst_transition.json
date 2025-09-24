@@ -1,0 +1,12 @@
+{
+  "description": "Daily recurrence across GMT/BST transition in Europe/London",
+  "event": {
+    "start": "2025-03-29T01:30:00+00:00",
+    "time_zone": "Europe/London",
+    "rules": ["RRULE:FREQ=DAILY;COUNT=4"]
+  },
+  "query_range": {
+    "start": "2025-03-28T00:00:00Z",
+    "end": "2025-04-02T00:00:00Z"
+  }
+}

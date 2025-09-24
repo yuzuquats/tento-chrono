@@ -1,0 +1,20 @@
+{
+  "description": "Pacific/Niue - Extreme negative offset (-11:00) near international date line",
+  "event": {
+    "start": "2025-07-04T12:00:00-11:00",
+    "time_zone": "Pacific/Niue",
+    "rules": [
+      "RRULE:FREQ=MONTHLY;BYMONTHDAY=4;COUNT=4"
+    ]
+  },
+  "query_range": {
+    "start": "2025-07-01T00:00:00Z",
+    "end": "2025-11-01T00:00:00Z"
+  },
+  "recorded_instances": [
+    "2025-07-04T23:00:00Z",
+    "2025-08-04T23:00:00Z",
+    "2025-09-04T23:00:00Z",
+    "2025-10-04T23:00:00Z"
+  ]
+}

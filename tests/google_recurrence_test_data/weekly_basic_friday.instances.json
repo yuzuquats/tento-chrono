@@ -1,0 +1,23 @@
+{
+  "description": "Weekly recurrence on Friday - infinite",
+  "event": {
+    "start": "2025-01-17T14:00:00Z",
+    "time_zone": null,
+    "rules": [
+      "RRULE:FREQ=WEEKLY;BYDAY=FR"
+    ]
+  },
+  "query_range": {
+    "start": "2025-01-01T00:00:00Z",
+    "end": "2025-03-01T00:00:00Z"
+  },
+  "recorded_instances": [
+    "2025-01-17T14:00:00Z",
+    "2025-01-24T14:00:00Z",
+    "2025-01-31T14:00:00Z",
+    "2025-02-07T14:00:00Z",
+    "2025-02-14T14:00:00Z",
+    "2025-02-21T14:00:00Z",
+    "2025-02-28T14:00:00Z"
+  ]
+}

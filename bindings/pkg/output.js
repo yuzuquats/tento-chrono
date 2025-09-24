@@ -1,0 +1,1 @@
+/home/james/mono/target/debug/build/tento-chrono-bindings-d1d612802c7a6fab/out/pkg

@@ -1,0 +1,14 @@
+{
+  "description": "BYWEEKNO=-53 for years with 53 weeks",
+  "event": {
+    "start": "2026-01-05T10:00:00+00:00",
+    "time_zone": "UTC",
+    "rules": [
+      "RRULE:FREQ=YEARLY;BYWEEKNO=-53;BYDAY=MO;COUNT=3"
+    ]
+  },
+  "query_range": {
+    "start": "2026-01-01T00:00:00Z",
+    "end": "2030-01-31T00:00:00Z"
+  }
+}

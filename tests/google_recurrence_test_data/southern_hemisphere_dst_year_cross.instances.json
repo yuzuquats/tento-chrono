@@ -1,0 +1,24 @@
+{
+  "description": "Australian DST transition crossing calendar year boundary",
+  "event": {
+    "start": "2024-12-15T14:00:00+11:00",
+    "time_zone": "Australia/Sydney",
+    "rules": [
+      "RRULE:FREQ=WEEKLY;BYDAY=SU;COUNT=8"
+    ]
+  },
+  "query_range": {
+    "start": "2024-12-10T00:00:00Z",
+    "end": "2025-02-15T00:00:00Z"
+  },
+  "recorded_instances": [
+    "2024-12-15T03:00:00Z",
+    "2024-12-22T03:00:00Z",
+    "2024-12-29T03:00:00Z",
+    "2025-01-05T03:00:00Z",
+    "2025-01-12T03:00:00Z",
+    "2025-01-19T03:00:00Z",
+    "2025-01-26T03:00:00Z",
+    "2025-02-02T03:00:00Z"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "description": "BYMONTHDAY on Feb 29 in leap year vs non-leap year behavior",
+  "event": {
+    "start": "2024-02-29T10:00:00-05:00",
+    "time_zone": "America/New_York",
+    "rules": [
+      "RRULE:FREQ=YEARLY;BYMONTHDAY=29;BYMONTH=2;COUNT=4"
+    ]
+  },
+  "query_range": {
+    "start": "2024-02-01T00:00:00Z",
+    "end": "2028-03-01T00:00:00Z"
+  },
+  "recorded_instances": [
+    "2024-02-29T15:00:00Z",
+    "2028-02-29T15:00:00Z"
+  ]
+}

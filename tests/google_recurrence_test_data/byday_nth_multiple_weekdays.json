@@ -1,0 +1,14 @@
+{
+  "description": "Monthly recurrence with multiple nth weekdays (1st Monday, 3rd Friday)",
+  "event": {
+    "start": "2025-01-06T09:00:00-08:00",
+    "time_zone": "America/Los_Angeles",
+    "rules": [
+      "RRULE:FREQ=MONTHLY;BYDAY=1MO,3FR;COUNT=12"
+    ]
+  },
+  "query_range": {
+    "start": "2025-01-01T00:00:00Z",
+    "end": "2025-07-01T00:00:00Z"
+  }
+}
