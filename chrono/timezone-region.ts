@@ -286,7 +286,7 @@ export namespace TimezoneRegion {
 
       return region;
     } catch (e) {
-      console.error("couldn't find tz: ", tzname);
+      console.error("couldn't find tz: ", tzname, e);
       return defaultCache.get(defaultTz)!;
     }
   }
@@ -305,7 +305,7 @@ export namespace TimezoneRegion {
       defaultCache.set(tzname, region);
       return region;
     } catch (e) {
-      console.error("couldn't find tz: ", tzname);
+      console.error("couldn't find tz: ", tzname, e);
       return null;
     }
   }
