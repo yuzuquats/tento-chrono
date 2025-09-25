@@ -477,6 +477,10 @@ class _YearMonthDay implements Ymd1Like {
       String(this.day).padStart(2, "0"),
     ].join("");
   }
+
+  format(): string {
+    return `${this.month.shortName} ${this.dayOfMonth}, ${this.yr}`;
+  }
 }
 
 export type YearMonthDay<isValid = "valid"> = _YearMonthDay & {
