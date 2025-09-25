@@ -44,6 +44,22 @@ export class PartialDate {
     return (this.cached.index = this.#index);
   }
 
+  toType(type: DateUnit.Type): PartialDate {
+    if (type === this.type) return this;
+
+    const date = this.start;
+    switch (type) {
+      case "year":
+        return new PartialDate("year", date.yr);
+      case "month":
+        return new PartialDate("month", date.yr, date.month1);
+      case "week":
+        return new PartialDate("week", date.yr, null, null, date.isoWno);
+      case "day":
+        return new PartialDate("day", date.yr, date.month1, date.day1);
+    }
+  }
+
   toString(): string {
     switch (this.type) {
       case "year":
