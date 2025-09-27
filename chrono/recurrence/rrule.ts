@@ -2,7 +2,6 @@ import {
   DateUnit,
   Month,
   NaiveDate,
-  NaiveDateTime,
   PartialDate,
   Result,
   Tzname,
@@ -38,7 +37,7 @@ export interface RRuleLike {
 }
 
 export class RRule {
-  exdates: IsoDate[] = [];
+  readonly exdates: IsoDate[] = [];
 
   constructor(
     readonly inner: RRuleLike,
@@ -458,7 +457,7 @@ export class RRule {
               : NaiveDate.Filter.byWeekNo(weekno, useCalendarYear);
 
             // Then apply BYDAY filter to each result
-            for (const [weekDate, weekUnit] of singleWeekFilter(partialdate)) {
+            for (const [weekDate, _weekUnit] of singleWeekFilter(partialdate)) {
               const bydayFilter = NaiveDate.Filter.byWeekday(options.byday!);
               for (const [dayDate, dayUnit] of bydayFilter([weekDate, "day"])) {
                 const dateKey = dayDate.toString();
