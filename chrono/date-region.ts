@@ -421,6 +421,13 @@ export class DateTimeRegion {
 
 export namespace DateTimeRegion {
   export class Range extends GenericRange<DateTimeRegion> {
+    static fromSingleTz(dtr: DateTime.Range<Utc>, tz: TimezoneRegion) {
+      return new DateTimeRegion.Range(
+        new DateTimeRegion(tz.toTz(dtr.start).ndt, tz),
+        new DateTimeRegion(tz.toTz(dtr.end).ndt, tz),
+      );
+    }
+
     duration(): Duration.Time {
       return this.end.asWallClock().durationSince(this.start.asWallClock());
     }
