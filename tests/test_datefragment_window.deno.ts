@@ -152,28 +152,34 @@ type WindowedDateFragmentTestCaseJson = {
       all: {
         start: string;
         end: string;
+        duration: number;
       };
       partial_window: {
         start: string;
         end: string;
+        duration: number;
       };
       valid_hours: {
         start: string;
         end: string;
+        duration: number;
       };
     };
     local: {
       all: {
         start: string;
         end: string;
+        duration: number;
       };
       partial_window: {
         start: string;
         end: string;
+        duration: number;
       };
       valid_hours: {
         start: string;
         end: string;
+        duration: number;
       };
     };
   };
@@ -184,14 +190,14 @@ class WindowedDateFragmentTestCase {
     readonly windowed: WindowedDateFragment,
     readonly expected: {
       utc: {
-        all: DateTime.Range<Utc>;
-        partialWindow: DateTime.Range<Utc>;
-        validHours: DateTime.Range<Utc>;
+        all: { range: DateTime.Range<Utc>; duration: number };
+        partialWindow: { range: DateTime.Range<Utc>; duration: number };
+        validHours: { range: DateTime.Range<Utc>; duration: number };
       };
       local: {
-        all: string;
-        partialWindow: string;
-        validHours: string;
+        all: { str: string; duration: number };
+        partialWindow: { str: string; duration: number };
+        validHours: { str: string; duration: number };
       };
     },
     readonly name: string,
@@ -267,14 +273,14 @@ class WindowedDateFragmentTestCase {
       windowed,
       {
         utc: {
-          all: expectedUtcAll,
-          partialWindow: expectedUtcPartialWindow,
-          validHours: expectedUtcValidHours,
+          all: { range: expectedUtcAll, duration: raw.expected.utc.all.duration },
+          partialWindow: { range: expectedUtcPartialWindow, duration: raw.expected.utc.partial_window.duration },
+          validHours: { range: expectedUtcValidHours, duration: raw.expected.utc.valid_hours.duration },
         },
         local: {
-          all: expectedLocalAll,
-          partialWindow: expectedLocalPartialWindow,
-          validHours: expectedLocalValidHours,
+          all: { str: expectedLocalAll, duration: raw.expected.local.all.duration },
+          partialWindow: { str: expectedLocalPartialWindow, duration: raw.expected.local.partial_window.duration },
+          validHours: { str: expectedLocalValidHours, duration: raw.expected.local.valid_hours.duration },
         },
       },
       raw.name,
@@ -288,62 +294,83 @@ class WindowedDateFragmentTestCase {
 
     const actualAll = this.windowed.applyAll();
     if (
-      actualAll.start.rfc3339() !== this.expected.utc.all.start.rfc3339() ||
-      actualAll.end.rfc3339() !== this.expected.utc.all.end.rfc3339()
+      actualAll.start.rfc3339() !== this.expected.utc.all.range.start.rfc3339() ||
+      actualAll.end.rfc3339() !== this.expected.utc.all.range.end.rfc3339()
     ) {
       errors.push(
-        `applyAll() UTC mismatch:\n  Expected: ${this.expected.utc.all.start.rfc3339()} to ${this.expected.utc.all.end.rfc3339()}\n  Actual:   ${actualAll.start.rfc3339()} to ${actualAll.end.rfc3339()}`,
+        `applyAll() UTC mismatch:\n  Expected: ${this.expected.utc.all.range.start.rfc3339()} to ${this.expected.utc.all.range.end.rfc3339()}\n  Actual:   ${actualAll.start.rfc3339()} to ${actualAll.end.rfc3339()}`,
+      );
+    }
+
+    const actualAllDuration = (actualAll.end.mse - actualAll.start.mse) / (1000 * 60 * 60);
+    if (Math.abs(actualAllDuration - this.expected.utc.all.duration) > 0.01) {
+      errors.push(
+        `applyAll() UTC duration mismatch:\n  Expected: ${this.expected.utc.all.duration} hours\n  Actual:   ${actualAllDuration.toFixed(2)} hours`,
       );
     }
 
     const actualAllStartLocal = tz.toTz(actualAll.start);
     const actualAllEndLocal = tz.toTz(actualAll.end);
     const actualAllLocal = `${actualAllStartLocal.rfc3339()} to ${actualAllEndLocal.rfc3339()}`;
-    if (actualAllLocal !== this.expected.local.all) {
+    if (actualAllLocal !== this.expected.local.all.str) {
       errors.push(
-        `applyAll() Local mismatch:\n  Expected: ${this.expected.local.all}\n  Actual:   ${actualAllLocal}`,
+        `applyAll() Local mismatch:\n  Expected: ${this.expected.local.all.str}\n  Actual:   ${actualAllLocal}`,
       );
     }
 
     const actualPartialWindow = this.windowed.applyPartialWindow();
     if (
       actualPartialWindow.start.rfc3339() !==
-        this.expected.utc.partialWindow.start.rfc3339() ||
+        this.expected.utc.partialWindow.range.start.rfc3339() ||
       actualPartialWindow.end.rfc3339() !==
-        this.expected.utc.partialWindow.end.rfc3339()
+        this.expected.utc.partialWindow.range.end.rfc3339()
     ) {
       errors.push(
-        `applyPartialWindow() UTC mismatch:\n  Expected: ${this.expected.utc.partialWindow.start.rfc3339()} to ${this.expected.utc.partialWindow.end.rfc3339()}\n  Actual:   ${actualPartialWindow.start.rfc3339()} to ${actualPartialWindow.end.rfc3339()}`,
+        `applyPartialWindow() UTC mismatch:\n  Expected: ${this.expected.utc.partialWindow.range.start.rfc3339()} to ${this.expected.utc.partialWindow.range.end.rfc3339()}\n  Actual:   ${actualPartialWindow.start.rfc3339()} to ${actualPartialWindow.end.rfc3339()}`,
+      );
+    }
+
+    const actualPartialWindowDuration = (actualPartialWindow.end.mse - actualPartialWindow.start.mse) / (1000 * 60 * 60);
+    if (Math.abs(actualPartialWindowDuration - this.expected.utc.partialWindow.duration) > 0.01) {
+      errors.push(
+        `applyPartialWindow() UTC duration mismatch:\n  Expected: ${this.expected.utc.partialWindow.duration} hours\n  Actual:   ${actualPartialWindowDuration.toFixed(2)} hours`,
       );
     }
 
     const actualPartialWindowStartLocal = tz.toTz(actualPartialWindow.start);
     const actualPartialWindowEndLocal = tz.toTz(actualPartialWindow.end);
     const actualPartialWindowLocal = `${actualPartialWindowStartLocal.rfc3339()} to ${actualPartialWindowEndLocal.rfc3339()}`;
-    if (actualPartialWindowLocal !== this.expected.local.partialWindow) {
+    if (actualPartialWindowLocal !== this.expected.local.partialWindow.str) {
       errors.push(
-        `applyPartialWindow() Local mismatch:\n  Expected: ${this.expected.local.partialWindow}\n  Actual:   ${actualPartialWindowLocal}`,
+        `applyPartialWindow() Local mismatch:\n  Expected: ${this.expected.local.partialWindow.str}\n  Actual:   ${actualPartialWindowLocal}`,
       );
     }
 
     const actualValidHours = this.windowed.applyValidHours();
     if (
       actualValidHours.start.rfc3339() !==
-        this.expected.utc.validHours.start.rfc3339() ||
+        this.expected.utc.validHours.range.start.rfc3339() ||
       actualValidHours.end.rfc3339() !==
-        this.expected.utc.validHours.end.rfc3339()
+        this.expected.utc.validHours.range.end.rfc3339()
     ) {
       errors.push(
-        `applyValidHours() UTC mismatch:\n  Expected: ${this.expected.utc.validHours.start.rfc3339()} to ${this.expected.utc.validHours.end.rfc3339()}\n  Actual:   ${actualValidHours.start.rfc3339()} to ${actualValidHours.end.rfc3339()}`,
+        `applyValidHours() UTC mismatch:\n  Expected: ${this.expected.utc.validHours.range.start.rfc3339()} to ${this.expected.utc.validHours.range.end.rfc3339()}\n  Actual:   ${actualValidHours.start.rfc3339()} to ${actualValidHours.end.rfc3339()}`,
+      );
+    }
+
+    const actualValidHoursDuration = (actualValidHours.end.mse - actualValidHours.start.mse) / (1000 * 60 * 60);
+    if (Math.abs(actualValidHoursDuration - this.expected.utc.validHours.duration) > 0.01) {
+      errors.push(
+        `applyValidHours() UTC duration mismatch:\n  Expected: ${this.expected.utc.validHours.duration} hours\n  Actual:   ${actualValidHoursDuration.toFixed(2)} hours`,
       );
     }
 
     const actualValidHoursStartLocal = tz.toTz(actualValidHours.start);
     const actualValidHoursEndLocal = tz.toTz(actualValidHours.end);
     const actualValidHoursLocal = `${actualValidHoursStartLocal.rfc3339()} to ${actualValidHoursEndLocal.rfc3339()}`;
-    if (actualValidHoursLocal !== this.expected.local.validHours) {
+    if (actualValidHoursLocal !== this.expected.local.validHours.str) {
       errors.push(
-        `applyValidHours() Local mismatch:\n  Expected: ${this.expected.local.validHours}\n  Actual:   ${actualValidHoursLocal}`,
+        `applyValidHours() Local mismatch:\n  Expected: ${this.expected.local.validHours.str}\n  Actual:   ${actualValidHoursLocal}`,
       );
     }
 
