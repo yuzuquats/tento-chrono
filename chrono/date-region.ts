@@ -179,26 +179,30 @@ export class DateFragment {
    * @returns {DateFragment} A new fragment clamped to the window
    */
   clamp(window: TimeOfDay.Range): DateTime.Range<any> {
-    // Create a TimeOfDay.Range from this fragment's start and end times
-    const thisRange = new TimeOfDay.Range(
-      this.start.time,
-      this.end.time,
-      !this.start.date.equals(this.end.date),
-    );
+    // Start time is the max of fragment start and window start
+    const startTime = this.start.time.max(window.start);
+    const clampedStart = this.start.withTime(startTime);
 
-    // Clamp the range using the existing TimeOfDay.Range clamp method
-    const clampedRange = thisRange.clamp(window);
+    // For the end time, handle overnight windows and full-day fragments specially
+    let clampedEnd: DateTime<FixedOffset>;
+    if (window.endsOnNextDay) {
+      // Window extends to next day (e.g., 22:00-02:00)
+      // Use the window's end time on the next day to show the full window
+      clampedEnd = this.start.withTime(window.end).add({ days: 1 });
+    } else {
+      // Window is same-day
+      // Check if fragment spans to next day (end time is 00:00 on next day)
+      const fragmentSpansDay = !this.start.date.equals(this.end.date);
 
-    // Create new DateTimes from the clamped times, preserving the timezone
-    // For the end time, we need to be careful about same-day vs next-day
-    const clampedStart = this.start.withTime(clampedRange.start);
-
-    // If the clamped range doesn't span to the next day, keep it on the same day
-    // If the original fragment was a full day (end time 00:00 next day),
-    // we want to clamp it to stay within the same day
-    const clampedEnd = clampedRange.endsOnNextDay
-      ? this.start.withTime(clampedRange.end).add({ days: 1 })
-      : this.start.withTime(clampedRange.end);
+      if (fragmentSpansDay && this.end.time.equals(TimeOfDay.ZERO)) {
+        // Fragment ends at midnight next day, use window end since it's earlier
+        clampedEnd = this.start.withTime(window.end);
+      } else {
+        // Take min of fragment end and window end
+        const endTime = this.end.time.min(window.end);
+        clampedEnd = this.start.withTime(endTime);
+      }
+    }
 
     return new DateTime.Range(clampedStart, clampedEnd);
   }

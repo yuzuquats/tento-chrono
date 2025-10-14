@@ -1,0 +1,403 @@
+import { Logger } from "../../lona-js/lona-js/log.ts";
+
+Logger.installToConsole();
+
+import { assertEquals } from "jsr:@std/assert";
+
+import { DateRegion, DateFragment } from "../chrono/date-region.ts";
+import { DateTime } from "../chrono/datetime.ts";
+import { naivedate } from "../chrono/mod.ts";
+import { NaiveDateTime } from "../chrono/naive-datetime.ts";
+import { GenericRange } from "../chrono/range.ts";
+import { TimezoneRegion } from "../chrono/timezone-region.ts";
+import { Utc, Tzname } from "../chrono/timezone.ts";
+import { TimeOfDay } from "../chrono/units/time-of-day.ts";
+import { installTimezoneLoader } from "./utils.deno.ts";
+
+installTimezoneLoader();
+
+/**
+ * WindowedDateFragment represents a DateFragment with optional windowing transformations.
+ *
+ * This class provides clean APIs for applying two types of transformations:
+ * 1. Partial Window - Clips the fragment to specific start/end NaiveDateTimes
+ * 2. Valid Hours - Restricts the fragment to specific hours of the day
+ */
+export class WindowedDateFragment {
+  constructor(
+    readonly fragment: DateFragment,
+    readonly partialWindow?: GenericRange<Option<NaiveDateTime>>,
+    readonly validHours?: TimeOfDay.Range,
+  ) {}
+
+  /**
+   * Applies only the partial window transformation.
+   * Returns the fragment clipped to the specified start/end times.
+   */
+  applyPartialWindow(): DateTime.Range<Utc> {
+    if (!this.partialWindow) {
+      return new DateTime.Range(
+        this.fragment.start.toUtc(),
+        this.fragment.end.toUtc(),
+      );
+    }
+
+    let start = this.fragment.start;
+    let end = this.fragment.end;
+
+    if (this.partialWindow.start != null) {
+      const constraintStart = this.fragment.parent.toWallClock(
+        this.partialWindow.start,
+      );
+      if (constraintStart.mse > start.mse) {
+        start = constraintStart;
+      }
+    }
+
+    if (this.partialWindow.end != null) {
+      const constraintEnd = this.fragment.parent.toWallClock(
+        this.partialWindow.end,
+      );
+      if (constraintEnd.mse < end.mse) {
+        end = constraintEnd;
+      }
+    }
+
+    return new DateTime.Range(start.toUtc(), end.toUtc());
+  }
+
+  /**
+   * Applies only the valid hours transformation.
+   * Returns the fragment restricted to the specified time-of-day window.
+   */
+  applyValidHours(): DateTime.Range<Utc> {
+    if (!this.validHours) {
+      return new DateTime.Range(
+        this.fragment.start.toUtc(),
+        this.fragment.end.toUtc(),
+      );
+    }
+
+    const clampedRange = this.fragment.clamp(this.validHours);
+    return new DateTime.Range(
+      clampedRange.start.toUtc(),
+      clampedRange.end.toUtc(),
+    );
+  }
+
+  /**
+   * Applies both transformations in sequence: partial window first, then valid hours.
+   * Returns the final windowed timespan as DateTime.Range<Utc>.
+   */
+  applyAll(): DateTime.Range<Utc> {
+    let start = this.fragment.start;
+    let end = this.fragment.end;
+
+    if (this.partialWindow) {
+      if (this.partialWindow.start != null) {
+        const constraintStart = this.fragment.parent.toWallClock(
+          this.partialWindow.start,
+        );
+        if (constraintStart.mse > start.mse) {
+          start = constraintStart;
+        }
+      }
+
+      if (this.partialWindow.end != null) {
+        const constraintEnd = this.fragment.parent.toWallClock(
+          this.partialWindow.end,
+        );
+        if (constraintEnd.mse < end.mse) {
+          end = constraintEnd;
+        }
+      }
+    }
+
+    const partialFragment = new DateFragment(
+      new DateTime.Range(start, end),
+      this.fragment.parent,
+    );
+
+    if (this.validHours) {
+      const clampedRange = partialFragment.clamp(this.validHours);
+      return new DateTime.Range(
+        clampedRange.start.toUtc(),
+        clampedRange.end.toUtc(),
+      );
+    }
+
+    return new DateTime.Range(start.toUtc(), end.toUtc());
+  }
+}
+
+type WindowedDateFragmentTestCaseJson = {
+  name: string;
+  description: string;
+  windowed_date_fragment: {
+    date_fragment: {
+      date: string;
+      tz: string;
+    };
+    partial_window: Option<{
+      start: Option<string>;
+      end: Option<string>;
+    }>;
+    valid_hours: Option<{
+      start: string;
+      end: string;
+    }>;
+  };
+  expected: {
+    utc: {
+      all: {
+        start: string;
+        end: string;
+      };
+      partial_window: {
+        start: string;
+        end: string;
+      };
+      valid_hours: {
+        start: string;
+        end: string;
+      };
+    };
+    local: {
+      all: {
+        start: string;
+        end: string;
+      };
+      partial_window: {
+        start: string;
+        end: string;
+      };
+      valid_hours: {
+        start: string;
+        end: string;
+      };
+    };
+  };
+};
+
+class WindowedDateFragmentTestCase {
+  constructor(
+    readonly windowed: WindowedDateFragment,
+    readonly expected: {
+      utc: {
+        all: DateTime.Range<Utc>;
+        partialWindow: DateTime.Range<Utc>;
+        validHours: DateTime.Range<Utc>;
+      };
+      local: {
+        all: string;
+        partialWindow: string;
+        validHours: string;
+      };
+    },
+    readonly name: string,
+    readonly description: string,
+  ) {}
+
+  static async parse(
+    raw: WindowedDateFragmentTestCaseJson,
+  ): Promise<WindowedDateFragmentTestCase> {
+    const dateParts = raw.windowed_date_fragment.date_fragment.date.split("-");
+    const date = naivedate(
+      Number.parseInt(dateParts[0]),
+      Number.parseInt(dateParts[1]),
+      Number.parseInt(dateParts[2]),
+    );
+
+    const tz = await TimezoneRegion.get(
+      raw.windowed_date_fragment.date_fragment.tz as Tzname,
+    );
+
+    const dateRegion = new DateRegion(date, tz);
+    const fragments = dateRegion.dateFragments();
+    const fragment = fragments[0];
+
+    let partialWindow: Option<GenericRange<Option<NaiveDateTime>>> = undefined;
+    if (raw.windowed_date_fragment.partial_window) {
+      const pw = raw.windowed_date_fragment.partial_window;
+      const start = pw.start ? NaiveDateTime.parse(pw.start) : undefined;
+      const end = pw.end ? NaiveDateTime.parse(pw.end) : undefined;
+      partialWindow = new GenericRange(start, end);
+    }
+
+    let validHours: Option<TimeOfDay.Range> = undefined;
+    if (raw.windowed_date_fragment.valid_hours) {
+      const vh = raw.windowed_date_fragment.valid_hours;
+      const startTime = TimeOfDay.parse(vh.start);
+      const endTime = TimeOfDay.parse(vh.end);
+      if (startTime.isOk && endTime.isOk) {
+        const start = startTime.asOk()!;
+        const end = endTime.asOk()!;
+        const endsOnNextDay = start.toMs > end.toMs ||
+          (start.toMs === 0 && end.toMs === 0);
+        validHours = new TimeOfDay.Range(start, end, endsOnNextDay);
+      }
+    }
+
+    const windowed = new WindowedDateFragment(
+      fragment,
+      partialWindow,
+      validHours,
+    );
+
+    const expectedUtcAll = new DateTime.Range(
+      DateTime.fromRfc3339(raw.expected.utc.all.start).exp().toUtc(),
+      DateTime.fromRfc3339(raw.expected.utc.all.end).exp().toUtc(),
+    );
+
+    const expectedUtcPartialWindow = new DateTime.Range(
+      DateTime.fromRfc3339(raw.expected.utc.partial_window.start).exp().toUtc(),
+      DateTime.fromRfc3339(raw.expected.utc.partial_window.end).exp().toUtc(),
+    );
+
+    const expectedUtcValidHours = new DateTime.Range(
+      DateTime.fromRfc3339(raw.expected.utc.valid_hours.start).exp().toUtc(),
+      DateTime.fromRfc3339(raw.expected.utc.valid_hours.end).exp().toUtc(),
+    );
+
+    const expectedLocalAll = `${raw.expected.local.all.start} to ${raw.expected.local.all.end}`;
+    const expectedLocalPartialWindow = `${raw.expected.local.partial_window.start} to ${raw.expected.local.partial_window.end}`;
+    const expectedLocalValidHours = `${raw.expected.local.valid_hours.start} to ${raw.expected.local.valid_hours.end}`;
+
+    return new WindowedDateFragmentTestCase(
+      windowed,
+      {
+        utc: {
+          all: expectedUtcAll,
+          partialWindow: expectedUtcPartialWindow,
+          validHours: expectedUtcValidHours,
+        },
+        local: {
+          all: expectedLocalAll,
+          partialWindow: expectedLocalPartialWindow,
+          validHours: expectedLocalValidHours,
+        },
+      },
+      raw.name,
+      raw.description,
+    );
+  }
+
+  test(): { passed: boolean; errors: string[] } {
+    const errors: string[] = [];
+    const tz = this.windowed.fragment.parent;
+
+    const actualAll = this.windowed.applyAll();
+    if (
+      actualAll.start.rfc3339() !== this.expected.utc.all.start.rfc3339() ||
+      actualAll.end.rfc3339() !== this.expected.utc.all.end.rfc3339()
+    ) {
+      errors.push(
+        `applyAll() UTC mismatch:\n  Expected: ${this.expected.utc.all.start.rfc3339()} to ${this.expected.utc.all.end.rfc3339()}\n  Actual:   ${actualAll.start.rfc3339()} to ${actualAll.end.rfc3339()}`,
+      );
+    }
+
+    const actualAllStartLocal = tz.toTz(actualAll.start);
+    const actualAllEndLocal = tz.toTz(actualAll.end);
+    const actualAllLocal = `${actualAllStartLocal.rfc3339()} to ${actualAllEndLocal.rfc3339()}`;
+    if (actualAllLocal !== this.expected.local.all) {
+      errors.push(
+        `applyAll() Local mismatch:\n  Expected: ${this.expected.local.all}\n  Actual:   ${actualAllLocal}`,
+      );
+    }
+
+    const actualPartialWindow = this.windowed.applyPartialWindow();
+    if (
+      actualPartialWindow.start.rfc3339() !==
+        this.expected.utc.partialWindow.start.rfc3339() ||
+      actualPartialWindow.end.rfc3339() !==
+        this.expected.utc.partialWindow.end.rfc3339()
+    ) {
+      errors.push(
+        `applyPartialWindow() UTC mismatch:\n  Expected: ${this.expected.utc.partialWindow.start.rfc3339()} to ${this.expected.utc.partialWindow.end.rfc3339()}\n  Actual:   ${actualPartialWindow.start.rfc3339()} to ${actualPartialWindow.end.rfc3339()}`,
+      );
+    }
+
+    const actualPartialWindowStartLocal = tz.toTz(actualPartialWindow.start);
+    const actualPartialWindowEndLocal = tz.toTz(actualPartialWindow.end);
+    const actualPartialWindowLocal = `${actualPartialWindowStartLocal.rfc3339()} to ${actualPartialWindowEndLocal.rfc3339()}`;
+    if (actualPartialWindowLocal !== this.expected.local.partialWindow) {
+      errors.push(
+        `applyPartialWindow() Local mismatch:\n  Expected: ${this.expected.local.partialWindow}\n  Actual:   ${actualPartialWindowLocal}`,
+      );
+    }
+
+    const actualValidHours = this.windowed.applyValidHours();
+    if (
+      actualValidHours.start.rfc3339() !==
+        this.expected.utc.validHours.start.rfc3339() ||
+      actualValidHours.end.rfc3339() !==
+        this.expected.utc.validHours.end.rfc3339()
+    ) {
+      errors.push(
+        `applyValidHours() UTC mismatch:\n  Expected: ${this.expected.utc.validHours.start.rfc3339()} to ${this.expected.utc.validHours.end.rfc3339()}\n  Actual:   ${actualValidHours.start.rfc3339()} to ${actualValidHours.end.rfc3339()}`,
+      );
+    }
+
+    const actualValidHoursStartLocal = tz.toTz(actualValidHours.start);
+    const actualValidHoursEndLocal = tz.toTz(actualValidHours.end);
+    const actualValidHoursLocal = `${actualValidHoursStartLocal.rfc3339()} to ${actualValidHoursEndLocal.rfc3339()}`;
+    if (actualValidHoursLocal !== this.expected.local.validHours) {
+      errors.push(
+        `applyValidHours() Local mismatch:\n  Expected: ${this.expected.local.validHours}\n  Actual:   ${actualValidHoursLocal}`,
+      );
+    }
+
+    return {
+      passed: errors.length === 0,
+      errors,
+    };
+  }
+}
+
+async function loadTestCases(): Promise<WindowedDateFragmentTestCase[]> {
+  const testDataPath = "./tento-chrono/tests/test_datefragment_window.example.json";
+  const content = await Deno.readTextFile(testDataPath);
+  const rawCases = JSON.parse(content) as WindowedDateFragmentTestCaseJson[];
+
+  const testCases: WindowedDateFragmentTestCase[] = [];
+  for (const raw of rawCases) {
+    const testCase = await WindowedDateFragmentTestCase.parse(raw);
+    testCases.push(testCase);
+  }
+
+  return testCases;
+}
+
+Deno.test({
+  name: "windowed-date-fragment/json-test-cases",
+  async fn() {
+    const testCases = await loadTestCases();
+    let passCount = 0;
+    let failCount = 0;
+
+    console.log(`\nRunning ${testCases.length} windowed date fragment tests:\n`);
+
+    for (const testCase of testCases) {
+      const result = testCase.test();
+
+      if (result.passed) {
+        passCount++;
+        console.log(`✅ ${testCase.name}: ${testCase.description}`);
+      } else {
+        failCount++;
+        console.log(`❌ ${testCase.name}: ${testCase.description}`);
+        for (const error of result.errors) {
+          console.log(`   ${error}`);
+        }
+      }
+    }
+
+    console.log(
+      `\n📊 Summary: ${passCount} passed, ${failCount} failed out of ${testCases.length} tests`,
+    );
+
+    if (failCount > 0) {
+      throw new Error(`${failCount} tests failed`);
+    }
+  },
+});

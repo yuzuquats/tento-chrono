@@ -1,0 +1,680 @@
+[
+  {
+    "name": "full_day_no_windows",
+    "description": "Full day with no transformations applied",
+    "windowed_date_fragment": {
+      "date_fragment": {
+        "date": "2025-10-14",
+        "tz": "America/Los_Angeles"
+      },
+      "partial_window": null,
+      "valid_hours": null
+    },
+    "expected": {
+      "utc": {
+        "all": {
+          "start": "2025-10-14T07:00:00Z",
+          "end": "2025-10-15T07:00:00Z"
+        },
+        "partial_window": {
+          "start": "2025-10-14T07:00:00Z",
+          "end": "2025-10-15T07:00:00Z"
+        },
+        "valid_hours": {
+          "start": "2025-10-14T07:00:00Z",
+          "end": "2025-10-15T07:00:00Z"
+        }
+      },
+      "local": {
+        "all": {
+          "start": "2025-10-14T00:00:00-07:00",
+          "end": "2025-10-15T00:00:00-07:00"
+        },
+        "partial_window": {
+          "start": "2025-10-14T00:00:00-07:00",
+          "end": "2025-10-15T00:00:00-07:00"
+        },
+        "valid_hours": {
+          "start": "2025-10-14T00:00:00-07:00",
+          "end": "2025-10-15T00:00:00-07:00"
+        }
+      }
+    }
+  },
+  {
+    "name": "partial_window_start_only",
+    "description": "Clip to start at 6pm on Oct 14",
+    "windowed_date_fragment": {
+      "date_fragment": {
+        "date": "2025-10-14",
+        "tz": "America/Los_Angeles"
+      },
+      "partial_window": {
+        "start": "2025-10-14T18:00:00",
+        "end": null
+      },
+      "valid_hours": null
+    },
+    "expected": {
+      "utc": {
+        "all": {
+          "start": "2025-10-15T01:00:00Z",
+          "end": "2025-10-15T07:00:00Z"
+        },
+        "partial_window": {
+          "start": "2025-10-15T01:00:00Z",
+          "end": "2025-10-15T07:00:00Z"
+        },
+        "valid_hours": {
+          "start": "2025-10-14T07:00:00Z",
+          "end": "2025-10-15T07:00:00Z"
+        }
+      },
+      "local": {
+        "all": {
+          "start": "2025-10-14T18:00:00-07:00",
+          "end": "2025-10-15T00:00:00-07:00"
+        },
+        "partial_window": {
+          "start": "2025-10-14T18:00:00-07:00",
+          "end": "2025-10-15T00:00:00-07:00"
+        },
+        "valid_hours": {
+          "start": "2025-10-14T00:00:00-07:00",
+          "end": "2025-10-15T00:00:00-07:00"
+        }
+      }
+    }
+  },
+  {
+    "name": "partial_window_end_only",
+    "description": "Clip to end at 2pm on Oct 14",
+    "windowed_date_fragment": {
+      "date_fragment": {
+        "date": "2025-10-14",
+        "tz": "America/Los_Angeles"
+      },
+      "partial_window": {
+        "start": null,
+        "end": "2025-10-14T14:00:00"
+      },
+      "valid_hours": null
+    },
+    "expected": {
+      "utc": {
+        "all": {
+          "start": "2025-10-14T07:00:00Z",
+          "end": "2025-10-14T21:00:00Z"
+        },
+        "partial_window": {
+          "start": "2025-10-14T07:00:00Z",
+          "end": "2025-10-14T21:00:00Z"
+        },
+        "valid_hours": {
+          "start": "2025-10-14T07:00:00Z",
+          "end": "2025-10-15T07:00:00Z"
+        }
+      },
+      "local": {
+        "all": {
+          "start": "2025-10-14T00:00:00-07:00",
+          "end": "2025-10-14T14:00:00-07:00"
+        },
+        "partial_window": {
+          "start": "2025-10-14T00:00:00-07:00",
+          "end": "2025-10-14T14:00:00-07:00"
+        },
+        "valid_hours": {
+          "start": "2025-10-14T00:00:00-07:00",
+          "end": "2025-10-15T00:00:00-07:00"
+        }
+      }
+    }
+  },
+  {
+    "name": "partial_window_both",
+    "description": "Clip to 10am-2pm on Oct 14",
+    "windowed_date_fragment": {
+      "date_fragment": {
+        "date": "2025-10-14",
+        "tz": "America/Los_Angeles"
+      },
+      "partial_window": {
+        "start": "2025-10-14T10:00:00",
+        "end": "2025-10-14T14:00:00"
+      },
+      "valid_hours": null
+    },
+    "expected": {
+      "utc": {
+        "all": {
+          "start": "2025-10-14T17:00:00Z",
+          "end": "2025-10-14T21:00:00Z"
+        },
+        "partial_window": {
+          "start": "2025-10-14T17:00:00Z",
+          "end": "2025-10-14T21:00:00Z"
+        },
+        "valid_hours": {
+          "start": "2025-10-14T07:00:00Z",
+          "end": "2025-10-15T07:00:00Z"
+        }
+      },
+      "local": {
+        "all": {
+          "start": "2025-10-14T10:00:00-07:00",
+          "end": "2025-10-14T14:00:00-07:00"
+        },
+        "partial_window": {
+          "start": "2025-10-14T10:00:00-07:00",
+          "end": "2025-10-14T14:00:00-07:00"
+        },
+        "valid_hours": {
+          "start": "2025-10-14T00:00:00-07:00",
+          "end": "2025-10-15T00:00:00-07:00"
+        }
+      }
+    }
+  },
+  {
+    "name": "time_window_business_hours",
+    "description": "Restrict to business hours 9am-5pm",
+    "windowed_date_fragment": {
+      "date_fragment": {
+        "date": "2025-10-14",
+        "tz": "America/Los_Angeles"
+      },
+      "partial_window": null,
+      "valid_hours": {
+        "start": "09:00:00",
+        "end": "17:00:00"
+      }
+    },
+    "expected": {
+      "utc": {
+        "all": {
+          "start": "2025-10-14T16:00:00Z",
+          "end": "2025-10-15T00:00:00Z"
+        },
+        "partial_window": {
+          "start": "2025-10-14T07:00:00Z",
+          "end": "2025-10-15T07:00:00Z"
+        },
+        "valid_hours": {
+          "start": "2025-10-14T16:00:00Z",
+          "end": "2025-10-15T00:00:00Z"
+        }
+      },
+      "local": {
+        "all": {
+          "start": "2025-10-14T09:00:00-07:00",
+          "end": "2025-10-14T17:00:00-07:00"
+        },
+        "partial_window": {
+          "start": "2025-10-14T00:00:00-07:00",
+          "end": "2025-10-15T00:00:00-07:00"
+        },
+        "valid_hours": {
+          "start": "2025-10-14T09:00:00-07:00",
+          "end": "2025-10-14T17:00:00-07:00"
+        }
+      }
+    }
+  },
+  {
+    "name": "time_window_midnight_to_midnight",
+    "description": "Edge case: 12am to 12am (full day)",
+    "windowed_date_fragment": {
+      "date_fragment": {
+        "date": "2025-10-14",
+        "tz": "America/Los_Angeles"
+      },
+      "partial_window": null,
+      "valid_hours": {
+        "start": "00:00:00",
+        "end": "00:00:00"
+      }
+    },
+    "expected": {
+      "utc": {
+        "all": {
+          "start": "2025-10-14T07:00:00Z",
+          "end": "2025-10-15T07:00:00Z"
+        },
+        "partial_window": {
+          "start": "2025-10-14T07:00:00Z",
+          "end": "2025-10-15T07:00:00Z"
+        },
+        "valid_hours": {
+          "start": "2025-10-14T07:00:00Z",
+          "end": "2025-10-15T07:00:00Z"
+        }
+      },
+      "local": {
+        "all": {
+          "start": "2025-10-14T00:00:00-07:00",
+          "end": "2025-10-15T00:00:00-07:00"
+        },
+        "partial_window": {
+          "start": "2025-10-14T00:00:00-07:00",
+          "end": "2025-10-15T00:00:00-07:00"
+        },
+        "valid_hours": {
+          "start": "2025-10-14T00:00:00-07:00",
+          "end": "2025-10-15T00:00:00-07:00"
+        }
+      }
+    }
+  },
+  {
+    "name": "combined_partial_and_time_window",
+    "description": "Apply both: start at 6pm, then restrict to 10am-8pm window",
+    "windowed_date_fragment": {
+      "date_fragment": {
+        "date": "2025-10-14",
+        "tz": "America/Los_Angeles"
+      },
+      "partial_window": {
+        "start": "2025-10-14T18:00:00",
+        "end": null
+      },
+      "valid_hours": {
+        "start": "10:00:00",
+        "end": "20:00:00"
+      }
+    },
+    "expected": {
+      "utc": {
+        "all": {
+          "start": "2025-10-15T01:00:00Z",
+          "end": "2025-10-15T03:00:00Z"
+        },
+        "partial_window": {
+          "start": "2025-10-15T01:00:00Z",
+          "end": "2025-10-15T07:00:00Z"
+        },
+        "valid_hours": {
+          "start": "2025-10-14T17:00:00Z",
+          "end": "2025-10-15T03:00:00Z"
+        }
+      },
+      "local": {
+        "all": {
+          "start": "2025-10-14T18:00:00-07:00",
+          "end": "2025-10-14T20:00:00-07:00"
+        },
+        "partial_window": {
+          "start": "2025-10-14T18:00:00-07:00",
+          "end": "2025-10-15T00:00:00-07:00"
+        },
+        "valid_hours": {
+          "start": "2025-10-14T10:00:00-07:00",
+          "end": "2025-10-14T20:00:00-07:00"
+        }
+      }
+    }
+  },
+  {
+    "name": "partial_window_crosses_midnight",
+    "description": "Partial window starting late at night",
+    "windowed_date_fragment": {
+      "date_fragment": {
+        "date": "2025-10-14",
+        "tz": "America/Los_Angeles"
+      },
+      "partial_window": {
+        "start": "2025-10-14T23:00:00",
+        "end": null
+      },
+      "valid_hours": null
+    },
+    "expected": {
+      "utc": {
+        "all": {
+          "start": "2025-10-15T06:00:00Z",
+          "end": "2025-10-15T07:00:00Z"
+        },
+        "partial_window": {
+          "start": "2025-10-15T06:00:00Z",
+          "end": "2025-10-15T07:00:00Z"
+        },
+        "valid_hours": {
+          "start": "2025-10-14T07:00:00Z",
+          "end": "2025-10-15T07:00:00Z"
+        }
+      },
+      "local": {
+        "all": {
+          "start": "2025-10-14T23:00:00-07:00",
+          "end": "2025-10-15T00:00:00-07:00"
+        },
+        "partial_window": {
+          "start": "2025-10-14T23:00:00-07:00",
+          "end": "2025-10-15T00:00:00-07:00"
+        },
+        "valid_hours": {
+          "start": "2025-10-14T00:00:00-07:00",
+          "end": "2025-10-15T00:00:00-07:00"
+        }
+      }
+    }
+  },
+  {
+    "name": "time_window_overnight",
+    "description": "Time window that spans to next day (10pm-2am)",
+    "windowed_date_fragment": {
+      "date_fragment": {
+        "date": "2025-10-14",
+        "tz": "America/Los_Angeles"
+      },
+      "partial_window": null,
+      "valid_hours": {
+        "start": "22:00:00",
+        "end": "02:00:00"
+      }
+    },
+    "expected": {
+      "utc": {
+        "all": {
+          "start": "2025-10-15T05:00:00Z",
+          "end": "2025-10-15T09:00:00Z"
+        },
+        "partial_window": {
+          "start": "2025-10-14T07:00:00Z",
+          "end": "2025-10-15T07:00:00Z"
+        },
+        "valid_hours": {
+          "start": "2025-10-15T05:00:00Z",
+          "end": "2025-10-15T09:00:00Z"
+        }
+      },
+      "local": {
+        "all": {
+          "start": "2025-10-14T22:00:00-07:00",
+          "end": "2025-10-15T02:00:00-07:00"
+        },
+        "partial_window": {
+          "start": "2025-10-14T00:00:00-07:00",
+          "end": "2025-10-15T00:00:00-07:00"
+        },
+        "valid_hours": {
+          "start": "2025-10-14T22:00:00-07:00",
+          "end": "2025-10-15T02:00:00-07:00"
+        }
+      }
+    }
+  },
+  {
+    "name": "utc_timezone",
+    "description": "Test with UTC timezone (no offset)",
+    "windowed_date_fragment": {
+      "date_fragment": {
+        "date": "2025-10-14",
+        "tz": "UTC"
+      },
+      "partial_window": null,
+      "valid_hours": {
+        "start": "09:00:00",
+        "end": "17:00:00"
+      }
+    },
+    "expected": {
+      "utc": {
+        "all": {
+          "start": "2025-10-14T09:00:00Z",
+          "end": "2025-10-14T17:00:00Z"
+        },
+        "partial_window": {
+          "start": "2025-10-14T00:00:00Z",
+          "end": "2025-10-15T00:00:00Z"
+        },
+        "valid_hours": {
+          "start": "2025-10-14T09:00:00Z",
+          "end": "2025-10-14T17:00:00Z"
+        }
+      },
+      "local": {
+        "all": {
+          "start": "2025-10-14T09:00:00Z",
+          "end": "2025-10-14T17:00:00Z"
+        },
+        "partial_window": {
+          "start": "2025-10-14T00:00:00Z",
+          "end": "2025-10-15T00:00:00Z"
+        },
+        "valid_hours": {
+          "start": "2025-10-14T09:00:00Z",
+          "end": "2025-10-14T17:00:00Z"
+        }
+      }
+    }
+  },
+  {
+    "name": "early_morning_hours",
+    "description": "Valid hours from 6am-12pm",
+    "windowed_date_fragment": {
+      "date_fragment": {
+        "date": "2025-10-14",
+        "tz": "America/Los_Angeles"
+      },
+      "partial_window": null,
+      "valid_hours": {
+        "start": "06:00:00",
+        "end": "12:00:00"
+      }
+    },
+    "expected": {
+      "utc": {
+        "all": {
+          "start": "2025-10-14T13:00:00Z",
+          "end": "2025-10-14T19:00:00Z"
+        },
+        "partial_window": {
+          "start": "2025-10-14T07:00:00Z",
+          "end": "2025-10-15T07:00:00Z"
+        },
+        "valid_hours": {
+          "start": "2025-10-14T13:00:00Z",
+          "end": "2025-10-14T19:00:00Z"
+        }
+      },
+      "local": {
+        "all": {
+          "start": "2025-10-14T06:00:00-07:00",
+          "end": "2025-10-14T12:00:00-07:00"
+        },
+        "partial_window": {
+          "start": "2025-10-14T00:00:00-07:00",
+          "end": "2025-10-15T00:00:00-07:00"
+        },
+        "valid_hours": {
+          "start": "2025-10-14T06:00:00-07:00",
+          "end": "2025-10-14T12:00:00-07:00"
+        }
+      }
+    }
+  },
+  {
+    "name": "combined_with_narrow_window",
+    "description": "Partial window 2pm-6pm, valid hours 3pm-5pm",
+    "windowed_date_fragment": {
+      "date_fragment": {
+        "date": "2025-10-14",
+        "tz": "America/Los_Angeles"
+      },
+      "partial_window": {
+        "start": "2025-10-14T14:00:00",
+        "end": "2025-10-14T18:00:00"
+      },
+      "valid_hours": {
+        "start": "15:00:00",
+        "end": "17:00:00"
+      }
+    },
+    "expected": {
+      "utc": {
+        "all": {
+          "start": "2025-10-14T22:00:00Z",
+          "end": "2025-10-15T00:00:00Z"
+        },
+        "partial_window": {
+          "start": "2025-10-14T21:00:00Z",
+          "end": "2025-10-15T01:00:00Z"
+        },
+        "valid_hours": {
+          "start": "2025-10-14T22:00:00Z",
+          "end": "2025-10-15T00:00:00Z"
+        }
+      },
+      "local": {
+        "all": {
+          "start": "2025-10-14T15:00:00-07:00",
+          "end": "2025-10-14T17:00:00-07:00"
+        },
+        "partial_window": {
+          "start": "2025-10-14T14:00:00-07:00",
+          "end": "2025-10-14T18:00:00-07:00"
+        },
+        "valid_hours": {
+          "start": "2025-10-14T15:00:00-07:00",
+          "end": "2025-10-14T17:00:00-07:00"
+        }
+      }
+    }
+  },
+  {
+    "name": "afternoon_to_evening",
+    "description": "Valid hours 12pm-8pm",
+    "windowed_date_fragment": {
+      "date_fragment": {
+        "date": "2025-10-14",
+        "tz": "America/Los_Angeles"
+      },
+      "partial_window": null,
+      "valid_hours": {
+        "start": "12:00:00",
+        "end": "20:00:00"
+      }
+    },
+    "expected": {
+      "utc": {
+        "all": {
+          "start": "2025-10-14T19:00:00Z",
+          "end": "2025-10-15T03:00:00Z"
+        },
+        "partial_window": {
+          "start": "2025-10-14T07:00:00Z",
+          "end": "2025-10-15T07:00:00Z"
+        },
+        "valid_hours": {
+          "start": "2025-10-14T19:00:00Z",
+          "end": "2025-10-15T03:00:00Z"
+        }
+      },
+      "local": {
+        "all": {
+          "start": "2025-10-14T12:00:00-07:00",
+          "end": "2025-10-14T20:00:00-07:00"
+        },
+        "partial_window": {
+          "start": "2025-10-14T00:00:00-07:00",
+          "end": "2025-10-15T00:00:00-07:00"
+        },
+        "valid_hours": {
+          "start": "2025-10-14T12:00:00-07:00",
+          "end": "2025-10-14T20:00:00-07:00"
+        }
+      }
+    }
+  },
+  {
+    "name": "partial_window_early_morning",
+    "description": "Start at 1am end at 8am",
+    "windowed_date_fragment": {
+      "date_fragment": {
+        "date": "2025-10-14",
+        "tz": "America/Los_Angeles"
+      },
+      "partial_window": {
+        "start": "2025-10-14T01:00:00",
+        "end": "2025-10-14T08:00:00"
+      },
+      "valid_hours": null
+    },
+    "expected": {
+      "utc": {
+        "all": {
+          "start": "2025-10-14T08:00:00Z",
+          "end": "2025-10-14T15:00:00Z"
+        },
+        "partial_window": {
+          "start": "2025-10-14T08:00:00Z",
+          "end": "2025-10-14T15:00:00Z"
+        },
+        "valid_hours": {
+          "start": "2025-10-14T07:00:00Z",
+          "end": "2025-10-15T07:00:00Z"
+        }
+      },
+      "local": {
+        "all": {
+          "start": "2025-10-14T01:00:00-07:00",
+          "end": "2025-10-14T08:00:00-07:00"
+        },
+        "partial_window": {
+          "start": "2025-10-14T01:00:00-07:00",
+          "end": "2025-10-14T08:00:00-07:00"
+        },
+        "valid_hours": {
+          "start": "2025-10-14T00:00:00-07:00",
+          "end": "2025-10-15T00:00:00-07:00"
+        }
+      }
+    }
+  },
+  {
+    "name": "new_york_timezone",
+    "description": "Test with America/New_York timezone",
+    "windowed_date_fragment": {
+      "date_fragment": {
+        "date": "2025-10-14",
+        "tz": "America/New_York"
+      },
+      "partial_window": null,
+      "valid_hours": {
+        "start": "09:00:00",
+        "end": "17:00:00"
+      }
+    },
+    "expected": {
+      "utc": {
+        "all": {
+          "start": "2025-10-14T13:00:00Z",
+          "end": "2025-10-14T21:00:00Z"
+        },
+        "partial_window": {
+          "start": "2025-10-14T04:00:00Z",
+          "end": "2025-10-15T04:00:00Z"
+        },
+        "valid_hours": {
+          "start": "2025-10-14T13:00:00Z",
+          "end": "2025-10-14T21:00:00Z"
+        }
+      },
+      "local": {
+        "all": {
+          "start": "2025-10-14T09:00:00-04:00",
+          "end": "2025-10-14T17:00:00-04:00"
+        },
+        "partial_window": {
+          "start": "2025-10-14T00:00:00-04:00",
+          "end": "2025-10-15T00:00:00-04:00"
+        },
+        "valid_hours": {
+          "start": "2025-10-14T09:00:00-04:00",
+          "end": "2025-10-14T17:00:00-04:00"
+        }
+      }
+    }
+  }
+]
