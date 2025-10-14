@@ -137,6 +137,7 @@ type WindowedDateFragmentTestCaseJson = {
     date_fragment: {
       date: string;
       tz: string;
+      fragment_index?: number;
     };
     partial_window: Option<{
       start: Option<string>;
@@ -220,7 +221,15 @@ class WindowedDateFragmentTestCase {
 
     const dateRegion = new DateRegion(date, tz);
     const fragments = dateRegion.dateFragments();
-    const fragment = fragments[0];
+    const fragmentIndex = raw.windowed_date_fragment.date_fragment.fragment_index ?? 0;
+
+    if (fragmentIndex >= fragments.length) {
+      throw new Error(
+        `Fragment index ${fragmentIndex} out of range. Date ${raw.windowed_date_fragment.date_fragment.date} has ${fragments.length} fragment(s).`
+      );
+    }
+
+    const fragment = fragments[fragmentIndex];
 
     let partialWindow: Option<GenericRange<Option<NaiveDateTime>>> = undefined;
     if (raw.windowed_date_fragment.partial_window) {
