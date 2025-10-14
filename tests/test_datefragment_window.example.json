@@ -766,5 +766,107 @@
         }
       }
     }
+  },
+  {
+    "name": "dst_spring_forward_first_fragment",
+    "description": "DST spring forward first fragment before 2am (March 9, 2025)",
+    "windowed_date_fragment": {
+      "date_fragment": {
+        "date": "2025-03-09",
+        "tz": "America/Los_Angeles"
+      },
+      "partial_window": null,
+      "valid_hours": {
+        "start": "00:00:00",
+        "end": "01:00:00"
+      }
+    },
+    "expected": {
+      "utc": {
+        "all": {
+          "start": "2025-03-09T08:00:00Z",
+          "end": "2025-03-09T09:00:00Z",
+          "duration": 1
+        },
+        "partial_window": {
+          "start": "2025-03-09T08:00:00Z",
+          "end": "2025-03-09T10:00:00Z",
+          "duration": 2
+        },
+        "valid_hours": {
+          "start": "2025-03-09T08:00:00Z",
+          "end": "2025-03-09T09:00:00Z",
+          "duration": 1
+        }
+      },
+      "local": {
+        "all": {
+          "start": "2025-03-09T00:00:00-08:00",
+          "end": "2025-03-09T01:00:00-08:00",
+          "duration": 1
+        },
+        "partial_window": {
+          "start": "2025-03-09T00:00:00-08:00",
+          "end": "2025-03-09T03:00:00-07:00",
+          "duration": 2
+        },
+        "valid_hours": {
+          "start": "2025-03-09T00:00:00-08:00",
+          "end": "2025-03-09T01:00:00-08:00",
+          "duration": 1
+        }
+      }
+    }
+  },
+  {
+    "name": "dst_fall_back_first_fragment",
+    "description": "DST fall back first fragment before 1am (November 2, 2025)",
+    "windowed_date_fragment": {
+      "date_fragment": {
+        "date": "2025-11-02",
+        "tz": "America/Los_Angeles"
+      },
+      "partial_window": null,
+      "valid_hours": {
+        "start": "00:00:00",
+        "end": "00:30:00"
+      }
+    },
+    "expected": {
+      "utc": {
+        "all": {
+          "start": "2025-11-02T07:00:00Z",
+          "end": "2025-11-02T07:30:00Z",
+          "duration": 0.5
+        },
+        "partial_window": {
+          "start": "2025-11-02T07:00:00Z",
+          "end": "2025-11-02T09:00:00Z",
+          "duration": 2
+        },
+        "valid_hours": {
+          "start": "2025-11-02T07:00:00Z",
+          "end": "2025-11-02T07:30:00Z",
+          "duration": 0.5
+        }
+      },
+      "local": {
+        "all": {
+          "start": "2025-11-02T00:00:00-07:00",
+          "end": "2025-11-02T00:30:00-07:00",
+          "duration": 0.5
+        },
+        "partial_window": {
+          "start": "2025-11-02T00:00:00-07:00",
+          "end": "2025-11-02T01:00:00-08:00",
+          "duration": 2
+        },
+        "valid_hours": {
+          "start": "2025-11-02T00:00:00-07:00",
+          "end": "2025-11-02T00:30:00-07:00",
+          "duration": 0.5
+        }
+      }
+    }
   }
 ]
