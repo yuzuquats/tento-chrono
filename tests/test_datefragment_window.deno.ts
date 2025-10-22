@@ -16,120 +16,6 @@ import { installTimezoneLoader } from "./utils.deno.ts";
 
 installTimezoneLoader();
 
-/**
- * WindowedDateFragment represents a DateFragment with optional windowing transformations.
- *
- * This class provides clean APIs for applying two types of transformations:
- * 1. Partial Window - Clips the fragment to specific start/end NaiveDateTimes
- * 2. Valid Hours - Restricts the fragment to specific hours of the day
- */
-export class WindowedDateFragment {
-  constructor(
-    readonly fragment: DateFragment,
-    readonly partialWindow?: GenericRange<Option<NaiveDateTime>>,
-    readonly validHours?: TimeOfDay.Range,
-  ) {}
-
-  /**
-   * Applies only the partial window transformation.
-   * Returns the fragment clipped to the specified start/end times.
-   */
-  applyPartialWindow(): DateTime.Range<Utc> {
-    if (!this.partialWindow) {
-      return new DateTime.Range(
-        this.fragment.start.toUtc(),
-        this.fragment.end.toUtc(),
-      );
-    }
-
-    let start = this.fragment.start;
-    let end = this.fragment.end;
-
-    if (this.partialWindow.start != null) {
-      const constraintStart = this.fragment.parent.toWallClock(
-        this.partialWindow.start,
-      );
-      if (constraintStart.mse > start.mse) {
-        start = constraintStart;
-      }
-    }
-
-    if (this.partialWindow.end != null) {
-      const constraintEnd = this.fragment.parent.toWallClock(
-        this.partialWindow.end,
-      );
-      if (constraintEnd.mse < end.mse) {
-        end = constraintEnd;
-      }
-    }
-
-    return new DateTime.Range(start.toUtc(), end.toUtc());
-  }
-
-  /**
-   * Applies only the valid hours transformation.
-   * Returns the fragment restricted to the specified time-of-day window.
-   */
-  applyValidHours(): DateTime.Range<Utc> {
-    if (!this.validHours) {
-      return new DateTime.Range(
-        this.fragment.start.toUtc(),
-        this.fragment.end.toUtc(),
-      );
-    }
-
-    const clampedRange = this.fragment.clamp(this.validHours);
-    return new DateTime.Range(
-      clampedRange.start.toUtc(),
-      clampedRange.end.toUtc(),
-    );
-  }
-
-  /**
-   * Applies both transformations in sequence: partial window first, then valid hours.
-   * Returns the final windowed timespan as DateTime.Range<Utc>.
-   */
-  applyAll(): DateTime.Range<Utc> {
-    let start = this.fragment.start;
-    let end = this.fragment.end;
-
-    if (this.partialWindow) {
-      if (this.partialWindow.start != null) {
-        const constraintStart = this.fragment.parent.toWallClock(
-          this.partialWindow.start,
-        );
-        if (constraintStart.mse > start.mse) {
-          start = constraintStart;
-        }
-      }
-
-      if (this.partialWindow.end != null) {
-        const constraintEnd = this.fragment.parent.toWallClock(
-          this.partialWindow.end,
-        );
-        if (constraintEnd.mse < end.mse) {
-          end = constraintEnd;
-        }
-      }
-    }
-
-    const partialFragment = new DateFragment(
-      new DateTime.Range(start, end),
-      this.fragment.parent,
-    );
-
-    if (this.validHours) {
-      const clampedRange = partialFragment.clamp(this.validHours);
-      return new DateTime.Range(
-        clampedRange.start.toUtc(),
-        clampedRange.end.toUtc(),
-      );
-    }
-
-    return new DateTime.Range(start.toUtc(), end.toUtc());
-  }
-}
-
 type WindowedDateFragmentTestCaseJson = {
   name: string;
   description: string;
@@ -188,7 +74,7 @@ type WindowedDateFragmentTestCaseJson = {
 
 class WindowedDateFragmentTestCase {
   constructor(
-    readonly windowed: WindowedDateFragment,
+    readonly windowed: DateFragment.Windowed,
     readonly expected: {
       utc: {
         all: { range: DateTime.Range<Utc>; duration: number };
@@ -253,7 +139,7 @@ class WindowedDateFragmentTestCase {
       }
     }
 
-    const windowed = new WindowedDateFragment(
+    const windowed = new DateFragment.Windowed(
       fragment,
       partialWindow,
       validHours,
