@@ -4,7 +4,8 @@ Logger.installToConsole();
 
 import { assertEquals } from "jsr:@std/assert";
 
-import { DateRegion, DateFragment } from "../chrono/date-region.ts";
+import { DateFragment } from "../chrono/date-fragment.ts";
+import { DateRegion } from "../chrono/date-region.ts";
 import { DateTime } from "../chrono/datetime.ts";
 import { naivedate } from "../chrono/mod.ts";
 import { NaiveDateTime } from "../chrono/naive-datetime.ts";

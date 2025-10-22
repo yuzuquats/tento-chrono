@@ -1,4 +1,4 @@
-import { DateTimeRegion } from "./date-region";
+import { DateTimeRegion } from "./date-time-region";
 import { DateTime } from "./datetime";
 import { NaiveDate } from "./naive-date";
 import { NaiveTime } from "./naive-time";

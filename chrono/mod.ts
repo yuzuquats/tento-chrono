@@ -8,7 +8,9 @@ export * from "./naive-time";
 export * from "./naive-date";
 export * from "./naive-datetime";
 export * from "./datetime";
+export * from "./date-fragment";
 export * from "./date-region";
+export * from "./date-time-region";
 export * from "./timezone";
 export * from "./timezone-region";
 
