@@ -278,7 +278,7 @@ class WindowedDateFragmentTestCase {
 }
 
 async function loadTestCases(): Promise<WindowedDateFragmentTestCase[]> {
-  const testDataPath = "./tento-chrono/tests/test_datefragment_window.example.json";
+  const testDataPath = "./tests/test_datefragment_window.example.json";
   const content = await Deno.readTextFile(testDataPath);
   const rawCases = JSON.parse(content) as WindowedDateFragmentTestCaseJson[];
 
