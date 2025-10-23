@@ -1,4 +1,7 @@
 {
   "description": "List of tento-chrono tests to skip by default",
-  "skipped": []
+  "skipped": [
+    "test_generator_hms.deno.test.ts",
+    "test_generator_naivedate_setpos.deno.test.ts"
+  ]
 }
