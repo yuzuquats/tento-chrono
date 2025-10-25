@@ -1,13 +1,11 @@
-import { DateFragment, DateFragmentShift } from "./date-fragment";
+import { DateFragment } from "./date-fragment";
 import { DateTime } from "./datetime";
 import { NaiveDate } from "./naive-date";
 import { NaiveDateTime } from "./naive-datetime";
 import { NaiveTime } from "./naive-time";
-import { GenericRange } from "./range";
 import { Time } from "./time";
-import { FixedOffset, Utc } from "./timezone";
+import { FixedOffset } from "./timezone";
 import { TimezoneRegion } from "./timezone-region";
-import { Duration } from "./units/duration";
 import { MsSinceEpoch } from "./units/units";
 
 /**
@@ -81,9 +79,9 @@ export class DateRegion {
    * Calculates the time shift between fragments if this date has a timezone transition.
    * Returns null if the date has only one fragment (no transitions).
    *
-   * @returns {Option<DateFragmentShift>} Information about the shift between fragments, or null
+   * @returns {Option<DateFragment.Shift>} Information about the shift between fragments, or null
    */
-  shift(): Option<DateFragmentShift> {
+  shift(): Option<DateFragment.Shift> {
     const df = this.dateFragments();
     if (df.length === 1) return null;
     return df[0].comparison(df[1]);
@@ -192,4 +190,3 @@ export class DateRegion {
     });
   }
 }
-

@@ -1,26 +1,12 @@
 import { DateTime } from "./datetime";
 import { NaiveDate } from "./naive-date";
 import { NaiveDateTime } from "./naive-datetime";
-import { NaiveTime } from "./naive-time";
 import { GenericRange } from "./range";
 import { FixedOffset, LogicalTimezone, Tzabbr, Utc } from "./timezone";
 import { TimezoneRegion } from "./timezone-region";
 import { Duration } from "./units/duration";
 import { Ms } from "./units/ms";
 import { TimeOfDay } from "./units/time-of-day";
-
-/**
- * Represents a shift between two DateFragments, typically used for timezone transitions.
- * @typedef {Object} DateFragmentShift
- * @property {DateTime<FixedOffset>} from - The ending DateTime of the first fragment
- * @property {DurationTime} shift - The time difference between fragments
- * @property {DateTime<FixedOffset>} to - The starting DateTime of the second fragment
- */
-export type DateFragmentShift = {
-  from: DateTime<FixedOffset>;
-  shift: Duration.Time;
-  to: DateTime<FixedOffset>;
-};
 
 /**
  * Represents a continuous time period within a specific day with proper timezone handling.
@@ -137,7 +123,7 @@ export class DateFragment {
    * @param {DateFragment} other - The fragment to compare with
    * @returns {DateFragmentShift} Object containing information about the shift between fragments
    */
-  comparison(other: DateFragment): DateFragmentShift {
+  comparison(other: DateFragment): DateFragment.Shift {
     const start = this.end.time;
     const end = other.start.time;
     return {
@@ -195,6 +181,19 @@ export class DateFragment {
 }
 
 export namespace DateFragment {
+  /**
+   * Represents a shift between two DateFragments, typically used for timezone transitions.
+   * @typedef {Object} DateFragmentShift
+   * @property {DateTime<FixedOffset>} from - The ending DateTime of the first fragment
+   * @property {DurationTime} shift - The time difference between fragments
+   * @property {DateTime<FixedOffset>} to - The starting DateTime of the second fragment
+   */
+  export type Shift = {
+    from: DateTime<FixedOffset>;
+    shift: Duration.Time;
+    to: DateTime<FixedOffset>;
+  };
+
   /**
    * WindowedDateFragment represents a DateFragment with optional windowing transformations.
    *
