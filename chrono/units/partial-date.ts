@@ -189,6 +189,76 @@ export class PartialDate {
       }
     }
   }
+
+  /**
+   * Generate constituent sub-partials in a finer timescale.
+   *
+   * For example:
+   * - A year PartialDate can generate its constituent months
+   * - A month PartialDate can generate its constituent days
+   * - A week PartialDate can generate its constituent days
+   *
+   * @param subType The finer timescale to generate (must be finer than this PartialDate's type)
+   * @param count Optional limit on number of sub-partials to generate
+   * @returns Array of PartialDates in the specified sub-timescale
+   */
+  generateSubPartials(subType: DateUnit.Type, count?: number): PartialDate[] {
+    const subPartials: PartialDate[] = [];
+
+    // Start with the first sub-partial at the beginning of this PartialDate's range
+    let currentPd: PartialDate;
+
+    switch (subType) {
+      case "day": {
+        currentPd = PartialDate.fromDate(this.start);
+        break;
+      }
+      case "week": {
+        const startDate = this.start;
+        currentPd = new PartialDate(
+          "week",
+          startDate.isoYear,
+          null,
+          null,
+          startDate.isoWno,
+        );
+        break;
+      }
+      case "month": {
+        const startDate = this.start;
+        currentPd = PartialDate.fromMonth(startDate.yr, startDate.mth);
+        break;
+      }
+      case "year": {
+        currentPd = PartialDate.fromYear(this.start.yr);
+        break;
+      }
+    }
+
+    // Generate sub-partials until we reach the count or exceed this PartialDate's range
+    const endDate = this.end;
+    let generated = 0;
+    const maxCount = count ?? 1000; // Safety limit
+
+    while (generated < maxCount) {
+      // Check if we're still within this PartialDate's range
+      if (currentPd.start.isBefore(endDate)) {
+        subPartials.push(currentPd);
+        generated++;
+
+        // If count is specified and we've reached it, stop
+        if (count != null && generated >= count) {
+          break;
+        }
+
+        currentPd = currentPd.add(1);
+      } else {
+        break;
+      }
+    }
+
+    return subPartials;
+  }
 }
 
 export namespace PartialDate {
