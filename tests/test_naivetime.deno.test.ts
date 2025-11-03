@@ -39,7 +39,7 @@
  *     entire millisecond value (asMs), which could lead to comparison errors.
  */
 
-import { assert, assertEquals } from "jsr:@std/assert";
+import { assert, assertEquals } from "@std/assert";
 
 import { NaiveTime } from "../chrono/naive-time.ts";
 import { Result } from "../chrono/result.ts";

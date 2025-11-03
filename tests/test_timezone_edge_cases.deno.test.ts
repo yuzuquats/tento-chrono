@@ -1,4 +1,4 @@
-import { assert, assertEquals } from "jsr:@std/assert";
+import { assert, assertEquals } from "@std/assert";
 import { DateTime } from "../chrono/datetime.ts";
 import { naivedate, naivedatetime } from "../chrono/mod.ts";
 import { TimezoneRegion } from "../chrono/timezone-region.ts";

@@ -1,4 +1,4 @@
-import { assertEquals } from "jsr:@std/assert";
+import { assertEquals } from "@std/assert";
 import { TimezoneRegion } from "../chrono/timezone-region.ts";
 import { FixedTimezone, Tzname } from "../chrono/timezone.ts";
 import { Duration } from "../chrono/units/duration.ts";

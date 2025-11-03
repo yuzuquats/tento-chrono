@@ -1,6 +1,6 @@
 /// <reference lib="deno.ns" />
 
-import { assert, assertEquals } from "jsr:@std/assert";
+import { assert, assertEquals } from "@std/assert";
 import { naivedate } from "../chrono/mod.ts";
 import { NaiveDate } from "../chrono/naive-date.ts";
 import { Weekday } from "../chrono/units/weekday.ts";

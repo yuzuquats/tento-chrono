@@ -1,6 +1,6 @@
 import "../../lona-js/lona-js/types/option.d.ts";
 
-import { assertEquals } from "jsr:@std/assert";
+import { assertEquals } from "@std/assert";
 
 import { naivedate } from "../chrono/mod.ts";
 import { NaiveDate } from "../chrono/naive-date.ts";

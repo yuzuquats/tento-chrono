@@ -1,4 +1,4 @@
-import { assert, assertEquals } from "jsr:@std/assert";
+import { assert, assertEquals } from "@std/assert";
 
 import { Time } from "../chrono/time.ts";
 import { Duration } from "../chrono/units/duration.ts";

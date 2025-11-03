@@ -16,14 +16,13 @@
  * 3. The mse (milliseconds since epoch) is calculated directly from date and time components
  */
 
-import { assert, assertEquals } from "jsr:@std/assert";
+import { assert, assertEquals } from "@std/assert";
 
 import { naivedatetime } from "../chrono/mod.ts";
 import { NaiveDate } from "../chrono/naive-date.ts";
 import { NaiveDateTime } from "../chrono/naive-datetime.ts";
 import { NaiveTime } from "../chrono/naive-time.ts";
 import { Time } from "../chrono/time.ts";
-import { Duration } from "../chrono/units/duration.ts";
 import { Ms } from "../chrono/units/ms.ts";
 import { TimePoint } from "../chrono/units/time-point.ts";
 import { MsSinceEpoch } from "../chrono/units/units.ts";
@@ -223,7 +222,7 @@ Deno.test({
     const datetime = naivedatetime(2023, 3, 15, 14, 30, 10, 500);
 
     // Add milliseconds
-    const addMs = datetime.add({ ms: 300 });
+    const addMs = datetime.add({ ms: 300 as Ms });
     assertEquals(addMs.time.secs, 10);
     assertEquals(addMs.time.ms, 800);
 

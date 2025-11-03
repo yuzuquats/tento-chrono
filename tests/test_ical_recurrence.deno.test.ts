@@ -1,4 +1,4 @@
-import { assertEquals } from "jsr:@std/assert";
+import { assertEquals } from "@std/assert";
 import { naivedate, naivedatetime, naivetime } from "../chrono/mod.ts";
 import { ICalDateLine } from "../chrono/recurrence/ical-date-line.ts";
 import { ICalendar } from "../chrono/recurrence/ical.ts";

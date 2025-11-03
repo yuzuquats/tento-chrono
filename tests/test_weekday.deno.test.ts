@@ -1,8 +1,8 @@
-import { Logger } from "../../lona-js/lona-js/log.ts";
+import { Logger } from "@lona/log.ts";
 
 Logger.installToConsole();
 
-import { assertEquals } from "jsr:@std/assert";
+import { assertEquals } from "@std/assert";
 
 import { naivedate } from "../chrono/mod.ts";
 import { NaiveDate } from "../chrono/naive-date.ts";

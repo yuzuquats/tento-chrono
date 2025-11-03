@@ -21,7 +21,7 @@
 
 import { rfc3339 } from "../chrono/mod.ts";
 
-import { assert, assertEquals } from "jsr:@std/assert";
+import { assert, assertEquals } from "@std/assert";
 import { LA_PST, NY_EST, installTimezoneLoader } from "./utils.deno.ts";
 
 import { DateTime } from "../chrono/datetime.ts";
