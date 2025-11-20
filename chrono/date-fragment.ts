@@ -340,5 +340,71 @@ export namespace DateFragment {
 
       return Duration.Time.from({ hrs: offsetHrs });
     }
+
+    /**
+     * Calculates positioning information for rendering this windowed fragment in a calendar UI.
+     *
+     * This method encapsulates all the calculations needed to position and display a calendar
+     * column, including CSS variable values, partial window indicators, and transform/height.
+     *
+     * @param pixelsPerHour - Pixels per hour in the calendar UI (typically 48)
+     * @returns Positioning data or null if the windowed fragment has zero duration
+     *
+     * @example
+     * const windowed = new DateFragment.Windowed(fragment, partialWindow, businessHours);
+     * const positioning = windowed.getPositioning(48);
+     * if (positioning) {
+     *   element.style.setProperty('--tz-offset-hrs', String(positioning.tzOffsetHrs));
+     *   element.style.transform = `translateY(${positioning.transformY}px)`;
+     *   element.style.height = `${positioning.height}px`;
+     * }
+     */
+    getPositioning(pixelsPerHour: number): Option<{
+      tzOffsetHrs: number;
+      windowOffsetHrs: number;
+      linesOffsetPx: number;
+      partialTop: boolean;
+      partialBottom: boolean;
+      transformY: number;
+      height: number;
+    }> {
+      const df = this.fragment;
+      const window = this.validHours ?? TimeOfDay.Range.DAY;
+
+      const windowedUtc = this.applyAll();
+      const local = windowedUtc.toTz(df.tz);
+
+      if (local.duration.toMs <= 0) return null;
+
+      const start = this.partialWindow?.start
+        ? new DateTime(this.partialWindow.start, df.tz)
+        : df.start;
+      const end = this.partialWindow?.end
+        ? new DateTime(this.partialWindow.end, df.tz)
+        : df.end;
+
+      const wd = new DateTime.Range(
+        df.start.withTime(window.start),
+        df.start.withTime(window.end).add({
+          days: window.endsOnNextDay ? 1 : 0,
+        }),
+      );
+
+      const lineOffset = (local.start.time.mins / 60) * pixelsPerHour;
+      const tzOffsetHrs = local.start.time.toMs / Time.MS_PER_HR;
+      const windowOffsetHrs = window.start.toMs / Time.MS_PER_HR;
+
+      return {
+        tzOffsetHrs,
+        windowOffsetHrs,
+        linesOffsetPx: lineOffset,
+        partialTop: this.partialWindow?.start != null ||
+          (start.mse > wd.start.mse && start.mse < wd.end.mse),
+        partialBottom: this.partialWindow?.end != null ||
+          (end.mse > wd.start.mse && end.mse < wd.end.mse),
+        transformY: ((tzOffsetHrs - windowOffsetHrs) * pixelsPerHour),
+        height: (local.duration.toMs / Time.MS_PER_HR) * pixelsPerHour,
+      };
+    }
   }
 }
