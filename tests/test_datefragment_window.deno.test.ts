@@ -1,7 +1,3 @@
-import { Logger } from "@lona/log.ts";
-
-Logger.installToConsole();
-
 import { assertEquals } from "@std/assert";
 
 import { DateFragment } from "../chrono/date-fragment.ts";
@@ -12,6 +8,7 @@ import { NaiveDateTime } from "../chrono/naive-datetime.ts";
 import { GenericRange } from "../chrono/range.ts";
 import { TimezoneRegion } from "../chrono/timezone-region.ts";
 import { Utc, Tzname } from "../chrono/timezone.ts";
+import { Duration } from "../chrono/units/duration.ts";
 import { TimeOfDay } from "../chrono/units/time-of-day.ts";
 import { installTimezoneLoader } from "./utils.deno.ts";
 
@@ -34,6 +31,7 @@ type WindowedDateFragmentTestCaseJson = {
       start: string;
       end: string;
     }>;
+    y_offsets?: number[];
   };
   expected: {
     utc: {
@@ -70,6 +68,7 @@ type WindowedDateFragmentTestCaseJson = {
         duration: number;
       };
     };
+    y_offsets?: string[];
   };
 };
 
@@ -87,6 +86,7 @@ class WindowedDateFragmentTestCase {
         partialWindow: { str: string; duration: number };
         validHours: { str: string; duration: number };
       };
+      yOffsets?: { input: number[]; output: Duration.Time[] };
     },
     readonly name: string,
     readonly description: string,
@@ -108,11 +108,12 @@ class WindowedDateFragmentTestCase {
 
     const dateRegion = new DateRegion(date, tz);
     const fragments = dateRegion.dateFragments();
-    const fragmentIndex = raw.windowed_date_fragment.date_fragment.fragment_index ?? 0;
+    const fragmentIndex =
+      raw.windowed_date_fragment.date_fragment.fragment_index ?? 0;
 
     if (fragmentIndex >= fragments.length) {
       throw new Error(
-        `Fragment index ${fragmentIndex} out of range. Date ${raw.windowed_date_fragment.date_fragment.date} has ${fragments.length} fragment(s).`
+        `Fragment index ${fragmentIndex} out of range. Date ${raw.windowed_date_fragment.date_fragment.date} has ${fragments.length} fragment(s).`,
       );
     }
 
@@ -134,8 +135,8 @@ class WindowedDateFragmentTestCase {
       if (startTime.isOk && endTime.isOk) {
         const start = startTime.asOk()!;
         const end = endTime.asOk()!;
-        const endsOnNextDay = start.toMs > end.toMs ||
-          (start.toMs === 0 && end.toMs === 0);
+        const endsOnNextDay =
+          start.toMs > end.toMs || (start.toMs === 0 && end.toMs === 0);
         validHours = new TimeOfDay.Range(start, end, endsOnNextDay);
       }
     }
@@ -165,19 +166,56 @@ class WindowedDateFragmentTestCase {
     const expectedLocalPartialWindow = `${raw.expected.local.partial_window.start} to ${raw.expected.local.partial_window.end}`;
     const expectedLocalValidHours = `${raw.expected.local.valid_hours.start} to ${raw.expected.local.valid_hours.end}`;
 
+    let yOffsetsData: Option<{ input: number[]; output: Duration.Time[] }> =
+      undefined;
+    if (
+      raw.windowed_date_fragment.y_offsets &&
+      raw.expected.y_offsets &&
+      raw.windowed_date_fragment.y_offsets.length ===
+        raw.expected.y_offsets.length
+    ) {
+      const outputDurations: Duration.Time[] = [];
+      for (const durationStr of raw.expected.y_offsets) {
+        outputDurations.push(Duration.Time.parse(durationStr).exp());
+      }
+      yOffsetsData = {
+        input: raw.windowed_date_fragment.y_offsets,
+        output: outputDurations,
+      };
+    }
+
     return new WindowedDateFragmentTestCase(
       windowed,
       {
         utc: {
-          all: { range: expectedUtcAll, duration: raw.expected.utc.all.duration },
-          partialWindow: { range: expectedUtcPartialWindow, duration: raw.expected.utc.partial_window.duration },
-          validHours: { range: expectedUtcValidHours, duration: raw.expected.utc.valid_hours.duration },
+          all: {
+            range: expectedUtcAll,
+            duration: raw.expected.utc.all.duration,
+          },
+          partialWindow: {
+            range: expectedUtcPartialWindow,
+            duration: raw.expected.utc.partial_window.duration,
+          },
+          validHours: {
+            range: expectedUtcValidHours,
+            duration: raw.expected.utc.valid_hours.duration,
+          },
         },
         local: {
-          all: { str: expectedLocalAll, duration: raw.expected.local.all.duration },
-          partialWindow: { str: expectedLocalPartialWindow, duration: raw.expected.local.partial_window.duration },
-          validHours: { str: expectedLocalValidHours, duration: raw.expected.local.valid_hours.duration },
+          all: {
+            str: expectedLocalAll,
+            duration: raw.expected.local.all.duration,
+          },
+          partialWindow: {
+            str: expectedLocalPartialWindow,
+            duration: raw.expected.local.partial_window.duration,
+          },
+          validHours: {
+            str: expectedLocalValidHours,
+            duration: raw.expected.local.valid_hours.duration,
+          },
         },
+        yOffsets: yOffsetsData,
       },
       raw.name,
       raw.description,
@@ -190,7 +228,8 @@ class WindowedDateFragmentTestCase {
 
     const actualAll = this.windowed.applyAll();
     if (
-      actualAll.start.rfc3339() !== this.expected.utc.all.range.start.rfc3339() ||
+      actualAll.start.rfc3339() !==
+        this.expected.utc.all.range.start.rfc3339() ||
       actualAll.end.rfc3339() !== this.expected.utc.all.range.end.rfc3339()
     ) {
       errors.push(
@@ -198,7 +237,8 @@ class WindowedDateFragmentTestCase {
       );
     }
 
-    const actualAllDuration = (actualAll.end.mse - actualAll.start.mse) / (1000 * 60 * 60);
+    const actualAllDuration =
+      (actualAll.end.mse - actualAll.start.mse) / (1000 * 60 * 60);
     if (Math.abs(actualAllDuration - this.expected.utc.all.duration) > 0.01) {
       errors.push(
         `applyAll() UTC duration mismatch:\n  Expected: ${this.expected.utc.all.duration} hours\n  Actual:   ${actualAllDuration.toFixed(2)} hours`,
@@ -226,8 +266,14 @@ class WindowedDateFragmentTestCase {
       );
     }
 
-    const actualPartialWindowDuration = (actualPartialWindow.end.mse - actualPartialWindow.start.mse) / (1000 * 60 * 60);
-    if (Math.abs(actualPartialWindowDuration - this.expected.utc.partialWindow.duration) > 0.01) {
+    const actualPartialWindowDuration =
+      (actualPartialWindow.end.mse - actualPartialWindow.start.mse) /
+      (1000 * 60 * 60);
+    if (
+      Math.abs(
+        actualPartialWindowDuration - this.expected.utc.partialWindow.duration,
+      ) > 0.01
+    ) {
       errors.push(
         `applyPartialWindow() UTC duration mismatch:\n  Expected: ${this.expected.utc.partialWindow.duration} hours\n  Actual:   ${actualPartialWindowDuration.toFixed(2)} hours`,
       );
@@ -254,8 +300,14 @@ class WindowedDateFragmentTestCase {
       );
     }
 
-    const actualValidHoursDuration = (actualValidHours.end.mse - actualValidHours.start.mse) / (1000 * 60 * 60);
-    if (Math.abs(actualValidHoursDuration - this.expected.utc.validHours.duration) > 0.01) {
+    const actualValidHoursDuration =
+      (actualValidHours.end.mse - actualValidHours.start.mse) /
+      (1000 * 60 * 60);
+    if (
+      Math.abs(
+        actualValidHoursDuration - this.expected.utc.validHours.duration,
+      ) > 0.01
+    ) {
       errors.push(
         `applyValidHours() UTC duration mismatch:\n  Expected: ${this.expected.utc.validHours.duration} hours\n  Actual:   ${actualValidHoursDuration.toFixed(2)} hours`,
       );
@@ -268,6 +320,21 @@ class WindowedDateFragmentTestCase {
       errors.push(
         `applyValidHours() Local mismatch:\n  Expected: ${this.expected.local.validHours.str}\n  Actual:   ${actualValidHoursLocal}`,
       );
+    }
+
+    if (this.expected.yOffsets) {
+      for (let i = 0; i < this.expected.yOffsets.input.length; i++) {
+        const offsetY = this.expected.yOffsets.input[i];
+        const expectedTime = this.expected.yOffsets.output[i];
+
+        const actualTime = this.windowed.calculatePointerOffset(offsetY, 48);
+
+        if (!actualTime.equals(expectedTime)) {
+          errors.push(
+            `yOffset[${i}] (${offsetY}px) mismatch:\n  Expected: ${expectedTime.toString()}\n  Actual:   ${actualTime.toString()}`,
+          );
+        }
+      }
     }
 
     return {
@@ -298,7 +365,9 @@ Deno.test({
     let passCount = 0;
     let failCount = 0;
 
-    console.log(`\nRunning ${testCases.length} windowed date fragment tests:\n`);
+    console.log(
+      `\nRunning ${testCases.length} windowed date fragment tests:\n`,
+    );
 
     for (const testCase of testCases) {
       const result = testCase.test();
