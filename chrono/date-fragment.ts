@@ -394,6 +394,9 @@ export namespace DateFragment {
       const tzOffsetHrs = windowed.start.time.toMs / Time.MS_PER_HR;
       const windowOffsetHrs = window.start.toMs / Time.MS_PER_HR;
 
+      const visibleRange = new DateTime.Range(start, end);
+      const durationMs = visibleRange.duration.toMs;
+
       return {
         tzOffsetHrs,
         windowOffsetHrs,
@@ -403,7 +406,7 @@ export namespace DateFragment {
         partialBottom: this.partialWindow?.end != null ||
           (end.mse > wd.start.mse && end.mse < wd.end.mse),
         transformY: ((tzOffsetHrs - windowOffsetHrs) * pixelsPerHour),
-        height: (windowed.duration.toMs / Time.MS_PER_HR) * pixelsPerHour,
+        height: (durationMs / Time.MS_PER_HR) * pixelsPerHour,
       };
     }
   }
