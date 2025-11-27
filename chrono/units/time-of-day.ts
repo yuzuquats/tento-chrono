@@ -22,6 +22,10 @@ export class TimeOfDay {
     if (toMs < 0 || toMs >= Time.MS_PER_DAY) throw new Error("ms out of range");
   }
 
+  static clamp(toMs: number): TimeOfDay {
+    return new TimeOfDay(Math.min(Time.MS_PER_DAY, Math.max(0, toMs)));
+  }
+
   /**
    * Creates a TimeOfDay from hours, minutes, seconds, and milliseconds
    * @param components - Object with hrs, mins, secs, ms properties
