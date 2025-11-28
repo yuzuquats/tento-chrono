@@ -1,7 +1,3 @@
-import { Logger } from "@lona/log.ts";
-
-Logger.installToConsole();
-
 import { assertEquals } from "@std/assert";
 
 import { naivedate } from "../chrono/mod.ts";
