@@ -1,7 +1,3 @@
-import { Logger } from "@lona/log.ts";
-
-Logger.installToConsole();
-
 import { assert, assertEquals } from "@std/assert";
 
 import { DateRegion } from "../chrono/date-region.ts";
@@ -12,13 +8,14 @@ import { Result } from "../chrono/result.ts";
 import { TimezoneRegion } from "../chrono/timezone-region.ts";
 import { DurationTime } from "../chrono/units/duration-time.ts";
 import { installTimezoneLoader } from "./utils.deno.ts";
+import { Tzname } from "../chrono/timezone.ts";
 
 installTimezoneLoader();
 
 Deno.test("11-03/resolved", async () => {
   const dr = new DateRegion(
     naivedate(2024, 11, 3),
-    await TimezoneRegion.get("America/Los_Angeles"),
+    await TimezoneRegion.get("America/Los_Angeles" as Tzname),
   );
   const resolved = dr.dateFragments();
 
@@ -38,7 +35,7 @@ Deno.test("11-03/resolved", async () => {
 Deno.test("11-04/resolved", async () => {
   const dr = new DateRegion(
     naivedate(2024, 11, 4),
-    await TimezoneRegion.get("America/Los_Angeles"),
+    await TimezoneRegion.get("America/Los_Angeles" as Tzname),
   );
   const resolved = dr.dateFragments();
 
@@ -83,7 +80,7 @@ Deno.test("11-04/resolved", async () => {
 Deno.test("03-09/resolved", async () => {
   const dr = new DateRegion(
     naivedate(2025, 3, 9),
-    await TimezoneRegion.get("America/Los_Angeles"),
+    await TimezoneRegion.get("America/Los_Angeles" as Tzname),
   );
   const resolved = dr.dateFragments();
 
@@ -103,7 +100,7 @@ Deno.test("03-09/resolved", async () => {
 Deno.test({
   name: "timezone-transitions",
   async fn() {
-    const region = await TimezoneRegion.get("America/Los_Angeles");
+    const region = await TimezoneRegion.get("America/Los_Angeles" as Tzname);
 
     assertEquals(
       region.activeTransition(
@@ -224,7 +221,7 @@ Deno.test({
       "Asia/Dhaka",
       "Pacific/Niue",
       "Asia/Seoul",
-    ];
+    ] as Tzname[];
 
     const results: Array<{
       timezone: string;
@@ -299,7 +296,7 @@ Deno.test({
   name: "pacific-chatham-dst-transitions",
   async fn() {
     try {
-      const region = await TimezoneRegion.get("Pacific/Chatham");
+      const region = await TimezoneRegion.get("Pacific/Chatham" as Tzname);
 
       // Pacific/Chatham has unique +12:45/+13:45 offsets with 45-minute DST transitions
       // Test a date around their DST transition (typically early April for fall back)
