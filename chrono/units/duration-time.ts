@@ -37,7 +37,7 @@ export class DurationTime
     return new DurationTime(ms);
   }
 
-  static secs(secs: Ms): DurationTime {
+  static secs(secs: number): DurationTime {
     return new DurationTime((secs * Time.MS_PER_SEC) as Ms);
   }
 
