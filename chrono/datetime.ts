@@ -15,10 +15,11 @@ import { TentoMath } from "./utils";
 
 /**
  * Regular expression for parsing RFC3339 / ISO 8601 date-time strings.
- * Captures year, month, day, hour, minute, second, fractional seconds, and timezone offset (Z or +/-HH:MM).
+ * Captures year, month, day, hour, minute, second, fractional seconds, and timezone offset.
+ * Supports both standard offsets (Z or +/-HH:MM) and extended offsets with seconds (+/-HH:MM:SS).
  */
 const RFC3339_REGEX =
-  /^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2}):(\d{2})(\.\d+)?(Z|[+-]\d{2}:\d{2})?)?$/;
+  /^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2}):(\d{2})(\.\d+)?(Z|[+-]\d{2}:\d{2}(?::\d{2})?)?)?$/;
 
 /**
  * Represents a specific moment in time with associated timezone information.

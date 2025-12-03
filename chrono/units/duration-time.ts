@@ -405,16 +405,20 @@ export class DurationTime
 
   asSignedHm(elidMins: boolean = false): string {
     const totalMillis = Math.abs(this.toMs);
-    const totalMinutes = Math.floor(totalMillis / Time.MS_PER_MIN);
-    const offsetHours = Math.floor(totalMinutes / 60);
-    const offsetMinutes = totalMinutes % 60;
-    const renderMins = offsetMinutes !== 0 || !elidMins;
+    const totalSeconds = Math.floor(totalMillis / Time.MS_PER_SEC);
+    const offsetHours = Math.floor(totalSeconds / 3600);
+    const offsetMinutes = Math.floor((totalSeconds % 3600) / 60);
+    const offsetSeconds = totalSeconds % 60;
+    const renderMins = offsetMinutes !== 0 || offsetSeconds !== 0 || !elidMins;
+    const renderSecs = offsetSeconds !== 0;
 
     return [
       this.sign > 0 ? "+" : "-",
       offsetHours.toString().padStart(2, "0"),
       renderMins ? ":" : "",
       renderMins ? offsetMinutes.toString().padStart(2, "0") : "",
+      renderSecs ? ":" : "",
+      renderSecs ? offsetSeconds.toString().padStart(2, "0") : "",
     ].join("");
   }
 

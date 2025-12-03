@@ -503,6 +503,35 @@ Deno.test({
 });
 
 Deno.test({
+  name: "datetime/sub_minute_offset",
+  fn() {
+    // Test parsing sub-minute offsets (historical timezone data like Africa/Monrovia)
+    const dt1 = DateTime.fromRfc3339("1900-03-01T00:00:00-00:43:08").exp();
+    assertEquals(dt1.tz.info.offset.toSecs, -(43 * 60 + 8)); // -43 minutes, -8 seconds
+    assertEquals(dt1.rfc3339(), "1900-03-01T00:00:00-00:43:08");
+
+    // Test positive sub-minute offset
+    const dt2 = DateTime.fromRfc3339("1918-04-15T02:00:00+01:24:36").exp();
+    assertEquals(dt2.tz.info.offset.toSecs, 1 * 3600 + 24 * 60 + 36); // +1 hour, 24 minutes, 36 seconds
+    assertEquals(dt2.rfc3339(), "1918-04-15T02:00:00+01:24:36");
+
+    // Verify round-trip works correctly
+    const dt3 = DateTime.fromRfc3339("1901-10-16T00:00:00-10:39:04").exp();
+    const str = dt3.rfc3339();
+    const dt3Parsed = DateTime.fromRfc3339(str).exp();
+    assertEquals(dt3.mse, dt3Parsed.mse);
+
+    // Regular offsets still work (no seconds shown)
+    const dt4 = DateTime.fromRfc3339("2023-10-27T10:00:00-08:00").exp();
+    assertEquals(dt4.rfc3339(), "2023-10-27T10:00:00-08:00");
+
+    // UTC still works
+    const dt5 = DateTime.fromRfc3339("2023-10-27T10:00:00Z").exp();
+    assertEquals(dt5.rfc3339(), "2023-10-27T10:00:00Z");
+  },
+});
+
+Deno.test({
   name: "datetime/precision_issues",
   fn() {
     // Test 1: Near-exact hour boundary
