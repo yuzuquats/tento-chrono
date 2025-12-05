@@ -23,7 +23,7 @@ export class TimeOfDay {
   }
 
   static clamp(toMs: number): TimeOfDay {
-    return new TimeOfDay(Math.min(Time.MS_PER_DAY, Math.max(0, toMs)));
+    return new TimeOfDay(Math.min(Time.MS_PER_DAY - 1, Math.max(0, toMs)));
   }
 
   /**
