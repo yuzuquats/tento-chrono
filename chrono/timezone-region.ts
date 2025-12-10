@@ -243,6 +243,10 @@ export class TimezoneRegion {
       TimezoneRegion.Transition.print(transition, idx);
     }
   }
+
+  toString(): string {
+    return `[${this.fullname}]`;
+  }
 }
 
 export namespace TimezoneRegion {
