@@ -311,6 +311,44 @@ export namespace DateFragment {
     }
 
     /**
+     * Truncates a UTC time range to fit within this windowed fragment, returning the
+     * visible portion as a TimeOfDay.Range in the fragment's timezone.
+     *
+     * This is used to determine what portion of an event (or any time range) is visible
+     * within a calendar column that has been windowed by both partial window constraints
+     * and valid hours restrictions.
+     *
+     * @param originalTime - The original time range in UTC to truncate
+     * @returns The visible portion as a TimeOfDay.Range, or null if no overlap
+     *
+     * @example
+     * // An event from 8am-10am UTC, viewed in a 9am-5pm business hours window
+     * const windowed = new DateFragment.Windowed(fragment, null, businessHours);
+     * const visible = windowed.truncate(eventTimeUtc);
+     * // Returns TimeOfDay.Range from 9am-10am (the visible portion)
+     *
+     * @example
+     * // An event entirely outside the window returns null
+     * const visible = windowed.truncate(eveningEventUtc);
+     * // Returns null (no overlap with business hours)
+     */
+    truncate(originalTime: DateTime.Range<Utc>): Option<TimeOfDay.Range> {
+      const windowedUtc = this.applyAll().toUtc();
+
+      const intersection = originalTime.intersectionDtr(windowedUtc);
+      if (!intersection) {
+        return null;
+      }
+
+      const inFragTz = intersection.toTz(this.fragment.tz);
+      return new TimeOfDay.Range(
+        inFragTz.start.time,
+        inFragTz.end.time,
+        !inFragTz.start.date.equals(inFragTz.end.date),
+      );
+    }
+
+    /**
      * Calculates the actual time-of-day from a pixel offset within this windowed fragment.
      * This is the inverse of the positioning calculation used in calendar UI rendering.
      *
