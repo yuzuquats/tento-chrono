@@ -213,6 +213,10 @@ export namespace DateFragment {
       return this.fragment.parent;
     }
 
+    private cache: Optional<{
+      applyAll: DateTime.Range<FixedOffset>;
+    }> = {};
+
     /**
      * Applies only the partial window transformation.
      * Returns the fragment clipped to the specified start/end times.
@@ -268,6 +272,8 @@ export namespace DateFragment {
      * Returns the final windowed timespan in the fragment's timezone.
      */
     applyAll(): DateTime.Range<FixedOffset> {
+      if (this.cache.applyAll) return this.cache.applyAll;
+
       let start = this.fragment.start;
       let end = this.fragment.end;
 
@@ -298,10 +304,13 @@ export namespace DateFragment {
 
       if (this.validHours) {
         const clampedRange = partialFragment.clamp(this.validHours);
-        return new DateTime.Range(clampedRange.start, clampedRange.end);
+        return (this.cache.applyAll = new DateTime.Range(
+          clampedRange.start,
+          clampedRange.end,
+        ));
       }
 
-      return new DateTime.Range(start, end);
+      return (this.cache.applyAll = new DateTime.Range(start, end));
     }
 
     /**
@@ -374,6 +383,15 @@ export namespace DateFragment {
       return Duration.Time.from({ hrs: offsetHrs });
     }
 
+    get columnTzOffsetHrs(): number {
+      return this.applyAll().start.time.toMs / Time.MS_PER_HR;
+    }
+
+    get columnWindowOffsetHrs(): number {
+      const validHours = this.validHours ?? TimeOfDay.Range.DAY;
+      return validHours.start.toMs / Time.MS_PER_HR;
+    }
+
     /**
      * Calculates positioning information for rendering this windowed fragment in a calendar UI.
      *
@@ -387,14 +405,12 @@ export namespace DateFragment {
      * const windowed = new DateFragment.Windowed(fragment, partialWindow, businessHours);
      * const positioning = windowed.getPositioning(48);
      * if (positioning) {
-     *   element.style.setProperty('--calendar-column-tz-offset-hrs', String(positioning.columnTzOffsetHrs));
+     *   element.style.setProperty('--calendar-column-tz-offset-hrs', String(windowed.columnTzOffsetHrs));
      *   element.style.transform = `translateY(${positioning.transformY}px)`;
      *   element.style.height = `${positioning.height}px`;
      * }
      */
     getPositioning(pixelsPerHour: number): Option<{
-      columnTzOffsetHrs: number;
-      columnWindowOffsetHrs: number;
       linesOffsetPx: number;
       partialTop: boolean;
       partialBottom: boolean;
@@ -402,7 +418,7 @@ export namespace DateFragment {
       height: number;
     }> {
       const df = this.fragment;
-      const window = this.validHours ?? TimeOfDay.Range.DAY;
+      const validHours = this.validHours ?? TimeOfDay.Range.DAY;
 
       const windowed = this.applyAll();
 
@@ -416,22 +432,20 @@ export namespace DateFragment {
         : df.end;
 
       const wd = new DateTime.Range(
-        df.start.withTime(window.start),
-        df.start.withTime(window.end).add({
-          days: window.endsOnNextDay ? 1 : 0,
+        df.start.withTime(validHours.start),
+        df.start.withTime(validHours.end).add({
+          days: validHours.endsOnNextDay ? 1 : 0,
         }),
       );
 
       const lineOffset = (windowed.start.time.mins / 60) * pixelsPerHour;
       const columnTzOffsetHrs = windowed.start.time.toMs / Time.MS_PER_HR;
-      const columnWindowOffsetHrs = window.start.toMs / Time.MS_PER_HR;
+      const columnWindowOffsetHrs = validHours.start.toMs / Time.MS_PER_HR;
 
       const visibleRange = new DateTime.Range(start, end);
       const durationMs = visibleRange.duration.toMs;
 
       return {
-        columnTzOffsetHrs,
-        columnWindowOffsetHrs,
         linesOffsetPx: lineOffset,
         partialTop:
           this.partialWindow?.start != null ||
