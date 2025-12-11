@@ -209,6 +209,10 @@ export namespace DateFragment {
       readonly validHours?: TimeOfDay.Range,
     ) {}
 
+    get tzr(): TimezoneRegion {
+      return this.fragment.parent;
+    }
+
     /**
      * Applies only the partial window transformation.
      * Returns the fragment clipped to the specified start/end times.
@@ -216,11 +220,10 @@ export namespace DateFragment {
     applyPartialWindow(): DateTime.Range<FixedOffset> {
       if (!this.partialWindow) {
         // Convert end through UTC to get proper offset representation for DST boundaries
-        const endWallClock = this.fragment.parent.toTz(this.fragment.end.toUtc());
-        return new DateTime.Range(
-          this.fragment.start,
-          endWallClock,
+        const endWallClock = this.fragment.parent.toTz(
+          this.fragment.end.toUtc(),
         );
+        return new DateTime.Range(this.fragment.start, endWallClock);
       }
 
       let start = this.fragment.start;
@@ -253,17 +256,11 @@ export namespace DateFragment {
      */
     applyValidHours(): DateTime.Range<FixedOffset> {
       if (!this.validHours) {
-        return new DateTime.Range(
-          this.fragment.start,
-          this.fragment.end,
-        );
+        return new DateTime.Range(this.fragment.start, this.fragment.end);
       }
 
       const clampedRange = this.fragment.clamp(this.validHours);
-      return new DateTime.Range(
-        clampedRange.start,
-        clampedRange.end,
-      );
+      return new DateTime.Range(clampedRange.start, clampedRange.end);
     }
 
     /**
@@ -301,10 +298,7 @@ export namespace DateFragment {
 
       if (this.validHours) {
         const clampedRange = partialFragment.clamp(this.validHours);
-        return new DateTime.Range(
-          clampedRange.start,
-          clampedRange.end,
-        );
+        return new DateTime.Range(clampedRange.start, clampedRange.end);
       }
 
       return new DateTime.Range(start, end);
@@ -375,7 +369,7 @@ export namespace DateFragment {
       const windowed = this.applyAll();
 
       const tzOffsetHrs = windowed.start.time.toMs / Time.MS_PER_HR;
-      const offsetHrs = (offsetY / pixelsPerHour) + tzOffsetHrs;
+      const offsetHrs = offsetY / pixelsPerHour + tzOffsetHrs;
 
       return Duration.Time.from({ hrs: offsetHrs });
     }
@@ -439,13 +433,19 @@ export namespace DateFragment {
         tzOffsetHrs,
         windowOffsetHrs,
         linesOffsetPx: lineOffset,
-        partialTop: this.partialWindow?.start != null ||
+        partialTop:
+          this.partialWindow?.start != null ||
           (start.mse > wd.start.mse && start.mse < wd.end.mse),
-        partialBottom: this.partialWindow?.end != null ||
+        partialBottom:
+          this.partialWindow?.end != null ||
           (end.mse > wd.start.mse && end.mse < wd.end.mse),
-        transformY: ((tzOffsetHrs - windowOffsetHrs) * pixelsPerHour),
+        transformY: (tzOffsetHrs - windowOffsetHrs) * pixelsPerHour,
         height: (durationMs / Time.MS_PER_HR) * pixelsPerHour,
       };
+    }
+
+    toString(): string {
+      return `Windowed {${this.fragment.toString()}, pw=${this.partialWindow?.start?.toString()}-${this.partialWindow?.end?.toString()} vh=${this.validHours?.start.toString()}-${this.validHours?.end.toString()}}`;
     }
   }
 }
