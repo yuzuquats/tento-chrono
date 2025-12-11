@@ -387,14 +387,14 @@ export namespace DateFragment {
      * const windowed = new DateFragment.Windowed(fragment, partialWindow, businessHours);
      * const positioning = windowed.getPositioning(48);
      * if (positioning) {
-     *   element.style.setProperty('--tz-offset-hrs', String(positioning.tzOffsetHrs));
+     *   element.style.setProperty('--calendar-column-tz-offset-hrs', String(positioning.columnTzOffsetHrs));
      *   element.style.transform = `translateY(${positioning.transformY}px)`;
      *   element.style.height = `${positioning.height}px`;
      * }
      */
     getPositioning(pixelsPerHour: number): Option<{
-      tzOffsetHrs: number;
-      windowOffsetHrs: number;
+      columnTzOffsetHrs: number;
+      columnWindowOffsetHrs: number;
       linesOffsetPx: number;
       partialTop: boolean;
       partialBottom: boolean;
@@ -423,15 +423,15 @@ export namespace DateFragment {
       );
 
       const lineOffset = (windowed.start.time.mins / 60) * pixelsPerHour;
-      const tzOffsetHrs = windowed.start.time.toMs / Time.MS_PER_HR;
-      const windowOffsetHrs = window.start.toMs / Time.MS_PER_HR;
+      const columnTzOffsetHrs = windowed.start.time.toMs / Time.MS_PER_HR;
+      const columnWindowOffsetHrs = window.start.toMs / Time.MS_PER_HR;
 
       const visibleRange = new DateTime.Range(start, end);
       const durationMs = visibleRange.duration.toMs;
 
       return {
-        tzOffsetHrs,
-        windowOffsetHrs,
+        columnTzOffsetHrs,
+        columnWindowOffsetHrs,
         linesOffsetPx: lineOffset,
         partialTop:
           this.partialWindow?.start != null ||
@@ -439,7 +439,7 @@ export namespace DateFragment {
         partialBottom:
           this.partialWindow?.end != null ||
           (end.mse > wd.start.mse && end.mse < wd.end.mse),
-        transformY: (tzOffsetHrs - windowOffsetHrs) * pixelsPerHour,
+        transformY: (columnTzOffsetHrs - columnWindowOffsetHrs) * pixelsPerHour,
         height: (durationMs / Time.MS_PER_HR) * pixelsPerHour,
       };
     }
