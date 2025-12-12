@@ -351,38 +351,6 @@ export namespace DateFragment {
       );
     }
 
-    /**
-     * Calculates the actual time-of-day from a pixel offset within this windowed fragment.
-     * This is the inverse of the positioning calculation used in calendar UI rendering.
-     *
-     * The calendar UI positions elements using:
-     *   visualY = (timeOfDay - tzOffset) * pixelsPerHour
-     *
-     * This method reverses that to get:
-     *   timeOfDay = (visualY / pixelsPerHour) + tzOffset
-     *
-     * @param offsetY - Pixels from the top of the visible area
-     * @param pixelsPerHour - Pixels per hour (typically 48 in the calendar UI)
-     * @returns The actual wall-clock time as Duration.Time
-     *
-     * @example
-     * // User clicks 96 pixels from top of a 9am-5pm window
-     * const windowed = new DateFragment.Windowed(fragment, null, businessHours);
-     * const clickTime = windowed.calculatePointerOffset(96, 48);
-     * // Returns Duration.Time representing 11:00 (9am + 2 hours)
-     */
-    calculatePointerOffset(
-      offsetY: number,
-      pixelsPerHour: number,
-    ): Duration.Time {
-      const windowed = this.applyAll();
-
-      const tzOffsetHrs = windowed.start.time.toMs / Time.MS_PER_HR;
-      const offsetHrs = offsetY / pixelsPerHour + tzOffsetHrs;
-
-      return Duration.Time.from({ hrs: offsetHrs });
-    }
-
     get columnTzStartOffsetHrs(): number {
       return this.applyAll().start.time.toMs / Time.MS_PER_HR;
     }
@@ -421,7 +389,6 @@ export namespace DateFragment {
       const validHours = this.validHours ?? TimeOfDay.Range.DAY;
 
       const windowed = this.applyAll();
-
       if (windowed.duration.toMs <= 0) return null;
 
       const start = this.partialWindow?.start
@@ -456,6 +423,38 @@ export namespace DateFragment {
         transformY: (columnTzOffsetHrs - columnWindowOffsetHrs) * pixelsPerHour,
         height: (durationMs / Time.MS_PER_HR) * pixelsPerHour,
       };
+    }
+
+    /**
+     * Calculates the actual time-of-day from a pixel offset within this windowed fragment.
+     * This is the inverse of the positioning calculation used in calendar UI rendering.
+     *
+     * The calendar UI positions elements using:
+     *   visualY = (timeOfDay - tzOffset) * pixelsPerHour
+     *
+     * This method reverses that to get:
+     *   timeOfDay = (visualY / pixelsPerHour) + tzOffset
+     *
+     * @param offsetY - Pixels from the top of the visible area
+     * @param pixelsPerHour - Pixels per hour (typically 48 in the calendar UI)
+     * @returns The actual wall-clock time as Duration.Time
+     *
+     * @example
+     * // User clicks 96 pixels from top of a 9am-5pm window
+     * const windowed = new DateFragment.Windowed(fragment, null, businessHours);
+     * const clickTime = windowed.calculatePointerOffset(96, 48);
+     * // Returns Duration.Time representing 11:00 (9am + 2 hours)
+     */
+    calculatePointerOffset(
+      offsetY: number,
+      pixelsPerHour: number,
+    ): Duration.Time {
+      const windowed = this.applyAll();
+
+      const tzOffsetHrs = windowed.start.time.toMs / Time.MS_PER_HR;
+      const offsetHrs = offsetY / pixelsPerHour + tzOffsetHrs;
+
+      return Duration.Time.from({ hrs: offsetHrs });
     }
 
     toString(): string {
