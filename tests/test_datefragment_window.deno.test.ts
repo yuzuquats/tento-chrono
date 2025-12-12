@@ -319,20 +319,7 @@ class WindowedDateFragmentTestCase {
       );
     }
 
-    if (this.expected.yOffsets) {
-      for (let i = 0; i < this.expected.yOffsets.input.length; i++) {
-        const offsetY = this.expected.yOffsets.input[i];
-        const expectedTime = this.expected.yOffsets.output[i];
-
-        const actualTime = this.windowed.calculatePointerOffset(offsetY, 48);
-
-        if (!actualTime.equals(expectedTime)) {
-          errors.push(
-            `yOffset[${i}] (${offsetY}px) mismatch:\n  Expected: ${expectedTime.toString()}\n  Actual:   ${actualTime.toString()}`,
-          );
-        }
-      }
-    }
+    // NOTE: calculatePointerOffset tests are now in CalendarColumnCell.PointerPosition.resolve()
 
     return {
       passed: errors.length === 0,
@@ -388,5 +375,170 @@ Deno.test({
     if (failCount > 0) {
       throw new Error(`${failCount} tests failed`);
     }
+  },
+});
+
+Deno.test({
+  name: "windowed-date-fragment/getPositioning/partial-end-with-overnight-valid-hours",
+  async fn() {
+    // Reproduces the bug where partialWindow.end was ignored with overnight valid hours
+    // Fragment: 2025-11-17 full day in PST
+    // partialWindow: { start: null, end: 13:10 }
+    // validHours: 03:00-00:00 (overnight, endsOnNextDay = true)
+    // Expected height: 10:10 hours (13:10 - 03:00)
+
+    const date = naivedate(2025, 11, 17);
+    const tz = await TimezoneRegion.get("America/Los_Angeles" as Tzname);
+    const dateRegion = new DateRegion(date, tz);
+    const fragment = dateRegion.dateFragments()[0];
+
+    const partialWindow = new GenericRange<Option<NaiveDateTime>>(
+      undefined,
+      NaiveDateTime.parse("2025-11-17T13:10:00"),
+    );
+
+    const validHoursStart = TimeOfDay.parse("03:00:00").asOk()!;
+    const validHoursEnd = TimeOfDay.parse("00:00:00").asOk()!;
+    const validHours = new TimeOfDay.Range(validHoursStart, validHoursEnd, true);
+
+    const windowed = new DateFragment.Windowed(fragment, partialWindow, validHours);
+
+    const positioning = windowed.getPositioning(48);
+    if (!positioning) {
+      throw new Error("getPositioning returned null");
+    }
+
+    // Height should be ~10.17 hours * 48 px/hr = ~488 px
+    const expectedDurationHrs = 10 + 10 / 60; // 10:10 = 10.1667 hours
+    const expectedHeight = expectedDurationHrs * 48;
+
+    // Allow small floating point tolerance
+    const heightDiff = Math.abs(positioning.height - expectedHeight);
+    if (heightDiff > 1) {
+      throw new Error(
+        `Height mismatch: expected ~${expectedHeight.toFixed(1)}px, got ${positioning.height.toFixed(1)}px`,
+      );
+    }
+
+    console.log(`✅ Height: ${positioning.height.toFixed(1)}px (expected ~${expectedHeight.toFixed(1)}px)`);
+
+    // partialBottom should be true since we have explicit partialWindow.end
+    assertEquals(positioning.partialBottom, true, "partialBottom should be true");
+  },
+});
+
+Deno.test({
+  name: "windowed-date-fragment/getPositioning/overnight-window-extends-past-midnight",
+  async fn() {
+    // Valid hours 22:00-02:00 should extend past midnight when no partial window end
+    // Fragment: 2025-10-14 full day in PDT
+    // partialWindow: null
+    // validHours: 22:00-02:00 (overnight)
+    // Expected height: 4 hours (22:00 to 02:00)
+
+    const date = naivedate(2025, 10, 14);
+    const tz = await TimezoneRegion.get("America/Los_Angeles" as Tzname);
+    const dateRegion = new DateRegion(date, tz);
+    const fragment = dateRegion.dateFragments()[0];
+
+    const validHoursStart = TimeOfDay.parse("22:00:00").asOk()!;
+    const validHoursEnd = TimeOfDay.parse("02:00:00").asOk()!;
+    const validHours = new TimeOfDay.Range(validHoursStart, validHoursEnd, true);
+
+    const windowed = new DateFragment.Windowed(fragment, undefined, validHours);
+
+    const positioning = windowed.getPositioning(48);
+    if (!positioning) {
+      throw new Error("getPositioning returned null");
+    }
+
+    // Height should be 4 hours * 48 px/hr = 192 px
+    const expectedHeight = 4 * 48;
+
+    const heightDiff = Math.abs(positioning.height - expectedHeight);
+    if (heightDiff > 1) {
+      throw new Error(
+        `Height mismatch: expected ${expectedHeight}px, got ${positioning.height.toFixed(1)}px`,
+      );
+    }
+
+    console.log(`✅ Height: ${positioning.height.toFixed(1)}px (expected ${expectedHeight}px)`);
+  },
+});
+
+Deno.test({
+  name: "windowed-date-fragment/getPositioning/partial-window-both-ends",
+  async fn() {
+    // Partial window 10am-2pm with default valid hours
+    // Expected height: 4 hours
+
+    const date = naivedate(2025, 10, 14);
+    const tz = await TimezoneRegion.get("America/Los_Angeles" as Tzname);
+    const dateRegion = new DateRegion(date, tz);
+    const fragment = dateRegion.dateFragments()[0];
+
+    const partialWindow = new GenericRange<Option<NaiveDateTime>>(
+      NaiveDateTime.parse("2025-10-14T10:00:00"),
+      NaiveDateTime.parse("2025-10-14T14:00:00"),
+    );
+
+    const windowed = new DateFragment.Windowed(fragment, partialWindow);
+
+    const positioning = windowed.getPositioning(48);
+    if (!positioning) {
+      throw new Error("getPositioning returned null");
+    }
+
+    // Height should be 4 hours * 48 px/hr = 192 px
+    const expectedHeight = 4 * 48;
+
+    const heightDiff = Math.abs(positioning.height - expectedHeight);
+    if (heightDiff > 1) {
+      throw new Error(
+        `Height mismatch: expected ${expectedHeight}px, got ${positioning.height.toFixed(1)}px`,
+      );
+    }
+
+    console.log(`✅ Height: ${positioning.height.toFixed(1)}px (expected ${expectedHeight}px)`);
+
+    // Both partialTop and partialBottom should be true
+    assertEquals(positioning.partialTop, true, "partialTop should be true");
+    assertEquals(positioning.partialBottom, true, "partialBottom should be true");
+  },
+});
+
+Deno.test({
+  name: "windowed-date-fragment/getPositioning/business-hours",
+  async fn() {
+    // Valid hours 9am-5pm with no partial window
+    // Expected height: 8 hours
+
+    const date = naivedate(2025, 10, 14);
+    const tz = await TimezoneRegion.get("America/Los_Angeles" as Tzname);
+    const dateRegion = new DateRegion(date, tz);
+    const fragment = dateRegion.dateFragments()[0];
+
+    const validHoursStart = TimeOfDay.parse("09:00:00").asOk()!;
+    const validHoursEnd = TimeOfDay.parse("17:00:00").asOk()!;
+    const validHours = new TimeOfDay.Range(validHoursStart, validHoursEnd, false);
+
+    const windowed = new DateFragment.Windowed(fragment, undefined, validHours);
+
+    const positioning = windowed.getPositioning(48);
+    if (!positioning) {
+      throw new Error("getPositioning returned null");
+    }
+
+    // Height should be 8 hours * 48 px/hr = 384 px
+    const expectedHeight = 8 * 48;
+
+    const heightDiff = Math.abs(positioning.height - expectedHeight);
+    if (heightDiff > 1) {
+      throw new Error(
+        `Height mismatch: expected ${expectedHeight}px, got ${positioning.height.toFixed(1)}px`,
+      );
+    }
+
+    console.log(`✅ Height: ${positioning.height.toFixed(1)}px (expected ${expectedHeight}px)`);
   },
 });

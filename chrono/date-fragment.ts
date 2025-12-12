@@ -304,9 +304,16 @@ export namespace DateFragment {
 
       if (this.validHours) {
         const clampedRange = partialFragment.clamp(this.validHours);
+        // Only constrain to partial window end if it was explicitly set
+        // This allows overnight valid hours to extend past midnight when no partial window end is set
+        const hasExplicitPartialEnd = this.partialWindow?.end != null;
+        const finalEnd =
+          hasExplicitPartialEnd && clampedRange.end.mse > end.mse
+            ? end
+            : clampedRange.end;
         return (this.cache.applyAll = new DateTime.Range(
           clampedRange.start,
-          clampedRange.end,
+          finalEnd,
         ));
       }
 
@@ -431,8 +438,8 @@ export namespace DateFragment {
       const columnTzOffsetHrs = windowed.start.time.toMs / Time.MS_PER_HR;
       const columnWindowOffsetHrs = validHours.start.toMs / Time.MS_PER_HR;
 
-      const visibleRange = new DateTime.Range(start, end);
-      const durationMs = visibleRange.duration.toMs;
+      // Use the windowed duration (after applying both partial window and valid hours)
+      const durationMs = windowed.duration.toMs;
 
       return {
         linesOffsetPx: lineOffset,
