@@ -486,6 +486,34 @@ export namespace DateFragment {
     }
 
     /**
+     * Checks if a position is near the edges of the windowed fragment.
+     * Used to determine if pointer capture should be enabled during drag gestures.
+     * Returns true if position is within 15 minutes of validHours start or end.
+     *
+     * @param position - The current pointer position as Duration.Time
+     * @returns true if position is within 15 mins of start or end boundary
+     *
+     * @example
+     * // validHours: 09:00-17:00
+     * // position: 09:10 -> true (within 15 mins of start)
+     * // position: 12:00 -> false (middle of window)
+     * // position: 16:50 -> true (within 15 mins of end)
+     */
+    isNearEdge(position: Duration.Time): boolean {
+      const startBoundary = this.validHours.start.asMs;
+      const endBoundary =
+        this.validHours.end.asMs === 0
+          ? Time.MS_PER_DAY
+          : this.validHours.end.asMs;
+      const thresholdMs = Time.MS_PER_MIN * 15;
+
+      const nearStart = position.toMs <= startBoundary + thresholdMs;
+      const nearEnd = position.toMs >= endBoundary - thresholdMs;
+
+      return nearStart || nearEnd;
+    }
+
+    /**
      * Calculates positioning information for rendering this windowed fragment in a calendar UI.
      *
      * Returns the data needed to position and size a calendar column:
