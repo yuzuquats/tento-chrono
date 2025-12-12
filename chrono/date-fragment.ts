@@ -206,7 +206,7 @@ export namespace DateFragment {
     constructor(
       readonly fragment: DateFragment,
       readonly partialWindow?: GenericRange<Option<NaiveDateTime>>,
-      readonly validHours?: TimeOfDay.Range,
+      readonly validHours: TimeOfDay.Range = TimeOfDay.Range.DAY,
     ) {}
 
     get tzr(): TimezoneRegion {
@@ -383,11 +383,11 @@ export namespace DateFragment {
       return Duration.Time.from({ hrs: offsetHrs });
     }
 
-    get columnTzOffsetHrs(): number {
+    get columnTzStartOffsetHrs(): number {
       return this.applyAll().start.time.toMs / Time.MS_PER_HR;
     }
 
-    get columnWindowOffsetHrs(): number {
+    get columnValidHoursOffsetHrs(): number {
       const validHours = this.validHours ?? TimeOfDay.Range.DAY;
       return validHours.start.toMs / Time.MS_PER_HR;
     }
