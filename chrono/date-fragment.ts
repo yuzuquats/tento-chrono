@@ -376,6 +376,13 @@ export namespace DateFragment {
       );
     }
 
+    get maxStartHrs(): number {
+      const validHrsStart = this.columnValidHoursOffsetHrs;
+      const partialWindowStart =
+        this.partialWindow?.start?.time.duration().toHrsF ?? 0;
+      return Math.max(validHrsStart, partialWindowStart);
+    }
+
     get columnTzStartOffsetHrs(): number {
       return this.applyAll().start.time.toMs / Time.MS_PER_HR;
     }
