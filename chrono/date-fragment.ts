@@ -259,10 +259,6 @@ export namespace DateFragment {
      * Returns the fragment restricted to the specified time-of-day window.
      */
     applyValidHours(): DateTime.Range<FixedOffset> {
-      if (!this.validHours) {
-        return new DateTime.Range(this.fragment.start, this.fragment.end);
-      }
-
       const clampedRange = this.fragment.clamp(this.validHours);
       return new DateTime.Range(clampedRange.start, clampedRange.end);
     }
@@ -376,23 +372,22 @@ export namespace DateFragment {
       );
     }
 
-    get maxStartHrs(): number {
-      const validHrsStart = this.columnValidHoursOffsetHrs;
+    get effectiveStartHrs(): number {
+      const validHrsStart = this.validHoursStartHrs;
       const partialWindowStart =
         this.partialWindow?.start?.time.duration().toHrsF ?? 0;
       return Math.max(validHrsStart, partialWindowStart);
     }
 
-    get columnTzStartOffsetHrs(): number {
+    get windowedStartHrs(): number {
       return this.applyAll().start.time.toMs / Time.MS_PER_HR;
     }
 
-    get columnValidHoursOffsetHrs(): number {
-      const validHours = this.validHours ?? TimeOfDay.Range.DAY;
-      return validHours.start.toMs / Time.MS_PER_HR;
+    get validHoursStartHrs(): number {
+      return this.validHours.start.toMs / Time.MS_PER_HR;
     }
 
-    get columnPartialStartOffsetHrs(): number {
+    get partialWindowStartHrs(): number {
       return this.partialWindow?.start?.time.duration().toHrsF ?? 0;
     }
 
@@ -422,7 +417,6 @@ export namespace DateFragment {
       height: number;
     }> {
       const df = this.fragment;
-      const validHours = this.validHours ?? TimeOfDay.Range.DAY;
 
       const windowed = this.applyAll();
       if (windowed.duration.toMs <= 0) return null;
@@ -435,18 +429,15 @@ export namespace DateFragment {
         : df.end;
 
       const wd = new DateTime.Range(
-        df.start.withTime(validHours.start),
-        df.start.withTime(validHours.end).add({
-          days: validHours.endsOnNextDay ? 1 : 0,
+        df.start.withTime(this.validHours.start),
+        df.start.withTime(this.validHours.end).add({
+          days: this.validHours.endsOnNextDay ? 1 : 0,
         }),
       );
 
       const lineOffset = (windowed.start.time.mins / 60) * pixelsPerHour;
-      const columnTzOffsetHrs = windowed.start.time.toMs / Time.MS_PER_HR;
-      const columnWindowOffsetHrs = validHours.start.toMs / Time.MS_PER_HR;
-
-      // Use the windowed duration (after applying both partial window and valid hours)
-      const durationMs = windowed.duration.toMs;
+      const windowedStartHrs = windowed.start.time.toMs / Time.MS_PER_HR;
+      const validHoursStartHrs = this.validHours.start.toMs / Time.MS_PER_HR;
 
       return {
         linesOffsetPx: lineOffset,
@@ -456,8 +447,8 @@ export namespace DateFragment {
         partialBottom:
           this.partialWindow?.end != null ||
           (end.mse > wd.start.mse && end.mse < wd.end.mse),
-        transformY: (columnTzOffsetHrs - columnWindowOffsetHrs) * pixelsPerHour,
-        height: (durationMs / Time.MS_PER_HR) * pixelsPerHour,
+        transformY: (windowedStartHrs - validHoursStartHrs) * pixelsPerHour,
+        height: (windowed.duration.toMs / Time.MS_PER_HR) * pixelsPerHour,
       };
     }
 
