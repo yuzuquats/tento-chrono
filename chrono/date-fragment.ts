@@ -196,11 +196,34 @@ export namespace DateFragment {
   };
 
   /**
-   * WindowedDateFragment represents a DateFragment with optional windowing transformations.
+   * Represents a DateFragment with optional windowing transformations applied.
    *
-   * This class provides clean APIs for applying two types of transformations:
-   * 1. Partial Window - Clips the fragment to specific start/end NaiveDateTimes
-   * 2. Valid Hours - Restricts the fragment to specific hours of the day
+   * This class handles two independent transformations that can be combined:
+   *
+   * **Partial Window** (`partialWindow`):
+   * Clips the fragment to absolute start/end times as NaiveDateTime values.
+   * Used for scrolling views where only part of a day is visible.
+   * - `partialWindow.start`: Earliest visible time (null = fragment start)
+   * - `partialWindow.end`: Latest visible time (null = fragment end)
+   *
+   * **Valid Hours** (`validHours`):
+   * Restricts the fragment to a recurring time-of-day window.
+   * Used for business hours or custom day views.
+   * - Same-day: e.g., 09:00-17:00 (8 hours)
+   * - Overnight: e.g., 22:00-02:00 (4 hours, spans midnight)
+   * - Full day: 00:00-00:00 (default, 24 hours)
+   *
+   * **Transformation Order**:
+   * `applyAll()` applies partial window first, then valid hours.
+   * This ensures valid hours restricts what's visible within the partial window.
+   *
+   * @example
+   * // Business hours view (9am-5pm)
+   * const windowed = new DateFragment.Windowed(fragment, undefined, businessHours);
+   *
+   * @example
+   * // Scrolled partial day with overnight valid hours
+   * const windowed = new DateFragment.Windowed(fragment, partialWindow, overnightHours);
    */
   export class Windowed {
     constructor(
@@ -354,6 +377,16 @@ export namespace DateFragment {
       );
     }
 
+    /**
+     * Like truncate(), but only applies the partial window transformation.
+     * Ignores valid hours restrictions.
+     *
+     * Useful when you need to know if an event overlaps the scrollable area
+     * without considering the valid hours mask.
+     *
+     * @param originalTime - The original time range in UTC to truncate
+     * @returns The visible portion as a TimeOfDay.Range, or null if no overlap
+     */
     truncatePartial(
       originalTime: DateTime.Range<Utc>,
     ): Option<TimeOfDay.Range> {
@@ -372,21 +405,82 @@ export namespace DateFragment {
       );
     }
 
+    /**
+     * The effective start hour after applying both constraints.
+     * Returns the later of validHours start and partialWindow start.
+     * Used for positioning calculations in calendar UI.
+     *
+     * @example
+     * // validHours: 09:00-17:00, partialWindow: 11:00-15:00
+     * // validHoursStartHrs = 9, partialWindowStartHrs = 11
+     * // effectiveStartHrs = max(9, 11) = 11
+     *
+     * @example
+     * // validHours: 09:00-17:00, no partialWindow
+     * // validHoursStartHrs = 9, partialWindowStartHrs = 0
+     * // effectiveStartHrs = max(9, 0) = 9
+     */
     get effectiveStartHrs(): number {
-      const validHrsStart = this.validHoursStartHrs;
-      const partialWindowStart =
-        this.partialWindow?.start?.time.duration().toHrsF ?? 0;
-      return Math.max(validHrsStart, partialWindowStart);
+      return Math.max(this.validHoursStartHrs, this.partialWindowStartHrs);
     }
 
+    /**
+     * The actual start hour after applying all windowing transformations.
+     * This is the wall-clock hour where the windowed fragment begins.
+     *
+     * @example
+     * // Fragment: full day, validHours: 09:00-17:00, no partialWindow
+     * // applyAll() returns 09:00-17:00
+     * // windowedStartHrs = 9
+     *
+     * @example
+     * // Fragment: full day, validHours: 09:00-17:00, partialWindow: 11:00-15:00
+     * // applyAll() returns 11:00-15:00 (partial window applied first, then clamped to valid hours)
+     * // windowedStartHrs = 11
+     *
+     * @example
+     * // Fragment: full day, validHours: 22:00-02:00 (overnight), no partialWindow
+     * // applyAll() returns 22:00-02:00 (next day)
+     * // windowedStartHrs = 22
+     */
     get windowedStartHrs(): number {
       return this.applyAll().start.time.toMs / Time.MS_PER_HR;
     }
 
+    /**
+     * The start hour of the valid hours window (0-24).
+     *
+     * @example
+     * // validHours: 09:00-17:00 (business hours)
+     * // validHoursStartHrs = 9
+     *
+     * @example
+     * // validHours: 22:00-02:00 (overnight)
+     * // validHoursStartHrs = 22
+     *
+     * @example
+     * // validHours: 00:00-00:00 (full day, default)
+     * // validHoursStartHrs = 0
+     */
     get validHoursStartHrs(): number {
       return this.validHours.start.toMs / Time.MS_PER_HR;
     }
 
+    /**
+     * The start hour from the partial window constraint, or 0 if none.
+     *
+     * @example
+     * // partialWindow: 14:30-18:00
+     * // partialWindowStartHrs = 14.5
+     *
+     * @example
+     * // partialWindow: null (no constraint)
+     * // partialWindowStartHrs = 0
+     *
+     * @example
+     * // partialWindow: { start: null, end: 15:00 } (end only)
+     * // partialWindowStartHrs = 0
+     */
     get partialWindowStartHrs(): number {
       return this.partialWindow?.start?.time.duration().toHrsF ?? 0;
     }
@@ -394,8 +488,11 @@ export namespace DateFragment {
     /**
      * Calculates positioning information for rendering this windowed fragment in a calendar UI.
      *
-     * This method encapsulates all the calculations needed to position and display a calendar
-     * column, including CSS variable values, partial window indicators, and transform/height.
+     * Returns the data needed to position and size a calendar column:
+     * - `linesOffsetPx`: Pixel offset for hour lines alignment
+     * - `partialTop/partialBottom`: Whether to show partial day indicators
+     * - `transformY`: CSS translateY value in pixels
+     * - `height`: Column height in pixels
      *
      * @param pixelsPerHour - Pixels per hour in the calendar UI (typically 48)
      * @returns Positioning data or null if the windowed fragment has zero duration
@@ -404,7 +501,7 @@ export namespace DateFragment {
      * const windowed = new DateFragment.Windowed(fragment, partialWindow, businessHours);
      * const positioning = windowed.getPositioning(48);
      * if (positioning) {
-     *   element.style.setProperty('--calendar-column-tz-offset-hrs', String(windowed.columnTzOffsetHrs));
+     *   element.style.setProperty('--cell-y-offset', String(-windowed.effectiveStartHrs));
      *   element.style.transform = `translateY(${positioning.transformY}px)`;
      *   element.style.height = `${positioning.height}px`;
      * }
