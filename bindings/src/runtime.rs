@@ -10,6 +10,7 @@ use boa_engine::{
 };
 use boa_parser::Source;
 use boa_runtime::Console;
+use lona_utils::env_dangerous;
 
 pub struct Runtime {
   pub loader: Rc<SimpleModuleLoader>,
@@ -18,11 +19,14 @@ pub struct Runtime {
 }
 
 impl Runtime {
-  pub fn new() -> anyhow::Result<Self> {
+  pub fn new_from_env() -> anyhow::Result<Self> {
     let pkg_location =
-      PathBuf::from(std::env::var("LONA_JS_CHRONO_OUTPUT_JS").expect("no package location"));
+      PathBuf::from(env_dangerous("LONA_JS_CHRONO_OUTPUT_JS").expect("no package location"));
     let pkg_dir = PathBuf::from(std::fs::read_to_string(pkg_location)?);
+    Runtime::new(pkg_dir)
+  }
 
+  pub fn new(pkg_dir: PathBuf) -> anyhow::Result<Self> {
     let loader = Rc::new(
       SimpleModuleLoader::new(&pkg_dir)
         .map_err(|e| anyhow!("couldn't create module loader: {e:?}"))?,
