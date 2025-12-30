@@ -25,9 +25,8 @@ impl Runtime {
   /// Only for use in tests - production code should use `new()` with explicit path.
   #[doc(hidden)]
   pub fn env_test() -> anyhow::Result<Self> {
-    let pkg_location = LonaJsChronoOutputJs::from_env()
-      .expect("LONA_JS_CHRONO_OUTPUT_JS not set")
-      .into_value();
+    use serde_lona_env::AssertEnvVar;
+    let pkg_location = LonaJsChronoOutputJs::from_env().assert_envars().into_value();
     let pkg_dir = PathBuf::from(std::fs::read_to_string(&*pkg_location)?);
     Runtime::new(pkg_dir)
   }
