@@ -80,7 +80,7 @@ mod test {
   #[test]
   #[ignore = "takes too long"]
   pub fn test_add_operations() {
-    let mut rt = Runtime::new_from_env().expect("couldn't construct runtime");
+    let mut rt = Runtime::env_test().expect("couldn't construct runtime");
 
     // Test a comprehensive range of dates with various operations
     let base_dates = [
@@ -189,7 +189,7 @@ mod test {
   #[test]
   #[ignore = "takes too long"]
   pub fn test_subtract_operations() {
-    let mut rt = Runtime::new_from_env().expect("couldn't construct runtime");
+    let mut rt = Runtime::env_test().expect("couldn't construct runtime");
 
     // Test a comprehensive range of dates with various operations
     let base_dates = [
@@ -285,7 +285,7 @@ mod test {
   #[test]
   #[ignore = "takes too long"]
   pub fn test_difference_operations() {
-    let mut rt = Runtime::new_from_env().expect("couldn't construct runtime");
+    let mut rt = Runtime::env_test().expect("couldn't construct runtime");
 
     let date_pairs = [
       // Same date
@@ -422,7 +422,7 @@ mod test {
   #[test]
   #[ignore = "takes too long"]
   pub fn test_operations() {
-    let mut rt = Runtime::new_from_env().expect("couldn't construct runtime");
+    let mut rt = Runtime::env_test().expect("couldn't construct runtime");
 
     // Test a range of dates with various operations
     let base_dates = [

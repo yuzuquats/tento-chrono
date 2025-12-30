@@ -19,7 +19,7 @@ mod test {
   #[ignore = "takes a long time"]
   pub fn test_from_ymd() {
     for yr in 1970..2050 {
-      let mut rt = Runtime::new_from_env().expect("couldn't construct runtime");
+      let mut rt = Runtime::env_test().expect("couldn't construct runtime");
       for mth1 in 1..=12 {
         for day1 in 1..=31 {
           let Some(nd) = NaiveDate::from_ymd_opt(yr, mth1, day1) else {
@@ -42,7 +42,7 @@ mod test {
     //
     const CHUNK_SIZE: usize = 1000;
     for chunk_start in (-10000..10000).step_by(CHUNK_SIZE) {
-      let mut rt = Runtime::new_from_env().expect("couldn't construct runtime");
+      let mut rt = Runtime::env_test().expect("couldn't construct runtime");
       let chunk_end = (chunk_start + CHUNK_SIZE as i32).min(10000);
       for days in chunk_start..chunk_end {
         // Create a date from days since epoch in the Rust implementation
@@ -61,7 +61,7 @@ mod test {
   #[test]
   #[ignore = "takes too long"]
   pub fn test_formatting() {
-    let mut rt = Runtime::new_from_env().expect("couldn't construct runtime");
+    let mut rt = Runtime::env_test().expect("couldn't construct runtime");
 
     // Test various dates for string formatting (RFC3339)
     let test_dates = [
@@ -80,7 +80,7 @@ mod test {
   #[test]
   #[ignore = "takes too long"]
   pub fn test_days_since_epoch() {
-    let mut rt = Runtime::new_from_env().expect("couldn't construct runtime");
+    let mut rt = Runtime::env_test().expect("couldn't construct runtime");
 
     // Test various dates for days_since_epoch calculation
     let test_dates = [

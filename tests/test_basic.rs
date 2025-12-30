@@ -7,7 +7,7 @@ mod test {
   #[test]
   #[ignore = "takes too long"]
   pub fn test_basic() -> anyhow::Result<()> {
-    let mut rt = Runtime::new_from_env()?;
+    let mut rt = Runtime::env_test()?;
 
     {
       let namespace = rt.eval_module(

@@ -9,7 +9,7 @@ mod test {
   #[test]
   #[ignore = "takes a long time"]
   pub fn test_year_ctr() {
-    let mut rt = Runtime::new_from_env().expect("couldn't construct runtime");
+    let mut rt = Runtime::env_test().expect("couldn't construct runtime");
     for yr in 1970..2050 {
       check_js_partial_date(&mut rt, PartialDate::Y(yr));
     }
@@ -18,7 +18,7 @@ mod test {
   #[test]
   #[ignore = "takes a long time"]
   pub fn test_year_month_ctr() {
-    let mut rt = Runtime::new_from_env().expect("couldn't construct runtime");
+    let mut rt = Runtime::env_test().expect("couldn't construct runtime");
     for yr in 1970..2050 {
       for mth1 in 1..12 {
         check_js_partial_date(&mut rt, PartialDate::Ym(YearMonth { yr, mth1 }));
@@ -30,7 +30,7 @@ mod test {
   #[ignore = "takes a long time"]
   pub fn test_year_month_day_ctr() {
     for yr in 1970..2050 {
-      let mut rt = Runtime::new_from_env().expect("couldn't construct runtime");
+      let mut rt = Runtime::env_test().expect("couldn't construct runtime");
       for mth1 in 1..12 {
         for day1 in 1..31 {
           let Some(nd) = NaiveDate::from_ymd_opt(yr, mth1, day1) else {
@@ -46,7 +46,7 @@ mod test {
   #[ignore = "takes a long time"]
   pub fn test_year_week_ctr() {
     for yr in 1970..2050 {
-      let mut rt = Runtime::new_from_env().expect("couldn't construct runtime");
+      let mut rt = Runtime::env_test().expect("couldn't construct runtime");
       for week in 1..53 {
         let Some(_) = NaiveDate::from_isoywd_opt(yr, week, chrono::Weekday::Mon) else {
           continue;

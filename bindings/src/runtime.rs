@@ -10,7 +10,9 @@ use boa_engine::{
 };
 use boa_parser::Source;
 use boa_runtime::Console;
-use lona_utils::env_dangerous;
+use serde_lona_env::{FromEnvVar, env_kv};
+
+env_kv!("LONA_JS_CHRONO_OUTPUT_JS", PathBuf);
 
 pub struct Runtime {
   pub loader: Rc<SimpleModuleLoader>,
@@ -19,10 +21,14 @@ pub struct Runtime {
 }
 
 impl Runtime {
-  pub fn new_from_env() -> anyhow::Result<Self> {
-    let pkg_location =
-      PathBuf::from(env_dangerous("LONA_JS_CHRONO_OUTPUT_JS").expect("no package location"));
-    let pkg_dir = PathBuf::from(std::fs::read_to_string(pkg_location)?);
+  /// Creates a Runtime for tests using LONA_JS_CHRONO_OUTPUT_JS env var.
+  /// Only for use in tests - production code should use `new()` with explicit path.
+  #[doc(hidden)]
+  pub fn env_test() -> anyhow::Result<Self> {
+    let pkg_location = LonaJsChronoOutputJs::from_env()
+      .expect("LONA_JS_CHRONO_OUTPUT_JS not set")
+      .into_value();
+    let pkg_dir = PathBuf::from(std::fs::read_to_string(&*pkg_location)?);
     Runtime::new(pkg_dir)
   }
 
