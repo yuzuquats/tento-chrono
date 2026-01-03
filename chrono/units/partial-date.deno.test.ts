@@ -1,6 +1,78 @@
 import { assertEquals } from "jsr:@std/assert";
 import { PartialDate, NaiveDate } from "../mod.ts";
 
+// Tests for toType() with ISO week year boundaries
+// Bug fix: toType("week") was using date.yr instead of date.isoYear,
+// causing incorrect week year assignment at year boundaries.
+
+Deno.test("PartialDate.toType - day to week at year boundary (Dec 29, 2025)", () => {
+  // Dec 29, 2025 is a Monday, the start of ISO week 1 of 2026
+  const dec29 = PartialDate.fromDate(NaiveDate.fromYmd1Exp(2025, 12, 29));
+  const asWeek = dec29.toType("week");
+
+  assertEquals(asWeek.type, "week");
+  assertEquals(asWeek.yr, 2026, "Should be ISO year 2026, not calendar year 2025");
+  assertEquals(asWeek.wno, 1, "Should be week 1");
+});
+
+Deno.test("PartialDate.toType - day to week at year boundary (Dec 31, 2025)", () => {
+  // Dec 31, 2025 is also in ISO week 1 of 2026
+  const dec31 = PartialDate.fromDate(NaiveDate.fromYmd1Exp(2025, 12, 31));
+  const asWeek = dec31.toType("week");
+
+  assertEquals(asWeek.type, "week");
+  assertEquals(asWeek.yr, 2026, "Should be ISO year 2026");
+  assertEquals(asWeek.wno, 1, "Should be week 1");
+});
+
+Deno.test("PartialDate.toType - day to week at year boundary (Jan 1, 2026)", () => {
+  // Jan 1, 2026 is in ISO week 1 of 2026
+  const jan1 = PartialDate.fromDate(NaiveDate.fromYmd1Exp(2026, 1, 1));
+  const asWeek = jan1.toType("week");
+
+  assertEquals(asWeek.type, "week");
+  assertEquals(asWeek.yr, 2026);
+  assertEquals(asWeek.wno, 1);
+});
+
+Deno.test("PartialDate.toType - day to week (mid-year, no boundary issue)", () => {
+  // A date in the middle of the year where yr == isoYear
+  const june15 = PartialDate.fromDate(NaiveDate.fromYmd1Exp(2025, 6, 15));
+  const asWeek = june15.toType("week");
+
+  assertEquals(asWeek.type, "week");
+  assertEquals(asWeek.yr, 2025);
+});
+
+Deno.test("PartialDate.toType - day to week at start of year (Jan 1, 2025)", () => {
+  // Jan 1, 2025 is a Wednesday, in ISO week 1 of 2025
+  const jan1 = PartialDate.fromDate(NaiveDate.fromYmd1Exp(2025, 1, 1));
+  const asWeek = jan1.toType("week");
+
+  assertEquals(asWeek.type, "week");
+  assertEquals(asWeek.yr, 2025);
+  assertEquals(asWeek.wno, 1);
+});
+
+Deno.test("PartialDate.toType - identity returns same instance", () => {
+  const day = PartialDate.fromDate(NaiveDate.fromYmd1Exp(2025, 6, 15));
+  const sameDay = day.toType("day");
+
+  assertEquals(day, sameDay, "toType with same type should return same instance");
+});
+
+Deno.test("PartialDate.toType - week index calculation at year boundary", () => {
+  // This tests that the index property is correct after toType conversion
+  // Dec 29, 2025 and Jan 1, 2026 should have the same week index (both week 1 of 2026)
+  const dec29 = PartialDate.fromDate(NaiveDate.fromYmd1Exp(2025, 12, 29));
+  const jan1 = PartialDate.fromDate(NaiveDate.fromYmd1Exp(2026, 1, 1));
+
+  const dec29Week = dec29.toType("week");
+  const jan1Week = jan1.toType("week");
+
+  assertEquals(dec29Week.index, jan1Week.index, "Both dates are in the same week");
+});
+
 Deno.test("PartialDate.generateSubPartials - Year to Months", () => {
   const year2024 = PartialDate.fromYear(2024);
   const months = year2024.generateSubPartials("month");

@@ -54,7 +54,7 @@ export class PartialDate {
       case "month":
         return new PartialDate("month", date.yr, date.month1);
       case "week":
-        return new PartialDate("week", date.yr, null, null, date.isoWno);
+        return new PartialDate("week", date.isoYear, null, null, date.isoWno);
       case "day":
         return new PartialDate("day", date.yr, date.month1, date.day1);
     }
