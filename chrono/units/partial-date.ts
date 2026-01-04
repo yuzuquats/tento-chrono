@@ -272,7 +272,15 @@ export namespace PartialDate {
       case "month":
         return new NaiveDate.Partial("month", date.yr, date.month1);
       case "week":
-        return new NaiveDate.Partial("week", date.yr, null, null, date.isoWno);
+        // Use isoYear (not calendar year) since ISO weeks can span year boundaries
+        // e.g., Dec 31 2025 is in ISO week 2026-W01, not 2025-W01
+        return new NaiveDate.Partial(
+          "week",
+          date.isoYear,
+          null,
+          null,
+          date.isoWno,
+        );
       case "day":
         return new NaiveDate.Partial("day", date.yr, date.month1, date.day1);
     }
