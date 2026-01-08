@@ -150,8 +150,14 @@ export class DateFragment {
     let clampedEnd: DateTime<FixedOffset>;
     if (window.endsOnNextDay) {
       // Window extends to next day (e.g., 22:00-02:00)
-      // Use the window's end time on the next day to show the full window
-      clampedEnd = this.start.withTime(window.end).add({ days: 1 });
+      // Special case: full day window (00:00-00:00 overnight) means "don't constrain"
+      // In this case, use the fragment's actual end time
+      if (window.start.equals(TimeOfDay.ZERO) && window.end.equals(TimeOfDay.ZERO)) {
+        clampedEnd = this.end;
+      } else {
+        // Use the window's end time on the next day to show the full window
+        clampedEnd = this.start.withTime(window.end).add({ days: 1 });
+      }
     } else {
       // Window is same-day
       // Check if fragment spans to next day (end time is 00:00 on next day)
@@ -162,8 +168,14 @@ export class DateFragment {
         clampedEnd = this.start.withTime(window.end);
       } else {
         // Take min of fragment end and window end
-        const endTime = this.end.time.min(window.end);
-        clampedEnd = this.start.withTime(endTime);
+        // Special case: if window.end is 00:00 (full day), don't constrain the end
+        // because 00:00 means "end of day" (24:00), not "start of day"
+        if (window.end.equals(TimeOfDay.ZERO)) {
+          clampedEnd = this.end;
+        } else {
+          const endTime = this.end.time.min(window.end);
+          clampedEnd = this.start.withTime(endTime);
+        }
       }
     }
 

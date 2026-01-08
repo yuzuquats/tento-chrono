@@ -117,7 +117,7 @@ export class DateRegion {
     }
 
     const transition = transitions[0];
-    return [
+    const result = [
       new DateFragment(
         new DateTime.Range(dateStart, transition.after.time.toTz(dateStart.tz)),
         this.tz,
@@ -130,6 +130,8 @@ export class DateRegion {
         this.tz,
       ),
     ];
+
+    return result;
   }
 
   /**
