@@ -10,7 +10,7 @@ use boa_engine::{
 };
 use boa_parser::Source;
 use boa_runtime::Console;
-use serde_lona_env::{FromEnvVar, env_kv};
+use serde_lona_env::env_kv;
 
 env_kv!("LONA_JS_CHRONO_OUTPUT_JS", PathBuf);
 
@@ -25,8 +25,8 @@ impl Runtime {
   /// Only for use in tests - production code should use `new()` with explicit path.
   #[doc(hidden)]
   pub fn env_test() -> anyhow::Result<Self> {
-    use serde_lona_env::AssertEnvVar;
-    let pkg_location = LonaJsChronoOutputJs::from_env().assert_envars().into_value();
+    use serde_lona_env::{AssertEnvVar, FromEnvVarTest};
+    let pkg_location = LonaJsChronoOutputJs::from_env_test().assert_envars().into_value();
     let pkg_dir = PathBuf::from(std::fs::read_to_string(&*pkg_location)?);
     Runtime::new(pkg_dir)
   }
