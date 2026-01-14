@@ -15,6 +15,22 @@ import {
 import { Epoch } from "./units/epoch";
 import { MsSinceEpoch } from "./units/units";
 
+// Detect static subdomain from current hostname for instance-aware URLs
+// dev--calendar.lona.so -> dev--static.lona.so
+function getStaticSubdomain(): string {
+  const hostname =
+    typeof globalThis !== "undefined" && globalThis.location?.hostname
+      ? globalThis.location.hostname
+      : "";
+  const parts = hostname.split(".");
+  if (parts.length < 3) return "static";
+  const subdomain = parts[0];
+  if (subdomain.includes("--")) {
+    return subdomain.split("--")[0] + "--static";
+  }
+  return "static";
+}
+
 export class TimezoneRegion {
   readonly fullname: Tzname;
   readonly transitions: TimezoneRegion.Transition[];
@@ -260,7 +276,7 @@ export namespace TimezoneRegion {
   export const DYNAMIC_LOADER: Loader = {
     load: async (tzname: Tzname) => {
       const resp = await fetch(
-        `https://static.lona.so/timezones/2024b/1900_2050/${tzname.replaceAll(
+        `https://${getStaticSubdomain()}.lona.so/timezones/2024b/1900_2050/${tzname.replaceAll(
           "/",
           "~",
         )}.json`,
