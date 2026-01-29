@@ -214,13 +214,18 @@ export class PartialDate {
         break;
       }
       case "week": {
-        const startDate = this.start;
+        // Find the first Monday on or after the start date
+        // This ensures each week belongs to exactly one parent month
+        let firstMonday = this.start;
+        while (firstMonday.dayOfWeek !== Weekday.MON) {
+          firstMonday = firstMonday.addDays(1);
+        }
         currentPd = new PartialDate(
           "week",
-          startDate.isoYear,
+          firstMonday.isoYear,
           null,
           null,
-          startDate.isoWno,
+          firstMonday.isoWno,
         );
         break;
       }
