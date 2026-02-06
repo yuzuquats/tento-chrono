@@ -13,6 +13,7 @@ import {
   Utc,
 } from "./timezone";
 import { Epoch } from "./units/epoch";
+import { TimeOfDay } from "./units/time-of-day";
 import { MsSinceEpoch } from "./units/units";
 
 // Detect static subdomain from current hostname for instance-aware URLs
@@ -228,11 +229,102 @@ export class TimezoneRegion {
   }
 
   /**
-   * todo: when do we use this vs toDatetimeResolved?
+   * Convert a wall-clock NaiveDateTime to DateTime.
+   *
+   * This method properly handles DST edge cases by delegating to toWallClockResolved().
    */
   toWallClock(ndt: NaiveDateTime): DateTime<FixedOffset> {
+    return this.toWallClockResolved(ndt);
+  }
+
+  /**
+   * Internal helper - converts without DST gap/overlap checking.
+   * Only used as fallback when toWallClockResolved confirms no transition on the day.
+   */
+  private toWallClockUnchecked(ndt: NaiveDateTime): DateTime<FixedOffset> {
     const tz = this.tzAtMse(ndt.mse);
     return ndt.withTz(tz);
+  }
+
+  /**
+   * Convert a wall-clock NaiveDateTime to DateTime, properly handling DST edge cases.
+   *
+   * This function correctly resolves ambiguous or invalid wall-clock times:
+   * - For times in spring-forward gap (e.g., 2:30 AM on DST day): uses post-transition (later) offset
+   * - For times in fall-back overlap (e.g., 1:30 AM occurs twice): uses post-transition (later) offset
+   *
+   * The key difference from `toWallClock()` is that this function finds DST transitions
+   * by checking the actual day of the NaiveDateTime, rather than comparing `ndt.mse`
+   * (which is a naive "wall-clock MSE") against UTC-based transition timestamps.
+   */
+  toWallClockResolved(ndt: NaiveDateTime): DateTime<FixedOffset> {
+    const dayStartMse = ndt.date.withTime(TimeOfDay.fromHms({ hrs: 0 })).mse;
+    const dayEndMse = dayStartMse + 24 * 60 * 60 * 1000;
+
+    const transitions = this.transitionsBetween({
+      start: (dayStartMse - 24 * 60 * 60 * 1000) as MsSinceEpoch,
+      end: (dayEndMse + 24 * 60 * 60 * 1000) as MsSinceEpoch,
+    });
+
+    if (transitions.length === 0) {
+      return this.toWallClockUnchecked(ndt);
+    }
+
+    for (const transition of transitions) {
+      const transitionDate = transition.after.time.ndt.date;
+
+      if (!ndt.date.equals(transitionDate)) {
+        continue;
+      }
+
+      const beforeOffset = transition.before.time.tz.info.offset;
+      const afterOffset = transition.after.time.tz.info.offset;
+      const beforeOffsetHrs = beforeOffset.toHrsF;
+      const afterOffsetHrs = afterOffset.toHrsF;
+
+      const isSpringForward = afterOffsetHrs > beforeOffsetHrs;
+      const isFallBack = afterOffsetHrs < beforeOffsetHrs;
+
+      const transitionWallTime = transition.before.time.ndt.time;
+
+      if (isSpringForward) {
+        const gapSizeMs =
+          (afterOffsetHrs - beforeOffsetHrs) * 60 * 60 * 1000;
+        const gapStartMs = transitionWallTime.toMs;
+        const gapEndMs = gapStartMs + gapSizeMs;
+        const currentTimeMs = ndt.time.toMs;
+
+        if (currentTimeMs >= gapStartMs && currentTimeMs < gapEndMs) {
+          return ndt.withTz(transition.after.time.tz);
+        }
+
+        if (currentTimeMs >= gapEndMs) {
+          return ndt.withTz(transition.after.time.tz);
+        }
+
+        return ndt.withTz(transition.before.time.tz);
+      }
+
+      if (isFallBack) {
+        const overlapSizeMs =
+          (beforeOffsetHrs - afterOffsetHrs) * 60 * 60 * 1000;
+        const overlapStartMs = transitionWallTime.toMs - overlapSizeMs;
+        const overlapEndMs = transitionWallTime.toMs;
+        const currentTimeMs = ndt.time.toMs;
+
+        if (currentTimeMs >= overlapStartMs && currentTimeMs < overlapEndMs) {
+          return ndt.withTz(transition.after.time.tz);
+        }
+
+        if (currentTimeMs >= overlapEndMs) {
+          return ndt.withTz(transition.after.time.tz);
+        }
+
+        return ndt.withTz(transition.before.time.tz);
+      }
+    }
+
+    return this.toWallClockUnchecked(ndt);
   }
 
   toTz(dt: DateTime<any>): DateTime<FixedOffset> {
