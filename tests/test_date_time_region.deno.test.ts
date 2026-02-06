@@ -142,3 +142,156 @@ Deno.test({
     );
   },
 });
+
+/**
+ * Tests verifying that the old recurrence code pattern and the new pattern are equivalent.
+ *
+ * Old pattern (event-item.ts before refactor):
+ *   const start = (timezone ?? TimezoneRegion.UTC)
+ *     .datetime(this.inner.st!.toUtc().ndt)
+ *     .asUtcTp();
+ *
+ * New pattern (event-item.ts after refactor):
+ *   const start = (timezone ?? TimezoneRegion.UTC).toTz(this.inner.st!.toUtc());
+ *
+ * These are equivalent because when the NaiveDateTime came from a UTC DateTime's .ndt,
+ * asUtcTp() correctly interprets it as UTC (since it actually IS UTC).
+ */
+
+Deno.test({
+  name: "Recurrence pattern equivalence - standard time (PST)",
+  async fn() {
+    const tz = await TimezoneRegion.get("America/Los_Angeles");
+    const { DateTime } = await import("../chrono/datetime.ts");
+
+    // Simulate an event stored in UTC: Feb 5, 2026 at 17:00 UTC
+    const eventUtc = DateTime.fromRfc3339("2026-02-05T17:00:00Z").exp();
+
+    // Old pattern: tz.datetime(eventUtc.toUtc().ndt).asUtcTp()
+    const oldPattern = tz.datetime(eventUtc.toUtc().ndt).asUtcTp();
+
+    // New pattern: tz.toTz(eventUtc.toUtc())
+    const newPattern = tz.toTz(eventUtc.toUtc());
+
+    console.log("\nRecurrence pattern equivalence (PST):");
+    console.log("Input UTC:", eventUtc.toString());
+    console.log("Old pattern result:", oldPattern.toString());
+    console.log("New pattern result:", newPattern.toString());
+
+    // Both should produce the same result
+    assertEquals(
+      oldPattern.toString(),
+      newPattern.toString(),
+      "Old and new patterns should produce identical results",
+    );
+
+    // Both should be 9:00 AM PST (17:00 UTC - 8 hours)
+    assertEquals(
+      oldPattern.toString(),
+      "2026-02-05T09:00:00-08:00",
+      "Should be 9 AM PST",
+    );
+  },
+});
+
+Deno.test({
+  name: "Recurrence pattern equivalence - daylight saving time (PDT)",
+  async fn() {
+    const tz = await TimezoneRegion.get("America/Los_Angeles");
+    const { DateTime } = await import("../chrono/datetime.ts");
+
+    // Simulate an event stored in UTC: July 15, 2025 at 17:00 UTC (during PDT)
+    const eventUtc = DateTime.fromRfc3339("2025-07-15T17:00:00Z").exp();
+
+    // Old pattern: tz.datetime(eventUtc.toUtc().ndt).asUtcTp()
+    const oldPattern = tz.datetime(eventUtc.toUtc().ndt).asUtcTp();
+
+    // New pattern: tz.toTz(eventUtc.toUtc())
+    const newPattern = tz.toTz(eventUtc.toUtc());
+
+    console.log("\nRecurrence pattern equivalence (PDT):");
+    console.log("Input UTC:", eventUtc.toString());
+    console.log("Old pattern result:", oldPattern.toString());
+    console.log("New pattern result:", newPattern.toString());
+
+    // Both should produce the same result
+    assertEquals(
+      oldPattern.toString(),
+      newPattern.toString(),
+      "Old and new patterns should produce identical results",
+    );
+
+    // Both should be 10:00 AM PDT (17:00 UTC - 7 hours)
+    assertEquals(
+      oldPattern.toString(),
+      "2025-07-15T10:00:00-07:00",
+      "Should be 10 AM PDT",
+    );
+  },
+});
+
+Deno.test({
+  name: "Recurrence pattern equivalence - around DST transition",
+  async fn() {
+    const tz = await TimezoneRegion.get("America/Los_Angeles");
+    const { DateTime } = await import("../chrono/datetime.ts");
+
+    // March 9, 2025 at 10:30 UTC - this is AFTER the spring forward transition
+    // DST transition: March 9, 2025 at 2:00 AM PST -> 3:00 AM PDT (10:00 UTC)
+    const eventUtc = DateTime.fromRfc3339("2025-03-09T10:30:00Z").exp();
+
+    // Old pattern
+    const oldPattern = tz.datetime(eventUtc.toUtc().ndt).asUtcTp();
+
+    // New pattern
+    const newPattern = tz.toTz(eventUtc.toUtc());
+
+    console.log("\nRecurrence pattern equivalence (around DST):");
+    console.log("Input UTC:", eventUtc.toString());
+    console.log("Old pattern result:", oldPattern.toString());
+    console.log("New pattern result:", newPattern.toString());
+
+    // Both should produce the same result
+    assertEquals(
+      oldPattern.toString(),
+      newPattern.toString(),
+      "Old and new patterns should produce identical results around DST",
+    );
+
+    // 10:30 UTC on March 9 is 3:30 AM PDT (after spring forward)
+    assertEquals(
+      oldPattern.toString(),
+      "2025-03-09T03:30:00-07:00",
+      "Should be 3:30 AM PDT (after spring forward)",
+    );
+  },
+});
+
+Deno.test({
+  name: "Recurrence pattern equivalence - with UTC timezone",
+  async fn() {
+    const tz = TimezoneRegion.UTC;
+    const { DateTime } = await import("../chrono/datetime.ts");
+
+    // Event in UTC
+    const eventUtc = DateTime.fromRfc3339("2026-02-05T17:00:00Z").exp();
+
+    // Old pattern with UTC timezone
+    const oldPattern = tz.datetime(eventUtc.toUtc().ndt).asUtcTp();
+
+    // New pattern with UTC timezone
+    const newPattern = tz.toTz(eventUtc.toUtc());
+
+    console.log("\nRecurrence pattern equivalence (UTC):");
+    console.log("Input UTC:", eventUtc.toString());
+    console.log("Old pattern result:", oldPattern.toString());
+    console.log("New pattern result:", newPattern.toString());
+
+    // Both should produce the same result
+    assertEquals(
+      oldPattern.toString(),
+      newPattern.toString(),
+      "Old and new patterns should produce identical results with UTC timezone",
+    );
+  },
+});

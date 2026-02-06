@@ -34,6 +34,13 @@ export class DateTimeRegion {
     this.tz = tz;
   }
 
+  /**
+   * @deprecated Use `asWallClock()` instead. This method has confusing semantics -
+   * it treats the NaiveDateTime as if it were UTC, which is almost never the correct
+   * interpretation. The only valid use case was when the NaiveDateTime was explicitly
+   * created from a UTC source (e.g., `dt.toUtc().ndt`), but in that case you should
+   * use `tz.toTz(dt)` directly instead.
+   */
   asUtcTp(): DateTime {
     if (this.cache.resolved) return this.cache.resolved;
     return (this.cache.resolved = this.tz.toTz(new DateTime(this.ndt, Utc)));

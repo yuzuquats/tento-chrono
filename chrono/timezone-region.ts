@@ -113,7 +113,10 @@ export class TimezoneRegion {
   }
 
   now(): DateTimeRegion {
-    return this.datetime(NaiveDateTime.fromMse(Epoch.currentMse()));
+    // Convert current UTC time to local wall-clock time
+    const utcNow = DateTime.fromMse(Epoch.currentMse(), Utc);
+    const localNow = this.toTz(utcNow);
+    return new DateTimeRegion(localNow.ndt, this);
   }
 
   date(nd: NaiveDate): DateRegion {
