@@ -229,35 +229,17 @@ export class TimezoneRegion {
   }
 
   /**
-   * Convert a wall-clock NaiveDateTime to DateTime.
-   *
-   * This method properly handles DST edge cases by delegating to toWallClockResolved().
-   */
-  toWallClock(ndt: NaiveDateTime): DateTime<FixedOffset> {
-    return this.toWallClockResolved(ndt);
-  }
-
-  /**
-   * Internal helper - converts without DST gap/overlap checking.
-   * Only used as fallback when toWallClockResolved confirms no transition on the day.
-   */
-  private toWallClockUnchecked(ndt: NaiveDateTime): DateTime<FixedOffset> {
-    const tz = this.tzAtMse(ndt.mse);
-    return ndt.withTz(tz);
-  }
-
-  /**
    * Convert a wall-clock NaiveDateTime to DateTime, properly handling DST edge cases.
    *
    * This function correctly resolves ambiguous or invalid wall-clock times:
    * - For times in spring-forward gap (e.g., 2:30 AM on DST day): uses post-transition (later) offset
    * - For times in fall-back overlap (e.g., 1:30 AM occurs twice): uses post-transition (later) offset
    *
-   * The key difference from `toWallClock()` is that this function finds DST transitions
-   * by checking the actual day of the NaiveDateTime, rather than comparing `ndt.mse`
-   * (which is a naive "wall-clock MSE") against UTC-based transition timestamps.
+   * This finds DST transitions by checking the actual day of the NaiveDateTime,
+   * rather than comparing `ndt.mse` (which is a naive "wall-clock MSE") against
+   * UTC-based transition timestamps.
    */
-  toWallClockResolved(ndt: NaiveDateTime): DateTime<FixedOffset> {
+  toWallClock(ndt: NaiveDateTime): DateTime<FixedOffset> {
     const dayStartMse = ndt.date.withTime(TimeOfDay.fromHms({ hrs: 0 })).mse;
     const dayEndMse = dayStartMse + 24 * 60 * 60 * 1000;
 
@@ -267,7 +249,8 @@ export class TimezoneRegion {
     });
 
     if (transitions.length === 0) {
-      return this.toWallClockUnchecked(ndt);
+      const tz = this.tzAtMse(ndt.mse);
+      return ndt.withTz(tz);
     }
 
     for (const transition of transitions) {
@@ -324,7 +307,8 @@ export class TimezoneRegion {
       }
     }
 
-    return this.toWallClockUnchecked(ndt);
+    const tz = this.tzAtMse(ndt.mse);
+    return ndt.withTz(tz);
   }
 
   toTz(dt: DateTime<any>): DateTime<FixedOffset> {
