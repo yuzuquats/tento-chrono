@@ -28,7 +28,7 @@ const LOADERS = {
   url: <TimezoneRegion.Loader>{
     load: async (tzname: Tzname) => {
       const resp = await fetch(
-        `https://dev--static.lona.so/timezones/2024b/1900_2050/${tzname.replaceAll(
+        `https://dev--static.lona.so:8443/timezones/2024b/1900_2050/${tzname.replaceAll(
           "/",
           "~",
         )}.json`,
