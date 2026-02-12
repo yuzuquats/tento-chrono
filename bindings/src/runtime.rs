@@ -26,7 +26,9 @@ impl Runtime {
   #[doc(hidden)]
   pub fn env_test() -> anyhow::Result<Self> {
     use serde_lona_env::{AssertEnvVar, FromEnvVarTest};
-    let pkg_location = LonaJsChronoOutputJs::from_env_test().assert_envars().into_value();
+    let pkg_location = LonaJsChronoOutputJs::from_env_test()
+      .assert_envars()
+      .into_value();
     let pkg_dir = PathBuf::from(std::fs::read_to_string(&*pkg_location)?);
     Runtime::new(pkg_dir)
   }
