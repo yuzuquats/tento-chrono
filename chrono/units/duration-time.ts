@@ -433,6 +433,14 @@ export class DurationTime
     );
   }
 
+  formatLatency(): string {
+    const ms = Math.abs(this.toMs);
+    if (ms < 1000) return `${Math.round(ms)}ms`;
+    const s = ms / 1000;
+    if (s < 10) return `${s.toFixed(1)}s`;
+    return `${Math.round(s)}s`;
+  }
+
   toString(): string {
     return this.asSignedHm();
   }
