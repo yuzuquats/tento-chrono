@@ -1,4 +1,4 @@
-import "../../lona-js/lona-js/types/option.d.ts";
+import "../../yuzu-js/ui/types/option.d.ts";
 
 import { assertEquals } from "@std/assert";
 

@@ -5,6 +5,6 @@
   },
   "unstable": ["unstable-sloppy-imports"],
   "compilerOptions": {
-    "types": ["../../../lona-js/lona-js/types/option.d.ts"]
+    "types": ["../../yuzu-js/ui/types/option.d.ts"]
   }
 }

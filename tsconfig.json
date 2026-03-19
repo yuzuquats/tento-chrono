@@ -1,13 +1,13 @@
 {
-  "extends": "../lona-js/tsconfig.base.json",
+  "extends": "../yuzu-js/tsconfig.base.json",
   "compilerOptions": {
     "typeRoots": [
-      "../lona-js/lona-js/types/*.d.ts"
+      "../yuzu-js/ui/types/*.d.ts"
     ],
     "isolatedModules": false,
     "paths": {
       "@lona/*": [
-        "../lona-js/lona-js/*"
+        "../yuzu-js/ui/*"
       ],
       "@tento-chrono": [
         "./chrono/mod.ts"
@@ -16,6 +16,6 @@
   },
   "include": [
     "**/*.ts",
-    "../lona-js/lona-js/types/*.d.ts"
+    "../yuzu-js/ui/types/*.d.ts"
   ]
 }
