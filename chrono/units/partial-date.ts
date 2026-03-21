@@ -24,6 +24,7 @@ export class PartialDate {
       end: NaiveDate;
       index: number;
     }> = {},
+    readonly weekStart: Weekday = Weekday.MON,
   ) {}
 
   // biome-ignore lint/suspicious/useGetterReturn: is correct
@@ -54,7 +55,7 @@ export class PartialDate {
       case "month":
         return new PartialDate("month", date.yr, date.month1);
       case "week":
-        return new PartialDate("week", date.isoYear, null, null, date.isoWno);
+        return new PartialDate("week", date.isoYear, null, null, date.isoWno, {}, this.weekStart);
       case "day":
         return new PartialDate("day", date.yr, date.month1, date.day1);
     }
@@ -99,7 +100,7 @@ export class PartialDate {
       case "day":
         return NaiveDate.fromYmd1Exp(this.yr, this.mth!, this.day!);
       case "week":
-        return Week.dateFromWeekno(this as Yw1Like, Weekday.MON);
+        return Week.dateFromWeekno(this as Yw1Like, this.weekStart);
     }
   }
 
@@ -148,7 +149,7 @@ export class PartialDate {
           { yr: this.yr, wno: this.wno! },
           scalar,
         );
-        return new PartialDate(this.type, yr, null, null, week);
+        return new PartialDate(this.type, yr, null, null, week, {}, this.weekStart);
       }
     }
   }
@@ -214,18 +215,20 @@ export class PartialDate {
         break;
       }
       case "week": {
-        // Find the first Monday on or after the start date
+        // Find the first weekStart day on or after the start date
         // This ensures each week belongs to exactly one parent month
-        let firstMonday = this.start;
-        while (firstMonday.dayOfWeek !== Weekday.MON) {
-          firstMonday = firstMonday.addDays(1);
+        let firstWeekday = this.start;
+        while (firstWeekday.dayOfWeek !== this.weekStart) {
+          firstWeekday = firstWeekday.addDays(1);
         }
         currentPd = new PartialDate(
           "week",
-          firstMonday.isoYear,
+          firstWeekday.isoYear,
           null,
           null,
-          firstMonday.isoWno,
+          firstWeekday.isoWno,
+          {},
+          this.weekStart,
         );
         break;
       }
@@ -270,6 +273,7 @@ export namespace PartialDate {
   export function fromDateAndType(
     type: DateUnit.Type,
     date: NaiveDate,
+    weekStart: Weekday = Weekday.MON,
   ): PartialDate {
     switch (type) {
       case "year":
@@ -285,6 +289,8 @@ export namespace PartialDate {
           null,
           null,
           date.isoWno,
+          {},
+          weekStart,
         );
       case "day":
         return new NaiveDate.Partial("day", date.yr, date.month1, date.day1);
@@ -312,8 +318,8 @@ export namespace PartialDate {
     });
   }
 
-  export function fromWeek(yr: number, week1: number): PartialDate {
-    return new PartialDate("week", yr, null, null, week1 as WeekOfYear1);
+  export function fromWeek(yr: number, week1: number, weekStart: Weekday = Weekday.MON): PartialDate {
+    return new PartialDate("week", yr, null, null, week1 as WeekOfYear1, {}, weekStart);
   }
 
   export function fromMonth(yr: number, mth: number): PartialDate {
@@ -324,8 +330,8 @@ export namespace PartialDate {
     return new PartialDate("year", yr, null, null, null);
   }
 
-  export function fromYw1(yw1: Yw1Like): PartialDate {
-    return new PartialDate("week", yw1.yr, null, null, yw1.wno);
+  export function fromYw1(yw1: Yw1Like, weekStart: Weekday = Weekday.MON): PartialDate {
+    return new PartialDate("week", yw1.yr, null, null, yw1.wno, {}, weekStart);
   }
 
   export function fromStr(
