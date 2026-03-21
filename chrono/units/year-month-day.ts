@@ -746,8 +746,29 @@ export namespace YearMonthDay {
   }
 
   export namespace Formatter {
-    export function render(s: YearMonthDay): string {
-      return `${s.month.name} ${s.day1}`;
+    export type Options = {
+      dateFormat?: "month-day" | "day-month";
+      includeYear?: boolean;
+      includeWeekday?: boolean;
+      shortMonth?: boolean;
+    };
+
+    export function render(s: YearMonthDay, options: Options = {}): string {
+      const {
+        dateFormat = "month-day",
+        includeYear = false,
+        includeWeekday = false,
+        shortMonth = false,
+      } = options;
+      const month = shortMonth ? s.month.shortName : s.month.name;
+      const dayMonth = dateFormat === "day-month"
+        ? `${s.day1} ${month}`
+        : `${month} ${s.day1}`;
+      const parts: string[] = [];
+      if (includeWeekday) parts.push(`${s.dayOfWeek.label},`);
+      parts.push(dayMonth);
+      if (includeYear) parts.push(String(s.yr));
+      return parts.join(" ");
     }
   }
 

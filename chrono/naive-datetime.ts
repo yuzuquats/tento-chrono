@@ -229,9 +229,9 @@ export namespace NaiveDateTime {
      * @param s The NaiveDateTime instance to format.
      * @returns A string representation of the date and time.
      */
-    export function render(s: NaiveDateTime): string {
-      // Combines month name, day, and the default string representation of the time.
-      return `${s.date.month.name} ${s.date.day1}, ${s.time.toString()}`;
+    export function render(s: NaiveDateTime, options: { dateFormat?: "month-day" | "day-month" } = {}): string {
+      const dateStr = NaiveDate.Formatter.render(s.date, { dateFormat: options.dateFormat });
+      return `${dateStr}, ${s.time.toString()}`;
     }
 
     /**
