@@ -1,4 +1,4 @@
-#![feature(coroutines, coroutine_trait, stmt_expr_attributes)]
+#![feature(coroutines, coroutine_trait)]
 #![feature(iter_from_coroutine)]
 
 pub mod date_unit;
