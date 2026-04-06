@@ -182,9 +182,10 @@ export class PartialDate {
         };
       }
       case "week": {
+        const daysDiff = date.differenceInDays(this.start);
         return {
-          index: Week.differenceInWeeks(this as Yw1Like, date.isoYw1),
-          days: date.dayOfWeek.isoDow,
+          index: Math.floor(daysDiff / 7),
+          days: ((daysDiff % 7) + 7) % 7,
           maxDays: 7,
         };
       }
