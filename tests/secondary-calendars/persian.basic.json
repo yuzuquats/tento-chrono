@@ -1,0 +1,12 @@
+{
+  "type": "persian",
+  "name": "basic",
+  "cases": [
+    { "name": "1 Farvardin 1403 = Mar 20 2024 (Nowruz)",   "input": "2024-03-20", "expected": "فروردین" },
+    { "name": "2 Farvardin 1403",                          "input": "2024-03-21", "expected": "۲" },
+    { "name": "1 Ordibehesht 1403 = Apr 20 2024",          "input": "2024-04-20", "expected": "اردیبهشت" },
+    { "name": "29 Esfand 1402 = Mar 19 2024 (last of ord)","input": "2024-03-19", "expected": "۲۹" },
+    { "name": "30 Esfand 1403 = Mar 20 2025 (last of leap)","input": "2025-03-20", "expected": "۳۰" },
+    { "name": "1 Farvardin 1402 = Mar 21 2023 (Nowruz)",   "input": "2023-03-21", "expected": "فروردین" }
+  ]
+}

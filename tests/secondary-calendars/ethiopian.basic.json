@@ -1,0 +1,12 @@
+{
+  "type": "ethiopian",
+  "name": "basic",
+  "cases": [
+    { "name": "1 Mäskäräm 2016 = Sep 11 2023",   "input": "2023-09-11", "expected": "መስከረም" },
+    { "name": "2 Mäskäräm 2016",                  "input": "2023-09-12", "expected": "፪" },
+    { "name": "15 Mäskäräm 2016 = Sep 25 2023",   "input": "2023-09-25", "expected": "፲፭" },
+    { "name": "1 Ṭəqəmt 2016 = Oct 11 2023",      "input": "2023-10-11", "expected": "ጥቅምት" },
+    { "name": "1 Ṗaguméʿ 2016 = Sep 5 2024 (13th month)", "input": "2024-09-05", "expected": "ጳጉሜ" },
+    { "name": "1 Mäskäräm 2017 = Sep 11 2024",   "input": "2024-09-11", "expected": "መስከረም" }
+  ]
+}

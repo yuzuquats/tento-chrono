@@ -1,0 +1,14 @@
+{
+  "type": "hebrew",
+  "name": "basic",
+  "cases": [
+    { "name": "1 Tishrei 5785 = Oct 3 2024",  "input": "2024-10-03", "expected": "תשרי" },
+    { "name": "2 Tishrei 5785",                "input": "2024-10-04", "expected": "ב" },
+    { "name": "15 Tishrei 5785 = special טו",  "input": "2024-10-17", "expected": "טו" },
+    { "name": "16 Tishrei 5785 = special טז",  "input": "2024-10-18", "expected": "טז" },
+    { "name": "30 Tishrei 5785",               "input": "2024-11-01", "expected": "ל" },
+    { "name": "1 Cheshvan 5785 = Nov 2 2024",  "input": "2024-11-02", "expected": "חשוון" },
+    { "name": "1 Tishrei 5784 = Sep 16 2023",  "input": "2023-09-16", "expected": "תשרי" },
+    { "name": "1 Adar II 5784 (leap year)",    "input": "2024-03-11", "expected": "אדר ב׳" }
+  ]
+}

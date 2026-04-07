@@ -1,0 +1,13 @@
+{
+  "type": "islamic",
+  "name": "basic",
+  "cases": [
+    { "name": "1 Muharram 1446 = Jul 7 2024",  "input": "2024-07-07", "expected": "محرم" },
+    { "name": "2 Muharram 1446",               "input": "2024-07-08", "expected": "٢" },
+    { "name": "10 Muharram 1446",              "input": "2024-07-16", "expected": "١٠" },
+    { "name": "30 Muharram 1446",              "input": "2024-08-05", "expected": "٣٠" },
+    { "name": "1 Safar 1446 = Aug 6 2024",     "input": "2024-08-06", "expected": "صفر" },
+    { "name": "1 Ramadan 1446 = Feb 28 2025",   "input": "2025-02-28", "expected": "رمضان" },
+    { "name": "1 Muharram 1445 = Jul 18 2023", "input": "2023-07-18", "expected": "محرم" }
+  ]
+}

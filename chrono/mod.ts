@@ -2,6 +2,7 @@ export * from "./result";
 export * from "./range";
 
 export * from "./units/mod";
+export * from "./secondary-calendars/mod";
 
 export * from "./time";
 export * from "./naive-time";

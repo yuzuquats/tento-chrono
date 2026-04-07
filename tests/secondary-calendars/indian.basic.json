@@ -1,0 +1,12 @@
+{
+  "type": "indian",
+  "name": "basic",
+  "cases": [
+    { "name": "1 Chaitra 1945 = Mar 22 2023 (ordinary year)", "input": "2023-03-22", "expected": "चैत्र" },
+    { "name": "2 Chaitra 1945",                               "input": "2023-03-23", "expected": "२" },
+    { "name": "1 Chaitra 1946 = Mar 21 2024 (leap year)",     "input": "2024-03-21", "expected": "चैत्र" },
+    { "name": "1 Vaisakha 1946 = Apr 21 2024",                "input": "2024-04-21", "expected": "वैशाख" },
+    { "name": "30 Phalguna 1945 = Mar 20 2024 (last of ord)", "input": "2024-03-20", "expected": "३०" },
+    { "name": "30 Phalguna 1944 = Mar 21 2023",               "input": "2023-03-21", "expected": "३०" }
+  ]
+}
