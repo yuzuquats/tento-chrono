@@ -289,6 +289,12 @@ class _YearMonthDay implements Ymd1Like {
 
   addDaysOpt(days: number): YearMonthDay.MaybeValid {
     if (days === 0) return this.castMaybeInValid();
+    // O(1) path via DSE arithmetic for large offsets (scroll engine hot path)
+    if (days > 365 || days < -365) {
+      const ymd = Ymd1Like.fromDse((this.dse + days) as DaysSinceEpoch);
+      return YearMonthDay.fromYmd1Unchecked(ymd.yr, ymd.mth, ymd.day);
+    }
+    // O(days) path for small offsets — handles edge cases (3-digit years etc.)
     let d = this.day + days;
     let yr = this.ymd1.yr;
     let mth = this.ymd1.mth;
