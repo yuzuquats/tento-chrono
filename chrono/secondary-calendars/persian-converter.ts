@@ -1,4 +1,5 @@
 import { NaiveDate } from "../naive-date";
+import type { CalendarCellData } from "./calendar-cell-data";
 
 export type JalaliDate = {
   year: number;
@@ -116,5 +117,11 @@ export namespace PersianConverter {
     if (!j) return null;
     if (j.day === 1) return formatMonth(j.month);
     return formatDay(j.day);
+  }
+
+  export function toCellData(date: NaiveDate): Option<CalendarCellData> {
+    const j = toJalaliDate(date);
+    if (!j) return null;
+    return { calYear: j.year, calMonth: j.month, calDay: j.day, label: labelFor(date) ?? "" };
   }
 }

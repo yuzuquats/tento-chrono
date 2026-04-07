@@ -1,4 +1,5 @@
 import { NaiveDate } from "../naive-date";
+import type { CalendarCellData } from "./calendar-cell-data";
 
 export type LunarDate = {
   year: number;
@@ -161,5 +162,11 @@ export namespace LunarConverter {
     if (!lunar) return null;
     if (lunar.day === 1) return formatMonth(lunar.month, lunar.isLeap);
     return formatDay(lunar.day);
+  }
+
+  export function toCellData(date: NaiveDate): Option<CalendarCellData> {
+    const lunar = toLunarDate(date);
+    if (!lunar) return null;
+    return { calYear: lunar.year, calMonth: lunar.month, calDay: lunar.day, label: labelFor(date) ?? "" };
   }
 }

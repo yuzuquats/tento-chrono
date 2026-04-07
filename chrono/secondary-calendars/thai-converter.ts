@@ -1,4 +1,5 @@
 import { NaiveDate } from "../naive-date";
+import type { CalendarCellData } from "./calendar-cell-data";
 
 /**
  * Thai Buddhist calendar.
@@ -57,5 +58,14 @@ export namespace ThaiConverter {
   export function labelFor(date: NaiveDate): string {
     if (date.day === 1) return formatMonth(date.month1);
     return formatDay(date.day);
+  }
+
+  export function toCellData(date: NaiveDate): CalendarCellData {
+    return {
+      calYear: buddhistYear(date.yr),
+      calMonth: date.month1,
+      calDay: date.day,
+      label: labelFor(date),
+    };
   }
 }

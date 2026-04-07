@@ -1,4 +1,5 @@
 import { NaiveDate } from "../naive-date";
+import type { CalendarCellData } from "./calendar-cell-data";
 
 export type HebrewDate = {
   year: number;
@@ -122,5 +123,11 @@ export namespace HebrewConverter {
     if (!h) return null;
     if (h.day === 1) return formatMonth(h.month, h.isLeap);
     return formatDay(h.day);
+  }
+
+  export function toCellData(date: NaiveDate): Option<CalendarCellData> {
+    const h = toHebrewDate(date);
+    if (!h) return null;
+    return { calYear: h.year, calMonth: h.month, calDay: h.day, label: labelFor(date) ?? "" };
   }
 }

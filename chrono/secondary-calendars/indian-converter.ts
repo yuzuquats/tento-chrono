@@ -1,4 +1,5 @@
 import { NaiveDate } from "../naive-date";
+import type { CalendarCellData } from "./calendar-cell-data";
 
 export type SakaDate = {
   year: number;
@@ -115,5 +116,11 @@ export namespace IndianConverter {
     if (!s) return null;
     if (s.day === 1) return formatMonth(s.month);
     return formatDay(s.day);
+  }
+
+  export function toCellData(date: NaiveDate): Option<CalendarCellData> {
+    const s = toSakaDate(date);
+    if (!s) return null;
+    return { calYear: s.year, calMonth: s.month, calDay: s.day, label: labelFor(date) ?? "" };
   }
 }

@@ -1,4 +1,5 @@
 import { NaiveDate } from "../naive-date";
+import type { CalendarCellData } from "./calendar-cell-data";
 
 export type EthiopianDate = {
   year: number;
@@ -105,5 +106,11 @@ export namespace EthiopianConverter {
     if (!e) return null;
     if (e.day === 1) return formatMonth(e.month);
     return formatDay(e.day);
+  }
+
+  export function toCellData(date: NaiveDate): Option<CalendarCellData> {
+    const e = toEthiopianDate(date);
+    if (!e) return null;
+    return { calYear: e.year, calMonth: e.month, calDay: e.day, label: labelFor(date) ?? "" };
   }
 }

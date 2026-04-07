@@ -1,4 +1,5 @@
 import { NaiveDate } from "../naive-date";
+import type { CalendarCellData } from "./calendar-cell-data";
 
 export type HijriDate = {
   year: number;
@@ -112,5 +113,11 @@ export namespace IslamicConverter {
     if (!h) return null;
     if (h.day === 1) return formatMonth(h.month);
     return formatDay(h.day);
+  }
+
+  export function toCellData(date: NaiveDate): Option<CalendarCellData> {
+    const h = toHijriDate(date);
+    if (!h) return null;
+    return { calYear: h.year, calMonth: h.month, calDay: h.day, label: labelFor(date) ?? "" };
   }
 }
