@@ -11,6 +11,7 @@ import { Ms } from "./units/ms";
 import { TimeOfDay } from "./units/time-of-day";
 import { DaysSinceEpoch, MsSinceEpoch } from "./units/units";
 import { Weekday } from "./units/weekday";
+import { YearMonthDay } from "./units/year-month-day";
 import { TentoMath } from "./utils";
 
 /**
@@ -23,6 +24,21 @@ const RFC3339_REGEX =
 
 const RFC3339_CACHE_MAX = 128;
 const _rfc3339Cache = new Map<string, Result<DateTime<FixedOffset>>>();
+
+/** Parse 2-digit integer at position i. Returns NaN on non-digit. */
+function int2(s: string, i: number): number {
+  return (s.charCodeAt(i) - 48) * 10 + (s.charCodeAt(i + 1) - 48);
+}
+
+/** Parse 4-digit integer at position i. Returns NaN on non-digit. */
+function int4(s: string, i: number): number {
+  return (
+    (s.charCodeAt(i) - 48) * 1000 +
+    (s.charCodeAt(i + 1) - 48) * 100 +
+    (s.charCodeAt(i + 2) - 48) * 10 +
+    (s.charCodeAt(i + 3) - 48)
+  );
+}
 
 /**
  * Represents a specific moment in time with associated timezone information.
@@ -506,48 +522,70 @@ export namespace DateTime {
       }
     }
 
+    // Fast path: parse fixed-position fields without regex.
+    // RFC3339: YYYY-MM-DD[THH:MM:SS[.fff][Z|±HH:MM]]
+    const len = rfc3339.length;
+    if (len >= 10 && rfc3339.charCodeAt(4) === 45 /* - */) {
+      const yr = int4(rfc3339, 0);
+      const mth = int2(rfc3339, 5);
+      const day = int2(rfc3339, 8);
+      if (yr === yr && mth === mth && day === day && mth >= 1 && mth <= 12 && day >= 1 && day <= 31) {
+        const nd = YearMonthDay.fromYmd1Unchecked(yr, mth, day);
+        if (nd.toResult().isErr) return nd.toResult().expeCast();
+        let hrs = 0, mins = 0, secs = 0, ms = 0;
+        let tzStr = "Z";
+
+        if (len > 10 && rfc3339.charCodeAt(10) === 84 /* T */) {
+          hrs = int2(rfc3339, 11);
+          mins = int2(rfc3339, 14);
+          secs = len > 17 ? int2(rfc3339, 17) : 0;
+          let tzStart = 19;
+          if (tzStart < len && rfc3339.charCodeAt(tzStart) === 46 /* . */) {
+            let fracEnd = tzStart + 1;
+            while (fracEnd < len && rfc3339.charCodeAt(fracEnd) >= 48 && rfc3339.charCodeAt(fracEnd) <= 57) fracEnd++;
+            ms = Math.round(Number.parseFloat("0" + rfc3339.substring(tzStart, fracEnd)) * 1000);
+            tzStart = fracEnd;
+          }
+          if (tzStart < len) tzStr = rfc3339.substring(tzStart);
+        }
+
+        const nt = new NaiveTime(((hrs * 3600 + mins * 60 + secs) * 1000 + ms) as Ms);
+        const tz = LogicalTimezone.parse(tzStr, tzname, tzabbr);
+        const result = ok(new DateTime(new NaiveDateTime(nd, nt), tz));
+
+        if (!tzname && !tzabbr) {
+          if (_rfc3339Cache.size >= RFC3339_CACHE_MAX) {
+            _rfc3339Cache.delete(_rfc3339Cache.keys().next().value!);
+          }
+          _rfc3339Cache.set(rfc3339, result);
+        }
+        return result;
+      }
+    }
+
+    // Slow fallback: regex for non-standard formats
     const match = rfc3339.match(RFC3339_REGEX);
     if (!match) return erm("DateTime.fromRfc3339: Invalid format");
 
-    // Extract components (handle optional time/timezone)
-    const [
-      _,
-      yearStr,
-      monthStr,
-      dayStr,
-      hourStr = "00", // Default to midnight if time is missing
-      minuteStr = "00",
-      secondStr = "00",
-      fractionStr = ".0", // Default to zero milliseconds
-      timezoneStr = "Z", // Default to UTC if timezone is missing
-    ] = match;
+    const [, yearStr, monthStr, dayStr,
+      hourStr = "00", minuteStr = "00", secondStr = "00",
+      fractionStr = ".0", timezoneStr = "Z"] = match;
 
     const ndr = NaiveDate.fromYmd1Str(yearStr, monthStr, dayStr);
     if (ndr.isErr) return ndr.expeCast();
     const nd = ndr.exp();
 
-    const ms = Math.round(Number.parseFloat("0" + fractionStr) * 1000); // Convert ".123" to 123ms
+    const ms2 = Math.round(Number.parseFloat("0" + fractionStr) * 1000);
     const ntr = NaiveTime.tryFrom({
       hrs: TentoMath.int(hourStr),
       mins: TentoMath.int(minuteStr),
       secs: TentoMath.int(secondStr),
-      ms: ms as Ms,
+      ms: ms2 as Ms,
     });
-
     if (ntr.isErr) return ntr.expeCast();
-    const nt = ntr.exp();
 
     const tz = LogicalTimezone.parse(timezoneStr, tzname, tzabbr);
-    const result = ok(new DateTime(new NaiveDateTime(nd, nt), tz));
-
-    if (!tzname && !tzabbr) {
-      if (_rfc3339Cache.size >= RFC3339_CACHE_MAX) {
-        _rfc3339Cache.delete(_rfc3339Cache.keys().next().value!);
-      }
-      _rfc3339Cache.set(rfc3339, result);
-    }
-
-    return result;
+    return ok(new DateTime(new NaiveDateTime(ndr.exp(), ntr.exp()), tz));
   }
 
   /**
