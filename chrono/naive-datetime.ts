@@ -20,6 +20,8 @@ import { DaysSinceEpoch, MsSinceEpoch, Sign } from "./units/units";
  * Operations on `NaiveDateTime` do not consider timezone offsets or daylight saving time rules.
  */
 export class NaiveDateTime {
+  private _mse: Option<MsSinceEpoch> = null;
+
   /**
    * Creates a new NaiveDateTime instance.
    * @param date The date component.
@@ -101,8 +103,9 @@ export class NaiveDateTime {
    * calculated based on the naive date and time without considering any timezone.
    */
   get mse(): MsSinceEpoch {
-    return (this.date.daysSinceEpoch * Time.MS_PER_DAY +
-      this.time.toMs) as MsSinceEpoch;
+    if (this._mse != null) return this._mse;
+    return (this._mse = (this.date.daysSinceEpoch * Time.MS_PER_DAY +
+      this.time.toMs) as MsSinceEpoch);
   }
 
   /**

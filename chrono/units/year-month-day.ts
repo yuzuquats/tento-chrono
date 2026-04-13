@@ -73,6 +73,7 @@ export type CachedYmdInfo = {
   isValid: boolean;
   validationError: Error;
   isoYw1: Yw1Like;
+  rfc3339: string;
 };
 
 class _YearMonthDay implements Ymd1Like {
@@ -469,11 +470,12 @@ class _YearMonthDay implements Ymd1Like {
   }
 
   rfc3339(): string {
-    return [
+    if (this.cached.rfc3339 != null) return this.cached.rfc3339;
+    return (this.cached.rfc3339 = [
       this.yr,
       String(this.month1).padStart(2, "0"),
       String(this.day1).padStart(2, "0"),
-    ].join("-");
+    ].join("-"));
   }
 
   ical(): string {

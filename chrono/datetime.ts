@@ -55,6 +55,8 @@ export class DateTime<TzType extends string = any> {
    * @param ndt The timezone-naive date and time component.
    * @param tz The timezone associated with this DateTime.
    */
+  private _mse: Option<MsSinceEpoch> = null;
+
   constructor(
     public readonly ndt: NaiveDateTime,
     public readonly tz: LogicalTimezone<TzType>,
@@ -70,7 +72,8 @@ export class DateTime<TzType extends string = any> {
    * console.log(dt.mse); // Output: 1000
    */
   get mse(): MsSinceEpoch {
-    return (this.ndt.mse - this.tz.info.offset.toMs) as MsSinceEpoch;
+    if (this._mse != null) return this._mse;
+    return (this._mse = (this.ndt.mse - this.tz.info.offset.toMs) as MsSinceEpoch);
   }
 
   /**
