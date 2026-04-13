@@ -21,6 +21,9 @@ import { TentoMath } from "./utils";
 const RFC3339_REGEX =
   /^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2}):(\d{2})(\.\d+)?(Z|[+-]\d{2}:\d{2}(?::\d{2})?)?)?$/;
 
+const RFC3339_CACHE_MAX = 128;
+const _rfc3339Cache = new Map<string, Result<DateTime<FixedOffset>>>();
+
 /**
  * Represents a specific moment in time with associated timezone information.
  * It combines a timezone-naive `NaiveDateTime` with a `LogicalTimezone`.
@@ -491,6 +494,18 @@ export namespace DateTime {
     tzname?: Option<string>,
     tzabbr?: Option<string>,
   ): Result<DateTime<FixedOffset>> {
+    // LRU cache for repeated parses of the same string (common during
+    // calendar cold start where cells share dates).
+    if (!tzname && !tzabbr) {
+      const cached = _rfc3339Cache.get(rfc3339);
+      if (cached) {
+        // Promote to end of Map (most recently used)
+        _rfc3339Cache.delete(rfc3339);
+        _rfc3339Cache.set(rfc3339, cached);
+        return cached;
+      }
+    }
+
     const match = rfc3339.match(RFC3339_REGEX);
     if (!match) return erm("DateTime.fromRfc3339: Invalid format");
 
@@ -523,7 +538,16 @@ export namespace DateTime {
     const nt = ntr.exp();
 
     const tz = LogicalTimezone.parse(timezoneStr, tzname, tzabbr);
-    return ok(new DateTime(new NaiveDateTime(nd, nt), tz));
+    const result = ok(new DateTime(new NaiveDateTime(nd, nt), tz));
+
+    if (!tzname && !tzabbr) {
+      if (_rfc3339Cache.size >= RFC3339_CACHE_MAX) {
+        _rfc3339Cache.delete(_rfc3339Cache.keys().next().value!);
+      }
+      _rfc3339Cache.set(rfc3339, result);
+    }
+
+    return result;
   }
 
   /**
