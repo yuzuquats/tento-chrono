@@ -242,7 +242,18 @@ export class TimezoneRegion {
    * rather than comparing `ndt.mse` (which is a naive "wall-clock MSE") against
    * UTC-based transition timestamps.
    */
+  // Cache the "no transition" timezone per DSE to avoid repeated bst lookups.
+  // Most dates have no transitions — this skips transitionsBetween entirely.
+  private _wallClockTzCache = new Map<number, LogicalTimezone<any>>();
+
   toWallClock(ndt: NaiveDateTime): DateTime<FixedOffset> {
+    const dse = ndt.date.dse;
+
+    // Fast path: if we've already determined this date has no transitions,
+    // reuse the cached timezone directly.
+    const cachedTz = this._wallClockTzCache.get(dse);
+    if (cachedTz) return ndt.withTz(cachedTz);
+
     const dayStartMse = ndt.date.withTime(TimeOfDay.fromHms({ hrs: 0 })).mse;
     const dayEndMse = dayStartMse + 24 * 60 * 60 * 1000;
 
@@ -253,6 +264,7 @@ export class TimezoneRegion {
 
     if (transitions.length === 0) {
       const tz = this.tzAtMse(ndt.mse);
+      this._wallClockTzCache.set(dse, tz);
       return ndt.withTz(tz);
     }
 

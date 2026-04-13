@@ -1,0 +1,125 @@
+{
+  "name": "toWallClock with DSE cache",
+  "cases": [
+    {
+      "name": "normal summer date (no DST transition)",
+      "input": {
+        "tz": "America/Los_Angeles",
+        "date": "2026-07-15",
+        "time": "10:30:00"
+      },
+      "expected": {
+        "offset": "-07:00",
+        "rfc3339": "2026-07-15T10:30:00-07:00"
+      }
+    },
+    {
+      "name": "normal winter date (no DST transition)",
+      "input": {
+        "tz": "America/Los_Angeles",
+        "date": "2026-01-15",
+        "time": "10:30:00"
+      },
+      "expected": {
+        "offset": "-08:00",
+        "rfc3339": "2026-01-15T10:30:00-08:00"
+      }
+    },
+    {
+      "name": "same date different times produce same offset (cache hit)",
+      "input": {
+        "tz": "America/Los_Angeles",
+        "date": "2026-07-15",
+        "times": ["08:00:00", "12:00:00", "18:00:00", "23:59:00"]
+      },
+      "expected": {
+        "allOffset": "-07:00"
+      }
+    },
+    {
+      "name": "spring forward — before transition",
+      "input": {
+        "tz": "America/Los_Angeles",
+        "date": "2026-03-08",
+        "time": "01:30:00"
+      },
+      "expected": {
+        "offset": "-08:00",
+        "rfc3339": "2026-03-08T01:30:00-08:00"
+      }
+    },
+    {
+      "name": "spring forward — in the gap (2:30 AM doesn't exist, uses post-transition)",
+      "input": {
+        "tz": "America/Los_Angeles",
+        "date": "2026-03-08",
+        "time": "02:30:00"
+      },
+      "expected": {
+        "offset": "-07:00",
+        "rfc3339": "2026-03-08T02:30:00-07:00"
+      }
+    },
+    {
+      "name": "spring forward — after transition",
+      "input": {
+        "tz": "America/Los_Angeles",
+        "date": "2026-03-08",
+        "time": "03:30:00"
+      },
+      "expected": {
+        "offset": "-07:00",
+        "rfc3339": "2026-03-08T03:30:00-07:00"
+      }
+    },
+    {
+      "name": "fall back — before overlap",
+      "input": {
+        "tz": "America/Los_Angeles",
+        "date": "2026-11-01",
+        "time": "00:30:00"
+      },
+      "expected": {
+        "offset": "-07:00",
+        "rfc3339": "2026-11-01T00:30:00-07:00"
+      }
+    },
+    {
+      "name": "fall back — after overlap",
+      "input": {
+        "tz": "America/Los_Angeles",
+        "date": "2026-11-01",
+        "time": "02:30:00"
+      },
+      "expected": {
+        "offset": "-08:00",
+        "rfc3339": "2026-11-01T02:30:00-08:00"
+      }
+    },
+    {
+      "name": "UTC has no transitions",
+      "input": {
+        "tz": "UTC",
+        "date": "2026-07-15",
+        "time": "10:30:00"
+      },
+      "expected": {
+        "offset": "+00:00",
+        "rfc3339": "2026-07-15T10:30:00+00:00"
+      }
+    },
+    {
+      "name": "consecutive days use different cache entries",
+      "input": {
+        "tz": "America/Los_Angeles",
+        "dates": [
+          { "date": "2026-07-15", "time": "12:00:00" },
+          { "date": "2026-07-16", "time": "12:00:00" }
+        ]
+      },
+      "expected": {
+        "allOffset": "-07:00"
+      }
+    }
+  ]
+}
