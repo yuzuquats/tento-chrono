@@ -68,10 +68,43 @@ const TABLE: [number, number, number, string][] = [
   [2, 12, 0,  "101101011010"],   // 2040
 ];
 
-const UNITS = ["", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十"];
-const MONTH_NAMES = [
-  "", "正", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二",
+const DAY_NAMES = [
+  "",
+  "初一",
+  "初二",
+  "初三",
+  "初四",
+  "初五",
+  "初六",
+  "初七",
+  "初八",
+  "初九",
+  "初十",
+  "十一",
+  "十二",
+  "十三",
+  "十四",
+  "十五",
+  "十六",
+  "十七",
+  "十八",
+  "十九",
+  "二十",
+  "廿一",
+  "廿二",
+  "廿三",
+  "廿四",
+  "廿五",
+  "廿六",
+  "廿七",
+  "廿八",
+  "廿九",
+  "三十",
 ];
+const MONTH_NAMES = [
+  "", "正月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月",
+];
+const LEAP_MONTH_PREFIX = "闰";
 
 export namespace LunarConverter {
   /**
@@ -131,16 +164,11 @@ export namespace LunarConverter {
 
   /**
    * Format a lunar day as a Chinese ordinal string.
-   * Days 1–10: 初一…初十. Days 11–19: 十一…十九.
-   * Day 20: 二十. Days 21–29: 二十一…二十九. Day 30: 三十.
+   * Uses canonical Chinese lunar day labels:
+   * 初一…初十, 十一…十九, 二十, 廿一…廿九, 三十.
    */
   export function formatDay(day: number): string {
-    if (day >= 1 && day <= 10) return "初" + UNITS[day];
-    if (day >= 11 && day <= 19) return "十" + UNITS[day - 10];
-    if (day === 20) return "二十";
-    if (day >= 21 && day <= 29) return "二十" + UNITS[day - 20];
-    if (day === 30) return "三十";
-    return String(day);
+    return DAY_NAMES[day] ?? String(day);
   }
 
   /**
@@ -149,7 +177,7 @@ export namespace LunarConverter {
    */
   export function formatMonth(month: number, isLeap: boolean): string {
     const base = MONTH_NAMES[month] ?? String(month);
-    return isLeap ? "闰" + base + "月" : base + "月";
+    return isLeap ? LEAP_MONTH_PREFIX + base : base;
   }
 
   /**

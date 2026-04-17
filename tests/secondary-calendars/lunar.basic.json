@@ -5,7 +5,10 @@
     { "name": "1 正月 2024 = Feb 10 2024 (CNY)",   "input": "2024-02-10", "expected": "正月" },
     { "name": "2 正月 2024",                        "input": "2024-02-11", "expected": "初二" },
     { "name": "15 正月 2024 = Feb 24 2024",         "input": "2024-02-24", "expected": "十五" },
+    { "name": "21 正月 2024 = Mar 1 2024",          "input": "2024-03-01", "expected": "廿一" },
+    { "name": "29 正月 2024 = Mar 9 2024",          "input": "2024-03-09", "expected": "廿九" },
     { "name": "1 二月 2024 = Mar 10 2024",          "input": "2024-03-10", "expected": "二月" },
+    { "name": "1 闰四月 2020 = May 23 2020",        "input": "2020-05-23", "expected": "闰四月" },
     { "name": "1 正月 2025 = Jan 29 2025 (CNY)",   "input": "2025-01-29", "expected": "正月" },
     { "name": "1 正月 2023 = Jan 22 2023 (CNY)",   "input": "2023-01-22", "expected": "正月" }
   ]
