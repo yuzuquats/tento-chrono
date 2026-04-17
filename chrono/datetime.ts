@@ -26,17 +26,23 @@ const RFC3339_CACHE_MAX = 128;
 const _rfc3339Cache = new Map<string, Result<DateTime<FixedOffset>>>();
 
 /** Parse 2-digit integer at position i. Returns NaN on non-digit. */
+function digit(s: string, i: number): number {
+  const parsed = s.charCodeAt(i) - 48;
+  return parsed >= 0 && parsed <= 9 ? parsed : Number.NaN;
+}
+
+/** Parse 2-digit integer at position i. Returns NaN on non-digit. */
 function int2(s: string, i: number): number {
-  return (s.charCodeAt(i) - 48) * 10 + (s.charCodeAt(i + 1) - 48);
+  return digit(s, i) * 10 + digit(s, i + 1);
 }
 
 /** Parse 4-digit integer at position i. Returns NaN on non-digit. */
 function int4(s: string, i: number): number {
   return (
-    (s.charCodeAt(i) - 48) * 1000 +
-    (s.charCodeAt(i + 1) - 48) * 100 +
-    (s.charCodeAt(i + 2) - 48) * 10 +
-    (s.charCodeAt(i + 3) - 48)
+    digit(s, i) * 1000 +
+    digit(s, i + 1) * 100 +
+    digit(s, i + 2) * 10 +
+    digit(s, i + 3)
   );
 }
 
@@ -529,9 +535,19 @@ export namespace DateTime {
       const yr = int4(rfc3339, 0);
       const mth = int2(rfc3339, 5);
       const day = int2(rfc3339, 8);
-      if (yr === yr && mth === mth && day === day && mth >= 1 && mth <= 12 && day >= 1 && day <= 31) {
-        const nd = YearMonthDay.fromYmd1Unchecked(yr, mth, day);
-        if (nd.toResult().isErr) return nd.toResult().expeCast();
+      const hasValidDateFields =
+        !Number.isNaN(yr) &&
+        !Number.isNaN(mth) &&
+        !Number.isNaN(day) &&
+        mth >= 1 &&
+        mth <= 12 &&
+        day >= 1 &&
+        day <= 31;
+
+      if (hasValidDateFields) {
+        const ndResult = YearMonthDay.fromYmd1Unchecked(yr, mth, day).toResult();
+        if (ndResult.isErr) return ndResult.expeCast();
+        const nd = ndResult.exp();
         let hrs = 0, mins = 0, secs = 0, ms = 0;
         let tzStr = "Z";
 

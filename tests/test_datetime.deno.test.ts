@@ -207,6 +207,9 @@ Deno.test({
 
     const invalidDate = DateTime.fromRfc3339("2023-02-30T10:00:00Z");
     assert(invalidDate.isErr); // NaiveDate validation should fail
+
+    const invalidYearDigits = DateTime.fromRfc3339("abcd-10-27T10:30:00Z");
+    assert(invalidYearDigits.isErr);
   },
 });
 
