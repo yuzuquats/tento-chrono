@@ -11,6 +11,15 @@
       ],
       "@tento-chrono": [
         "./chrono/mod.ts"
+      ],
+      "@tento-chrono/*": [
+        "./*"
+      ],
+      "@tento/chrono": [
+        "./chrono/mod.ts"
+      ],
+      "@tento/chrono/*": [
+        "./*"
       ]
     }
   },
