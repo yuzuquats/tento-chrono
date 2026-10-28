@@ -1,8 +1,9 @@
-import { NaiveDate } from "../naive-date";
-import { NaiveDateTime } from "../naive-datetime";
-import { NaiveTime } from "../naive-time";
-import { Result, erm, ok } from "../result";
-import { TentoMath } from "../utils";
+import { NaiveDate } from "../naive-date.ts";
+import { NaiveDateTime } from "../naive-datetime.ts";
+import { NaiveTime } from "../naive-time.ts";
+import { Result, erm, ok } from "../result.ts";
+import { TentoMath } from "../utils.ts";
+import type { Option } from "../option.ts";
 
 export class IsoDate {
   constructor(

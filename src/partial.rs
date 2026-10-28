@@ -3,6 +3,7 @@ use std::fmt::{Debug, Display};
 use anyhow::{Context, anyhow};
 use chrono::{DateTime, Datelike, NaiveDate, Utc};
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
+#[cfg(feature = "openapi")]
 use utoipa::{
   PartialSchema, ToSchema,
   openapi::{Object, Type},
@@ -27,11 +28,12 @@ impl SemanticTime {
     SemanticTime::Point(dt)
   }
 
-  /// Get the start date of this semantic time
-  pub fn start(&self) -> NaiveDate {
+  /// The first day of this semantic time; `None` for a partial date that
+  /// names no real day (see `PartialDate::start`).
+  pub fn start(&self) -> Option<NaiveDate> {
     match self {
       SemanticTime::Range(pd) => pd.start(),
-      SemanticTime::Point(dt) => dt.date_naive(),
+      SemanticTime::Point(dt) => Some(dt.date_naive()),
     }
   }
 
@@ -89,6 +91,7 @@ impl<'de> Deserialize<'de> for SemanticTime {
   }
 }
 
+#[cfg(feature = "openapi")]
 impl PartialSchema for SemanticTime {
   fn schema() -> utoipa::openapi::RefOr<utoipa::openapi::schema::Schema> {
     utoipa::openapi::RefOr::T(utoipa::openapi::Schema::Object(
@@ -100,6 +103,7 @@ impl PartialSchema for SemanticTime {
   }
 }
 
+#[cfg(feature = "openapi")]
 impl ToSchema for SemanticTime {
   fn name() -> std::borrow::Cow<'static, str> {
     "SemanticTime".into()
@@ -124,15 +128,15 @@ pub enum PartialDate {
 }
 
 impl PartialDate {
-  pub fn start(&self) -> NaiveDate {
+  /// The first day: `None` when the value names no real day (a month
+  /// outside 1..=12, a week the ISO year does not have, a year outside
+  /// chrono's range). `parse` and deserialization refuse those.
+  pub fn start(&self) -> Option<NaiveDate> {
     match self {
-      PartialDate::Y(yr) => NaiveDate::from_ymd_opt(*yr, 1, 1).expect("error constructing yr"),
-      PartialDate::Ym(YearMonth { yr, mth1 }) => {
-        NaiveDate::from_ymd_opt(*yr, *mth1, 1).expect("error constructing ym")
-      }
-      PartialDate::Ymd(naive_date) => *naive_date,
-      PartialDate::Yw { yr, week } => NaiveDate::from_isoywd_opt(*yr, *week, chrono::Weekday::Mon)
-        .expect("couldn't construct weekday"),
+      PartialDate::Y(yr) => NaiveDate::from_ymd_opt(*yr, 1, 1),
+      PartialDate::Ym(YearMonth { yr, mth1 }) => NaiveDate::from_ymd_opt(*yr, *mth1, 1),
+      PartialDate::Ymd(naive_date) => Some(*naive_date),
+      PartialDate::Yw { yr, week } => NaiveDate::from_isoywd_opt(*yr, *week, chrono::Weekday::Mon),
     }
   }
 
@@ -210,6 +214,7 @@ impl PartialDate {
   }
 }
 
+#[cfg(feature = "openapi")]
 impl ToSchema for PartialDate {
   fn name() -> std::borrow::Cow<'static, str> {
     std::borrow::Cow::Borrowed("PartialDate")
@@ -224,6 +229,7 @@ impl ToSchema for PartialDate {
   }
 }
 
+#[cfg(feature = "openapi")]
 impl PartialSchema for PartialDate {
   fn schema() -> utoipa::openapi::RefOr<utoipa::openapi::schema::Schema> {
     utoipa::openapi::RefOr::T(utoipa::openapi::Schema::Object(Object::with_type(
@@ -276,7 +282,22 @@ pub struct Ymdw {
 }
 
 impl PartialDate {
+  /// Parses `y-2024`, `ym-2024-2`, `yw-2024-5` or `ymd-2024-2-29` (zero
+  /// padding optional); refuses one that names no real day (`ym-2024-13`,
+  /// `yw-2021-53`).
   pub fn parse(s: &str) -> anyhow::Result<PartialDate> {
+    Self::parse_fields(s)?.checked()
+  }
+
+  /// `self` when it names a real day (`start` answers), an error otherwise.
+  fn checked(self) -> anyhow::Result<PartialDate> {
+    match self.start() {
+      Some(_) => Ok(self),
+      None => Err(anyhow!("{self} is not a real date")),
+    }
+  }
+
+  fn parse_fields(s: &str) -> anyhow::Result<PartialDate> {
     let parts: Vec<&str> = s.split('-').collect();
 
     match parts.as_slice() {
@@ -309,7 +330,19 @@ impl PartialDate {
     }
   }
 
+  /// The partial date the fields name: a week when `week` is set, else a day
+  /// when `day` is, else a month when `mth1` is, else the year. Refuses one
+  /// that names no real day.
   pub fn from_ymdw(
+    yr: i32,
+    mth1: Option<i32>,
+    week: Option<u32>,
+    day: Option<i32>,
+  ) -> anyhow::Result<PartialDate> {
+    Self::from_ymdw_fields(yr, mth1, week, day)?.checked()
+  }
+
+  fn from_ymdw_fields(
     yr: i32,
     mth1: Option<i32>,
     week: Option<u32>,
@@ -619,8 +652,18 @@ mod test {
   #[test]
   pub fn test() {
     let pd = PartialDate::parse("yw-2025-09").unwrap();
-    println!("{}", pd.start());
-    println!("{}", pd.end());
+    assert_eq!(pd.start(), NaiveDate::from_ymd_opt(2025, 2, 24));
+    assert_eq!(pd.end(), NaiveDate::from_ymd_opt(2025, 3, 3).unwrap());
+  }
+
+  #[test]
+  pub fn test_parse_refuses_unreal_dates() {
+    assert!(PartialDate::parse("ym-2024-13").is_err());
+    assert!(PartialDate::parse("ym-2024-0").is_err());
+    assert!(PartialDate::parse("yw-2021-53").is_err());
+    assert!(PartialDate::parse("yw-2020-53").is_ok());
+    assert!(PartialDate::from_ymdw(2024, Some(13), None, None).is_err());
+    assert_eq!(PartialDate::Ym(YearMonth { yr: 2024, mth1: 13 }).start(), None);
   }
 
   #[test]

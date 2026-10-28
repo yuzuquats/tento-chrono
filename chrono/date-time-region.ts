@@ -1,9 +1,10 @@
-import { DateTime } from "./datetime";
-import { NaiveDateTime } from "./naive-datetime";
-import { GenericRange } from "./range";
-import { Utc } from "./timezone";
-import { TimezoneRegion } from "./timezone-region";
-import { Duration } from "./units/duration";
+import { DateTime } from "./datetime.ts";
+import { NaiveDateTime } from "./naive-datetime.ts";
+import { GenericRange } from "./range.ts";
+import { Utc } from "./timezone.ts";
+import { TimezoneRegion } from "./timezone-region.ts";
+import { Duration } from "./units/duration.ts";
+import type { Optional } from "./option.ts";
 
 /**
  * Represents a datetime in a specific timezone region.
@@ -58,7 +59,7 @@ export class DateTimeRegion {
 
 export namespace DateTimeRegion {
   export class Range extends GenericRange<DateTimeRegion> {
-    static fromSingleTz(dtr: DateTime.Range<Utc>, tz: TimezoneRegion) {
+    static fromSingleTz(dtr: DateTime.Range<Utc>, tz: TimezoneRegion): DateTimeRegion.Range {
       return new DateTimeRegion.Range(
         new DateTimeRegion(tz.toTz(dtr.start).ndt, tz),
         new DateTimeRegion(tz.toTz(dtr.end).ndt, tz),

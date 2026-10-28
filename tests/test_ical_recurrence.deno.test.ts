@@ -1,10 +1,11 @@
-import { assertEquals } from "@std/assert";
+import { assertEquals, assertExists } from "@std/assert";
 import { naivedate, naivedatetime, naivetime } from "../chrono/mod.ts";
 import { ICalDateLine } from "../chrono/recurrence/ical-date-line.ts";
 import { ICalendar } from "../chrono/recurrence/ical.ts";
 import { IsoDate } from "../chrono/recurrence/iso-date.ts";
 import { RRule } from "../chrono/recurrence/rrule.ts";
 import { TimezoneRegion } from "../chrono/timezone-region.ts";
+import { Tzname } from "../chrono/timezone.ts";
 import { Weekday } from "../chrono/units/weekday.ts";
 import { installTimezoneLoader } from "./utils.deno.ts";
 
@@ -16,16 +17,16 @@ Deno.test({
     const input =
       "DTSTART;TZID=America/New_York:19970902T090000\nRRULE:FREQ=WEEKLY;UNTIL=20100101T000000Z";
     const recurr = (await ICalendar.Raw.parse(input.split("\n"), true)).exp();
-    assertEquals(
-      recurr.lines.dtstart.dates[0],
-      naivedatetime(1997, 9, 2, 9, 0, 0),
-    );
-    assertEquals(recurr.lines.dtstart.region.fullname, "America/New_York");
-    assertEquals(recurr.lines.rrule.inner.freq, "weekly");
-    assertEquals(
-      recurr.lines.rrule.inner.options.until.extend(),
-      naivedatetime(2010, 1, 1, 0, 0, 0),
-    );
+    const { dtstart, rrule } = recurr.lines;
+    assertExists(dtstart);
+    assertExists(rrule);
+    assertEquals(dtstart.dates[0], naivedatetime(1997, 9, 2, 9, 0, 0));
+    assertExists(dtstart.region);
+    assertEquals(dtstart.region.fullname, "America/New_York");
+    assertEquals(rrule.inner.freq, "weekly");
+    const until = rrule.inner.options?.until;
+    assertExists(until);
+    assertEquals(until.extend(), naivedatetime(2010, 1, 1, 0, 0, 0));
   },
 });
 
@@ -34,9 +35,12 @@ Deno.test({
   async fn() {
     const input = "DTSTART:19970902T090000Z\nRRULE:FREQ=YEARLY;COUNT=3";
     const ical = (await ICalendar.Raw.parse(input.split("\n"), true)).exp();
-    assertEquals(ical.dtstart.dates[0], naivedatetime(1997, 9, 2, 9, 0, 0));
-    assertEquals(ical.rrule.inner.freq, "yearly");
-    assertEquals(ical.rrule.inner.options.count, 3);
+    const { dtstart, rrule } = ical;
+    assertExists(dtstart);
+    assertExists(rrule);
+    assertEquals(dtstart.dates[0], naivedatetime(1997, 9, 2, 9, 0, 0));
+    assertEquals(rrule.inner.freq, "yearly");
+    assertEquals(rrule.inner.options?.count, 3);
   },
 });
 
@@ -46,9 +50,13 @@ Deno.test({
     const input =
       "RRULE:FREQ=WEEKLY;\nDTSTART;TZID=America/New_York:19970902T090000";
     const ical = (await ICalendar.Raw.parse(input.split("\n"), true)).exp();
-    assertEquals(ical.rrule.inner.freq, "weekly");
-    assertEquals(ical.dtstart.dates[0], naivedatetime(1997, 9, 2, 9, 0, 0));
-    assertEquals(ical.dtstart.region.fullname, "America/New_York");
+    const { dtstart, rrule } = ical;
+    assertExists(dtstart);
+    assertExists(rrule);
+    assertEquals(rrule.inner.freq, "weekly");
+    assertEquals(dtstart.dates[0], naivedatetime(1997, 9, 2, 9, 0, 0));
+    assertExists(dtstart.region);
+    assertEquals(dtstart.region.fullname, "America/New_York");
   },
 });
 
@@ -57,8 +65,10 @@ Deno.test({
   async fn() {
     const input = "DTSTART;TZID=America/New_York:19970902T090000";
     const recurr = (await ICalendar.Raw.parse([input], true)).exp();
-    assertEquals(recurr.dtstart.dates[0], naivedatetime(1997, 9, 2, 9, 0, 0));
-    assertEquals(recurr.dtstart.region?.fullname, "America/New_York");
+    const { dtstart } = recurr;
+    assertExists(dtstart);
+    assertEquals(dtstart.dates[0], naivedatetime(1997, 9, 2, 9, 0, 0));
+    assertEquals(dtstart.region?.fullname, "America/New_York");
   },
 });
 
@@ -69,7 +79,7 @@ Deno.test({
       dtstart: new ICalDateLine(
         "DTSTART",
         [naivedatetime(1997, 9, 2, 9, 0, 0)],
-        await TimezoneRegion.get("America/New_York"),
+        await TimezoneRegion.get("America/New_York" as Tzname),
       ),
     });
     assertEquals(
@@ -81,7 +91,7 @@ Deno.test({
       dtstart: new ICalDateLine(
         "DTSTART",
         [naivedatetime(1997, 9, 2, 9, 0, 0)],
-        await TimezoneRegion.get("America/New_York"),
+        await TimezoneRegion.get("America/New_York" as Tzname),
       ),
       rrule: new RRule({
         freq: "weekly",
@@ -99,6 +109,7 @@ Deno.test({
   async fn() {
     const input = ["RRULE:FREQ=WEEKLY;BYDAY=FR"];
     const recurr = (await ICalendar.Raw.parse(input, true)).exp();
+    assertExists(recurr.rrule);
     assertEquals(recurr.rrule.inner.freq, "weekly");
   },
 });
@@ -122,7 +133,7 @@ Deno.test({
           options: {
             until: new IsoDate(naivedate(2017, 12, 22), naivetime(1, 30), "Z"),
             interval: 1,
-            bysetpos: 17,
+            bysetpos: [17],
             byday: [
               Weekday.SUN,
               Weekday.MON,
@@ -169,6 +180,7 @@ Deno.test({
     const rrule = "RRULE:FREQ=WEEKLY;BYDAY=TH";
     const input = [exdate, rrule];
     const recurr = (await ICalendar.Raw.parse(input, true)).exp();
+    assertExists(recurr.lines.rrule);
     assertEquals(recurr.lines.rrule.inner.freq, "weekly");
     assertEquals(recurr.toString(), exdate + "\n" + rrule);
   },

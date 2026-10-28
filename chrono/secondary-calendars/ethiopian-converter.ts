@@ -1,5 +1,6 @@
-import { NaiveDate } from "../naive-date";
-import type { CalendarCellData } from "./calendar-cell-data";
+import { NaiveDate } from "../naive-date.ts";
+import type { CalendarCellData } from "./calendar-cell-data.ts";
+import type { Option } from "../option.ts";
 
 export type EthiopianDate = {
   year: number;

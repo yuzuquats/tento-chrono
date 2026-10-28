@@ -1,3 +1,5 @@
+import type { Option } from "./option.ts";
+
 export class Result<T, E = Error> {
   get isErr(): boolean {
     return !this.isOk;

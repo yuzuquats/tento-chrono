@@ -1,10 +1,11 @@
-import { NaiveDate } from "../naive-date";
-import { NaiveDateTime } from "../naive-datetime";
-import { NaiveTime } from "../naive-time";
-import { Result, err, ok } from "../result";
-import { Tzname } from "../timezone";
-import { IsoDate } from "./iso-date";
-import { TentoMath } from "../utils";
+import { NaiveDate } from "../naive-date.ts";
+import { NaiveDateTime } from "../naive-datetime.ts";
+import { NaiveTime } from "../naive-time.ts";
+import { Result, err, ok } from "../result.ts";
+import { Tzname } from "../timezone.ts";
+import { IsoDate } from "./iso-date.ts";
+import { TentoMath } from "../utils.ts";
+import type { Option } from "../option.ts";
 
 /**
  * Represents an EXDATE (exception date) property in iCalendar format.

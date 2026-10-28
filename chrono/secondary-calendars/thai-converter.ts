@@ -1,5 +1,5 @@
-import { NaiveDate } from "../naive-date";
-import type { CalendarCellData } from "./calendar-cell-data";
+import { NaiveDate } from "../naive-date.ts";
+import type { CalendarCellData } from "./calendar-cell-data.ts";
 
 /**
  * Thai Buddhist calendar.

@@ -1,0 +1,1221 @@
+[
+ {
+  "name": "testYearlyByHour",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=YEARLY;COUNT=3;BYHOUR=6,18",
+  "expected": [
+   "1997-09-02T18:00:00",
+   "1998-09-02T06:00:00",
+   "1998-09-02T18:00:00"
+  ]
+ },
+ {
+  "name": "testYearlyByMinute",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=YEARLY;COUNT=3;BYMINUTE=6,18",
+  "expected": [
+   "1997-09-02T09:06:00",
+   "1997-09-02T09:18:00",
+   "1998-09-02T09:06:00"
+  ]
+ },
+ {
+  "name": "testYearlyBySecond",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=YEARLY;COUNT=3;BYSECOND=6,18",
+  "expected": [
+   "1997-09-02T09:00:06",
+   "1997-09-02T09:00:18",
+   "1998-09-02T09:00:06"
+  ]
+ },
+ {
+  "name": "testYearlyByHourAndMinute",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=YEARLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18",
+  "expected": [
+   "1997-09-02T18:06:00",
+   "1997-09-02T18:18:00",
+   "1998-09-02T06:06:00"
+  ]
+ },
+ {
+  "name": "testYearlyByHourAndSecond",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=YEARLY;COUNT=3;BYHOUR=6,18;BYSECOND=6,18",
+  "expected": [
+   "1997-09-02T18:00:06",
+   "1997-09-02T18:00:18",
+   "1998-09-02T06:00:06"
+  ]
+ },
+ {
+  "name": "testYearlyByMinuteAndSecond",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=YEARLY;COUNT=3;BYMINUTE=6,18;BYSECOND=6,18",
+  "expected": [
+   "1997-09-02T09:06:06",
+   "1997-09-02T09:06:18",
+   "1997-09-02T09:18:06"
+  ]
+ },
+ {
+  "name": "testYearlyByHourAndMinuteAndSecond",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=YEARLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18;BYSECOND=6,18",
+  "expected": [
+   "1997-09-02T18:06:06",
+   "1997-09-02T18:06:18",
+   "1997-09-02T18:18:06"
+  ]
+ },
+ {
+  "name": "testMonthlyByHour",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MONTHLY;COUNT=3;BYHOUR=6,18",
+  "expected": [
+   "1997-09-02T18:00:00",
+   "1997-10-02T06:00:00",
+   "1997-10-02T18:00:00"
+  ]
+ },
+ {
+  "name": "testMonthlyByMinute",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MONTHLY;COUNT=3;BYMINUTE=6,18",
+  "expected": [
+   "1997-09-02T09:06:00",
+   "1997-09-02T09:18:00",
+   "1997-10-02T09:06:00"
+  ]
+ },
+ {
+  "name": "testMonthlyBySecond",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MONTHLY;COUNT=3;BYSECOND=6,18",
+  "expected": [
+   "1997-09-02T09:00:06",
+   "1997-09-02T09:00:18",
+   "1997-10-02T09:00:06"
+  ]
+ },
+ {
+  "name": "testMonthlyByHourAndMinute",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MONTHLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18",
+  "expected": [
+   "1997-09-02T18:06:00",
+   "1997-09-02T18:18:00",
+   "1997-10-02T06:06:00"
+  ]
+ },
+ {
+  "name": "testMonthlyByHourAndSecond",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MONTHLY;COUNT=3;BYHOUR=6,18;BYSECOND=6,18",
+  "expected": [
+   "1997-09-02T18:00:06",
+   "1997-09-02T18:00:18",
+   "1997-10-02T06:00:06"
+  ]
+ },
+ {
+  "name": "testMonthlyByMinuteAndSecond",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MONTHLY;COUNT=3;BYMINUTE=6,18;BYSECOND=6,18",
+  "expected": [
+   "1997-09-02T09:06:06",
+   "1997-09-02T09:06:18",
+   "1997-09-02T09:18:06"
+  ]
+ },
+ {
+  "name": "testMonthlyByHourAndMinuteAndSecond",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MONTHLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18;BYSECOND=6,18",
+  "expected": [
+   "1997-09-02T18:06:06",
+   "1997-09-02T18:06:18",
+   "1997-09-02T18:18:06"
+  ]
+ },
+ {
+  "name": "testWeeklyByHour",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=WEEKLY;COUNT=3;BYHOUR=6,18",
+  "expected": [
+   "1997-09-02T18:00:00",
+   "1997-09-09T06:00:00",
+   "1997-09-09T18:00:00"
+  ]
+ },
+ {
+  "name": "testWeeklyByMinute",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=WEEKLY;COUNT=3;BYMINUTE=6,18",
+  "expected": [
+   "1997-09-02T09:06:00",
+   "1997-09-02T09:18:00",
+   "1997-09-09T09:06:00"
+  ]
+ },
+ {
+  "name": "testWeeklyBySecond",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=WEEKLY;COUNT=3;BYSECOND=6,18",
+  "expected": [
+   "1997-09-02T09:00:06",
+   "1997-09-02T09:00:18",
+   "1997-09-09T09:00:06"
+  ]
+ },
+ {
+  "name": "testWeeklyByHourAndMinute",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=WEEKLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18",
+  "expected": [
+   "1997-09-02T18:06:00",
+   "1997-09-02T18:18:00",
+   "1997-09-09T06:06:00"
+  ]
+ },
+ {
+  "name": "testWeeklyByHourAndSecond",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=WEEKLY;COUNT=3;BYHOUR=6,18;BYSECOND=6,18",
+  "expected": [
+   "1997-09-02T18:00:06",
+   "1997-09-02T18:00:18",
+   "1997-09-09T06:00:06"
+  ]
+ },
+ {
+  "name": "testWeeklyByMinuteAndSecond",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=WEEKLY;COUNT=3;BYMINUTE=6,18;BYSECOND=6,18",
+  "expected": [
+   "1997-09-02T09:06:06",
+   "1997-09-02T09:06:18",
+   "1997-09-02T09:18:06"
+  ]
+ },
+ {
+  "name": "testWeeklyByHourAndMinuteAndSecond",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=WEEKLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18;BYSECOND=6,18",
+  "expected": [
+   "1997-09-02T18:06:06",
+   "1997-09-02T18:06:18",
+   "1997-09-02T18:18:06"
+  ]
+ },
+ {
+  "name": "testDailyByHour",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=DAILY;COUNT=3;BYHOUR=6,18",
+  "expected": [
+   "1997-09-02T18:00:00",
+   "1997-09-03T06:00:00",
+   "1997-09-03T18:00:00"
+  ]
+ },
+ {
+  "name": "testDailyByMinute",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=DAILY;COUNT=3;BYMINUTE=6,18",
+  "expected": [
+   "1997-09-02T09:06:00",
+   "1997-09-02T09:18:00",
+   "1997-09-03T09:06:00"
+  ]
+ },
+ {
+  "name": "testDailyBySecond",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=DAILY;COUNT=3;BYSECOND=6,18",
+  "expected": [
+   "1997-09-02T09:00:06",
+   "1997-09-02T09:00:18",
+   "1997-09-03T09:00:06"
+  ]
+ },
+ {
+  "name": "testDailyByHourAndMinute",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=DAILY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18",
+  "expected": [
+   "1997-09-02T18:06:00",
+   "1997-09-02T18:18:00",
+   "1997-09-03T06:06:00"
+  ]
+ },
+ {
+  "name": "testDailyByHourAndSecond",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=DAILY;COUNT=3;BYHOUR=6,18;BYSECOND=6,18",
+  "expected": [
+   "1997-09-02T18:00:06",
+   "1997-09-02T18:00:18",
+   "1997-09-03T06:00:06"
+  ]
+ },
+ {
+  "name": "testDailyByMinuteAndSecond",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=DAILY;COUNT=3;BYMINUTE=6,18;BYSECOND=6,18",
+  "expected": [
+   "1997-09-02T09:06:06",
+   "1997-09-02T09:06:18",
+   "1997-09-02T09:18:06"
+  ]
+ },
+ {
+  "name": "testDailyByHourAndMinuteAndSecond",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=DAILY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18;BYSECOND=6,18",
+  "expected": [
+   "1997-09-02T18:06:06",
+   "1997-09-02T18:06:18",
+   "1997-09-02T18:18:06"
+  ]
+ },
+ {
+  "name": "testHourly",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=HOURLY;COUNT=3",
+  "expected": [
+   "1997-09-02T09:00:00",
+   "1997-09-02T10:00:00",
+   "1997-09-02T11:00:00"
+  ]
+ },
+ {
+  "name": "testHourlyInterval",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=HOURLY;COUNT=3;INTERVAL=2",
+  "expected": [
+   "1997-09-02T09:00:00",
+   "1997-09-02T11:00:00",
+   "1997-09-02T13:00:00"
+  ]
+ },
+ {
+  "name": "testHourlyIntervalLarge",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=HOURLY;COUNT=3;INTERVAL=769",
+  "expected": [
+   "1997-09-02T09:00:00",
+   "1997-10-04T10:00:00",
+   "1997-11-05T11:00:00"
+  ]
+ },
+ {
+  "name": "testHourlyByMonth",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=HOURLY;COUNT=3;BYMONTH=1,3",
+  "expected": [
+   "1998-01-01T00:00:00",
+   "1998-01-01T01:00:00",
+   "1998-01-01T02:00:00"
+  ]
+ },
+ {
+  "name": "testHourlyByMonthDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=HOURLY;COUNT=3;BYMONTHDAY=1,3",
+  "expected": [
+   "1997-09-03T00:00:00",
+   "1997-09-03T01:00:00",
+   "1997-09-03T02:00:00"
+  ]
+ },
+ {
+  "name": "testHourlyByMonthAndMonthDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=HOURLY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=5,7",
+  "expected": [
+   "1998-01-05T00:00:00",
+   "1998-01-05T01:00:00",
+   "1998-01-05T02:00:00"
+  ]
+ },
+ {
+  "name": "testHourlyByWeekDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=HOURLY;COUNT=3;BYDAY=TU,TH",
+  "expected": [
+   "1997-09-02T09:00:00",
+   "1997-09-02T10:00:00",
+   "1997-09-02T11:00:00"
+  ]
+ },
+ {
+  "name": "testHourlyByNWeekDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=HOURLY;COUNT=3;BYDAY=1TU,-1TH",
+  "expected": [
+   "1997-09-02T09:00:00",
+   "1997-09-02T10:00:00",
+   "1997-09-02T11:00:00"
+  ]
+ },
+ {
+  "name": "testHourlyByMonthAndWeekDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=HOURLY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH",
+  "expected": [
+   "1998-01-01T00:00:00",
+   "1998-01-01T01:00:00",
+   "1998-01-01T02:00:00"
+  ]
+ },
+ {
+  "name": "testHourlyByMonthAndNWeekDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=HOURLY;COUNT=3;BYMONTH=1,3;BYDAY=1TU,-1TH",
+  "expected": [
+   "1998-01-01T00:00:00",
+   "1998-01-01T01:00:00",
+   "1998-01-01T02:00:00"
+  ]
+ },
+ {
+  "name": "testHourlyByMonthDayAndWeekDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=HOURLY;COUNT=3;BYMONTHDAY=1,3;BYDAY=TU,TH",
+  "expected": [
+   "1998-01-01T00:00:00",
+   "1998-01-01T01:00:00",
+   "1998-01-01T02:00:00"
+  ]
+ },
+ {
+  "name": "testHourlyByMonthAndMonthDayAndWeekDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=HOURLY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=1,3;BYDAY=TU,TH",
+  "expected": [
+   "1998-01-01T00:00:00",
+   "1998-01-01T01:00:00",
+   "1998-01-01T02:00:00"
+  ]
+ },
+ {
+  "name": "testHourlyByYearDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=HOURLY;COUNT=4;BYYEARDAY=1,100,200,365",
+  "expected": [
+   "1997-12-31T00:00:00",
+   "1997-12-31T01:00:00",
+   "1997-12-31T02:00:00",
+   "1997-12-31T03:00:00"
+  ]
+ },
+ {
+  "name": "testHourlyByYearDayNeg",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=HOURLY;COUNT=4;BYYEARDAY=-365,-266,-166,-1",
+  "expected": [
+   "1997-12-31T00:00:00",
+   "1997-12-31T01:00:00",
+   "1997-12-31T02:00:00",
+   "1997-12-31T03:00:00"
+  ]
+ },
+ {
+  "name": "testHourlyByMonthAndYearDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=HOURLY;COUNT=4;BYMONTH=4,7;BYYEARDAY=1,100,200,365",
+  "expected": [
+   "1998-04-10T00:00:00",
+   "1998-04-10T01:00:00",
+   "1998-04-10T02:00:00",
+   "1998-04-10T03:00:00"
+  ]
+ },
+ {
+  "name": "testHourlyByMonthAndYearDayNeg",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=HOURLY;COUNT=4;BYMONTH=4,7;BYYEARDAY=-365,-266,-166,-1",
+  "expected": [
+   "1998-04-10T00:00:00",
+   "1998-04-10T01:00:00",
+   "1998-04-10T02:00:00",
+   "1998-04-10T03:00:00"
+  ]
+ },
+ {
+  "name": "testHourlyByWeekNo",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=HOURLY;COUNT=3;BYWEEKNO=20",
+  "expected": [
+   "1998-05-11T00:00:00",
+   "1998-05-11T01:00:00",
+   "1998-05-11T02:00:00"
+  ]
+ },
+ {
+  "name": "testHourlyByWeekNoAndWeekDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=HOURLY;COUNT=3;BYWEEKNO=1;BYDAY=MO",
+  "expected": [
+   "1997-12-29T00:00:00",
+   "1997-12-29T01:00:00",
+   "1997-12-29T02:00:00"
+  ]
+ },
+ {
+  "name": "testHourlyByWeekNoAndWeekDayLarge",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=HOURLY;COUNT=3;BYWEEKNO=52;BYDAY=SU",
+  "expected": [
+   "1997-12-28T00:00:00",
+   "1997-12-28T01:00:00",
+   "1997-12-28T02:00:00"
+  ]
+ },
+ {
+  "name": "testHourlyByWeekNoAndWeekDayLast",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=HOURLY;COUNT=3;BYWEEKNO=-1;BYDAY=SU",
+  "expected": [
+   "1997-12-28T00:00:00",
+   "1997-12-28T01:00:00",
+   "1997-12-28T02:00:00"
+  ]
+ },
+ {
+  "name": "testHourlyByWeekNoAndWeekDay53",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=HOURLY;COUNT=3;BYWEEKNO=53;BYDAY=MO",
+  "expected": [
+   "1998-12-28T00:00:00",
+   "1998-12-28T01:00:00",
+   "1998-12-28T02:00:00"
+  ]
+ },
+ {
+  "name": "testHourlyByHour",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=HOURLY;COUNT=3;BYHOUR=6,18",
+  "expected": [
+   "1997-09-02T18:00:00",
+   "1997-09-03T06:00:00",
+   "1997-09-03T18:00:00"
+  ]
+ },
+ {
+  "name": "testHourlyByMinute",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=HOURLY;COUNT=3;BYMINUTE=6,18",
+  "expected": [
+   "1997-09-02T09:06:00",
+   "1997-09-02T09:18:00",
+   "1997-09-02T10:06:00"
+  ]
+ },
+ {
+  "name": "testHourlyBySecond",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=HOURLY;COUNT=3;BYSECOND=6,18",
+  "expected": [
+   "1997-09-02T09:00:06",
+   "1997-09-02T09:00:18",
+   "1997-09-02T10:00:06"
+  ]
+ },
+ {
+  "name": "testHourlyByHourAndMinute",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=HOURLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18",
+  "expected": [
+   "1997-09-02T18:06:00",
+   "1997-09-02T18:18:00",
+   "1997-09-03T06:06:00"
+  ]
+ },
+ {
+  "name": "testHourlyByHourAndSecond",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=HOURLY;COUNT=3;BYHOUR=6,18;BYSECOND=6,18",
+  "expected": [
+   "1997-09-02T18:00:06",
+   "1997-09-02T18:00:18",
+   "1997-09-03T06:00:06"
+  ]
+ },
+ {
+  "name": "testHourlyByMinuteAndSecond",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=HOURLY;COUNT=3;BYMINUTE=6,18;BYSECOND=6,18",
+  "expected": [
+   "1997-09-02T09:06:06",
+   "1997-09-02T09:06:18",
+   "1997-09-02T09:18:06"
+  ]
+ },
+ {
+  "name": "testHourlyByHourAndMinuteAndSecond",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=HOURLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18;BYSECOND=6,18",
+  "expected": [
+   "1997-09-02T18:06:06",
+   "1997-09-02T18:06:18",
+   "1997-09-02T18:18:06"
+  ]
+ },
+ {
+  "name": "testHourlyBySetPos",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=HOURLY;COUNT=3;BYMINUTE=15,45;BYSECOND=15,45;BYSETPOS=3,-3",
+  "expected": [
+   "1997-09-02T09:15:45",
+   "1997-09-02T09:45:15",
+   "1997-09-02T10:15:45"
+  ]
+ },
+ {
+  "name": "testMinutely",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MINUTELY;COUNT=3",
+  "expected": [
+   "1997-09-02T09:00:00",
+   "1997-09-02T09:01:00",
+   "1997-09-02T09:02:00"
+  ]
+ },
+ {
+  "name": "testMinutelyInterval",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MINUTELY;COUNT=3;INTERVAL=2",
+  "expected": [
+   "1997-09-02T09:00:00",
+   "1997-09-02T09:02:00",
+   "1997-09-02T09:04:00"
+  ]
+ },
+ {
+  "name": "testMinutelyIntervalLarge",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MINUTELY;COUNT=3;INTERVAL=1501",
+  "expected": [
+   "1997-09-02T09:00:00",
+   "1997-09-03T10:01:00",
+   "1997-09-04T11:02:00"
+  ]
+ },
+ {
+  "name": "testMinutelyByMonth",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MINUTELY;COUNT=3;BYMONTH=1,3",
+  "expected": [
+   "1998-01-01T00:00:00",
+   "1998-01-01T00:01:00",
+   "1998-01-01T00:02:00"
+  ]
+ },
+ {
+  "name": "testMinutelyByMonthDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MINUTELY;COUNT=3;BYMONTHDAY=1,3",
+  "expected": [
+   "1997-09-03T00:00:00",
+   "1997-09-03T00:01:00",
+   "1997-09-03T00:02:00"
+  ]
+ },
+ {
+  "name": "testMinutelyByMonthAndMonthDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MINUTELY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=5,7",
+  "expected": [
+   "1998-01-05T00:00:00",
+   "1998-01-05T00:01:00",
+   "1998-01-05T00:02:00"
+  ]
+ },
+ {
+  "name": "testMinutelyByWeekDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MINUTELY;COUNT=3;BYDAY=TU,TH",
+  "expected": [
+   "1997-09-02T09:00:00",
+   "1997-09-02T09:01:00",
+   "1997-09-02T09:02:00"
+  ]
+ },
+ {
+  "name": "testMinutelyByNWeekDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MINUTELY;COUNT=3;BYDAY=1TU,-1TH",
+  "expected": [
+   "1997-09-02T09:00:00",
+   "1997-09-02T09:01:00",
+   "1997-09-02T09:02:00"
+  ]
+ },
+ {
+  "name": "testMinutelyByMonthAndWeekDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MINUTELY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH",
+  "expected": [
+   "1998-01-01T00:00:00",
+   "1998-01-01T00:01:00",
+   "1998-01-01T00:02:00"
+  ]
+ },
+ {
+  "name": "testMinutelyByMonthAndNWeekDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MINUTELY;COUNT=3;BYMONTH=1,3;BYDAY=1TU,-1TH",
+  "expected": [
+   "1998-01-01T00:00:00",
+   "1998-01-01T00:01:00",
+   "1998-01-01T00:02:00"
+  ]
+ },
+ {
+  "name": "testMinutelyByMonthDayAndWeekDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MINUTELY;COUNT=3;BYMONTHDAY=1,3;BYDAY=TU,TH",
+  "expected": [
+   "1998-01-01T00:00:00",
+   "1998-01-01T00:01:00",
+   "1998-01-01T00:02:00"
+  ]
+ },
+ {
+  "name": "testMinutelyByMonthAndMonthDayAndWeekDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MINUTELY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=1,3;BYDAY=TU,TH",
+  "expected": [
+   "1998-01-01T00:00:00",
+   "1998-01-01T00:01:00",
+   "1998-01-01T00:02:00"
+  ]
+ },
+ {
+  "name": "testMinutelyByYearDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MINUTELY;COUNT=4;BYYEARDAY=1,100,200,365",
+  "expected": [
+   "1997-12-31T00:00:00",
+   "1997-12-31T00:01:00",
+   "1997-12-31T00:02:00",
+   "1997-12-31T00:03:00"
+  ]
+ },
+ {
+  "name": "testMinutelyByYearDayNeg",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MINUTELY;COUNT=4;BYYEARDAY=-365,-266,-166,-1",
+  "expected": [
+   "1997-12-31T00:00:00",
+   "1997-12-31T00:01:00",
+   "1997-12-31T00:02:00",
+   "1997-12-31T00:03:00"
+  ]
+ },
+ {
+  "name": "testMinutelyByMonthAndYearDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MINUTELY;COUNT=4;BYMONTH=4,7;BYYEARDAY=1,100,200,365",
+  "expected": [
+   "1998-04-10T00:00:00",
+   "1998-04-10T00:01:00",
+   "1998-04-10T00:02:00",
+   "1998-04-10T00:03:00"
+  ]
+ },
+ {
+  "name": "testMinutelyByMonthAndYearDayNeg",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MINUTELY;COUNT=4;BYMONTH=4,7;BYYEARDAY=-365,-266,-166,-1",
+  "expected": [
+   "1998-04-10T00:00:00",
+   "1998-04-10T00:01:00",
+   "1998-04-10T00:02:00",
+   "1998-04-10T00:03:00"
+  ]
+ },
+ {
+  "name": "testMinutelyByWeekNo",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MINUTELY;COUNT=3;BYWEEKNO=20",
+  "expected": [
+   "1998-05-11T00:00:00",
+   "1998-05-11T00:01:00",
+   "1998-05-11T00:02:00"
+  ]
+ },
+ {
+  "name": "testMinutelyByWeekNoAndWeekDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MINUTELY;COUNT=3;BYWEEKNO=1;BYDAY=MO",
+  "expected": [
+   "1997-12-29T00:00:00",
+   "1997-12-29T00:01:00",
+   "1997-12-29T00:02:00"
+  ]
+ },
+ {
+  "name": "testMinutelyByWeekNoAndWeekDayLarge",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MINUTELY;COUNT=3;BYWEEKNO=52;BYDAY=SU",
+  "expected": [
+   "1997-12-28T00:00:00",
+   "1997-12-28T00:01:00",
+   "1997-12-28T00:02:00"
+  ]
+ },
+ {
+  "name": "testMinutelyByWeekNoAndWeekDayLast",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MINUTELY;COUNT=3;BYWEEKNO=-1;BYDAY=SU",
+  "expected": [
+   "1997-12-28T00:00:00",
+   "1997-12-28T00:01:00",
+   "1997-12-28T00:02:00"
+  ]
+ },
+ {
+  "name": "testMinutelyByWeekNoAndWeekDay53",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MINUTELY;COUNT=3;BYWEEKNO=53;BYDAY=MO",
+  "expected": [
+   "1998-12-28T00:00:00",
+   "1998-12-28T00:01:00",
+   "1998-12-28T00:02:00"
+  ]
+ },
+ {
+  "name": "testMinutelyByHour",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MINUTELY;COUNT=3;BYHOUR=6,18",
+  "expected": [
+   "1997-09-02T18:00:00",
+   "1997-09-02T18:01:00",
+   "1997-09-02T18:02:00"
+  ]
+ },
+ {
+  "name": "testMinutelyByMinute",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MINUTELY;COUNT=3;BYMINUTE=6,18",
+  "expected": [
+   "1997-09-02T09:06:00",
+   "1997-09-02T09:18:00",
+   "1997-09-02T10:06:00"
+  ]
+ },
+ {
+  "name": "testMinutelyBySecond",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MINUTELY;COUNT=3;BYSECOND=6,18",
+  "expected": [
+   "1997-09-02T09:00:06",
+   "1997-09-02T09:00:18",
+   "1997-09-02T09:01:06"
+  ]
+ },
+ {
+  "name": "testMinutelyByHourAndMinute",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MINUTELY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18",
+  "expected": [
+   "1997-09-02T18:06:00",
+   "1997-09-02T18:18:00",
+   "1997-09-03T06:06:00"
+  ]
+ },
+ {
+  "name": "testMinutelyByHourAndSecond",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MINUTELY;COUNT=3;BYHOUR=6,18;BYSECOND=6,18",
+  "expected": [
+   "1997-09-02T18:00:06",
+   "1997-09-02T18:00:18",
+   "1997-09-02T18:01:06"
+  ]
+ },
+ {
+  "name": "testMinutelyByMinuteAndSecond",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MINUTELY;COUNT=3;BYMINUTE=6,18;BYSECOND=6,18",
+  "expected": [
+   "1997-09-02T09:06:06",
+   "1997-09-02T09:06:18",
+   "1997-09-02T09:18:06"
+  ]
+ },
+ {
+  "name": "testMinutelyByHourAndMinuteAndSecond",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MINUTELY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18;BYSECOND=6,18",
+  "expected": [
+   "1997-09-02T18:06:06",
+   "1997-09-02T18:06:18",
+   "1997-09-02T18:18:06"
+  ]
+ },
+ {
+  "name": "testMinutelyBySetPos",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MINUTELY;COUNT=3;BYSECOND=15,30,45;BYSETPOS=3,-3",
+  "expected": [
+   "1997-09-02T09:00:15",
+   "1997-09-02T09:00:45",
+   "1997-09-02T09:01:15"
+  ]
+ },
+ {
+  "name": "testSecondly",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=SECONDLY;COUNT=3",
+  "expected": [
+   "1997-09-02T09:00:00",
+   "1997-09-02T09:00:01",
+   "1997-09-02T09:00:02"
+  ]
+ },
+ {
+  "name": "testSecondlyInterval",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=SECONDLY;COUNT=3;INTERVAL=2",
+  "expected": [
+   "1997-09-02T09:00:00",
+   "1997-09-02T09:00:02",
+   "1997-09-02T09:00:04"
+  ]
+ },
+ {
+  "name": "testSecondlyIntervalLarge",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=SECONDLY;COUNT=3;INTERVAL=90061",
+  "expected": [
+   "1997-09-02T09:00:00",
+   "1997-09-03T10:01:01",
+   "1997-09-04T11:02:02"
+  ]
+ },
+ {
+  "name": "testSecondlyByMonth",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=SECONDLY;COUNT=3;BYMONTH=1,3",
+  "expected": [
+   "1998-01-01T00:00:00",
+   "1998-01-01T00:00:01",
+   "1998-01-01T00:00:02"
+  ]
+ },
+ {
+  "name": "testSecondlyByMonthDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=SECONDLY;COUNT=3;BYMONTHDAY=1,3",
+  "expected": [
+   "1997-09-03T00:00:00",
+   "1997-09-03T00:00:01",
+   "1997-09-03T00:00:02"
+  ]
+ },
+ {
+  "name": "testSecondlyByMonthAndMonthDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=SECONDLY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=5,7",
+  "expected": [
+   "1998-01-05T00:00:00",
+   "1998-01-05T00:00:01",
+   "1998-01-05T00:00:02"
+  ]
+ },
+ {
+  "name": "testSecondlyByWeekDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=SECONDLY;COUNT=3;BYDAY=TU,TH",
+  "expected": [
+   "1997-09-02T09:00:00",
+   "1997-09-02T09:00:01",
+   "1997-09-02T09:00:02"
+  ]
+ },
+ {
+  "name": "testSecondlyByNWeekDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=SECONDLY;COUNT=3;BYDAY=1TU,-1TH",
+  "expected": [
+   "1997-09-02T09:00:00",
+   "1997-09-02T09:00:01",
+   "1997-09-02T09:00:02"
+  ]
+ },
+ {
+  "name": "testSecondlyByMonthAndWeekDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=SECONDLY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH",
+  "expected": [
+   "1998-01-01T00:00:00",
+   "1998-01-01T00:00:01",
+   "1998-01-01T00:00:02"
+  ]
+ },
+ {
+  "name": "testSecondlyByMonthAndNWeekDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=SECONDLY;COUNT=3;BYMONTH=1,3;BYDAY=1TU,-1TH",
+  "expected": [
+   "1998-01-01T00:00:00",
+   "1998-01-01T00:00:01",
+   "1998-01-01T00:00:02"
+  ]
+ },
+ {
+  "name": "testSecondlyByMonthDayAndWeekDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=SECONDLY;COUNT=3;BYMONTHDAY=1,3;BYDAY=TU,TH",
+  "expected": [
+   "1998-01-01T00:00:00",
+   "1998-01-01T00:00:01",
+   "1998-01-01T00:00:02"
+  ]
+ },
+ {
+  "name": "testSecondlyByMonthAndMonthDayAndWeekDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=SECONDLY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=1,3;BYDAY=TU,TH",
+  "expected": [
+   "1998-01-01T00:00:00",
+   "1998-01-01T00:00:01",
+   "1998-01-01T00:00:02"
+  ]
+ },
+ {
+  "name": "testSecondlyByYearDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=SECONDLY;COUNT=4;BYYEARDAY=1,100,200,365",
+  "expected": [
+   "1997-12-31T00:00:00",
+   "1997-12-31T00:00:01",
+   "1997-12-31T00:00:02",
+   "1997-12-31T00:00:03"
+  ]
+ },
+ {
+  "name": "testSecondlyByYearDayNeg",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=SECONDLY;COUNT=4;BYYEARDAY=-365,-266,-166,-1",
+  "expected": [
+   "1997-12-31T00:00:00",
+   "1997-12-31T00:00:01",
+   "1997-12-31T00:00:02",
+   "1997-12-31T00:00:03"
+  ]
+ },
+ {
+  "name": "testSecondlyByMonthAndYearDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=SECONDLY;COUNT=4;BYMONTH=4,7;BYYEARDAY=1,100,200,365",
+  "expected": [
+   "1998-04-10T00:00:00",
+   "1998-04-10T00:00:01",
+   "1998-04-10T00:00:02",
+   "1998-04-10T00:00:03"
+  ]
+ },
+ {
+  "name": "testSecondlyByMonthAndYearDayNeg",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=SECONDLY;COUNT=4;BYMONTH=4,7;BYYEARDAY=-365,-266,-166,-1",
+  "expected": [
+   "1998-04-10T00:00:00",
+   "1998-04-10T00:00:01",
+   "1998-04-10T00:00:02",
+   "1998-04-10T00:00:03"
+  ]
+ },
+ {
+  "name": "testSecondlyByWeekNo",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=SECONDLY;COUNT=3;BYWEEKNO=20",
+  "expected": [
+   "1998-05-11T00:00:00",
+   "1998-05-11T00:00:01",
+   "1998-05-11T00:00:02"
+  ]
+ },
+ {
+  "name": "testSecondlyByWeekNoAndWeekDay",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=SECONDLY;COUNT=3;BYWEEKNO=1;BYDAY=MO",
+  "expected": [
+   "1997-12-29T00:00:00",
+   "1997-12-29T00:00:01",
+   "1997-12-29T00:00:02"
+  ]
+ },
+ {
+  "name": "testSecondlyByWeekNoAndWeekDayLarge",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=SECONDLY;COUNT=3;BYWEEKNO=52;BYDAY=SU",
+  "expected": [
+   "1997-12-28T00:00:00",
+   "1997-12-28T00:00:01",
+   "1997-12-28T00:00:02"
+  ]
+ },
+ {
+  "name": "testSecondlyByWeekNoAndWeekDayLast",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=SECONDLY;COUNT=3;BYWEEKNO=-1;BYDAY=SU",
+  "expected": [
+   "1997-12-28T00:00:00",
+   "1997-12-28T00:00:01",
+   "1997-12-28T00:00:02"
+  ]
+ },
+ {
+  "name": "testSecondlyByWeekNoAndWeekDay53",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=SECONDLY;COUNT=3;BYWEEKNO=53;BYDAY=MO",
+  "expected": [
+   "1998-12-28T00:00:00",
+   "1998-12-28T00:00:01",
+   "1998-12-28T00:00:02"
+  ]
+ },
+ {
+  "name": "testSecondlyByHour",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=SECONDLY;COUNT=3;BYHOUR=6,18",
+  "expected": [
+   "1997-09-02T18:00:00",
+   "1997-09-02T18:00:01",
+   "1997-09-02T18:00:02"
+  ]
+ },
+ {
+  "name": "testSecondlyByMinute",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=SECONDLY;COUNT=3;BYMINUTE=6,18",
+  "expected": [
+   "1997-09-02T09:06:00",
+   "1997-09-02T09:06:01",
+   "1997-09-02T09:06:02"
+  ]
+ },
+ {
+  "name": "testSecondlyBySecond",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=SECONDLY;COUNT=3;BYSECOND=6,18",
+  "expected": [
+   "1997-09-02T09:00:06",
+   "1997-09-02T09:00:18",
+   "1997-09-02T09:01:06"
+  ]
+ },
+ {
+  "name": "testSecondlyByHourAndMinute",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=SECONDLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18",
+  "expected": [
+   "1997-09-02T18:06:00",
+   "1997-09-02T18:06:01",
+   "1997-09-02T18:06:02"
+  ]
+ },
+ {
+  "name": "testSecondlyByHourAndSecond",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=SECONDLY;COUNT=3;BYHOUR=6,18;BYSECOND=6,18",
+  "expected": [
+   "1997-09-02T18:00:06",
+   "1997-09-02T18:00:18",
+   "1997-09-02T18:01:06"
+  ]
+ },
+ {
+  "name": "testSecondlyByMinuteAndSecond",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=SECONDLY;COUNT=3;BYMINUTE=6,18;BYSECOND=6,18",
+  "expected": [
+   "1997-09-02T09:06:06",
+   "1997-09-02T09:06:18",
+   "1997-09-02T09:18:06"
+  ]
+ },
+ {
+  "name": "testSecondlyByHourAndMinuteAndSecond",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=SECONDLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18;BYSECOND=6,18",
+  "expected": [
+   "1997-09-02T18:06:06",
+   "1997-09-02T18:06:18",
+   "1997-09-02T18:18:06"
+  ]
+ },
+ {
+  "name": "testDTStartWithMicroseconds",
+  "dtstart": "1997-09-02T09:00:00.500",
+  "rrule": "FREQ=DAILY;COUNT=3",
+  "expected": [
+   "1997-09-02T09:00:00.500",
+   "1997-09-03T09:00:00.500",
+   "1997-09-04T09:00:00.500"
+  ],
+  "note": "dateutil drops DTSTART's sub-second part; chrono keeps its milliseconds on every instance, as rrule.js does (testSubsecondStart*)"
+ },
+ {
+  "name": "testSubsecondStartYearly",
+  "dtstart": "2014-12-31T22:00:00.001",
+  "rrule": "FREQ=YEARLY;COUNT=1",
+  "expected": [
+   "2014-12-31T22:00:00.001"
+  ]
+ },
+ {
+  "name": "testSubsecondStartMonthlyByMonthDay",
+  "dtstart": "2012-12-31T22:00:00.001",
+  "rrule": "FREQ=MONTHLY;COUNT=1;BYSETPOS=-1,1",
+  "expected": [
+   "2012-12-31T22:00:00.001"
+  ]
+ },
+ {
+  "name": "testYearlyBySetPos",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=YEARLY;COUNT=3;BYMONTHDAY=15;BYHOUR=6,18;BYSETPOS=3,-3",
+  "expected": [
+   "1997-11-15T18:00:00",
+   "1998-02-15T06:00:00",
+   "1998-11-15T18:00:00"
+  ]
+ },
+ {
+  "name": "testMonthlyBySetPos",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=MONTHLY;COUNT=3;BYMONTHDAY=13,17;BYHOUR=6,18;BYSETPOS=3,-3",
+  "expected": [
+   "1997-09-13T18:00:00",
+   "1997-09-17T06:00:00",
+   "1997-10-13T18:00:00"
+  ]
+ },
+ {
+  "name": "testWeeklyBySetPos",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=WEEKLY;COUNT=3;BYDAY=TU,TH;BYHOUR=6,18;BYSETPOS=3,-3",
+  "expected": [
+   "1997-09-02T18:00:00",
+   "1997-09-04T06:00:00",
+   "1997-09-09T18:00:00"
+  ]
+ },
+ {
+  "name": "testDailyBySetPos",
+  "dtstart": "1997-09-02T09:00:00",
+  "rrule": "FREQ=DAILY;COUNT=3;BYHOUR=6,18;BYMINUTE=15,45;BYSETPOS=3,-3",
+  "expected": [
+   "1997-09-02T18:15:00",
+   "1997-09-03T06:45:00",
+   "1997-09-03T18:15:00"
+  ]
+ }
+]

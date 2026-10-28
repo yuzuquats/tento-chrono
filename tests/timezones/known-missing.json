@@ -1,0 +1,4 @@
+{
+  "note": "Zones this runtime's Intl reports that the zone service (tzdata 2024b) has no data for: America/Coyhaique is newer than 2024b and served under no name; Pacific/Port_Moresby and Atlantic/South_Georgia are served as an empty list (2024b-empty.json); Pacific/Truk and Antarctica/DumontDUrville are links to Port_Moresby. getOpt builds each from the platform's offsets (TimezoneRegion.unserved, traced zone/unserved by ZoneLoad), so they show the right offset; requests/sdk-to-server-7 still asks the service for all of them (a tzdata refresh; non-empty files for constant-offset zones). A name leaves this list as soon as the service serves it (tests/test_tz_links.deno.test.ts fails while it stays).",
+  "zones": ["America/Coyhaique", "Antarctica/DumontDUrville", "Atlantic/South_Georgia", "Pacific/Port_Moresby", "Pacific/Truk"]
+}

@@ -1,5 +1,6 @@
-import { DateUnit } from "./date-unit";
-import { DurationTime } from "./duration-time";
+import { DateUnit } from "./date-unit.ts";
+import { DurationTime } from "./duration-time.ts";
+import type { Optional } from "../option.ts";
 
 // export class Duration {}
 

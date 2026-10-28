@@ -1,30 +1,24 @@
 {
-  "extends": "../yuzu-js/tsconfig.base.json",
   "compilerOptions": {
-    "typeRoots": [
-      "../yuzu-js/ui/types/*.d.ts"
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
     ],
-    "isolatedModules": false,
-    "paths": {
-      "@lona/*": [
-        "../yuzu-js/ui/*"
-      ],
-      "@tento-chrono": [
-        "./chrono/mod.ts"
-      ],
-      "@tento-chrono/*": [
-        "./*"
-      ],
-      "@tento/chrono": [
-        "./chrono/mod.ts"
-      ],
-      "@tento/chrono/*": [
-        "./*"
-      ]
-    }
+    "types": []
   },
   "include": [
-    "**/*.ts",
-    "../yuzu-js/ui/types/*.d.ts"
+    "chrono/**/*.ts"
+  ],
+  "exclude": [
+    "**/*.deno.ts",
+    "**/*.deno.test.ts"
   ]
 }

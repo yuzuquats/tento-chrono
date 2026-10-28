@@ -1,12 +1,13 @@
-import { DateFragment } from "./date-fragment";
-import { DateTime } from "./datetime";
-import { NaiveDate } from "./naive-date";
-import { NaiveDateTime } from "./naive-datetime";
-import { NaiveTime } from "./naive-time";
-import { Time } from "./time";
-import { FixedOffset } from "./timezone";
-import { TimezoneRegion } from "./timezone-region";
-import { MsSinceEpoch } from "./units/units";
+import { DateFragment } from "./date-fragment.ts";
+import { DateTime } from "./datetime.ts";
+import { NaiveDate } from "./naive-date.ts";
+import { NaiveDateTime } from "./naive-datetime.ts";
+import { NaiveTime } from "./naive-time.ts";
+import { Time } from "./time.ts";
+import { FixedOffset } from "./timezone.ts";
+import { TimezoneRegion } from "./timezone-region.ts";
+import { MsSinceEpoch } from "./units/units.ts";
+import type { Option, Optional } from "./option.ts";
 
 /**
  * Represents a time range using milliseconds since epoch.

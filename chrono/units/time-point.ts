@@ -1,9 +1,9 @@
-import { GenericRange } from "../range";
-import { Time } from "../time";
-import { Duration } from "./duration";
-import { DurationTime } from "./duration-time";
-import { Ms } from "./ms";
-import { TimeOfDay } from "./time-of-day";
+import { GenericRange } from "../range.ts";
+import { Time } from "../time.ts";
+import { Duration } from "./duration.ts";
+import { DurationTime } from "./duration-time.ts";
+import { Ms } from "./ms.ts";
+import { TimeOfDay } from "./time-of-day.ts";
 
 /**
  * TimePoint represents a time since an epoch, which contains a TimeOfDay and a number of days.

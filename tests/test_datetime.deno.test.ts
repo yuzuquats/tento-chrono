@@ -27,7 +27,8 @@ import { LA_PST, NY_EST, installTimezoneLoader } from "./utils.deno.ts";
 import { DateTime } from "../chrono/datetime.ts";
 import { naivedate, naivedatetime } from "../chrono/mod.ts";
 import { Time } from "../chrono/time.ts";
-import { Utc } from "../chrono/timezone.ts";
+import { FixedTimezone, Tzname, Utc } from "../chrono/timezone.ts";
+import { Duration } from "../chrono/units/duration.ts";
 import { DaysSinceEpoch, MsSinceEpoch } from "../chrono/units/units.ts";
 import { Weekday } from "../chrono/units/weekday.ts";
 
@@ -621,4 +622,17 @@ Deno.test({
     assertEquals(before10Min.durationSince(start).toHrs, 0); // 20 mins rounds to 0 hours
     assertEquals(after10Min.durationSince(start).toHrs, 1); // 40 mins rounds to 1 hour
   },
+});
+
+Deno.test("toUtc relabels a +00:00 zone's time as Utc", () => {
+  const zero = new FixedTimezone("utc", {
+    tzabbr: "UTC",
+    tzname: "UTC" as Tzname,
+    offset: Duration.Time.from({ hrs: 0 }),
+  });
+  const dt = new DateTime(naivedatetime(2026, 1, 5, 9), zero);
+  assertEquals(dt.toString(), "2026-01-05T09:00:00+00:00");
+  assertEquals(dt.toUtc().toString(), "2026-01-05T09:00:00Z");
+  assertEquals(dt.toUtc().tz, Utc);
+  assertEquals(dt.toUtc().eq(dt), true);
 });

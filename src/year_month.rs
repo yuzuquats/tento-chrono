@@ -9,17 +9,18 @@ use serde::{
   Deserialize, Deserializer, Serialize,
   de::{self, Visitor},
 };
-use utoipa::ToSchema;
 
 use super::{date_unit::DateUnit, year_month_day::YearMonthDay};
 
-#[derive(Clone, Debug, ToSchema, Serialize, PartialEq, Eq, Hash)]
+#[derive(Clone, Debug, Serialize, PartialEq, Eq, Hash)]
+#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema))]
 pub struct YearMonth {
   pub yr: i32,
   pub mth1: u32,
 }
 
 impl YearMonth {
+  /// Parses `YYYY-MM`; the month must be 1..=12.
   pub fn parse(s: &str) -> anyhow::Result<YearMonth> {
     let parts: Vec<&str> = s.split("-").collect();
     let Some(yr) = parts.get(0).map(|y| y.parse().ok()).flatten() else {
@@ -29,12 +30,16 @@ impl YearMonth {
     let Some(mth1) = parts.get(1).map(|m| m.parse().ok()).flatten() else {
       return Err(anyhow!("Month can't be parsed, got: '{:?}'", parts.get(1)));
     };
+    if !(1..=12).contains(&mth1) {
+      return Err(anyhow!("Month must be 1..=12, got: {mth1}"));
+    }
 
     Ok(YearMonth { yr, mth1 })
   }
 
-  pub fn month(&self) -> Month {
-    Month::try_from(self.mth1 as u8).expect("month out of range")
+  /// `None` when `mth1` is outside 1..=12.
+  pub fn month(&self) -> Option<Month> {
+    u8::try_from(self.mth1).ok().and_then(|m| Month::try_from(m).ok())
   }
 
   pub fn to_string(&self) -> String {
@@ -56,9 +61,9 @@ impl YearMonth {
     }
   }
 
-  /// Convert to a NaiveDate representing the first day of this month
-  pub fn to_nd(&self) -> NaiveDate {
-    NaiveDate::from_ymd_opt(self.yr, self.mth1, 1).unwrap()
+  /// The first day of this month; `None` when it is not a real month.
+  pub fn to_nd(&self) -> Option<NaiveDate> {
+    NaiveDate::from_ymd_opt(self.yr, self.mth1, 1)
   }
 
   /// Get the next month
@@ -91,10 +96,9 @@ impl YearMonth {
     }
   }
 
-  pub fn dates(&self) -> Range<NaiveDate> {
-    let start = self.to_nd();
-    let end = self.succ().to_nd();
-    start..end
+  /// The days of this month, half-open; `None` when it is not a real month.
+  pub fn dates(&self) -> Option<Range<NaiveDate>> {
+    Some(self.to_nd()?..self.succ().to_nd()?)
   }
 
   pub fn months(self, num_months: i32) -> impl Coroutine<Yield = YearMonth, Return = ()> {
@@ -218,7 +222,7 @@ mod test {
   #[test]
   pub fn test_to_nd() {
     let ym = YearMonth { yr: 2024, mth1: 2 };
-    let nd = ym.to_nd();
+    let nd = ym.to_nd().unwrap();
     assert_eq!(nd.year(), 2024);
     assert_eq!(nd.month(), 2);
     assert_eq!(nd.day(), 1);

@@ -1,8 +1,9 @@
-import { Time } from "../time";
-import { TentoMath } from "../utils";
-import { Ms } from "./ms";
-import { TimeOfDay } from "./time-of-day";
-import { TimePoint } from "./time-point";
+import { Time } from "../time.ts";
+import { TentoMath } from "../utils.ts";
+import { Ms } from "./ms.ts";
+import { TimeOfDay } from "./time-of-day.ts";
+import { TimePoint } from "./time-point.ts";
+import type { Option } from "../option.ts";
 
 export type Meridiem = "am" | "pm";
 

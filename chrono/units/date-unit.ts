@@ -1,3 +1,5 @@
+import type { Option, Optional } from "../option.ts";
+
 export class DateUnit<Unit extends DateUnit.Type = any>
   implements DateUnit.Parts.Opt
 {

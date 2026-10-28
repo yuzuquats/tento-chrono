@@ -59,7 +59,6 @@ mod test {
   /// consistency between Rust and JS implementations on various dates
   /// including leap years
   #[test]
-  #[ignore = "takes too long"]
   pub fn test_formatting() {
     let mut rt = Runtime::env_test().expect("couldn't construct runtime");
 
@@ -78,7 +77,6 @@ mod test {
 
   /// Tests days_since_epoch calculation by comparing Rust and JS implementations
   #[test]
-  #[ignore = "takes too long"]
   pub fn test_days_since_epoch() {
     let mut rt = Runtime::env_test().expect("couldn't construct runtime");
 

@@ -78,7 +78,6 @@ mod test {
   /// Each operation is validated by comparing the JavaScript implementation results against
   /// the Rust implementation's expected behavior to ensure cross-implementation consistency.
   #[test]
-  #[ignore = "takes too long"]
   pub fn test_add_operations() {
     let mut rt = Runtime::env_test().expect("couldn't construct runtime");
 
@@ -187,7 +186,6 @@ mod test {
   /// Note: In the JavaScript implementation, subtraction is implemented as adding negative
   /// values (e.g., subtractDays is implemented as addDays(-n)).
   #[test]
-  #[ignore = "takes too long"]
   pub fn test_subtract_operations() {
     let mut rt = Runtime::env_test().expect("couldn't construct runtime");
 
@@ -283,7 +281,6 @@ mod test {
   /// the Rust implementation's expected behavior using both implementations' internal
   /// calculation methods to ensure cross-implementation consistency.
   #[test]
-  #[ignore = "takes too long"]
   pub fn test_difference_operations() {
     let mut rt = Runtime::env_test().expect("couldn't construct runtime");
 
@@ -420,7 +417,6 @@ mod test {
   /// This test complements the more comprehensive specialized tests by providing
   /// a faster, more focused validation of core functionality.
   #[test]
-  #[ignore = "takes too long"]
   pub fn test_operations() {
     let mut rt = Runtime::env_test().expect("couldn't construct runtime");
 

@@ -11,6 +11,7 @@ import { Utc, Tzname } from "../chrono/timezone.ts";
 import { Duration } from "../chrono/units/duration.ts";
 import { TimeOfDay } from "../chrono/units/time-of-day.ts";
 import { installTimezoneLoader } from "./utils.deno.ts";
+import type { Option } from "../chrono/option.ts";
 
 installTimezoneLoader();
 

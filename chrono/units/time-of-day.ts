@@ -1,13 +1,14 @@
 // Use console.log instead of @lona/log in tento-chrono
-import { GenericRange } from "../range";
-import { Result, erm, ok } from "../result";
-import { Time } from "../time";
-import { Duration } from "./duration";
-import { DurationTime } from "./duration-time";
-import { Hms } from "./hour-mins-secs";
-import { Meridiem } from "./meridiem";
-import { Ms } from "./ms";
-import { TimePoint } from "./time-point";
+import { GenericRange } from "../range.ts";
+import { Result, erm, ok } from "../result.ts";
+import { Time } from "../time.ts";
+import { Duration } from "./duration.ts";
+import { DurationTime } from "./duration-time.ts";
+import { Hms } from "./hour-mins-secs.ts";
+import { Meridiem } from "./meridiem.ts";
+import { Ms } from "./ms.ts";
+import { TimePoint } from "./time-point.ts";
+import type { Option, Optional } from "../option.ts";
 
 /**
  * TimeOfDay represents a specific time of day on a 24-hour clock (00:00:00 to 23:59:59.999)
@@ -209,7 +210,11 @@ export class TimeOfDay {
    * Gets the millisecond component (0-999)
    */
   get ms(): number {
-    return this.toMs % Time.MS_PER_SEC;
+    // Floor like the `hrs`/`mins`/`secs` getters: `toMs` may carry a
+    // sub-millisecond fraction (e.g. a pixel-derived event time), and a
+    // non-integer here makes `toRfc3339` emit a double-decimal fraction
+    // (`:11.425.78125`) that breaks RFC3339 round-trips.
+    return Math.floor(this.toMs % Time.MS_PER_SEC);
   }
 
   /**
@@ -373,12 +378,12 @@ export class TimeOfDay {
    * @returns Time string in RFC3339 format (HH:MM:SS or HH:MM:SS.sss)
    */
   toRfc3339(): string {
-    const base = `${this.hrs.toString().padStart(2, "0")}:${this.mins
-      .toString()
-      .padStart(2, "0")}:${this.secs.toString().padStart(2, "0")}`;
-    if (this.ms > 0) {
+    // Each field read once (each getter divides `toMs`); same text as padStart.
+    const base = `${pad2(this.hrs)}:${pad2(this.mins)}:${pad2(this.secs)}`;
+    const ms = this.ms;
+    if (ms > 0) {
       // Append milliseconds if non-zero
-      return `${base}.${this.ms.toString().padStart(3, "0")}`;
+      return `${base}.${ms >= 0 && ms < 100 ? (ms < 10 ? "00" : "0") + ms : ms.toString().padStart(3, "0")}`;
     } else {
       return base;
     }
@@ -631,4 +636,9 @@ export namespace TimeOfDay {
   export namespace Range {
     export const DAY = new Range(TimeOfDay.ZERO, TimeOfDay.ZERO, true);
   }
+}
+
+/** `n.toString().padStart(2, "0")`, without the call for the common single digit. */
+function pad2(n: number): string {
+  return n >= 0 && n < 10 ? "0" + n : n.toString().padStart(2, "0");
 }

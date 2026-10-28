@@ -1,6 +1,6 @@
-import { Time } from "../time";
-import { DaysSinceEpoch, MsSinceEpoch } from "./units";
-import { TentoMath } from "../utils";
+import { Time } from "../time.ts";
+import { DaysSinceEpoch, MsSinceEpoch } from "./units.ts";
+import { TentoMath } from "../utils.ts";
 
 /**
  * Unix Epoch defined as

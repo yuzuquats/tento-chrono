@@ -1,13 +1,14 @@
-import { Epoch } from "./epoch";
+import { Epoch } from "./epoch.ts";
 import {
   DayOfWeek,
   DayOfWeek1,
   DayOfYear1,
   DaysSinceEpoch,
   MsSinceEpoch,
-} from "./units";
-import { YearMonthDay } from "./year-month-day";
-// import { YearMonthDay } from "./year-month-day";
+} from "./units.ts";
+import { YearMonthDay } from "./year-month-day.ts";
+import type { Option } from "../option.ts";
+// import { YearMonthDay } from "./year-month-day.ts";
 
 export class Weekday {
   static WEEKDAY_SHORT = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -22,13 +23,23 @@ export class Weekday {
   ];
   static WEEKDAY_SHORT2 = ["su", "mo", "tu", "we", "th", "fr", "sa"];
 
-  //
-  // 21.4.1.6 Week Day
-  //
+  /** Returns Sunday=1 through Saturday=7 for a Unix epoch day count. */
   static fromDse(dse: DaysSinceEpoch): DayOfWeek1 {
-    let result = (dse + 5) % 7;
+    if (dse === (dse | 0)) {
+      // Ben Joffe's full signed 32-bit shift variant.
+      // https://www.benjoffe.com/fast-day-of-week#fn=32unix
+      // MIT license: ../../.docs/content/weekday-performance.md
+      // Math.imul keeps the low product bits; >>> wraps the sum to u32.
+      return (((Math.imul(dse, 613566756) +
+        0x95000000 +
+        (dse >> 1) +
+        (dse >> 4)) >>> 29) + 1) as DayOfWeek1;
+    }
+
+    // Reduce first so adding the epoch offset cannot round large integers.
+    let result = (dse % 7 + 4) % 7;
     if (result < 0) result += 7;
-    return result as DayOfWeek1;
+    return (result + 1) as DayOfWeek1;
   }
 
   static fromMse(mse: MsSinceEpoch): DayOfWeek1 {

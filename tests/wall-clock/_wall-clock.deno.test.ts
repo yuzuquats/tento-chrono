@@ -17,8 +17,14 @@
  */
 import { assertEquals } from "jsr:@std/assert";
 import { installTimezoneLoader } from "../utils.deno.ts";
-import { NaiveDate, NaiveDateTime, NaiveTime, TimezoneRegion } from "@tento-chrono";
-import { Fixtures } from "../fixture-runner.ts";
+import {
+  NaiveDate,
+  NaiveDateTime,
+  NaiveTime,
+  TimezoneRegion,
+  Tzname,
+} from "../../chrono/mod.ts";
+import { Fixtures } from "../fixture-runner.deno.ts";
 
 installTimezoneLoader();
 
@@ -52,7 +58,7 @@ Fixtures.load<Input, Expected>(
   async (input) => {
     const tz = input.tz === "UTC"
       ? TimezoneRegion.UTC
-      : await TimezoneRegion.get(input.tz);
+      : await TimezoneRegion.get(input.tz as Tzname);
 
     // Multi-time case: same date, multiple times
     if (input.times) {

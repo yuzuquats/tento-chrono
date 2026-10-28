@@ -1,4 +1,4 @@
-import { Month0, Month1 } from "./units";
+import { Month0, Month1 } from "./units.ts";
 
 export class Month {
   readonly mth1: Month1;

@@ -1,5 +1,5 @@
-import { YearMonthDay } from "../units/year-month-day";
-import { ICalendar } from "./ical";
+import { YearMonthDay } from "../units/year-month-day.ts";
+import { ICalendar } from "./ical.ts";
 
 /**
  * Utilities for Google Calendar-specific recurrence behavior

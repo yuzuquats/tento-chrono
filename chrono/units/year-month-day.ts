@@ -1,10 +1,10 @@
-import { Gecko } from "../impl";
-import { GenericRange } from "../range";
-import { Result, erm, ok } from "../result";
+import { Gecko } from "../impl.ts";
+import { GenericRange } from "../range.ts";
+import { Result, erm, ok } from "../result.ts";
 
-import { err } from "../result";
-import { DateUnit } from "./date-unit";
-import { Month } from "./month";
+import { err } from "../result.ts";
+import { DateUnit } from "./date-unit.ts";
+import { Month } from "./month.ts";
 import {
   DayOfMonth,
   DayOfMonth0,
@@ -19,18 +19,19 @@ import {
   SecsSinceEpoch,
   WeekOfYear1,
   WeeksSinceEpoch1,
-} from "./units";
-import { Weekday } from "./weekday";
-import { Year } from "./year";
+} from "./units.ts";
+import { Weekday } from "./weekday.ts";
+import { Year } from "./year.ts";
 
-import { NaiveDate } from "../naive-date";
-import { NaiveDateTime } from "../naive-datetime";
-import { Time } from "../time";
-import { PartialDate } from "./partial-date";
-import { TimeOfDay } from "./time-of-day";
-import { Week, Yw1Like } from "./week";
-import { YearMonth, YmLike } from "./year-month";
-import { YearMonthDayFilter } from "./year-month-day-filter";
+import { NaiveDate } from "../naive-date.ts";
+import { NaiveDateTime } from "../naive-datetime.ts";
+import { Time } from "../time.ts";
+import { PartialDate } from "./partial-date.ts";
+import { TimeOfDay } from "./time-of-day.ts";
+import { Week, Yw1Like } from "./week.ts";
+import { YearMonth, YmLike } from "./year-month.ts";
+import { YearMonthDayFilter } from "./year-month-day-filter.ts";
+import type { Option, Optional } from "../option.ts";
 
 export interface YmdLike<Index> extends YmLike<Index> {
   readonly yr: number;
@@ -56,8 +57,7 @@ export namespace Ymd1Like {
   export const dse = daysSinceEpoch;
 
   export function dayOfWeek(ymd: Ymd1Like): DayOfWeek1 {
-    const weekday = Weekday.fromDse(Ymd1Like.dse(ymd));
-    return (weekday !== 0 ? weekday : 7) as DayOfWeek1;
+    return Weekday.fromDse(Ymd1Like.dse(ymd));
   }
 
   export function dayOfYear(ymd: Ymd1Like): DayOfYear1 {
@@ -151,7 +151,8 @@ class _YearMonthDay implements Ymd1Like {
    */
   get dayOfWeek(): Weekday {
     if (this.cached.dayOfWeek) return this.cached.dayOfWeek;
-    return (this.cached.dayOfWeek = Weekday.DOW1[Ymd1Like.dayOfWeek(this) - 1]);
+    return (this.cached.dayOfWeek =
+      Weekday.DOW1[Weekday.fromDse(this.dse) - 1]);
   }
 
   /**
@@ -471,11 +472,16 @@ class _YearMonthDay implements Ymd1Like {
 
   rfc3339(): string {
     if (this.cached.rfc3339 != null) return this.cached.rfc3339;
-    return (this.cached.rfc3339 = [
-      this.yr,
-      String(this.month1).padStart(2, "0"),
-      String(this.day1).padStart(2, "0"),
-    ].join("-"));
+    // `YYYY-MM-DD`: the year is always four digits (RFC 3339 §5.6
+    // `date-fullyear = 4DIGIT`), formatted directly because every occurrence
+    // id formats a fresh date.
+    const y = this.yr;
+    const m = this.month1;
+    const d = this.day1;
+    const year = y >= 1000 ? String(y) : y >= 0 ? String(y).padStart(4, "0") : String(y);
+    return (this.cached.rfc3339 = `${year}-${m >= 0 && m < 10 ? "0" + m : String(m).padStart(2, "0")}-${
+      d >= 0 && d < 10 ? "0" + d : String(d).padStart(2, "0")
+    }`);
   }
 
   ical(): string {
@@ -693,7 +699,7 @@ export namespace YearMonthDay {
     curr: YearMonthDay.MaybeValid,
     step: DateUnit,
     recurLimit: number,
-  ) {
+  ): Generator<YearMonthDay.MaybeValid> {
     for (let i = 0; i < recurLimit; ++i) {
       const next = curr.addOpt(step);
       yield curr;
@@ -717,7 +723,7 @@ export namespace YearMonthDay {
     end: Option<YearMonthDay>;
     limit: Option<number>;
     weekStart: Weekday;
-  }) {
+  }): Generator<YearMonthDay> {
     let recurCnt = 0;
     let cnt = 0;
 
@@ -728,22 +734,51 @@ export namespace YearMonthDay {
       if (diff !== 0) iterStart = start.addDays(-diff);
     }
 
-    for (const i of YearMonthDay.ndsucc(iterStart, step, recurLimit)) {
+    // At most `recurLimit` dates, and the series ends after `IDLE_PERIODS`
+    // periods in a row with none: a rule that rarely matches
+    // (BYMONTH=7;BYMONTHDAY=1 on a DAILY;INTERVAL=3 step) still reaches its
+    // COUNT, and one that never matches (BYMONTH=2;BYMONTHDAY=30) ends.
+    let idle = 0;
+    for (const i of YearMonthDay.ndsucc(iterStart, step, Number.MAX_SAFE_INTEGER)) {
+      let yielded = false;
       for (const [ndu, _] of filter([i, step.type])) {
         const nd = ndu.toResult().asOk();
         if (!nd) continue;
         if (nd.cmpInvalid(start) < 0) continue;
         if (end && nd.cmpInvalid(end) > 0) continue;
         yield nd;
+        yielded = true;
         cnt += 1;
         recurCnt += 1;
         if (limit && cnt >= limit) return;
         if (recurCnt >= recurLimit) return;
       }
+      if (yielded) idle = 0;
+      else if (++idle >= IDLE_PERIODS) return;
+      // A period whose first day is over a week past `end` (and every later
+      // one) holds no date to yield. The week of slack covers BYWEEKNO,
+      // whose week 1 can start in the previous year's last days.
+      if (end && firstDayOf(i, step.type).castValid().addDays(-7).cmpInvalid(end) > 0) return;
     }
   }
 
-  export import Filter = YearMonthDayFilter;
+  /** The first day of the period `i` marks (a year's Jan 1, a month's 1st; a week or day starts at `i`). */
+  function firstDayOf(i: YearMonthDay.MaybeValid, unit: DateUnit.Type): YearMonthDay.MaybeValid {
+    switch (unit) {
+      case "year":
+        return YearMonthDay.fromYmd1Unchecked(i.yr, 1, 1);
+      case "month":
+        return YearMonthDay.fromYmd1Unchecked(i.yr, i.mth, 1);
+      default:
+        return i;
+    }
+  }
+
+  /** How many periods in a row without a date end a series (`ndrange`). */
+  export const IDLE_PERIODS = 100_000;
+
+  export type Filter = YearMonthDayFilter;
+  export const Filter: typeof YearMonthDayFilter = YearMonthDayFilter;
 
   export import Partial = PartialDate;
 
@@ -824,7 +859,7 @@ export namespace YearMonthDay {
       return n >= this.start.dse && n <= this.end.dse;
     }
 
-    contains(d: YearMonthDay) {
+    contains(d: YearMonthDay): boolean {
       const n = d.dse;
       return n >= this.start.dse && n < this.end.dse;
     }
@@ -849,7 +884,7 @@ export namespace YearMonthDay {
       ));
     }
 
-    toString() {
+    override toString(): string {
       return `${this.start.toString()}..${this.end.toString()}`;
     }
   }

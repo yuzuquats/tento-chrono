@@ -1,7 +1,10 @@
 use std::ops::{Deref, Range};
 
+#[cfg(feature = "arbitrary")]
 use arbitrary::{Arbitrary, Unstructured};
-use chrono::{DateTime, Datelike, NaiveDate, NaiveDateTime, TimeZone, Utc};
+use chrono::{DateTime, Datelike, NaiveDate, NaiveDateTime, Utc};
+#[cfg(feature = "arbitrary")]
+use chrono::TimeZone;
 
 pub struct DateTimeRange(pub std::ops::Range<DateTime<Utc>>);
 
@@ -13,6 +16,7 @@ impl Deref for DateTimeRange {
   }
 }
 
+#[cfg(feature = "arbitrary")]
 impl<'a> Arbitrary<'a> for DateTimeRange {
   fn arbitrary(u: &mut Unstructured<'_>) -> arbitrary::Result<Self> {
     let start_timestamp: i64 = u.int_in_range(0..=Utc::now().timestamp())?;
@@ -36,25 +40,29 @@ impl DateTimeRange {
     dt: &Range<DateTime<Utc>>,
     pad_mths: i32,
     nearest_mths: i32,
-  ) -> Range<DateTime<Utc>> {
-    round_date(&dt.start, -pad_mths, nearest_mths, false)
-      ..round_date(&dt.end, pad_mths, nearest_mths, true)
+  ) -> Option<Range<DateTime<Utc>>> {
+    Some(round_date(&dt.start, -pad_mths, nearest_mths, false)?..round_date(&dt.end, pad_mths, nearest_mths, true)?)
   }
 
-  pub fn pad_and_round_range(&self, pad_mths: i32, nearest_mths: i32) -> DateTimeRange {
-    DateTimeRange(
-      round_date(&self.start, -pad_mths, nearest_mths, false)
-        ..round_date(&self.end, pad_mths, nearest_mths, true),
-    )
+  /// `self` with each end moved out by `pad_mths` and rounded out with
+  /// `round_date`; `None` when an end leaves chrono's date range.
+  pub fn pad_and_round_range(&self, pad_mths: i32, nearest_mths: i32) -> Option<DateTimeRange> {
+    Self::pad_and_round_range_dt(self, pad_mths, nearest_mths).map(DateTimeRange)
   }
 }
 
+/// The first of a month at midnight UTC: `dt`'s month moved by
+/// `padding_mths`, then rounded down (or up, with `round_up`) to a month
+/// that is a multiple of `rounding_interval_mths` (December counts as 0, so
+/// an interval of 3 rounds to March, June, September or December). An
+/// interval of 1 or less only pads. The day of month and time are dropped.
+/// `None` when the result is outside chrono's date range.
 pub fn round_date(
   dt: &DateTime<Utc>,
   padding_mths: i32,
   rounding_interval_mths: i32,
   round_up: bool,
-) -> DateTime<Utc> {
+) -> Option<DateTime<Utc>> {
   let mut year = dt.year();
   let mut month = dt.month() as i32 - 1; // (0..=11)
 
@@ -80,10 +88,10 @@ pub fn round_date(
   // ...
   // 1,  2 => 0, 2
   //
-  let mut rounded_month = if rounding_interval_mths > 1 {
+  let rounded_month = if rounding_interval_mths > 1 {
     let remainder = (month + 1) % rounding_interval_mths;
     if round_up {
-      month + 1 + remainder
+      month + 1 + (rounding_interval_mths - remainder) % rounding_interval_mths
     } else {
       month + 1 - remainder
     }
@@ -91,24 +99,57 @@ pub fn round_date(
     month + 1
   };
 
-  if rounded_month > 12 {
-    rounded_month -= 12;
-    year += 1;
+  // Back to a year and a month in 1..=12 (rounding can leave 0 or 13+).
+  let month0 = rounded_month - 1;
+  year = year.checked_add(month0.div_euclid(12))?;
+  let rounded_naive_date = NaiveDate::from_ymd_opt(year, month0.rem_euclid(12) as u32 + 1, 1)?;
+  let rounded_naive_datetime = NaiveDateTime::new(rounded_naive_date, chrono::NaiveTime::MIN);
+  Some(DateTime::<Utc>::from_naive_utc_and_offset(rounded_naive_datetime, Utc))
+}
+
+#[cfg(test)]
+mod tests {
+  use super::*;
+
+  fn utc(s: &str) -> DateTime<Utc> {
+    DateTime::parse_from_rfc3339(s).unwrap().into()
   }
-  if rounded_month <= 0 {
-    rounded_month += 12;
-    year -= 1;
+
+  fn round(s: &str, interval: i32, up: bool) -> String {
+    round_date(&utc(s), 0, interval, up).unwrap().format("%Y-%m-%d").to_string()
   }
 
-  assert!(rounded_month > 0);
-  assert!(rounded_month <= 12);
+  #[test]
+  fn rounds_to_multiples_of_the_interval() {
+    assert_eq!(round("2024-07-10T00:00:00Z", 3, true), "2024-09-01");
+    assert_eq!(round("2024-07-10T00:00:00Z", 3, false), "2024-06-01");
+    assert_eq!(round("2024-08-10T00:00:00Z", 3, true), "2024-09-01");
+    assert_eq!(round("2024-09-10T00:00:00Z", 3, true), "2024-09-01");
+    assert_eq!(round("2024-11-10T00:00:00Z", 4, true), "2024-12-01");
+    assert_eq!(round("2024-01-10T00:00:00Z", 6, true), "2024-06-01");
+    assert_eq!(round("2024-01-10T00:00:00Z", 6, false), "2023-12-01");
+  }
 
-  let rounded_naive_date = NaiveDate::from_ymd_opt(year, rounded_month as u32, 1)
-    .expect(&format!("y{year} m{rounded_month}"));
-  let rounded_naive_datetime = NaiveDateTime::new(
-    rounded_naive_date,
-    chrono::NaiveTime::from_hms_opt(0, 0, 0).expect("couldn't add naivetime to datetime"),
-  );
+  #[test]
+  fn interval_two_unchanged() {
+    assert_eq!(round("2024-11-10T00:00:00Z", 2, true), "2024-12-01");
+    assert_eq!(round("2024-11-10T00:00:00Z", 2, false), "2024-10-01");
+    assert_eq!(round("2024-12-10T00:00:00Z", 2, true), "2024-12-01");
+    assert_eq!(round("2024-01-10T00:00:00Z", 2, false), "2023-12-01");
+  }
 
-  DateTime::<Utc>::from_naive_utc_and_offset(rounded_naive_datetime, Utc)
+  #[test]
+  fn out_of_range_is_none() {
+    let max = DateTime::<Utc>::MAX_UTC;
+    assert_eq!(round_date(&max, 12, 1, true), None);
+    assert_eq!(round_date(&utc("2024-12-10T00:00:00Z"), 0, 25, true).unwrap(), utc("2026-01-01T00:00:00Z"));
+  }
+
+  #[test]
+  fn pads_then_rounds() {
+    let range = DateTimeRange(utc("2024-05-10T00:00:00Z")..utc("2024-05-20T00:00:00Z"));
+    let padded = range.pad_and_round_range(1, 3).unwrap();
+    assert_eq!(padded.start, utc("2024-03-01T00:00:00Z"));
+    assert_eq!(padded.end, utc("2024-06-01T00:00:00Z"));
+  }
 }

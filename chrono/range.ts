@@ -1,3 +1,5 @@
+import type { Option } from "./option.ts";
+
 export type GenericRangeLike<T> = { start: T; end: T };
 
 export class GenericRange<T> implements GenericRangeLike<T> {

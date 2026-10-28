@@ -1,7 +1,7 @@
 use chrono::NaiveDate;
 use std::ops::Range;
 
-/// Extension trait for Range<NaiveDate> to iterate through dates
+/// Extension trait for `Range<NaiveDate>` to iterate through dates
 pub trait NaiveDateRangeExt {
   /// Returns an iterator that yields each date in the range, inclusive of start and exclusive of end
   fn days_between_iter(&self) -> DaysBetweenIter;

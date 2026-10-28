@@ -1,20 +1,21 @@
-import { Result, erm, ok } from "../result";
-import { Time } from "../time";
-import { Day } from "./day";
-import { Hms } from "./hour-mins-secs";
-import { Signed, Unit } from "./units";
+import { Result, erm, ok } from "../result.ts";
+import { Time } from "../time.ts";
+import { Day } from "./day.ts";
+import { Hms } from "./hour-mins-secs.ts";
+import { Signed, Unit } from "./units.ts";
+import type { Optional } from "../option.ts";
 
 export type Ms = Unit<"ms", any, any>;
 export namespace Ms {
   export type Parts = {
-    readonly ms: Ms;
+    readonly ms: number;
   };
   export namespace Parts {
     export type Opt = Optional<Parts>;
   }
 
   export type To = {
-    readonly toMs: Ms;
+    readonly toMs: number;
   };
   export namespace To {
     export type Opt = Optional<To>;

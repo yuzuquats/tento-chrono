@@ -1,15 +1,16 @@
-import { GenericRange } from "../range";
-import { Result, erm, ok } from "../result";
+import { GenericRange } from "../range.ts";
+import { Result, erm, ok } from "../result.ts";
 
-import { Time } from "../time";
-import { TentoMath } from "../utils";
-import { Day } from "./day";
-import { Hms } from "./hour-mins-secs";
-import { Meridiem } from "./meridiem";
-import { Ms } from "./ms";
-import { TimeOfDay } from "./time-of-day";
-import { TimePoint } from "./time-point";
-import { Signed } from "./units";
+import { Time } from "../time.ts";
+import { TentoMath } from "../utils.ts";
+import { Day } from "./day.ts";
+import { Hms } from "./hour-mins-secs.ts";
+import { Meridiem } from "./meridiem.ts";
+import { Ms } from "./ms.ts";
+import { TimeOfDay } from "./time-of-day.ts";
+import { TimePoint } from "./time-point.ts";
+import { Signed } from "./units.ts";
+import type { Option, Optional } from "../option.ts";
 
 /**
  * TimeUnit represents a duration or point in time in terms of days, hours, minutes, seconds, and milliseconds.
@@ -25,43 +26,43 @@ export class DurationTime
    * Creates a new TimeUnit
    * @param toMs - Time value in milliseconds
    */
-  constructor(public readonly toMs: Ms) {
+  constructor(public readonly toMs: number) {
     this.sign = toMs >= 0 ? 1 : -1;
   }
 
   static rounded(toMs: number): DurationTime {
-    return new DurationTime(Math.round(toMs) as Ms);
+    return new DurationTime(Math.round(toMs));
   }
 
-  static ms(ms: Ms): DurationTime {
+  static ms(ms: number): DurationTime {
     return new DurationTime(ms);
   }
 
   static secs(secs: number): DurationTime {
-    return new DurationTime((secs * Time.MS_PER_SEC) as Ms);
+    return new DurationTime(secs * Time.MS_PER_SEC);
   }
 
   static mins(mins: number): DurationTime {
-    return new DurationTime((mins * Time.MS_PER_MIN) as Ms);
+    return new DurationTime(mins * Time.MS_PER_MIN);
   }
 
   static hrs(hrs: number): DurationTime {
-    return new DurationTime((hrs * Time.MS_PER_HR) as Ms);
+    return new DurationTime(hrs * Time.MS_PER_HR);
   }
 
   static dys(days: number): DurationTime {
-    return new DurationTime((days * Time.MS_PER_DAY) as Ms);
+    return new DurationTime(days * Time.MS_PER_DAY);
   }
 
   static from(delta: DurationTime.Parts.Opt): DurationTime {
     if (delta instanceof DurationTime) return delta;
-    return new DurationTime(Ms.resolve(delta) as Ms);
+    return new DurationTime(Ms.resolve(delta));
   }
 
   static hms(hms: Hms.Parts.Opt, sign: number = 1): DurationTime {
     if (hms instanceof DurationTime && sign === 1) return hms;
     const ms = Hms.toMs(hms);
-    return new DurationTime((ms * sign) as Ms);
+    return new DurationTime(ms * sign);
   }
 
   static hmsStr(
@@ -241,7 +242,7 @@ export class DurationTime
    * @returns New TimeUnit with the sum
    */
   add(delta: DurationTime.Parts.Opt): DurationTime {
-    return new DurationTime((this.toMs + DurationTime.from(delta).toMs) as Ms);
+    return new DurationTime(this.toMs + DurationTime.from(delta).toMs);
   }
 
   /**
@@ -250,7 +251,7 @@ export class DurationTime
    * @returns New TimeUnit with the difference
    */
   sub(delta: DurationTime.Parts.Opt): DurationTime {
-    return new DurationTime((this.toMs - DurationTime.from(delta).toMs) as Ms);
+    return new DurationTime(this.toMs - DurationTime.from(delta).toMs);
   }
 
   /**
@@ -259,7 +260,7 @@ export class DurationTime
    * @returns New TimeUnit with scaled value
    */
   mult(scalar: number): DurationTime {
-    return new DurationTime((this.toMs * scalar) as Ms);
+    return new DurationTime(this.toMs * scalar);
   }
 
   /**
@@ -269,7 +270,7 @@ export class DurationTime
    */
   div(scalar: number): DurationTime {
     if (scalar === 0) throw new Error("div by 0");
-    return new DurationTime((this.toMs / scalar) as Ms);
+    return new DurationTime(this.toMs / scalar);
   }
 
   /**
@@ -311,7 +312,7 @@ export class DurationTime
   ): DurationTime {
     const nearestTu = DurationTime.from(nearest);
     const multiple = op(this.toMs / nearestTu.toMs);
-    return new DurationTime((multiple * nearestTu.toMs * this.sign) as Ms);
+    return new DurationTime(multiple * nearestTu.toMs * this.sign);
   }
 
   round(nearest: DurationTime.Parts.Opt): DurationTime {
@@ -465,12 +466,12 @@ export namespace DurationTime {
     };
   }
 
-  export const ZERO = DurationTime.rounded(0);
-  export const HOUR = DurationTime.hrs(1);
-  export const HOUR24 = DurationTime.hrs(24);
-  export const MIN15 = DurationTime.mins(15);
-  export const MIN5 = DurationTime.mins(5);
-  export const DAY1 = DurationTime.dys(1);
+  export const ZERO: DurationTime = DurationTime.rounded(0);
+  export const HOUR: DurationTime = DurationTime.hrs(1);
+  export const HOUR24: DurationTime = DurationTime.hrs(24);
+  export const MIN15: DurationTime = DurationTime.mins(15);
+  export const MIN5: DurationTime = DurationTime.mins(5);
+  export const DAY1: DurationTime = DurationTime.dys(1);
 
   export function msToString(
     ms: number,
@@ -478,7 +479,7 @@ export namespace DurationTime {
   ): string {
     return formatter.format(
       DurationTime.from({
-        ms: ms as Ms,
+        ms,
       }),
     );
   }
@@ -516,7 +517,7 @@ export namespace DurationTime {
   }
 
   export namespace Range {
-    export const DAY = new DurationTime.Range(
+    export const DAY: DurationTime.Range = new DurationTime.Range(
       DurationTime.ZERO,
       DurationTime.HOUR24,
     );
@@ -576,7 +577,7 @@ export interface TimeDeltaFormatter {
 }
 
 export class EnTimeDeltaFormatter implements TimeDeltaFormatter {
-  static pluralize(s: string, n: number) {
+  static pluralize(s: string, n: number): string {
     if (n > 1) return s + "s";
     return s;
   }

@@ -24,38 +24,22 @@ export const LA_PST = new FixedTimezone("LA_PST", {
   offset: Duration.Time.from({ mins: -480 }),
 });
 
-const LOADERS = {
-  url: <TimezoneRegion.Loader>{
-    load: async (tzname: Tzname) => {
-      const resp = await fetch(
-        `https://dev--static.lona.so:8443/timezones/2024b/1900_2050/${tzname.replaceAll(
-          "/",
-          "~",
-        )}.json`,
-      );
-      const json = await resp.json();
-      return json.map((s: TimezoneRegion.Transition.Serialized) =>
-        TimezoneRegion.Transition.parse(s, tzname),
-      );
-    },
+const fixtureLoader: TimezoneRegion.Loader = {
+  load: async (tzname: Tzname) => {
+    const name = tzname.replaceAll("/", "~");
+    if (!/^[A-Za-z0-9_+~\-]+$/.test(name)) {
+      throw new Error(`Invalid timezone fixture name: ${tzname}`);
+    }
+    const text = await Deno.readTextFile(
+      new URL(`./timezones/2024b/${name}.json`, import.meta.url),
+    );
+    const transitions: TimezoneRegion.Transition.Serialized[] = JSON.parse(text);
+    return transitions.map((value) => TimezoneRegion.Transition.parse(value, tzname));
   },
-  // file: <TimezoneRegion.Loader>{
-  //   load: async () => {
-  //     const module = await import(
-  //       "../../../container_data/tento-tz/2024b/1970_2050/America~Los_Angeles.json",
-  //       {
-  //         with: { type: "json" },
-  //       }
-  //     );
-  //     return module.default.map((s: TimezoneRegion.Transition.Serialized) =>
-  //       TimezoneRegion.Transition.parse(s, "America/Los_Angeles")
-  //     );
-  //   },
-  // },
 };
 
 export function installTimezoneLoader() {
-  TimezoneRegion.setLoader(LOADERS.url);
+  TimezoneRegion.setLoader(fixtureLoader);
 }
 
 export function assertEqualsObject(actual: unknown, expected: unknown) {

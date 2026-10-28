@@ -1,9 +1,9 @@
-import { range } from "../range";
-import { TentoMath } from "../utils";
-import { DayOfYear0, DaysSinceEpoch, Month1, WeekOfYear1 } from "./units";
-import { Weekday } from "./weekday";
-import { YearMonth } from "./year-month";
-import { YearMonthDay } from "./year-month-day";
+import { range } from "../range.ts";
+import { TentoMath } from "../utils.ts";
+import { DayOfYear0, DaysSinceEpoch, Month1, WeekOfYear1 } from "./units.ts";
+import { Weekday } from "./weekday.ts";
+import { YearMonth } from "./year-month.ts";
+import { YearMonthDay } from "./year-month-day.ts";
 
 export namespace Year {
   export function dseFromYear(year: number): DaysSinceEpoch {

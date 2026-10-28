@@ -1,0 +1,57 @@
+{
+  "namespace": "tento-chrono",
+  "title": "@tento-chrono",
+  "sections": [
+    {
+      "title": "Getting Started",
+      "children": [
+        {
+          "label": "Overview",
+          "slug": "overview"
+        },
+        {
+          "label": "Dates and Times",
+          "slug": "dates-and-times"
+        }
+      ]
+    },
+    {
+      "title": "TypeScript API",
+      "children": [
+        {
+          "label": "Type Model and Units",
+          "slug": "typescript-api"
+        },
+        {
+          "label": "Partial Dates",
+          "slug": "partial-dates"
+        },
+        {
+          "label": "Timezone Regions",
+          "slug": "timezone-regions"
+        },
+        {
+          "label": "Date Regions and Fragments",
+          "slug": "date-regions-and-fragments"
+        },
+        {
+          "label": "Recurrence and iCalendar",
+          "slug": "recurrence"
+        },
+        {
+          "label": "Secondary Calendars",
+          "slug": "secondary-calendars"
+        }
+      ]
+    },
+    {
+      "title": "Rust API",
+      "children": [
+        {
+          "label": "Rust Helpers",
+          "slug": "rust-api"
+        }
+      ]
+    }
+  ]
+}

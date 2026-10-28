@@ -8,12 +8,13 @@ import {
   Weekday,
   err,
   ok,
-} from "../mod";
-import { TentoMath } from "../utils";
-import { ExDate } from "./exdate";
-import { Frequency } from "./frequency";
-import { ICalAttributes } from "./ical-attributes";
-import { IsoDate } from "./iso-date";
+} from "../mod.ts";
+import { TentoMath } from "../utils.ts";
+import { ExDate } from "./exdate.ts";
+import { Frequency } from "./frequency.ts";
+import { ICalAttributes } from "./ical-attributes.ts";
+import { IsoDate } from "./iso-date.ts";
+import type { Option, Optional } from "../option.ts";
 
 export interface RRuleLike {
   freq: Frequency;
@@ -21,7 +22,7 @@ export interface RRuleLike {
     wkst: Weekday;
     interval: number;
     count: number;
-    bysetpos: number;
+    bysetpos: number[];
     byday: Weekday[];
     bynthday: Weekday.Nth[];
     bymonth: number[];
@@ -38,6 +39,22 @@ export interface RRuleLike {
 
 export class RRule {
   readonly exdates: IsoDate[] = [];
+  /**
+   * The series' RDATE lines, verbatim (`parseWithRecurrence`), written back
+   * by `toRecurrenceArray` so an edit that re-serializes the rule keeps the
+   * instances they add (RFC 5545 §3.8.5.2).
+   */
+  readonly rdateLines: string[] = [];
+  /**
+   * EXDATE lines that carry parameters (a TZID or a VALUE), verbatim: their
+   * values are also in `exdates` (an `IsoDate` drops the TZID), but
+   * `toRecurrenceArray` writes these lines back as they came, so a TZID's
+   * wall time keeps its zone across an edit. `exdates` added since (or
+   * from plain lines) are written as one plain `EXDATE:` line.
+   */
+  readonly exdateLines: string[] = [];
+  /** The `exdates` that came from `exdateLines` (by identity), not re-written on the plain line. */
+  readonly #fromExdateLines = new Set<IsoDate>();
 
   constructor(
     readonly inner: RRuleLike,
@@ -57,6 +74,8 @@ export class RRule {
 
     const rrule = parseResult.asOk()!;
 
+    for (const line of recurrence) if (line.startsWith("RDATE")) rrule.rdateLines.push(line);
+
     // Parse all EXDATE lines using the new ExDate parser
     const exdateLines = recurrence.filter((r) => r.startsWith("EXDATE"));
 
@@ -68,9 +87,12 @@ export class RRule {
       }
 
       const exdate = exdateResult.asOk()!;
+      const parameterized = exdate.tzid != null || exdate.valueType != null;
+      if (parameterized) rrule.exdateLines.push(exdateLine);
       // Add all parsed dates from this EXDATE line
       for (const isoDate of exdate.dates) {
         rrule.exdates.push(isoDate);
+        if (parameterized) rrule.#fromExdateLines.add(isoDate);
       }
     }
 
@@ -81,14 +103,32 @@ export class RRule {
     this.exdates.push(date);
   }
 
-  toRecurrenceArray(): string[] {
+  /**
+   * Give `target` (a rule re-cut from this one) this rule's EXDATEs — the
+   * parameterized lines verbatim — and the RDATE lines `rdateLines`
+   * (default: all of them).
+   */
+  carryListsTo(target: RRule, rdateLines: readonly string[] = this.rdateLines): void {
+    for (const d of this.exdates) {
+      target.exdates.push(d);
+      if (this.#fromExdateLines.has(d)) target.#fromExdateLines.add(d);
+    }
+    target.exdateLines.push(...this.exdateLines);
+    target.rdateLines.push(...rdateLines);
+  }
+
+  /** The recurrence lines: the RRULE, the EXDATEs and the RDATE lines (`rdateLines` overrides them). */
+  toRecurrenceArray(rdateLines: readonly string[] = this.rdateLines): string[] {
     const result: string[] = [this.toString()];
 
-    if (this.exdates.length > 0) {
-      // Format all exdates as a single EXDATE line
-      const exdateStrs = this.exdates.map((d) => d.ical());
+    const plain = this.exdates.filter((d) => !this.#fromExdateLines.has(d));
+    if (plain.length > 0) {
+      // Format the plain exdates as a single EXDATE line
+      const exdateStrs = plain.map((d) => d.ical());
       result.push(`EXDATE:${exdateStrs.join(",")}`);
     }
+    result.push(...this.exdateLines);
+    result.push(...rdateLines);
 
     return result;
   }
@@ -134,8 +174,8 @@ export class RRule {
             rruleParts.push(`INTERVAL=${options.interval}`);
           break;
         case "BYSETPOS":
-          if (options?.bysetpos != null)
-            rruleParts.push(`BYSETPOS=${options.bysetpos}`);
+          if (options?.bysetpos != null && options.bysetpos.length > 0)
+            rruleParts.push(`BYSETPOS=${options.bysetpos.join(",")}`);
           break;
         case "BYDAY":
           if (options?.bynthday != null && options.bynthday.length > 0) {
@@ -383,6 +423,22 @@ export class RRule {
     return description;
   }
 
+  /**
+   * Whether the rule places instances below the day: an HOURLY, MINUTELY or
+   * SECONDLY frequency, or BYHOUR / BYMINUTE / BYSECOND. Such a rule's
+   * instances come from `RRuleInstances.expand`; the date generator
+   * (`toFilterProps`) places one instance a day, at DTSTART's time.
+   */
+  hasTimeParts(): boolean {
+    const options = this.inner.options;
+    return this.inner.freq === "hourly" ||
+      this.inner.freq === "minutely" ||
+      this.inner.freq === "secondly" ||
+      (options?.byhour?.length ?? 0) > 0 ||
+      (options?.byminute?.length ?? 0) > 0 ||
+      (options?.bysecond?.length ?? 0) > 0;
+  }
+
   toFilterProps(
     limit?: Option<number>,
     end?: Option<NaiveDate>,
@@ -515,12 +571,18 @@ export class RRule {
     if (options?.byyearday && options.byyearday.length > 0)
       filters.push(NaiveDate.Filter.byDayOfYear(options.byyearday));
 
-    const filter =
+    const composed =
       filters.length > 0
         ? filters.length === 1
           ? filters[0]
           : NaiveDate.Filter.compose(filters)
         : NaiveDate.Filter.identity();
+    // BYSETPOS picks from each period's whole set of days. A rule with time
+    // parts applies it to the set of instants instead (`RRuleInstances`).
+    const setpos = options?.bysetpos;
+    const filter = setpos != null && setpos.length > 0 && !this.hasTimeParts()
+      ? NaiveDate.Filter.bySetPos(composed, setpos)
+      : composed;
 
     // Build options
     const filterOptions: NaiveDate.FilterPropsOptions = {};
@@ -586,7 +648,10 @@ export class RRule {
         filterOptions.limit = limit;
       }
     } else {
-      filterOptions.limit = limit ?? filterOptions.limit;
+      // A caller's `limit` shortens the series; it never lengthens it past
+      // COUNT (it used to replace COUNT: COUNT=3 under a limit of 10 gave 10).
+      const count = filterOptions.limit;
+      filterOptions.limit = limit != null && count != null ? Math.min(limit, count) : (limit ?? count);
     }
 
     return {
@@ -688,7 +753,13 @@ export namespace RRule {
               wkst: Weekday.parseOpt(rules.get("WKST")),
               interval: TentoMath.parseOpt(rules.get("INTERVAL")),
               count: TentoMath.parseOpt(rules.get("COUNT")),
-              bysetpos: TentoMath.parseOpt(rules.get("BYSETPOS")),
+              bysetpos: rules.get("BYSETPOS")
+                ? (rules
+                    .get("BYSETPOS")!
+                    .split(",")
+                    .map((p) => TentoMath.parseOpt(p))
+                    .filter((p) => p !== null && p !== 0) as number[])
+                : null,
               byday: byday,
               bynthday: bynthday,
               bymonth: rules.get("BYMONTH")
@@ -722,7 +793,7 @@ export namespace RRule {
               byhour: byhour,
               byminute: byminute,
               bysecond: bysecond,
-              tzid: rules.get("TZID"),
+              tzid: rules.get("TZID") as Option<Tzname>,
               until: until ? IsoDate.parse(until).exp() : null,
             },
           },

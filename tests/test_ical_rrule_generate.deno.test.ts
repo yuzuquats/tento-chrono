@@ -1,4 +1,4 @@
-import { assertEquals } from "@std/assert";
+import { assertEquals, assertExists } from "@std/assert";
 import { naivedate } from "../chrono/mod.ts";
 import { NaiveDate } from "../chrono/naive-date.ts";
 import { RRule } from "../chrono/recurrence/rrule.ts";
@@ -12,7 +12,8 @@ Deno.test({
     // Test that we get the expected step
     assertEquals(filterProps.step.type, "week");
     assertEquals(filterProps.step.value, 1);
-    assertEquals(filterProps.options?.limit, 3);
+    assertExists(filterProps.options);
+    assertEquals(filterProps.options.limit, 3);
     filterProps.options.recurLimit = 10;
 
     // Test generating dates

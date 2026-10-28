@@ -2,6 +2,7 @@ import { assert, assertEquals } from "@std/assert";
 import { DateTime } from "../chrono/datetime.ts";
 import { naivedate, naivedatetime } from "../chrono/mod.ts";
 import { TimezoneRegion } from "../chrono/timezone-region.ts";
+import { Tzname } from "../chrono/timezone.ts";
 import { installTimezoneLoader } from "./utils.deno.ts";
 
 installTimezoneLoader();
@@ -9,7 +10,7 @@ installTimezoneLoader();
 Deno.test({
   name: "timezone edge cases - GMT/BST shared tzabbr",
   async fn() {
-    const tz = await TimezoneRegion.get("Europe/London");
+    const tz = await TimezoneRegion.get("Europe/London" as Tzname);
 
     // Test that winter time (GMT) and summer time (BST) are handled correctly
     // even though they share the same tzabbr in the tzdb format
@@ -31,7 +32,7 @@ Deno.test({
 Deno.test({
   name: "timezone edge cases - DST transition moments",
   async fn() {
-    const tz = await TimezoneRegion.get("Europe/London");
+    const tz = await TimezoneRegion.get("Europe/London" as Tzname);
 
     // Test the exact moment of DST transitions in 2025
     // Spring forward: March 30, 2025 at 01:00 GMT -> 02:00 BST
@@ -57,7 +58,7 @@ Deno.test({
 Deno.test({
   name: "timezone edge cases - America/Los_Angeles PDT/PST",
   async fn() {
-    const tz = await TimezoneRegion.get("America/Los_Angeles");
+    const tz = await TimezoneRegion.get("America/Los_Angeles" as Tzname);
 
     // Test US DST transitions which have clearer tzabbr separation
 
@@ -84,7 +85,7 @@ Deno.test({
 Deno.test({
   name: "timezone edge cases - binary search edge cases",
   async fn() {
-    const tz = await TimezoneRegion.get("Europe/London");
+    const tz = await TimezoneRegion.get("Europe/London" as Tzname);
 
     // Test binary search with times far in the past and future
 
@@ -113,7 +114,7 @@ Deno.test({
 Deno.test({
   name: "timezone edge cases - recurrence across multiple DST transitions",
   async fn() {
-    const tz = await TimezoneRegion.get("Europe/London");
+    const tz = await TimezoneRegion.get("Europe/London" as Tzname);
 
     // Test a long-running recurrence that crosses multiple DST transitions
     // This ensures our timezone handling works consistently over time
@@ -143,7 +144,7 @@ Deno.test({
 Deno.test({
   name: "timezone edge cases - cached timezone invalidation",
   async fn() {
-    const tz = await TimezoneRegion.get("Europe/London");
+    const tz = await TimezoneRegion.get("Europe/London" as Tzname);
 
     // Test that timezone caching doesn't interfere with DST transitions
     // This was the original issue where GMT/BST shared tzabbr but had different offsets
@@ -171,7 +172,7 @@ Deno.test({
 Deno.test({
   name: "timezone edge cases - invalid times during DST gaps",
   async fn() {
-    const tz = await TimezoneRegion.get("Europe/London");
+    const tz = await TimezoneRegion.get("Europe/London" as Tzname);
 
     // Test behavior during the "spring forward" gap
     // On March 30, 2025, 01:00 GMT becomes 02:00 BST

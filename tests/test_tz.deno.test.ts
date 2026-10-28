@@ -137,7 +137,7 @@ Deno.test({
 Deno.test({
   name: "date-tz",
   async fn() {
-    const region = await TimezoneRegion.get("America/Los_Angeles");
+    const region = await TimezoneRegion.get("America/Los_Angeles" as Tzname);
 
     const TO_PST_TRANSITION =
       "1699174800000 2023-11-05T02:00:00-07:00 2023-11-05T01:00:00-08:00";
@@ -252,13 +252,14 @@ Deno.test({
           `✅ ${tzname}: Successfully loaded, ${transitions.length} transitions found, resolved time: ${resolved.rfc3339()}`,
         );
       } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
         results.push({
           timezone: tzname,
           success: false,
-          error: error.message,
+          error: message,
         });
 
-        console.log(`❌ ${tzname}: Failed to load - ${error.message}`);
+        console.log(`❌ ${tzname}: Failed to load - ${message}`);
       }
     }
 
@@ -323,9 +324,10 @@ Deno.test({
         `Expected Chatham timezone offset (+12:45 or +13:45), got: ${resolvedDt.rfc3339()}`,
       );
     } catch (error) {
-      console.log(`Pacific/Chatham test skipped: ${error.message}`);
+      const message = error instanceof Error ? error.message : String(error);
+      console.log(`Pacific/Chatham test skipped: ${message}`);
       // Don't fail the test if timezone data isn't available
-      if (!error.message.includes("Unexpected end of JSON input")) {
+      if (!message.includes("Unexpected end of JSON input")) {
         throw error;
       }
     }

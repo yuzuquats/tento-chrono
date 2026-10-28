@@ -3,14 +3,15 @@ import { NaiveDate } from "../chrono/naive-date.ts";
 import { ICalendar } from "../chrono/recurrence/ical.ts";
 import { Recurrence } from "../chrono/recurrence/recurrence.ts";
 import { TimezoneRegion } from "../chrono/timezone-region.ts";
-import { Utc } from "../chrono/timezone.ts";
+import { Tzname, Utc } from "../chrono/timezone.ts";
 import { installTimezoneLoader } from "./utils.deno.ts";
+import type { Option } from "../chrono/option.ts";
 
 type RecurrenceTestCaseJson = {
   description?: string;
   event: {
     start: string;
-    time_zone?: string;
+    time_zone?: Tzname;
     rules: string[];
   };
   query_range: {
@@ -19,6 +20,14 @@ type RecurrenceTestCaseJson = {
   };
   recorded_instances: string[];
 };
+
+function parseUtc(s: string): DateTime<Utc> {
+  const dt = Utc.parse(s);
+  if (dt == null) {
+    throw new Error(`fixture carries an unparseable RFC3339 timestamp: ${s}`);
+  }
+  return dt;
+}
 
 class RecurrenceTestCase {
   constructor(
@@ -44,25 +53,25 @@ class RecurrenceTestCase {
       timezone = await TimezoneRegion.get(raw.event.time_zone);
     }
 
-    const eventStartDate = Utc.parse(raw.event.start).ndt.date;
+    const eventStartDate = parseUtc(raw.event.start).ndt.date;
 
     if (timezone) {
       return new RecurrenceTestCase(
         recurr,
-        timezone.toTz(Utc.parse(raw.query_range.start)).ndt.date,
-        timezone.toTz(Utc.parse(raw.query_range.end)).ndt.date,
-        raw.recorded_instances.map((i) => Utc.parse(i)),
+        timezone.toTz(parseUtc(raw.query_range.start)).ndt.date,
+        timezone.toTz(parseUtc(raw.query_range.end)).ndt.date,
+        raw.recorded_instances.map((i) => parseUtc(i)),
         raw.description,
-        timezone.toTz(Utc.parse(raw.event.start)).ndt.date,
+        timezone.toTz(parseUtc(raw.event.start)).ndt.date,
         raw,
         timezone,
       );
     } else {
       return new RecurrenceTestCase(
         recurr,
-        Utc.parse(raw.query_range.start).ndt.date,
-        Utc.parse(raw.query_range.end).ndt.date,
-        raw.recorded_instances.map((i) => Utc.parse(i)),
+        parseUtc(raw.query_range.start).ndt.date,
+        parseUtc(raw.query_range.end).ndt.date,
+        raw.recorded_instances.map((i) => parseUtc(i)),
         raw.description,
         eventStartDate,
         raw,
@@ -93,11 +102,11 @@ class RecurrenceTestCase {
       );
 
       // Generate events up to the query end date and convert to string format for comparison
-      const queryEndDate = Utc.parse(this.rawData.query_range.end).ndt.date;
+      const queryEndDate = parseUtc(this.rawData.query_range.end).ndt.date;
       const events = generator.generateUpToDate(queryEndDate);
 
       // Filter events to only include those within the query range (for proper comparison)
-      const queryStartDate = Utc.parse(this.rawData.query_range.start).ndt.date;
+      const queryStartDate = parseUtc(this.rawData.query_range.start).ndt.date;
       const filteredEvents = events.filter(
         (e) =>
           e.ndt.date.dse >= queryStartDate.dse &&
@@ -120,7 +129,9 @@ class RecurrenceTestCase {
       return match;
     } catch (error) {
       console.log(
-        `Test: ${this.description || "Unnamed"} - ERROR: ${error.message}`,
+        `Test: ${this.description || "Unnamed"} - ERROR: ${
+          error instanceof Error ? error.message : String(error)
+        }`,
       );
       return false;
     }
@@ -146,8 +157,8 @@ class RecurrenceTestCase {
         this.timezone,
       );
 
-      const queryStartDate = Utc.parse(this.rawData.query_range.start).ndt.date;
-      const queryEndDate = Utc.parse(this.rawData.query_range.end).ndt.date;
+      const queryStartDate = parseUtc(this.rawData.query_range.start).ndt.date;
+      const queryEndDate = parseUtc(this.rawData.query_range.end).ndt.date;
 
       // Calculate a midpoint for incremental generation
       const totalDays = queryEndDate.dse - queryStartDate.dse;

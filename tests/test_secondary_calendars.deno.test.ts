@@ -9,12 +9,13 @@ import {
   EthiopianConverter,
   IndianConverter,
 } from "../chrono/secondary-calendars/mod.ts";
-import { Fixtures } from "./fixture-runner.ts";
+import { Fixtures } from "./fixture-runner.deno.ts";
+import type { Option } from "../chrono/option.ts";
 
 const DIR = new URL("secondary-calendars", import.meta.url).pathname;
 
 type Input = string; // "YYYY-MM-DD"
-type Expected = string | null;
+type Expected = Option<string>;
 
 function parse(input: Input) {
   const [y, m, d] = input.split("-").map(Number);

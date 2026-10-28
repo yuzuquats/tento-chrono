@@ -12,17 +12,20 @@
  *
  * Notable quirks:
  * 1. The add/sub methods can take a mixture of date and time components
- * 2. When time components overflow a day, the date is adjusted accordingly
+ * 2. When time components overflow a day, the date is adjusted accordingly;
+ *    years and months are added first, clamping to the month's last day
  * 3. The mse (milliseconds since epoch) is calculated directly from date and time components
  */
 
 import { assert, assertEquals } from "@std/assert";
 
-import { naivedatetime } from "../chrono/mod.ts";
+import { DateTime, naivedatetime } from "../chrono/mod.ts";
 import { NaiveDate } from "../chrono/naive-date.ts";
 import { NaiveDateTime } from "../chrono/naive-datetime.ts";
 import { NaiveTime } from "../chrono/naive-time.ts";
 import { Time } from "../chrono/time.ts";
+import { FixedTimezone, Tzname } from "../chrono/timezone.ts";
+import { Duration } from "../chrono/units/duration.ts";
 import { Ms } from "../chrono/units/ms.ts";
 import { TimePoint } from "../chrono/units/time-point.ts";
 import { MsSinceEpoch } from "../chrono/units/units.ts";
@@ -479,10 +482,13 @@ Deno.test({
     // withTz (without conversion)
     // Note: we can't fully test logical timezones here without mocking,
     // but we can verify the method exists and returns a DateTime
-    const withTz = datetime.withTz({
-      id: "America/Los_Angeles",
-      offset: -8 * Time.MS_PER_HR, // Example offset, might not be correct for DST
-    });
+    const withTz = datetime.withTz(
+      new FixedTimezone("America/Los_Angeles", {
+      tzabbr: "PST",
+      tzname: "America/Los_Angeles" as Tzname,
+      offset: Duration.Time.hrs(-8),
+    }),
+    );
     assert(withTz.tz.id === "America/Los_Angeles");
     // Check that time/date components are unchanged
     assertEquals(withTz.date.yr, 2023);
@@ -550,10 +556,13 @@ Deno.test({
     assertEquals(range.end.mse, end.mse);
 
     // Convert range to timezone
-    const tzRange = range.withTz({
-      id: "America/Los_Angeles",
-      offset: -8 * Time.MS_PER_HR, // Example offset
-    });
+    const tzRange = range.withTz(
+      new FixedTimezone("America/Los_Angeles", {
+      tzabbr: "PST",
+      tzname: "America/Los_Angeles" as Tzname,
+      offset: Duration.Time.hrs(-8),
+    }),
+    );
     assertEquals(tzRange.start.date.yr, 2023);
     assertEquals(tzRange.start.date.month0, 2);
     assertEquals(tzRange.start.date.day0, 14);
@@ -632,4 +641,30 @@ Deno.test({
     assertEquals(prevDayLeap.date.month0, 1); // February
     assertEquals(prevDayLeap.date.day0, 28); // Feb 29 (0-based)
   },
+});
+
+Deno.test("add: a day past the new month's end is the month's last day", () => {
+  const at = (y: number, m: number, d: number) => naivedatetime(y, m, d, 12, 30);
+  assertEquals(at(2024, 1, 31).add({ mths: 1 }).toString(), "2024-02-29T12:30:00");
+  assertEquals(at(2023, 1, 31).add({ mths: 1 }).toString(), "2023-02-28T12:30:00");
+  assertEquals(at(2024, 3, 31).sub({ mths: 1 }).toString(), "2024-02-29T12:30:00");
+  assertEquals(at(2024, 5, 31).add({ mths: -1 }).toString(), "2024-04-30T12:30:00");
+  assertEquals(at(2024, 2, 29).add({ yrs: 1 }).toString(), "2025-02-28T12:30:00");
+  assertEquals(at(2024, 1, 31).add({ mths: 13 }).toString(), "2025-02-28T12:30:00");
+  assertEquals(at(2024, 1, 15).add({ mths: 1 }).toString(), "2024-02-15T12:30:00");
+});
+
+Deno.test("add: years and months first, then weeks, days and time", () => {
+  const at = naivedatetime(2024, 1, 30, 23, 0);
+  // Jan 30 + 1 month = Feb 29, + 1 day = Mar 1 (not Jan 31 + 1 month).
+  assertEquals(at.add({ mths: 1, days: 1 }).toString(), "2024-03-01T23:00:00");
+  // The time of day carries into the date after the months.
+  assertEquals(at.add({ mths: 1, hrs: 2 }).toString(), "2024-03-01T01:00:00");
+  assertEquals(at.add({ wks: 1 }).toString(), "2024-02-06T23:00:00");
+});
+
+Deno.test("DateTime.add clamps to the month's end too", () => {
+  const dt = DateTime.fromRfc3339("2023-01-31T12:00:00Z").exp();
+  assertEquals(dt.add({ mths: 1 }).toString(), "2023-02-28T12:00:00Z");
+  assertEquals(dt.add({ mths: 1 }).date.isValid(), true);
 });

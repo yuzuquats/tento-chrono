@@ -1,4 +1,4 @@
-import { assertEquals } from "@std/assert";
+import { assertEquals, assertExists } from "@std/assert";
 import { naivedate, naivedatetime } from "../chrono/mod.ts";
 import { NaiveTime } from "../chrono/naive-time.ts";
 import { IsoDate } from "../chrono/recurrence/iso-date.ts";
@@ -43,19 +43,17 @@ Deno.test({
     {
       const rrule = RRule.parse("FREQ=WEEKLY;UNTIL=20100101T000000Z").exp();
       assertEquals(rrule.inner.freq, "weekly");
-      assertEquals(
-        rrule.inner.options.until.extend(),
-        naivedatetime(2010, 1, 1),
-      );
+      const until = rrule.inner.options?.until;
+      assertExists(until);
+      assertEquals(until.extend(), naivedatetime(2010, 1, 1));
     }
 
     {
       const rrule = RRule.parse("FREQ=WEEKLY;UNTIL=20100101").exp();
       assertEquals(rrule.inner.freq, "weekly");
-      assertEquals(
-        rrule.inner.options.until.extend(),
-        naivedatetime(2010, 1, 1),
-      );
+      const until = rrule.inner.options?.until;
+      assertExists(until);
+      assertEquals(until.extend(), naivedatetime(2010, 1, 1));
     }
   },
 });

@@ -1,13 +1,14 @@
-import { DateTime } from "./datetime";
-import { NaiveDate } from "./naive-date";
-import { NaiveDateTime } from "./naive-datetime";
-import { GenericRange } from "./range";
-import { Time } from "./time";
-import { FixedOffset, LogicalTimezone, Tzabbr, Utc } from "./timezone";
-import { TimezoneRegion } from "./timezone-region";
-import { Duration } from "./units/duration";
-import { Ms } from "./units/ms";
-import { TimeOfDay } from "./units/time-of-day";
+import { DateTime } from "./datetime.ts";
+import { NaiveDate } from "./naive-date.ts";
+import { NaiveDateTime } from "./naive-datetime.ts";
+import { GenericRange } from "./range.ts";
+import { Time } from "./time.ts";
+import { FixedOffset, LogicalTimezone, Tzabbr, Utc } from "./timezone.ts";
+import { TimezoneRegion } from "./timezone-region.ts";
+import { Duration } from "./units/duration.ts";
+import { Ms } from "./units/ms.ts";
+import { TimeOfDay } from "./units/time-of-day.ts";
+import type { Option, Optional } from "./option.ts";
 
 /**
  * Represents a continuous time period within a specific day with proper timezone handling.

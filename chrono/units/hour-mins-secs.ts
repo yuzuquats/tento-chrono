@@ -1,13 +1,22 @@
-import { Time } from "../time";
-import { TentoMath } from "../utils";
-import { Signed } from "./units";
+import { Time } from "../time.ts";
+import { TentoMath } from "../utils.ts";
+import { Signed } from "./units.ts";
+import type { Optional } from "../option.ts";
 
 export namespace Hms {
+  /** Split a millisecond count into whole hours, minutes and seconds.
+   *
+   *  Each field DIVIDES rather than multiplying by a reciprocal. `1/3_600_000`
+   *  is not exact in binary, and `3_600_000 * (1/3_600_000)` is
+   *  `0.9999999999999999` — so exactly one hour used to floor to zero hours,
+   *  zero minutes and zero seconds, losing the whole duration. The reciprocal
+   *  buys one multiply over one divide and costs correctness at the only
+   *  inputs anybody types by hand. */
   export function fromMs(ms: number): Hms.Parts {
     return {
-      hrs: Math.floor(ms * Time.MS_PER_HR_INV),
-      mins: Math.floor((ms % Time.MS_PER_HR) * Time.MS_PER_MIN_INV),
-      secs: Math.floor((ms % Time.MS_PER_MIN) * Time.MS_PER_SEC_INV),
+      hrs: Math.floor(ms / Time.MS_PER_HR),
+      mins: Math.floor((ms % Time.MS_PER_HR) / Time.MS_PER_MIN),
+      secs: Math.floor((ms % Time.MS_PER_MIN) / Time.MS_PER_SEC),
     };
   }
 

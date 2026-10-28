@@ -1,4 +1,5 @@
-import { Unit } from "./units";
+import { Unit } from "./units.ts";
+import type { Optional } from "../option.ts";
 
 export type Day<Index = any, RelativeTo = any> = Unit<"day", Index, RelativeTo>;
 export namespace Day {

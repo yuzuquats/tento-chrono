@@ -115,6 +115,26 @@ Deno.test("week/partial", () => {
   }
 });
 
+Deno.test("week/fromDateAndType uses the configured week start containing the date", () => {
+  const midweek = naivedate(2026, 6, 30);
+
+  const sundayStart = PartialDate.fromDateAndType(
+    "week",
+    midweek,
+    Weekday.SUN,
+  );
+  assertEquals(sundayStart.start.rfc3339(), "2026-06-28");
+  assertEquals(sundayStart.end.rfc3339(), "2026-07-05");
+
+  const mondayStart = PartialDate.fromDateAndType(
+    "week",
+    midweek,
+    Weekday.MON,
+  );
+  assertEquals(mondayStart.start.rfc3339(), "2026-06-29");
+  assertEquals(mondayStart.end.rfc3339(), "2026-07-06");
+});
+
 Deno.test("week/add+subtract/basic", () => {
   {
     assertEquals(

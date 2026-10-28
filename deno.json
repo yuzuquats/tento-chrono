@@ -1,0 +1,31 @@
+{
+  "name": "@tento/chrono",
+  "version": "0.1.0",
+  "license": "MIT",
+  "exports": "./chrono/mod.ts",
+  "imports": {
+    "@std/assert": "jsr:@std/assert@^1.0.7"
+  },
+  "compilerOptions": {
+    "lib": [
+      "deno.ns",
+      "deno.window",
+      "dom",
+      "dom.iterable"
+    ]
+  },
+  "tasks": {
+    "check": "deno check chrono tests tests.e2e examples",
+    "test": "deno test -A --doc chrono README.md && deno test -A tests tests.e2e"
+  },
+  "publish": {
+    "include": [
+      "chrono/**/*.ts",
+      "README.md",
+      "LICENSE*"
+    ],
+    "exclude": [
+      "**/*.deno.test.ts"
+    ]
+  }
+}

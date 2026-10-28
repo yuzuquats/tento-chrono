@@ -1,16 +1,17 @@
-import { range } from "../range";
-import { Month } from "./month";
+import { range } from "../range.ts";
+import { Month } from "./month.ts";
 
-import { NaiveDate } from "../naive-date";
+import { NaiveDate } from "../naive-date.ts";
 import {
   DayOfMonth0,
   DayOfMonth1,
   DayOfYear0,
   Month1,
   MonthOfYear,
-} from "./units";
-import { Year } from "./year";
-import { YearMonthDay } from "./year-month-day";
+} from "./units.ts";
+import { Year } from "./year.ts";
+import { YearMonthDay } from "./year-month-day.ts";
+import type { Optional } from "../option.ts";
 
 export interface YmLike<Index> {
   readonly yr: number;

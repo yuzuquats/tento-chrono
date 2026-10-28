@@ -1,4 +1,5 @@
-import { Day } from "./day";
+import { Day } from "./day.ts";
+import type { Optional } from "../option.ts";
 
 export type Unit<Id, Index, RelativeTo> = number & {
   readonly __id: Id;
@@ -8,7 +9,28 @@ export type Unit<Id, Index, RelativeTo> = number & {
 
 export type DaysSinceEpoch = Day<0, "epoch">;
 export type MsSinceEpoch = Unit<"ms", 0, "epoch">;
+export namespace MsSinceEpoch {
+  /**
+   * `ms` read as milliseconds since the Unix epoch — the one place a plain
+   * number (a JSON timestamp, `Date.now()`) takes the `MsSinceEpoch` unit.
+   */
+  export function of(ms: number): MsSinceEpoch {
+    return ms as MsSinceEpoch;
+  }
+}
 export type SecsSinceEpoch = Unit<"sec", 0, "epoch">;
+
+/**
+ * A span of time in milliseconds — the difference of two instants, not an
+ * instant itself (an `MsSinceEpoch` is a point on the epoch axis).
+ */
+export type DurationMs = Unit<"ms", 0, "duration">;
+export namespace DurationMs {
+  /** The span from `start` to `end` (negative when `end` is earlier). */
+  export function between(start: MsSinceEpoch, end: MsSinceEpoch): DurationMs {
+    return (end - start) as DurationMs;
+  }
+}
 
 export type MonthOfYear<Index> = number & { readonly __index: Index };
 export type Month0 = MonthOfYear<0>;

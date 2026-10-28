@@ -1,4 +1,3 @@
-import "../../yuzu-js/ui/types/option.d.ts";
 
 import { assertEquals } from "@std/assert";
 
@@ -9,6 +8,7 @@ import { DateUnit } from "../chrono/units/date-unit.ts";
 import { Month } from "../chrono/units/month.ts";
 import { Weekday } from "../chrono/units/weekday.ts";
 import { installTimezoneLoader } from "./utils.deno.ts";
+import type { Option } from "../chrono/option.ts";
 
 installTimezoneLoader();
 
@@ -2901,7 +2901,8 @@ Deno.test({
     const iter = naivedate(990, 1, 1).range(DateUnit.days(1), {
       limit: 3,
     });
-    assertDtArrEqs(all(iter), ["990-01-01", "990-01-02", "990-01-03"]);
+    // RFC 3339 dates carry a four-digit year (operator ruling 2026-10-03).
+    assertDtArrEqs(all(iter), ["0990-01-01", "0990-01-02", "0990-01-03"]);
   },
 });
 

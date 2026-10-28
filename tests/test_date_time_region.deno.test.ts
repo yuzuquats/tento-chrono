@@ -3,22 +3,10 @@ import { DateTimeRegion } from "../chrono/date-time-region.ts";
 import { NaiveDateTime } from "../chrono/naive-datetime.ts";
 import { naivedatetime } from "../chrono/mod.ts";
 import { TimezoneRegion } from "../chrono/timezone-region.ts";
-import { Tzname } from "../chrono/timezone.ts";
+import type { Tzname } from "../chrono/timezone.ts";
+import { installTimezoneLoader } from "./utils.deno.ts";
 
-// Use local file loader for testing
-const TZ_DATA_PATH =
-  "/home/james/mono/container_data/tento-tz/2025a/1900_2050";
-
-TimezoneRegion.setLoader({
-  load: async (tzname: Tzname) => {
-    const filename = tzname.replaceAll("/", "~") + ".json";
-    const data = await Deno.readTextFile(`${TZ_DATA_PATH}/${filename}`);
-    const json = JSON.parse(data);
-    return json.map((s: TimezoneRegion.Transition.Serialized) =>
-      TimezoneRegion.Transition.parse(s, tzname)
-    );
-  },
-});
+installTimezoneLoader();
 
 /**
  * Tests for DateTimeRegion.asUtcTp() vs asWallClock() behavior.
@@ -35,7 +23,7 @@ TimezoneRegion.setLoader({
 Deno.test({
   name: "DateTimeRegion - asUtcTp vs asWallClock - Feb 5 midnight PST",
   async fn() {
-    const tz = await TimezoneRegion.get("America/Los_Angeles");
+    const tz = await TimezoneRegion.get("America/Los_Angeles" as Tzname);
 
     // February 5, 2026 at midnight local time
     const ndt = naivedatetime(2026, 2, 5, 0, 0);
@@ -75,7 +63,7 @@ Deno.test({
 Deno.test({
   name: "DateTimeRegion - asUtcTp vs asWallClock - during DST (PDT)",
   async fn() {
-    const tz = await TimezoneRegion.get("America/Los_Angeles");
+    const tz = await TimezoneRegion.get("America/Los_Angeles" as Tzname);
 
     // July 15, 2025 at 10:00 AM PDT (daylight saving time, UTC-7)
     const ndt = naivedatetime(2025, 7, 15, 10, 0);
@@ -108,7 +96,7 @@ Deno.test({
 Deno.test({
   name: "DateTimeRegion - what asUtcTp actually does",
   async fn() {
-    const tz = await TimezoneRegion.get("America/Los_Angeles");
+    const tz = await TimezoneRegion.get("America/Los_Angeles" as Tzname);
 
     // February 5, 2026 at midnight local time
     const ndt = naivedatetime(2026, 2, 5, 0, 0);
@@ -161,7 +149,7 @@ Deno.test({
 Deno.test({
   name: "Recurrence pattern equivalence - standard time (PST)",
   async fn() {
-    const tz = await TimezoneRegion.get("America/Los_Angeles");
+    const tz = await TimezoneRegion.get("America/Los_Angeles" as Tzname);
     const { DateTime } = await import("../chrono/datetime.ts");
 
     // Simulate an event stored in UTC: Feb 5, 2026 at 17:00 UTC
@@ -197,7 +185,7 @@ Deno.test({
 Deno.test({
   name: "Recurrence pattern equivalence - daylight saving time (PDT)",
   async fn() {
-    const tz = await TimezoneRegion.get("America/Los_Angeles");
+    const tz = await TimezoneRegion.get("America/Los_Angeles" as Tzname);
     const { DateTime } = await import("../chrono/datetime.ts");
 
     // Simulate an event stored in UTC: July 15, 2025 at 17:00 UTC (during PDT)
@@ -233,7 +221,7 @@ Deno.test({
 Deno.test({
   name: "Recurrence pattern equivalence - around DST transition",
   async fn() {
-    const tz = await TimezoneRegion.get("America/Los_Angeles");
+    const tz = await TimezoneRegion.get("America/Los_Angeles" as Tzname);
     const { DateTime } = await import("../chrono/datetime.ts");
 
     // March 9, 2025 at 10:30 UTC - this is AFTER the spring forward transition

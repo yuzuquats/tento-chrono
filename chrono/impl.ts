@@ -1,5 +1,5 @@
-import { DayOfMonth1, DaysSinceEpoch, Month1 } from "./units/units";
-import { Ymd1Like } from "./units/year-month-day";
+import { DayOfMonth1, DaysSinceEpoch, Month1 } from "./units/units.ts";
+import { Ymd1Like } from "./units/year-month-day.ts";
 
 export namespace Gecko {
   const CYCLE_IN_YEARS = 400;

@@ -7,7 +7,6 @@ mod test {
   use tento_chrono_bindings::Runtime;
 
   #[test]
-  #[ignore = "takes a long time"]
   pub fn test_year_ctr() {
     let mut rt = Runtime::env_test().expect("couldn't construct runtime");
     for yr in 1970..2050 {
@@ -16,7 +15,6 @@ mod test {
   }
 
   #[test]
-  #[ignore = "takes a long time"]
   pub fn test_year_month_ctr() {
     let mut rt = Runtime::env_test().expect("couldn't construct runtime");
     for yr in 1970..2050 {
@@ -64,8 +62,8 @@ mod test {
       let namespace = rt
         .eval_module(&format!(
           r#"
-        import {{ NaiveDate }} from "./naive-date.js";
-        const ndp = NaiveDate.Partial.parse("{partial_ser_rs}");
+        import {{ PartialDate }} from "./units/partial-date.js";
+        const ndp = PartialDate.parse("{partial_ser_rs}").exp();
         export let result = ndp.start.rfc3339();
       "#,
         ))
@@ -77,7 +75,7 @@ mod test {
         .expect("couldn't get result");
 
       assert_eq!(
-        partial.start().to_string(),
+        partial.start().expect("a real date").to_string(),
         result
           .to_string(&mut rt.context)
           .expect("couldn't get string")
@@ -90,8 +88,8 @@ mod test {
       let namespace = rt
         .eval_module(&format!(
           r#"
-        import {{ NaiveDate }} from "./naive-date.js";
-        const ndp = NaiveDate.Partial.parse("{partial_ser_rs}");
+        import {{ PartialDate }} from "./units/partial-date.js";
+        const ndp = PartialDate.parse("{partial_ser_rs}").exp();
         export let result = ndp.end.rfc3339();
       "#,
         ))

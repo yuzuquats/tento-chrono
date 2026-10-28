@@ -1,14 +1,15 @@
-import { GenericRangeLike, range } from "../range";
+import { GenericRangeLike, range } from "../range.ts";
 
-import { NaiveDate } from "../naive-date";
-import { DateUnit } from "./date-unit";
-import { Month } from "./month";
-import { PartialDate } from "./partial-date";
-import { DayOfMonth1, DayOfYear1, Month1, WeekOfYear1 } from "./units";
-import { Weekday } from "./weekday";
-import { Year } from "./year";
-import { YearMonth, Ym1Like } from "./year-month";
-import { YearMonthDay } from "./year-month-day";
+import { NaiveDate } from "../naive-date.ts";
+import { DateUnit } from "./date-unit.ts";
+import { Month } from "./month.ts";
+import type { PartialDate } from "./partial-date.ts";
+import { DayOfMonth1, DayOfYear1, Month1, WeekOfYear1 } from "./units.ts";
+import { Weekday } from "./weekday.ts";
+import { Year } from "./year.ts";
+import { YearMonth, Ym1Like } from "./year-month.ts";
+import { YearMonthDay } from "./year-month-day.ts";
+import type { Option } from "../option.ts";
 
 export type YearMonthDayFilter = (
   partialdate: PartialDate.Tuple,
@@ -27,11 +28,41 @@ export namespace YearMonthDayFilter {
     yield [nd, "day"];
   }
 
+  /**
+   * `inner`'s days in each period, narrowed to the positions BYSETPOS names
+   * (1-based from the period's first day, negative from its last), in order.
+   * Days that do not exist (Feb 31) are not counted.
+   */
+  export function bySetPos(inner: Filter, positions: readonly number[]): Filter {
+    return function* (partialdate: PartialDate.Tuple): Generator<PartialDate.Tuple> {
+      const days = new Map<number, PartialDate.Tuple>();
+      for (const [day, unit] of inner(partialdate)) {
+        const valid = day.toResult().asOk();
+        if (valid != null) days.set(valid.dse, [valid, unit]);
+      }
+      const sorted = [...days.entries()].sort((a, b) => a[0] - b[0]).map(([, t]) => t);
+      const picked = new Set<number>();
+      for (const p of positions) {
+        const i = p > 0 ? p - 1 : sorted.length + p;
+        if (p !== 0 && i >= 0 && i < sorted.length) picked.add(i);
+      }
+      for (const i of [...picked].sort((a, b) => a - b)) yield sorted[i];
+    };
+  }
+
   export function compose(filters: Filter[]): Filter {
+    // A month limit before another filter passes the weeks that straddle its
+    // months; each date the chain yields is then held to them (`MonthLimit`).
+    const last = filters.length - 1;
+    const isLimit = (f: Filter, i: number): f is MonthLimit => i < last && "straddling" in f;
+    const chain = filters.map((f, i) => isLimit(f, i) ? f.straddling : f);
+    const keeps = filters.filter(isLimit).map((f) => f.keeps);
     return function* (
       partialdate: PartialDate.Tuple,
     ): Generator<PartialDate.Tuple> {
-      yield* _compose(partialdate, filters);
+      for (const t of _compose(partialdate, chain)) {
+        if (keeps.every((k) => k(t[0]))) yield t;
+      }
     };
   }
 
@@ -98,17 +129,19 @@ export namespace YearMonthDayFilter {
     dow1: Option<boolean>[],
   ): Generator<PartialDate.Tuple> {
     switch (unit) {
-      case "year":
-        // TODO: we can use a better generator for this instead of checking
-        // each day
+      case "year": {
+        // The calendar year holding `cand` (not a year-long window from it).
+        const jan1 = YearMonthDay.fromYmd1Unchecked(cand.yr, 1, 1).castValid();
         for (const day of range(Year.length(cand.yr))) {
-          const nd = cand.addDays(day - 1);
+          const nd = jan1.addDays(day);
           if (dow1[nd.dayOfWeek.dow]) yield [nd, "day"];
         }
         break;
+      }
       case "month":
-        for (const day of YearMonth.dom(cand)) {
-          const nd = YearMonthDay.fromYmd1Unchecked(cand.yr, cand.mth, day);
+        // `dom` counts days from 0.
+        for (const day0 of YearMonth.dom(cand)) {
+          const nd = YearMonthDay.fromYmd1Unchecked(cand.yr, cand.mth, day0 + 1);
           if (dow1[nd.dayOfWeek.dow]) yield [nd, "day"];
         }
         break;
@@ -124,14 +157,31 @@ export namespace YearMonthDayFilter {
     }
   }
 
-  export function byMonthOfYear(months: Month[]): Filter {
-    return (partialdate) =>
-      _byMonthOfYear(partialdate, new Set(months.map((mth) => mth.mth1)));
+  /**
+   * A filter that limits dates to a set of months (BYMONTH). On its own, a
+   * week is kept when its own date is in the months. Inside `compose`,
+   * before filters that expand the week into days, `straddling` keeps a
+   * week holding any day of the months instead, and `compose` holds each
+   * date the chain yields to the months (`keeps`).
+   */
+  export interface MonthLimit extends Filter {
+    readonly straddling: Filter;
+    readonly keeps: (date: YearMonthDay.MaybeValid) => boolean;
+  }
+
+  export function byMonthOfYear(months: Month[]): MonthLimit {
+    const mths = new Set(months.map((mth) => mth.mth1));
+    const filter = (partialdate: PartialDate.Tuple) => _byMonthOfYear(partialdate, mths, false);
+    return Object.assign(filter, {
+      straddling: (partialdate: PartialDate.Tuple) => _byMonthOfYear(partialdate, mths, true),
+      keeps: (date: YearMonthDay.MaybeValid) => mths.has(date.mth),
+    });
   }
 
   function* _byMonthOfYear(
     [partialdate, unit]: PartialDate.Tuple,
     mths: Set<Month1>,
+    straddling: boolean,
   ): Generator<PartialDate.Tuple> {
     switch (unit) {
       case "year": {
@@ -149,13 +199,23 @@ export namespace YearMonthDayFilter {
         if (mths.has(partialdate.mth)) yield [partialdate, "month"];
         break;
       case "week":
-        if (mths.has(partialdate.mth)) yield [partialdate, "week"];
+        if (!straddling) {
+          if (mths.has(partialdate.mth)) yield [partialdate, "week"];
+          break;
+        }
+        for (let i = 0; i < 7; ++i) {
+          if (mths.has(partialdate.addDays(i).mth)) {
+            yield [partialdate, "week"];
+            break;
+          }
+        }
         break;
       case "day":
         if (mths.has(partialdate.mth)) yield [partialdate, "day"];
         break;
     }
   }
+
 
   export function byDayOfMonth(dayOfMonths: DayOfMonth1[] | number[]): Filter {
     const domsPos = dayOfMonths.filter((doy) => doy >= 0);
@@ -164,14 +224,15 @@ export namespace YearMonthDayFilter {
     domsNeg.sort((a, b) => b - a);
 
     // todo: memo this
+    // The month's days the values name, each once, in order (a negative
+    // and a positive value can name the same day: -2 and 30 in a 31-day month).
     const makeDoms = (ym1: Ym1Like): DayOfMonth1[] => {
       const monthLen = YearMonth.daysInMonth(ym1);
-      const doms = [
+      const doms = new Set([
         ...domsPos,
         ...domsNeg.map((dom) => monthLen + dom + 1),
-      ] as DayOfMonth1[];
-      doms.sort();
-      return doms;
+      ]);
+      return [...doms].sort((a, b) => a - b) as DayOfMonth1[];
     };
     return (partialdate: PartialDate.Tuple) =>
       _byDayOfMonth(partialdate, makeDoms);
@@ -202,7 +263,7 @@ export namespace YearMonthDayFilter {
         break;
       case "week":
         for (let i = 0; i < 7; ++i) {
-          const date = cand.add({ days: i - 1 });
+          const date = cand.add({ days: i });
           const doms = makeDoms(date);
           if (doms.includes(date.day)) yield [date, "day"];
         }
@@ -217,10 +278,14 @@ export namespace YearMonthDayFilter {
     const doysPos = dayOfYears.filter((doy) => doy >= 0);
     const doysNeg = dayOfYears.filter((doy) => doy < 0);
 
-    const doys365 = [...doysPos, ...doysNeg.map((doy) => 365 + doy + 1)];
-    doys365.sort();
-    const doys366 = [...doysPos, ...doysNeg.map((doy) => 366 + doy + 1)];
-    doys366.sort();
+    // The year's days the values name, each once, in order; a value past the
+    // year's end (366 in a 365-day year) names none.
+    const doysOf = (len: number) =>
+      [...new Set([...doysPos, ...doysNeg.map((doy) => len + doy + 1)])]
+        .filter((doy) => doy >= 1 && doy <= len)
+        .sort((a, b) => a - b);
+    const doys365 = doysOf(365);
+    const doys366 = doysOf(366);
 
     return (partialdate: PartialDate.Tuple) =>
       _byDayOfYear(partialdate, doys365, doys366);
@@ -242,7 +307,7 @@ export namespace YearMonthDayFilter {
             if (date.yr === cand.yr) yield [date, "day"];
             break;
           case "month":
-            if (date.mth === cand.mth) yield [date, "day"];
+            if (date.yr === cand.yr && date.mth === cand.mth) yield [date, "day"];
             break;
           case "day":
             if (date.cmpInvalid(cand) === 0) yield [date, "day"];

@@ -1,18 +1,19 @@
-import { NaiveDate } from "./naive-date";
-import { NaiveDateTime } from "./naive-datetime";
-import { NaiveTime } from "./naive-time";
-import { GenericRange } from "./range";
-import { Result, erm, ok } from "./result";
-import { Time } from "./time";
-import { FixedOffset, Local, LogicalTimezone, Utc } from "./timezone";
-import { Duration } from "./units/duration";
-import { DurationTime } from "./units/duration-time";
-import { Ms } from "./units/ms";
-import { TimeOfDay } from "./units/time-of-day";
-import { DaysSinceEpoch, MsSinceEpoch } from "./units/units";
-import { Weekday } from "./units/weekday";
-import { YearMonthDay } from "./units/year-month-day";
-import { TentoMath } from "./utils";
+import { NaiveDate } from "./naive-date.ts";
+import { NaiveDateTime } from "./naive-datetime.ts";
+import { NaiveTime } from "./naive-time.ts";
+import { GenericRange } from "./range.ts";
+import { Result, erm, ok } from "./result.ts";
+import { Time } from "./time.ts";
+import { FixedOffset, Local, LogicalTimezone, Utc } from "./timezone.ts";
+import { Duration } from "./units/duration.ts";
+import { DurationTime } from "./units/duration-time.ts";
+import { Ms } from "./units/ms.ts";
+import { TimeOfDay } from "./units/time-of-day.ts";
+import { DaysSinceEpoch, MsSinceEpoch } from "./units/units.ts";
+import { Weekday } from "./units/weekday.ts";
+import { YearMonthDay } from "./units/year-month-day.ts";
+import { TentoMath } from "./utils.ts";
+import type { Option } from "./option.ts";
 
 /**
  * Regular expression for parsing RFC3339 / ISO 8601 date-time strings.
@@ -54,20 +55,19 @@ function int4(s: string, i: number): number {
  * @template TzType - The specific type of the timezone identifier (e.g., "Utc", "Local", "America/New_York"). Defaults to `any` string.
  *
  * @example
- * // Create a DateTime in UTC
- * const utcNow = DateTime.fromMse(Date.now() as MsSinceEpoch, DateTime.utc);
- * console.log(utcNow.toString()); // e.g., "2023-10-27T10:30:00Z"
+ * ```ts
+ * import { assertEquals } from "@std/assert";
+ * import { DateTime, naivedatetime, Utc } from "@tento/chrono";
  *
- * // Create a DateTime in a specific timezone
- * const nyTime = new DateTime(
- *   new NaiveDateTime(NaiveDate.fromYmd1(2023, 10, 27), new NaiveTime(14, 30)),
- *   { id: "America/New_York", offset: -4 * Time.MS_PER_HR } // Example offset (may vary with DST)
- * );
- * console.log(nyTime.toString()); // e.g., "2023-10-27T14:30:00-04:00"
+ * // A DateTime is a naive wall-clock time plus a timezone.
+ * const utc = new DateTime(naivedatetime(2023, 10, 27, 18, 30), Utc);
+ * assertEquals(utc.toString(), "2023-10-27T18:30:00Z");
  *
- * // Convert New York time to UTC
- * const nyInUtc = nyTime.toUtc();
- * console.log(nyInUtc.toString()); // e.g., "2023-10-27T18:30:00Z"
+ * // Parsing keeps the offset the string was written in.
+ * const ny = DateTime.fromRfc3339("2023-10-27T14:30:00-04:00").exp();
+ * assertEquals(ny.toUtc().toString(), "2023-10-27T18:30:00Z");
+ * assertEquals(ny.eq(utc), true);
+ * ```
  */
 export class DateTime<TzType extends string = any> {
   /** Represents the UTC timezone. */
@@ -93,8 +93,12 @@ export class DateTime<TzType extends string = any> {
    * @returns Milliseconds since epoch.
    *
    * @example
-   * const dt = DateTime.fromRfc3339("1970-01-01T00:00:01Z").unwrap();
-   * console.log(dt.mse); // Output: 1000
+   * ```ts
+   * import { assertEquals } from "@std/assert";
+   * import { DateTime } from "@tento/chrono";
+   *
+   * assertEquals(DateTime.fromRfc3339("1970-01-01T00:00:01Z").exp().mse, 1000);
+   * ```
    */
   get mse(): MsSinceEpoch {
     if (this._mse != null) return this._mse;
@@ -106,8 +110,12 @@ export class DateTime<TzType extends string = any> {
    * @returns Days since epoch.
    *
    * @example
-   * const dt = DateTime.fromRfc3339("1970-01-02T00:00:00Z").unwrap();
-   * console.log(dt.dse); // Output: 1
+   * ```ts
+   * import { assertEquals } from "@std/assert";
+   * import { DateTime } from "@tento/chrono";
+   *
+   * assertEquals(DateTime.fromRfc3339("1970-01-02T00:00:00Z").exp().dse, 1);
+   * ```
    */
   get dse(): DaysSinceEpoch {
     // Convert to UTC first to get the correct epoch days
@@ -147,10 +155,14 @@ export class DateTime<TzType extends string = any> {
    * @returns A `TimeUnit` representing the duration. Positive if `this` is after `before`.
    *
    * @example
-   * const start = DateTime.fromRfc3339("2023-10-27T10:00:00Z").unwrap();
-   * const end = DateTime.fromRfc3339("2023-10-27T10:00:05Z").unwrap();
-   * const duration = end.durationSince(start);
-   * console.log(duration.asSecs); // Output: 5
+   * ```ts
+   * import { assertEquals } from "@std/assert";
+   * import { DateTime } from "@tento/chrono";
+   *
+   * const start = DateTime.fromRfc3339("2023-10-27T10:00:00Z").exp();
+   * const end = DateTime.fromRfc3339("2023-10-27T10:00:05Z").exp();
+   * assertEquals(end.durationSince(start).toSecs, 5);
+   * ```
    */
   durationSince(before: DateTime<any>): Duration.Time {
     // Compare based on milliseconds since epoch for accuracy across timezones
@@ -165,10 +177,15 @@ export class DateTime<TzType extends string = any> {
    * @returns `true` if this DateTime is strictly before the other, `false` otherwise.
    *
    * @example
-   * const dt1 = DateTime.fromRfc3339("2023-01-01T12:00:00Z").unwrap();
-   * const dt2 = DateTime.fromRfc3339("2023-01-01T12:00:00+01:00").unwrap(); // Earlier instant
-   * console.log(dt1.isBefore(dt2)); // Output: false
-   * console.log(dt2.isBefore(dt1)); // Output: true
+   * ```ts
+   * import { assertEquals } from "@std/assert";
+   * import { DateTime } from "@tento/chrono";
+   *
+   * const noonUtc = DateTime.fromRfc3339("2023-01-01T12:00:00Z").exp();
+   * const noonParis = DateTime.fromRfc3339("2023-01-01T12:00:00+01:00").exp(); // an hour earlier
+   * assertEquals(noonUtc.isBefore(noonParis), false);
+   * assertEquals(noonParis.isBefore(noonUtc), true);
+   * ```
    */
   isBefore(other: DateTime<any>): boolean {
     return this.compare(other) < 0;
@@ -183,12 +200,17 @@ export class DateTime<TzType extends string = any> {
    *          or 0 if they represent the same moment in time.
    *
    * @example
-   * const dt1 = DateTime.fromRfc3339("2023-01-01T12:00:00Z").unwrap();
-   * const dt2 = DateTime.fromRfc3339("2023-01-01T13:00:00+01:00").unwrap(); // Same instant
-   * const dt3 = DateTime.fromRfc3339("2023-01-01T14:00:00+01:00").unwrap(); // Later instant
-   * console.log(dt1.compare(dt2)); // Output: 0
-   * console.log(dt1.compare(dt3)); // Output: < 0 (negative)
-   * console.log(dt3.compare(dt1)); // Output: > 0 (positive)
+   * ```ts
+   * import { assertEquals } from "@std/assert";
+   * import { DateTime } from "@tento/chrono";
+   *
+   * const dt1 = DateTime.fromRfc3339("2023-01-01T12:00:00Z").exp();
+   * const dt2 = DateTime.fromRfc3339("2023-01-01T13:00:00+01:00").exp(); // same instant
+   * const dt3 = DateTime.fromRfc3339("2023-01-01T14:00:00+01:00").exp(); // an hour later
+   * assertEquals(dt1.compare(dt2), 0);
+   * assertEquals(dt1.compare(dt3) < 0, true);
+   * assertEquals(dt3.compare(dt1) > 0, true);
+   * ```
    */
   compare(other: DateTime<any>): number {
     return this.mse - other.mse;
@@ -222,11 +244,14 @@ export class DateTime<TzType extends string = any> {
    * @returns A new DateTime instance with the updated time.
    *
    * @example
-   * const dt = DateTime.fromRfc3339("2023-10-27T15:30:00Z").unwrap();
-   * const startOfDay = dt.withTime(); // Defaults to NaiveTime.ZERO
-   * console.log(startOfDay.toString()); // Output: "2023-10-27T00:00:00Z"
-   * const specificTime = dt.withTime(new NaiveTime(9, 0));
-   * console.log(specificTime.toString()); // Output: "2023-10-27T09:00:00Z"
+   * ```ts
+   * import { assertEquals } from "@std/assert";
+   * import { DateTime, naivetime } from "@tento/chrono";
+   *
+   * const dt = DateTime.fromRfc3339("2023-10-27T15:30:00Z").exp();
+   * assertEquals(dt.withTime().toString(), "2023-10-27T00:00:00Z");
+   * assertEquals(dt.withTime(naivetime(9)).toString(), "2023-10-27T09:00:00Z");
+   * ```
    */
   withTime(time: NaiveTime = NaiveTime.ZERO): DateTime<TzType> {
     return new DateTime(new NaiveDateTime(this.date, time), this.tz);
@@ -242,11 +267,20 @@ export class DateTime<TzType extends string = any> {
    * @returns A new DateTime instance with the same naive values but the new timezone.
    *
    * @example
-   * const naiveDt = new NaiveDateTime(NaiveDate.fromYmd1(2023, 1, 1), new NaiveTime(12, 0));
-   * const dtUtc = new DateTime(naiveDt, DateTime.utc); // 2023-01-01T12:00:00Z
-   * const dtAsNy = dtUtc.asTz({ id: "America/New_York", offset: -5 * Time.MS_PER_HR }); // 2023-01-01T12:00:00-05:00 (different instant!)
+   * ```ts
+   * import { assertEquals } from "@std/assert";
+   * import { DateTime, Duration, FixedTimezone, naivedatetime, Tzname, Utc } from "@tento/chrono";
    *
-   * console.log(dtUtc.mse === dtAsNy.mse); // Output: false
+   * const est = new FixedTimezone("EST", {
+   *   tzabbr: "EST",
+   *   tzname: "America/New_York" as Tzname,
+   *   offset: Duration.Time.from({ hrs: -5 }),
+   * });
+   * const dtUtc = new DateTime(naivedatetime(2023, 1, 1, 12), Utc);
+   * const relabelled = dtUtc.asTz(est);
+   * assertEquals(relabelled.toString(), "2023-01-01T12:00:00-05:00");
+   * assertEquals(relabelled.eq(dtUtc), false); // a different instant
+   * ```
    */
   asTz<Tz extends string>(offset: LogicalTimezone<Tz>): DateTime<Tz> {
     return new DateTime(this.ndt, offset);
@@ -254,12 +288,12 @@ export class DateTime<TzType extends string = any> {
 
   /**
    * Creates a new DateTime instance with the same naive date and time values but associated with the UTC timezone.
-   * This is a shortcut for `asTz(DateTime.utc)`.
+   * This is a shortcut for `asTz(Utc)`.
    * **Important:** This does *not* represent the same moment in time unless the original timezone was already UTC. Use `toUtc()` for conversion.
    * @returns A new DateTime instance with the same naive values but the UTC timezone.
    */
   asUtc(): DateTime<Utc> {
-    if (this.tz.id === "utc") return this as DateTime<Utc>;
+    if ((this.tz as LogicalTimezone<string>) === Utc) return this as DateTime<Utc>;
     return this.asTz(Utc);
   }
 
@@ -272,14 +306,25 @@ export class DateTime<TzType extends string = any> {
    * @returns A new DateTime instance representing the same instant in the target timezone.
    *
    * @example
-   * const dtUtc = DateTime.fromRfc3339("2023-01-01T12:00:00Z").unwrap();
-   * const dtNy = dtUtc.toTz({ id: "America/New_York", offset: -5 * Time.MS_PER_HR });
-   * console.log(dtNy.toString()); // Output: "2023-01-01T07:00:00-05:00" (12:00 UTC is 07:00 in NY)
-   * console.log(dtUtc.mse === dtNy.mse); // Output: true
+   * ```ts
+   * import { assertEquals } from "@std/assert";
+   * import { DateTime, Duration, FixedTimezone, Tzname } from "@tento/chrono";
+   *
+   * const est = new FixedTimezone("EST", {
+   *   tzabbr: "EST",
+   *   tzname: "America/New_York" as Tzname,
+   *   offset: Duration.Time.from({ hrs: -5 }),
+   * });
+   * const dtUtc = DateTime.fromRfc3339("2023-01-01T12:00:00Z").exp();
+   * const dtNy = dtUtc.toTz(est);
+   * assertEquals(dtNy.toString(), "2023-01-01T07:00:00-05:00");
+   * assertEquals(dtNy.eq(dtUtc), true); // the same instant
+   * ```
    */
   toTz<Tz extends string = any>(tz: LogicalTimezone<Tz>): DateTime<Tz> {
     if (this.tz.info === tz.info) {
-      return this as unknown as DateTime<Tz>;
+      // The same offset: the same wall clock, labelled with `tz` (a +00:00 zone's time `toUtc` is Utc's).
+      return (this.tz as LogicalTimezone<string>) === tz ? this as unknown as DateTime<Tz> : new DateTime(this.ndt, tz);
     }
     const offsetDelta = tz.info.offset.sub(this.tz.info.offset);
     return new DateTime(
@@ -292,16 +337,20 @@ export class DateTime<TzType extends string = any> {
 
   /**
    * Converts this DateTime to represent the *same moment in time* but in the UTC timezone.
-   * This is a shortcut for `toTz(DateTime.utc)`.
+   * This is a shortcut for `toTz(Utc)`.
    * @returns A new DateTime instance representing the same instant in UTC.
    *
    * @example
-   * const dtNy = DateTime.fromRfc3339("2023-01-01T07:00:00-05:00").unwrap();
-   * const dtUtc = dtNy.toUtc();
-   * console.log(dtUtc.toString()); // Output: "2023-01-01T12:00:00Z"
+   * ```ts
+   * import { assertEquals } from "@std/assert";
+   * import { DateTime } from "@tento/chrono";
+   *
+   * const dtNy = DateTime.fromRfc3339("2023-01-01T07:00:00-05:00").exp();
+   * assertEquals(dtNy.toUtc().toString(), "2023-01-01T12:00:00Z");
+   * ```
    */
   toUtc(): DateTime<Utc> {
-    if (this.tz.id === "utc") return this as DateTime<Utc>;
+    if ((this.tz as LogicalTimezone<string>) === Utc) return this as DateTime<Utc>;
     return this.toTz(Utc);
   }
 
@@ -310,9 +359,13 @@ export class DateTime<TzType extends string = any> {
    * @returns A DateTime instance at the end of the day.
    *
    * @example
-   * const dt = DateTime.fromRfc3339("2023-10-27T10:30:00Z").unwrap();
-   * const endOfDay = dt.toEndOfDay();
-   * console.log(endOfDay.toString()); // Output: "2023-10-27T23:59:59.999Z"
+   * ```ts
+   * import { assertEquals } from "@std/assert";
+   * import { DateTime } from "@tento/chrono";
+   *
+   * const dt = DateTime.fromRfc3339("2023-10-27T10:30:00Z").exp();
+   * assertEquals(dt.toEndOfDay().toString(), "2023-10-27T23:59:59.999Z");
+   * ```
    */
   toEndOfDay(): DateTime<TzType> {
     const msPassedToday = this.time.toMs;
@@ -330,13 +383,16 @@ export class DateTime<TzType extends string = any> {
    * @returns A new DateTime instance representing the result of the addition.
    *
    * @example
-   * const dt = DateTime.fromRfc3339("2023-01-31T12:00:00Z").unwrap();
-   * const dtPlus1Month = dt.add({ mths: 1 });
-   * console.log(dtPlus1Month.toString()); // Output: "2023-02-28T12:00:00Z" (Handles end of month)
-   * const dtPlus30Hours = dt.add({ hrs: 30 });
-   * console.log(dtPlus30Hours.toString()); // Output: "2023-02-01T18:00:00Z" (Handles day rollover)
+   * ```ts
+   * import { assertEquals } from "@std/assert";
+   * import { DateTime } from "@tento/chrono";
+   *
+   * const dt = DateTime.fromRfc3339("2023-01-31T12:00:00Z").exp();
+   * assertEquals(dt.add({ mths: 1 }).toString(), "2023-02-28T12:00:00Z"); // the month's last day
+   * assertEquals(dt.add({ hrs: 30 }).toString(), "2023-02-01T18:00:00Z");
+   * ```
    */
-  add(dt: DurationTime.Parts.Opt): DateTime<TzType> {
+  add(dt: Duration.Parts.Opt): DateTime<TzType> {
     // Delegate addition to NaiveDateTime and wrap result with current timezone.
     return new DateTime(this.ndt.add(dt), this.tz);
   }
@@ -349,11 +405,14 @@ export class DateTime<TzType extends string = any> {
    * @returns A new DateTime instance representing the result of the subtraction.
    *
    * @example
-   * const dt = DateTime.fromRfc3339("2023-03-01T10:00:00Z").unwrap();
-   * const dtMinus1Day = dt.sub({ days: 1 });
-   * console.log(dtMinus1Day.toString()); // Output: "2023-02-28T10:00:00Z"
-   * const dtMinus15Hours = dt.sub({ hrs: 15 });
-   * console.log(dtMinus15Hours.toString()); // Output: "2023-02-28T19:00:00Z"
+   * ```ts
+   * import { assertEquals } from "@std/assert";
+   * import { DateTime } from "@tento/chrono";
+   *
+   * const dt = DateTime.fromRfc3339("2023-03-01T10:00:00Z").exp();
+   * assertEquals(dt.sub({ days: 1 }).toString(), "2023-02-28T10:00:00Z");
+   * assertEquals(dt.sub({ hrs: 15 }).toString(), "2023-02-28T19:00:00Z");
+   * ```
    */
   sub(dt: Duration.Parts.Opt): DateTime<TzType> {
     // Delegate subtraction to NaiveDateTime and wrap result with current timezone.
@@ -369,13 +428,14 @@ export class DateTime<TzType extends string = any> {
    * @returns A new, rounded DateTime instance.
    *
    * @example
-   * const dt = DateTime.fromRfc3339("2023-10-27T10:17:35.600Z").unwrap();
-   * const nearest15Min = dt.nearest({ mins: 15 });
-   * console.log(nearest15Min.toString()); // Output: "2023-10-27T10:15:00Z"
-   * const nearestHourCeil = dt.nearest({ hrs: 1 }, Math.ceil);
-   * console.log(nearestHourCeil.toString()); // Output: "2023-10-27T11:00:00Z"
-   * const nearest100ms = dt.nearest({ ms: 100 });
-   * console.log(nearest100ms.toString()); // Output: "2023-10-27T10:17:35.600Z"
+   * ```ts
+   * import { assertEquals } from "@std/assert";
+   * import { DateTime } from "@tento/chrono";
+   *
+   * const dt = DateTime.fromRfc3339("2023-10-27T10:17:35.600Z").exp();
+   * assertEquals(dt.nearest({ mins: 15 }).toString(), "2023-10-27T10:15:00Z");
+   * assertEquals(dt.nearest({ hrs: 1 }, Math.ceil).toString(), "2023-10-27T11:00:00Z");
+   * ```
    */
   nearest(
     time: DurationTime.Parts.Opt,
@@ -393,22 +453,24 @@ export class DateTime<TzType extends string = any> {
    * @returns The formatted string.
    *
    * @example
-   * const dtUtc = DateTime.fromRfc3339("2023-10-27T10:17:35Z").unwrap();
-   * console.log(dtUtc.rfc3339()); // Output: "2023-10-27T10:17:35Z"
-   * const dtOffset = DateTime.fromRfc3339("2023-10-27T12:17:35+02:00").unwrap();
-   * console.log(dtOffset.rfc3339()); // Output: "2023-10-27T12:17:35+02:00"
-   * const dtMs = new DateTime(
-   *   new NaiveDateTime(NaiveDate.fromYmd1(2023,1,1), new NaiveTime(1,2,3,456)),
-   *   DateTime.utc
+   * ```ts
+   * import { assertEquals } from "@std/assert";
+   * import { DateTime, naivedatetime, Utc } from "@tento/chrono";
+   *
+   * assertEquals(DateTime.fromRfc3339("2023-10-27T10:17:35Z").exp().rfc3339(), "2023-10-27T10:17:35Z");
+   * assertEquals(
+   *   DateTime.fromRfc3339("2023-10-27T12:17:35+02:00").exp().rfc3339(),
+   *   "2023-10-27T12:17:35+02:00",
    * );
-   * console.log(dtMs.rfc3339()); // Output: "2023-01-01T01:02:03.456Z" (Implementation dependent on NaiveTime.toString)
+   * assertEquals(
+   *   new DateTime(naivedatetime(2023, 1, 1, 1, 2, 3, 456), Utc).rfc3339(),
+   *   "2023-01-01T01:02:03.456Z",
+   * );
+   * ```
    */
   rfc3339(): string {
-    const sb: string[] = ["", "T", "", ""];
-    sb[0] = this.ndt.date.rfc3339(); // YYYY-MM-DD
-    sb[2] = this.ndt.time.toString(); // HH:MM:SS or HH:MM:SS.ms
-    sb[3] = this.tz.rfc3339; // Z or +/-HH:MM
-    return sb.join("");
+    // YYYY-MM-DD, "T", HH:MM:SS or HH:MM:SS.ms, Z or +/-HH:MM
+    return `${this.ndt.date.rfc3339()}T${this.ndt.time.toString()}${this.tz.rfc3339}`;
   }
 
   /**
@@ -450,11 +512,19 @@ export namespace DateTime {
    * @returns A new DateTime instance representing the given epoch milliseconds in the specified timezone.
    *
    * @example
-   * const epochMs = 0 as MsSinceEpoch;
-   * const dtUtc = DateTime.fromMse(epochMs, DateTime.utc);
-   * console.log(dtUtc.toString()); // Output: "1970-01-01T00:00:00Z"
-   * const dtNy = DateTime.fromMse(epochMs, { id: "America/New_York", offset: -5 * Time.MS_PER_HR });
-   * console.log(dtNy.toString()); // Output: "1969-12-31T19:00:00-05:00"
+   * ```ts
+   * import { assertEquals } from "@std/assert";
+   * import { DateTime, Duration, FixedTimezone, MsSinceEpoch, Tzname, Utc } from "@tento/chrono";
+   *
+   * const est = new FixedTimezone("EST", {
+   *   tzabbr: "EST",
+   *   tzname: "America/New_York" as Tzname,
+   *   offset: Duration.Time.from({ hrs: -5 }),
+   * });
+   * const epoch = 0 as MsSinceEpoch;
+   * assertEquals(DateTime.fromMse(epoch, Utc).toString(), "1970-01-01T00:00:00Z");
+   * assertEquals(DateTime.fromMse(epoch, est).toString(), "1969-12-31T19:00:00-05:00");
+   * ```
    */
   export function fromMse<TzType extends string>(
     mse: MsSinceEpoch,
@@ -478,9 +548,12 @@ export namespace DateTime {
    * @returns A new DateTime instance representing midnight on the given epoch day in the specified timezone.
    *
    * @example
-   * const epochDay1 = 1 as DaysSinceEpoch;
-   * const dtUtc = DateTime.fromDse(epochDay1, DateTime.utc);
-   * console.log(dtUtc.toString()); // Output: "1970-01-02T00:00:00Z"
+   * ```ts
+   * import { assertEquals } from "@std/assert";
+   * import { DateTime, DaysSinceEpoch, Utc } from "@tento/chrono";
+   *
+   * assertEquals(DateTime.fromDse(1 as DaysSinceEpoch, Utc).toString(), "1970-01-02T00:00:00Z");
+   * ```
    */
   export function fromDse<TzType extends string>(
     dse: DaysSinceEpoch,
@@ -499,17 +572,16 @@ export namespace DateTime {
    * @returns A `Result` containing the parsed `DateTime<FixedOffset>` on success, or an Error string on failure.
    *
    * @example
-   * const res1 = DateTime.fromRfc3339("2023-10-27T10:30:00Z");
-   * if (Result.isOk(res1)) console.log(res1.value.toString()); // Output: "2023-10-27T10:30:00Z"
+   * ```ts
+   * import { assertEquals } from "@std/assert";
+   * import { DateTime } from "@tento/chrono";
    *
-   * const res2 = DateTime.fromRfc3339("2023-10-27T12:30:00+02:00");
-   * if (Result.isOk(res2)) {
-   *   console.log(res2.value.toString()); // Output: "2023-10-27T12:30:00+02:00"
-   *   console.log(res2.value.tz.offset.asHrs); // Output: 2
-   * }
+   * const dt = DateTime.fromRfc3339("2023-10-27T12:30:00+02:00").exp();
+   * assertEquals(dt.toString(), "2023-10-27T12:30:00+02:00");
+   * assertEquals(dt.tz.info.offset.toHrs, 2);
    *
-   * const res3 = DateTime.fromRfc3339("invalid-string");
-   * console.log(Result.isErr(res3)); // Output: true
+   * assertEquals(DateTime.fromRfc3339("invalid-string").isErr, true);
+   * ```
    */
   export function fromRfc3339(
     rfc3339: string,
@@ -615,8 +687,8 @@ export namespace DateTime {
     DateTime<Tz>
   > {
     constructor(
-      public readonly start: DateTime<Tz>,
-      public readonly end: DateTime<Tz>,
+      public override readonly start: DateTime<Tz>,
+      public override readonly end: DateTime<Tz>,
     ) {
       super(start, end);
     }
@@ -647,18 +719,19 @@ export namespace DateTime {
      *          "none" if the date is completely outside the range days.
      *
      * @example
-     * const start = DateTime.fromRfc3339("2023-10-27T10:00:00Z").unwrap();
-     * const end = DateTime.fromRfc3339("2023-10-29T15:00:00Z").unwrap();
-     * const range = new DateTime.Range(start, end);
-     * const day1 = DateTime.fromRfc3339("2023-10-27T00:00:00Z").unwrap();
-     * const day2 = DateTime.fromRfc3339("2023-10-28T12:00:00Z").unwrap();
-     * const day3 = DateTime.fromRfc3339("2023-10-29T20:00:00Z").unwrap(); // Note: time is after range end time
-     * const day4 = DateTime.fromRfc3339("2023-10-30T00:00:00Z").unwrap();
+     * ```ts
+     * import { assertEquals } from "@std/assert";
+     * import { DateTime, naivedate } from "@tento/chrono";
      *
-     * console.log(range.overlapsWithDay(day1)); // Output: "start"
-     * console.log(range.overlapsWithDay(day2)); // Output: "middle"
-     * console.log(range.overlapsWithDay(day3)); // Output: "end" (matches end date, even if time is outside)
-     * console.log(range.overlapsWithDay(day4)); // Output: "none"
+     * const range = new DateTime.Range(
+     *   DateTime.fromRfc3339("2023-10-27T10:00:00Z").exp(),
+     *   DateTime.fromRfc3339("2023-10-29T15:00:00Z").exp(),
+     * );
+     * assertEquals(range.overlapsWithDay(naivedate(2023, 10, 27)), "start");
+     * assertEquals(range.overlapsWithDay(naivedate(2023, 10, 28)), "middle");
+     * assertEquals(range.overlapsWithDay(naivedate(2023, 10, 29)), "end");
+     * assertEquals(range.overlapsWithDay(naivedate(2023, 10, 30)), null);
+     * ```
      */
     overlapsWithDay(date: NaiveDate): Option<"start" | "middle" | "end"> {
       const dse = date.dse;
@@ -711,16 +784,16 @@ export namespace DateTime {
      * @returns `true` if the DateTime is within the range (end exclusive), `false` otherwise.
      *
      * @example
-     * const start = DateTime.fromRfc3339("2023-10-27T10:00:00Z").unwrap();
-     * const end = DateTime.fromRfc3339("2023-10-27T11:00:00Z").unwrap();
-     * const range = new DateTime.Range(start, end);
-     * const inside = DateTime.fromRfc3339("2023-10-27T10:30:00Z").unwrap();
-     * const edgeStart = DateTime.fromRfc3339("2023-10-27T10:00:00Z").unwrap();
-     * const edgeEnd = DateTime.fromRfc3339("2023-10-27T11:00:00Z").unwrap();
+     * ```ts
+     * import { assertEquals } from "@std/assert";
+     * import { DateTime } from "@tento/chrono";
      *
-     * console.log(range.contains(inside)); // Output: true
-     * console.log(range.contains(edgeStart)); // Output: true
-     * console.log(range.contains(edgeEnd)); // Output: false
+     * const at = (s: string) => DateTime.fromRfc3339(s).exp();
+     * const range = new DateTime.Range(at("2023-10-27T10:00:00Z"), at("2023-10-27T11:00:00Z"));
+     * assertEquals(range.containsExclusiveEnd(at("2023-10-27T10:30:00Z")), true);
+     * assertEquals(range.containsExclusiveEnd(at("2023-10-27T10:00:00Z")), true);
+     * assertEquals(range.containsExclusiveEnd(at("2023-10-27T11:00:00Z")), false);
+     * ```
      */
     containsExclusiveEnd(d: DateTime<any>): boolean {
       const n = d.mse;
@@ -830,7 +903,7 @@ export namespace DateTime {
       return this.start.mse === o.start.mse && this.end.mse === o.end.mse;
     }
 
-    toString(): string {
+    override toString(): string {
       return `${this.start.toString()}..${this.end.toString()}`;
     }
   }

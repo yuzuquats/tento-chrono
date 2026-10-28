@@ -1,13 +1,13 @@
-import { Weekday } from "./weekday";
-import { NaiveDate } from "../naive-date";
-import { Time } from "../time";
+import { Weekday } from "./weekday.ts";
+import { NaiveDate } from "../naive-date.ts";
+import { Time } from "../time.ts";
 import {
   MsSinceEpoch,
   WeekOfYear,
   WeekOfYear1,
   WeeksSinceEpoch1,
-} from "./units";
-import { Year } from "./year";
+} from "./units.ts";
+import { Year } from "./year.ts";
 
 export interface YwLike<Index> {
   yr: number;

@@ -1,3 +1,5 @@
+import type { Option } from "../option.ts";
+
 export const frequencies = [
   "secondly",
   "minutely",

@@ -1,18 +1,20 @@
-import { DateTimeRegion } from "./date-time-region";
-import { DateTime } from "./datetime";
-import { NaiveDate } from "./naive-date";
-import { NaiveTime } from "./naive-time";
-import { GenericRange } from "./range";
-import { Time } from "./time";
-import { LogicalTimezone, Utc } from "./timezone";
-import { TimezoneRegion } from "./timezone-region";
-import { DateUnit } from "./units/date-unit";
-import { Duration } from "./units/duration";
-import { DurationTime } from "./units/duration-time";
-import { Month } from "./units/month";
-import { Ms } from "./units/ms";
-import { TimePoint } from "./units/time-point";
-import { DaysSinceEpoch, MsSinceEpoch, Sign } from "./units/units";
+import { DateTimeRegion } from "./date-time-region.ts";
+import { DateTime } from "./datetime.ts";
+import { NaiveDate } from "./naive-date.ts";
+import { NaiveTime } from "./naive-time.ts";
+import { GenericRange } from "./range.ts";
+import { Time } from "./time.ts";
+import { LogicalTimezone, Utc } from "./timezone.ts";
+import { TimezoneRegion } from "./timezone-region.ts";
+import { DateUnit } from "./units/date-unit.ts";
+import { Duration } from "./units/duration.ts";
+import { DurationTime } from "./units/duration-time.ts";
+import { Month } from "./units/month.ts";
+import { YearMonth } from "./units/year-month.ts";
+import { Ms } from "./units/ms.ts";
+import { TimePoint } from "./units/time-point.ts";
+import { DaysSinceEpoch, MsSinceEpoch, Sign } from "./units/units.ts";
+import type { Option, Optional } from "./option.ts";
 
 /**
  * Represents a date and time without any associated timezone information.
@@ -37,29 +39,33 @@ export class NaiveDateTime {
   }
 
   /**
-   * Adds a duration to this datetime.
-   * Handles overflow from time units into days, and carries over date components.
+   * Adds a duration to this datetime, largest units first: years and months
+   * (a day past the new month's end, as Jan 31 + 1 month, is that month's
+   * last day: Feb 29 in 2024), then weeks, days and the time of day, which
+   * carries over into the date.
    * @param delta An object specifying the duration components (years, months, weeks, days, hours, minutes, seconds, milliseconds) to add.
    * @returns A new NaiveDateTime instance representing the result of the addition.
    */
   add(delta: NaiveDateTime.Parts.Opt, sign: Sign = 1): NaiveDateTime {
-    const timeDeltaMs = Ms.resolve(delta) * sign;
-    const timeMs = this.time.toMs + timeDeltaMs;
-    const tp = TimePoint.ms(timeMs);
-    let newDate: NaiveDate.MaybeValid = this.date;
-    if (tp.days !== 0) {
-      newDate = newDate.addDays(tp.days);
+    let ym: NaiveDate.MaybeValid = this.date;
+    if (delta.yrs) {
+      ym = ym.addYears(delta.yrs * sign);
     }
+    if (delta.mths) {
+      ym = ym.addMonths(delta.mths * sign);
+    }
+    let newDate: NaiveDate = ym.isValid()
+      ? ym.castValid()
+      : NaiveDate.fromYmd1Exp(ym.yr, ym.mth, YearMonth.daysInMonth(ym));
     if (delta.wks) {
       newDate = newDate.addWeeks(delta.wks * sign);
     }
-    if (delta.mths) {
-      newDate = newDate.addMonths(delta.mths * sign);
+    const timeDeltaMs = Ms.resolve(delta) * sign;
+    const tp = TimePoint.ms(this.time.toMs + timeDeltaMs);
+    if (tp.days !== 0) {
+      newDate = newDate.addDays(tp.days);
     }
-    if (delta.yrs) {
-      newDate = newDate.addYears(delta.yrs * sign);
-    }
-    return new NaiveDateTime(newDate.castValid(), tp.time);
+    return new NaiveDateTime(newDate, tp.time);
   }
 
   /**
@@ -233,7 +239,10 @@ export namespace NaiveDateTime {
      * @returns A string representation of the date and time.
      */
     export function render(s: NaiveDateTime, options: { dateFormat?: "month-day" | "day-month" } = {}): string {
-      const dateStr = NaiveDate.Formatter.render(s.date, { dateFormat: options.dateFormat });
+      const dateStr = NaiveDate.Formatter.render(
+        s.date,
+        options.dateFormat !== undefined ? { dateFormat: options.dateFormat } : {},
+      );
       return `${dateStr}, ${s.time.toString()}`;
     }
 

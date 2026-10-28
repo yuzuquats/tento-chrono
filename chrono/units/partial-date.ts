@@ -1,16 +1,17 @@
-import { NaiveDate } from "../naive-date";
-import { GenericRange } from "../range";
-import { Result, erm, ok } from "../result";
-import { TimezoneRegion } from "../timezone-region";
-import { TentoMath } from "../utils";
-import { DateUnit } from "./date-unit";
-import { Month } from "./month";
-import { DayOfMonth1, Month0, Month1, WeekOfYear1 } from "./units";
-import { Week, Yw1Like } from "./week";
-import { Weekday } from "./weekday";
-import { Year } from "./year";
-import { YearMonth, Ym1Like } from "./year-month";
-import { YearMonthDay } from "./year-month-day";
+import { NaiveDate } from "../naive-date.ts";
+import { GenericRange } from "../range.ts";
+import { Result, erm, ok } from "../result.ts";
+import { TimezoneRegion } from "../timezone-region.ts";
+import { TentoMath } from "../utils.ts";
+import { DateUnit } from "./date-unit.ts";
+import { Month } from "./month.ts";
+import { DayOfMonth1, Month0, Month1, WeekOfYear1 } from "./units.ts";
+import { Week, Yw1Like } from "./week.ts";
+import { Weekday } from "./weekday.ts";
+import { Year } from "./year.ts";
+import { YearMonth, Ym1Like } from "./year-month.ts";
+import { YearMonthDay } from "./year-month-day.ts";
+import type { Option, Optional } from "../option.ts";
 
 export class PartialDate {
   constructor(
@@ -55,13 +56,20 @@ export class PartialDate {
       case "month":
         return new PartialDate("month", date.yr, date.month1);
       case "week":
-        return new PartialDate("week", date.isoYear, null, null, date.isoWno, {}, this.weekStart);
+        return PartialDate.fromDateAndType("week", date, this.weekStart);
       case "day":
         return new PartialDate("day", date.yr, date.month1, date.day1);
     }
   }
 
+  /** `toString()`'s answer, kept after its first call: the fields it spells never change. */
+  #text: Option<string> = null;
+
   toString(): string {
+    return this.#text ??= this.#spelled();
+  }
+
+  #spelled(): string {
     switch (this.type) {
       case "year":
         return `y-${this.yr}`;
@@ -271,6 +279,12 @@ export class PartialDate {
 }
 
 export namespace PartialDate {
+  function startOfWeekFor(date: NaiveDate, weekStart: Weekday): NaiveDate {
+    let diff = date.dayOfWeek.dow - weekStart.dow;
+    if (diff < 0) diff += 7;
+    return date.addDays(-diff);
+  }
+
   export function fromDateAndType(
     type: DateUnit.Type,
     date: NaiveDate,
@@ -281,24 +295,61 @@ export namespace PartialDate {
         return new NaiveDate.Partial("year", date.yr);
       case "month":
         return new NaiveDate.Partial("month", date.yr, date.month1);
-      case "week":
-        // Use isoYear (not calendar year) since ISO weeks can span year boundaries
-        // e.g., Dec 31 2025 is in ISO week 2026-W01, not 2025-W01
+      case "week": {
+        const start = startOfWeekFor(date, weekStart);
         return new NaiveDate.Partial(
           "week",
-          date.isoYear,
+          start.isoYear,
           null,
           null,
-          date.isoWno,
+          start.isoWno,
           {},
           weekStart,
         );
+      }
       case "day":
         return new NaiveDate.Partial("day", date.yr, date.month1, date.day1);
     }
   }
 
   export function parse(s: string): Result<PartialDate> {
+    return parseRecognized(s) ?? erm("unknown ty");
+  }
+
+  /** Probe the same partial-date grammar without constructing an error for a
+   * different format (for example RFC3339). Recognized malformed partials
+   * still use the regular parser; validation and permissive parsing stay equal. */
+  export function parseOptional(s: string): Option<PartialDate> {
+    return parseRecognized(s)?.asOk() ?? null;
+  }
+
+  /**
+   * Parsed partial dates by their text, at most `INTERN_LIMIT` (the oldest
+   * entry leaves first). A sheet's cells repeat a few hundred day strings,
+   * and an ingest parses each at every layer (wire decode, backend, store):
+   * a hit is one Map lookup instead of a split, four integer parses and a new
+   * PartialDate. A PartialDate is immutable (its `cached` fields fill lazily,
+   * to the same values), so one instance serves every reader. Only
+   * successful parses are kept.
+   */
+  const INTERN_LIMIT = 4096;
+  const interned = new Map<string, Result<PartialDate>>();
+
+  function parseRecognized(s: string): Option<Result<PartialDate>> {
+    const hit = interned.get(s);
+    if (hit !== undefined) return hit;
+    const parsed = parseText(s);
+    if (parsed != null && parsed.isOk) {
+      if (interned.size >= INTERN_LIMIT) {
+        const oldest = interned.keys().next();
+        if (oldest.done !== true) interned.delete(oldest.value);
+      }
+      interned.set(s, parsed);
+    }
+    return parsed;
+  }
+
+  function parseText(s: string): Option<Result<PartialDate>> {
     const [ty, yr, mw, d] = s.split("-");
     switch (ty) {
       case "ymd":
@@ -310,7 +361,7 @@ export namespace PartialDate {
       case "yw":
         return PartialDate.fromStr("week", yr, null, null, mw);
     }
-    return erm("unknown ty");
+    return null;
   }
 
   export function fromDate(d: NaiveDate): PartialDate {
@@ -388,7 +439,7 @@ export namespace PartialDate {
         return new NaiveDate.Range(this.start[0].start, this.end[0].start);
       }
 
-      toString(): string {
+      override toString(): string {
         return `${this.start[0].toString()}..${this.end[0].toString()}`;
       }
     }

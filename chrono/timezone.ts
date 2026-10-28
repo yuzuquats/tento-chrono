@@ -1,12 +1,37 @@
-import { DateTime } from "./datetime";
-import { NaiveDate } from "./naive-date";
-import { Result } from "./result";
-import { Duration } from "./units/duration";
-import { Epoch } from "./units/epoch";
-import { MsSinceEpoch, Sign } from "./units/units";
-import { TentoMath } from "./utils";
+import { DateTime } from "./datetime.ts";
+import { NaiveDate } from "./naive-date.ts";
+import { Result } from "./result.ts";
+import { Duration } from "./units/duration.ts";
+import { Epoch } from "./units/epoch.ts";
+import { MsSinceEpoch, Sign } from "./units/units.ts";
+import { TentoMath } from "./utils.ts";
+import type { Option } from "./option.ts";
 
 export type Tzname = string & { type: "iana-timezone-name" }; // "America/New_York", "UTC"
+export namespace Tzname {
+  /** The UTC zone's IANA name. */
+  export const UTC: Tzname = "UTC" as Tzname;
+
+  /**
+   * `name` as a `Tzname` when the runtime knows it as an IANA time zone
+   * (`Intl.DateTimeFormat` accepts it), else `null` — the one place a string
+   * takes the brand.
+   */
+  export function parseOpt(name: string): Option<Tzname> {
+    if (known.has(name)) return name as Tzname;
+    if (name === "" || typeof Intl === "undefined") return null;
+    try {
+      new Intl.DateTimeFormat("en-US", { timeZone: name });
+    } catch {
+      return null;
+    }
+    known.add(name);
+    return name as Tzname;
+  }
+
+  /** Names `parseOpt` already accepted: a hot read skips the `Intl` probe. */
+  const known = new Set<string>(["UTC"]);
+}
 export type Tzabbr = string; // "UTC", "PST", "PDT"
 
 export interface TimezoneInfo {

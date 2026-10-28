@@ -5,7 +5,6 @@ mod test {
   use tento_chrono_bindings::Runtime;
 
   #[test]
-  #[ignore = "takes too long"]
   pub fn test_basic() -> anyhow::Result<()> {
     let mut rt = Runtime::env_test()?;
 
@@ -13,7 +12,7 @@ mod test {
       let namespace = rt.eval_module(
         r#"
         import { NaiveDate } from "./naive-date.js";
-        const nd = NaiveDate.fromYmd1(2024, 1, 1);
+        const nd = NaiveDate.fromYmd1Exp(2024, 1, 1);
         export let result = nd.dse;
       "#,
       )?;
@@ -27,8 +26,8 @@ mod test {
     {
       let namespace = rt.eval_module(
         r#"
-        import { NaiveDate } from "./naive-date.js";
-        const ndp = NaiveDate.Partial.parse("y-2024");
+        import { PartialDate } from "./units/partial-date.js";
+        const ndp = PartialDate.parse("y-2024").exp();
         export let result = ndp.start.rfc3339();
       "#,
       )?;
@@ -42,8 +41,8 @@ mod test {
     {
       let namespace = rt.eval_module(
         r#"
-        import { NaiveDate } from "./naive-date.js";
-        const ndp = NaiveDate.Partial.parse("y-2024");
+        import { PartialDate } from "./units/partial-date.js";
+        const ndp = PartialDate.parse("y-2024").exp();
         export let result = ndp.start.rfc3339();
       "#,
       )?;

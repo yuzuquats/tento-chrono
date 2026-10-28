@@ -2,19 +2,27 @@
 name = "tento-chrono"
 version = "0.1.0"
 edition = "2024"
+description = "Partial dates, year-month-day arithmetic and date ranges on top of chrono"
+license = "MIT"
+repository = "https://github.com/yuzuquats/tento-chrono"
+readme = "README.md"
+keywords = ["date", "time", "calendar", "chrono"]
+categories = ["date-and-time"]
+
+[features]
+openapi = ["dep:utoipa"]
+arbitrary = ["dep:arbitrary"]
 
 [dependencies]
-serde.workspace = true
-arbitrary.workspace = true
-chrono.workspace = true
-tracing.workspace = true
-tokio.workspace = true
-anyhow.workspace = true
-lona-utils.workspace = true
-utoipa.workspace = true
+anyhow = "1.0.94"
+chrono = { version = "0.4.40", features = ["serde"] }
+serde = { version = "1.0.216", features = ["derive"] }
+utoipa = { version = "5.3.1", optional = true, features = ["macros"] }
+arbitrary = { version = "1.4.1", optional = true }
 
 [dev-dependencies]
-tento-chrono-bindings.path = "./bindings"
-boa_engine.version = "0.20.0"
-boa_parser.version = "0.20.0"
-boa_runtime.version = "0.20.0"
+serde_json = "1.0.133"
+tento-chrono-bindings = { path = "./bindings" }
+boa_engine = "0.20.0"
+boa_parser = "0.20.0"
+boa_runtime = "0.20.0"

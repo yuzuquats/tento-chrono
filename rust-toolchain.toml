@@ -1,0 +1,3 @@
+# src/lib.rs uses coroutines (`#![feature(coroutines, iter_from_coroutine)]`).
+[toolchain]
+channel = "nightly-2026-06-24"

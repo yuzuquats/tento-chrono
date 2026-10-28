@@ -1,3 +1,5 @@
+import type { Option } from "./option.ts";
+
 export namespace TentoMath {
   export function floorDiv(dividend: number, divisor: number): number {
     let quotient = Math.floor(dividend / divisor);

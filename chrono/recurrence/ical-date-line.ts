@@ -1,6 +1,7 @@
-import { NaiveDateTime, Result, TimezoneRegion, Tzname, erm } from "../mod";
-import { ICalAttributes } from "./ical-attributes";
-import { IsoDate } from "./iso-date";
+import { NaiveDateTime, Result, TimezoneRegion, Tzname, erm } from "../mod.ts";
+import { ICalAttributes } from "./ical-attributes.ts";
+import { IsoDate } from "./iso-date.ts";
+import type { Option, Optional } from "../option.ts";
 
 export class ICalDateLine implements ICalDateLine.Like {
   constructor(
@@ -9,6 +10,12 @@ export class ICalDateLine implements ICalDateLine.Like {
     readonly region?: Option<TimezoneRegion>,
     readonly value?: Option<"DATE" | "DATE-TIME">,
     readonly determinism?: Option<ICalDateLine.TestDeterminism>,
+    /**
+     * Each value's form as written: `timed` (it carried a time; a date-only
+     * value is a whole local day) and `utc` (it ended in `Z`). Absent: as
+     * `dates` were built by hand (every value timed, none UTC).
+     */
+    readonly forms?: Option<readonly ICalDateLine.Form[]>,
   ) {}
 
   // Examples:
@@ -45,16 +52,12 @@ export class ICalDateLine implements ICalDateLine.Like {
       if (this.value) attributes.push(`VALUE=${this.value}`);
     }
 
-    let dates = this.dates.map((d) => {
-      if (this.value === "DATE") {
-        return d.date.ical();
-      } else {
-        return d.ical();
-      }
+    const dates = this.dates.map((d, index) => {
+      const form = this.forms?.[index];
+      if (this.value === "DATE" || form?.timed === false) return d.date.ical();
+      const utc = form?.utc ?? this.determinism?.includeZ ?? false;
+      return d.ical() + (utc ? "Z" : "");
     });
-    if (this.determinism?.includeZ) {
-      dates = dates.map((d) => d + "Z");
-    }
 
     return `${attributes.join(";")}:${dates.join(",")}`;
   }
@@ -80,12 +83,14 @@ export namespace ICalDateLine {
       const attributes = ICalAttributes.fromRawAttributes(rawParams.split(";"));
       const timestamps = rawTimestamps
         .split(",")
-        .map(IsoDate.parse)
+        // A PERIOD value (RDATE;VALUE=PERIOD:start/end or start/duration)
+        // is read as its start: the instance it adds.
+        .map((value) => IsoDate.parse(value.split("/")[0] ?? value))
         .map((ts) => ts.exp());
 
       const tagCandidate = attributes.order[0];
       if (requiresTag) {
-        if (tagCandidate !== "EXDATE" && tagCandidate !== "DTSTART") {
+        if (tagCandidate !== "EXDATE" && tagCandidate !== "DTSTART" && tagCandidate !== "RDATE") {
           return erm(`tag required but got '${tagCandidate}'`);
         }
       }
@@ -97,7 +102,7 @@ export namespace ICalDateLine {
       let region: Option<TimezoneRegion>;
       const tzname = this.attributes.get("tzid");
       if (tzname != null && typeof tzname === "string") {
-        region = await TimezoneRegion.get(tzname as Tzname);
+        region = await TimezoneRegion.get(tzname as Tzname, Tzname.UTC, "ical-tzid");
       }
 
       let exdateValue: Option<"DATE" | "DATE-TIME">;
@@ -120,6 +125,7 @@ export namespace ICalDateLine {
               includeZ: this.nd[0]?.z != null,
             }
           : null,
+        this.nd.map((d) => ({ timed: d.nt != null, utc: d.z != null })),
       );
     }
   }
@@ -130,6 +136,9 @@ export namespace ICalDateLine {
     tzid: Tzname;
     value: "DATE" | "DATE-TIME";
   }>;
+
+  /** How one value of the line was written (see `ICalDateLine.forms`). */
+  export type Form = { readonly timed: boolean; readonly utc: boolean };
 
   export type TestDeterminism = Optional<{
     attributeOrder: string[];

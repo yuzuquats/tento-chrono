@@ -1,10 +1,8 @@
-use std::fs::OpenOptions;
 use std::{
   collections::hash_map::DefaultHasher,
   env,
   fs::{self},
   hash::{Hash, Hasher},
-  io::Write,
   path::{Path, PathBuf},
   process::Command,
 };
@@ -13,23 +11,11 @@ const INPUT_DIR: &str = "../chrono";
 
 fn main() {
   let out_dir = PathBuf::from(env::var("OUT_DIR").unwrap());
-  let package_location = PathBuf::from(env::var("LONA_JS_CHRONO_OUTPUT_JS").unwrap());
 
   println!(
     "cargo:warning=Building tento-chrono bindings to {}",
     out_dir.display()
   );
-  println!(
-    "cargo:warning=tento-chrono/package_location: {}",
-    package_location.display()
-  );
-
-  let mut file = OpenOptions::new()
-    .write(true)
-    .create(true)
-    .truncate(true)
-    .open(package_location)
-    .unwrap();
   let output_dir = out_dir.join("pkg");
 
   println!("cargo:rerun-if-changed=build.rs");
@@ -41,10 +27,6 @@ fn main() {
   } else {
     println!("cargo:warning=[Deno] Skipping rebuild");
   }
-  file
-    .write_all(output_dir.to_str().expect("output dir not str").as_bytes())
-    .expect("couldn't write output_dir");
-
   println!("cargo:rustc-env=PKG_DIR={}", output_dir.display());
 }
 
