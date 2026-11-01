@@ -1,13 +1,26 @@
 import type { Option } from "./option.ts";
 
 export namespace TentoMath {
+  /**
+   * The quotient rounded toward negative infinity: `floorDiv(-1, 4) === -1`,
+   * `floorDiv(-4, 4) === -1`, `floorDiv(-5, 4) === -2`. Exact for safe
+   * integers: the remainder is taken off before dividing, so the division
+   * never rounds.
+   *
+   * @example
+   * ```ts
+   * import { assertEquals } from "@std/assert";
+   * import { TentoMath } from "./utils.ts";
+   * assertEquals(TentoMath.floorDiv(7, 4), 1);
+   * assertEquals(TentoMath.floorDiv(-1, 4), -1);
+   * assertEquals(TentoMath.floorDiv(-4, 4), -1);
+   * assertEquals(TentoMath.floorDiv(-5, 4), -2);
+   * ```
+   */
   export function floorDiv(dividend: number, divisor: number): number {
-    let quotient = Math.floor(dividend / divisor);
     const remainder = dividend % divisor;
-    if (remainder < 0) {
-      quotient -= 1;
-    }
-    return quotient;
+    const quotient = (dividend - remainder) / divisor;
+    return remainder !== 0 && (remainder < 0) !== (divisor < 0) ? quotient - 1 : quotient;
   }
 
   export function mod(n: number, mod: number): number {
