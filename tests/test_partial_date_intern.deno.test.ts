@@ -1,31 +1,45 @@
-import { assert, assertEquals, assertNotStrictEquals, assertStrictEquals, assertThrows } from "jsr:@std/assert";
+import { assert, assertEquals, assertNotStrictEquals, assertThrows } from "jsr:@std/assert";
 
 import { NaiveDate, SemanticTime } from "../chrono/mod.ts";
 
 // A sheet ingest parses the same few hundred day strings at every layer: a
-// parsed partial date is interned (bounded), and `SemanticTime` no longer
-// parses the text it just built.
+// parsed partial date's fields are interned (bounded), every caller gets its
+// own PartialDate, and `SemanticTime` no longer parses the text it just built.
 
-Deno.test("Partial.parse interns: the same text answers the same (immutable) PartialDate", () => {
+Deno.test("Partial.parse: the same text answers an equal PartialDate of the caller's own", () => {
   const a = NaiveDate.Partial.parse("ymd-2031-3-7").exp();
   const b = NaiveDate.Partial.parse("ymd-2031-3-7").exp();
-  assertStrictEquals(a, b);
-  assertStrictEquals(NaiveDate.Partial.parseOptional("ymd-2031-3-7"), a);
+  assertNotStrictEquals(a, b);
+  assert(a.equals(b));
+  assertNotStrictEquals(NaiveDate.Partial.parseOptional("ymd-2031-3-7"), a);
   assertEquals(a.toString(), "ymd-2031-3-7");
   assertEquals(a.start.toString(), "2031-03-07");
   // A different spelling of the same day is its own entry.
   assertEquals(NaiveDate.Partial.parse("ymd-2031-03-07").exp().index, a.index);
 });
 
-Deno.test("Partial.parse interning is bounded: the oldest entry leaves first", () => {
+Deno.test("Partial.parse: what one caller reads does not show in another's partial", () => {
+  const read = NaiveDate.Partial.parse("yw-2033-9").exp();
+  read.start;
+  read.end;
+  read.index;
+  const fresh = NaiveDate.Partial.parse("yw-2033-9").exp();
+  const fields = '{"type":"week","yr":2033,"mth":null,"day":null,"wno":9,"weekStart":{"dow":2,"label":"Mon"}}';
+  assertEquals(JSON.stringify(read), fields);
+  assertEquals(JSON.stringify(fresh), fields);
+  assertEquals(Object.keys(read), ["type", "yr", "mth", "day", "wno", "weekStart"]);
+  assertEquals(read, fresh);
+});
+
+Deno.test("Partial.parse interning is bounded and keeps answering the same fields", () => {
   const first = NaiveDate.Partial.parse("ymd-1901-1-1").exp();
   // 5000 distinct texts that do not parse (a year 0): failures are never interned.
   for (let i = 0; i < 5000; i++) assert(NaiveDate.Partial.parse(`ymd-0-1-${i + 1}`).isErr);
-  assertStrictEquals(NaiveDate.Partial.parse("ymd-1901-1-1").exp(), first, "failures kept nothing");
   for (let y = 0; y < 4200; y++) NaiveDate.Partial.parse(`y-${3000 + y}`);
   const again = NaiveDate.Partial.parse("ymd-1901-1-1").exp();
-  assertNotStrictEquals(again, first, "4200 later entries evicted the first");
+  assert(again.equals(first), "an evicted text parses again to the same fields");
   assertEquals(again.toString(), first.toString());
+  assertEquals(again.start.toString(), "1901-01-01");
 });
 
 Deno.test("Partial.parse interning keeps failures failing", () => {

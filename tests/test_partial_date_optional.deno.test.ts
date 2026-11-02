@@ -15,7 +15,12 @@ Deno.test("PartialDate optional probing preserves grammar and existing permissiv
   for (const [raw, expected] of cases) {
     const optional = NaiveDate.Partial.parseOptional(raw);
     assertEquals(optional?.toString(), expected);
-    assertEquals(optional, NaiveDate.Partial.parse(raw).asOk());
+    // Each parse answers its own PartialDate: compare the fields, not the
+    // objects (a deep `assertEquals` reads `start`, which throws for
+    // `ym-2026-13`).
+    const parsed = NaiveDate.Partial.parse(raw).asOk();
+    assertEquals(JSON.stringify(optional), JSON.stringify(parsed));
+    assertEquals(optional?.toString(), parsed?.toString());
   }
 });
 

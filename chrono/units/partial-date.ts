@@ -14,19 +14,33 @@ import { YearMonthDay } from "./year-month-day.ts";
 import type { Option, Optional } from "../option.ts";
 
 export class PartialDate {
+  /**
+   * `start`, `end` and `index`, filled on first read. Private, so a partial
+   * prints, enumerates and compares as its date fields and `weekStart`
+   * alone, whatever was read from it before (`JSON.stringify`, `Object.keys`
+   * and a formula's `json-keys` never see it).
+   */
+  readonly #cached: Optional<{
+    start: NaiveDate;
+    end: NaiveDate;
+    index: number;
+  }>;
+
   constructor(
     readonly type: DateUnit.Type,
     readonly yr: number,
     readonly mth: Option<Month1> = null,
     readonly day: Option<DayOfMonth1> = null,
     readonly wno: Option<WeekOfYear1> = null,
-    readonly cached: Optional<{
+    cached: Optional<{
       start: NaiveDate;
       end: NaiveDate;
       index: number;
     }> = {},
     readonly weekStart: Weekday = Weekday.MON,
-  ) {}
+  ) {
+    this.#cached = { ...cached };
+  }
 
   // biome-ignore lint/suspicious/useGetterReturn: is correct
   get #index(): number {
@@ -42,8 +56,8 @@ export class PartialDate {
     }
   }
   get index(): number {
-    if (this.cached.index != null) return this.cached.index;
-    return (this.cached.index = this.#index);
+    if (this.#cached.index != null) return this.#cached.index;
+    return (this.#cached.index = this.#index);
   }
 
   toType(type: DateUnit.Type): PartialDate {
@@ -113,11 +127,11 @@ export class PartialDate {
   }
 
   get start(): NaiveDate {
-    return this.cached.start ?? (this.cached.start = this._start());
+    return this.#cached.start ?? (this.#cached.start = this._start());
   }
 
   get end(): NaiveDate {
-    return this.cached.end ?? (this.cached.end = this.start.add(this.du));
+    return this.#cached.end ?? (this.#cached.end = this.start.add(this.du));
   }
 
   equals(other: PartialDate): boolean {
@@ -327,26 +341,31 @@ export namespace PartialDate {
    * Parsed partial dates by their text, at most `INTERN_LIMIT` (the oldest
    * entry leaves first). A sheet's cells repeat a few hundred day strings,
    * and an ingest parses each at every layer (wire decode, backend, store):
-   * a hit is one Map lookup instead of a split, four integer parses and a new
-   * PartialDate. A PartialDate is immutable (its `cached` fields fill lazily,
-   * to the same values), so one instance serves every reader. Only
-   * successful parses are kept.
+   * a hit is one Map lookup and a new PartialDate instead of a split and
+   * four integer parses. Every caller gets its own PartialDate, never the
+   * kept one, so what one caller reads from its partial (or does with it)
+   * cannot show in another's. Only successful parses are kept.
    */
   const INTERN_LIMIT = 4096;
-  const interned = new Map<string, Result<PartialDate>>();
+  const interned = new Map<string, PartialDate>();
 
   function parseRecognized(s: string): Option<Result<PartialDate>> {
     const hit = interned.get(s);
-    if (hit !== undefined) return hit;
+    if (hit !== undefined) return ok(copyOf(hit));
     const parsed = parseText(s);
-    if (parsed != null && parsed.isOk) {
-      if (interned.size >= INTERN_LIMIT) {
-        const oldest = interned.keys().next();
-        if (oldest.done !== true) interned.delete(oldest.value);
-      }
-      interned.set(s, parsed);
+    if (parsed == null || !parsed.isOk) return parsed;
+    const kept = parsed.exp();
+    if (interned.size >= INTERN_LIMIT) {
+      const oldest = interned.keys().next();
+      if (oldest.done !== true) interned.delete(oldest.value);
     }
-    return parsed;
+    interned.set(s, kept);
+    return ok(copyOf(kept));
+  }
+
+  /** A new PartialDate with `p`'s fields and nothing computed yet. */
+  function copyOf(p: PartialDate): PartialDate {
+    return new PartialDate(p.type, p.yr, p.mth, p.day, p.wno, {}, p.weekStart);
   }
 
   function parseText(s: string): Option<Result<PartialDate>> {
