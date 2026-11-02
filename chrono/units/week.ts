@@ -8,6 +8,7 @@ import {
   WeeksSinceEpoch1,
 } from "./units.ts";
 import { Year } from "./year.ts";
+import { TentoMath } from "../utils.ts";
 
 export interface YwLike<Index> {
   yr: number;
@@ -89,36 +90,30 @@ export namespace Week {
 
   export const add = addWeeks;
 
+  /**
+   * ISO week `wno` of `yr` counted from the epoch's week: 1970-W01, which
+   * starts on Monday 1969-12-29, is 1, 1969-W52 is 0, and every week before
+   * it counts on down (1969-W51 is -1). Week 0 of a year is the last week of
+   * the year before. Computed from the Monday of `yr`'s first ISO week, so
+   * it takes the same time at any year and is exact below 2^53 days.
+   *
+   * ```ts
+   * import { assertEquals } from "@std/assert";
+   * import { Week, yw1 } from "./week.ts";
+   * assertEquals(Week.weeksSinceEpoch(yw1(1970, 1)), 1);
+   * assertEquals(Week.weeksSinceEpoch(yw1(1969, 52)), 0);
+   * assertEquals(Week.weeksSinceEpoch(yw1(1969, 51)), -1);
+   * assertEquals(Week.weeksSinceEpoch(yw1(1971, 0)), 53);
+   * ```
+   */
   export function weeksSinceEpoch({ yr, wno }: Yw1Like): WeeksSinceEpoch1 {
-    // Special cases for epoch-related weeks
-    if ((yr === 1969 && wno === 52) || (yr === 1970 && wno === 0)) {
-      return 0 as WeeksSinceEpoch1;
-    }
-
-    // Handle week 0 of any year by converting to last week of previous year
-    if (wno === 0) {
-      yr = yr - 1;
-      wno = Year.numWeeks(yr) as WeekOfYear1;
-    }
-
-    // For 1970, just return the week number since we start counting from week 1
-    if (yr === 1970) {
-      return wno as unknown as WeeksSinceEpoch1;
-    }
-
-    // For years after 1970, count all weeks in previous years
-    let weeks = 0;
-    for (let y = 1970; y < yr; y++) {
-      weeks += Year.numWeeks(y);
-    }
-
-    // Add weeks in the target year, subtracting 1 since we count from week 1
-    weeks += wno - 1;
-
-    // Add back the offset since we start counting from 1 in 1970
-    weeks += 1;
-
-    return weeks as WeeksSinceEpoch1;
+    // ISO week 1 holds January 4; its Monday is the Monday on or before it.
+    // Day 0 (1970-01-01) is a Thursday, so day `d` is `(d + 3) mod 7` days
+    // after a Monday.
+    const jan4 = Year.dseFromYear(yr) + 3;
+    const week1Monday = jan4 - TentoMath.mod(jan4 + 3, 7);
+    // The epoch week's Monday is day -3; `week1Monday + 3` is a multiple of 7.
+    return ((week1Monday + 3) / 7 + wno) as WeeksSinceEpoch1;
   }
 
   // Helper function: calculate the day of the week for Jan 1

@@ -265,6 +265,44 @@ Deno.test("week/Week.weeksSinceEpoch", () => {
   assertEquals(Week.weeksSinceEpoch(yw1(2021, 1)), 2663);
 });
 
+Deno.test("week/Week.weeksSinceEpoch before 1970 counts on down from 0", () => {
+  // 1970-W01 starts on Monday 1969-12-29: that day is week 1, not a week of 1969.
+  assertEquals(NaiveDate.fromYmd1Exp(1969, 12, 29).wse, 1);
+  assertEquals(NaiveDate.fromYmd1Exp(1969, 12, 28).wse, 0);
+  assertEquals(NaiveDate.fromYmd1Exp(1969, 12, 22).wse, 0);
+  assertEquals(NaiveDate.fromYmd1Exp(1969, 12, 21).wse, -1);
+  assertEquals(Week.weeksSinceEpoch(yw1(1969, 51)), -1);
+  assertEquals(Week.weeksSinceEpoch(yw1(1969, 1)), -51);
+  assertEquals(Week.weeksSinceEpoch(yw1(1969, 0)), -52);
+  assertEquals(Week.weeksSinceEpoch(yw1(1968, 52)), -52);
+  assertEquals(Week.weeksSinceEpoch(yw1(1968, 1)), -103);
+});
+
+Deno.test("week/Week.weeksSinceEpoch is one more per week, 1600 to 2400", () => {
+  // Monday to Monday: every week from 1600 through 2400 is one more than
+  // the week before, across every year boundary and the epoch.
+  let date = NaiveDate.fromYmd1Exp(1600, 1, 3); // a Monday
+  assertEquals(date.dayOfWeek, Weekday.MON);
+  let prev = date.wse;
+  const stop = naivedate(2400, 1, 1);
+  while (date.isBefore(stop)) {
+    const next = date.addDays(7);
+    assertEquals(next.wse, prev + 1, `${next}`);
+    prev = next.wse;
+    date = next;
+  }
+});
+
+Deno.test("week/Week.weeksSinceEpoch takes the same time at any year", () => {
+  // Week 1 of a year: its Monday's days since the epoch, plus 3 (the
+  // epoch week's Monday is day -3), over 7, plus 1.
+  for (const yr of [1, 999, 1969, 1970, 1971, 2026, 9999, 100_000_000]) {
+    const monday = Week.dateFromWeekno(yw1(yr, 1), Weekday.MON);
+    assertEquals(Week.weeksSinceEpoch(yw1(yr, 1)), (monday.dse + 3) / 7 + 1, `${yr}`);
+  }
+  assertEquals(Week.weeksSinceEpoch(yw1(100_000_000, 1)), 5_217_647_212);
+});
+
 Deno.test("week/Week.dateFromWeekno", () => {
   // Test first week of 2023 (Monday)
   assertEquals(
