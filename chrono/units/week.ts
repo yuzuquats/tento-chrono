@@ -143,8 +143,9 @@ export namespace Week {
     // Determine the ISO week start date (Monday of week 1)
     // If Jan 1 is:
     // - Monday (1): week starts on Jan 1
-    // - Tuesday (2) to Friday (5): week starts on the previous Monday
-    // - Saturday (6) or Sunday (0): week starts on the next Monday
+    // - Tuesday (2) to Thursday (4): week starts on the previous Monday
+    // - Friday (5), Saturday (6) or Sunday (0): week starts on the next Monday
+    //   (week 1 is the week that holds January 4)
     const isoWeekStartOffset = jan1Day <= 4 ? jan1Day - 1 : jan1Day - 8;
     const firstWeekStart = NaiveDate.fromYmd1Exp(yr, 1, 1).addDays(
       -isoWeekStartOffset
