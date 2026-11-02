@@ -729,7 +729,7 @@ export class GoogleEventGenerator {
 
     const rrule = recurrence.inner.rrule;
     const wallGenerator = rrule != null && rrule.hasTimeParts()
-      ? RRuleInstances.expand(rrule, startLocal, composition.googleByweekno)
+      ? RRuleInstances.expand(rrule, startLocal, composition.googleByweekno, generationLimit)
       : null;
 
     this.state = {

@@ -43,3 +43,15 @@ Deno.test("bounded date generator reaches old horizons and refuses its own exhau
   const small = await rule.generateGoogleEvents(old, TimezoneRegion.UTC, 1001);
   assertThrows(() => small.generateUpToDate(end), RecurrenceExpansionLimitError);
 });
+
+Deno.test("bounded timed searches refuse both empty-period and sparse-step exhaustion", async () => {
+  for (const rule of [
+    "RRULE:FREQ=DAILY;BYMONTH=2;BYMONTHDAY=31;BYHOUR=0",
+    "RRULE:FREQ=SECONDLY;INTERVAL=65521;BYMONTH=1;BYMONTHDAY=1;BYHOUR=0;BYMINUTE=0;BYSECOND=0;COUNT=2",
+  ]) {
+    const recurrence = (await Recurrence.parse([rule])).exp();
+    const generator = await recurrence.generateGoogleEvents(start, TimezoneRegion.UTC, 32);
+    assertThrows(() => generator.generateUpToDate(end), RecurrenceExpansionLimitError);
+    assertThrows(() => generator.generateUpToDate(end), RecurrenceExpansionLimitError);
+  }
+});

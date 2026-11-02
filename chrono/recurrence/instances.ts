@@ -21,6 +21,7 @@ import { Time } from "../time.ts";
 import type { MsSinceEpoch } from "../units/units.ts";
 import type { Option } from "../option.ts";
 import type { RRule } from "./rrule.ts";
+import { RecurrenceExpansionLimitError } from "./generation-limit.ts";
 
 export namespace RRuleInstances {
   /**
@@ -41,6 +42,7 @@ export namespace RRuleInstances {
     rule: RRule,
     dtstart: NaiveDateTime,
     useGoogleCalendarBehavior: boolean = false,
+    generationLimit?: number,
   ): Generator<NaiveDateTime> {
     const options = rule.inner.options;
     const count = options?.count ?? null;
@@ -51,7 +53,7 @@ export namespace RRuleInstances {
       untilWall != null ? at.mse > untilWall.mse : untilDay != null && at.date.dse >= untilDay.dse;
 
     let emitted = 0;
-    for (const at of candidates(rule, dtstart, useGoogleCalendarBehavior)) {
+    for (const at of candidates(rule, dtstart, useGoogleCalendarBehavior, generationLimit)) {
       if (at.mse < dtstart.mse) continue;
       if (ended(at)) return;
       yield at;
@@ -71,14 +73,14 @@ export namespace RRuleInstances {
   }
 
   /** Every period's set, from DTSTART's period on: not yet cut at DTSTART, UNTIL or COUNT. */
-  function candidates(rule: RRule, dtstart: NaiveDateTime, google: boolean): Generator<NaiveDateTime> {
+  function candidates(rule: RRule, dtstart: NaiveDateTime, google: boolean, generationLimit?: number): Generator<NaiveDateTime> {
     switch (rule.inner.freq) {
       case "hourly":
       case "minutely":
       case "secondly":
-        return subDaily(rule, dtstart, google);
+        return subDaily(rule, dtstart, google, generationLimit);
       default:
-        return byDay(rule, dtstart, google);
+        return byDay(rule, dtstart, google, generationLimit);
     }
   }
 
@@ -102,7 +104,7 @@ export namespace RRuleInstances {
   }
 
   /** YEARLY, MONTHLY, WEEKLY or DAILY: each period's days (the date generator's filters) at each time of day. */
-  function* byDay(rule: RRule, dtstart: NaiveDateTime, google: boolean): Generator<NaiveDateTime> {
+  function* byDay(rule: RRule, dtstart: NaiveDateTime, google: boolean, generationLimit?: number): Generator<NaiveDateTime> {
     const props = rule.toFilterProps(null, null, google);
     const step = props.step;
     const filter = filterOf(props);
@@ -136,7 +138,10 @@ export namespace RRuleInstances {
       const last = size === 0 ? null : new NaiveDateTime(sorted[sorted.length - 1], times[times.length - 1]);
       // Periods wholly before DTSTART (none: the first period holds it) and empty ones count toward the idle limit.
       if (last == null || (indices != null && indices.length === 0) || last.mse < dtstart.mse) {
-        if (++idle >= IDLE_LIMIT) return;
+        if (++idle >= (generationLimit ?? IDLE_LIMIT)) {
+          if (generationLimit != null) throw new RecurrenceExpansionLimitError(generationLimit);
+          return;
+        }
         continue;
       }
       idle = 0;
@@ -154,7 +159,7 @@ export namespace RRuleInstances {
    * above the unit limit which periods count (a day the date parts refuse
    * is skipped whole); the time parts below it expand each period.
    */
-  function* subDaily(rule: RRule, dtstart: NaiveDateTime, google: boolean): Generator<NaiveDateTime> {
+  function* subDaily(rule: RRule, dtstart: NaiveDateTime, google: boolean, generationLimit?: number): Generator<NaiveDateTime> {
     const options = rule.inner.options;
     const freq = rule.inner.freq;
     const unitMs = freq === "hourly" ? Time.MS_PER_HR : freq === "minutely" ? Time.MS_PER_MIN : Time.MS_PER_SEC;
@@ -185,7 +190,10 @@ export namespace RRuleInstances {
       const skipTo = (ms: number) => {
         k = Math.max(k + 1, Math.ceil((ms - first) / stepMs));
       };
-      if (++idle > IDLE_LIMIT) return;
+      if (++idle > (generationLimit ?? IDLE_LIMIT)) {
+        if (generationLimit != null) throw new RecurrenceExpansionLimitError(generationLimit);
+        return;
+      }
 
       if (!dayOk(period.date)) {
         skipTo((period.date.dse + 1) * Time.MS_PER_DAY);
