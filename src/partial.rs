@@ -3,11 +3,6 @@ use std::fmt::{Debug, Display};
 use anyhow::{Context, anyhow};
 use chrono::{DateTime, Datelike, NaiveDate, Utc};
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
-#[cfg(feature = "openapi")]
-use utoipa::{
-  PartialSchema, ToSchema,
-  openapi::{Object, Type},
-};
 
 pub use super::year_month::YearMonth;
 
@@ -88,34 +83,6 @@ impl<'de> Deserialize<'de> for SemanticTime {
     PartialDate::parse(&s)
       .map(SemanticTime::Range)
       .map_err(serde::de::Error::custom)
-  }
-}
-
-#[cfg(feature = "openapi")]
-impl PartialSchema for SemanticTime {
-  fn schema() -> utoipa::openapi::RefOr<utoipa::openapi::schema::Schema> {
-    utoipa::openapi::RefOr::T(utoipa::openapi::Schema::Object(
-      utoipa::openapi::schema::ObjectBuilder::new()
-        .schema_type(utoipa::openapi::schema::Type::String)
-        .description(Some("A semantic time that can be either a range (e.g., 'ymd-2024-01-01') or a point (e.g., '2024-01-01T00:00:00Z')"))
-        .build()
-    ))
-  }
-}
-
-#[cfg(feature = "openapi")]
-impl ToSchema for SemanticTime {
-  fn name() -> std::borrow::Cow<'static, str> {
-    "SemanticTime".into()
-  }
-
-  fn schemas(
-    _schemas: &mut Vec<(
-      String,
-      utoipa::openapi::RefOr<utoipa::openapi::schema::Schema>,
-    )>,
-  ) {
-    // No additional schemas needed for a simple string type
   }
 }
 
@@ -211,30 +178,6 @@ impl PartialDate {
       current_year: start_year,
       end_date: range.end,
     }
-  }
-}
-
-#[cfg(feature = "openapi")]
-impl ToSchema for PartialDate {
-  fn name() -> std::borrow::Cow<'static, str> {
-    std::borrow::Cow::Borrowed("PartialDate")
-  }
-
-  fn schemas(
-    _schemas: &mut Vec<(
-      String,
-      utoipa::openapi::RefOr<utoipa::openapi::schema::Schema>,
-    )>,
-  ) {
-  }
-}
-
-#[cfg(feature = "openapi")]
-impl PartialSchema for PartialDate {
-  fn schema() -> utoipa::openapi::RefOr<utoipa::openapi::schema::Schema> {
-    utoipa::openapi::RefOr::T(utoipa::openapi::Schema::Object(Object::with_type(
-      Type::String,
-    )))
   }
 }
 
@@ -663,7 +606,10 @@ mod test {
     assert!(PartialDate::parse("yw-2021-53").is_err());
     assert!(PartialDate::parse("yw-2020-53").is_ok());
     assert!(PartialDate::from_ymdw(2024, Some(13), None, None).is_err());
-    assert_eq!(PartialDate::Ym(YearMonth { yr: 2024, mth1: 13 }).start(), None);
+    assert_eq!(
+      PartialDate::Ym(YearMonth { yr: 2024, mth1: 13 }).start(),
+      None
+    );
   }
 
   #[test]
@@ -1015,31 +961,24 @@ mod test {
 
 #[cfg(feature = "openapi")]
 impl tento_openapi::ToSchema for PartialDate {
-  fn name() -> Option<std::borrow::Cow<'static, str>> { Some("PartialDate".into()) }
+  fn name() -> Option<std::borrow::Cow<'static, str>> {
+    Some("PartialDate".into())
+  }
   fn schema() -> tento_openapi::RefOr<tento_openapi::Schema> {
-    tento_openapi::RefOr::T(tento_openapi::Schema::Object(tento_openapi::Object::with_type(tento_openapi::Type::String)))
+    tento_openapi::RefOr::T(tento_openapi::Schema::Object(
+      tento_openapi::Object::with_type(tento_openapi::Type::String),
+    ))
   }
 }
 #[cfg(feature = "openapi")]
 impl tento_openapi::ToSchema for SemanticTime {
-  fn name() -> Option<std::borrow::Cow<'static, str>> { Some("SemanticTime".into()) }
+  fn name() -> Option<std::borrow::Cow<'static, str>> {
+    Some("SemanticTime".into())
+  }
   fn schema() -> tento_openapi::RefOr<tento_openapi::Schema> {
     tento_openapi::RefOr::T(tento_openapi::Schema::Object(tento_openapi::Object {
       description: Some("A semantic time that can be either a range (e.g., 'ymd-2024-01-01') or a point (e.g., '2024-01-01T00:00:00Z')".into()),
       ..tento_openapi::Object::with_type(tento_openapi::Type::String)
     }))
-  }
-}
-#[cfg(all(test, feature = "openapi"))]
-mod openapi_parity {
-  #[test]
-  fn manual_string_schemas_match() {
-    use super::*;
-    fn compare<T: utoipa::ToSchema + tento_openapi::ToSchema>() {
-      let old = serde_json::to_value(<T as utoipa::PartialSchema>::schema()).unwrap();
-      let new = serde_json::to_value(<T as tento_openapi::ToSchema>::schema()).unwrap();
-      assert_eq!(old, new);
-    }
-    compare::<PartialDate>(); compare::<SemanticTime>();
   }
 }

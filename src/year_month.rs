@@ -13,7 +13,7 @@ use serde::{
 use super::{date_unit::DateUnit, year_month_day::YearMonthDay};
 
 #[derive(Clone, Debug, Serialize, PartialEq, Eq, Hash)]
-#[cfg_attr(feature = "openapi", derive(utoipa::ToSchema, tento_openapi::ToSchema, tento_openapi::SchemaParity))]
+#[cfg_attr(feature = "openapi", derive(tento_openapi::ToSchema))]
 pub struct YearMonth {
   pub yr: i32,
   pub mth1: u32,
@@ -39,7 +39,9 @@ impl YearMonth {
 
   /// `None` when `mth1` is outside 1..=12.
   pub fn month(&self) -> Option<Month> {
-    u8::try_from(self.mth1).ok().and_then(|m| Month::try_from(m).ok())
+    u8::try_from(self.mth1)
+      .ok()
+      .and_then(|m| Month::try_from(m).ok())
   }
 
   pub fn to_string(&self) -> String {
