@@ -724,6 +724,7 @@ export class GoogleEventGenerator {
       untilDate, // Use UNTIL date if present, otherwise will generate indefinitely
       composition.googleByweekno,
       false,
+      generationLimit,
     );
 
     const rrule = recurrence.inner.rrule;
@@ -908,6 +909,7 @@ function* generateUntilExcl(
   end?: Option<NaiveDate>,
   useGoogleCalendarBehavior?: boolean,
   excludeDates: boolean = !useGoogleCalendarBehavior,
+  generationLimit?: number,
 ) {
   const originalStartDate = date ?? inner.dtstart!.dates[0]!.date;
 
@@ -919,9 +921,13 @@ function* generateUntilExcl(
   );
 
   // Create raw event generator
-  const rawGenerator = generatorStartDate.rangeProps(
-    inner.rrule!.toFilterProps(null, end, useGoogleCalendarBehavior),
-  );
+  const props = inner.rrule!.toFilterProps(null, end, useGoogleCalendarBehavior);
+  if (generationLimit != null) {
+    props.options ??= {};
+    props.options.recurLimit = generationLimit;
+    props.options.onExhausted = () => { throw new RecurrenceExpansionLimitError(generationLimit); };
+  }
+  const rawGenerator = generatorStartDate.rangeProps(props);
 
   // Excluded dates. `GoogleEventGenerator` matches EXDATEs per instance (an
   // EXDATE removes one instance, not its day), so its rule dates come

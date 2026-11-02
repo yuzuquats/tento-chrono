@@ -178,20 +178,11 @@ export class RRule {
             rruleParts.push(`BYSETPOS=${options.bysetpos.join(",")}`);
           break;
         case "BYDAY":
-          if (options?.bynthday != null && options.bynthday.length > 0) {
-            const bydayStr = options.bynthday
-              .map(
-                (nthDay) =>
-                  `${nthDay.n}${Weekday.toString2cap(nthDay.weekday)}`,
-              )
-              .join(",");
-            rruleParts.push(`BYDAY=${bydayStr}`);
-          } else if (options?.byday != null && options.byday.length > 0) {
-            const bydayStr = options.byday
-              .map((day) => Weekday.toString2cap(day))
-              .join(",");
-            rruleParts.push(`BYDAY=${bydayStr}`);
-          }
+          const selectors = [
+            ...(options?.byday ?? []).map(Weekday.toString2cap),
+            ...(options?.bynthday ?? []).map((d) => d.n + Weekday.toString2cap(d.weekday)),
+          ];
+          if (selectors.length > 0) rruleParts.push("BYDAY=" + selectors.join(","));
           break;
         case "BYMONTH":
           if (options?.bymonth != null && options.bymonth.length > 0)
@@ -529,10 +520,25 @@ export class RRule {
       filters.push(yearlyByweeknoFilter);
     } else {
       // Original filter composition for non-yearly patterns
-      if (options?.bynthday && options.bynthday.length > 0)
+      if (options?.bynthday?.length && options?.byday?.length) {
+        const selectors = [
+          NaiveDate.Filter.byWeekday(options.byday),
+          NaiveDate.Filter.byNthWeekday(options.bynthday),
+        ];
+        filters.push(function* (period: PartialDate.Tuple) {
+          const days = new Map<number, PartialDate.Tuple>();
+          for (const select of selectors) {
+            for (const selected of select(period)) {
+              days.set(selected[0].castValid().dse, selected);
+            }
+          }
+          yield* [...days.values()].sort((a,b) => a[0].castValid().dse - b[0].castValid().dse);
+        });
+      } else if (options?.bynthday?.length) {
         filters.push(NaiveDate.Filter.byNthWeekday(options.bynthday));
-      else if (options?.byday && options.byday.length > 0)
+      } else if (options?.byday?.length) {
         filters.push(NaiveDate.Filter.byWeekday(options.byday));
+      }
       if (options?.byweekno && options.byweekno.length > 0) {
         // Skip BYWEEKNO filter for Google Calendar consecutive behavior
         if (!(useGoogleCalendarBehavior && shouldUseWeeklyStep)) {
@@ -685,29 +691,18 @@ export namespace RRule {
       if (bydayStr) {
         const days = bydayStr.split(",");
 
-        // Check if the first day matches nth-weekday pattern (e.g., "2TU", "-1FR")
-        const firstDay = days[0];
-        const firstNthWeekday = Weekday.parseNthOpt(firstDay);
-
-        if (firstNthWeekday) {
-          // This is an nth-weekday pattern, parse all days as nth-weekdays
-          bynthday = [];
-          for (const day of days) {
-            const nthWeekday = Weekday.parseNthOpt(day);
-            if (!nthWeekday) continue;
-            bynthday.push(nthWeekday);
-          }
-          if (bynthday.length === 0) bynthday = null;
-        } else {
-          // This is a regular weekday pattern, parse all days as weekdays
-          byday = [];
-          for (const day of days) {
+        byday = [];
+        bynthday = [];
+        for (const day of days) {
+          const nth = Weekday.parseNthOpt(day);
+          if (nth) bynthday.push(nth);
+          else {
             const weekday = Weekday.parseOpt(day);
-            if (!weekday) continue;
-            byday.push(weekday);
+            if (weekday) byday.push(weekday);
           }
-          if (byday.length === 0) byday = null;
         }
+        if (byday.length === 0) byday = null;
+        if (bynthday.length === 0) bynthday = null;
       }
 
       const until = rules.get("UNTIL");

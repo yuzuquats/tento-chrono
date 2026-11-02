@@ -33,3 +33,13 @@ Deno.test("dense yearly candidates are selected lazily before COUNT or BYSETPOS"
     assertEquals(generator.generateUpToDate(end).length, 2);
   }
 });
+
+Deno.test("bounded date generator reaches old horizons and refuses its own exhaustion", async () => {
+  const rule = (await Recurrence.parse(["RRULE:FREQ=DAILY"])).exp();
+  const old = DateTime.fromRfc3339("2020-01-01T00:00:00Z").exp();
+  const gen = await rule.generateGoogleEvents(old, TimezoneRegion.UTC, 65_535);
+  const days = gen.generateUpToDate(NaiveDate.parse("2026-01-04"));
+  assertEquals(days.filter((d) => d.date.yr === 2026).length, 4);
+  const small = await rule.generateGoogleEvents(old, TimezoneRegion.UTC, 1001);
+  assertThrows(() => small.generateUpToDate(end), RecurrenceExpansionLimitError);
+});

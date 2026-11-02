@@ -166,7 +166,7 @@ export namespace Weekday {
     if (!s) return null;
 
     // Handle patterns like "2TU", "-1FR" (only with explicit number)
-    const match = s.match(/^(-?\d+)([A-Z]{2})$/i);
+    const match = s.match(/^([+-]?\d+)([A-Z]{2})$/i);
     if (!match) return null;
 
     const [, nStr, weekdayStr] = match;

@@ -437,6 +437,7 @@ class _YearMonthDay implements Ymd1Like {
         end: YearMonthDay; // inclusive
         limit: number;
         recurLimit: number;
+        onExhausted: () => void;
         filter: YearMonthDay.Filter | YearMonthDay.Filter[];
         weekStart: Weekday;
       }>
@@ -453,6 +454,7 @@ class _YearMonthDay implements Ymd1Like {
       step,
       filter,
       recurLimit,
+      onExhausted: options?.onExhausted,
       end: options?.end,
       limit: options?.limit,
       weekStart: options?.weekStart ?? start.dayOfWeek,
@@ -513,6 +515,7 @@ export namespace YearMonthDay {
     end: YearMonthDay; // inclusive
     limit: number;
     recurLimit: number;
+    onExhausted: () => void;
     filter: YearMonthDay.Filter | YearMonthDay.Filter[];
     weekStart: Weekday;
   }>;
@@ -711,6 +714,7 @@ export namespace YearMonthDay {
     start,
     step,
     recurLimit,
+    onExhausted,
     filter,
     end,
     limit,
@@ -719,6 +723,7 @@ export namespace YearMonthDay {
     start: YearMonthDay.MaybeValid;
     step: DateUnit;
     recurLimit: number;
+    onExhausted?: Option<() => void>;
     filter: YearMonthDay.Filter;
     end: Option<YearMonthDay>;
     limit: Option<number>;
@@ -751,10 +756,10 @@ export namespace YearMonthDay {
         cnt += 1;
         recurCnt += 1;
         if (limit && cnt >= limit) return;
-        if (recurCnt >= recurLimit) return;
+        if (recurCnt >= recurLimit) { onExhausted?.(); return; }
       }
       if (yielded) idle = 0;
-      else if (++idle >= IDLE_PERIODS) return;
+      else if (++idle >= IDLE_PERIODS) { onExhausted?.(); return; }
       // A period whose first day is over a week past `end` (and every later
       // one) holds no date to yield. The week of slack covers BYWEEKNO,
       // whose week 1 can start in the previous year's last days.
