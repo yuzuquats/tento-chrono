@@ -1,3 +1,5 @@
+import { RecurrenceExpansionLimitError } from "./generation-limit.ts";
+export { RecurrenceExpansionLimitError } from "./generation-limit.ts";
 import { DateTime } from "../datetime.ts";
 import { NaiveDate } from "../naive-date.ts";
 import { NaiveDateTime } from "../naive-datetime.ts";
@@ -193,6 +195,9 @@ interface RecurrenceGenerationState {
   // so it is resolved once, on the first occurrence that needs it.
   startLocalTime?: NaiveDateTime["time"];
   generationComplete: boolean; // Track if we've exhausted the generator
+  generationLimit?: number;
+  candidates: number;
+  failure?: RecurrenceExpansionLimitError;
   lastReturnedIndex: number; // Track how many events we've returned so far
 }
 
@@ -276,6 +281,19 @@ function isExcluded(ex: Exclusions, local: NaiveDateTime, at: DateTime<Utc>): bo
   return ex.instants.has(at.mse) || ex.localTimes.has(local.mse) || ex.localDays.has(local.date.dse);
 }
 
+function appendGenerated(state: RecurrenceGenerationState, event: DateTime<Utc>): void {
+  if (state.generationLimit != null && state.allGeneratedEvents.length >= state.generationLimit) {
+    throw new RecurrenceExpansionLimitError(state.generationLimit);
+  }
+  state.allGeneratedEvents.push(event);
+}
+
+function countCandidate(state: RecurrenceGenerationState): void {
+  if (state.generationLimit != null && ++state.candidates >= state.generationLimit) {
+    throw new RecurrenceExpansionLimitError(state.generationLimit);
+  }
+}
+
 // Function to ensure all events are generated and buffered
 function ensureEventsGenerated(
   state: RecurrenceGenerationState,
@@ -289,7 +307,7 @@ function ensureEventsGenerated(
     flushRdates(state, start.mse);
     if (state.composition.dtstartAlwaysInstance && !state.startDateExcluded) {
       const previous = state.allGeneratedEvents[state.allGeneratedEvents.length - 1];
-      if (previous == null || previous.mse !== start.mse) state.allGeneratedEvents.push(start);
+      if (previous == null || previous.mse !== start.mse) appendGenerated(state, start);
     }
   }
 
@@ -309,6 +327,7 @@ function ensureEventsGenerated(
         flushRdates(state, Infinity);
         return;
       }
+      countCandidate(state);
       // DTSTART itself was handled above under `dtstartAlwaysInstance`.
       if (wall.value.mse === state.startLocal.mse && state.composition.dtstartAlwaysInstance) continue;
       if (placeInstance(state, wall.value)) return;
@@ -322,6 +341,7 @@ function ensureEventsGenerated(
       return;
     }
 
+    countCandidate(state);
     const dateInstance = result.value;
 
     // DTSTART's day: under `dtstartAlwaysInstance` DTSTART itself was
@@ -368,7 +388,7 @@ function ensureEventsGenerated(
     // An RDATE on this instance is this instance (one entry).
     const prev = state.allGeneratedEvents[state.allGeneratedEvents.length - 1];
     if (prev != null && prev.mse === event.mse) continue;
-    state.allGeneratedEvents.push(event);
+    appendGenerated(state, event);
   }
 }
 
@@ -394,7 +414,7 @@ function placeInstance(state: RecurrenceGenerationState, local: NaiveDateTime): 
   if (isExcluded(state.excl, local, event)) return false;
   flushRdates(state, event.mse);
   const prev = state.allGeneratedEvents[state.allGeneratedEvents.length - 1];
-  if (prev == null || prev.mse !== event.mse) state.allGeneratedEvents.push(event);
+  if (prev == null || prev.mse !== event.mse) appendGenerated(state, event);
   return false;
 }
 
@@ -408,7 +428,7 @@ function flushRdates(state: RecurrenceGenerationState, beforeMse: number): void 
     const next = state.rdates[state.rdateNext]!;
     if (next.mse > beforeMse) return;
     state.rdateNext++;
-    state.allGeneratedEvents.push(next);
+    appendGenerated(state, next);
   }
 }
 
@@ -673,7 +693,11 @@ export class GoogleEventGenerator {
     startDateTime: DateTime<FixedOffset>,
     timezone?: Option<TimezoneRegion>,
     readonly composition: RecurrenceComposition = RecurrenceComposition.GOOGLE,
+    generationLimit?: number,
   ) {
+    if (generationLimit != null && (!Number.isSafeInteger(generationLimit) || generationLimit < 1)) {
+      throw new RangeError("recurrence generation limit must be a positive safe integer");
+    }
     const startDateParsed = startDateTime.ndt.date;
 
     // Check if RRULE has an UNTIL date
@@ -725,6 +749,8 @@ export class GoogleEventGenerator {
       startHandled: false,
       generationComplete: false,
       lastReturnedIndex: 0,
+      generationLimit,
+      candidates: 0,
     };
   }
 
@@ -756,7 +782,13 @@ export class GoogleEventGenerator {
     // UNTIL bounds the rule's instances where they are generated (the date
     // generator and `untilDt`), not this read: an RDATE past UNTIL is still
     // in the set (RFC 5545 §3.8.5.2).
-    return generateEventsUpToDate(this.state, endDate);
+    if (this.state.failure != null) throw this.state.failure;
+    try {
+      return generateEventsUpToDate(this.state, endDate);
+    } catch (error) {
+      if (error instanceof RecurrenceExpansionLimitError) this.state.failure = error;
+      throw error;
+    }
   }
 }
 
@@ -799,8 +831,9 @@ export class Recurrence {
   async generateGoogleEvents(
     startDateTime: DateTime<FixedOffset>,
     timezone: Option<TimezoneRegion>,
+    generationLimit?: number,
   ): Promise<GoogleEventGenerator> {
-    return await this.generateEvents(startDateTime, timezone, RecurrenceComposition.GOOGLE);
+    return await this.generateEvents(startDateTime, timezone, RecurrenceComposition.GOOGLE, generationLimit);
   }
 
   /** The series' instances from `startDateTime`, composed as `composition` says. */
@@ -808,9 +841,10 @@ export class Recurrence {
     startDateTime: DateTime<FixedOffset>,
     timezone: Option<TimezoneRegion>,
     composition: RecurrenceComposition,
+    generationLimit?: number,
   ): Promise<GoogleEventGenerator> {
     const effectiveTimezone = timezone || (await this.timezone());
-    return new GoogleEventGenerator(this, startDateTime, effectiveTimezone, composition);
+    return new GoogleEventGenerator(this, startDateTime, effectiveTimezone, composition, generationLimit);
   }
 }
 

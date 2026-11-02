@@ -86,9 +86,9 @@ export namespace RRuleInstances {
   function timesOfDay(rule: RRule, dtstart: NaiveDateTime): NaiveTime[] {
     const options = rule.inner.options;
     const t = dtstart.time;
-    const hours = nonEmpty(options?.byhour) ?? [t.hrs];
-    const minutes = nonEmpty(options?.byminute) ?? [t.mins];
-    const seconds = nonEmpty(options?.bysecond) ?? [t.secs];
+    const hours = [...new Set(nonEmpty(options?.byhour) ?? [t.hrs])];
+    const minutes = [...new Set(nonEmpty(options?.byminute) ?? [t.mins])];
+    const seconds = [...new Set(nonEmpty(options?.bysecond) ?? [t.secs])];
     const ms = new Set<number>();
     for (const h of hours) {
       for (const m of minutes) {
@@ -127,15 +127,24 @@ export namespace RRuleInstances {
         if (valid != null) days.set(valid.dse, valid);
       }
       const sorted = [...days.values()].sort((a, b) => a.dse - b.dse);
-      let set = sorted.flatMap((day) => times.map((time) => new NaiveDateTime(day, time)));
-      if (setpos != null) set = pickSetPos(set, setpos);
+      // Select positions by index, or yield the grid lazily. A yearly rule
+      // can describe millions of candidates; COUNT and caller budgets must
+      // stop iteration before that whole product is materialized.
+      const size = sorted.length * times.length;
+      const indices = setpos == null ? null : [...new Set(setpos.map((p) => p > 0 ? p - 1 : size + p)
+        .filter((i) => i >= 0 && i < size))].sort((a,b) => a-b);
+      const last = size === 0 ? null : new NaiveDateTime(sorted[sorted.length - 1], times[times.length - 1]);
       // Periods wholly before DTSTART (none: the first period holds it) and empty ones count toward the idle limit.
-      if (set.length === 0 || set[set.length - 1].mse < dtstart.mse) {
+      if (last == null || (indices != null && indices.length === 0) || last.mse < dtstart.mse) {
         if (++idle >= IDLE_LIMIT) return;
         continue;
       }
       idle = 0;
-      yield* set;
+      if (indices != null) {
+        for (const i of indices) yield new NaiveDateTime(sorted[Math.floor(i / times.length)], times[i % times.length]);
+      } else {
+        for (const day of sorted) for (const time of times) yield new NaiveDateTime(day, time);
+      }
     }
   }
 
