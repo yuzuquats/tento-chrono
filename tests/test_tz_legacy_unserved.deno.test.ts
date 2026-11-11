@@ -6,7 +6,7 @@ import type { Tzname } from "../chrono/timezone.ts";
  * A zone the service has no data for is built from the platform's offsets (`unserved`). V8 keeps a legacy spelling
  * as its canonical name (Asia/Kolkata resolves to Asia/Calcutta), so on an India host the host zone loaded first as
  * Asia/Calcutta, and a later `--tz Asia/Kolkata` resolved through the platform's canonical name to that cached
- * region: the render's record said `tz: Asia/Calcutta` for an explicit Asia/Kolkata (lona CLI zone suite under
+ * region: the render's record said `tz: Asia/Calcutta` for an explicit Asia/Kolkata (the application CLI zone suite under
  * TZ=Asia/Kolkata, 70/1). Built or served, a zone is named by its current IANA name, whichever spelling asked first.
  */
 TimezoneRegion.setLoader({ load: (tz) => Promise.reject(new TimezoneRegion.Unserved(tz, "not-found")) });

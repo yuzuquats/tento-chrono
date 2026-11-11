@@ -15,8 +15,9 @@ const maybeTz = await TimezoneRegion.getOpt("America/Los_Angeles" as Tzname);
 `get()` falls back to a default timezone if loading fails. `getOpt()` returns
 `null` for invalid or unavailable zones.
 
-The default dynamic loader fetches timezone transition JSON from the static Lona
-host. Tests and isolated hosts can replace it with `TimezoneRegion.setLoader()`.
+The default dynamic loader fetches timezone transition JSON from the application
+server's static host. Tests and isolated hosts can replace it with
+`TimezoneRegion.setLoader()`.
 
 ## Core Conversions
 

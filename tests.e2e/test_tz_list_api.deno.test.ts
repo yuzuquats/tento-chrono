@@ -10,7 +10,7 @@ interface TimezoneDropdownData {
 }
 
 Deno.test("fetch and parse tz-list API - full list", async () => {
-  // Using static.lona.so API endpoint
+  // Using the application server's static API endpoint
   const response = await fetch("https://static.lona.so/timezones/2025a/1900_2050/tz_list");
   
   assertEquals(response.status, 200, "Should return 200 OK");

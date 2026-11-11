@@ -7,7 +7,7 @@
  *   https://data.iana.org/time-zones/releases/tzdata2024b.tar.gz
  *   (sha256 70e754db126a8d0db3d16d6b4cb5f7ec1e04d5f261255e4558a67fe92d39e550).
  * - `2024b-served.json`: the names the zone service answers 200 for
- *   (`https://static.lona.so/timezones/2024b/1900_2050/<Area~City>.json`):
+ *   (`https://static.example.com/timezones/2024b/1900_2050/<Area~City>.json`):
  *   every geographic `Zone` of tzdata 2024b (311); no `Etc/*` zone. Probed
  *   name by name on 2026-10-07.
  *

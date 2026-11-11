@@ -102,8 +102,10 @@ pins one.
 
 Features:
 
-- `openapi`: `utoipa::ToSchema` for `PartialDate`, `SemanticTime` and `YearMonth`.
 - `arbitrary`: `arbitrary::Arbitrary` for `DateTimeRange`.
+
+OpenAPI schemas for `PartialDate`, `SemanticTime` and `YearMonth` are provided
+by `tento-openapi` with its `tento-chrono` feature enabled.
 
 Examples: [`examples/partial_dates.rs`](examples/partial_dates.rs) and
 [`examples/months.rs`](examples/months.rs).

@@ -1,7 +1,7 @@
 # @tento-chrono
 
 `tento-chrono` provides date, time, timezone, recurrence, and calendar
-primitives for Lona and related Tento libraries.
+primitives for applications and related Tento libraries.
 
 It is deliberately more explicit than JavaScript `Date`. Most bugs in calendar
 code come from silently mixing these ideas:

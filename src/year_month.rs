@@ -13,7 +13,6 @@ use serde::{
 use super::{date_unit::DateUnit, year_month_day::YearMonthDay};
 
 #[derive(Clone, Debug, Serialize, PartialEq, Eq, Hash)]
-#[cfg_attr(feature = "openapi", derive(tento_openapi::ToSchema))]
 pub struct YearMonth {
   pub yr: i32,
   pub mth1: u32,

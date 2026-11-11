@@ -2,7 +2,7 @@
  * Rule corpus for `GoogleEventGenerator` equivalence (tests/test_google_generator_equivalence.deno.test.ts):
  * every zone x start x rule below, generated incrementally in 31-day steps for 36 steps. The recorded
  * digests (google_generator_equivalence.json) were taken from the generator before the loop-invariant
- * DTSTART wall-time conversion was hoisted out of the per-occurrence loop (tento-chrono, lona-sdk wave 6);
+ * DTSTART wall-time conversion was hoisted out of the per-occurrence loop (the calendar SDK optimization);
  * any change to a generated instant changes a digest.
  */
 

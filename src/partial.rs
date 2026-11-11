@@ -958,27 +958,3 @@ mod test {
     }
   }
 }
-
-#[cfg(feature = "openapi")]
-impl tento_openapi::ToSchema for PartialDate {
-  fn name() -> Option<std::borrow::Cow<'static, str>> {
-    Some("PartialDate".into())
-  }
-  fn schema() -> tento_openapi::RefOr<tento_openapi::Schema> {
-    tento_openapi::RefOr::T(tento_openapi::Schema::Object(
-      tento_openapi::Object::with_type(tento_openapi::Type::String),
-    ))
-  }
-}
-#[cfg(feature = "openapi")]
-impl tento_openapi::ToSchema for SemanticTime {
-  fn name() -> Option<std::borrow::Cow<'static, str>> {
-    Some("SemanticTime".into())
-  }
-  fn schema() -> tento_openapi::RefOr<tento_openapi::Schema> {
-    tento_openapi::RefOr::T(tento_openapi::Schema::Object(tento_openapi::Object {
-      description: Some("A semantic time that can be either a range (e.g., 'ymd-2024-01-01') or a point (e.g., '2024-01-01T00:00:00Z')".into()),
-      ..tento_openapi::Object::with_type(tento_openapi::Type::String)
-    }))
-  }
-}

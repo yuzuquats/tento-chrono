@@ -31,7 +31,7 @@ type JsonValue =
 // static-domain resources when package boundaries allow it.
 //
 // Detect static subdomain from current hostname for instance-aware URLs.
-// dev--calendar.lona.so -> dev--static.lona.so
+// dev--calendar.example.com -> dev--static.example.com
 function getStaticSubdomain(): string {
   const hostname =
     typeof globalThis !== "undefined" && globalThis.location?.hostname
@@ -565,7 +565,7 @@ export namespace TimezoneRegion {
   }
 
   /**
-   * Lona's zone service's `DATA_VERSION` files, falling back to
+   * The zone service's `DATA_VERSION` files, falling back to
    * `LEGACY_DATA_VERSION` when it is not served (`servedLoader`). Opt in with
    * `setLoader(DYNAMIC_LOADER)`; the default is `PLATFORM_LOADER`.
    */

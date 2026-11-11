@@ -1,4 +1,4 @@
-// Use console.log instead of @lona/log in tento-chrono
+// Use console.log instead of an application-specific logger in tento-chrono
 import { GenericRange } from "../range.ts";
 import { Result, erm, ok } from "../result.ts";
 import { Time } from "../time.ts";

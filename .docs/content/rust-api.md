@@ -2,7 +2,7 @@
 
 The Rust crate provides backend-friendly date helpers and string-serializable
 semantic date types. It intentionally leans on `chrono` for concrete instants
-and dates, while adding Lona/Tento domain shapes such as `PartialDate`.
+and dates, while adding calendar shapes such as `PartialDate`.
 
 ## Public Modules
 

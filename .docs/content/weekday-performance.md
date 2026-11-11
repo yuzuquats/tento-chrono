@@ -6,7 +6,7 @@ that value, but direct name lookup returns undefined for Saturday. Separately,
 an instance's weekday getter calculates days since the epoch from its fields
 even when its dse property has already cached the result.
 
-The October 5 investigation on rwc-01 (Apple M4, Deno 2.9.2 / V8 14.9) measured
+The October 5 investigation on an Apple M4 desktop (Deno 2.9.2 / V8 14.9) measured
 fresh date construction and weekday access at about 28 ns with the current
 implementation and 21 ns with a guarded multiply-and-shift implementation.
 Reading dse and then the weekday fell from about 40 ns to 24 ns when the getter

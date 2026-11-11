@@ -7,7 +7,7 @@
  * label, whose files drop offsets and serve Port_Moresby as `[]`.
  *
  * ## Invariants Tested
- * - `DYNAMIC_LOADER` fetches `https://static.lona.so/timezones/<DATA_VERSION>/1900_2050/<Area~City>.json`
+ * - `DYNAMIC_LOADER` fetches `https://static.example.com/timezones/<DATA_VERSION>/1900_2050/<Area~City>.json`
  *   with `DATA_VERSION` 2025a, one request per zone.
  */
 import { assertEquals } from "@std/assert";
