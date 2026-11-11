@@ -129,3 +129,21 @@ Deno.test("the zone loader honors the app shell static origin", async () => {
   }
   assertEquals(asked, ["https://private.example/__static/timezones/2025a/1900_2050/America~New_York.json"]);
 });
+
+Deno.test("an application default does not replace explicit timezone configuration", async () => {
+  await onPage(null, async () => {
+    try {
+      TimezoneRegion.setStaticOrigin("https://explicit.example.test");
+      TimezoneRegion.setDefaultStaticOrigin(() => "https://default.example.test/");
+      const load = () => TimezoneRegion.servedLoader().load("America/New_York" as Tzname);
+      const explicit = await urlsAsked(load);
+      assertEquals(new URL(explicit[0]).origin, "https://explicit.example.test");
+      TimezoneRegion.setStaticOrigin(null);
+      const fallback = await urlsAsked(load);
+      assertEquals(new URL(fallback[0]).origin, "https://default.example.test");
+    } finally {
+      TimezoneRegion.setStaticOrigin(null);
+      TimezoneRegion.setDefaultStaticOrigin(null);
+    }
+  });
+});

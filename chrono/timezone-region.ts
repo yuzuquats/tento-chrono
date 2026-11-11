@@ -50,12 +50,14 @@ function staticHostOf(hostname: string): string | null {
 
 /** The origin a host configured for zone files (`TimezoneRegion.setStaticOrigin`); null when it configured none. */
 let configuredStaticOrigin: (() => string) | null = null;
+let defaultStaticOrigin: (() => string) | null = null;
 
 // Where the served loader fetches zone files, first match wins:
 //   1. the app shell's `globalThis.getStaticOrigin()` (private wrappers,
 //      explicit ports);
 //   2. the origin the host configured (`TimezoneRegion.setStaticOrigin`);
-//   3. `static.<the page's own domain>` (`staticHostOf`).
+//   3. the host application's default (`setDefaultStaticOrigin`);
+//   4. `static.<the page's own domain>` (`staticHostOf`).
 // This module names no server of its own, so with none of the three it throws.
 function getStaticResourceOrigin(): string {
   const getOrigin = Reflect.get(globalThis, "getStaticOrigin");
@@ -64,6 +66,7 @@ function getStaticResourceOrigin(): string {
     if (typeof origin === "string" && origin) return origin.replace(/\/$/, "");
   }
   if (configuredStaticOrigin != null) return configuredStaticOrigin().replace(/\/$/, "");
+  if (defaultStaticOrigin != null) return defaultStaticOrigin().replace(/\/$/, "");
   const host = staticHostOf(globalThis.location?.hostname ?? "");
   if (host == null) {
     throw new Error(
@@ -494,12 +497,21 @@ export namespace TimezoneRegion {
    * The origin `servedLoader` fetches zone files from when the app shell
    * supplies none (`globalThis.getStaticOrigin`): a fixed origin, or a
    * function asked on each fetch so it can follow the page it runs on.
-   * `null` puts back the default, `static.<the page's own domain>`. A host
+   * `null` restores the application default, or `static.<the page's own domain>`. A host
    * without a page (a CLI, a server, a test) has no domain to derive one
    * from and calls this once before the first served read.
    */
   export function setStaticOrigin(origin: Option<string | (() => string)>): void {
     configuredStaticOrigin = origin == null ? null : typeof origin === "string" ? () => origin : origin;
+  }
+
+  /**
+   * Supply a host application's default without replacing an origin explicitly
+   * configured with setStaticOrigin. The app shell still takes precedence.
+   * Passing null removes this default.
+   */
+  export function setDefaultStaticOrigin(origin: Option<string | (() => string)>): void {
+    defaultStaticOrigin = origin == null ? null : typeof origin === "string" ? () => origin : origin;
   }
 
   /**
