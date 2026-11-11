@@ -23,6 +23,7 @@
  * - A fallback a loader above chrono reports (`reportFallback`) is heard
  *   with its source and joins no queue; a listener removed hears nothing.
  */
+import "./page.deno.ts";
 import { assert, assertEquals } from "@std/assert";
 import { TimezoneRegion } from "../chrono/timezone-region.ts";
 import { ICalDateLine } from "../chrono/recurrence/ical-date-line.ts";

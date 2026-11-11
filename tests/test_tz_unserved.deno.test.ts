@@ -25,6 +25,7 @@
  *   installed (`setLoader`), it is loaded afresh. At most `UNLOADABLE_MAX`
  *   names are remembered; past that the oldest is forgotten (and retried).
  */
+import "./page.deno.ts";
 import { assert, assertEquals, assertStrictEquals } from "@std/assert";
 import { TimezoneRegion } from "../chrono/timezone-region.ts";
 import { PlatformZone } from "../chrono/timezone-platform.ts";

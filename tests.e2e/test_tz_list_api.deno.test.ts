@@ -1,5 +1,14 @@
 import { assertEquals, assertExists } from "@std/assert";
 
+// Live tests against a static server that publishes zone lists. They name no
+// server: set TENTO_CHRONO_STATIC_ORIGIN (for example https://static.example.com)
+// to run them; without it they are reported as ignored.
+const ORIGIN = (Deno.env.get("TENTO_CHRONO_STATIC_ORIGIN") ?? "").replace(/\/$/, "");
+
+function liveTest(name: string, fn: () => Promise<void>): void {
+  Deno.test({ name, ignore: ORIGIN === "", fn });
+}
+
 interface TimezoneDropdownEntry {
   id: string;
   abbreviations: string[];
@@ -9,9 +18,9 @@ interface TimezoneDropdownData {
   timezones: TimezoneDropdownEntry[];
 }
 
-Deno.test("fetch and parse tz-list API - full list", async () => {
+liveTest("fetch and parse tz-list API - full list", async () => {
   // Using the application server's static API endpoint
-  const response = await fetch("https://static.lona.so/timezones/2025a/1900_2050/tz_list");
+  const response = await fetch(`${ORIGIN}/timezones/2025a/1900_2050/tz_list`);
   
   assertEquals(response.status, 200, "Should return 200 OK");
   
@@ -47,8 +56,8 @@ Deno.test("fetch and parse tz-list API - full list", async () => {
   }
 });
 
-Deno.test("fetch and parse tz-list API - common list", async () => {
-  const response = await fetch("https://static.lona.so/timezones/2025a/1900_2050/tz_list?common=true");
+liveTest("fetch and parse tz-list API - common list", async () => {
+  const response = await fetch(`${ORIGIN}/timezones/2025a/1900_2050/tz_list?common=true`);
   
   assertEquals(response.status, 200, "Should return 200 OK");
   
@@ -74,8 +83,8 @@ Deno.test("fetch and parse tz-list API - common list", async () => {
   }
 });
 
-Deno.test("tz-list API - verify abbreviation uniqueness within timezone", async () => {
-  const response = await fetch("https://static.lona.so/timezones/2025a/1900_2050/tz_list");
+liveTest("tz-list API - verify abbreviation uniqueness within timezone", async () => {
+  const response = await fetch(`${ORIGIN}/timezones/2025a/1900_2050/tz_list`);
   const data: TimezoneDropdownData = await response.json();
   
   for (const tz of data.timezones) {
@@ -88,10 +97,10 @@ Deno.test("tz-list API - verify abbreviation uniqueness within timezone", async 
   }
 });
 
-Deno.test("tz-list API - verify common timezones are subset of full list", async () => {
+liveTest("tz-list API - verify common timezones are subset of full list", async () => {
   const [fullResponse, commonResponse] = await Promise.all([
-    fetch("https://static.lona.so/timezones/2025a/1900_2050/tz_list"),
-    fetch("https://static.lona.so/timezones/2025a/1900_2050/tz_list?common=true")
+    fetch(`${ORIGIN}/timezones/2025a/1900_2050/tz_list`),
+    fetch(`${ORIGIN}/timezones/2025a/1900_2050/tz_list?common=true`)
   ]);
   
   const fullData: TimezoneDropdownData = await fullResponse.json();
@@ -118,14 +127,14 @@ Deno.test("tz-list API - verify common timezones are subset of full list", async
   }
 });
 
-Deno.test("tz-list API - error handling for invalid version", async () => {
-  const response = await fetch("https://static.lona.so/timezones/2024a/1900_2050/tz_list");
+liveTest("tz-list API - error handling for invalid version", async () => {
+  const response = await fetch(`${ORIGIN}/timezones/2024a/1900_2050/tz_list`);
   assertEquals(response.status, 404, "Should return 404 for invalid version");
   await response.body?.cancel(); // Consume response body to avoid leak
 });
 
-Deno.test("tz-list API - error handling for invalid year range", async () => {
-  const response = await fetch("https://static.lona.so/timezones/2025a/2000_2100/tz_list");
+liveTest("tz-list API - error handling for invalid year range", async () => {
+  const response = await fetch(`${ORIGIN}/timezones/2025a/2000_2100/tz_list`);
   assertEquals(response.status, 404, "Should return 404 for invalid year range");
   await response.body?.cancel(); // Consume response body to avoid leak
 });

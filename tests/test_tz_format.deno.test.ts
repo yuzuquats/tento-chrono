@@ -13,6 +13,7 @@
  * - A field of the wrong type, or a `baseOffsetSeconds` the entry's own offset contradicts, rejects the file (not
  *   loaded) rather than being read as something else.
  */
+import "./page.deno.ts";
 import { assert, assertEquals } from "@std/assert";
 import { TimezoneRegion } from "../chrono/timezone-region.ts";
 import type { Tzname } from "../chrono/timezone.ts";

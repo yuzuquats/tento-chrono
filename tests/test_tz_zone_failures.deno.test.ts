@@ -32,6 +32,7 @@
  * - A body that stalls after its headers ends at the loader's deadline, as
  *   no answer.
  */
+import "./page.deno.ts";
 import { assert, assertEquals, assertInstanceOf, assertStrictEquals } from "@std/assert";
 import { TimezoneRegion } from "../chrono/timezone-region.ts";
 import { PlatformZone } from "../chrono/timezone-platform.ts";

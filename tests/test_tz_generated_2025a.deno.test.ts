@@ -27,6 +27,7 @@
  * the URL asks for, so it does not pin the version label;
  * `test_tz_data_version` does.
  */
+import "./page.deno.ts";
 import { assertEquals } from "@std/assert";
 import { TimezoneRegion } from "../chrono/timezone-region.ts";
 import { PlatformZone } from "../chrono/timezone-platform.ts";

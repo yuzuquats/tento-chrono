@@ -22,6 +22,7 @@
  * - Each zone-service fetch carries a deadline: a fetch that never answers
  *   ends after `timeoutMs`, as no answer.
  */
+import "./page.deno.ts";
 import { assert, assertEquals } from "@std/assert";
 import { TimezoneRegion } from "../chrono/timezone-region.ts";
 import { PlatformZone } from "../chrono/timezone-platform.ts";

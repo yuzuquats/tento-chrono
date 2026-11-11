@@ -17,6 +17,7 @@
  * - A probe that gets no answer decides nothing: the zone is `Unserved`, and
  *   the next 404 asks again.
  */
+import "./page.deno.ts";
 import { assertEquals } from "@std/assert";
 import { TimezoneRegion } from "../chrono/timezone-region.ts";
 import type { Tzname } from "../chrono/timezone.ts";

@@ -30,31 +30,47 @@ type JsonValue =
 // import @tento-core/resource-client. UI/app code should use ResourceClient for
 // static-domain resources when package boundaries allow it.
 //
-// Detect static subdomain from current hostname for instance-aware URLs.
-// dev--calendar.example.com -> dev--static.example.com
-function getStaticSubdomain(): string {
-  const hostname =
-    typeof globalThis !== "undefined" && globalThis.location?.hostname
-      ? globalThis.location.hostname
-      : "";
+// The static host that serves a page's zone files, from the page's own
+// hostname: the first label becomes `static`, keeping an instance prefix.
+//   calendar.example.com      -> static.example.com
+//   dev--calendar.example.com -> dev--static.example.com
+//   example.com               -> static.example.com
+// Null when the hostname names no domain to derive one from: no page at all
+// (Deno, a worker without a location), a bare or `.localhost` name, or an IP
+// address.
+function staticHostOf(hostname: string): string | null {
   const parts = hostname.split(".");
-  if (parts.length < 3) return "static";
-  const subdomain = parts[0];
-  if (subdomain.includes("--")) {
-    return subdomain.split("--")[0] + "--static";
-  }
-  return "static";
+  const top = parts[parts.length - 1];
+  if (parts.length < 2 || parts.includes("") || top === "localhost") return null;
+  if (hostname.includes(":") || /^\d+$/.test(top)) return null;
+  if (parts.length === 2) return `static.${hostname}`;
+  const instance = parts[0].includes("--") ? parts[0].split("--")[0] + "--" : "";
+  return `${instance}static.${parts.slice(1).join(".")}`;
 }
 
-// App shells already define this helper for private wrappers and explicit ports.
-// Standalone Chrono callers keep their instance-aware static-domain fallback.
+/** The origin a host configured for zone files (`TimezoneRegion.setStaticOrigin`); null when it configured none. */
+let configuredStaticOrigin: (() => string) | null = null;
+
+// Where the served loader fetches zone files, first match wins:
+//   1. the app shell's `globalThis.getStaticOrigin()` (private wrappers,
+//      explicit ports);
+//   2. the origin the host configured (`TimezoneRegion.setStaticOrigin`);
+//   3. `static.<the page's own domain>` (`staticHostOf`).
+// This module names no server of its own, so with none of the three it throws.
 function getStaticResourceOrigin(): string {
   const getOrigin = Reflect.get(globalThis, "getStaticOrigin");
   if (typeof getOrigin === "function") {
     const origin = getOrigin();
     if (typeof origin === "string" && origin) return origin.replace(/\/$/, "");
   }
-  return `https://${getStaticSubdomain()}.lona.so`;
+  if (configuredStaticOrigin != null) return configuredStaticOrigin().replace(/\/$/, "");
+  const host = staticHostOf(globalThis.location?.hostname ?? "");
+  if (host == null) {
+    throw new Error(
+      "no static origin for timezone data: call TimezoneRegion.setStaticOrigin(), define globalThis.getStaticOrigin(), or load from a page on a named domain",
+    );
+  }
+  return `https://${host}`;
 }
 
 function isJsonRecord(value: JsonValue): value is { [key: string]: JsonValue } {
@@ -472,6 +488,18 @@ export namespace TimezoneRegion {
    */
   export function dataVersionFallback(): Option<VersionFallback> {
     return loader.versionFallback?.() ?? null;
+  }
+
+  /**
+   * The origin `servedLoader` fetches zone files from when the app shell
+   * supplies none (`globalThis.getStaticOrigin`): a fixed origin, or a
+   * function asked on each fetch so it can follow the page it runs on.
+   * `null` puts back the default, `static.<the page's own domain>`. A host
+   * without a page (a CLI, a server, a test) has no domain to derive one
+   * from and calls this once before the first served read.
+   */
+  export function setStaticOrigin(origin: Option<string | (() => string)>): void {
+    configuredStaticOrigin = origin == null ? null : typeof origin === "string" ? () => origin : origin;
   }
 
   /**
