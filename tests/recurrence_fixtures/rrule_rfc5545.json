@@ -1,0 +1,1371 @@
+{
+  "description": "RFC 5545 date-only RRULE expansion fixtures covering all date frequencies, WKST, BYMONTH, BYMONTHDAY, BYYEARDAY, BYWEEKNO, BYDAY, BYSETPOS, leap/century boundaries, and empty rules.",
+  "cases": [
+    {
+      "name": "daily_basic_count_10",
+      "category": "daily",
+      "dtstart": "1997-09-02",
+      "rrule": "FREQ=DAILY;COUNT=10",
+      "expected": [
+        "1997-09-02",
+        "1997-09-03",
+        "1997-09-04",
+        "1997-09-05",
+        "1997-09-06",
+        "1997-09-07",
+        "1997-09-08",
+        "1997-09-09",
+        "1997-09-10",
+        "1997-09-11"
+      ]
+    },
+    {
+      "name": "daily_interval_2",
+      "category": "daily",
+      "dtstart": "1997-09-02",
+      "rrule": "FREQ=DAILY;INTERVAL=2;COUNT=6",
+      "expected": [
+        "1997-09-02",
+        "1997-09-04",
+        "1997-09-06",
+        "1997-09-08",
+        "1997-09-10",
+        "1997-09-12"
+      ]
+    },
+    {
+      "name": "daily_until_utc_inclusive",
+      "category": "daily",
+      "dtstart": "1997-09-02",
+      "rrule": "FREQ=DAILY;UNTIL=19970907T235959Z",
+      "expected": [
+        "1997-09-02",
+        "1997-09-03",
+        "1997-09-04",
+        "1997-09-05",
+        "1997-09-06",
+        "1997-09-07"
+      ]
+    },
+    {
+      "name": "daily_bymonth_bymonthday_byday",
+      "category": "daily",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=DAILY;COUNT=4;BYMONTH=1,2,3;BYMONTHDAY=1,15;BYDAY=MO,TH",
+      "expected": [
+        "2024-01-01",
+        "2024-01-15",
+        "2024-02-01",
+        "2024-02-15"
+      ]
+    },
+    {
+      "name": "daily_byday_mo_we_fr",
+      "category": "daily",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=DAILY;COUNT=6;BYDAY=MO,WE,FR",
+      "expected": [
+        "2024-01-01",
+        "2024-01-03",
+        "2024-01-05",
+        "2024-01-08",
+        "2024-01-10",
+        "2024-01-12"
+      ]
+    },
+    {
+      "name": "daily_interval_3_byday_mo_fr",
+      "category": "daily",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=DAILY;INTERVAL=3;COUNT=6;BYDAY=MO,FR",
+      "expected": [
+        "2024-01-01",
+        "2024-01-19",
+        "2024-01-22",
+        "2024-02-09",
+        "2024-02-12",
+        "2024-03-01"
+      ]
+    },
+    {
+      "name": "daily_leap_day_feb_29",
+      "category": "daily",
+      "dtstart": "2020-01-01",
+      "rrule": "FREQ=DAILY;COUNT=3;BYMONTH=2;BYMONTHDAY=29",
+      "expected": [
+        "2020-02-29",
+        "2024-02-29",
+        "2028-02-29"
+      ]
+    },
+    {
+      "name": "daily_bymonth_bymonthday_neg1",
+      "category": "daily",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=DAILY;COUNT=5;BYMONTH=1,2,3;BYMONTHDAY=-1",
+      "expected": [
+        "2024-01-31",
+        "2024-02-29",
+        "2024-03-31",
+        "2025-01-31",
+        "2025-02-28"
+      ]
+    },
+    {
+      "name": "daily_byyearday_1_neg1",
+      "category": "daily",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=DAILY;COUNT=4;BYYEARDAY=1,-1",
+      "expected": [
+        "2024-01-01",
+        "2024-12-31",
+        "2025-01-01",
+        "2025-12-31"
+      ]
+    },
+    {
+      "name": "daily_until_date_only_exclusive",
+      "category": "daily",
+      "dtstart": "2024-03-01",
+      "rrule": "FREQ=DAILY;UNTIL=20240305",
+      "expected": [
+        "2024-03-01",
+        "2024-03-02",
+        "2024-03-03",
+        "2024-03-04"
+      ],
+      "notes": "tento-chrono treats date-only UNTIL as exclusive of the UNTIL day (Google Calendar convention)"
+    },
+    {
+      "name": "weekly_mo_we_fr",
+      "category": "weekly",
+      "dtstart": "1997-09-02",
+      "rrule": "FREQ=WEEKLY;COUNT=6;BYDAY=MO,WE,FR",
+      "expected": [
+        "1997-09-03",
+        "1997-09-05",
+        "1997-09-08",
+        "1997-09-10",
+        "1997-09-12",
+        "1997-09-15"
+      ]
+    },
+    {
+      "name": "weekly_dtstart_mid_week_byday",
+      "category": "weekly",
+      "dtstart": "2024-01-03",
+      "rrule": "FREQ=WEEKLY;COUNT=5;BYDAY=MO,WE,FR",
+      "expected": [
+        "2024-01-03",
+        "2024-01-05",
+        "2024-01-08",
+        "2024-01-10",
+        "2024-01-12"
+      ]
+    },
+    {
+      "name": "weekly_interval_3_no_byday",
+      "category": "weekly",
+      "dtstart": "2024-01-03",
+      "rrule": "FREQ=WEEKLY;INTERVAL=3;COUNT=5",
+      "expected": [
+        "2024-01-03",
+        "2024-01-24",
+        "2024-02-14",
+        "2024-03-06",
+        "2024-03-27"
+      ]
+    },
+    {
+      "name": "weekly_bymonth_straddle",
+      "category": "weekly",
+      "dtstart": "2024-01-29",
+      "rrule": "FREQ=WEEKLY;COUNT=6;BYMONTH=2;BYDAY=MO,TH",
+      "expected": [
+        "2024-02-01",
+        "2024-02-05",
+        "2024-02-08",
+        "2024-02-12",
+        "2024-02-15",
+        "2024-02-19"
+      ]
+    },
+    {
+      "name": "weekly_bymonthday_1_15",
+      "category": "weekly",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=WEEKLY;COUNT=6;BYMONTHDAY=1,15",
+      "expected": [
+        "2024-01-01",
+        "2024-01-15",
+        "2024-02-01",
+        "2024-02-15",
+        "2024-03-01",
+        "2024-03-15"
+      ]
+    },
+    {
+      "name": "weekly_bymonthday_neg1",
+      "category": "weekly",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=WEEKLY;COUNT=5;BYMONTHDAY=-1",
+      "expected": [
+        "2024-01-31",
+        "2024-02-29",
+        "2024-03-31",
+        "2024-04-30",
+        "2024-05-31"
+      ]
+    },
+    {
+      "name": "weekly_byyearday_new_year_straddle",
+      "category": "weekly",
+      "dtstart": "2024-12-23",
+      "rrule": "FREQ=WEEKLY;COUNT=4;BYYEARDAY=-1,1",
+      "expected": [
+        "2024-12-31",
+        "2025-01-01",
+        "2025-12-31",
+        "2026-01-01"
+      ]
+    },
+    {
+      "name": "weekly_bysetpos_neg1",
+      "category": "weekly",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=WEEKLY;COUNT=5;BYDAY=MO,WE,FR;BYSETPOS=-1",
+      "expected": [
+        "2024-01-05",
+        "2024-01-12",
+        "2024-01-19",
+        "2024-01-26",
+        "2024-02-02"
+      ]
+    },
+    {
+      "name": "wkst_rfc_example_su",
+      "category": "wkst",
+      "dtstart": "1997-08-05",
+      "rrule": "FREQ=WEEKLY;INTERVAL=2;COUNT=6;WKST=SU;BYDAY=TU,SU",
+      "expected": [
+        "1997-08-05",
+        "1997-08-17",
+        "1997-08-19",
+        "1997-08-31",
+        "1997-09-02",
+        "1997-09-14"
+      ],
+      "notes": "RFC 5545 \u00a73.8.5.3 WKST=SU example"
+    },
+    {
+      "name": "wkst_rfc_example_mo",
+      "category": "wkst",
+      "dtstart": "1997-08-05",
+      "rrule": "FREQ=WEEKLY;INTERVAL=2;COUNT=6;WKST=MO;BYDAY=TU,SU",
+      "expected": [
+        "1997-08-05",
+        "1997-08-10",
+        "1997-08-19",
+        "1997-08-24",
+        "1997-09-02",
+        "1997-09-07"
+      ],
+      "notes": "RFC 5545 \u00a73.8.5.3 WKST=MO example"
+    },
+    {
+      "name": "wkst_default_mo_omitted_tue_start",
+      "category": "wkst",
+      "dtstart": "1997-08-05",
+      "rrule": "FREQ=WEEKLY;INTERVAL=2;COUNT=6;BYDAY=TU,SU",
+      "expected": [
+        "1997-08-05",
+        "1997-08-10",
+        "1997-08-19",
+        "1997-08-24",
+        "1997-09-02",
+        "1997-09-07"
+      ],
+      "notes": "Omitted WKST defaults to MO per RFC 5545 \u00a73.3.10"
+    },
+    {
+      "name": "wkst_default_mo_omitted_wed_start",
+      "category": "wkst",
+      "dtstart": "2024-01-03",
+      "rrule": "FREQ=WEEKLY;INTERVAL=2;COUNT=6;BYDAY=MO,WE,SU",
+      "expected": [
+        "2024-01-03",
+        "2024-01-07",
+        "2024-01-15",
+        "2024-01-17",
+        "2024-01-21",
+        "2024-01-29"
+      ],
+      "notes": "Omitted WKST defaults to MO even when DTSTART is Wednesday"
+    },
+    {
+      "name": "wkst_default_mo_omitted_fri_start",
+      "category": "wkst",
+      "dtstart": "2024-01-05",
+      "rrule": "FREQ=WEEKLY;INTERVAL=2;COUNT=6;BYDAY=MO,FR,SA,SU",
+      "expected": [
+        "2024-01-05",
+        "2024-01-06",
+        "2024-01-07",
+        "2024-01-15",
+        "2024-01-19",
+        "2024-01-20"
+      ],
+      "notes": "Omitted WKST defaults to MO even when DTSTART is Friday"
+    },
+    {
+      "name": "wkst_explicit_su_no_byday_keeps_dtstart_weekday",
+      "category": "wkst",
+      "dtstart": "2024-01-03",
+      "rrule": "FREQ=WEEKLY;WKST=SU;COUNT=4",
+      "expected": [
+        "2024-01-03",
+        "2024-01-10",
+        "2024-01-17",
+        "2024-01-24"
+      ],
+      "notes": "Without BYDAY, WEEKLY keeps DTSTART's Wednesday regardless of WKST"
+    },
+    {
+      "name": "wkst_su_year_cross_interval_2",
+      "category": "wkst",
+      "dtstart": "2023-12-26",
+      "rrule": "FREQ=WEEKLY;INTERVAL=2;COUNT=6;WKST=SU;BYDAY=SU,TU,SA",
+      "expected": [
+        "2023-12-26",
+        "2023-12-30",
+        "2024-01-07",
+        "2024-01-09",
+        "2024-01-13",
+        "2024-01-21"
+      ]
+    },
+    {
+      "name": "wkst_mo_year_cross_interval_2",
+      "category": "wkst",
+      "dtstart": "2023-12-26",
+      "rrule": "FREQ=WEEKLY;INTERVAL=2;COUNT=6;WKST=MO;BYDAY=SU,TU,SA",
+      "expected": [
+        "2023-12-26",
+        "2023-12-30",
+        "2023-12-31",
+        "2024-01-09",
+        "2024-01-13",
+        "2024-01-14"
+      ]
+    },
+    {
+      "name": "wkst_we_interval_2",
+      "category": "wkst",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=WEEKLY;INTERVAL=2;COUNT=6;WKST=WE;BYDAY=MO,WE,FR",
+      "expected": [
+        "2024-01-01",
+        "2024-01-10",
+        "2024-01-12",
+        "2024-01-15",
+        "2024-01-24",
+        "2024-01-26"
+      ]
+    },
+    {
+      "name": "wkst_sa_interval_2",
+      "category": "wkst",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=WEEKLY;INTERVAL=2;COUNT=6;WKST=SA;BYDAY=FR,SA,SU",
+      "expected": [
+        "2024-01-05",
+        "2024-01-13",
+        "2024-01-14",
+        "2024-01-19",
+        "2024-01-27",
+        "2024-01-28"
+      ]
+    },
+    {
+      "name": "wkst_su_bysetpos_year_boundary",
+      "category": "wkst",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=WEEKLY;COUNT=5;WKST=SU;BYDAY=SU,TU,SA;BYSETPOS=1,-1",
+      "expected": [
+        "2024-01-06",
+        "2024-01-07",
+        "2024-01-13",
+        "2024-01-14",
+        "2024-01-20"
+      ],
+      "notes": "RFC 5545: WKST=SU week containing 2024-01-01 is 2023-12-31..2024-01-06, so pos 1 is 2023-12-31 (dropped before DTSTART) and pos -1 is 2024-01-06; dateutil clips at Jan 1"
+    },
+    {
+      "name": "wkst_default_mo_bysetpos_mid_week",
+      "category": "wkst",
+      "dtstart": "2024-01-03",
+      "rrule": "FREQ=WEEKLY;COUNT=4;BYDAY=MO,WE,SU;BYSETPOS=1,-1",
+      "expected": [
+        "2024-01-07",
+        "2024-01-08",
+        "2024-01-14",
+        "2024-01-15"
+      ],
+      "notes": "RFC 5545: default WKST=MO week is 2024-01-01..2024-01-07; pos 1 (2024-01-01) precedes DTSTART 2024-01-03 and is dropped, leaving 2024-01-07"
+    },
+    {
+      "name": "monthly_1st_friday",
+      "category": "monthly",
+      "dtstart": "1997-09-05",
+      "rrule": "FREQ=MONTHLY;COUNT=6;BYDAY=1FR",
+      "expected": [
+        "1997-09-05",
+        "1997-10-03",
+        "1997-11-07",
+        "1997-12-05",
+        "1998-01-02",
+        "1998-02-06"
+      ]
+    },
+    {
+      "name": "monthly_last_friday",
+      "category": "monthly",
+      "dtstart": "1997-09-26",
+      "rrule": "FREQ=MONTHLY;COUNT=6;BYDAY=-1FR",
+      "expected": [
+        "1997-09-26",
+        "1997-10-31",
+        "1997-11-28",
+        "1997-12-26",
+        "1998-01-30",
+        "1998-02-27"
+      ]
+    },
+    {
+      "name": "monthly_1st_and_last_sunday_int2",
+      "category": "monthly",
+      "dtstart": "1997-09-07",
+      "rrule": "FREQ=MONTHLY;INTERVAL=2;COUNT=6;BYDAY=1SU,-1SU",
+      "expected": [
+        "1997-09-07",
+        "1997-09-28",
+        "1997-11-02",
+        "1997-11-30",
+        "1998-01-04",
+        "1998-01-25"
+      ]
+    },
+    {
+      "name": "monthly_second_to_last_monday",
+      "category": "monthly",
+      "dtstart": "1997-09-22",
+      "rrule": "FREQ=MONTHLY;COUNT=6;BYDAY=-2MO",
+      "expected": [
+        "1997-09-22",
+        "1997-10-20",
+        "1997-11-17",
+        "1997-12-22",
+        "1998-01-19",
+        "1998-02-16"
+      ]
+    },
+    {
+      "name": "monthly_mixed_nth_and_plain_byday",
+      "category": "monthly",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=MONTHLY;COUNT=8;BYDAY=1MO,FR",
+      "expected": [
+        "2024-01-01",
+        "2024-01-05",
+        "2024-01-12",
+        "2024-01-19",
+        "2024-01-26",
+        "2024-02-02",
+        "2024-02-05",
+        "2024-02-09"
+      ],
+      "notes": "RFC 5545 allows mixing ordinal and plain BYDAY items; dateutil 2.8.2 returns []"
+    },
+    {
+      "name": "monthly_bymonthday_neg3",
+      "category": "monthly",
+      "dtstart": "1997-09-28",
+      "rrule": "FREQ=MONTHLY;COUNT=6;BYMONTHDAY=-3",
+      "expected": [
+        "1997-09-28",
+        "1997-10-29",
+        "1997-11-28",
+        "1997-12-29",
+        "1998-01-29",
+        "1998-02-26"
+      ]
+    },
+    {
+      "name": "monthly_bymonthday_2_15",
+      "category": "monthly",
+      "dtstart": "1997-09-02",
+      "rrule": "FREQ=MONTHLY;COUNT=6;BYMONTHDAY=2,15",
+      "expected": [
+        "1997-09-02",
+        "1997-09-15",
+        "1997-10-02",
+        "1997-10-15",
+        "1997-11-02",
+        "1997-11-15"
+      ]
+    },
+    {
+      "name": "monthly_bymonthday_1_neg1",
+      "category": "monthly",
+      "dtstart": "1997-09-30",
+      "rrule": "FREQ=MONTHLY;COUNT=6;BYMONTHDAY=1,-1",
+      "expected": [
+        "1997-09-30",
+        "1997-10-01",
+        "1997-10-31",
+        "1997-11-01",
+        "1997-11-30",
+        "1997-12-01"
+      ]
+    },
+    {
+      "name": "monthly_bymonthday_31_skips_short_months",
+      "category": "monthly",
+      "dtstart": "2024-01-31",
+      "rrule": "FREQ=MONTHLY;COUNT=7;BYMONTHDAY=31",
+      "expected": [
+        "2024-01-31",
+        "2024-03-31",
+        "2024-05-31",
+        "2024-07-31",
+        "2024-08-31",
+        "2024-10-31",
+        "2024-12-31"
+      ]
+    },
+    {
+      "name": "monthly_implicit_dtstart_31_skips_short_months",
+      "category": "monthly",
+      "dtstart": "2024-01-31",
+      "rrule": "FREQ=MONTHLY;COUNT=6",
+      "expected": [
+        "2024-01-31",
+        "2024-03-31",
+        "2024-05-31",
+        "2024-07-31",
+        "2024-08-31",
+        "2024-10-31"
+      ]
+    },
+    {
+      "name": "monthly_bymonthday_neg29",
+      "category": "monthly",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=MONTHLY;COUNT=6;BYMONTHDAY=-29",
+      "expected": [
+        "2024-01-03",
+        "2024-02-01",
+        "2024-03-03",
+        "2024-04-02",
+        "2024-05-03",
+        "2024-06-02"
+      ]
+    },
+    {
+      "name": "monthly_bymonthday_neg30",
+      "category": "monthly",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=MONTHLY;COUNT=6;BYMONTHDAY=-30",
+      "expected": [
+        "2024-01-02",
+        "2024-03-02",
+        "2024-04-01",
+        "2024-05-02",
+        "2024-06-01",
+        "2024-07-02"
+      ]
+    },
+    {
+      "name": "monthly_bymonthday_neg31",
+      "category": "monthly",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=MONTHLY;COUNT=6;BYMONTHDAY=-31",
+      "expected": [
+        "2024-01-01",
+        "2024-03-01",
+        "2024-05-01",
+        "2024-07-01",
+        "2024-08-01",
+        "2024-10-01"
+      ]
+    },
+    {
+      "name": "monthly_bymonthday_29_30_31_bysetpos_neg1",
+      "category": "monthly",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=MONTHLY;COUNT=6;BYMONTHDAY=29,30,31;BYSETPOS=-1",
+      "expected": [
+        "2024-01-31",
+        "2024-02-29",
+        "2024-03-31",
+        "2024-04-30",
+        "2024-05-31",
+        "2024-06-30"
+      ]
+    },
+    {
+      "name": "monthly_friday_the_13th",
+      "category": "monthly",
+      "dtstart": "1997-09-02",
+      "rrule": "FREQ=MONTHLY;COUNT=5;BYDAY=FR;BYMONTHDAY=13",
+      "expected": [
+        "1998-02-13",
+        "1998-03-13",
+        "1998-11-13",
+        "1999-08-13",
+        "2000-10-13"
+      ]
+    },
+    {
+      "name": "monthly_bymonth_filter",
+      "category": "monthly",
+      "dtstart": "2024-01-15",
+      "rrule": "FREQ=MONTHLY;COUNT=6;BYMONTH=1,6,12",
+      "expected": [
+        "2024-01-15",
+        "2024-06-15",
+        "2024-12-15",
+        "2025-01-15",
+        "2025-06-15",
+        "2025-12-15"
+      ]
+    },
+    {
+      "name": "monthly_bymonth_bymonthday_byday",
+      "category": "monthly",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=MONTHLY;COUNT=4;BYMONTH=1,2,3,4,5,6;BYMONTHDAY=1,15,31;BYDAY=MO,FR",
+      "expected": [
+        "2024-01-01",
+        "2024-01-15",
+        "2024-03-01",
+        "2024-03-15"
+      ]
+    },
+    {
+      "name": "monthly_byyearday_filter",
+      "category": "monthly",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=MONTHLY;COUNT=4;BYYEARDAY=1,32,60",
+      "expected": [
+        "2024-01-01",
+        "2024-02-01",
+        "2024-02-29",
+        "2025-01-01"
+      ]
+    },
+    {
+      "name": "yearly_jun_jul",
+      "category": "yearly",
+      "dtstart": "1997-06-10",
+      "rrule": "FREQ=YEARLY;COUNT=6;BYMONTH=6,7",
+      "expected": [
+        "1997-06-10",
+        "1997-07-10",
+        "1998-06-10",
+        "1998-07-10",
+        "1999-06-10",
+        "1999-07-10"
+      ]
+    },
+    {
+      "name": "yearly_interval2_jan_feb_mar",
+      "category": "yearly",
+      "dtstart": "1997-03-10",
+      "rrule": "FREQ=YEARLY;INTERVAL=2;COUNT=6;BYMONTH=1,2,3",
+      "expected": [
+        "1997-03-10",
+        "1999-01-10",
+        "1999-02-10",
+        "1999-03-10",
+        "2001-01-10",
+        "2001-02-10"
+      ]
+    },
+    {
+      "name": "yearly_leap_day_explicit",
+      "category": "yearly",
+      "dtstart": "2020-02-29",
+      "rrule": "FREQ=YEARLY;COUNT=4;BYMONTH=2;BYMONTHDAY=29",
+      "expected": [
+        "2020-02-29",
+        "2024-02-29",
+        "2028-02-29",
+        "2032-02-29"
+      ]
+    },
+    {
+      "name": "yearly_leap_day_implicit",
+      "category": "yearly",
+      "dtstart": "2020-02-29",
+      "rrule": "FREQ=YEARLY;COUNT=4",
+      "expected": [
+        "2020-02-29",
+        "2024-02-29",
+        "2028-02-29",
+        "2032-02-29"
+      ]
+    },
+    {
+      "name": "yearly_century_non_leap_2100",
+      "category": "yearly",
+      "dtstart": "2096-02-29",
+      "rrule": "FREQ=YEARLY;COUNT=3;BYMONTH=2;BYMONTHDAY=29",
+      "expected": [
+        "2096-02-29",
+        "2104-02-29",
+        "2108-02-29"
+      ],
+      "notes": "2100 is not a leap year"
+    },
+    {
+      "name": "yearly_millennium_leap_2000",
+      "category": "yearly",
+      "dtstart": "1996-02-29",
+      "rrule": "FREQ=YEARLY;COUNT=3;BYMONTH=2;BYMONTHDAY=29",
+      "expected": [
+        "1996-02-29",
+        "2000-02-29",
+        "2004-02-29"
+      ],
+      "notes": "2000 is a leap year"
+    },
+    {
+      "name": "yearly_byyearday_1_100_200_int3",
+      "category": "yearly",
+      "dtstart": "1997-01-01",
+      "rrule": "FREQ=YEARLY;INTERVAL=3;COUNT=6;BYYEARDAY=1,100,200",
+      "expected": [
+        "1997-01-01",
+        "1997-04-10",
+        "1997-07-19",
+        "2000-01-01",
+        "2000-04-09",
+        "2000-07-18"
+      ]
+    },
+    {
+      "name": "yearly_byyearday_neg1_and_366",
+      "category": "yearly",
+      "dtstart": "2020-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=6;BYYEARDAY=-1,366",
+      "expected": [
+        "2020-12-31",
+        "2021-12-31",
+        "2022-12-31",
+        "2023-12-31",
+        "2024-12-31",
+        "2025-12-31"
+      ]
+    },
+    {
+      "name": "yearly_byyearday_neg366_leap_only",
+      "category": "yearly",
+      "dtstart": "2020-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=3;BYYEARDAY=-366",
+      "expected": [
+        "2020-01-01",
+        "2024-01-01",
+        "2028-01-01"
+      ]
+    },
+    {
+      "name": "yearly_byyearday_neg365",
+      "category": "yearly",
+      "dtstart": "2020-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=4;BYYEARDAY=-365",
+      "expected": [
+        "2020-01-02",
+        "2021-01-01",
+        "2022-01-01",
+        "2023-01-01"
+      ]
+    },
+    {
+      "name": "yearly_byyearday_60_leap_vs_common",
+      "category": "yearly",
+      "dtstart": "2023-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=4;BYYEARDAY=60",
+      "expected": [
+        "2023-03-01",
+        "2024-02-29",
+        "2025-03-01",
+        "2026-03-01"
+      ]
+    },
+    {
+      "name": "yearly_byyearday_and_bymonth",
+      "category": "yearly",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=4;BYMONTH=1,2;BYYEARDAY=1,32,60",
+      "expected": [
+        "2024-01-01",
+        "2024-02-01",
+        "2024-02-29",
+        "2025-01-01"
+      ]
+    },
+    {
+      "name": "yearly_byyearday_and_byday",
+      "category": "yearly",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=4;BYYEARDAY=1,2,3,4,5,6,7;BYDAY=MO",
+      "expected": [
+        "2024-01-01",
+        "2025-01-06",
+        "2026-01-05",
+        "2027-01-04"
+      ]
+    },
+    {
+      "name": "yearly_byyearday_bysetpos",
+      "category": "yearly",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=4;BYYEARDAY=1,60,180,-1;BYSETPOS=2,-1",
+      "expected": [
+        "2024-02-29",
+        "2024-12-31",
+        "2025-03-01",
+        "2025-12-31"
+      ]
+    },
+    {
+      "name": "yearly_20th_monday",
+      "category": "yearly",
+      "dtstart": "1997-05-19",
+      "rrule": "FREQ=YEARLY;COUNT=3;BYDAY=20MO",
+      "expected": [
+        "1997-05-19",
+        "1998-05-18",
+        "1999-05-17"
+      ]
+    },
+    {
+      "name": "yearly_last_monday",
+      "category": "yearly",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=4;BYDAY=-1MO",
+      "expected": [
+        "2024-12-30",
+        "2025-12-29",
+        "2026-12-28",
+        "2027-12-27"
+      ]
+    },
+    {
+      "name": "yearly_53rd_monday",
+      "category": "yearly",
+      "dtstart": "2020-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=3;BYDAY=53MO",
+      "expected": [
+        "2024-12-30",
+        "2029-12-31",
+        "2035-12-31"
+      ]
+    },
+    {
+      "name": "yearly_neg53rd_monday",
+      "category": "yearly",
+      "dtstart": "2020-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=3;BYDAY=-53MO",
+      "expected": [
+        "2024-01-01",
+        "2029-01-01",
+        "2035-01-01"
+      ]
+    },
+    {
+      "name": "yearly_1mo_and_neg1fr_no_month",
+      "category": "yearly",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=4;BYDAY=1MO,-1FR",
+      "expected": [
+        "2024-01-01",
+        "2024-12-27",
+        "2025-01-06",
+        "2025-12-26"
+      ]
+    },
+    {
+      "name": "yearly_thanksgiving_4th_thu_nov",
+      "category": "yearly",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=4;BYMONTH=11;BYDAY=4TH",
+      "expected": [
+        "2024-11-28",
+        "2025-11-27",
+        "2026-11-26",
+        "2027-11-25"
+      ]
+    },
+    {
+      "name": "yearly_bymonth_2_last_monday",
+      "category": "yearly",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=4;BYMONTH=2;BYDAY=-1MO",
+      "expected": [
+        "2024-02-26",
+        "2025-02-24",
+        "2026-02-23",
+        "2027-02-22"
+      ]
+    },
+    {
+      "name": "yearly_bymonth_1_7_1fr_neg1fr",
+      "category": "yearly",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=6;BYMONTH=1,7;BYDAY=1FR,-1FR",
+      "expected": [
+        "2024-01-05",
+        "2024-01-26",
+        "2024-07-05",
+        "2024-07-26",
+        "2025-01-03",
+        "2025-01-31"
+      ]
+    },
+    {
+      "name": "yearly_us_election_day",
+      "category": "yearly",
+      "dtstart": "1996-11-05",
+      "rrule": "FREQ=YEARLY;INTERVAL=4;COUNT=4;BYMONTH=11;BYDAY=TU;BYMONTHDAY=2,3,4,5,6,7,8",
+      "expected": [
+        "1996-11-05",
+        "2000-11-07",
+        "2004-11-02",
+        "2008-11-04"
+      ],
+      "notes": "RFC 5545 \u00a73.8.5.3 US Presidential Election Day"
+    },
+    {
+      "name": "yearly_bymonth_bymonthday_byday",
+      "category": "yearly",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=4;BYMONTH=1,7;BYMONTHDAY=13;BYDAY=FR",
+      "expected": [
+        "2029-07-13",
+        "2034-01-13",
+        "2035-07-13",
+        "2040-01-13"
+      ]
+    },
+    {
+      "name": "yearly_4part_intersection_bysetpos",
+      "category": "yearly",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=6;BYMONTH=1,2,3;BYMONTHDAY=1,2,3,4,5,6,7;BYDAY=MO,WE,FR;BYSETPOS=1,-1",
+      "expected": [
+        "2024-01-01",
+        "2024-03-06",
+        "2025-01-01",
+        "2025-03-07",
+        "2026-01-02",
+        "2026-03-06"
+      ]
+    },
+    {
+      "name": "byweekno_20_mo",
+      "category": "byweekno",
+      "dtstart": "1997-05-12",
+      "rrule": "FREQ=YEARLY;COUNT=4;BYWEEKNO=20;BYDAY=MO",
+      "expected": [
+        "1997-05-12",
+        "1998-05-11",
+        "1999-05-17",
+        "2000-05-15"
+      ]
+    },
+    {
+      "name": "byweekno_1_mo_cross_year",
+      "category": "byweekno",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=5;BYWEEKNO=1;BYDAY=MO",
+      "expected": [
+        "2024-01-01",
+        "2024-12-30",
+        "2025-12-29",
+        "2027-01-04",
+        "2028-01-03"
+      ],
+      "notes": "Includes 2024-12-30 (ISO 2025-W01 Monday) and 2025-12-29 (ISO 2026-W01 Monday)"
+    },
+    {
+      "name": "byweekno_1_all_days_cross_year",
+      "category": "byweekno",
+      "dtstart": "2024-12-25",
+      "rrule": "FREQ=YEARLY;COUNT=10;BYWEEKNO=1;BYDAY=MO,TU,WE,TH,FR,SA,SU",
+      "expected": [
+        "2024-12-30",
+        "2024-12-31",
+        "2025-01-01",
+        "2025-01-02",
+        "2025-01-03",
+        "2025-01-04",
+        "2025-01-05",
+        "2025-12-29",
+        "2025-12-30",
+        "2025-12-31"
+      ]
+    },
+    {
+      "name": "byweekno_53_th",
+      "category": "byweekno",
+      "dtstart": "2015-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=3;BYWEEKNO=53;BYDAY=TH",
+      "expected": [
+        "2015-12-31",
+        "2020-12-31",
+        "2026-12-31"
+      ]
+    },
+    {
+      "name": "byweekno_53_su_iso_strict",
+      "category": "byweekno",
+      "dtstart": "2020-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=3;BYWEEKNO=53;BYDAY=SU",
+      "expected": [
+        "2021-01-03",
+        "2027-01-03",
+        "2033-01-02"
+      ],
+      "notes": "ISO 8601 / RFC 5545: 2021 has only 52 ISO weeks (2022-01-02 is 2021-W52-7); dateutil 2.8.2 erroneously emits 2022-01-02"
+    },
+    {
+      "name": "byweekno_neg1_fr",
+      "category": "byweekno",
+      "dtstart": "2020-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=5;BYWEEKNO=-1;BYDAY=FR",
+      "expected": [
+        "2021-01-01",
+        "2021-12-31",
+        "2022-12-30",
+        "2023-12-29",
+        "2024-12-27"
+      ]
+    },
+    {
+      "name": "byweekno_neg1_mo",
+      "category": "byweekno",
+      "dtstart": "2020-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=6;BYWEEKNO=-1;BYDAY=MO",
+      "expected": [
+        "2020-12-28",
+        "2021-12-27",
+        "2022-12-26",
+        "2023-12-25",
+        "2024-12-23",
+        "2025-12-22"
+      ]
+    },
+    {
+      "name": "byweekno_1_52_multi",
+      "category": "byweekno",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=6;BYWEEKNO=1,52;BYDAY=MO",
+      "expected": [
+        "2024-01-01",
+        "2024-12-23",
+        "2024-12-30",
+        "2025-12-22",
+        "2025-12-29",
+        "2026-12-21"
+      ]
+    },
+    {
+      "name": "byweekno_1_bysetpos_1",
+      "category": "byweekno",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=4;BYWEEKNO=1;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=1",
+      "expected": [
+        "2024-01-01",
+        "2025-01-01",
+        "2026-01-01",
+        "2027-01-04"
+      ]
+    },
+    {
+      "name": "byweekno_1_bymonth_1",
+      "category": "byweekno",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=5;BYMONTH=1;BYWEEKNO=1;BYDAY=MO,TU,WE,TH,FR",
+      "expected": [
+        "2024-01-01",
+        "2024-01-02",
+        "2024-01-03",
+        "2024-01-04",
+        "2024-01-05"
+      ]
+    },
+    {
+      "name": "byweekno_1_wkst_su",
+      "category": "byweekno",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=4;WKST=SU;BYWEEKNO=1;BYDAY=SU",
+      "expected": [
+        "2024-12-29",
+        "2026-01-04",
+        "2027-01-03",
+        "2028-01-02"
+      ],
+      "notes": "RFC 5545: WKST=SU shifts week 1 start (e.g. 2025-W01 starts Sun 2024-12-29)"
+    },
+    {
+      "name": "byweekno_neg1_wkst_su",
+      "category": "byweekno",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=4;WKST=SU;BYWEEKNO=-1;BYDAY=SU",
+      "expected": [
+        "2024-12-22",
+        "2025-12-28",
+        "2026-12-27",
+        "2027-12-26"
+      ]
+    },
+    {
+      "name": "byweekno_1_wkst_sa",
+      "category": "byweekno",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=4;WKST=SA;BYWEEKNO=1;BYDAY=SA",
+      "expected": [
+        "2025-01-04",
+        "2026-01-03",
+        "2027-01-02",
+        "2028-01-01"
+      ]
+    },
+    {
+      "name": "bysetpos_monthly_first_weekday",
+      "category": "bysetpos",
+      "dtstart": "1997-09-02",
+      "rrule": "FREQ=MONTHLY;COUNT=6;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=1",
+      "expected": [
+        "1997-10-01",
+        "1997-11-03",
+        "1997-12-01",
+        "1998-01-01",
+        "1998-02-02",
+        "1998-03-02"
+      ]
+    },
+    {
+      "name": "bysetpos_monthly_last_weekday",
+      "category": "bysetpos",
+      "dtstart": "1997-09-02",
+      "rrule": "FREQ=MONTHLY;COUNT=6;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=-1",
+      "expected": [
+        "1997-09-30",
+        "1997-10-31",
+        "1997-11-28",
+        "1997-12-31",
+        "1998-01-30",
+        "1998-02-27"
+      ]
+    },
+    {
+      "name": "bysetpos_monthly_2nd_last_weekday",
+      "category": "bysetpos",
+      "dtstart": "1997-09-02",
+      "rrule": "FREQ=MONTHLY;COUNT=6;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=-2",
+      "expected": [
+        "1997-09-29",
+        "1997-10-30",
+        "1997-11-27",
+        "1997-12-30",
+        "1998-01-29",
+        "1998-02-26"
+      ]
+    },
+    {
+      "name": "bysetpos_monthly_2nd_weekday",
+      "category": "bysetpos",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=MONTHLY;COUNT=5;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=2",
+      "expected": [
+        "2024-01-02",
+        "2024-02-02",
+        "2024-03-04",
+        "2024-04-02",
+        "2024-05-02"
+      ]
+    },
+    {
+      "name": "bysetpos_monthly_3rd_weekday",
+      "category": "bysetpos",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=MONTHLY;COUNT=4;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=3",
+      "expected": [
+        "2024-01-03",
+        "2024-02-05",
+        "2024-03-05",
+        "2024-04-03"
+      ]
+    },
+    {
+      "name": "bysetpos_monthly_3rd_last_weekday",
+      "category": "bysetpos",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=MONTHLY;COUNT=4;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=-3",
+      "expected": [
+        "2024-01-29",
+        "2024-02-27",
+        "2024-03-27",
+        "2024-04-26"
+      ]
+    },
+    {
+      "name": "bysetpos_monthly_1_and_neg1",
+      "category": "bysetpos",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=MONTHLY;COUNT=6;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=1,-1",
+      "expected": [
+        "2024-01-01",
+        "2024-01-31",
+        "2024-02-01",
+        "2024-02-29",
+        "2024-03-01",
+        "2024-03-29"
+      ]
+    },
+    {
+      "name": "bysetpos_monthly_2_and_neg2",
+      "category": "bysetpos",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=MONTHLY;COUNT=6;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=2,-2",
+      "expected": [
+        "2024-01-02",
+        "2024-01-30",
+        "2024-02-02",
+        "2024-02-28",
+        "2024-03-04",
+        "2024-03-28"
+      ]
+    },
+    {
+      "name": "bysetpos_monthly_dedup_unsorted",
+      "category": "bysetpos",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=MONTHLY;COUNT=6;BYDAY=MO,FR;BYSETPOS=-1,1,-1,2",
+      "expected": [
+        "2024-01-01",
+        "2024-01-05",
+        "2024-01-29",
+        "2024-02-02",
+        "2024-02-05",
+        "2024-02-26"
+      ]
+    },
+    {
+      "name": "bysetpos_monthly_out_of_range_5th_fri",
+      "category": "bysetpos",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=MONTHLY;COUNT=6;BYDAY=FR;BYSETPOS=5",
+      "expected": [
+        "2024-03-29",
+        "2024-05-31",
+        "2024-08-30",
+        "2024-11-29",
+        "2025-01-31",
+        "2025-05-30"
+      ]
+    },
+    {
+      "name": "bysetpos_monthly_dtstart_mid_period",
+      "category": "bysetpos",
+      "dtstart": "2024-01-15",
+      "rrule": "FREQ=MONTHLY;COUNT=5;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=1,-1",
+      "expected": [
+        "2024-01-31",
+        "2024-02-01",
+        "2024-02-29",
+        "2024-03-01",
+        "2024-03-29"
+      ]
+    },
+    {
+      "name": "bysetpos_yearly_first_and_last_friday",
+      "category": "bysetpos",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=4;BYDAY=FR;BYSETPOS=1,-1",
+      "expected": [
+        "2024-01-05",
+        "2024-12-27",
+        "2025-01-03",
+        "2025-12-26"
+      ]
+    },
+    {
+      "name": "bysetpos_yearly_quarters_2_neg2",
+      "category": "bysetpos",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=4;BYMONTH=3,6,9,12;BYDAY=MO,FR;BYSETPOS=2,-2",
+      "expected": [
+        "2024-03-04",
+        "2024-12-27",
+        "2025-03-07",
+        "2025-12-26"
+      ]
+    },
+    {
+      "name": "bysetpos_yearly_dtstart_mid_year",
+      "category": "bysetpos",
+      "dtstart": "2024-06-15",
+      "rrule": "FREQ=YEARLY;COUNT=4;BYMONTH=1,6,12;BYDAY=1MO;BYSETPOS=1,-1",
+      "expected": [
+        "2024-12-02",
+        "2025-01-06",
+        "2025-12-01",
+        "2026-01-05"
+      ]
+    },
+    {
+      "name": "empty_feb_30",
+      "category": "empty",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=MONTHLY;COUNT=3;BYMONTH=2;BYMONTHDAY=30",
+      "expected": [],
+      "notes": "Impossible date terminates cleanly"
+    },
+    {
+      "name": "empty_feb_31",
+      "category": "empty",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=YEARLY;COUNT=3;BYMONTH=2;BYMONTHDAY=31",
+      "expected": [],
+      "notes": "Impossible date terminates cleanly"
+    },
+    {
+      "name": "empty_apr_31",
+      "category": "empty",
+      "dtstart": "2024-01-01",
+      "rrule": "FREQ=MONTHLY;COUNT=3;BYMONTH=4;BYMONTHDAY=31",
+      "expected": [],
+      "notes": "Impossible date terminates cleanly"
+    },
+    {
+      "name": "empty_until_before_dtstart",
+      "category": "empty",
+      "dtstart": "2024-06-01",
+      "rrule": "FREQ=DAILY;UNTIL=20240501T000000Z",
+      "expected": [],
+      "notes": "UNTIL preceding DTSTART yields empty set"
+    },
+    {
+      "name": "empty_byweekno_53_window_without_w53",
+      "category": "empty",
+      "dtstart": "2021-01-04",
+      "rrule": "FREQ=YEARLY;BYWEEKNO=53;BYDAY=MO;UNTIL=20251231T235959Z",
+      "expected": [],
+      "notes": "No ISO week 53 occurs in 2021-2025"
+    }
+  ]
+}

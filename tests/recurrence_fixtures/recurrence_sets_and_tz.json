@@ -1,0 +1,480 @@
+{
+  "description": "Recurrence set (RRULE + EXDATE + RDATE + UNTIL + COUNT), composition mode (RULE_ONLY vs GOOGLE), time-part, and IANA timezone / DST fixtures.",
+  "cases": [
+    {
+      "name": "composition_rule_only_unsync_dtstart_weekly_byday",
+      "category": "composition",
+      "start": "2025-01-14T10:00:00Z",
+      "timezone": "UTC",
+      "composition": "RULE_ONLY",
+      "rules": ["RRULE:FREQ=WEEKLY;COUNT=3;BYDAY=FR"],
+      "upTo": "2025-02-15",
+      "expected": [
+        "2025-01-17T10:00:00Z",
+        "2025-01-24T10:00:00Z",
+        "2025-01-31T10:00:00Z"
+      ],
+      "notes": "RULE_ONLY omits unsynchronized Tuesday DTSTART and counts 3 Fridays"
+    },
+    {
+      "name": "composition_google_unsync_dtstart_weekly_byday",
+      "category": "composition",
+      "start": "2025-01-14T10:00:00Z",
+      "timezone": "UTC",
+      "composition": "GOOGLE",
+      "rules": ["RRULE:FREQ=WEEKLY;COUNT=3;BYDAY=FR"],
+      "upTo": "2025-02-15",
+      "expected": [
+        "2025-01-14T10:00:00Z",
+        "2025-01-17T10:00:00Z",
+        "2025-01-24T10:00:00Z",
+        "2025-01-31T10:00:00Z"
+      ],
+      "notes": "GOOGLE keeps unsynchronized DTSTART on top of COUNT=3"
+    },
+    {
+      "name": "composition_sync_dtstart_matches_both_modes",
+      "category": "composition",
+      "start": "2025-01-17T10:00:00Z",
+      "timezone": "UTC",
+      "composition": "RULE_ONLY",
+      "rules": ["RRULE:FREQ=WEEKLY;COUNT=3;BYDAY=FR"],
+      "upTo": "2025-02-15",
+      "expected": [
+        "2025-01-17T10:00:00Z",
+        "2025-01-24T10:00:00Z",
+        "2025-01-31T10:00:00Z"
+      ]
+    },
+    {
+      "name": "exdate_consumes_count_slot",
+      "category": "exdate",
+      "start": "2024-03-01T09:00:00Z",
+      "timezone": "UTC",
+      "composition": "RULE_ONLY",
+      "rules": [
+        "RRULE:FREQ=DAILY;COUNT=4",
+        "EXDATE:20240302T090000Z"
+      ],
+      "upTo": "2024-03-10",
+      "expected": [
+        "2024-03-01T09:00:00Z",
+        "2024-03-03T09:00:00Z",
+        "2024-03-04T09:00:00Z"
+      ],
+      "notes": "EXDATE removes the 2nd instance without refilling COUNT=4"
+    },
+    {
+      "name": "exdate_multiple_comma_and_lines",
+      "category": "exdate",
+      "start": "2024-03-01T09:00:00Z",
+      "timezone": "UTC",
+      "composition": "RULE_ONLY",
+      "rules": [
+        "RRULE:FREQ=DAILY;COUNT=6",
+        "EXDATE:20240302T090000Z,20240304T090000Z",
+        "EXDATE:20240306T090000Z"
+      ],
+      "upTo": "2024-03-10",
+      "expected": [
+        "2024-03-01T09:00:00Z",
+        "2024-03-03T09:00:00Z",
+        "2024-03-05T09:00:00Z"
+      ]
+    },
+    {
+      "name": "exdate_excludes_dtstart",
+      "category": "exdate",
+      "start": "2024-03-01T09:00:00Z",
+      "timezone": "UTC",
+      "composition": "RULE_ONLY",
+      "rules": [
+        "RRULE:FREQ=DAILY;COUNT=3",
+        "EXDATE:20240301T090000Z"
+      ],
+      "upTo": "2024-03-10",
+      "expected": [
+        "2024-03-02T09:00:00Z",
+        "2024-03-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "exdate_tzid_across_dst_ny",
+      "category": "exdate",
+      "start": "2024-03-09T09:00:00-05:00",
+      "timezone": "America/New_York",
+      "composition": "RULE_ONLY",
+      "rules": [
+        "RRULE:FREQ=DAILY;COUNT=4",
+        "EXDATE;TZID=America/New_York:20240311T090000"
+      ],
+      "upTo": "2024-03-15",
+      "expected": [
+        "2024-03-09T14:00:00Z",
+        "2024-03-10T13:00:00Z",
+        "2024-03-12T13:00:00Z"
+      ],
+      "notes": "EXDATE with TZID resolves post-DST 09:00 EDT to 13:00Z"
+    },
+    {
+      "name": "exdate_overrides_rdate",
+      "category": "exdate",
+      "start": "2024-03-01T09:00:00Z",
+      "timezone": "UTC",
+      "composition": "RULE_ONLY",
+      "rules": [
+        "RRULE:FREQ=DAILY;COUNT=3",
+        "RDATE:20240310T090000Z",
+        "EXDATE:20240310T090000Z"
+      ],
+      "upTo": "2024-03-15",
+      "expected": [
+        "2024-03-01T09:00:00Z",
+        "2024-03-02T09:00:00Z",
+        "2024-03-03T09:00:00Z"
+      ],
+      "notes": "RFC 5545 §3.8.5.1: EXDATE takes precedence over RDATE"
+    },
+    {
+      "name": "exdate_byweekno_consumes_count_google",
+      "category": "exdate",
+      "start": "2025-01-06T10:00:00Z",
+      "timezone": "UTC",
+      "composition": "GOOGLE",
+      "rules": [
+        "RRULE:FREQ=YEARLY;BYWEEKNO=1,2;BYDAY=MO;COUNT=4",
+        "EXDATE:20260105T100000Z"
+      ],
+      "upTo": "2030-01-31",
+      "expected": [
+        "2025-01-06T10:00:00Z",
+        "2027-01-04T10:00:00Z",
+        "2027-01-11T10:00:00Z"
+      ]
+    },
+    {
+      "name": "rdate_interleaved_and_sorted",
+      "category": "rdate",
+      "start": "2024-03-01T09:00:00Z",
+      "timezone": "UTC",
+      "composition": "RULE_ONLY",
+      "rules": [
+        "RRULE:FREQ=WEEKLY;COUNT=3",
+        "RDATE:20240311T120000Z,20240304T120000Z"
+      ],
+      "upTo": "2024-03-31",
+      "expected": [
+        "2024-03-01T09:00:00Z",
+        "2024-03-04T12:00:00Z",
+        "2024-03-08T09:00:00Z",
+        "2024-03-11T12:00:00Z",
+        "2024-03-15T09:00:00Z"
+      ]
+    },
+    {
+      "name": "rdate_deduplicates_rrule_occurrence",
+      "category": "rdate",
+      "start": "2024-03-01T09:00:00Z",
+      "timezone": "UTC",
+      "composition": "RULE_ONLY",
+      "rules": [
+        "RRULE:FREQ=DAILY;COUNT=3",
+        "RDATE:20240302T090000Z"
+      ],
+      "upTo": "2024-03-10",
+      "expected": [
+        "2024-03-01T09:00:00Z",
+        "2024-03-02T09:00:00Z",
+        "2024-03-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "rdate_with_exdate_and_count",
+      "category": "rdate",
+      "start": "2024-03-01T09:00:00Z",
+      "timezone": "UTC",
+      "composition": "RULE_ONLY",
+      "rules": [
+        "RRULE:FREQ=DAILY;COUNT=4",
+        "EXDATE:20240302T090000Z",
+        "RDATE:20240310T150000Z"
+      ],
+      "upTo": "2024-03-15",
+      "expected": [
+        "2024-03-01T09:00:00Z",
+        "2024-03-03T09:00:00Z",
+        "2024-03-04T09:00:00Z",
+        "2024-03-10T15:00:00Z"
+      ]
+    },
+    {
+      "name": "rdate_tzid_across_dst",
+      "category": "rdate",
+      "start": "2024-03-09T09:00:00-05:00",
+      "timezone": "America/New_York",
+      "composition": "RULE_ONLY",
+      "rules": [
+        "RRULE:FREQ=DAILY;COUNT=2",
+        "RDATE;TZID=America/New_York:20240312T103000"
+      ],
+      "upTo": "2024-03-15",
+      "expected": [
+        "2024-03-09T14:00:00Z",
+        "2024-03-10T13:00:00Z",
+        "2024-03-12T14:30:00Z"
+      ]
+    },
+    {
+      "name": "until_utc_exact_second_inclusive",
+      "category": "until",
+      "start": "2024-03-01T09:00:00Z",
+      "timezone": "UTC",
+      "composition": "RULE_ONLY",
+      "rules": ["RRULE:FREQ=DAILY;UNTIL=20240303T090000Z"],
+      "upTo": "2024-03-10",
+      "expected": [
+        "2024-03-01T09:00:00Z",
+        "2024-03-02T09:00:00Z",
+        "2024-03-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "until_utc_one_second_before_excludes",
+      "category": "until",
+      "start": "2024-03-01T09:00:00Z",
+      "timezone": "UTC",
+      "composition": "RULE_ONLY",
+      "rules": ["RRULE:FREQ=DAILY;UNTIL=20240303T085959Z"],
+      "upTo": "2024-03-10",
+      "expected": [
+        "2024-03-01T09:00:00Z",
+        "2024-03-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "until_date_only_exclusive",
+      "category": "until",
+      "start": "2024-03-01T09:00:00Z",
+      "timezone": "UTC",
+      "composition": "RULE_ONLY",
+      "rules": ["RRULE:FREQ=DAILY;UNTIL=20240304"],
+      "upTo": "2024-03-10",
+      "expected": [
+        "2024-03-01T09:00:00Z",
+        "2024-03-02T09:00:00Z",
+        "2024-03-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "dst_ny_spring_forward_preserves_wall_time",
+      "category": "dst",
+      "start": "2024-03-09T09:00:00-05:00",
+      "timezone": "America/New_York",
+      "composition": "RULE_ONLY",
+      "rules": ["RRULE:FREQ=DAILY;COUNT=4"],
+      "upTo": "2024-03-15",
+      "expected": [
+        "2024-03-09T14:00:00Z",
+        "2024-03-10T13:00:00Z",
+        "2024-03-11T13:00:00Z",
+        "2024-03-12T13:00:00Z"
+      ]
+    },
+    {
+      "name": "dst_ny_spring_forward_nonexistent_gap_0230",
+      "category": "dst",
+      "start": "2024-03-09T02:30:00-05:00",
+      "timezone": "America/New_York",
+      "composition": "RULE_ONLY",
+      "rules": ["RRULE:FREQ=DAILY;COUNT=4"],
+      "upTo": "2024-03-15",
+      "expected": [
+        "2024-03-09T07:30:00Z",
+        "2024-03-10T07:30:00Z",
+        "2024-03-11T06:30:00Z",
+        "2024-03-12T06:30:00Z"
+      ],
+      "notes": "2024-03-10 02:30 does not exist in America/New_York; shifts forward to 03:30 EDT (07:30Z)"
+    },
+    {
+      "name": "dst_ny_fall_back_preserves_wall_time",
+      "category": "dst",
+      "start": "2024-11-02T09:00:00-04:00",
+      "timezone": "America/New_York",
+      "composition": "RULE_ONLY",
+      "rules": ["RRULE:FREQ=DAILY;COUNT=4"],
+      "upTo": "2024-11-10",
+      "expected": [
+        "2024-11-02T13:00:00Z",
+        "2024-11-03T14:00:00Z",
+        "2024-11-04T14:00:00Z",
+        "2024-11-05T14:00:00Z"
+      ]
+    },
+    {
+      "name": "dst_ny_fall_back_ambiguous_overlap_0130",
+      "category": "dst",
+      "start": "2024-11-02T01:30:00-04:00",
+      "timezone": "America/New_York",
+      "composition": "RULE_ONLY",
+      "rules": ["RRULE:FREQ=DAILY;COUNT=4"],
+      "upTo": "2024-11-10",
+      "expected": [
+        "2024-11-02T05:30:00Z",
+        "2024-11-03T05:30:00Z",
+        "2024-11-04T06:30:00Z",
+        "2024-11-05T06:30:00Z"
+      ],
+      "notes": "2024-11-03 01:30 occurs twice in America/New_York; picks the first (EDT, 05:30Z)"
+    },
+    {
+      "name": "dst_europe_london_spring_forward",
+      "category": "dst",
+      "start": "2024-03-30T10:00:00Z",
+      "timezone": "Europe/London",
+      "composition": "RULE_ONLY",
+      "rules": ["RRULE:FREQ=DAILY;COUNT=3"],
+      "upTo": "2024-04-05",
+      "expected": [
+        "2024-03-30T10:00:00Z",
+        "2024-03-31T09:00:00Z",
+        "2024-04-01T09:00:00Z"
+      ]
+    },
+    {
+      "name": "dst_australia_sydney_southern_fall_back",
+      "category": "dst",
+      "start": "2024-04-06T09:00:00+11:00",
+      "timezone": "Australia/Sydney",
+      "composition": "RULE_ONLY",
+      "rules": ["RRULE:FREQ=DAILY;COUNT=3"],
+      "upTo": "2024-04-12",
+      "expected": [
+        "2024-04-05T22:00:00Z",
+        "2024-04-06T23:00:00Z",
+        "2024-04-07T23:00:00Z"
+      ]
+    },
+    {
+      "name": "dst_australia_lord_howe_30min_spring_gap",
+      "category": "dst",
+      "start": "2024-10-05T02:15:00+10:30",
+      "timezone": "Australia/Lord_Howe",
+      "composition": "RULE_ONLY",
+      "rules": ["RRULE:FREQ=DAILY;COUNT=3"],
+      "upTo": "2024-10-10",
+      "expected": [
+        "2024-10-04T15:45:00Z",
+        "2024-10-05T15:45:00Z",
+        "2024-10-06T15:15:00Z"
+      ],
+      "notes": "Lord Howe springs forward 30 min at 02:00 on 2024-10-06 (+10:30 -> +11:00)"
+    },
+    {
+      "name": "dst_pacific_chatham_45min_offset",
+      "category": "dst",
+      "start": "2024-04-06T09:00:00+13:45",
+      "timezone": "Pacific/Chatham",
+      "composition": "RULE_ONLY",
+      "rules": ["RRULE:FREQ=DAILY;COUNT=3"],
+      "upTo": "2024-04-12",
+      "expected": [
+        "2024-04-05T19:15:00Z",
+        "2024-04-06T20:15:00Z",
+        "2024-04-07T20:15:00Z"
+      ]
+    },
+    {
+      "name": "tz_asia_kathmandu_fixed_plus_0545",
+      "category": "dst",
+      "start": "2024-03-09T09:00:00+05:45",
+      "timezone": "Asia/Kathmandu",
+      "composition": "RULE_ONLY",
+      "rules": ["RRULE:FREQ=DAILY;COUNT=3"],
+      "upTo": "2024-03-15",
+      "expected": [
+        "2024-03-09T03:15:00Z",
+        "2024-03-10T03:15:00Z",
+        "2024-03-11T03:15:00Z"
+      ]
+    },
+    {
+      "name": "time_parts_byhour_bysetpos_across_dst_ny",
+      "category": "time_parts",
+      "start": "2024-03-09T09:00:00-05:00",
+      "timezone": "America/New_York",
+      "composition": "RULE_ONLY",
+      "rules": ["RRULE:FREQ=DAILY;BYHOUR=9,13,17;BYSETPOS=1,-1;COUNT=6"],
+      "upTo": "2024-03-15",
+      "expected": [
+        "2024-03-09T14:00:00Z",
+        "2024-03-09T22:00:00Z",
+        "2024-03-10T13:00:00Z",
+        "2024-03-10T21:00:00Z",
+        "2024-03-11T13:00:00Z",
+        "2024-03-11T21:00:00Z"
+      ]
+    },
+    {
+      "name": "time_parts_hourly_with_exdate_utc",
+      "category": "time_parts",
+      "start": "2026-01-05T09:00:00Z",
+      "timezone": "UTC",
+      "composition": "RULE_ONLY",
+      "rules": [
+        "RRULE:FREQ=HOURLY;INTERVAL=4;COUNT=4",
+        "EXDATE:20260105T130000Z"
+      ],
+      "upTo": "2026-01-07",
+      "expected": [
+        "2026-01-05T09:00:00Z",
+        "2026-01-05T17:00:00Z",
+        "2026-01-05T21:00:00Z"
+      ]
+    },
+    {
+      "name": "time_parts_minutely_with_until_utc",
+      "category": "time_parts",
+      "start": "2026-01-05T09:00:00Z",
+      "timezone": "UTC",
+      "composition": "RULE_ONLY",
+      "rules": ["RRULE:FREQ=MINUTELY;INTERVAL=15;UNTIL=20260105T094500Z"],
+      "upTo": "2026-01-06",
+      "expected": [
+        "2026-01-05T09:00:00Z",
+        "2026-01-05T09:15:00Z",
+        "2026-01-05T09:30:00Z",
+        "2026-01-05T09:45:00Z"
+      ]
+    },
+    {
+      "name": "time_parts_weekly_byhour_byminute_bysetpos",
+      "category": "time_parts",
+      "start": "2026-01-05T09:00:00Z",
+      "timezone": "UTC",
+      "composition": "RULE_ONLY",
+      "rules": ["RRULE:FREQ=WEEKLY;BYDAY=MO,FR;BYHOUR=9,17;BYMINUTE=0,30;BYSETPOS=1,-1;COUNT=4"],
+      "upTo": "2026-01-25",
+      "expected": [
+        "2026-01-05T09:00:00Z",
+        "2026-01-09T17:30:00Z",
+        "2026-01-12T09:00:00Z",
+        "2026-01-16T17:30:00Z"
+      ]
+    },
+    {
+      "name": "time_parts_monthly_bysetpos_over_instants",
+      "category": "time_parts",
+      "start": "2026-01-01T08:00:00Z",
+      "timezone": "UTC",
+      "composition": "RULE_ONLY",
+      "rules": ["RRULE:FREQ=MONTHLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=9,17;BYSETPOS=-1;COUNT=3"],
+      "upTo": "2026-04-05",
+      "expected": [
+        "2026-01-30T17:00:00Z",
+        "2026-02-27T17:00:00Z",
+        "2026-03-31T17:00:00Z"
+      ]
+    }
+  ]
+}
