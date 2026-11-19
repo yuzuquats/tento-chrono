@@ -279,7 +279,7 @@ function maxOffsetMsNear(
       tr.after.time.tz.info.offset.toMs,
     );
   }
-  if (near.length === 0 && startOffsetMs != null && timezone.transitions.length === 0) {
+  if (startOffsetMs != null) {
     maxOffsetMs = Math.max(maxOffsetMs, startOffsetMs);
   }
   return maxOffsetMs;
@@ -417,7 +417,7 @@ function ensureEventsGenerated(
     ? endInstantMse + maxOffsetMsNear(
       state.timezone,
       endInstantMse,
-      state.startDateTime.tz.info.offset.toMs,
+      state.composition.name === "rule-only" ? undefined : state.startDateTime.tz.info.offset.toMs,
     )
     : endInstantMse;
 
@@ -872,7 +872,7 @@ export class GoogleEventGenerator {
         const maxOffsetMs = maxOffsetMsNear(
           timezone,
           untilDt.mse,
-          startDateTime.tz.info.offset.toMs,
+          composition.name === "rule-only" ? undefined : startDateTime.tz.info.offset.toMs,
         );
         wallUntilBound = maxOffsetMs > untilOffsetMs
           ? untilLocal.add({ ms: maxOffsetMs - untilOffsetMs })
@@ -909,6 +909,7 @@ export class GoogleEventGenerator {
         composition.googleByweekno,
         generationLimit,
         wallUntilBound ?? undefined,
+        isDateOnlyDtstart(recurrence.inner),
       )
       : null;
 
@@ -1149,9 +1150,10 @@ function* timedDays(
   if (day == null) return;
   const start = dtstart != null ? new NaiveDateTime(day, dtstart.time) : new NaiveDateTime(day);
   const excl = excludeDates ? createExcludedDatesSet(inner) : new Set<number>();
+  const ignoreTimeParts = isDateOnlyDtstart(inner);
   const ruleDays = (function* () {
     let last: Option<number> = null;
-    for (const at of RRuleInstances.expand(inner.rrule!, start, google)) {
+    for (const at of RRuleInstances.expand(inner.rrule!, start, google, undefined, undefined, ignoreTimeParts)) {
       const dse = at.date.dse;
       if (end != null && dse > end.dse) return;
       if (dse === last) continue;

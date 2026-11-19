@@ -119,31 +119,40 @@ export namespace YearMonthDayFilter {
   function buildComposed(
     filters: readonly Filter[],
     inheritedKeeps: readonly ((date: YearMonthDay.MaybeValid) => boolean)[],
+    deferTrailingMonthLimit: boolean = false,
   ): Filter {
     // A month limit before another filter passes the weeks that straddle its
     // months; each date the chain yields is then held to them (`MonthLimit`).
     // Any downstream positional selector (bySetPos), including one inside a
     // nested compose(), is restricted before ranking so out-of-month days in
-    // a straddling week do not steal positions.
+    // a straddling week do not steal positions. If the trailing filter is
+    // itself a MonthLimit (e.g. compose([byMonthOfYear(...)])) the composed
+    // filter also exposes MonthLimit so an outer compose() can keep straddling
+    // weeks until downstream filters expand them.
     const last = filters.length - 1;
     const activeKeeps: Array<(date: YearMonthDay.MaybeValid) => boolean> = [...inheritedKeeps];
+    const ownMonthKeeps: Array<(date: YearMonthDay.MaybeValid) => boolean> = [];
     const chain: Filter[] = [];
     for (let i = 0; i < filters.length; i++) {
       const f = filters[i]!;
-      if (i < last && "straddling" in f) {
+      if ((i < last || deferTrailingMonthLimit) && "straddling" in f) {
         const limit = f as MonthLimit;
         chain.push(limit.straddling);
         activeKeeps.push(limit.keeps);
+        ownMonthKeeps.push(limit.keeps);
       } else if (activeKeeps.length > 0 && "restrict" in f) {
         const currentKeeps = [...activeKeeps];
         chain.push(
           (f as RestrictableFilter).restrict((d) => currentKeeps.every((k) => k(d))),
         );
       } else {
+        if (i === last && "straddling" in f) {
+          ownMonthKeeps.push((f as MonthLimit).keeps);
+        }
         chain.push(f);
       }
     }
-    const base: Filter = activeKeeps.length === 0
+    const base: Filter = deferTrailingMonthLimit || activeKeeps.length === 0
       ? (partialdate) => _compose(partialdate, chain)
       : function* (
           partialdate: PartialDate.Tuple,
@@ -152,9 +161,19 @@ export namespace YearMonthDayFilter {
             if (activeKeeps.every((k) => k(t[0]))) yield t;
           }
         };
+    const trailingMonthLimit = last >= 0 && "straddling" in filters[last]!;
+    if (!deferTrailingMonthLimit && trailingMonthLimit) {
+      const allKeeps = [...inheritedKeeps, ...ownMonthKeeps];
+      return Object.assign(base, {
+        restrict: (keep: (date: YearMonthDay.MaybeValid) => boolean): Filter =>
+          buildComposed(filters, [...inheritedKeeps, keep], deferTrailingMonthLimit),
+        straddling: buildComposed(filters, inheritedKeeps, true),
+        keeps: (date: YearMonthDay.MaybeValid) => allKeeps.every((k) => k(date)),
+      });
+    }
     return Object.assign(base, {
       restrict: (keep: (date: YearMonthDay.MaybeValid) => boolean): Filter =>
-        buildComposed(filters, [...inheritedKeeps, keep]),
+        buildComposed(filters, [...inheritedKeeps, keep], deferTrailingMonthLimit),
     });
   }
 

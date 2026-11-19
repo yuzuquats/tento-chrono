@@ -44,6 +44,7 @@ export namespace RRuleInstances {
     useGoogleCalendarBehavior: boolean = false,
     generationLimit?: number,
     untilWallOverride?: Option<NaiveDateTime>,
+    ignoreTimeParts: boolean = false,
   ): Generator<NaiveDateTime> {
     const options = rule.inner.options;
     const count = options?.count ?? null;
@@ -58,7 +59,7 @@ export namespace RRuleInstances {
         : untilDay != null && (useGoogleCalendarBehavior ? at.date.dse >= untilDay.dse : at.date.dse > untilDay.dse);
 
     let emitted = 0;
-    for (const at of candidates(rule, dtstart, useGoogleCalendarBehavior, generationLimit)) {
+    for (const at of candidates(rule, dtstart, useGoogleCalendarBehavior, generationLimit, ignoreTimeParts)) {
       if (at.mse < dtstart.mse) continue;
       if (ended(at)) return;
       yield at;
@@ -78,24 +79,30 @@ export namespace RRuleInstances {
   }
 
   /** Every period's set, from DTSTART's period on: not yet cut at DTSTART, UNTIL or COUNT. */
-  function candidates(rule: RRule, dtstart: NaiveDateTime, google: boolean, generationLimit?: number): Generator<NaiveDateTime> {
+  function candidates(
+    rule: RRule,
+    dtstart: NaiveDateTime,
+    google: boolean,
+    generationLimit?: number,
+    ignoreTimeParts: boolean = false,
+  ): Generator<NaiveDateTime> {
     switch (rule.inner.freq) {
       case "hourly":
       case "minutely":
       case "secondly":
-        return subDaily(rule, dtstart, google, generationLimit);
+        return subDaily(rule, dtstart, google, generationLimit, ignoreTimeParts);
       default:
-        return byDay(rule, dtstart, google, generationLimit);
+        return byDay(rule, dtstart, google, generationLimit, ignoreTimeParts);
     }
   }
 
   /** The times of day BYHOUR × BYMINUTE × BYSECOND name (DTSTART's for a part not given), sorted. */
-  function timesOfDay(rule: RRule, dtstart: NaiveDateTime): NaiveTime[] {
+  function timesOfDay(rule: RRule, dtstart: NaiveDateTime, ignoreTimeParts: boolean = false): NaiveTime[] {
     const options = rule.inner.options;
     const t = dtstart.time;
-    const hours = [...new Set(nonEmpty(options?.byhour) ?? [t.hrs])];
-    const minutes = [...new Set(nonEmpty(options?.byminute) ?? [t.mins])];
-    const seconds = [...new Set(nonEmpty(options?.bysecond) ?? [t.secs])];
+    const hours = [...new Set((ignoreTimeParts ? null : nonEmpty(options?.byhour)) ?? [t.hrs])];
+    const minutes = [...new Set((ignoreTimeParts ? null : nonEmpty(options?.byminute)) ?? [t.mins])];
+    const seconds = [...new Set((ignoreTimeParts ? null : nonEmpty(options?.bysecond)) ?? [t.secs])];
     const ms = new Set<number>();
     for (const h of hours) {
       for (const m of minutes) {
@@ -109,13 +116,19 @@ export namespace RRuleInstances {
   }
 
   /** YEARLY, MONTHLY, WEEKLY or DAILY: each period's days (the date generator's filters) at each time of day. */
-  function* byDay(rule: RRule, dtstart: NaiveDateTime, google: boolean, generationLimit?: number): Generator<NaiveDateTime> {
-    const props = rule.toFilterProps(null, null, google);
+  function* byDay(
+    rule: RRule,
+    dtstart: NaiveDateTime,
+    google: boolean,
+    generationLimit?: number,
+    ignoreTimeParts: boolean = false,
+  ): Generator<NaiveDateTime> {
+    const props = rule.toFilterProps(null, null, google, null, ignoreTimeParts);
     const step = props.step;
     const filter = filterOf(props);
     // Without time parts the day filter already applied BYSETPOS (`toFilterProps`).
-    const setpos = rule.hasTimeParts() ? nonEmpty(rule.inner.options?.bysetpos) : null;
-    const times = timesOfDay(rule, dtstart);
+    const setpos = !ignoreTimeParts && rule.hasTimeParts() ? nonEmpty(rule.inner.options?.bysetpos) : null;
+    const times = timesOfDay(rule, dtstart, ignoreTimeParts);
     if (times.length === 0) return;
 
     let start: NaiveDate.MaybeValid = dtstart.date;
@@ -164,15 +177,21 @@ export namespace RRuleInstances {
    * above the unit limit which periods count (a day the date parts refuse
    * is skipped whole); the time parts below it expand each period.
    */
-  function* subDaily(rule: RRule, dtstart: NaiveDateTime, google: boolean, generationLimit?: number): Generator<NaiveDateTime> {
+  function* subDaily(
+    rule: RRule,
+    dtstart: NaiveDateTime,
+    google: boolean,
+    generationLimit?: number,
+    ignoreTimeParts: boolean = false,
+  ): Generator<NaiveDateTime> {
     const options = rule.inner.options;
     const freq = rule.inner.freq;
     const unitMs = freq === "hourly" ? Time.MS_PER_HR : freq === "minutely" ? Time.MS_PER_MIN : Time.MS_PER_SEC;
     const stepMs = unitMs * Math.max(1, options?.interval ?? 1);
     const setpos = nonEmpty(options?.bysetpos);
-    const byhour = nonEmpty(options?.byhour);
-    const byminute = nonEmpty(options?.byminute);
-    const bysecond = nonEmpty(options?.bysecond);
+    const byhour = ignoreTimeParts ? null : nonEmpty(options?.byhour);
+    const byminute = ignoreTimeParts ? null : nonEmpty(options?.byminute);
+    const bysecond = ignoreTimeParts ? null : nonEmpty(options?.bysecond);
     const t = dtstart.time;
 
     // Offsets within one period: the parts below the unit (DTSTART's when not given).
