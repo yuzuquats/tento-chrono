@@ -11,6 +11,7 @@
  * - BYMONTH on a WEEKLY rule dropped a week that only straddled the month.
  */
 import { assertEquals } from "@std/assert";
+import { NaiveDate, Weekday, naivedate } from "../chrono/mod.ts";
 import { ICalendar } from "../chrono/recurrence/ical.ts";
 import { Recurrence } from "../chrono/recurrence/recurrence.ts";
 
@@ -75,4 +76,26 @@ Deno.test("WEEKLY with BYMONTH keeps the days of a week that straddles the month
 Deno.test("an infinite rule still stops at the generator's 1000 instances", async () => {
   const raw = (await ICalendar.Raw.parse(["DTSTART;VALUE=DATE:20260101", "RRULE:FREQ=DAILY"])).exp();
   assertEquals([...new Recurrence(raw).generate()].length, 1000);
+});
+
+Deno.test("Monthly weekdays stay ordered across the leap day and Sunday boundary", () => {
+  const weekdays = NaiveDate.Filter.byWeekday([Weekday.SUN, Weekday.THU, Weekday.SUN]);
+  const period = naivedate(2024, 2, 15);
+  assertEquals([...weekdays([period, "month"])].map(([day]) => String(day)), [
+    "2024-02-01", "2024-02-04", "2024-02-08", "2024-02-11", "2024-02-15",
+    "2024-02-18", "2024-02-22", "2024-02-25", "2024-02-29",
+  ]);
+});
+
+Deno.test("Last position ranks unsorted valid dates and retains the final duplicate's unit", () => {
+  const period = naivedate(2024, 2, 1);
+  const last = naivedate(2024, 2, 29);
+  const invalid = NaiveDate.fromYmd1Unchecked(2024, 2, 31);
+  const filter = NaiveDate.Filter.bySetPos(function* () {
+    yield [last, "day"];
+    yield [invalid, "day"];
+    yield [last, "week"];
+    yield [period, "day"];
+  }, [-1]);
+  assertEquals([...filter([period, "month"])], [[last, "week"]]);
 });

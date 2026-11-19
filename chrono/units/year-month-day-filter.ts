@@ -35,6 +35,21 @@ export namespace YearMonthDayFilter {
    */
   export function bySetPos(inner: Filter, positions: readonly number[]): Filter {
     return function* (partialdate: PartialDate.Tuple): Generator<PartialDate.Tuple> {
+      if (positions.length === 1 && positions[0] === -1) {
+        let last: PartialDate.Tuple | undefined;
+        let latestDse = -Infinity;
+        for (const [day, unit] of inner(partialdate)) {
+          const valid = day.toResult().asOk();
+          // Match the map below: a later tuple for the same day supplies its unit.
+          if (valid != null && valid.dse >= latestDse) {
+            latestDse = valid.dse;
+            last = [valid, unit];
+          }
+        }
+        if (last != null) yield last;
+        return;
+      }
+
       const days = new Map<number, PartialDate.Tuple>();
       for (const [day, unit] of inner(partialdate)) {
         const valid = day.toResult().asOk();
@@ -138,13 +153,18 @@ export namespace YearMonthDayFilter {
         }
         break;
       }
-      case "month":
-        // `dom` counts days from 0.
-        for (const day0 of YearMonth.dom(cand)) {
-          const nd = YearMonthDay.fromYmd1Unchecked(cand.yr, cand.mth, day0 + 1);
-          if (dow1[nd.dayOfWeek.dow]) yield [nd, "day"];
+      case "month": {
+        const { yr, mth } = cand;
+        const daysInMonth = YearMonth.daysInMonth(cand);
+        const first = YearMonthDay.fromYmd1Unchecked(yr, mth, 1);
+        const firstDow0 = first.dayOfWeek.dow - 1;
+        for (let day0 = 0; day0 < daysInMonth; day0++) {
+          if (dow1[(firstDow0 + day0) % 7 + 1]) {
+            yield [YearMonthDay.fromYmd1Unchecked(yr, mth, day0 + 1), "day"];
+          }
         }
         break;
+      }
       case "week":
         for (let i = 0; i < 7; ++i) {
           const day = cand.addDays(i);
