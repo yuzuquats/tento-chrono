@@ -1,5 +1,3 @@
-import { GenericRangeLike, range } from "../range.ts";
-
 import { NaiveDate } from "../naive-date.ts";
 import { DateUnit } from "./date-unit.ts";
 import { Month } from "./month.ts";
@@ -105,6 +103,7 @@ export namespace YearMonthDayFilter {
     const isLimit = (f: Filter, i: number): f is MonthLimit => i < last && "straddling" in f;
     const chain = filters.map((f, i) => isLimit(f, i) ? f.straddling : f);
     const keeps = filters.filter(isLimit).map((f) => f.keeps);
+    if (keeps.length === 0) return (partialdate) => _compose(partialdate, chain);
     return function* (
       partialdate: PartialDate.Tuple,
     ): Generator<PartialDate.Tuple> {
@@ -179,10 +178,17 @@ export namespace YearMonthDayFilter {
     switch (unit) {
       case "year": {
         // The calendar year holding `cand` (not a year-long window from it).
-        const jan1 = YearMonthDay.fromYmd1Unchecked(cand.yr, 1, 1).castValid();
-        for (const day of range(Year.length(cand.yr))) {
-          const nd = jan1.addDays(day);
-          if (dow1[nd.dayOfWeek.dow]) yield [nd, "day"];
+        const { yr } = cand;
+        const jan1 = YearMonthDay.fromYmd1Unchecked(yr, 1, 1);
+        let firstDow0 = jan1.dayOfWeek.dow - 1;
+        for (let mth = 1; mth <= 12; mth++) {
+          const daysInMonth = YearMonth.daysInMonth({ yr, mth: mth as Month1 });
+          for (let day0 = 0; day0 < daysInMonth; day0++) {
+            if (dow1[(firstDow0 + day0) % 7 + 1]) {
+              yield [YearMonthDay.fromYmd1Exp(yr, mth, day0 + 1), "day"];
+            }
+          }
+          firstDow0 = (firstDow0 + daysInMonth) % 7;
         }
         break;
       }
@@ -224,9 +230,13 @@ export namespace YearMonthDayFilter {
 
   export function byMonthOfYear(months: Month[]): MonthLimit {
     const mths = new Set(months.map((mth) => mth.mth1));
-    const filter = (partialdate: PartialDate.Tuple) => _byMonthOfYear(partialdate, mths, false);
+    const ordered: Month1[] = [];
+    for (let month = 1; month <= 12; month++) {
+      if (mths.has(month as Month1)) ordered.push(month as Month1);
+    }
+    const filter = (partialdate: PartialDate.Tuple) => _byMonthOfYear(partialdate, mths, ordered, false);
     return Object.assign(filter, {
-      straddling: (partialdate: PartialDate.Tuple) => _byMonthOfYear(partialdate, mths, true),
+      straddling: (partialdate: PartialDate.Tuple) => _byMonthOfYear(partialdate, mths, ordered, true),
       keeps: (date: YearMonthDay.MaybeValid) => mths.has(date.mth),
     });
   }
@@ -234,6 +244,7 @@ export namespace YearMonthDayFilter {
   function* _byMonthOfYear(
     [partialdate, unit]: PartialDate.Tuple,
     mths: Set<Month1>,
+    ordered: readonly Month1[],
     straddling: boolean,
   ): Generator<PartialDate.Tuple> {
     switch (unit) {
@@ -243,9 +254,7 @@ export namespace YearMonthDayFilter {
           1,
           partialdate.day,
         );
-        for (const mth of start.succ(DateUnit.months(1), 12)) {
-          if (mths.has(mth.mth)) yield [mth, "month"];
-        }
+        for (const month of ordered) yield [start.addMonths(month - 1), "month"];
         break;
       }
       case "month":
@@ -276,16 +285,22 @@ export namespace YearMonthDayFilter {
     const domsNeg = dayOfMonths.filter((doy) => doy < 0);
     domsNeg.sort((a, b) => b - a);
 
-    // todo: memo this
+    // The resolved list depends only on month length.
+    const byLength = new Map<number, DayOfMonth1[]>();
     // The month's days the values name, each once, in order (a negative
     // and a positive value can name the same day: -2 and 30 in a 31-day month).
     const makeDoms = (ym1: Ym1Like): DayOfMonth1[] => {
       const monthLen = YearMonth.daysInMonth(ym1);
-      const doms = new Set([
-        ...domsPos,
-        ...domsNeg.map((dom) => monthLen + dom + 1),
-      ]);
-      return [...doms].sort((a, b) => a - b) as DayOfMonth1[];
+      let resolved = byLength.get(monthLen);
+      if (resolved == null) {
+        const doms = new Set([
+          ...domsPos,
+          ...domsNeg.map((dom) => monthLen + dom + 1),
+        ]);
+        resolved = [...doms].sort((a, b) => a - b) as DayOfMonth1[];
+        byLength.set(monthLen, resolved);
+      }
+      return resolved;
     };
     return (partialdate: PartialDate.Tuple) =>
       _byDayOfMonth(partialdate, makeDoms);
@@ -353,8 +368,9 @@ export namespace YearMonthDayFilter {
     if (unit !== "week") {
       const yr = cand.yr;
       const doys = Year.isLeapYear(yr) ? doys366 : doys365;
+      const jan1 = YearMonthDay.fromYmd1Exp(yr, 1, 1);
       for (const doy of doys) {
-        const date = YearMonthDay.fromYmd1Exp(yr, 1, 1).addDays(doy - 1);
+        const date = jan1.addDays(doy - 1);
         switch (unit) {
           case "year":
             if (date.yr === cand.yr) yield [date, "day"];
@@ -385,20 +401,15 @@ export namespace YearMonthDayFilter {
       yearsToCheck.push(cand.yr - 1);
     }
 
-    const uniqueYears = [...new Set(yearsToCheck)];
-    for (const yr of uniqueYears) {
+    const first = weekStart.dse;
+    const last = weekEnd.dse;
+    for (const yr of new Set(yearsToCheck)) {
       const doys = Year.isLeapYear(yr) ? doys366 : doys365;
-
+      const jan1 = YearMonthDay.fromYmd1Exp(yr, 1, 1);
+      const yearStart = jan1.dse;
       for (const doy of doys) {
-        const date = YearMonthDay.fromYmd1Exp(yr, 1, 1).addDays(doy - 1);
-        const candWeekStart = cand.toStartOfWeekMon();
-        const candWeekEnd = candWeekStart.addDays(6);
-        const dateInRange =
-          date.dse >= candWeekStart.dse && date.dse <= candWeekEnd.dse;
-
-        if (dateInRange) {
-          yield [date, "day"];
-        }
+        const dse = yearStart + doy - 1;
+        if (dse >= first && dse <= last) yield [jan1.addDays(doy - 1), "day"];
       }
     }
   }
@@ -434,7 +445,6 @@ export namespace YearMonthDayFilter {
     weekno1: WeekOfYear1,
     useCalendarYear: boolean = false,
   ): Generator<PartialDate.Tuple> {
-    const weeknoCache = new Set<string>();
     let bounds: NaiveDate.Range;
     
     switch (unit) {
@@ -464,94 +474,72 @@ export namespace YearMonthDayFilter {
       }
     }
 
-    if (useCalendarYear) {
-      // Calendar year mode
-      const targetYear = cand.yr;
+    if (!useCalendarYear) {
+      yield* isoWeekDates(cand.yr, bounds, weekno1);
+      return;
+    }
 
-      if (weekno1 < 0) {
-        // For negative week numbers, use ISO week numbering
-        const numWeeks = Year.numWeeks(targetYear);
-        const positiveWeekNo = numWeeks + weekno1 + 1;
-        
-        if (positiveWeekNo > 0 && positiveWeekNo <= numWeeks) {
-          const isoWeek1Monday = Year.isoWeekMon(targetYear, 1 as WeekOfYear1);
-          const targetMonday = isoWeek1Monday.addDays((positiveWeekNo - 1) * 7);
-          
-          for (let i = 0; i < 7; ++i) {
-            const d = targetMonday.addDays(i);
-            if (!bounds.contains(d)) continue;
-            
-            const cacheKey = `${targetYear}_${d.toString()}`;
-            if (!weeknoCache.has(cacheKey)) {
-              weeknoCache.add(cacheKey);
-              yield [d, "day"];
-            }
-          }
-        }
-      } else {
-        // Positive weekno in calendar year mode - use regular ISO week logic
-        const yearsToCheck = [targetYear - 1, targetYear, targetYear + 1];
+    const seen = new Set<string>();
+    if (weekno1 < 0) {
+      const monday = weekFromEnd(cand.yr, weekno1);
+      if (monday != null) yield* clippedWeek(monday, 0, bounds, seen);
+      return;
+    }
 
-        for (const year of yearsToCheck) {
-          const jan4 = YearMonthDay.fromYmd1Exp(year, 1, 4);
-          let week1Monday = jan4;
-          while (week1Monday.dayOfWeek.dow !== 2) {
-            week1Monday = week1Monday.addDays(-1);
-          }
+    for (const year of [cand.yr - 1, cand.yr, cand.yr + 1]) {
+      const week1 = Year.isoWeekMon(year, 1 as WeekOfYear1);
+      const offset = (weekno1 - 1) * 7;
+      if (Number.isSafeInteger(offset)) yield* clippedWeek(week1, offset, bounds, seen);
+      else yield* clippedWeek(week1.addDays(offset), 0, bounds, seen);
+    }
+  }
 
-          const targetMonday = week1Monday.addDays((weekno1 - 1) * 7);
+  function weekFromEnd(year: number, weekno1: WeekOfYear1): YearMonthDay | undefined {
+    const weeks = Year.numWeeks(year);
+    const ordinal = weeks + weekno1 + 1;
+    if (ordinal > 0 && ordinal <= weeks) {
+      return Year.isoWeekMon(year, 1 as WeekOfYear1).addDays((ordinal - 1) * 7);
+    }
+  }
 
-          for (let i = 0; i < 7; ++i) {
-            const d = targetMonday.addDays(i);
-            if (!bounds.contains(d)) continue;
-            
-            const cacheKey = `${targetYear}_${d.toString()}`;
-            if (!weeknoCache.has(cacheKey)) {
-              weeknoCache.add(cacheKey);
-              yield [d, "day"];
-            }
-          }
-        }
-      }
-    } else {
-      // ISO week mode (default behavior)
-      const yearsToCheck = [
-        Year.isoWeekMon(cand.yr - 1, 1 as WeekOfYear1),
-        Year.isoWeekMon(cand.yr, 1 as WeekOfYear1),
-        Year.isoWeekMon(cand.yr + 1, 1 as WeekOfYear1),
-      ].filter((year) => {
-        const numWeeks = Year.numWeeks(year.isoYw1.yr);
-        return weekno1 > 0
-          ? numWeeks >= weekno1
-          : Math.abs(weekno1) <= numWeeks;
-      });
+  function* isoWeekDates(
+    year: number,
+    bounds: NaiveDate.Range,
+    weekno1: WeekOfYear1,
+  ): Generator<PartialDate.Tuple> {
+    const seen = new Set<string>();
+    for (const yr of [year - 1, year, year + 1]) {
+      const week1 = Year.isoWeekMon(yr, 1 as WeekOfYear1);
+      const weeks = Year.numWeeks(week1.isoYw1.yr);
+      if (!(Math.abs(weekno1) <= weeks)) continue;
+      const ordinal = weekno1 > 0 ? weekno1 : weeks + weekno1 + 1;
+      yield* clippedWeek(week1, (ordinal - 1) * 7, bounds, seen);
+    }
+  }
 
-      const seenDates = new Set<string>();
-      for (const year of yearsToCheck) {
-        for (let i = 0; i < 7; ++i) {
-          if (weekno1 > 0) {
-            const d = year.addDays((weekno1 - 1) * 7 + i);
-            if (!bounds.contains(d)) continue;
-            const dateKey = d.toString();
-            if (!seenDates.has(dateKey)) {
-              seenDates.add(dateKey);
-              yield [d, "day"];
-            }
-          } else {
-            // For negative week numbers, calculate from the end of the year
-            const isoYear = year.isoYw1.yr;
-            const numWeeks = Year.numWeeks(isoYear);
-            const targetWeekFromStart = numWeeks + weekno1 + 1; // Convert negative to positive
-            const d = year.addDays((targetWeekFromStart - 1) * 7 + i);
-            if (!bounds.contains(d)) continue;
-            const dateKey = d.toString();
-            if (!seenDates.has(dateKey)) {
-              seenDates.add(dateKey);
-              yield [d, "day"];
-            }
-          }
-        }
-      }
+  function* clippedWeek(
+    anchor: YearMonthDay,
+    offset: number,
+    bounds: NaiveDate.Range,
+    seen: Set<string>,
+    onlyYear?: number,
+  ): Generator<PartialDate.Tuple> {
+    const start = anchor.dse + offset;
+    const first = bounds.start.dse;
+    const end = bounds.end.dse;
+    // Clip integral offsets before constructing dates. Fractional offsets
+    // retain the calendar conversion and validation of addDays.
+    const integral = Number.isSafeInteger(start) && Number.isSafeInteger(offset);
+    for (let i = 0; i < 7; i++) {
+      const dse = start + i;
+      if (integral && !(dse >= first && dse < end)) continue;
+      const day = anchor.addDays(offset + i);
+      if (!integral && !bounds.contains(day)) continue;
+      if (onlyYear != null && day.yr !== onlyYear) continue;
+      const key = day.toString();
+      if (seen.has(key)) continue;
+      seen.add(key);
+      yield [day, "day"];
     }
   }
 
@@ -622,9 +610,8 @@ export namespace YearMonthDayFilter {
           const end = YearMonthDay.fromYmd1Exp(cand.yr, cand.mth, wrap);
           const days = Weekday.nthForYear(dayOfWeeks, start, end, wrap);
 
-          const ndowDays = days.map((days) => start.add({ days }));
-          for (const ndow of ndowDays) {
-            if (ndow.cmpInvalid(cand) === 0) yield [ndow, "day"];
+          for (const day0 of days) {
+            if (day0 + 1 === cand.day) yield [start.addDays(day0), "day"];
           }
         }
         break;
@@ -636,7 +623,6 @@ export namespace YearMonthDayFilter {
     weekno1: WeekOfYear1,
     useCalendarYear: boolean = false,
   ): Generator<PartialDate.Tuple> {
-    const weeknoCache = new Set<string>();
     let bounds: NaiveDate.Range;
     
     // Google Calendar behavior: BYWEEKNO with monthly frequency spans entire year
@@ -667,107 +653,22 @@ export namespace YearMonthDayFilter {
       }
     }
 
-    if (useCalendarYear) {
-      const targetYear = cand.yr;
+    if (!useCalendarYear) {
+      yield* isoWeekDates(cand.yr, bounds, weekno1);
+      return;
+    }
 
-      if (weekno1 < 0) {
-        // For negative week numbers, Google Calendar uses ISO week numbering
-        const numWeeks = Year.numWeeks(targetYear);
-        const positiveWeekNo = numWeeks + weekno1 + 1;
-        
-        if (positiveWeekNo > 0 && positiveWeekNo <= numWeeks) {
-          const isoWeek1Monday = Year.isoWeekMon(targetYear, 1 as WeekOfYear1);
-          const targetMonday = isoWeek1Monday.addDays((positiveWeekNo - 1) * 7);
-          
-          for (let i = 0; i < 7; ++i) {
-            const d = targetMonday.addDays(i);
-            // For Google Calendar behavior, only yield dates that are in the target year
-            // This prevents cross-year date generation that interferes with yearly generator
-            if (d.yr !== targetYear) {
-              continue;
-            }
-            if (!bounds.contains(d)) continue;
-            
-            const cacheKey = `${targetYear}_${d.toString()}`;
-            if (!weeknoCache.has(cacheKey)) {
-              weeknoCache.add(cacheKey);
-              yield [d, "day"];
-            }
-          }
-        }
-      } else {
-        // Google Calendar logic: week 1 is the first week containing January 4th (ISO week 1)
-        const jan4 = YearMonthDay.fromYmd1Exp(targetYear, 1, 4);
+    const seen = new Set<string>();
+    if (weekno1 < 0) {
+      const monday = weekFromEnd(cand.yr, weekno1);
+      if (monday != null) yield* clippedWeek(monday, 0, bounds, seen, cand.yr);
+      return;
+    }
 
-        // Find the Monday of the week containing January 4th
-        let week1Monday = jan4;
-        while (week1Monday.dayOfWeek.dow !== 2) {
-          week1Monday = week1Monday.addDays(-1);
-        }
-
-        const targetMonday = week1Monday.addDays((weekno1 - 1) * 7);
-
-        // For yearly frequency, yield all days of the week regardless of year boundary
-        // For other frequencies, only yield if Monday is in the target year
-        const shouldYieldWeek = unit === "year" || targetMonday.yr === targetYear;
-        
-        if (shouldYieldWeek) {
-          for (let i = 0; i < 7; ++i) {
-            const d = targetMonday.addDays(i);
-            // For Google Calendar behavior, only yield dates that are in the target year
-            // This prevents cross-year date generation that interferes with yearly generator
-            if (d.yr !== targetYear) {
-              continue;
-            }
-            if (!bounds.contains(d)) continue;
-            
-            const cacheKey = `${targetYear}_${d.toString()}`;
-            if (!weeknoCache.has(cacheKey)) {
-              weeknoCache.add(cacheKey);
-              yield [d, "day"];
-            }
-          }
-        }
-      }
-    } else {
-      // ISO week mode (default behavior)
-      const yearsToCheck = [
-        Year.isoWeekMon(cand.yr - 1, 1 as WeekOfYear1),
-        Year.isoWeekMon(cand.yr, 1 as WeekOfYear1),
-        Year.isoWeekMon(cand.yr + 1, 1 as WeekOfYear1),
-      ].filter((year) => {
-        const numWeeks = Year.numWeeks(year.isoYw1.yr);
-        return weekno1 > 0
-          ? numWeeks >= weekno1
-          : Math.abs(weekno1) <= numWeeks;
-      });
-
-      const seenDates = new Set<string>();
-      for (const year of yearsToCheck) {
-        for (let i = 0; i < 7; ++i) {
-          if (weekno1 > 0) {
-            const d = year.addDays((weekno1 - 1) * 7 + i);
-            if (!bounds.contains(d)) continue;
-            const dateKey = d.toString();
-            if (!seenDates.has(dateKey)) {
-              seenDates.add(dateKey);
-              yield [d, "day"];
-            }
-          } else {
-            // For negative week numbers, calculate from the end of the year
-            const isoYear = year.isoYw1.yr;
-            const numWeeks = Year.numWeeks(isoYear);
-            const targetWeekFromStart = numWeeks + weekno1 + 1;
-            const d = year.addDays((targetWeekFromStart - 1) * 7 + i);
-            if (!bounds.contains(d)) continue;
-            const dateKey = d.toString();
-            if (!seenDates.has(dateKey)) {
-              seenDates.add(dateKey);
-              yield [d, "day"];
-            }
-          }
-        }
-      }
+    const week1 = Year.isoWeekMon(cand.yr, 1 as WeekOfYear1);
+    const monday = week1.addDays((weekno1 - 1) * 7);
+    if (unit === "year" || monday.yr === cand.yr) {
+      yield* clippedWeek(monday, 0, bounds, seen, cand.yr);
     }
   }
 }

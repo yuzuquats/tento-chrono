@@ -20,7 +20,7 @@ The runner uses the pinned `deno.lock`, alternates baseline and current
 timing order over three rounds, and writes `summary.json` with per-run
 timings, median memory readings, and CPU and allocation sites. It captures
 timings, GC traces, and `.cpuprofile` and `.heapprofile` files. To isolate
-a run, pass `--suite timing`, `--suite memory`, or `--suite profiles`.
+a run, pass `--suite timing`, `--suite memory`, `--suite profiles`, or `--suite filters`.
 Use `--rounds 1` for a quick pass or `--cpu 8` for CPU affinity on Linux.
 Pass `--deno /path/to/deno` if Deno is outside PATH.
 
@@ -48,3 +48,16 @@ deno run --lock=bench/deno.lock --frozen --allow-env=CHRONO_YEARS \
   --v8-flags=--expose-gc,--trace-gc-nvp bench/recurrence_memory.ts \
   last-friday chrono normalized > chrono-gc.log 2> chrono-phases.jsonl
 ```
+
+## Compare individual filters
+
+From this directory, use the filter revision before the full filter pass.
+
+```sh
+python3 run.py /tmp/chrono-filter-pass --suite filters --baseline 99f8295
+```
+
+This compares ordered outputs for a mix of day, week, month, and year
+inputs before timing. Each benchmark calls the prebuilt filter directly.
+The suite records fingerprints by filter and input unit and writes the
+timing summary to `summary.json`.

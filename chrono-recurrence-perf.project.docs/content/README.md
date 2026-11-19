@@ -32,3 +32,8 @@ The follow-up uses bounded ranking for a single position one or two dates
 from either end. Its benchmarks use `a115343` as the baseline. The new
 timing, allocation and candidate-order checks are in the
 [follow-up results](../../bench/RESULTS.md#first-and-second-positions-from-either-end-november-19-follow-up).
+
+The full filter pass compares every public date filter and its important
+variants through the dedicated filter suite. The
+[results and replay command](../../bench/RESULTS.md#pass-over-all-date-filters)
+record the measured workloads, compatibility checks, and implementation changes.

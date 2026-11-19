@@ -116,7 +116,7 @@ def cpu_sites(profile_path):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("output", type=Path, help="new directory for captures and summary.json")
-    parser.add_argument("--suite", choices=("all", "timing", "memory", "profiles"), default="all")
+    parser.add_argument("--suite", choices=("all", "timing", "memory", "profiles", "filters"), default="all")
     parser.add_argument("--rounds", type=int, default=3)
     parser.add_argument("--baseline", default=ARTICLE_BASELINE, help="Git revision containing the baseline filter")
     parser.add_argument("--deno", default="deno", help="Deno executable")
@@ -167,6 +167,30 @@ def main():
         capture(
             ["bench", *common, "bench/recurrence_bench.ts"], output / "article-dates.txt", years="1",
         )
+
+    if args.suite in ("all", "filters"):
+        fingerprints = {}
+        for variant in ("before", "after"):
+            path = output / f"filters-{variant}-fingerprints.json"
+            flags = [original] if variant == "before" else []
+            capture(["run", "--quiet", *common, *flags, "bench/filter_pass.ts"], path)
+            fingerprints[variant] = json.loads(path.read_text())
+        if fingerprints["before"] != fingerprints["after"]:
+            raise ValueError("Filter outputs differ. Compare the fingerprint captures.")
+
+        timings = defaultdict(list)
+        for round_number in range(1, args.rounds + 1):
+            for variant in variants(round_number):
+                path = output / f"filters-{variant}-{round_number}.json"
+                flags = [original] if variant == "before" else []
+                capture(["bench", *common, *flags, "--json", "bench/filter_pass.ts"], path)
+                for bench in json.loads(path.read_text())["benches"]:
+                    timings[bench["name"], variant].append(bench["results"][0]["ok"]["avg"])
+        report["filters"] = [
+            {"filter": name, "variant": variant, "meanNanosecondsByRun": runs,
+             "medianNanoseconds": median(runs)}
+            for (name, variant), runs in sorted(timings.items())
+        ]
 
     if args.suite in ("all", "memory"):
         memory = defaultdict(list)

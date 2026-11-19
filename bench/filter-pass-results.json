@@ -1,0 +1,1036 @@
+{
+  "revision": "99f82959d48a70d2d0d93a7932ce2884560a528a",
+  "baselineFilterRevision": "99f82959d48a70d2d0d93a7932ce2884560a528a",
+  "deno": [
+    "deno 2.9.8 (stable, release, x86_64-unknown-linux-gnu)",
+    "v8 15.0.245.2-rusty",
+    "typescript 6.0.3"
+  ],
+  "platform": "Linux-6.8.0-149-generic-x86_64-with-glibc2.39",
+  "logicalCpu": 8,
+  "rounds": 3,
+  "filters": [
+    {
+      "filter": "byDayOfMonth",
+      "variant": "after",
+      "meanNanosecondsByRun": [
+        508458.0,
+        451277.0,
+        523968.0
+      ],
+      "medianNanoseconds": 508458.0
+    },
+    {
+      "filter": "byDayOfMonth",
+      "variant": "before",
+      "meanNanosecondsByRun": [
+        774047.0,
+        849040.0,
+        882059.0
+      ],
+      "medianNanoseconds": 849040.0
+    },
+    {
+      "filter": "byDayOfYear",
+      "variant": "after",
+      "meanNanosecondsByRun": [
+        203258.0,
+        200185.0,
+        218271.0
+      ],
+      "medianNanoseconds": 203258.0
+    },
+    {
+      "filter": "byDayOfYear",
+      "variant": "before",
+      "meanNanosecondsByRun": [
+        500795.0,
+        497624.0,
+        475233.0
+      ],
+      "medianNanoseconds": 497624.0
+    },
+    {
+      "filter": "byMonthOfYear",
+      "variant": "after",
+      "meanNanosecondsByRun": [
+        70570.0,
+        66680.0,
+        77322.0
+      ],
+      "medianNanoseconds": 70570.0
+    },
+    {
+      "filter": "byMonthOfYear",
+      "variant": "before",
+      "meanNanosecondsByRun": [
+        109733.0,
+        125021.0,
+        128087.0
+      ],
+      "medianNanoseconds": 125021.0
+    },
+    {
+      "filter": "byNthWeekday",
+      "variant": "after",
+      "meanNanosecondsByRun": [
+        236384.0,
+        240028.0,
+        257234.0
+      ],
+      "medianNanoseconds": 240028.0
+    },
+    {
+      "filter": "byNthWeekday",
+      "variant": "before",
+      "meanNanosecondsByRun": [
+        214614.0,
+        241235.0,
+        230591.0
+      ],
+      "medianNanoseconds": 230591.0
+    },
+    {
+      "filter": "byNthWeekday/strict",
+      "variant": "after",
+      "meanNanosecondsByRun": [
+        253675.0,
+        256533.0,
+        261516.0
+      ],
+      "medianNanoseconds": 256533.0
+    },
+    {
+      "filter": "byNthWeekday/strict",
+      "variant": "before",
+      "meanNanosecondsByRun": [
+        246488.0,
+        280285.0,
+        269619.0
+      ],
+      "medianNanoseconds": 269619.0
+    },
+    {
+      "filter": "bySetPos",
+      "variant": "after",
+      "meanNanosecondsByRun": [
+        5420352.0,
+        5700928.0,
+        5616100.0
+      ],
+      "medianNanoseconds": 5616100.0
+    },
+    {
+      "filter": "bySetPos",
+      "variant": "before",
+      "meanNanosecondsByRun": [
+        24361833.0,
+        15330637.0,
+        14691417.0
+      ],
+      "medianNanoseconds": 15330637.0
+    },
+    {
+      "filter": "byWeekNo",
+      "variant": "after",
+      "meanNanosecondsByRun": [
+        8113131.0,
+        7944287.0,
+        8163299.0
+      ],
+      "medianNanoseconds": 8113131.0
+    },
+    {
+      "filter": "byWeekNo",
+      "variant": "before",
+      "meanNanosecondsByRun": [
+        13113650.0,
+        14050681.0,
+        13263362.0
+      ],
+      "medianNanoseconds": 13263362.0
+    },
+    {
+      "filter": "byWeekNo/calendar-year",
+      "variant": "after",
+      "meanNanosecondsByRun": [
+        3681415.0,
+        3596451.0,
+        3651278.0
+      ],
+      "medianNanoseconds": 3651278.0
+    },
+    {
+      "filter": "byWeekNo/calendar-year",
+      "variant": "before",
+      "meanNanosecondsByRun": [
+        6905950.0,
+        7131955.0,
+        7130823.0
+      ],
+      "medianNanoseconds": 7130823.0
+    },
+    {
+      "filter": "byWeekNoGoogle",
+      "variant": "after",
+      "meanNanosecondsByRun": [
+        8478638.0,
+        7981423.0,
+        8229499.0
+      ],
+      "medianNanoseconds": 8229499.0
+    },
+    {
+      "filter": "byWeekNoGoogle",
+      "variant": "before",
+      "meanNanosecondsByRun": [
+        13285034.0,
+        14603720.0,
+        13848950.0
+      ],
+      "medianNanoseconds": 13848950.0
+    },
+    {
+      "filter": "byWeekNoGoogle/calendar-year",
+      "variant": "after",
+      "meanNanosecondsByRun": [
+        2955343.0,
+        2883971.0,
+        2933697.0
+      ],
+      "medianNanoseconds": 2933697.0
+    },
+    {
+      "filter": "byWeekNoGoogle/calendar-year",
+      "variant": "before",
+      "meanNanosecondsByRun": [
+        4019208.0,
+        4301507.0,
+        4247234.0
+      ],
+      "medianNanoseconds": 4247234.0
+    },
+    {
+      "filter": "byWeekday",
+      "variant": "after",
+      "meanNanosecondsByRun": [
+        557909.0,
+        536992.0,
+        569094.0
+      ],
+      "medianNanoseconds": 557909.0
+    },
+    {
+      "filter": "byWeekday",
+      "variant": "before",
+      "meanNanosecondsByRun": [
+        3584830.0,
+        3682796.0,
+        3649817.0
+      ],
+      "medianNanoseconds": 3649817.0
+    },
+    {
+      "filter": "compose",
+      "variant": "after",
+      "meanNanosecondsByRun": [
+        843760.0,
+        821272.0,
+        834548.0
+      ],
+      "medianNanoseconds": 834548.0
+    },
+    {
+      "filter": "compose",
+      "variant": "before",
+      "meanNanosecondsByRun": [
+        930573.0,
+        895611.0,
+        876175.0
+      ],
+      "medianNanoseconds": 895611.0
+    },
+    {
+      "filter": "compose/without-month-limit",
+      "variant": "after",
+      "meanNanosecondsByRun": [
+        66084.0,
+        68778.0,
+        62814.0
+      ],
+      "medianNanoseconds": 66084.0
+    },
+    {
+      "filter": "compose/without-month-limit",
+      "variant": "before",
+      "meanNanosecondsByRun": [
+        121732.0,
+        83155.0,
+        83100.0
+      ],
+      "medianNanoseconds": 83155.0
+    },
+    {
+      "filter": "identity",
+      "variant": "after",
+      "meanNanosecondsByRun": [
+        9672.0,
+        10428.0,
+        10805.0
+      ],
+      "medianNanoseconds": 10428.0
+    },
+    {
+      "filter": "identity",
+      "variant": "before",
+      "meanNanosecondsByRun": [
+        23895.0,
+        10999.0,
+        10160.0
+      ],
+      "medianNanoseconds": 10999.0
+    }
+  ],
+  "filterFingerprints": [
+    {
+      "name": "identity",
+      "unit": "day",
+      "emitted": 91,
+      "sha256": "dfca1513cd09f436f3d1e954abc4c2e1816254e40958eb5132c94e7086481613"
+    },
+    {
+      "name": "identity",
+      "unit": "week",
+      "emitted": 91,
+      "sha256": "dfca1513cd09f436f3d1e954abc4c2e1816254e40958eb5132c94e7086481613"
+    },
+    {
+      "name": "identity",
+      "unit": "month",
+      "emitted": 91,
+      "sha256": "dfca1513cd09f436f3d1e954abc4c2e1816254e40958eb5132c94e7086481613"
+    },
+    {
+      "name": "identity",
+      "unit": "year",
+      "emitted": 91,
+      "sha256": "dfca1513cd09f436f3d1e954abc4c2e1816254e40958eb5132c94e7086481613"
+    },
+    {
+      "name": "compose",
+      "unit": "day",
+      "emitted": 18,
+      "sha256": "1288f5afda8933183acfcfc7b07cf068c8c4ba8b39a17a6dd8e3468cddb63dab"
+    },
+    {
+      "name": "compose",
+      "unit": "week",
+      "emitted": 108,
+      "sha256": "0b710a37a1185cc9885ba8502fe0e77930f504dd7464461f839cea77f24fec8b"
+    },
+    {
+      "name": "compose",
+      "unit": "month",
+      "emitted": 566,
+      "sha256": "b134058069e99c1bff63d6d1c4487eb29d2573e788bd1210f5b3f08f19b66a43"
+    },
+    {
+      "name": "compose",
+      "unit": "year",
+      "emitted": 2345,
+      "sha256": "c47c9688b15679820a4a7572791116ca19725704ce4f287d3a93b901baef8404"
+    },
+    {
+      "name": "compose/without-month-limit",
+      "unit": "day",
+      "emitted": 91,
+      "sha256": "dfca1513cd09f436f3d1e954abc4c2e1816254e40958eb5132c94e7086481613"
+    },
+    {
+      "name": "compose/without-month-limit",
+      "unit": "week",
+      "emitted": 91,
+      "sha256": "dfca1513cd09f436f3d1e954abc4c2e1816254e40958eb5132c94e7086481613"
+    },
+    {
+      "name": "compose/without-month-limit",
+      "unit": "month",
+      "emitted": 91,
+      "sha256": "dfca1513cd09f436f3d1e954abc4c2e1816254e40958eb5132c94e7086481613"
+    },
+    {
+      "name": "compose/without-month-limit",
+      "unit": "year",
+      "emitted": 91,
+      "sha256": "dfca1513cd09f436f3d1e954abc4c2e1816254e40958eb5132c94e7086481613"
+    },
+    {
+      "name": "bySetPos",
+      "unit": "day",
+      "emitted": 26,
+      "sha256": "3ac0c929556ed36322a5be769be82cc33530a03a4855f0a07b3a2ad4cf06e6d5"
+    },
+    {
+      "name": "bySetPos",
+      "unit": "week",
+      "emitted": 364,
+      "sha256": "e29912936d8a0630f59dd530d2866c52fbf2762785b1b84bc6715f9cd72ee6d1"
+    },
+    {
+      "name": "bySetPos",
+      "unit": "month",
+      "emitted": 523,
+      "sha256": "54e56c17a45d11132c016a6f790e1d08e21819533e22bfdb27dac46809cb0c92"
+    },
+    {
+      "name": "bySetPos",
+      "unit": "year",
+      "emitted": 546,
+      "sha256": "29cfd11236d9eb7c12fcf4f8cd35b08fd8d63c7c0fcadebfa4874e1e045da6c6"
+    },
+    {
+      "name": "byWeekday",
+      "unit": "day",
+      "emitted": 26,
+      "sha256": "5d301e8a379bf7ae5146e648c8bc16587cef1ad55254299935b31efc4e6916c6"
+    },
+    {
+      "name": "byWeekday",
+      "unit": "week",
+      "emitted": 182,
+      "sha256": "56cb3cda267bc5c7de1769f8ad829bafa1d30f0193896c0261de561c648a3d36"
+    },
+    {
+      "name": "byWeekday",
+      "unit": "month",
+      "emitted": 796,
+      "sha256": "16ad5973e555d61dce2526d50dbb4c3286850d3dbd495a0633b1bf51ed568761"
+    },
+    {
+      "name": "byWeekday",
+      "unit": "year",
+      "emitted": 9499,
+      "sha256": "83cd8c139053ef020f61a3b7252068ce9f500fcbe99e2b2b27cfe51182925013"
+    },
+    {
+      "name": "byMonthOfYear",
+      "unit": "day",
+      "emitted": 130,
+      "sha256": "9a94c453f6faaf30540703e113a88af659c99b440134cbf581c173867a7089d1"
+    },
+    {
+      "name": "byMonthOfYear",
+      "unit": "week",
+      "emitted": 130,
+      "sha256": "82e7cb4941b0a87cd345de14198149bc44543dde6a36916358df51e82f40238d"
+    },
+    {
+      "name": "byMonthOfYear",
+      "unit": "month",
+      "emitted": 130,
+      "sha256": "5ae12ab2f977c4d6655d806cdba2413164885c56eca99c94ecf304acf3b66c03"
+    },
+    {
+      "name": "byMonthOfYear",
+      "unit": "year",
+      "emitted": 546,
+      "sha256": "7351c5389bbbc7ea4c954145a25211887461f52f18a17e2f563c1a1bd5ad1fcf"
+    },
+    {
+      "name": "byDayOfMonth",
+      "unit": "day",
+      "emitted": 78,
+      "sha256": "85781ae3afb6d8a236d1e7b3220a4ecb5f16016159e2bd55aab4ed048018d17a"
+    },
+    {
+      "name": "byDayOfMonth",
+      "unit": "week",
+      "emitted": 161,
+      "sha256": "cbe657cfa98c0be89c081d29b70d2a5d4bfcc3efe14262605c0d657c709c74d8"
+    },
+    {
+      "name": "byDayOfMonth",
+      "unit": "month",
+      "emitted": 658,
+      "sha256": "8de13e41aad8f7e47fdbc82f7f6c6bb8898737ce9b1948b9ba7833328f5f687c"
+    },
+    {
+      "name": "byDayOfMonth",
+      "unit": "year",
+      "emitted": 7791,
+      "sha256": "a6950945f323e9f49a3c9473efbcb1a68de0d97feff6d2ae999c6d10ce158c31"
+    },
+    {
+      "name": "byDayOfYear",
+      "unit": "day",
+      "emitted": 47,
+      "sha256": "36a10ff4e2250cfcfd902d0ab863fae87f9f5f83514a8baab33316dc1e2e079a"
+    },
+    {
+      "name": "byDayOfYear",
+      "unit": "week",
+      "emitted": 149,
+      "sha256": "ec3ca4925ddafe9df5d5c54426f78c475167eb014a316c2ffb11b7b26ac4f2d2"
+    },
+    {
+      "name": "byDayOfYear",
+      "unit": "month",
+      "emitted": 145,
+      "sha256": "b81c205ffdd9b57734db2c27658e450ef940068361ff135a6464307def81b8ed"
+    },
+    {
+      "name": "byDayOfYear",
+      "unit": "year",
+      "emitted": 672,
+      "sha256": "555e0b3fb8a720cfc5a16c53803a89f86b3b3c57b7c5db762222dcd067eaf2ce"
+    },
+    {
+      "name": "byWeekNo",
+      "unit": "day",
+      "emitted": 90,
+      "sha256": "7d79112a70f6e6e3363f51af7b2fd80b947c7f7db70502fa5219e978c2886b2d"
+    },
+    {
+      "name": "byWeekNo",
+      "unit": "week",
+      "emitted": 439,
+      "sha256": "07e777b24812e70a5517f5dd47f467779f2e338ad061643d1c48a1b133746a03"
+    },
+    {
+      "name": "byWeekNo",
+      "unit": "month",
+      "emitted": 889,
+      "sha256": "6f15b43d4d6981d0d1b63d7565951d676ccee854d0d77d49c0b1a28fe73120d0"
+    },
+    {
+      "name": "byWeekNo",
+      "unit": "year",
+      "emitted": 3430,
+      "sha256": "4dd5369c0e1699e6dce1f18b94947711756fddc24a36b6987fa186f8419c8a8d"
+    },
+    {
+      "name": "byWeekNo/calendar-year",
+      "unit": "day",
+      "emitted": 104,
+      "sha256": "70359d5d25b3a52c3ce1cfc2918866a743895e1d995ddf7e19fe7c8690cba24c"
+    },
+    {
+      "name": "byWeekNo/calendar-year",
+      "unit": "week",
+      "emitted": 590,
+      "sha256": "eeecd26e964633289a9b5599f95e8a8da10887d97398a0b6c1e733e073067d06"
+    },
+    {
+      "name": "byWeekNo/calendar-year",
+      "unit": "month",
+      "emitted": 999,
+      "sha256": "b31449cbc3b3679d397122acc83c6e30cf35aee4f16d2c7ccf395c5483b2095f"
+    },
+    {
+      "name": "byWeekNo/calendar-year",
+      "unit": "year",
+      "emitted": 3815,
+      "sha256": "c91827bd103062238636508d211fca5bcdf26d03b4a992387d057b063ed8cfc6"
+    },
+    {
+      "name": "byWeekNoGoogle",
+      "unit": "day",
+      "emitted": 90,
+      "sha256": "7d79112a70f6e6e3363f51af7b2fd80b947c7f7db70502fa5219e978c2886b2d"
+    },
+    {
+      "name": "byWeekNoGoogle",
+      "unit": "week",
+      "emitted": 439,
+      "sha256": "07e777b24812e70a5517f5dd47f467779f2e338ad061643d1c48a1b133746a03"
+    },
+    {
+      "name": "byWeekNoGoogle",
+      "unit": "month",
+      "emitted": 3430,
+      "sha256": "4dd5369c0e1699e6dce1f18b94947711756fddc24a36b6987fa186f8419c8a8d"
+    },
+    {
+      "name": "byWeekNoGoogle",
+      "unit": "year",
+      "emitted": 3430,
+      "sha256": "4dd5369c0e1699e6dce1f18b94947711756fddc24a36b6987fa186f8419c8a8d"
+    },
+    {
+      "name": "byWeekNoGoogle/calendar-year",
+      "unit": "day",
+      "emitted": 67,
+      "sha256": "db8b7eca52139785883644141a7363a3c8a88e525b2c362f92bfd4418fea346c"
+    },
+    {
+      "name": "byWeekNoGoogle/calendar-year",
+      "unit": "week",
+      "emitted": 231,
+      "sha256": "55e4a9ccc692f4c1e7df209b3528059607751b83e781964df60986e4c8900999"
+    },
+    {
+      "name": "byWeekNoGoogle/calendar-year",
+      "unit": "month",
+      "emitted": 3087,
+      "sha256": "79d521647d1423557a8e54b3c0d575332cdc624c60bdb3822cc9ef7e57ec6fd5"
+    },
+    {
+      "name": "byWeekNoGoogle/calendar-year",
+      "unit": "year",
+      "emitted": 3241,
+      "sha256": "9d055dbe8bea5d6ce0ca49339a6b732fedde20e469888efbeb32d96b4768ffee"
+    },
+    {
+      "name": "byNthWeekday",
+      "unit": "day",
+      "emitted": 59,
+      "sha256": "c5505c2f1b8b57f9b32579584f1474109b3b079b9b4add93c243180b07d4fea9"
+    },
+    {
+      "name": "byNthWeekday",
+      "unit": "week",
+      "emitted": 364,
+      "sha256": "a2cac3eaf678340937c41636cb1bfb06d82695c27f5ede17f56e96f2ff62e31b"
+    },
+    {
+      "name": "byNthWeekday",
+      "unit": "month",
+      "emitted": 246,
+      "sha256": "a34afe3cb9ebc6490967452df71927507ad53c0fd9c4a0078c19495ecab0c1b7"
+    },
+    {
+      "name": "byNthWeekday",
+      "unit": "year",
+      "emitted": 364,
+      "sha256": "11840ae239a1f2c4daf2f3834add1b0976c821c4df479d0bbbf21eca75d1b5ec"
+    },
+    {
+      "name": "byNthWeekday/strict",
+      "unit": "day",
+      "emitted": 21,
+      "sha256": "bc8ab477c4e7f6366d5f063f28546130584da3321a69feacdf8967edce5967b9"
+    },
+    {
+      "name": "byNthWeekday/strict",
+      "unit": "week",
+      "emitted": 364,
+      "sha256": "a2cac3eaf678340937c41636cb1bfb06d82695c27f5ede17f56e96f2ff62e31b"
+    },
+    {
+      "name": "byNthWeekday/strict",
+      "unit": "month",
+      "emitted": 246,
+      "sha256": "a34afe3cb9ebc6490967452df71927507ad53c0fd9c4a0078c19495ecab0c1b7"
+    },
+    {
+      "name": "byNthWeekday/strict",
+      "unit": "year",
+      "emitted": 364,
+      "sha256": "11840ae239a1f2c4daf2f3834add1b0976c821c4df479d0bbbf21eca75d1b5ec"
+    }
+  ],
+  "integrationSmoke": {
+    "rounds": 1,
+    "logicalCpu": 14,
+    "article": [
+      {
+        "group": "daily",
+        "variant": "after",
+        "engine": "chrono",
+        "meanNanosecondsByRun": [
+          12880812.0
+        ],
+        "medianNanoseconds": 12880812.0
+      },
+      {
+        "group": "daily",
+        "variant": "after",
+        "engine": "rrule",
+        "meanNanosecondsByRun": [
+          162478830.0
+        ],
+        "medianNanoseconds": 162478830.0
+      },
+      {
+        "group": "daily",
+        "variant": "before",
+        "engine": "chrono",
+        "meanNanosecondsByRun": [
+          12795595.0
+        ],
+        "medianNanoseconds": 12795595.0
+      },
+      {
+        "group": "daily",
+        "variant": "before",
+        "engine": "rrule",
+        "meanNanosecondsByRun": [
+          166388175.0
+        ],
+        "medianNanoseconds": 166388175.0
+      },
+      {
+        "group": "lunch",
+        "variant": "after",
+        "engine": "chrono",
+        "meanNanosecondsByRun": [
+          5060090.0
+        ],
+        "medianNanoseconds": 5060090.0
+      },
+      {
+        "group": "lunch",
+        "variant": "after",
+        "engine": "rrule",
+        "meanNanosecondsByRun": [
+          17252928.0
+        ],
+        "medianNanoseconds": 17252928.0
+      },
+      {
+        "group": "lunch",
+        "variant": "before",
+        "engine": "chrono",
+        "meanNanosecondsByRun": [
+          5433228.0
+        ],
+        "medianNanoseconds": 5433228.0
+      },
+      {
+        "group": "lunch",
+        "variant": "before",
+        "engine": "rrule",
+        "meanNanosecondsByRun": [
+          17567017.0
+        ],
+        "medianNanoseconds": 17567017.0
+      },
+      {
+        "group": "quarter",
+        "variant": "after",
+        "engine": "chrono",
+        "meanNanosecondsByRun": [
+          1020083.0
+        ],
+        "medianNanoseconds": 1020083.0
+      },
+      {
+        "group": "quarter",
+        "variant": "after",
+        "engine": "rrule",
+        "meanNanosecondsByRun": [
+          4678092.0
+        ],
+        "medianNanoseconds": 4678092.0
+      },
+      {
+        "group": "quarter",
+        "variant": "before",
+        "engine": "chrono",
+        "meanNanosecondsByRun": [
+          1145651.0
+        ],
+        "medianNanoseconds": 1145651.0
+      },
+      {
+        "group": "quarter",
+        "variant": "before",
+        "engine": "rrule",
+        "meanNanosecondsByRun": [
+          4620885.0
+        ],
+        "medianNanoseconds": 4620885.0
+      },
+      {
+        "group": "summer",
+        "variant": "after",
+        "engine": "chrono",
+        "meanNanosecondsByRun": [
+          616294.0
+        ],
+        "medianNanoseconds": 616294.0
+      },
+      {
+        "group": "summer",
+        "variant": "after",
+        "engine": "rrule",
+        "meanNanosecondsByRun": [
+          2101833.0
+        ],
+        "medianNanoseconds": 2101833.0
+      },
+      {
+        "group": "summer",
+        "variant": "before",
+        "engine": "chrono",
+        "meanNanosecondsByRun": [
+          718656.0
+        ],
+        "medianNanoseconds": 718656.0
+      },
+      {
+        "group": "summer",
+        "variant": "before",
+        "engine": "rrule",
+        "meanNanosecondsByRun": [
+          2078220.0
+        ],
+        "medianNanoseconds": 2078220.0
+      }
+    ],
+    "monthly": [
+      {
+        "group": "all-days interval 1 positions -1",
+        "variant": "after",
+        "engine": "chrono",
+        "meanNanosecondsByRun": [
+          1501569.0
+        ],
+        "medianNanoseconds": 1501569.0
+      },
+      {
+        "group": "all-days interval 1 positions -1",
+        "variant": "after",
+        "engine": "rrule",
+        "meanNanosecondsByRun": [
+          2979707.0
+        ],
+        "medianNanoseconds": 2979707.0
+      },
+      {
+        "group": "all-days interval 1 positions -1",
+        "variant": "before",
+        "engine": "chrono",
+        "meanNanosecondsByRun": [
+          1513839.0
+        ],
+        "medianNanoseconds": 1513839.0
+      },
+      {
+        "group": "all-days interval 1 positions -1",
+        "variant": "before",
+        "engine": "rrule",
+        "meanNanosecondsByRun": [
+          3042691.0
+        ],
+        "medianNanoseconds": 3042691.0
+      },
+      {
+        "group": "all-days interval 1 positions all",
+        "variant": "after",
+        "engine": "chrono",
+        "meanNanosecondsByRun": [
+          2449939.0
+        ],
+        "medianNanoseconds": 2449939.0
+      },
+      {
+        "group": "all-days interval 1 positions all",
+        "variant": "after",
+        "engine": "rrule",
+        "meanNanosecondsByRun": [
+          17047611.0
+        ],
+        "medianNanoseconds": 17047611.0
+      },
+      {
+        "group": "all-days interval 1 positions all",
+        "variant": "before",
+        "engine": "chrono",
+        "meanNanosecondsByRun": [
+          2428276.0
+        ],
+        "medianNanoseconds": 2428276.0
+      },
+      {
+        "group": "all-days interval 1 positions all",
+        "variant": "before",
+        "engine": "rrule",
+        "meanNanosecondsByRun": [
+          16489047.0
+        ],
+        "medianNanoseconds": 16489047.0
+      },
+      {
+        "group": "friday interval 1 positions -1",
+        "variant": "after",
+        "engine": "chrono",
+        "meanNanosecondsByRun": [
+          632264.0
+        ],
+        "medianNanoseconds": 632264.0
+      },
+      {
+        "group": "friday interval 1 positions -1",
+        "variant": "after",
+        "engine": "rrule",
+        "meanNanosecondsByRun": [
+          2910309.0
+        ],
+        "medianNanoseconds": 2910309.0
+      },
+      {
+        "group": "friday interval 1 positions -1",
+        "variant": "before",
+        "engine": "chrono",
+        "meanNanosecondsByRun": [
+          1644306.0
+        ],
+        "medianNanoseconds": 1644306.0
+      },
+      {
+        "group": "friday interval 1 positions -1",
+        "variant": "before",
+        "engine": "rrule",
+        "meanNanosecondsByRun": [
+          6602962.0
+        ],
+        "medianNanoseconds": 6602962.0
+      },
+      {
+        "group": "friday interval 1 positions 1",
+        "variant": "after",
+        "engine": "chrono",
+        "meanNanosecondsByRun": [
+          586741.0
+        ],
+        "medianNanoseconds": 586741.0
+      },
+      {
+        "group": "friday interval 1 positions 1",
+        "variant": "after",
+        "engine": "rrule",
+        "meanNanosecondsByRun": [
+          2847628.0
+        ],
+        "medianNanoseconds": 2847628.0
+      },
+      {
+        "group": "friday interval 1 positions 1",
+        "variant": "before",
+        "engine": "chrono",
+        "meanNanosecondsByRun": [
+          582796.0
+        ],
+        "medianNanoseconds": 582796.0
+      },
+      {
+        "group": "friday interval 1 positions 1",
+        "variant": "before",
+        "engine": "rrule",
+        "meanNanosecondsByRun": [
+          2905682.0
+        ],
+        "medianNanoseconds": 2905682.0
+      },
+      {
+        "group": "tue-thu interval 3 positions -1",
+        "variant": "after",
+        "engine": "chrono",
+        "meanNanosecondsByRun": [
+          303006.0
+        ],
+        "medianNanoseconds": 303006.0
+      },
+      {
+        "group": "tue-thu interval 3 positions -1",
+        "variant": "after",
+        "engine": "rrule",
+        "meanNanosecondsByRun": [
+          1039634.0
+        ],
+        "medianNanoseconds": 1039634.0
+      },
+      {
+        "group": "tue-thu interval 3 positions -1",
+        "variant": "before",
+        "engine": "chrono",
+        "meanNanosecondsByRun": [
+          553619.0
+        ],
+        "medianNanoseconds": 553619.0
+      },
+      {
+        "group": "tue-thu interval 3 positions -1",
+        "variant": "before",
+        "engine": "rrule",
+        "meanNanosecondsByRun": [
+          1956811.0
+        ],
+        "medianNanoseconds": 1956811.0
+      },
+      {
+        "group": "weekdays interval 1 positions -2",
+        "variant": "after",
+        "engine": "chrono",
+        "meanNanosecondsByRun": [
+          1212834.0
+        ],
+        "medianNanoseconds": 1212834.0
+      },
+      {
+        "group": "weekdays interval 1 positions -2",
+        "variant": "after",
+        "engine": "rrule",
+        "meanNanosecondsByRun": [
+          3017385.0
+        ],
+        "medianNanoseconds": 3017385.0
+      },
+      {
+        "group": "weekdays interval 1 positions -2",
+        "variant": "before",
+        "engine": "chrono",
+        "meanNanosecondsByRun": [
+          1277625.0
+        ],
+        "medianNanoseconds": 1277625.0
+      },
+      {
+        "group": "weekdays interval 1 positions -2",
+        "variant": "before",
+        "engine": "rrule",
+        "meanNanosecondsByRun": [
+          2993968.0
+        ],
+        "medianNanoseconds": 2993968.0
+      },
+      {
+        "group": "weekend interval 2 positions 1,-1",
+        "variant": "after",
+        "engine": "chrono",
+        "meanNanosecondsByRun": [
+          923693.0
+        ],
+        "medianNanoseconds": 923693.0
+      },
+      {
+        "group": "weekend interval 2 positions 1,-1",
+        "variant": "after",
+        "engine": "rrule",
+        "meanNanosecondsByRun": [
+          1866771.0
+        ],
+        "medianNanoseconds": 1866771.0
+      },
+      {
+        "group": "weekend interval 2 positions 1,-1",
+        "variant": "before",
+        "engine": "chrono",
+        "meanNanosecondsByRun": [
+          911020.0
+        ],
+        "medianNanoseconds": 911020.0
+      },
+      {
+        "group": "weekend interval 2 positions 1,-1",
+        "variant": "before",
+        "engine": "rrule",
+        "meanNanosecondsByRun": [
+          1857613.0
+        ],
+        "medianNanoseconds": 1857613.0
+      }
+    ]
+  }
+}

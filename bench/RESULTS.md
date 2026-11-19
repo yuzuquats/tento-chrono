@@ -159,3 +159,55 @@ Seven standard tests were ignored.
 From this directory, use
 `python3 run.py /tmp/chrono-edge-ranks --baseline a115343`
 to reproduce the comparison, with `--cpu 8` for the recorded Linux affinity.
+
+## Pass over all date filters
+
+The direct-filter benchmark calls each prebuilt filter over a mix of day,
+week, month, and year inputs. Dates span 1899 through 2400 and include
+leap and common centuries, the Unix epoch, and New Year boundaries. The
+runner compared 56 ordered output fingerprints covering 52,763 yielded
+date and unit tuples against `99f8295` before collecting timings.
+
+| Filter workload | Before, ms | After, ms | Change in time |
+| --- | ---: | ---: | ---: |
+| Identity | 0.0110 | 0.0104 | -5% |
+| Weekday | 3.6498 | 0.5579 | -85% |
+| Nth weekday, regular | 0.2306 | 0.2400 | +4% |
+| Nth weekday, strict | 0.2696 | 0.2565 | -5% |
+| Month of year | 0.1250 | 0.0706 | -44% |
+| Day of month | 0.8490 | 0.5085 | -40% |
+| Day of year | 0.4976 | 0.2033 | -59% |
+| Week number, ISO | 13.2634 | 8.1131 | -39% |
+| Week number, calendar year | 7.1308 | 3.6513 | -49% |
+| Google week number, ISO | 13.8490 | 8.2295 | -41% |
+| Google week number, calendar year | 4.2472 | 2.9337 | -31% |
+| Position selection over weekdays | 15.3306 | 5.6161 | -63% |
+| Compose with a month limit and weekday filter | 0.8956 | 0.8345 | -7% |
+| Compose without a month limit | 0.0832 | 0.0661 | -21% |
+
+Times are medians of three paired run means on yuzuquats with Deno 2.9.8,
+pinned to logical CPU 8 of an i7-12700K. Workloads invoke different
+numbers of selectors and emit different numbers of dates. Each row
+compares one workload across revisions. Identity and regular nth-weekday
+were controls, and their small differences do not establish a change in
+performance. Position selection reused its prior implementation. Its
+workload also includes yearly weekday expansion, which now constructs
+only matching dates.
+
+Month selection visits the chosen months in calendar order. Month-day
+selection caches the resolved offsets by month length. Year-day
+selection reuses its January anchor and checks weekly bounds before
+constructing candidates. Strict nth-weekday selection compares offsets
+before constructing a date. The ISO and Google week-number paths share
+clipping logic and preserve their own windows and calendar-year gates.
+Composition without a month limit skips the extra filtering wrapper.
+
+The full suite passed with 737 tests and seven ignored. The opt-in
+rrule comparison passed all 960 rule combinations and its duplicate-date
+fixture. A one-round article and monthly benchmark replay also verified
+equal outputs. Its timings and the direct-filter measurements are in
+[filter-pass-results.json](filter-pass-results.json).
+
+```sh
+python3 run.py /tmp/chrono-filter-pass --suite filters --baseline 99f8295
+```
