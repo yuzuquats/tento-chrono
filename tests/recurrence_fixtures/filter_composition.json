@@ -5,311 +5,713 @@
       "name": "lunch_closure_before_bysetpos_falls_back",
       "category": "composition_order",
       "start": "2024-03-01",
-      "step": { "unit": "months", "value": 1 },
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
       "end": "2024-05-31",
       "filter": {
         "op": "bySetPos",
-        "positions": [-1],
+        "positions": [
+          -1
+        ],
         "inner": {
           "op": "compose",
           "filters": [
-            { "op": "byWeekday", "weekdays": ["FRI"] },
-            { "op": "excludeDates", "dates": ["2024-03-29"] }
+            {
+              "op": "byWeekday",
+              "weekdays": [
+                "FRI"
+              ]
+            },
+            {
+              "op": "excludeDates",
+              "dates": [
+                "2024-03-29"
+              ]
+            }
           ]
         }
       },
-      "expected": ["2024-03-22", "2024-04-26", "2024-05-31"]
+      "expected": [
+        "2024-03-22",
+        "2024-04-26",
+        "2024-05-31"
+      ]
     },
     {
       "name": "lunch_closure_after_bysetpos_drops_march",
       "category": "composition_order",
       "start": "2024-03-01",
-      "step": { "unit": "months", "value": 1 },
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
       "end": "2024-05-31",
       "filter": {
         "op": "compose",
         "filters": [
           {
             "op": "bySetPos",
-            "positions": [-1],
-            "inner": { "op": "byWeekday", "weekdays": ["FRI"] }
+            "positions": [
+              -1
+            ],
+            "inner": {
+              "op": "byWeekday",
+              "weekdays": [
+                "FRI"
+              ]
+            }
           },
-          { "op": "excludeDates", "dates": ["2024-03-29"] }
+          {
+            "op": "excludeDates",
+            "dates": [
+              "2024-03-29"
+            ]
+          }
         ]
       },
-      "expected": ["2024-04-26", "2024-05-31"],
+      "expected": [
+        "2024-04-26",
+        "2024-05-31"
+      ],
       "notes": "Demonstrates order sensitivity: excluding after bySetPos drops March instead of falling back"
     },
     {
       "name": "lunch_first_open_friday_with_closure",
       "category": "composition_order",
       "start": "2024-03-01",
-      "step": { "unit": "months", "value": 1 },
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
       "end": "2024-05-31",
       "filter": {
         "op": "bySetPos",
-        "positions": [1],
+        "positions": [
+          1
+        ],
         "inner": {
           "op": "compose",
           "filters": [
-            { "op": "byWeekday", "weekdays": ["FRI"] },
-            { "op": "excludeDates", "dates": ["2024-03-01"] }
+            {
+              "op": "byWeekday",
+              "weekdays": [
+                "FRI"
+              ]
+            },
+            {
+              "op": "excludeDates",
+              "dates": [
+                "2024-03-01"
+              ]
+            }
           ]
         }
       },
-      "expected": ["2024-03-08", "2024-04-05", "2024-05-03"]
+      "expected": [
+        "2024-03-08",
+        "2024-04-05",
+        "2024-05-03"
+      ]
     },
     {
       "name": "lunch_all_march_fridays_closed_skips_month",
       "category": "composition_order",
       "start": "2024-03-01",
-      "step": { "unit": "months", "value": 1 },
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
       "end": "2024-05-31",
       "filter": {
         "op": "bySetPos",
-        "positions": [-1],
+        "positions": [
+          -1
+        ],
         "inner": {
           "op": "compose",
           "filters": [
-            { "op": "byWeekday", "weekdays": ["FRI"] },
+            {
+              "op": "byWeekday",
+              "weekdays": [
+                "FRI"
+              ]
+            },
             {
               "op": "excludeDates",
-              "dates": ["2024-03-01", "2024-03-08", "2024-03-15", "2024-03-22", "2024-03-29"]
+              "dates": [
+                "2024-03-01",
+                "2024-03-08",
+                "2024-03-15",
+                "2024-03-22",
+                "2024-03-29"
+              ]
             }
           ]
         }
       },
-      "expected": ["2024-04-26", "2024-05-31"]
+      "expected": [
+        "2024-04-26",
+        "2024-05-31"
+      ]
     },
     {
       "name": "lunch_two_consecutive_closures_from_end",
       "category": "composition_order",
       "start": "2024-03-01",
-      "step": { "unit": "months", "value": 1 },
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
       "end": "2024-04-30",
       "filter": {
         "op": "bySetPos",
-        "positions": [-1],
+        "positions": [
+          -1
+        ],
         "inner": {
           "op": "compose",
           "filters": [
-            { "op": "byWeekday", "weekdays": ["FRI"] },
-            { "op": "excludeDates", "dates": ["2024-03-29", "2024-03-22"] }
+            {
+              "op": "byWeekday",
+              "weekdays": [
+                "FRI"
+              ]
+            },
+            {
+              "op": "excludeDates",
+              "dates": [
+                "2024-03-29",
+                "2024-03-22"
+              ]
+            }
           ]
         }
       },
-      "expected": ["2024-03-15", "2024-04-26"]
+      "expected": [
+        "2024-03-15",
+        "2024-04-26"
+      ]
     },
     {
       "name": "article_first_summer_fridays",
       "category": "article_workloads",
       "start": "2024-01-01",
-      "step": { "unit": "years", "value": 1 },
+      "step": {
+        "unit": "years",
+        "value": 1
+      },
       "end": "2025-12-31",
       "filter": {
         "op": "compose",
         "filters": [
-          { "op": "byMonthOfYear", "months": [6, 7, 8] },
-          { "op": "byNthWeekday", "nths": [[1, "FRI"]] }
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              6,
+              7,
+              8
+            ]
+          },
+          {
+            "op": "byNthWeekday",
+            "nths": [
+              [
+                1,
+                "FRI"
+              ]
+            ]
+          }
         ]
       },
       "expected": [
-        "2024-06-07", "2024-07-05", "2024-08-02",
-        "2025-06-06", "2025-07-04", "2025-08-01"
+        "2024-06-07",
+        "2024-07-05",
+        "2024-08-02",
+        "2025-06-06",
+        "2025-07-04",
+        "2025-08-01"
       ]
     },
     {
       "name": "article_quarter_end_last_tue_or_thu",
       "category": "article_workloads",
       "start": "2024-01-01",
-      "step": { "unit": "years", "value": 1 },
+      "step": {
+        "unit": "years",
+        "value": 1
+      },
       "end": "2024-12-31",
       "filter": {
         "op": "compose",
         "filters": [
-          { "op": "byMonthOfYear", "months": [3, 6, 9, 12] },
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              3,
+              6,
+              9,
+              12
+            ]
+          },
           {
             "op": "bySetPos",
-            "positions": [-1],
-            "inner": { "op": "byWeekday", "weekdays": ["TUE", "THU"] }
+            "positions": [
+              -1
+            ],
+            "inner": {
+              "op": "byWeekday",
+              "weekdays": [
+                "TUE",
+                "THU"
+              ]
+            }
           }
         ]
       },
-      "expected": ["2024-03-28", "2024-06-27", "2024-09-26", "2024-12-31"]
+      "expected": [
+        "2024-03-28",
+        "2024-06-27",
+        "2024-09-26",
+        "2024-12-31"
+      ]
     },
     {
       "name": "article_second_to_last_weekday",
       "category": "article_workloads",
       "start": "2024-01-01",
-      "step": { "unit": "months", "value": 1 },
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
       "end": "2024-04-30",
       "filter": {
         "op": "bySetPos",
-        "positions": [-2],
-        "inner": { "op": "byWeekday", "weekdays": ["MON", "TUE", "WED", "THU", "FRI"] }
+        "positions": [
+          -2
+        ],
+        "inner": {
+          "op": "byWeekday",
+          "weekdays": [
+            "MON",
+            "TUE",
+            "WED",
+            "THU",
+            "FRI"
+          ]
+        }
       },
-      "expected": ["2024-01-30", "2024-02-28", "2024-03-28", "2024-04-29"]
+      "expected": [
+        "2024-01-30",
+        "2024-02-28",
+        "2024-03-28",
+        "2024-04-29"
+      ]
     },
     {
       "name": "article_first_and_last_weekend_day_alternate_months",
       "category": "article_workloads",
       "start": "2024-01-01",
-      "step": { "unit": "months", "value": 2 },
+      "step": {
+        "unit": "months",
+        "value": 2
+      },
       "end": "2024-06-30",
       "filter": {
         "op": "bySetPos",
-        "positions": [1, -1],
-        "inner": { "op": "byWeekday", "weekdays": ["SAT", "SUN"] }
+        "positions": [
+          1,
+          -1
+        ],
+        "inner": {
+          "op": "byWeekday",
+          "weekdays": [
+            "SAT",
+            "SUN"
+          ]
+        }
       },
       "expected": [
-        "2024-01-06", "2024-01-28",
-        "2024-03-02", "2024-03-31",
-        "2024-05-04", "2024-05-26"
+        "2024-01-06",
+        "2024-01-28",
+        "2024-03-02",
+        "2024-03-31",
+        "2024-05-04",
+        "2024-05-26"
       ]
     },
     {
       "name": "article_last_day_of_month_leap_and_common",
       "category": "article_workloads",
       "start": "2024-01-01",
-      "step": { "unit": "months", "value": 1 },
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
       "limit": 14,
-      "filter": { "op": "byDayOfMonth", "days": [-1] },
+      "filter": {
+        "op": "byDayOfMonth",
+        "days": [
+          -1
+        ]
+      },
       "expected": [
-        "2024-01-31", "2024-02-29", "2024-03-31", "2024-04-30",
-        "2024-05-31", "2024-06-30", "2024-07-31", "2024-08-31",
-        "2024-09-30", "2024-10-31", "2024-11-30", "2024-12-31",
-        "2025-01-31", "2025-02-28"
+        "2024-01-31",
+        "2024-02-29",
+        "2024-03-31",
+        "2024-04-30",
+        "2024-05-31",
+        "2024-06-30",
+        "2024-07-31",
+        "2024-08-31",
+        "2024-09-30",
+        "2024-10-31",
+        "2024-11-30",
+        "2024-12-31",
+        "2025-01-31",
+        "2025-02-28"
       ]
     },
     {
       "name": "setpos_rank_2_from_start",
       "category": "setpos",
       "start": "2024-01-01",
-      "step": { "unit": "months", "value": 1 },
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
       "end": "2024-03-31",
       "filter": {
         "op": "bySetPos",
-        "positions": [2],
-        "inner": { "op": "byWeekday", "weekdays": ["MON", "FRI"] }
+        "positions": [
+          2
+        ],
+        "inner": {
+          "op": "byWeekday",
+          "weekdays": [
+            "MON",
+            "FRI"
+          ]
+        }
       },
-      "expected": ["2024-01-05", "2024-02-05", "2024-03-04"]
+      "expected": [
+        "2024-01-05",
+        "2024-02-05",
+        "2024-03-04"
+      ]
     },
     {
       "name": "setpos_rank_3_general_path",
       "category": "setpos",
       "start": "2024-01-01",
-      "step": { "unit": "months", "value": 1 },
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
       "end": "2024-03-31",
       "filter": {
         "op": "bySetPos",
-        "positions": [3],
-        "inner": { "op": "byWeekday", "weekdays": ["MON", "FRI"] }
+        "positions": [
+          3
+        ],
+        "inner": {
+          "op": "byWeekday",
+          "weekdays": [
+            "MON",
+            "FRI"
+          ]
+        }
       },
-      "expected": ["2024-01-08", "2024-02-09", "2024-03-08"]
+      "expected": [
+        "2024-01-08",
+        "2024-02-09",
+        "2024-03-08"
+      ]
     },
     {
       "name": "setpos_multi_unsorted_and_duplicates",
       "category": "setpos",
       "start": "2024-01-01",
-      "step": { "unit": "months", "value": 1 },
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
       "end": "2024-02-29",
       "filter": {
         "op": "bySetPos",
-        "positions": [-1, 1, -1, 2, 0, 99],
-        "inner": { "op": "byWeekday", "weekdays": ["FRI"] }
+        "positions": [
+          -1,
+          1,
+          -1,
+          2,
+          0,
+          99
+        ],
+        "inner": {
+          "op": "byWeekday",
+          "weekdays": [
+            "FRI"
+          ]
+        }
       },
       "expected": [
-        "2024-01-05", "2024-01-12", "2024-01-26",
-        "2024-02-02", "2024-02-09", "2024-02-23"
+        "2024-01-05",
+        "2024-01-12",
+        "2024-01-26",
+        "2024-02-02",
+        "2024-02-09",
+        "2024-02-23"
       ]
     },
     {
       "name": "month_limit_straddling_weeks_keeps_february_only",
       "category": "month_limit_and_weeks",
       "start": "2024-01-29",
-      "step": { "unit": "weeks", "value": 1 },
+      "step": {
+        "unit": "weeks",
+        "value": 1
+      },
       "weekStart": "MON",
       "end": "2024-03-10",
       "filter": {
         "op": "compose",
         "filters": [
-          { "op": "byMonthOfYear", "months": [2] },
-          { "op": "byWeekday", "weekdays": ["MON", "THU"] }
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              2
+            ]
+          },
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "MON",
+              "THU"
+            ]
+          }
         ]
       },
       "expected": [
-        "2024-02-01", "2024-02-05", "2024-02-08", "2024-02-12",
-        "2024-02-15", "2024-02-19", "2024-02-22", "2024-02-26", "2024-02-29"
+        "2024-02-01",
+        "2024-02-05",
+        "2024-02-08",
+        "2024-02-12",
+        "2024-02-15",
+        "2024-02-19",
+        "2024-02-22",
+        "2024-02-26",
+        "2024-02-29"
       ]
     },
     {
       "name": "byweekno_iso_mon_week_1_cross_year",
       "category": "month_limit_and_weeks",
       "start": "2024-01-01",
-      "step": { "unit": "years", "value": 1 },
+      "step": {
+        "unit": "years",
+        "value": 1
+      },
       "limit": 4,
       "filter": {
         "op": "compose",
         "filters": [
-          { "op": "byWeekNo", "weekno": 1, "wkst": "MON" },
-          { "op": "byWeekday", "weekdays": ["MON"] }
+          {
+            "op": "byWeekNo",
+            "weekno": 1,
+            "wkst": "MON"
+          },
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "MON"
+            ]
+          }
         ]
       },
-      "expected": ["2024-01-01", "2024-12-30", "2025-12-29", "2027-01-04"]
+      "expected": [
+        "2024-01-01",
+        "2024-12-30",
+        "2025-12-29",
+        "2027-01-04"
+      ]
     },
     {
       "name": "byweekno_wkst_sun_week_1_cross_year",
       "category": "month_limit_and_weeks",
       "start": "2024-01-01",
-      "step": { "unit": "years", "value": 1 },
+      "step": {
+        "unit": "years",
+        "value": 1
+      },
       "limit": 4,
       "filter": {
         "op": "compose",
         "filters": [
-          { "op": "byWeekNo", "weekno": 1, "wkst": "SUN" },
-          { "op": "byWeekday", "weekdays": ["SUN"] }
+          {
+            "op": "byWeekNo",
+            "weekno": 1,
+            "wkst": "SUN"
+          },
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "SUN"
+            ]
+          }
         ]
       },
-      "expected": ["2024-12-29", "2026-01-04", "2027-01-03", "2028-01-02"]
+      "expected": [
+        "2024-12-29",
+        "2026-01-04",
+        "2027-01-03",
+        "2028-01-02"
+      ]
     },
     {
       "name": "bydayofyear_clips_new_year_straddling_week",
       "category": "month_limit_and_weeks",
       "start": "2020-12-28",
-      "step": { "unit": "weeks", "value": 1 },
+      "step": {
+        "unit": "weeks",
+        "value": 1
+      },
       "weekStart": "MON",
       "end": "2021-01-05",
-      "filter": { "op": "byDayOfYear", "days": [1, -1, -2] },
-      "expected": ["2020-12-30", "2020-12-31", "2021-01-01"]
+      "filter": {
+        "op": "byDayOfYear",
+        "days": [
+          1,
+          -1,
+          -2
+        ]
+      },
+      "expected": [
+        "2020-12-30",
+        "2020-12-31",
+        "2021-01-01"
+      ]
     },
     {
       "name": "bydayofmonth_negative_offsets_leap_vs_common",
       "category": "calendar_boundaries",
       "start": "2024-02-01",
-      "step": { "unit": "months", "value": 12 },
+      "step": {
+        "unit": "months",
+        "value": 12
+      },
       "limit": 4,
-      "filter": { "op": "byDayOfMonth", "days": [-29, -1] },
-      "expected": ["2024-02-01", "2024-02-29", "2025-02-28", "2026-02-28"]
+      "filter": {
+        "op": "byDayOfMonth",
+        "days": [
+          -29,
+          -1
+        ]
+      },
+      "expected": [
+        "2024-02-01",
+        "2024-02-29",
+        "2025-02-28",
+        "2026-02-28"
+      ]
     },
     {
       "name": "range_limit_and_end_both_enforced",
       "category": "bounds",
       "start": "2024-01-01",
-      "step": { "unit": "days", "value": 1 },
+      "step": {
+        "unit": "days",
+        "value": 1
+      },
       "end": "2024-01-05",
       "limit": 3,
-      "filter": { "op": "identity" },
-      "expected": ["2024-01-01", "2024-01-02", "2024-01-03"]
+      "filter": {
+        "op": "identity"
+      },
+      "expected": [
+        "2024-01-01",
+        "2024-01-02",
+        "2024-01-03"
+      ]
     },
     {
       "name": "range_end_tighter_than_limit",
       "category": "bounds",
       "start": "2024-01-01",
-      "step": { "unit": "days", "value": 1 },
+      "step": {
+        "unit": "days",
+        "value": 1
+      },
       "end": "2024-01-03",
       "limit": 10,
-      "filter": { "op": "identity" },
-      "expected": ["2024-01-01", "2024-01-02", "2024-01-03"]
+      "filter": {
+        "op": "identity"
+      },
+      "expected": [
+        "2024-01-01",
+        "2024-01-02",
+        "2024-01-03"
+      ]
+    },
+    {
+      "name": "bydoy_sunday_start_week_jan1",
+      "category": "bydoy",
+      "start": "2023-01-01",
+      "step": {
+        "unit": "weeks",
+        "value": 1
+      },
+      "end": "2023-01-07",
+      "weekStart": "SUN",
+      "filter": {
+        "op": "byDayOfYear",
+        "days": [
+          1
+        ]
+      },
+      "expected": [
+        "2023-01-01"
+      ],
+      "notes": "byDayOfYear on a Sunday-start week containing Jan 1 must anchor to the week tuple, not reanchor to Monday"
+    },
+    {
+      "name": "weekly_month_limit_before_nested_bysetpos",
+      "category": "month_limit",
+      "start": "2024-01-29",
+      "step": {
+        "unit": "weeks",
+        "value": 1
+      },
+      "end": "2024-02-04",
+      "weekStart": "MON",
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              2
+            ]
+          },
+          {
+            "op": "bySetPos",
+            "positions": [
+              1
+            ],
+            "inner": {
+              "op": "byWeekday",
+              "weekdays": [
+                "MON",
+                "THU"
+              ]
+            }
+          }
+        ]
+      },
+      "expected": [
+        "2024-02-01"
+      ],
+      "notes": "MonthLimit composed before nested bySetPos restricts candidates to February before positional selection"
     }
   ]
 }

@@ -1,0 +1,123 @@
+{
+  "description": "Non-strict / engine-extension date-only recurrence fixtures: prohibited RFC 5545 frequency+part combinations supported by tento-chrono, DATE DTSTART ignoring time parts, and date-only RDATE sets",
+  "cases": [
+    {
+      "name": "daily_byyearday_1_neg1",
+      "category": "engine_extension",
+      "dtstart": "2024-01-01",
+      "rules": [
+        "RRULE:FREQ=DAILY;COUNT=4;BYYEARDAY=1,-1"
+      ],
+      "expected": [
+        "2024-01-01",
+        "2024-12-31",
+        "2025-01-01",
+        "2025-12-31"
+      ]
+    },
+    {
+      "name": "weekly_bymonthday_1_15",
+      "category": "engine_extension",
+      "dtstart": "2024-01-01",
+      "rules": [
+        "RRULE:FREQ=WEEKLY;COUNT=6;BYMONTHDAY=1,15"
+      ],
+      "expected": [
+        "2024-01-01",
+        "2024-01-15",
+        "2024-02-01",
+        "2024-02-15",
+        "2024-03-01",
+        "2024-03-15"
+      ]
+    },
+    {
+      "name": "weekly_bymonthday_neg1",
+      "category": "engine_extension",
+      "dtstart": "2024-01-01",
+      "rules": [
+        "RRULE:FREQ=WEEKLY;COUNT=5;BYMONTHDAY=-1"
+      ],
+      "expected": [
+        "2024-01-31",
+        "2024-02-29",
+        "2024-03-31",
+        "2024-04-30",
+        "2024-05-31"
+      ]
+    },
+    {
+      "name": "weekly_byyearday_new_year_straddle",
+      "category": "engine_extension",
+      "dtstart": "2024-12-23",
+      "rules": [
+        "RRULE:FREQ=WEEKLY;COUNT=4;BYYEARDAY=-1,1"
+      ],
+      "expected": [
+        "2024-12-31",
+        "2025-01-01",
+        "2025-12-31",
+        "2026-01-01"
+      ]
+    },
+    {
+      "name": "monthly_byyearday_filter",
+      "category": "engine_extension",
+      "dtstart": "2024-01-01",
+      "rules": [
+        "RRULE:FREQ=MONTHLY;COUNT=4;BYYEARDAY=1,32,60"
+      ],
+      "expected": [
+        "2024-01-01",
+        "2024-02-01",
+        "2024-02-29",
+        "2025-01-01"
+      ]
+    },
+    {
+      "name": "date_dtstart_ignores_byhour_byminute",
+      "category": "date_ignores_time_parts",
+      "dtstart": "2024-01-01",
+      "rules": [
+        "RRULE:FREQ=DAILY;BYHOUR=9,17;BYMINUTE=0,30;COUNT=4"
+      ],
+      "expected": [
+        "2024-01-01",
+        "2024-01-02",
+        "2024-01-03",
+        "2024-01-04"
+      ],
+      "notes": "RFC 5545 \u00a73.3.10: BYHOUR/BYMINUTE/BYSECOND must be ignored when DTSTART is VALUE=DATE"
+    },
+    {
+      "name": "date_rrule_with_date_rdate",
+      "category": "date_rdate",
+      "dtstart": "2024-03-01",
+      "rules": [
+        "RRULE:FREQ=DAILY;COUNT=2",
+        "RDATE;VALUE=DATE:20240305,20240228"
+      ],
+      "expected": [
+        "2024-02-28",
+        "2024-03-01",
+        "2024-03-02",
+        "2024-03-05"
+      ],
+      "notes": "Date-only generate() merges DATE RDATE values before and after RRULE instances in chronological order"
+    },
+    {
+      "name": "date_rdate_only_without_rrule",
+      "category": "date_rdate",
+      "dtstart": "2024-03-01",
+      "rules": [
+        "RDATE;VALUE=DATE:20240310,20240305"
+      ],
+      "expected": [
+        "2024-03-01",
+        "2024-03-05",
+        "2024-03-10"
+      ],
+      "notes": "Date-only recurrence set with RDATE and no RRULE emits DTSTART + sorted RDATEs"
+    }
+  ]
+}
