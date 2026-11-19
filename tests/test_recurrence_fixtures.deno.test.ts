@@ -264,14 +264,34 @@ const STRICT_RFC_DATE_RULE_KEYS = new Set([
 const STRICT_RFC_DATE_FREQS = new Set(["YEARLY", "MONTHLY", "WEEKLY", "DAILY"]);
 const STRICT_RFC_WKDAYS = new Set(["MO", "TU", "WE", "TH", "FR", "SA", "SU"]);
 
-function parseStrictIntList(raw: string, minAbs: number, maxAbs: number, allowNeg: boolean, label: string): number[] {
+const MAX_SAFE_BIGINT = BigInt(Number.MAX_SAFE_INTEGER);
+
+function parseStrictPositiveDigits(raw: string, label: string): number {
+  // RFC 5545 §3.3.10 ABNF: 1*DIGIT (leading zeros like "02" are valid), positive, and exact in IEEE-754 safe integer range.
+  assert(/^\d+$/.test(raw), `${label}: must be 1*DIGIT ("${raw}")`);
+  const big = BigInt(raw);
+  assert(big >= 1n && big <= MAX_SAFE_BIGINT, `${label}: value "${raw}" must be a positive safe integer`);
+  return Number(big);
+}
+
+function parseStrictIntList(
+  raw: string,
+  minAbs: number,
+  maxAbs: number,
+  maxDigits: number,
+  allowSign: boolean,
+  label: string,
+): number[] {
+  const pattern = allowSign
+    ? new RegExp(`^[+-]?\\d{1,${maxDigits}}$`)
+    : new RegExp(`^\\d{1,${maxDigits}}$`);
   const tokens = raw.split(",");
   assert(tokens.length > 0 && tokens.every((t) => t.length > 0), `${label}: empty integer list`);
   return tokens.map((tok) => {
-    assert(/^[+-]?\d+$/.test(tok), `${label}: invalid integer token "${tok}"`);
+    assert(pattern.test(tok), `${label}: invalid RFC 5545 integer token "${tok}"`);
     const n = Number(tok);
     assert(Number.isSafeInteger(n), `${label}: non-safe integer "${tok}"`);
-    if (!allowNeg) assert(n >= minAbs && n <= maxAbs, `${label}: value ${n} out of range ${minAbs}..${maxAbs}`);
+    if (!allowSign) assert(n >= minAbs && n <= maxAbs, `${label}: value ${n} out of range ${minAbs}..${maxAbs}`);
     else assert(n !== 0 && Math.abs(n) >= minAbs && Math.abs(n) <= maxAbs, `${label}: value ${n} out of range`);
     return n;
   });
@@ -298,37 +318,42 @@ function validateStrictRfcDateRule(rruleText: string, label: string): void {
   assert(!(parts.has("COUNT") && parts.has("UNTIL")), `${label}: COUNT and UNTIL are mutually exclusive in RFC 5545`);
 
   if (parts.has("COUNT")) {
-    assert(/^[1-9]\d*$/.test(parts.get("COUNT")!), `${label}: COUNT must be a positive integer`);
+    parseStrictPositiveDigits(parts.get("COUNT")!, `${label}.COUNT`);
   }
   if (parts.has("INTERVAL")) {
-    assert(/^[1-9]\d*$/.test(parts.get("INTERVAL")!), `${label}: INTERVAL must be a positive integer`);
+    parseStrictPositiveDigits(parts.get("INTERVAL")!, `${label}.INTERVAL`);
   }
   if (parts.has("UNTIL")) {
-    assert(/^\d{8}$/.test(parts.get("UNTIL")!), `${label}: DATE DTSTART must pair with DATE UNTIL`);
+    const until = parts.get("UNTIL")!;
+    assert(/^\d{8}$/.test(until), `${label}: DATE DTSTART must pair with DATE UNTIL`);
+    const iso = `${until.slice(0, 4)}-${until.slice(4, 6)}-${until.slice(6, 8)}`;
+    assertCanonicalDate(iso, `${label}.UNTIL`);
   }
   if (parts.has("WKST")) {
     assert(STRICT_RFC_WKDAYS.has(parts.get("WKST")!.toUpperCase()), `${label}: invalid WKST`);
   }
   if (parts.has("BYMONTH")) {
-    parseStrictIntList(parts.get("BYMONTH")!, 1, 12, false, `${label}.BYMONTH`);
+    // RFC 5545 §3.3.10 ABNF: monthnum = 1*2DIGIT ;1 to 12 (no sign)
+    parseStrictIntList(parts.get("BYMONTH")!, 1, 12, 2, false, `${label}.BYMONTH`);
   }
   if (parts.has("BYWEEKNO")) {
     assert(freq === "YEARLY", `${label}: BYWEEKNO is only legal with FREQ=YEARLY`);
-    parseStrictIntList(parts.get("BYWEEKNO")!, 1, 53, true, `${label}.BYWEEKNO`);
+    parseStrictIntList(parts.get("BYWEEKNO")!, 1, 53, 2, true, `${label}.BYWEEKNO`);
   }
   if (parts.has("BYYEARDAY")) {
     assert(freq === "YEARLY", `${label}: ${freq}+BYYEARDAY belongs in engine_extensions`);
-    parseStrictIntList(parts.get("BYYEARDAY")!, 1, 366, true, `${label}.BYYEARDAY`);
+    parseStrictIntList(parts.get("BYYEARDAY")!, 1, 366, 3, true, `${label}.BYYEARDAY`);
   }
   if (parts.has("BYMONTHDAY")) {
     assert(freq !== "WEEKLY", `${label}: WEEKLY+BYMONTHDAY belongs in engine_extensions`);
-    parseStrictIntList(parts.get("BYMONTHDAY")!, 1, 31, true, `${label}.BYMONTHDAY`);
+    parseStrictIntList(parts.get("BYMONTHDAY")!, 1, 31, 2, true, `${label}.BYMONTHDAY`);
   }
   if (parts.has("BYDAY")) {
     const tokens = parts.get("BYDAY")!.split(",");
     assert(tokens.length > 0, `${label}: empty BYDAY`);
     for (const tok of tokens) {
-      const m = /^([+-]?\d+)?(MO|TU|WE|TH|FR|SA|SU)$/i.exec(tok);
+      // RFC 5545 §3.3.10 ABNF: weekdaynum = [[plus / minus] ordwk] weekday; ordwk = 1*2DIGIT
+      const m = /^([+-]?\d{1,2})?(MO|TU|WE|TH|FR|SA|SU)$/i.exec(tok);
       assert(m != null, `${label}: invalid BYDAY token "${tok}"`);
       if (m[1] != null) {
         const ord = Number(m[1]);
@@ -341,7 +366,7 @@ function validateStrictRfcDateRule(rruleText: string, label: string): void {
     }
   }
   if (parts.has("BYSETPOS")) {
-    parseStrictIntList(parts.get("BYSETPOS")!, 1, 366, true, `${label}.BYSETPOS`);
+    parseStrictIntList(parts.get("BYSETPOS")!, 1, 366, 3, true, `${label}.BYSETPOS`);
     const hasOtherByRule = ["BYMONTH", "BYWEEKNO", "BYYEARDAY", "BYMONTHDAY", "BYDAY"].some((k) => parts.has(k));
     assert(hasOtherByRule, `${label}: BYSETPOS requires at least one other BYxxx rule part in RFC 5545 §3.3.10`);
   }
@@ -594,7 +619,33 @@ Deno.test("recurrence fixtures: COUNT > 1000 and canonical serialization invaria
     "FREQ=MONTHLY;BYWEEKNO=1;COUNT=2",
     "FREQ=DAILY;COUNT=2;COUNT=3",
     "FREQ=DAILY;UNTIL=20240105T090000Z",
+    "FREQ=DAILY;BYMONTH=+1;COUNT=2",
+    "FREQ=DAILY;BYMONTH=001;COUNT=2",
+    "FREQ=MONTHLY;BYDAY=001MO;COUNT=2",
+    "FREQ=DAILY;INTERVAL=9007199254740993;COUNT=2",
+    "FREQ=DAILY;COUNT=00;INTERVAL=1",
+    "FREQ=DAILY;UNTIL=20240230",
   ]) {
     assertThrows(() => validateStrictRfcDateRule(illegal, `illegal:${illegal}`));
   }
+  // Valid RFC 5545 1*DIGIT leading-zero COUNT/INTERVAL are accepted
+  validateStrictRfcDateRule("FREQ=DAILY;INTERVAL=02;COUNT=02", "valid:leading-zero");
+
+  // Nested compose() ending in a week-preserving custom filter still preserves straddling weeks
+  const all7 = [Weekday.MON, Weekday.TUE, Weekday.WED, Weekday.THU, Weekday.FRI, Weekday.SAT, Weekday.SUN];
+  const passWeek: NaiveDate.Filter = function* (t) {
+    yield t;
+  };
+  const wrappedCustom = NaiveDate.Filter.compose([
+    NaiveDate.Filter.compose([NaiveDate.Filter.byMonthOfYear([Month.FEB]), passWeek]),
+    NaiveDate.Filter.bySetPos(NaiveDate.Filter.byWeekday(all7), [1]),
+  ]);
+  assertEquals(
+    [...NaiveDate.parse("2024-01-29").range(DateUnit.weeks(1), {
+      end: NaiveDate.parse("2024-02-04"),
+      weekStart: Weekday.MON,
+      filter: wrappedCustom,
+    })].map(String),
+    ["2024-02-01"],
+  );
 });

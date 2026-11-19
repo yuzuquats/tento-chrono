@@ -923,6 +923,74 @@
         "2024-02-01"
       ],
       "notes": "Nested compose() on both MonthLimit and bySetPos sides preserves straddling weeks and restricts positional selection"
+    },
+    {
+      "name": "nested_compose_bysetpos_and_month_limit_associativity",
+      "category": "month_straddling",
+      "start": "2024-01-29",
+      "step": {
+        "unit": "weeks",
+        "value": 1
+      },
+      "end": "2024-02-04",
+      "weekStart": "MON",
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              2
+            ]
+          },
+          {
+            "op": "compose",
+            "filters": [
+              {
+                "op": "bySetPos",
+                "positions": [
+                  1
+                ],
+                "inner": {
+                  "op": "byWeekday",
+                  "weekdays": [
+                    "MON",
+                    "TUE",
+                    "WED",
+                    "THU",
+                    "FRI",
+                    "SAT",
+                    "SUN"
+                  ]
+                }
+              },
+              {
+                "op": "byMonthOfYear",
+                "months": [
+                  1,
+                  2
+                ]
+              }
+            ]
+          },
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "MON",
+              "TUE",
+              "WED",
+              "THU",
+              "FRI",
+              "SAT",
+              "SUN"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "2024-02-01"
+      ],
+      "notes": "Nested compose([first, janFeb]) between feb and allDays stays equivalent to flat compose([feb, first, janFeb, allDays])"
     }
   ]
 }
