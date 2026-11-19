@@ -33,10 +33,10 @@ export namespace RRuleInstances {
 
   /**
    * `rule`'s instances from `dtstart` (its wall-clock time), in order. A
-   * date-only UNTIL ends the series before that day (this package's
-   * convention, as the date generator reads it); a date-time UNTIL is
-   * inclusive. `useGoogleCalendarBehavior` selects the same day filters the
-   * date generator would (Google's BYWEEKNO reading).
+   * date-time UNTIL is inclusive; a date-only UNTIL is inclusive by default
+   * (RFC 5545 §3.3.10) and exclusive of that day when
+   * `useGoogleCalendarBehavior` is true. `useGoogleCalendarBehavior` also
+   * selects Google's BYWEEKNO reading, matching the date generator.
    */
   export function* expand(
     rule: RRule,

@@ -116,13 +116,17 @@ export namespace YearMonthDayFilter {
     if (rank === 2 && secondDay != null) return [secondDay, secondUnit];
   }
 
-  export function compose(filters: Filter[]): Filter {
+  function buildComposed(
+    filters: readonly Filter[],
+    inheritedKeeps: readonly ((date: YearMonthDay.MaybeValid) => boolean)[],
+  ): Filter {
     // A month limit before another filter passes the weeks that straddle its
     // months; each date the chain yields is then held to them (`MonthLimit`).
-    // Any downstream positional selector (bySetPos) is restricted before
-    // ranking so out-of-month days in a straddling week do not steal positions.
+    // Any downstream positional selector (bySetPos), including one inside a
+    // nested compose(), is restricted before ranking so out-of-month days in
+    // a straddling week do not steal positions.
     const last = filters.length - 1;
-    const activeKeeps: Array<(date: YearMonthDay.MaybeValid) => boolean> = [];
+    const activeKeeps: Array<(date: YearMonthDay.MaybeValid) => boolean> = [...inheritedKeeps];
     const chain: Filter[] = [];
     for (let i = 0; i < filters.length; i++) {
       const f = filters[i]!;
@@ -139,14 +143,23 @@ export namespace YearMonthDayFilter {
         chain.push(f);
       }
     }
-    if (activeKeeps.length === 0) return (partialdate) => _compose(partialdate, chain);
-    return function* (
-      partialdate: PartialDate.Tuple,
-    ): Generator<PartialDate.Tuple> {
-      for (const t of _compose(partialdate, chain)) {
-        if (activeKeeps.every((k) => k(t[0]))) yield t;
-      }
-    };
+    const base: Filter = activeKeeps.length === 0
+      ? (partialdate) => _compose(partialdate, chain)
+      : function* (
+          partialdate: PartialDate.Tuple,
+        ): Generator<PartialDate.Tuple> {
+          for (const t of _compose(partialdate, chain)) {
+            if (activeKeeps.every((k) => k(t[0]))) yield t;
+          }
+        };
+    return Object.assign(base, {
+      restrict: (keep: (date: YearMonthDay.MaybeValid) => boolean): Filter =>
+        buildComposed(filters, [...inheritedKeeps, keep]),
+    });
+  }
+
+  export function compose(filters: Filter[]): Filter {
+    return buildComposed(filters, []);
   }
 
   function* _compose(
