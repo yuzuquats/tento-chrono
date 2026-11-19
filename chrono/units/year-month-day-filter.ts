@@ -116,43 +116,52 @@ export namespace YearMonthDayFilter {
     if (rank === 2 && secondDay != null) return [secondDay, secondUnit];
   }
 
+  const COMPOSED_FILTERS = Symbol("YearMonthDayFilter.composedFilters");
+
+  interface ComposedFilter extends RestrictableFilter {
+    readonly [COMPOSED_FILTERS]?: readonly Filter[];
+  }
+
+  function flattenComposed(filters: readonly Filter[]): Filter[] {
+    const flat: Filter[] = [];
+    for (const f of filters) {
+      const inner = (f as ComposedFilter)[COMPOSED_FILTERS];
+      if (inner != null && inner.length > 0) {
+        flat.push(...inner);
+      } else {
+        flat.push(f);
+      }
+    }
+    return flat;
+  }
+
   function buildComposed(
     filters: readonly Filter[],
     inheritedKeeps: readonly ((date: YearMonthDay.MaybeValid) => boolean)[],
-    deferTrailingMonthLimit: boolean = false,
   ): Filter {
-    // A month limit before another filter passes the weeks that straddle its
-    // months; each date the chain yields is then held to them (`MonthLimit`).
-    // Any downstream positional selector (bySetPos), including one inside a
-    // nested compose(), is restricted before ranking so out-of-month days in
-    // a straddling week do not steal positions. If the trailing filter is
-    // itself a MonthLimit (e.g. compose([byMonthOfYear(...)])) the composed
-    // filter also exposes MonthLimit so an outer compose() can keep straddling
-    // weeks until downstream filters expand them.
-    const last = filters.length - 1;
+    // Pipeline composition is associative: flattening nested compose() chains
+    // ensures MonthLimit straddling and downstream bySetPos restrictions behave
+    // identically regardless of how sub-pipelines are grouped.
+    const flat = flattenComposed(filters);
+    const last = flat.length - 1;
     const activeKeeps: Array<(date: YearMonthDay.MaybeValid) => boolean> = [...inheritedKeeps];
-    const ownMonthKeeps: Array<(date: YearMonthDay.MaybeValid) => boolean> = [];
     const chain: Filter[] = [];
-    for (let i = 0; i < filters.length; i++) {
-      const f = filters[i]!;
-      if ((i < last || deferTrailingMonthLimit) && "straddling" in f) {
+    for (let i = 0; i < flat.length; i++) {
+      const f = flat[i]!;
+      if (i < last && "straddling" in f) {
         const limit = f as MonthLimit;
         chain.push(limit.straddling);
         activeKeeps.push(limit.keeps);
-        ownMonthKeeps.push(limit.keeps);
       } else if (activeKeeps.length > 0 && "restrict" in f) {
         const currentKeeps = [...activeKeeps];
         chain.push(
           (f as RestrictableFilter).restrict((d) => currentKeeps.every((k) => k(d))),
         );
       } else {
-        if (i === last && "straddling" in f) {
-          ownMonthKeeps.push((f as MonthLimit).keeps);
-        }
         chain.push(f);
       }
     }
-    const base: Filter = deferTrailingMonthLimit || activeKeeps.length === 0
+    const base: Filter = activeKeeps.length === 0
       ? (partialdate) => _compose(partialdate, chain)
       : function* (
           partialdate: PartialDate.Tuple,
@@ -161,20 +170,16 @@ export namespace YearMonthDayFilter {
             if (activeKeeps.every((k) => k(t[0]))) yield t;
           }
         };
-    const trailingMonthLimit = last >= 0 && "straddling" in filters[last]!;
-    if (!deferTrailingMonthLimit && trailingMonthLimit) {
-      const allKeeps = [...inheritedKeeps, ...ownMonthKeeps];
-      return Object.assign(base, {
-        restrict: (keep: (date: YearMonthDay.MaybeValid) => boolean): Filter =>
-          buildComposed(filters, [...inheritedKeeps, keep], deferTrailingMonthLimit),
-        straddling: buildComposed(filters, inheritedKeeps, true),
-        keeps: (date: YearMonthDay.MaybeValid) => allKeeps.every((k) => k(date)),
-      });
+    const meta: {
+      restrict: (keep: (date: YearMonthDay.MaybeValid) => boolean) => Filter;
+      [COMPOSED_FILTERS]?: readonly Filter[];
+    } = {
+      restrict: (keep) => buildComposed(flat, [...inheritedKeeps, keep]),
+    };
+    if (inheritedKeeps.length === 0 && flat.length > 0) {
+      meta[COMPOSED_FILTERS] = flat;
     }
-    return Object.assign(base, {
-      restrict: (keep: (date: YearMonthDay.MaybeValid) => boolean): Filter =>
-        buildComposed(filters, [...inheritedKeeps, keep], deferTrailingMonthLimit),
-    });
+    return Object.assign(base, meta);
   }
 
   export function compose(filters: Filter[]): Filter {
