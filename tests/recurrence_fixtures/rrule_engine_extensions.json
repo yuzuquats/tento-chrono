@@ -118,6 +118,37 @@
         "2024-03-10"
       ],
       "notes": "Date-only recurrence set with RDATE and no RRULE emits DTSTART + sorted RDATEs"
+    },
+    {
+      "name": "weekly_implicit_byday_bysetpos",
+      "category": "bysetpos_extension",
+      "dtstart": "2024-01-03",
+      "rules": [
+        "RRULE:FREQ=WEEKLY;INTERVAL=2;BYSETPOS=1;COUNT=4"
+      ],
+      "expected": [
+        "2024-01-03",
+        "2024-01-17",
+        "2024-01-31",
+        "2024-02-14"
+      ],
+      "notes": "Engine extension: BYSETPOS without another BYxxx part (prohibited by RFC 5545 \u00a73.3.10) keeps DTSTART weekday"
+    },
+    {
+      "name": "date_rrule_exdate_and_rdate_parity",
+      "category": "date_rdate",
+      "dtstart": "2026-01-01",
+      "rules": [
+        "RRULE:FREQ=DAILY;COUNT=3",
+        "EXDATE;VALUE=DATE:20260102",
+        "RDATE;VALUE=DATE:20260105"
+      ],
+      "expected": [
+        "2026-01-01",
+        "2026-01-03",
+        "2026-01-05"
+      ],
+      "notes": "Both generate() and generateToDate() apply COUNT before EXDATE and merge explicit RDATEs"
     }
   ]
 }

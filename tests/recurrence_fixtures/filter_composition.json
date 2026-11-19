@@ -712,6 +712,109 @@
         "2024-02-01"
       ],
       "notes": "MonthLimit composed before nested bySetPos restricts candidates to February before positional selection"
+    },
+    {
+      "name": "nested_compose_month_restricts_bysetpos",
+      "category": "month_straddling",
+      "start": "2024-01-29",
+      "step": {
+        "unit": "weeks",
+        "value": 1
+      },
+      "end": "2024-02-04",
+      "weekStart": "MON",
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              1
+            ]
+          },
+          {
+            "op": "compose",
+            "filters": [
+              {
+                "op": "bySetPos",
+                "positions": [
+                  -1
+                ],
+                "inner": {
+                  "op": "byWeekday",
+                  "weekdays": [
+                    "MON",
+                    "TUE",
+                    "WED",
+                    "THU",
+                    "FRI",
+                    "SAT",
+                    "SUN"
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "2024-01-31"
+      ],
+      "notes": "MonthLimit propagates through nested compose() to restrict bySetPos before ranking straddling week days"
+    },
+    {
+      "name": "deeply_nested_compose_month_restricts_bysetpos",
+      "category": "month_straddling",
+      "start": "2024-01-29",
+      "step": {
+        "unit": "weeks",
+        "value": 1
+      },
+      "end": "2024-02-04",
+      "weekStart": "MON",
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              1
+            ]
+          },
+          {
+            "op": "compose",
+            "filters": [
+              {
+                "op": "compose",
+                "filters": [
+                  {
+                    "op": "bySetPos",
+                    "positions": [
+                      -1
+                    ],
+                    "inner": {
+                      "op": "byWeekday",
+                      "weekdays": [
+                        "MON",
+                        "TUE",
+                        "WED",
+                        "THU",
+                        "FRI",
+                        "SAT",
+                        "SUN"
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "2024-01-31"
+      ],
+      "notes": "MonthLimit propagates through multi-level nested compose() to restrict inner bySetPos"
     }
   ]
 }

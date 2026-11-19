@@ -21,10 +21,6 @@ import {
   Weekday,
 } from "../chrono/mod.ts";
 import { ICalDateLine } from "../chrono/recurrence/ical-date-line.ts";
-import { installTimezoneLoader } from "./utils.deno.ts";
-
-installTimezoneLoader();
-
 interface RRuleFixtureCase {
   name: string;
   category: string;
@@ -52,6 +48,7 @@ interface RecurrenceSetFixtureCase {
   composition: "RULE_ONLY" | "GOOGLE";
   rules: string[];
   upTo: string;
+  incrementalSteps?: string[];
   expected: string[];
   notes?: string;
 }
@@ -290,6 +287,29 @@ Deno.test("recurrence fixtures: strict runtime schema invariants hold across all
     if (parsed.inner.freq === "daily" || parsed.inner.freq === "monthly") {
       assert(!parsed.inner.options?.byyearday?.length, `${label}: ${parsed.inner.freq}+BYYEARDAY belongs in engine_extensions`);
     }
+    const opts = parsed.inner.options;
+    assert(!(opts?.count != null && opts?.until != null), `${label}: COUNT and UNTIL are mutually exclusive in RFC 5545`);
+    assert(
+      !(opts?.byhour?.length || opts?.byminute?.length || opts?.bysecond?.length),
+      `${label}: DATE DTSTART with BYHOUR/BYMINUTE/BYSECOND belongs in engine_extensions`,
+    );
+    if (opts?.byweekno?.length) {
+      assert(parsed.inner.freq === "yearly", `${label}: BYWEEKNO is only legal with FREQ=YEARLY`);
+    }
+    if (opts?.bysetpos?.length) {
+      const hasOtherByRule = Boolean(
+        opts.bymonth?.length ||
+        opts.byweekno?.length ||
+        opts.byyearday?.length ||
+        opts.bymonthday?.length ||
+        opts.byday?.length ||
+        opts.bynthday?.length ||
+        opts.byhour?.length ||
+        opts.byminute?.length ||
+        opts.bysecond?.length,
+      );
+      assert(hasOtherByRule, `${label}: BYSETPOS requires at least one other BYxxx rule part in RFC 5545 §3.3.10`);
+    }
   }
 
   checkUniqueNames("rrule_engine_extensions.json", extFixtures.cases);
@@ -308,6 +328,10 @@ Deno.test("recurrence fixtures: strict runtime schema invariants hold across all
     resolveComposition(c.composition, label);
     assert(Array.isArray(c.rules) && c.rules.length > 0, `${label}: rules must be non-empty`);
     assertCanonicalDate(c.upTo, `${label}.upTo`);
+    if (c.incrementalSteps !== undefined) {
+      assert(c.incrementalSteps.length > 0, `${label}.incrementalSteps must be non-empty`);
+      for (const step of c.incrementalSteps) assertCanonicalDate(step, `${label}.incrementalSteps`);
+    }
     for (const ts of c.expected) assertUtcTimestamp(ts, `${label}.expected`);
   }
 
@@ -374,9 +398,15 @@ Deno.test("recurrence fixtures: engine extensions, DATE time-part ignoring, & da
         `DTSTART;VALUE=DATE:${dtstartCompact}`,
         ...c.rules,
       ])).exp();
-      const actual = [...new Recurrence(raw).generate()].map(String);
+      const rec = new Recurrence(raw);
+      const actual = [...rec.generate()].map(String);
       assertEquals(actual, c.expected, `${c.name}: ${c.dtstart} | ${c.rules.join(" | ")}`);
       assertStrictlyOrderedUnique(actual, c.name);
+      const horizon = c.expected.length > 0
+        ? NaiveDate.parse(c.expected[c.expected.length - 1]!).addDays(366)
+        : NaiveDate.parse(c.dtstart).addDays(2000);
+      const viaToDate = [...rec.generateToDate(null, horizon, false)].map(String);
+      assertEquals(viaToDate, c.expected, `${c.name}: generateToDate parity`);
     });
   }
 });
@@ -401,6 +431,23 @@ Deno.test("recurrence fixtures: Recurrence sets, compositions, time parts, IANA 
       const gen2 = await new Recurrence(raw2).generateEvents(start, tz, comp);
       const actual2 = gen2.generateUpToDate(upTo).map(String);
       assertEquals(actual2, c.expected, `${c.name} round-trip: ${serializedLines.join(" | ")}`);
+
+      if (c.incrementalSteps) {
+        const incGen = await rec.generateEvents(start, tz, comp);
+        const collected: string[] = [];
+        for (const stepStr of c.incrementalSteps) {
+          const batch = incGen.generateUpToDate(NaiveDate.parse(stepStr)).map(String);
+          for (const tsStr of batch) {
+            assert(
+              tsStr.slice(0, 10) <= stepStr,
+              `${c.name} incremental(${stepStr}): returned timestamp ${tsStr} past query date`,
+            );
+          }
+          collected.push(...batch);
+        }
+        assertEquals(collected, c.expected, `${c.name} incremental steps`);
+        assertStrictlyOrderedUnique(collected, `${c.name} incremental`);
+      }
     });
   }
 });
@@ -443,4 +490,17 @@ Deno.test("recurrence fixtures: COUNT > 1000 and canonical serialization invaria
   assertEquals(periodDuration.toString(), "RDATE;VALUE=PERIOD:20240103T090000Z/PT2H");
   const periodEnd = (await ICalDateLine.parse("RDATE;VALUE=PERIOD:20240103T090000Z/20240103T110000Z")).exp();
   assertEquals(periodEnd.toString(), "RDATE;VALUE=PERIOD:20240103T090000Z/20240103T110000Z");
+
+  // Timed RRULE with explicit RDATE merges RDATE days in both generate() and generateToDate()
+  const timedRdateRaw = (await ICalendar.Raw.parse([
+    "DTSTART:20260101T090000",
+    "RRULE:FREQ=DAILY;BYHOUR=9,17;COUNT=4",
+    "RDATE:20260105T120000",
+  ])).exp();
+  const timedRdateRec = new Recurrence(timedRdateRaw);
+  assertEquals([...timedRdateRec.generate()].map(String), ["2026-01-01", "2026-01-02", "2026-01-05"]);
+  assertEquals(
+    [...timedRdateRec.generateToDate(null, NaiveDate.parse("2026-01-10"), false)].map(String),
+    ["2026-01-01", "2026-01-02", "2026-01-05"],
+  );
 });

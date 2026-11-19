@@ -1502,17 +1502,18 @@
       "notes": "Weekly rule without BYDAY keeps DTSTART weekday (Wed) when filtered by BYMONTH"
     },
     {
-      "name": "weekly_implicit_byday_bysetpos",
+      "name": "weekly_implicit_byday_bymonth_bysetpos",
       "category": "weekly",
       "dtstart": "2024-01-03",
-      "rrule": "FREQ=WEEKLY;INTERVAL=2;BYSETPOS=1;COUNT=4",
+      "rrule": "FREQ=WEEKLY;INTERVAL=2;BYMONTH=1,3;BYSETPOS=1;COUNT=5",
       "expected": [
         "2024-01-03",
         "2024-01-17",
         "2024-01-31",
-        "2024-02-14"
+        "2024-03-13",
+        "2024-03-27"
       ],
-      "notes": "Weekly rule without BYDAY keeps DTSTART weekday (Wed) under BYSETPOS=1"
+      "notes": "Weekly rule with BYMONTH and BYSETPOS=1 (legal RFC 5545 pairing) keeps DTSTART weekday (Wed)"
     }
   ]
 }
