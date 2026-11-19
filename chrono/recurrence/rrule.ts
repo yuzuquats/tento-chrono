@@ -501,7 +501,7 @@ export class RRule {
               useGoogleCalendarBehavior && weekno > 0;
             const singleWeekFilter = useGoogleCalendarLogic
               ? NaiveDate.Filter.byWeekNoGoogle(weekno, useCalendarYear)
-              : NaiveDate.Filter.byWeekNo(weekno, useCalendarYear);
+              : NaiveDate.Filter.byWeekNo(weekno, useCalendarYear, options?.wkst ?? Weekday.MON);
 
             // Then apply BYDAY filter to each result
             for (const [weekDate, _weekUnit] of singleWeekFilter(partialdate)) {
@@ -556,7 +556,7 @@ export class RRule {
                   useGoogleCalendarBehavior && weekno > 0;
                 const singleWeekFilter = useGoogleCalendarLogic
                   ? NaiveDate.Filter.byWeekNoGoogle(weekno, useCalendarYear)
-                  : NaiveDate.Filter.byWeekNo(weekno, useCalendarYear);
+                  : NaiveDate.Filter.byWeekNo(weekno, useCalendarYear, options?.wkst ?? Weekday.MON);
 
                 for (const result of singleWeekFilter(partialdate)) {
                   const dateKey = result[0].toString();
@@ -639,7 +639,15 @@ export class RRule {
         filterOptions.limit = options.count;
       }
     }
-    if (options?.wkst) filterOptions.weekStart = options.wkst;
+    const hasWeekDayExpander = Boolean(
+      options?.byday?.length ||
+      options?.bynthday?.length ||
+      options?.bymonthday?.length ||
+      options?.byyearday?.length,
+    );
+    if (hasWeekDayExpander) {
+      filterOptions.weekStart = options?.wkst ?? Weekday.MON;
+    }
     filterOptions.filter = filter;
     filterOptions.recurLimit = 1000;
 

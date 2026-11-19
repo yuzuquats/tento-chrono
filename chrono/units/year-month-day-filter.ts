@@ -417,6 +417,7 @@ export namespace YearMonthDayFilter {
   export function byWeekNo(
     weekno1: number,
     useCalendarYear: boolean = false,
+    wkst: Weekday = Weekday.MON,
   ): Filter {
     if (weekno1 === 0) throw new Error("weekno1 cannot be 0");
     return (partialdate: PartialDate.Tuple) =>
@@ -424,6 +425,7 @@ export namespace YearMonthDayFilter {
         partialdate,
         weekno1 as WeekOfYear1,
         useCalendarYear,
+        wkst,
       );
   }
 
@@ -444,6 +446,7 @@ export namespace YearMonthDayFilter {
     [cand, unit]: PartialDate.Tuple,
     weekno1: WeekOfYear1,
     useCalendarYear: boolean = false,
+    wkst: Weekday = Weekday.MON,
   ): Generator<PartialDate.Tuple> {
     let bounds: NaiveDate.Range;
     
@@ -475,7 +478,7 @@ export namespace YearMonthDayFilter {
     }
 
     if (!useCalendarYear) {
-      yield* isoWeekDates(cand.yr, bounds, weekno1);
+      yield* isoWeekDates(cand.yr, bounds, weekno1, wkst);
       return;
     }
 
@@ -502,15 +505,25 @@ export namespace YearMonthDayFilter {
     }
   }
 
+  function week1Start(yr: number, wkst: Weekday): YearMonthDay {
+    const jan1 = YearMonthDay.fromYmd1Exp(yr, 1, 1);
+    const offset = (jan1.dayOfWeek.dow - wkst.dow + 7) % 7;
+    return offset <= 3 ? jan1.addDays(-offset) : jan1.addDays(7 - offset);
+  }
+
   function* isoWeekDates(
     year: number,
     bounds: NaiveDate.Range,
     weekno1: WeekOfYear1,
+    wkst: Weekday = Weekday.MON,
   ): Generator<PartialDate.Tuple> {
     const seen = new Set<string>();
+    const isMon = wkst.dow === Weekday.MON.dow;
     for (const yr of [year - 1, year, year + 1]) {
-      const week1 = Year.isoWeekMon(yr, 1 as WeekOfYear1);
-      const weeks = Year.numWeeks(week1.isoYw1.yr);
+      const week1 = isMon ? Year.isoWeekMon(yr, 1 as WeekOfYear1) : week1Start(yr, wkst);
+      const weeks = isMon
+        ? Year.numWeeks(week1.isoYw1.yr)
+        : (week1Start(yr + 1, wkst).dse - week1.dse) / 7;
       if (!(Math.abs(weekno1) <= weeks)) continue;
       const ordinal = weekno1 > 0 ? weekno1 : weeks + weekno1 + 1;
       yield* clippedWeek(week1, (ordinal - 1) * 7, bounds, seen);
