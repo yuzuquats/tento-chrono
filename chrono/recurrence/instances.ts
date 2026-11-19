@@ -43,14 +43,19 @@ export namespace RRuleInstances {
     dtstart: NaiveDateTime,
     useGoogleCalendarBehavior: boolean = false,
     generationLimit?: number,
+    untilWallOverride?: Option<NaiveDateTime>,
   ): Generator<NaiveDateTime> {
     const options = rule.inner.options;
     const count = options?.count ?? null;
     const until = options?.until ?? null;
-    const untilWall = until?.nt != null ? until.extend() : null;
+    const untilWall = untilWallOverride !== undefined
+      ? untilWallOverride
+      : (until?.nt != null ? until.extend() : null);
     const untilDay = until != null && until.nt == null ? until.trunc() : null;
     const ended = (at: NaiveDateTime) =>
-      untilWall != null ? at.mse > untilWall.mse : untilDay != null && at.date.dse >= untilDay.dse;
+      untilWall != null
+        ? at.mse > untilWall.mse
+        : untilDay != null && (useGoogleCalendarBehavior ? at.date.dse >= untilDay.dse : at.date.dse > untilDay.dse);
 
     let emitted = 0;
     for (const at of candidates(rule, dtstart, useGoogleCalendarBehavior, generationLimit)) {

@@ -318,6 +318,57 @@ export class TimezoneRegion {
   // Cache the "no transition" timezone per DSE to avoid repeated bst lookups.
   // Most dates have no transitions — this skips transitionsBetween entirely.
   private _wallClockTzCache = new Map<number, LogicalTimezone<any>>();
+  private _rfc5545WallClockTzCache = new Map<number, LogicalTimezone<any>>();
+
+  /**
+   * Resolve a wall-clock NaiveDateTime according to RFC 5545 §3.3.5 and
+   * Verified Erratum 4271:
+   * - Fall-back overlap (ambiguous local time): uses the first occurrence
+   *   (pre-transition offset).
+   * - Spring-forward gap (non-existent local time): uses the pre-transition
+   *   offset (exact gap size, including 30-minute transitions like Lord Howe).
+   * - Valid post-transition times: uses the post-transition offset.
+   */
+  toRfc5545WallClock(ndt: NaiveDateTime): DateTime<FixedOffset> {
+    const dse = ndt.date.dse;
+    const cached = this._rfc5545WallClockTzCache.get(dse);
+    if (cached) return ndt.withTz(cached);
+
+    const dayStartMse = ndt.date.withTime(TimeOfDay.fromHms({ hrs: 0 })).mse;
+    const dayEndMse = dayStartMse + 24 * 60 * 60 * 1000;
+    const windowMs = 36 * 60 * 60 * 1000;
+    const transitions = this.transitionsBetween({
+      start: (dayStartMse - windowMs) as MsSinceEpoch,
+      end: (dayEndMse + windowMs) as MsSinceEpoch,
+    });
+
+    if (transitions.length === 0) {
+      const tz = this.tzAtMse(ndt.mse);
+      this._rfc5545WallClockTzCache.set(dse, tz);
+      return ndt.withTz(tz);
+    }
+
+    const wallMse = ndt.mse;
+    let resolved: LogicalTimezone<any> = this.asAsked(transitions[0]!.before.time.tz);
+    let hasTransitionOnDay = false;
+    for (const tr of transitions) {
+      const beforeWall = tr.before.time.ndt.mse;
+      const afterWall = tr.after.time.ndt.mse;
+      const minWall = Math.min(beforeWall, afterWall);
+      const cutoffWall = Math.max(beforeWall, afterWall);
+      if (minWall < dayEndMse && cutoffWall >= dayStartMse) {
+        hasTransitionOnDay = true;
+      }
+      if (cutoffWall <= wallMse) {
+        resolved = this.asAsked(tr.after.time.tz);
+      }
+    }
+
+    if (!hasTransitionOnDay) {
+      this._rfc5545WallClockTzCache.set(dse, resolved);
+    }
+    return ndt.withTz(resolved);
+  }
 
   toWallClock(ndt: NaiveDateTime): DateTime<FixedOffset> {
     const dse = ndt.date.dse;

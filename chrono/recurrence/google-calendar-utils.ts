@@ -141,7 +141,10 @@ export function shouldEmitStartDateSeparately(
   inner: ICalendar.Raw,
   startDate: YearMonthDay,
   pattern: CountPattern,
+  useGoogleCalendarBehavior: boolean = true,
 ): boolean {
+  if (!useGoogleCalendarBehavior) return false;
+  if (inner?.rrule?.inner.options?.bysetpos?.length) return false;
   // For yearly patterns with BYWEEKNO, don't emit start date separately - let the generator handle it
   // For negative week numbers, we need to be extra careful about start date emission
   return !!(inner && startDate && inner.rrule?.inner.options?.byday &&
@@ -182,12 +185,14 @@ export function* processAllEvents(
   startDate?: YearMonthDay,
   excl?: Set<number>,
   inner?: ICalendar.Raw,
+  useGoogleCalendarBehavior: boolean = true,
 ): Generator<YearMonthDay> {
   let emittedCount = 0;
   const seenEvents = new Set<string>();
   
   // Use the stateless function to determine if start date should be emitted separately
-  const shouldEmitStartSeparately = inner && startDate && shouldEmitStartDateSeparately(inner, startDate, pattern);
+  const shouldEmitStartSeparately = inner && startDate &&
+    shouldEmitStartDateSeparately(inner, startDate, pattern, useGoogleCalendarBehavior);
   
   // Handle start date emission for Google Calendar BYDAY patterns (non-yearly only)
   if (shouldEmitStartSeparately) {

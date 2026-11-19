@@ -8,7 +8,7 @@ export class ICalDateLine implements ICalDateLine.Like {
     readonly label: string,
     readonly dates: NaiveDateTime[],
     readonly region?: Option<TimezoneRegion>,
-    readonly value?: Option<"DATE" | "DATE-TIME">,
+    readonly value?: Option<"DATE" | "DATE-TIME" | "PERIOD">,
     readonly determinism?: Option<ICalDateLine.TestDeterminism>,
     /**
      * Each value's form as written: `timed` (it carried a time; a date-only
@@ -56,7 +56,8 @@ export class ICalDateLine implements ICalDateLine.Like {
       const form = this.forms?.[index];
       if (this.value === "DATE" || form?.timed === false) return d.date.ical();
       const utc = form?.utc ?? this.determinism?.includeZ ?? false;
-      return d.ical() + (utc ? "Z" : "");
+      const start = d.ical() + (utc ? "Z" : "");
+      return form?.periodEnd != null ? `${start}/${form.periodEnd}` : start;
     });
 
     return `${attributes.join(";")}:${dates.join(",")}`;
@@ -69,6 +70,7 @@ export namespace ICalDateLine {
       readonly tag: string,
       readonly attributes: ICalAttributes,
       readonly nd: IsoDate[],
+      readonly periodEnds: readonly (string | null)[] = [],
     ) {}
 
     static parse(s: string, requiresTag: boolean = true): Result<Raw> {
@@ -81,11 +83,21 @@ export namespace ICalDateLine {
       const [_, rawParams, rawTimestamps] = m;
 
       const attributes = ICalAttributes.fromRawAttributes(rawParams.split(";"));
-      const timestamps = rawTimestamps
-        .split(",")
-        // A PERIOD value (RDATE;VALUE=PERIOD:start/end or start/duration)
-        // is read as its start: the instance it adds.
-        .map((value) => IsoDate.parse(value.split("/")[0] ?? value))
+      const rawValues = rawTimestamps.split(",");
+      const periodEnds: (string | null)[] = [];
+      const timestamps = rawValues
+        .map((value) => {
+          // A PERIOD value (RDATE;VALUE=PERIOD:start/end or start/duration)
+          // is read as its start for occurrence expansion, while preserving the
+          // suffix for lossless serialization.
+          const slash = value.indexOf("/");
+          if (slash >= 0) {
+            periodEnds.push(value.slice(slash + 1));
+            return IsoDate.parse(value.slice(0, slash));
+          }
+          periodEnds.push(null);
+          return IsoDate.parse(value);
+        })
         .map((ts) => ts.exp());
 
       const tagCandidate = attributes.order[0];
@@ -95,7 +107,7 @@ export namespace ICalDateLine {
         }
       }
 
-      return Result.ok(new Raw(tagCandidate, attributes, timestamps));
+      return Result.ok(new Raw(tagCandidate, attributes, timestamps, periodEnds));
     }
 
     async resolve(deterministic: boolean = false): Promise<ICalDateLine> {
@@ -105,11 +117,11 @@ export namespace ICalDateLine {
         region = await TimezoneRegion.get(tzname as Tzname, Tzname.UTC, "ical-tzid");
       }
 
-      let exdateValue: Option<"DATE" | "DATE-TIME">;
+      let exdateValue: Option<"DATE" | "DATE-TIME" | "PERIOD">;
       const value = this.attributes.get("value");
       if (value != null && typeof value === "string") {
         const v = value.toUpperCase();
-        if (v === "DATE-TIME" || v === "DATE") {
+        if (v === "DATE-TIME" || v === "DATE" || v === "PERIOD") {
           exdateValue = v;
         }
       }
@@ -125,7 +137,11 @@ export namespace ICalDateLine {
               includeZ: this.nd[0]?.z != null,
             }
           : null,
-        this.nd.map((d) => ({ timed: d.nt != null, utc: d.z != null })),
+        this.nd.map((d, i) => ({
+          timed: d.nt != null,
+          utc: d.z != null,
+          ...(this.periodEnds[i] != null ? { periodEnd: this.periodEnds[i]! } : {}),
+        })),
       );
     }
   }
@@ -134,11 +150,11 @@ export namespace ICalDateLine {
 export namespace ICalDateLine {
   export type Options = Optional<{
     tzid: Tzname;
-    value: "DATE" | "DATE-TIME";
+    value: "DATE" | "DATE-TIME" | "PERIOD";
   }>;
 
   /** How one value of the line was written (see `ICalDateLine.forms`). */
-  export type Form = { readonly timed: boolean; readonly utc: boolean };
+  export type Form = { readonly timed: boolean; readonly utc: boolean; readonly periodEnd?: string };
 
   export type TestDeterminism = Optional<{
     attributeOrder: string[];

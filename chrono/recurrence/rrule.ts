@@ -137,7 +137,7 @@ export class RRule {
     let sb: string[] = [];
 
     let rruleParts: string[] = [];
-    const orderToUse = this.parameterOrder ?? [
+    const rawOrder = this.parameterOrder ?? [
       "FREQ",
       "WKST",
       "COUNT",
@@ -153,6 +153,18 @@ export class RRule {
       "BYSECOND",
       "UNTIL",
     ];
+    const seenParams = new Set<string>();
+    const orderToUse: string[] = [];
+    if (rawOrder.includes("FREQ")) {
+      seenParams.add("FREQ");
+      orderToUse.push("FREQ");
+    }
+    for (const param of rawOrder) {
+      if (!seenParams.has(param)) {
+        seenParams.add(param);
+        orderToUse.push(param);
+      }
+    }
 
     const options = this.inner.options;
     for (const param of orderToUse) {
@@ -434,6 +446,8 @@ export class RRule {
     limit?: Option<number>,
     end?: Option<NaiveDate>,
     useGoogleCalendarBehavior?: boolean,
+    untilDateOverride?: Option<NaiveDate>,
+    ignoreTimeParts: boolean = false,
   ): NaiveDate.FilterProps {
     const options = this.inner.options;
 
@@ -493,7 +507,7 @@ export class RRule {
       // Apply BYWEEKNO first, then BYDAY to fix the 2026 missing event issue
       const yearlyByweeknoFilter = (partialdate: PartialDate.Tuple) => {
         return (function* () {
-          const seenDates = new Set<string>();
+          const byDse = new Map<number, PartialDate.Tuple>();
           for (const weekno of options.byweekno!) {
             // Apply BYWEEKNO filter first
             const useCalendarYear = useGoogleCalendarBehavior;
@@ -507,13 +521,15 @@ export class RRule {
             for (const [weekDate, _weekUnit] of singleWeekFilter(partialdate)) {
               const bydayFilter = NaiveDate.Filter.byWeekday(options.byday!);
               for (const [dayDate, dayUnit] of bydayFilter([weekDate, "day"])) {
-                const dateKey = dayDate.toString();
-                if (!seenDates.has(dateKey)) {
-                  seenDates.add(dateKey);
-                  yield [dayDate, dayUnit] as PartialDate.Tuple;
+                const valid = dayDate.toResult().asOk();
+                if (valid != null && !byDse.has(valid.dse)) {
+                  byDse.set(valid.dse, [valid, dayUnit] as PartialDate.Tuple);
                 }
               }
             }
+          }
+          for (const [, tuple] of [...byDse.entries()].sort((a, b) => a[0] - b[0])) {
+            yield tuple;
           }
         })();
       };
@@ -545,7 +561,7 @@ export class RRule {
           // Create a single filter that handles multiple week numbers with OR logic
           const byWeekNoFilter = (partialdate: PartialDate.Tuple) => {
             return (function* () {
-              const seenDates = new Set<string>();
+              const byDse = new Map<number, PartialDate.Tuple>();
               for (const weekno of options.byweekno!) {
                 // For Google Calendar behavior:
                 // - Positive week numbers: use calendar year mode
@@ -559,12 +575,14 @@ export class RRule {
                   : NaiveDate.Filter.byWeekNo(weekno, useCalendarYear, options?.wkst ?? Weekday.MON);
 
                 for (const result of singleWeekFilter(partialdate)) {
-                  const dateKey = result[0].toString();
-                  if (!seenDates.has(dateKey)) {
-                    seenDates.add(dateKey);
-                    yield result;
+                  const valid = result[0].toResult().asOk();
+                  if (valid != null && !byDse.has(valid.dse)) {
+                    byDse.set(valid.dse, [valid, result[1]]);
                   }
                 }
+              }
+              for (const [, tuple] of [...byDse.entries()].sort((a, b) => a[0] - b[0])) {
+                yield tuple;
               }
             })();
           };
@@ -586,7 +604,7 @@ export class RRule {
     // BYSETPOS picks from each period's whole set of days. A rule with time
     // parts applies it to the set of instants instead (`RRuleInstances`).
     const setpos = options?.bysetpos;
-    const filter = setpos != null && setpos.length > 0 && !this.hasTimeParts()
+    const filter = setpos != null && setpos.length > 0 && (ignoreTimeParts || !this.hasTimeParts())
       ? NaiveDate.Filter.bySetPos(composed, setpos)
       : composed;
 
@@ -594,16 +612,18 @@ export class RRule {
     const filterOptions: NaiveDate.FilterPropsOptions = {};
     if (options?.until) {
       // Handle UNTIL based on whether it's date-only or datetime
-      const untilDate = options.until.trunc();
+      const untilDate = untilDateOverride ?? options.until.trunc();
 
-      if (options.until.nt) {
-        // DateTime UNTIL: inclusive up to the exact datetime
-        // Use the date portion as the end date (filter will include events on this date)
+      if (untilDateOverride != null || options.until.nt) {
+        // DateTime UNTIL (or caller-converted local UNTIL date): inclusive
         filterOptions.end = untilDate;
-      } else {
+      } else if (useGoogleCalendarBehavior) {
         // Date-only UNTIL: exclusive of the entire day (Google Calendar behavior)
         // Use the day before as the end date (filter will exclude events on UNTIL date)
         filterOptions.end = untilDate.addDays(-1);
+      } else {
+        // RFC 5545 §3.3.10: DATE UNTIL is inclusive of the UNTIL date
+        filterOptions.end = untilDate;
       }
     }
     // Override end if it's explicitly passed in, but respect UNTIL date restrictions
@@ -649,7 +669,7 @@ export class RRule {
       filterOptions.weekStart = options?.wkst ?? Weekday.MON;
     }
     filterOptions.filter = filter;
-    filterOptions.recurLimit = 1000;
+    filterOptions.recurLimit = Math.max(1000, options?.count ?? 0, limit ?? 0);
 
     // For Google Calendar yearly BYWEEKNO patterns, ensure we don't limit the generator prematurely
     if (

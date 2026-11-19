@@ -31,8 +31,24 @@ export namespace YearMonthDayFilter {
    * (1-based from the period's first day, negative from its last), in order.
    * Days that do not exist (Feb 31) are not counted.
    */
-  export function bySetPos(inner: Filter, positions: readonly number[]): Filter {
+  interface RestrictableFilter extends Filter {
+    readonly restrict: (keep: (date: YearMonthDay.MaybeValid) => boolean) => Filter;
+  }
+
+  function keepFilter(
+    inner: Filter,
+    keep: (date: YearMonthDay.MaybeValid) => boolean,
+  ): Filter {
+    if ("restrict" in inner) return (inner as RestrictableFilter).restrict(keep);
     return function* (partialdate: PartialDate.Tuple): Generator<PartialDate.Tuple> {
+      for (const t of inner(partialdate)) {
+        if (keep(t[0])) yield t;
+      }
+    };
+  }
+
+  export function bySetPos(inner: Filter, positions: readonly number[]): Filter {
+    const filter = function* (partialdate: PartialDate.Tuple): Generator<PartialDate.Tuple> {
       if (positions.length === 1) {
         const position = positions[0];
         const rank = Math.abs(position);
@@ -56,6 +72,10 @@ export namespace YearMonthDayFilter {
       }
       for (const i of [...picked].sort((a, b) => a - b)) yield sorted[i];
     };
+    return Object.assign(filter, {
+      restrict: (keep: (date: YearMonthDay.MaybeValid) => boolean): Filter =>
+        bySetPos(keepFilter(inner, keep), positions),
+    });
   }
 
   /** Rank the first or last two distinct days in a single pass. */
@@ -99,16 +119,32 @@ export namespace YearMonthDayFilter {
   export function compose(filters: Filter[]): Filter {
     // A month limit before another filter passes the weeks that straddle its
     // months; each date the chain yields is then held to them (`MonthLimit`).
+    // Any downstream positional selector (bySetPos) is restricted before
+    // ranking so out-of-month days in a straddling week do not steal positions.
     const last = filters.length - 1;
-    const isLimit = (f: Filter, i: number): f is MonthLimit => i < last && "straddling" in f;
-    const chain = filters.map((f, i) => isLimit(f, i) ? f.straddling : f);
-    const keeps = filters.filter(isLimit).map((f) => f.keeps);
-    if (keeps.length === 0) return (partialdate) => _compose(partialdate, chain);
+    const activeKeeps: Array<(date: YearMonthDay.MaybeValid) => boolean> = [];
+    const chain: Filter[] = [];
+    for (let i = 0; i < filters.length; i++) {
+      const f = filters[i]!;
+      if (i < last && "straddling" in f) {
+        const limit = f as MonthLimit;
+        chain.push(limit.straddling);
+        activeKeeps.push(limit.keeps);
+      } else if (activeKeeps.length > 0 && "restrict" in f) {
+        const currentKeeps = [...activeKeeps];
+        chain.push(
+          (f as RestrictableFilter).restrict((d) => currentKeeps.every((k) => k(d))),
+        );
+      } else {
+        chain.push(f);
+      }
+    }
+    if (activeKeeps.length === 0) return (partialdate) => _compose(partialdate, chain);
     return function* (
       partialdate: PartialDate.Tuple,
     ): Generator<PartialDate.Tuple> {
       for (const t of _compose(partialdate, chain)) {
-        if (keeps.every((k) => k(t[0]))) yield t;
+        if (activeKeeps.every((k) => k(t[0]))) yield t;
       }
     };
   }
@@ -388,7 +424,7 @@ export namespace YearMonthDayFilter {
 
     const yearsToCheck = [cand.yr];
 
-    const weekStart = cand.toStartOfWeekMon();
+    const weekStart = cand.castValid();
     const weekEnd = weekStart.addDays(6);
 
     if (weekStart.yr !== weekEnd.yr) {
@@ -611,7 +647,10 @@ export namespace YearMonthDayFilter {
         {
           if (simpleEqForDays) {
             for (const ndow of dayOfWeeks) {
-              if (ndow.weekday === cand.dayOfWeek) yield [cand, "day"];
+              if (ndow.weekday === cand.dayOfWeek) {
+                yield [cand, "day"];
+                break;
+              }
             }
             return;
           }

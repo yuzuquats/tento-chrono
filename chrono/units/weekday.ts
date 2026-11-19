@@ -115,8 +115,7 @@ export class Weekday {
       })
       .filter((offset) => offset >= 0 && offset < endDay);
 
-    ndowsByDay.sort((a, b) => a - b);
-    return ndowsByDay as DayOfYear1[];
+    return [...new Set(ndowsByDay)].sort((a, b) => a - b) as DayOfYear1[];
   }
 
   /**

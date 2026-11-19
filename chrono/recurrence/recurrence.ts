@@ -172,6 +172,8 @@ export namespace RecurrenceComposition {
 // State for generating recurrence events
 interface RecurrenceGenerationState {
   composition: RecurrenceComposition;
+  hasRrule: boolean;
+  seenInstants: Set<number>;
   generator: Generator<YearMonthDay>;
   // A rule with time parts (`RRule.hasTimeParts`): its instances as wall
   // times in the series' zone (`RRuleInstances`), in place of `generator`.
@@ -281,11 +283,35 @@ function isExcluded(ex: Exclusions, local: NaiveDateTime, at: DateTime<Utc>): bo
   return ex.instants.has(at.mse) || ex.localTimes.has(local.mse) || ex.localDays.has(local.date.dse);
 }
 
+function resolveWallInZone(
+  composition: RecurrenceComposition,
+  timezone: TimezoneRegion,
+  startDateTime: DateTime<FixedOffset>,
+  local: NaiveDateTime,
+): DateTime<Utc> {
+  return composition.name === "rule-only"
+    ? timezone.toRfc5545WallClock(local).toUtc()
+    : timezone.googleDatetimeResolved(local, startDateTime).toUtc();
+}
+
 function appendGenerated(state: RecurrenceGenerationState, event: DateTime<Utc>): void {
+  if (state.seenInstants.has(event.mse)) return;
   if (state.generationLimit != null && state.allGeneratedEvents.length >= state.generationLimit) {
     throw new RecurrenceExpansionLimitError(state.generationLimit);
   }
-  state.allGeneratedEvents.push(event);
+  state.seenInstants.add(event.mse);
+  const list = state.allGeneratedEvents;
+  if (list.length === 0 || list[list.length - 1]!.mse < event.mse) {
+    list.push(event);
+    return;
+  }
+  // Preserve chronological order if a DST spring-forward gap shifts an earlier
+  // wall-clock candidate past a later post-gap instant.
+  let idx = list.length;
+  while (idx > state.lastReturnedIndex && list[idx - 1]!.mse > event.mse) {
+    idx--;
+  }
+  list.splice(idx, 0, event);
 }
 
 function countCandidate(state: RecurrenceGenerationState): void {
@@ -305,9 +331,8 @@ function ensureEventsGenerated(
     state.startHandled = true;
     const start = state.startDateTime.toUtc();
     flushRdates(state, start.mse);
-    if (state.composition.dtstartAlwaysInstance && !state.startDateExcluded) {
-      const previous = state.allGeneratedEvents[state.allGeneratedEvents.length - 1];
-      if (previous == null || previous.mse !== start.mse) appendGenerated(state, start);
+    if ((state.composition.dtstartAlwaysInstance || !state.hasRrule) && !state.startDateExcluded) {
+      appendGenerated(state, start);
     }
   }
 
@@ -362,16 +387,12 @@ function ensureEventsGenerated(
       const localRecurrenceNaiveDateTime =
         dateInstance.withTime(originalLocalTime);
 
-      // Google Calendar always preserves local time across DST transitions
-      // Use Google-specific datetime resolution that preserves original timezone context
-      // This ensures that:
-      // - Spring forward (DST begins): Local time is preserved, UTC shifts earlier
-      // - Fall back (DST ends): Local time is preserved, UTC shifts later
-      const localRecurrenceDateTime = state.timezone.googleDatetimeResolved(
-        localRecurrenceNaiveDateTime,
+      event = resolveWallInZone(
+        state.composition,
+        state.timezone,
         state.startDateTime,
+        localRecurrenceNaiveDateTime,
       );
-      event = localRecurrenceDateTime.toUtc();
       if (state.untilDt?.isBefore(event)) {
         state.generationComplete = true;
         flushRdates(state, Infinity);
@@ -382,12 +403,14 @@ function ensureEventsGenerated(
       // No timezone, just use the same time as the original start datetime
       const local = dateInstance.withTime(state.startDateTime.ndt.time);
       event = new DateTime(local, Utc);
+      if (state.untilDt?.isBefore(event)) {
+        state.generationComplete = true;
+        flushRdates(state, Infinity);
+        return;
+      }
       if (isExcluded(state.excl, local, event)) continue;
     }
     flushRdates(state, event.mse);
-    // An RDATE on this instance is this instance (one entry).
-    const prev = state.allGeneratedEvents[state.allGeneratedEvents.length - 1];
-    if (prev != null && prev.mse === event.mse) continue;
     appendGenerated(state, event);
   }
 }
@@ -402,19 +425,18 @@ function ensureEventsGenerated(
 function placeInstance(state: RecurrenceGenerationState, local: NaiveDateTime): boolean {
   let event: DateTime<Utc>;
   if (state.timezone) {
-    event = state.timezone.googleDatetimeResolved(local, state.startDateTime).toUtc();
-    if (state.untilDt?.isBefore(event)) {
-      state.generationComplete = true;
-      flushRdates(state, Infinity);
-      return true;
-    }
+    event = resolveWallInZone(state.composition, state.timezone, state.startDateTime, local);
   } else {
     event = new DateTime(local, Utc);
   }
+  if (state.untilDt?.isBefore(event)) {
+    state.generationComplete = true;
+    flushRdates(state, Infinity);
+    return true;
+  }
   if (isExcluded(state.excl, local, event)) return false;
   flushRdates(state, event.mse);
-  const prev = state.allGeneratedEvents[state.allGeneratedEvents.length - 1];
-  if (prev == null || prev.mse !== event.mse) appendGenerated(state, event);
+  appendGenerated(state, event);
   return false;
 }
 
@@ -448,11 +470,12 @@ function rdatesOf(
   timezone: Option<TimezoneRegion>,
   startLocal: NaiveDateTime,
   excl: Exclusions,
+  composition: RecurrenceComposition = RecurrenceComposition.GOOGLE,
 ): DateTime<Utc>[] {
   const byMse = new Map<number, DateTime<Utc>>();
   for (const line of recurrence.inner.lines.rdate ?? []) {
     line.dates.forEach((ndt, i) => {
-      const at = rdateInstant(line, i, startDateTime, timezone, startLocal);
+      const at = rdateInstant(line, i, startDateTime, timezone, startLocal, composition);
       const local = timezone ? at.toTz(timezone.tzAtMse(at.mse)).ndt : at.ndt;
       if (isExcluded(excl, local, at)) return;
       byMse.set(at.mse, at);
@@ -468,11 +491,12 @@ function rdateInstant(
   startDateTime: DateTime<FixedOffset>,
   timezone: Option<TimezoneRegion>,
   startLocal: NaiveDateTime,
+  composition: RecurrenceComposition = RecurrenceComposition.GOOGLE,
 ): DateTime<Utc> {
   const ndt = line.dates[i]!;
   const form = line.forms?.[i] ?? { timed: true, utc: false };
   const inSeries = (wall: NaiveDateTime): DateTime<Utc> =>
-    timezone ? timezone.googleDatetimeResolved(wall, startDateTime).toUtc() : new DateTime(wall, Utc);
+    timezone ? resolveWallInZone(composition, timezone, startDateTime, wall) : new DateTime(wall, Utc);
   if (line.value === "DATE" || !form.timed) return inSeries(ndt.date.withTime(startLocal.time));
   if (form.utc) return new DateTime(ndt, Utc);
   if (line.region != null && line.region.fullname !== timezone?.fullname) return line.region.toWallClock(ndt).toUtc();
@@ -698,42 +722,64 @@ export class GoogleEventGenerator {
     if (generationLimit != null && (!Number.isSafeInteger(generationLimit) || generationLimit < 1)) {
       throw new RangeError("recurrence generation limit must be a positive safe integer");
     }
-    const startDateParsed = startDateTime.ndt.date;
-
-    // Check if RRULE has an UNTIL date
-    const rruleUntil = recurrence.inner.rrule?.inner.options?.until;
-    const untilDate = rruleUntil?.trunc();
-    const untilDt =
-      untilDate && rruleUntil?.nt
-        ? new DateTime(new NaiveDateTime(untilDate, rruleUntil.nt), Utc)
-        : null;
-
-    // EXDATEs match instances (RFC 5545 §3.8.5.1), DTSTART's included.
-    const excl = exclusionsOf(recurrence, timezone ?? null);
     const startUtc = startDateTime.toUtc();
     const startLocal = timezone
       ? startUtc.toTz(timezone.tzAtMse(startDateTime.mse)).ndt
       : startDateTime.ndt;
+    const startDateParsed = startLocal.date;
+
+    // Check if RRULE has an UNTIL date
+    const rrule = recurrence.inner.rrule;
+    const rruleUntil = rrule?.inner.options?.until;
+    const untilDate = rruleUntil?.trunc();
+    const untilDt =
+      untilDate && rruleUntil?.nt
+        ? (rruleUntil.z != null || !timezone
+          ? new DateTime(new NaiveDateTime(untilDate, rruleUntil.nt), Utc)
+          : resolveWallInZone(composition, timezone, startDateTime, new NaiveDateTime(untilDate, rruleUntil.nt)))
+        : null;
+    const untilLocal = untilDt != null
+      ? (timezone ? untilDt.toTz(timezone.tzAtMse(untilDt.mse)).ndt : untilDt.ndt)
+      : null;
+    // For DATE-TIME UNTIL in a timezone, translate the cutoff to local calendar
+    // date (+1 day safety margin) so positive-offset zones do not drop valid
+    // local dates; exact instant comparison is enforced via `untilDt`.
+    const localUntilDateOverride = untilLocal != null ? untilLocal.date.addDays(1) : undefined;
+    const generatorUntilDate = localUntilDateOverride ?? untilDate;
+
+    // EXDATEs match instances (RFC 5545 §3.8.5.1), DTSTART's included.
+    const excl = exclusionsOf(recurrence, timezone ?? null);
     const startDateExcluded = isExcluded(excl, startLocal, startUtc);
-    const rdates = rdatesOf(recurrence, startDateTime, timezone ?? null, startLocal, excl);
+    const rdates = rdatesOf(recurrence, startDateTime, timezone ?? null, startLocal, excl, composition);
 
     // The rule's dates, unfiltered by EXDATE (matched per instance here).
-    const generator = generateUntilExcl(
-      recurrence.inner,
-      startDateParsed,
-      untilDate, // Use UNTIL date if present, otherwise will generate indefinitely
-      composition.googleByweekno,
-      false,
-      generationLimit,
-    );
+    const generator = rrule != null
+      ? generateUntilExcl(
+        recurrence.inner,
+        startDateParsed,
+        generatorUntilDate,
+        composition.googleByweekno,
+        false,
+        generationLimit,
+        localUntilDateOverride,
+      )
+      : (function* () {})();
 
-    const rrule = recurrence.inner.rrule;
+    const wallUntilBound = untilLocal != null ? untilLocal.add({ hrs: 2 }) : undefined;
     const wallGenerator = rrule != null && rrule.hasTimeParts()
-      ? RRuleInstances.expand(rrule, startLocal, composition.googleByweekno, generationLimit)
+      ? RRuleInstances.expand(
+        rrule,
+        startLocal,
+        composition.googleByweekno,
+        generationLimit,
+        wallUntilBound,
+      )
       : null;
 
     this.state = {
       composition,
+      hasRrule: rrule != null,
+      seenInstants: new Set<number>(),
       generator,
       wallGenerator,
       startLocal,
@@ -818,14 +864,14 @@ export class Recurrence {
     end?: Option<NaiveDate>,
     useGoogleCalendarBehavior?: boolean,
   ): Generator<YearMonthDay> {
-    if (this.inner.rrule?.hasTimeParts()) {
+    if (shouldUseTimeParts(this.inner)) {
       return timedDays(this.inner, date, end, null, useGoogleCalendarBehavior ?? false, !useGoogleCalendarBehavior);
     }
     return generateUntilExcl(this.inner, date, end, useGoogleCalendarBehavior);
   }
 
   generate(date?: Option<NaiveDate>, limit?: number): Generator<YearMonthDay> {
-    if (this.inner.rrule?.hasTimeParts()) return timedDays(this.inner, date, null, limit ?? null, false, true);
+    if (shouldUseTimeParts(this.inner)) return timedDays(this.inner, date, null, limit ?? null, false, true);
     return generateExcl(this.inner, date, limit);
   }
 
@@ -849,22 +895,92 @@ export class Recurrence {
   }
 }
 
+function isDateOnlyDtstart(inner: ICalendar.Raw): boolean {
+  const dtstart = inner.dtstart;
+  return dtstart != null && (dtstart.value === "DATE" || dtstart.forms?.[0]?.timed === false);
+}
+
+function shouldUseTimeParts(inner: ICalendar.Raw): boolean {
+  const rrule = inner.rrule;
+  if (rrule == null || !rrule.hasTimeParts()) return false;
+  // RFC 5545 §3.3.10: BYHOUR/BYMINUTE/BYSECOND MUST be ignored when DTSTART
+  // has a DATE value type (for date-level frequencies).
+  if (isDateOnlyDtstart(inner)) {
+    const freq = rrule.inner.freq;
+    if (freq === "yearly" || freq === "monthly" || freq === "weekly" || freq === "daily") {
+      return false;
+    }
+  }
+  return true;
+}
+
+function sortedRdateDays(inner: ICalendar.Raw, excl: Set<number>): YearMonthDay[] {
+  const byDse = new Map<number, YearMonthDay>();
+  for (const line of inner.lines.rdate ?? []) {
+    for (const dt of line.dates ?? []) {
+      const day = dt.date;
+      if (!excl.has(day.dse)) byDse.set(day.dse, day);
+    }
+  }
+  return [...byDse.entries()].sort((a, b) => a[0] - b[0]).map(([, d]) => d);
+}
+
 function* generateExcl(
   inner: ICalendar.Raw,
   date?: Option<NaiveDate>,
   limit?: Option<number>,
 ) {
-  const generator = (date ?? inner.dtstart!.dates[0]!.date).rangeProps(
-    inner.rrule!.toFilterProps(limit),
-  );
+  const start = date ?? inner.dtstart?.dates[0]?.date;
   const excl = new Set(
     inner.lines.exdate?.flatMap(
       (exdate) => exdate.dates?.map((d) => d.dse) ?? [],
     ) ?? [],
   );
+  const rdates = sortedRdateDays(inner, excl);
+  const seen = new Set<number>();
+  let emitted = 0;
+
+  if (inner.rrule == null) {
+    const all = new Map<number, YearMonthDay>();
+    if (start != null && !excl.has(start.dse)) all.set(start.dse, start);
+    for (const rd of rdates) all.set(rd.dse, rd);
+    for (const [, day] of [...all.entries()].sort((a, b) => a[0] - b[0])) {
+      if (limit != null && emitted >= limit) return;
+      yield day;
+      emitted++;
+    }
+    return;
+  }
+
+  const ignoreTimeParts = isDateOnlyDtstart(inner);
+  const generator = start!.rangeProps(
+    inner.rrule.toFilterProps(limit, null, false, null, ignoreTimeParts),
+  );
+  let rdateIdx = 0;
   for (const nd of generator) {
-    if (excl.has(nd.dse)) continue;
+    while (rdateIdx < rdates.length && rdates[rdateIdx]!.dse <= nd.dse) {
+      const rd = rdates[rdateIdx++]!;
+      if (!seen.has(rd.dse)) {
+        if (limit != null && emitted >= limit) return;
+        seen.add(rd.dse);
+        yield rd;
+        emitted++;
+      }
+    }
+    if (excl.has(nd.dse) || seen.has(nd.dse)) continue;
+    if (limit != null && emitted >= limit) return;
+    seen.add(nd.dse);
     yield nd;
+    emitted++;
+  }
+  while (rdateIdx < rdates.length) {
+    const rd = rdates[rdateIdx++]!;
+    if (!seen.has(rd.dse)) {
+      if (limit != null && emitted >= limit) return;
+      seen.add(rd.dse);
+      yield rd;
+      emitted++;
+    }
   }
 }
 
@@ -910,30 +1026,46 @@ function* generateUntilExcl(
   useGoogleCalendarBehavior?: boolean,
   excludeDates: boolean = !useGoogleCalendarBehavior,
   generationLimit?: number,
+  untilDateOverride?: Option<NaiveDate>,
 ) {
-  const originalStartDate = date ?? inner.dtstart!.dates[0]!.date;
+  const originalStartDate = date ?? inner.dtstart?.dates[0]?.date;
+  const excl = excludeDates ? createExcludedDatesSet(inner) : new Set<number>();
+
+  if (inner.rrule == null) {
+    const all = new Map<number, YearMonthDay>();
+    if (originalStartDate != null && !excl.has(originalStartDate.dse)) {
+      all.set(originalStartDate.dse, originalStartDate);
+    }
+    for (const rd of sortedRdateDays(inner, excl)) all.set(rd.dse, rd);
+    for (const [, day] of [...all.entries()].sort((a, b) => a[0] - b[0])) {
+      if (end != null && day.dse > end.dse) return;
+      yield day;
+    }
+    return;
+  }
 
   // Use the stateless function to calculate the generator start date
   const generatorStartDate = calculateGoogleCalendarStartDate(
-    originalStartDate,
+    originalStartDate!,
     inner,
     useGoogleCalendarBehavior,
   );
 
   // Create raw event generator
-  const props = inner.rrule!.toFilterProps(null, end, useGoogleCalendarBehavior);
+  const ignoreTimeParts = isDateOnlyDtstart(inner);
+  const props = inner.rrule.toFilterProps(
+    null,
+    end,
+    useGoogleCalendarBehavior,
+    untilDateOverride,
+    ignoreTimeParts,
+  );
   if (generationLimit != null) {
     props.options ??= {};
     props.options.recurLimit = generationLimit;
     props.options.onExhausted = () => { throw new RecurrenceExpansionLimitError(generationLimit); };
   }
   const rawGenerator = generatorStartDate.rangeProps(props);
-
-  // Excluded dates. `GoogleEventGenerator` matches EXDATEs per instance (an
-  // EXDATE removes one instance, not its day), so its rule dates come
-  // unfiltered here (`excludeDates` false); an excluded instance still counts
-  // toward COUNT (RFC 5545 §3.8.5.3: the set is the rule's, then EXDATE).
-  const excl = excludeDates ? createExcludedDatesSet(inner) : new Set<number>();
 
   // Detect COUNT pattern and use comprehensive post-processor
   const pattern = detectCountPattern(inner, useGoogleCalendarBehavior);
@@ -944,8 +1076,9 @@ function* generateUntilExcl(
     rawGenerator,
     pattern,
     countLimit,
-    originalStartDate,
+    originalStartDate!,
     excl,
     inner,
+    Boolean(useGoogleCalendarBehavior),
   );
 }

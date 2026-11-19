@@ -15,8 +15,9 @@ export class ICalAttributes {
     const attributes: Map<string, Option<string>> = new Map();
     for (const rule of attributeLines) {
       const [key, value] = rule.split("=");
-      attributes.set(key.toUpperCase(), value);
-      attributeOrder.push(key.toUpperCase());
+      const upper = key.toUpperCase();
+      if (!attributes.has(upper)) attributeOrder.push(upper);
+      attributes.set(upper, value);
     }
     return new ICalAttributes(attributes, attributeOrder);
   }
