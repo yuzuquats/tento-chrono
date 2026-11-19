@@ -1,6 +1,6 @@
 /**
  * Compare the recurrence article's three examples and an unfiltered daily range.
- * Run with deno bench --no-lock --allow-env=CHRONO_YEARS benchmarks/recurrence_bench.ts.
+ * Run with deno bench --lock=bench/deno.lock --frozen --allow-env=CHRONO_YEARS bench/recurrence_bench.ts.
  * Set CHRONO_YEARS=1 to use the article's dates. Expansion starts from prepared rules.
  */
 import { assertEquals } from "@std/assert";

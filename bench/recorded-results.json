@@ -1,0 +1,1504 @@
+{
+  "measuredOn": "2026-11-19",
+  "filterRevision": "a115343",
+  "baselineFilterRevision": "baca772ccd8ea1ea012dc55ae3db2eb1743a0e2f",
+  "host": "yuzuquats",
+  "cpu": "Intel Core i7-12700K",
+  "deno": [
+    "deno 2.9.8 (x86_64-unknown-linux-gnu)",
+    "v8 15.0.245.2-rusty"
+  ],
+  "rounds": 3,
+  "article": [
+    {
+      "group": "daily",
+      "variant": "after",
+      "engine": "chrono",
+      "meanNanosecondsByRun": [
+        5403165.0,
+        5768113.0,
+        5712869.0
+      ],
+      "medianNanoseconds": 5712869.0
+    },
+    {
+      "group": "daily",
+      "variant": "after",
+      "engine": "rrule",
+      "meanNanosecondsByRun": [
+        72554046.0,
+        72412673.0,
+        73929703.0
+      ],
+      "medianNanoseconds": 72554046.0
+    },
+    {
+      "group": "daily",
+      "variant": "before",
+      "engine": "chrono",
+      "meanNanosecondsByRun": [
+        5373309.0,
+        5883413.0,
+        5816190.0
+      ],
+      "medianNanoseconds": 5816190.0
+    },
+    {
+      "group": "daily",
+      "variant": "before",
+      "engine": "rrule",
+      "meanNanosecondsByRun": [
+        72350511.0,
+        77000821.0,
+        72262899.0
+      ],
+      "medianNanoseconds": 72350511.0
+    },
+    {
+      "group": "lunch",
+      "variant": "after",
+      "engine": "chrono",
+      "meanNanosecondsByRun": [
+        2330446.0,
+        2321829.0,
+        2453949.0
+      ],
+      "medianNanoseconds": 2330446.0
+    },
+    {
+      "group": "lunch",
+      "variant": "after",
+      "engine": "rrule",
+      "meanNanosecondsByRun": [
+        7391266.0,
+        7482794.0,
+        7601177.0
+      ],
+      "medianNanoseconds": 7482794.0
+    },
+    {
+      "group": "lunch",
+      "variant": "before",
+      "engine": "chrono",
+      "meanNanosecondsByRun": [
+        3950000.0,
+        4348402.0,
+        4099887.0
+      ],
+      "medianNanoseconds": 4099887.0
+    },
+    {
+      "group": "lunch",
+      "variant": "before",
+      "engine": "rrule",
+      "meanNanosecondsByRun": [
+        7133867.0,
+        7841581.0,
+        7568069.0
+      ],
+      "medianNanoseconds": 7568069.0
+    },
+    {
+      "group": "quarter",
+      "variant": "after",
+      "engine": "chrono",
+      "meanNanosecondsByRun": [
+        501492.0,
+        497131.0,
+        512571.0
+      ],
+      "medianNanoseconds": 501492.0
+    },
+    {
+      "group": "quarter",
+      "variant": "after",
+      "engine": "rrule",
+      "meanNanosecondsByRun": [
+        1926936.0,
+        1900026.0,
+        1899777.0
+      ],
+      "medianNanoseconds": 1900026.0
+    },
+    {
+      "group": "quarter",
+      "variant": "before",
+      "engine": "chrono",
+      "meanNanosecondsByRun": [
+        1175300.0,
+        1207227.0,
+        1190179.0
+      ],
+      "medianNanoseconds": 1190179.0
+    },
+    {
+      "group": "quarter",
+      "variant": "before",
+      "engine": "rrule",
+      "meanNanosecondsByRun": [
+        1848524.0,
+        2023914.0,
+        1887108.0
+      ],
+      "medianNanoseconds": 1887108.0
+    },
+    {
+      "group": "summer",
+      "variant": "after",
+      "engine": "chrono",
+      "meanNanosecondsByRun": [
+        274284.0,
+        273106.0,
+        274403.0
+      ],
+      "medianNanoseconds": 274284.0
+    },
+    {
+      "group": "summer",
+      "variant": "after",
+      "engine": "rrule",
+      "meanNanosecondsByRun": [
+        837073.0,
+        838555.0,
+        868506.0
+      ],
+      "medianNanoseconds": 838555.0
+    },
+    {
+      "group": "summer",
+      "variant": "before",
+      "engine": "chrono",
+      "meanNanosecondsByRun": [
+        269266.0,
+        274591.0,
+        272660.0
+      ],
+      "medianNanoseconds": 272660.0
+    },
+    {
+      "group": "summer",
+      "variant": "before",
+      "engine": "rrule",
+      "meanNanosecondsByRun": [
+        798506.0,
+        806766.0,
+        865829.0
+      ],
+      "medianNanoseconds": 806766.0
+    }
+  ],
+  "monthly": [
+    {
+      "group": "all-days interval 1 positions -1",
+      "variant": "after",
+      "engine": "chrono",
+      "meanNanosecondsByRun": [
+        1657613.0,
+        1640935.0,
+        1659660.0
+      ],
+      "medianNanoseconds": 1657613.0
+    },
+    {
+      "group": "all-days interval 1 positions -1",
+      "variant": "after",
+      "engine": "rrule",
+      "meanNanosecondsByRun": [
+        2961928.0,
+        2997533.0,
+        3005696.0
+      ],
+      "medianNanoseconds": 2997533.0
+    },
+    {
+      "group": "all-days interval 1 positions -1",
+      "variant": "before",
+      "engine": "chrono",
+      "meanNanosecondsByRun": [
+        4619640.0,
+        4661071.0,
+        4859725.0
+      ],
+      "medianNanoseconds": 4661071.0
+    },
+    {
+      "group": "all-days interval 1 positions -1",
+      "variant": "before",
+      "engine": "rrule",
+      "meanNanosecondsByRun": [
+        2940671.0,
+        3031194.0,
+        2986006.0
+      ],
+      "medianNanoseconds": 2986006.0
+    },
+    {
+      "group": "all-days interval 1 positions all",
+      "variant": "after",
+      "engine": "chrono",
+      "meanNanosecondsByRun": [
+        2560004.0,
+        2567803.0,
+        2421764.0
+      ],
+      "medianNanoseconds": 2560004.0
+    },
+    {
+      "group": "all-days interval 1 positions all",
+      "variant": "after",
+      "engine": "rrule",
+      "meanNanosecondsByRun": [
+        15499985.0,
+        16833426.0,
+        16600490.0
+      ],
+      "medianNanoseconds": 16600490.0
+    },
+    {
+      "group": "all-days interval 1 positions all",
+      "variant": "before",
+      "engine": "chrono",
+      "meanNanosecondsByRun": [
+        2941785.0,
+        3067916.0,
+        2990560.0
+      ],
+      "medianNanoseconds": 2990560.0
+    },
+    {
+      "group": "all-days interval 1 positions all",
+      "variant": "before",
+      "engine": "rrule",
+      "meanNanosecondsByRun": [
+        16145926.0,
+        16805674.0,
+        16652332.0
+      ],
+      "medianNanoseconds": 16652332.0
+    },
+    {
+      "group": "friday interval 1 positions -1",
+      "variant": "after",
+      "engine": "chrono",
+      "meanNanosecondsByRun": [
+        633359.0,
+        634511.0,
+        649955.0
+      ],
+      "medianNanoseconds": 634511.0
+    },
+    {
+      "group": "friday interval 1 positions -1",
+      "variant": "after",
+      "engine": "rrule",
+      "meanNanosecondsByRun": [
+        2829703.0,
+        2986824.0,
+        2932421.0
+      ],
+      "medianNanoseconds": 2932421.0
+    },
+    {
+      "group": "friday interval 1 positions -1",
+      "variant": "before",
+      "engine": "chrono",
+      "meanNanosecondsByRun": [
+        2216089.0,
+        2270008.0,
+        2318033.0
+      ],
+      "medianNanoseconds": 2270008.0
+    },
+    {
+      "group": "friday interval 1 positions -1",
+      "variant": "before",
+      "engine": "rrule",
+      "meanNanosecondsByRun": [
+        2745496.0,
+        2849502.0,
+        2897563.0
+      ],
+      "medianNanoseconds": 2849502.0
+    },
+    {
+      "group": "friday interval 1 positions 1",
+      "variant": "after",
+      "engine": "chrono",
+      "meanNanosecondsByRun": [
+        1122780.0,
+        1114265.0,
+        1114432.0
+      ],
+      "medianNanoseconds": 1114432.0
+    },
+    {
+      "group": "friday interval 1 positions 1",
+      "variant": "after",
+      "engine": "rrule",
+      "meanNanosecondsByRun": [
+        2866136.0,
+        2922971.0,
+        2885083.0
+      ],
+      "medianNanoseconds": 2885083.0
+    },
+    {
+      "group": "friday interval 1 positions 1",
+      "variant": "before",
+      "engine": "chrono",
+      "meanNanosecondsByRun": [
+        2123269.0,
+        2077045.0,
+        2250860.0
+      ],
+      "medianNanoseconds": 2123269.0
+    },
+    {
+      "group": "friday interval 1 positions 1",
+      "variant": "before",
+      "engine": "rrule",
+      "meanNanosecondsByRun": [
+        2849853.0,
+        2821321.0,
+        2945367.0
+      ],
+      "medianNanoseconds": 2849853.0
+    },
+    {
+      "group": "tue-thu interval 3 positions -1",
+      "variant": "after",
+      "engine": "chrono",
+      "meanNanosecondsByRun": [
+        275924.0,
+        325175.0,
+        277388.0
+      ],
+      "medianNanoseconds": 277388.0
+    },
+    {
+      "group": "tue-thu interval 3 positions -1",
+      "variant": "after",
+      "engine": "rrule",
+      "meanNanosecondsByRun": [
+        994233.0,
+        1000883.0,
+        998389.0
+      ],
+      "medianNanoseconds": 998389.0
+    },
+    {
+      "group": "tue-thu interval 3 positions -1",
+      "variant": "before",
+      "engine": "chrono",
+      "meanNanosecondsByRun": [
+        844800.0,
+        858152.0,
+        891829.0
+      ],
+      "medianNanoseconds": 858152.0
+    },
+    {
+      "group": "tue-thu interval 3 positions -1",
+      "variant": "before",
+      "engine": "rrule",
+      "meanNanosecondsByRun": [
+        1023824.0,
+        969654.0,
+        1038524.0
+      ],
+      "medianNanoseconds": 1023824.0
+    },
+    {
+      "group": "weekdays interval 1 positions -2",
+      "variant": "after",
+      "engine": "chrono",
+      "meanNanosecondsByRun": [
+        3434901.0,
+        3454409.0,
+        3517442.0
+      ],
+      "medianNanoseconds": 3454409.0
+    },
+    {
+      "group": "weekdays interval 1 positions -2",
+      "variant": "after",
+      "engine": "rrule",
+      "meanNanosecondsByRun": [
+        2951510.0,
+        2958686.0,
+        2991957.0
+      ],
+      "medianNanoseconds": 2958686.0
+    },
+    {
+      "group": "weekdays interval 1 positions -2",
+      "variant": "before",
+      "engine": "chrono",
+      "meanNanosecondsByRun": [
+        4157400.0,
+        4113014.0,
+        4161898.0
+      ],
+      "medianNanoseconds": 4157400.0
+    },
+    {
+      "group": "weekdays interval 1 positions -2",
+      "variant": "before",
+      "engine": "rrule",
+      "meanNanosecondsByRun": [
+        3061493.0,
+        2980050.0,
+        3057732.0
+      ],
+      "medianNanoseconds": 3057732.0
+    },
+    {
+      "group": "weekend interval 2 positions 1,-1",
+      "variant": "after",
+      "engine": "chrono",
+      "meanNanosecondsByRun": [
+        855070.0,
+        871422.0,
+        876603.0
+      ],
+      "medianNanoseconds": 871422.0
+    },
+    {
+      "group": "weekend interval 2 positions 1,-1",
+      "variant": "after",
+      "engine": "rrule",
+      "meanNanosecondsByRun": [
+        1802867.0,
+        1815294.0,
+        1826942.0
+      ],
+      "medianNanoseconds": 1815294.0
+    },
+    {
+      "group": "weekend interval 2 positions 1,-1",
+      "variant": "before",
+      "engine": "chrono",
+      "meanNanosecondsByRun": [
+        1348600.0,
+        1329725.0,
+        1385430.0
+      ],
+      "medianNanoseconds": 1348600.0
+    },
+    {
+      "group": "weekend interval 2 positions 1,-1",
+      "variant": "before",
+      "engine": "rrule",
+      "meanNanosecondsByRun": [
+        1816153.0,
+        1842061.0,
+        1856042.0
+      ],
+      "medianNanoseconds": 1842061.0
+    }
+  ],
+  "memory": [
+    {
+      "workload": "all-days",
+      "format": "normalized",
+      "variant": "after",
+      "dates": 36478,
+      "allocatedBytesPerExpansion": 14226899.666666666,
+      "observedPeakBytesAboveBaseline": 21042464,
+      "retainedResultBytes": 301264,
+      "releasedBytesAboveBaseline": -20808
+    },
+    {
+      "workload": "all-days",
+      "format": "normalized",
+      "variant": "before",
+      "dates": 36478,
+      "allocatedBytesPerExpansion": 15633584.0,
+      "observedPeakBytesAboveBaseline": 20805520,
+      "retainedResultBytes": 301264,
+      "releasedBytesAboveBaseline": -9496
+    },
+    {
+      "workload": "all-days",
+      "format": "normalized",
+      "variant": "rrule",
+      "dates": 36478,
+      "allocatedBytesPerExpansion": 31951317.0,
+      "observedPeakBytesAboveBaseline": 72780320,
+      "retainedResultBytes": 290680,
+      "releasedBytesAboveBaseline": -21304
+    },
+    {
+      "workload": "all-days",
+      "format": "raw",
+      "variant": "after",
+      "dates": 36478,
+      "allocatedBytesPerExpansion": 14327986.666666666,
+      "observedPeakBytesAboveBaseline": 56992480,
+      "retainedResultBytes": 5845912,
+      "releasedBytesAboveBaseline": -18208
+    },
+    {
+      "workload": "all-days",
+      "format": "raw",
+      "variant": "before",
+      "dates": 36478,
+      "allocatedBytesPerExpansion": 15793849.666666666,
+      "observedPeakBytesAboveBaseline": 85540024,
+      "retainedResultBytes": 5846200,
+      "releasedBytesAboveBaseline": 3544
+    },
+    {
+      "workload": "all-days",
+      "format": "raw",
+      "variant": "rrule",
+      "dates": 36478,
+      "allocatedBytesPerExpansion": 31591611.333333332,
+      "observedPeakBytesAboveBaseline": 73792752,
+      "retainedResultBytes": 3907576,
+      "releasedBytesAboveBaseline": -16016
+    },
+    {
+      "workload": "all-days",
+      "format": "stream",
+      "variant": "after",
+      "dates": 36478,
+      "allocatedBytesPerExpansion": 13575887.0,
+      "observedPeakBytesAboveBaseline": 16885584,
+      "retainedResultBytes": -1192,
+      "releasedBytesAboveBaseline": -17464
+    },
+    {
+      "workload": "all-days",
+      "format": "stream",
+      "variant": "before",
+      "dates": 36478,
+      "allocatedBytesPerExpansion": 15011578.666666666,
+      "observedPeakBytesAboveBaseline": 16882672,
+      "retainedResultBytes": -1192,
+      "releasedBytesAboveBaseline": -9760
+    },
+    {
+      "workload": "daily",
+      "format": "normalized",
+      "variant": "after",
+      "dates": 36524,
+      "allocatedBytesPerExpansion": 29683418.0,
+      "observedPeakBytesAboveBaseline": 38595560,
+      "retainedResultBytes": 301232,
+      "releasedBytesAboveBaseline": -22688
+    },
+    {
+      "workload": "daily",
+      "format": "normalized",
+      "variant": "before",
+      "dates": 36524,
+      "allocatedBytesPerExpansion": 29644142.0,
+      "observedPeakBytesAboveBaseline": 38715896,
+      "retainedResultBytes": 301232,
+      "releasedBytesAboveBaseline": -5968
+    },
+    {
+      "workload": "daily",
+      "format": "normalized",
+      "variant": "rrule",
+      "dates": 36524,
+      "allocatedBytesPerExpansion": 575903404.0,
+      "observedPeakBytesAboveBaseline": 94789424,
+      "retainedResultBytes": 291048,
+      "releasedBytesAboveBaseline": -21944
+    },
+    {
+      "workload": "last-day",
+      "format": "normalized",
+      "variant": "after",
+      "dates": 1199,
+      "allocatedBytesPerExpansion": 14073574.0,
+      "observedPeakBytesAboveBaseline": 16855536,
+      "retainedResultBytes": 10392,
+      "releasedBytesAboveBaseline": -18592
+    },
+    {
+      "workload": "last-day",
+      "format": "normalized",
+      "variant": "before",
+      "dates": 1199,
+      "allocatedBytesPerExpansion": 25766844.333333332,
+      "observedPeakBytesAboveBaseline": 16988088,
+      "retainedResultBytes": 10392,
+      "releasedBytesAboveBaseline": -10936
+    },
+    {
+      "workload": "last-day",
+      "format": "normalized",
+      "variant": "rrule",
+      "dates": 1199,
+      "allocatedBytesPerExpansion": 19980341.666666668,
+      "observedPeakBytesAboveBaseline": 17432520,
+      "retainedResultBytes": 8448,
+      "releasedBytesAboveBaseline": -15152
+    },
+    {
+      "workload": "last-friday",
+      "format": "normalized",
+      "variant": "after",
+      "dates": 1198,
+      "allocatedBytesPerExpansion": 4095098.6666666665,
+      "observedPeakBytesAboveBaseline": 16862928,
+      "retainedResultBytes": 10680,
+      "releasedBytesAboveBaseline": -19448
+    },
+    {
+      "workload": "last-friday",
+      "format": "normalized",
+      "variant": "before",
+      "dates": 1198,
+      "allocatedBytesPerExpansion": 12467088.333333334,
+      "observedPeakBytesAboveBaseline": 16830384,
+      "retainedResultBytes": 10680,
+      "releasedBytesAboveBaseline": -39496
+    },
+    {
+      "workload": "last-friday",
+      "format": "normalized",
+      "variant": "rrule",
+      "dates": 1198,
+      "allocatedBytesPerExpansion": 19555006.666666668,
+      "observedPeakBytesAboveBaseline": 17296560,
+      "retainedResultBytes": 8440,
+      "releasedBytesAboveBaseline": -22008
+    },
+    {
+      "workload": "lunch",
+      "format": "normalized",
+      "variant": "after",
+      "dates": 1200,
+      "allocatedBytesPerExpansion": 9006682.666666666,
+      "observedPeakBytesAboveBaseline": 17011488,
+      "retainedResultBytes": 10360,
+      "releasedBytesAboveBaseline": -46128
+    },
+    {
+      "workload": "lunch",
+      "format": "normalized",
+      "variant": "before",
+      "dates": 1200,
+      "allocatedBytesPerExpansion": 17436612.333333332,
+      "observedPeakBytesAboveBaseline": 17014640,
+      "retainedResultBytes": 10360,
+      "releasedBytesAboveBaseline": -38432
+    },
+    {
+      "workload": "lunch",
+      "format": "normalized",
+      "variant": "rrule",
+      "dates": 1200,
+      "allocatedBytesPerExpansion": 22584361.333333332,
+      "observedPeakBytesAboveBaseline": 52230168,
+      "retainedResultBytes": 9168,
+      "releasedBytesAboveBaseline": -21216
+    },
+    {
+      "workload": "penultimate-weekday",
+      "format": "normalized",
+      "variant": "after",
+      "dates": 1198,
+      "allocatedBytesPerExpansion": 19807861.333333332,
+      "observedPeakBytesAboveBaseline": 16902336,
+      "retainedResultBytes": 10392,
+      "releasedBytesAboveBaseline": -19760
+    },
+    {
+      "workload": "penultimate-weekday",
+      "format": "normalized",
+      "variant": "before",
+      "dates": 1198,
+      "allocatedBytesPerExpansion": 22672636.666666668,
+      "observedPeakBytesAboveBaseline": 16931688,
+      "retainedResultBytes": 10392,
+      "releasedBytesAboveBaseline": -15352
+    },
+    {
+      "workload": "penultimate-weekday",
+      "format": "normalized",
+      "variant": "rrule",
+      "dates": 1198,
+      "allocatedBytesPerExpansion": 19931492.0,
+      "observedPeakBytesAboveBaseline": 17427384,
+      "retainedResultBytes": 8440,
+      "releasedBytesAboveBaseline": -20840
+    }
+  ],
+  "allocationProfiles": [
+    {
+      "workload": "all-days",
+      "variant": "after",
+      "allocationSites": [
+        {
+          "function": "_byWeekday",
+          "file": "year-month-day-filter.ts",
+          "line": 126,
+          "fraction": 0.7597594832881116
+        },
+        {
+          "function": "ndrange",
+          "file": "year-month-day.ts",
+          "line": 503,
+          "fraction": 0.13448522793542306
+        },
+        {
+          "function": "from",
+          "file": "",
+          "line": 0,
+          "fraction": 0.06921097360369441
+        },
+        {
+          "function": "addOpt",
+          "file": "year-month-day.ts",
+          "line": 256,
+          "fraction": 0.014508912163144492
+        },
+        {
+          "function": "addDays",
+          "file": "year-month-day.ts",
+          "line": 250,
+          "fraction": 0.014034140286424173
+        },
+        {
+          "function": "toResult",
+          "file": "year-month-day.ts",
+          "line": 45,
+          "fraction": 0.004613462540572946
+        },
+        {
+          "function": "ndsucc",
+          "file": "year-month-day.ts",
+          "line": 493,
+          "fraction": 0.003275111733851273
+        },
+        {
+          "function": "post",
+          "file": "inspector.js",
+          "line": 1,
+          "fraction": 3.38703446270556e-05
+        },
+        {
+          "function": "queueNextTick",
+          "file": "01_core.js",
+          "line": 319,
+          "fraction": 2.6391813371797657e-05
+        },
+        {
+          "function": "push",
+          "file": "",
+          "line": 0,
+          "fraction": 2.6264193384506567e-05
+        }
+      ]
+    },
+    {
+      "workload": "all-days",
+      "variant": "before",
+      "allocationSites": [
+        {
+          "function": "_byWeekday",
+          "file": "baseline-filter.ts",
+          "line": 109,
+          "fraction": 0.6891166356639458
+        },
+        {
+          "function": "ndrange",
+          "file": "year-month-day.ts",
+          "line": 503,
+          "fraction": 0.11745332112196785
+        },
+        {
+          "function": "range",
+          "file": "range.ts",
+          "line": 9,
+          "fraction": 0.09970100914697708
+        },
+        {
+          "function": "from",
+          "file": "",
+          "line": 0,
+          "fraction": 0.061845859484254986
+        },
+        {
+          "function": "ndsucc",
+          "file": "year-month-day.ts",
+          "line": 493,
+          "fraction": 0.01506146703499578
+        },
+        {
+          "function": "addDays",
+          "file": "year-month-day.ts",
+          "line": 250,
+          "fraction": 0.012192756883054112
+        },
+        {
+          "function": "toResult",
+          "file": "year-month-day.ts",
+          "line": 45,
+          "fraction": 0.004575488814517111
+        },
+        {
+          "function": "post",
+          "file": "inspector.js",
+          "line": 1,
+          "fraction": 3.0163212300735272e-05
+        },
+        {
+          "function": "return",
+          "file": "",
+          "line": 0,
+          "fraction": 2.3298637986626717e-05
+        }
+      ]
+    },
+    {
+      "workload": "all-days",
+      "variant": "rrule",
+      "allocationSites": [
+        {
+          "function": "Iterinfo.mdayset",
+          "file": "rrule.js",
+          "line": 2854,
+          "fraction": 0.41983418120854316
+        },
+        {
+          "function": "iter",
+          "file": "rrule.js",
+          "line": 2979,
+          "fraction": 0.29588783959682347
+        },
+        {
+          "function": "slice",
+          "file": "",
+          "line": 0,
+          "fraction": 0.11329886121448784
+        },
+        {
+          "function": "valueOf",
+          "file": "",
+          "line": 0,
+          "fraction": 0.07223967942781118
+        },
+        {
+          "function": "push",
+          "file": "",
+          "line": 0,
+          "fraction": 0.036828720313249706
+        },
+        {
+          "function": "removeFilteredDays",
+          "file": "rrule.js",
+          "line": 3079,
+          "fraction": 0.03545514791888925
+        },
+        {
+          "function": "rebuildYear",
+          "file": "rrule.js",
+          "line": 2539,
+          "fraction": 0.008959472114802594
+        },
+        {
+          "function": "map",
+          "file": "",
+          "line": 0,
+          "fraction": 0.008849080961813596
+        },
+        {
+          "function": "baseYearMasks",
+          "file": "rrule.js",
+          "line": 2641,
+          "fraction": 0.005032975440404302
+        },
+        {
+          "function": "assign",
+          "file": "",
+          "line": 0,
+          "fraction": 0.0035205196150585095
+        }
+      ]
+    },
+    {
+      "workload": "daily",
+      "variant": "after",
+      "allocationSites": [
+        {
+          "function": "addDays",
+          "file": "year-month-day.ts",
+          "line": 250,
+          "fraction": 0.25088649737390517
+        },
+        {
+          "function": "ndrange",
+          "file": "year-month-day.ts",
+          "line": 503,
+          "fraction": 0.18738671196671589
+        },
+        {
+          "function": "addOpt",
+          "file": "year-month-day.ts",
+          "line": 256,
+          "fraction": 0.18028624185181574
+        },
+        {
+          "function": "(anonymous)",
+          "file": "year-month-day-filter.ts",
+          "line": 10,
+          "fraction": 0.16187523979403032
+        },
+        {
+          "function": "_identity",
+          "file": "year-month-day-filter.ts",
+          "line": 13,
+          "fraction": 0.14271403951262462
+        },
+        {
+          "function": "ndsucc",
+          "file": "year-month-day.ts",
+          "line": 493,
+          "fraction": 0.04468657222871782
+        },
+        {
+          "function": "from",
+          "file": "",
+          "line": 0,
+          "fraction": 0.03216469727219043
+        }
+      ]
+    },
+    {
+      "workload": "daily",
+      "variant": "rrule",
+      "allocationSites": [
+        {
+          "function": "Iterinfo.ddayset",
+          "file": "rrule.js",
+          "line": 2875,
+          "fraction": 0.7422463994314137
+        },
+        {
+          "function": "slice",
+          "file": "",
+          "line": 0,
+          "fraction": 0.19681433363524203
+        },
+        {
+          "function": "rebuildYear",
+          "file": "rrule.js",
+          "line": 2539,
+          "fraction": 0.024349237574951797
+        },
+        {
+          "function": "iter",
+          "file": "rrule.js",
+          "line": 2979,
+          "fraction": 0.02044583797000981
+        },
+        {
+          "function": "assign",
+          "file": "",
+          "line": 0,
+          "fraction": 0.00638553048207704
+        },
+        {
+          "function": "valueOf",
+          "file": "",
+          "line": 0,
+          "fraction": 0.003751465601362533
+        },
+        {
+          "function": "removeFilteredDays",
+          "file": "rrule.js",
+          "line": 3079,
+          "fraction": 0.0022547386813252263
+        },
+        {
+          "function": "push",
+          "file": "",
+          "line": 0,
+          "fraction": 0.002064231131219861
+        },
+        {
+          "function": "DateTime.add",
+          "file": "rrule.js",
+          "line": 1917,
+          "fraction": 0.0007769244438862135
+        },
+        {
+          "function": "map",
+          "file": "",
+          "line": 0,
+          "fraction": 0.0005702147784714817
+        }
+      ]
+    },
+    {
+      "workload": "last-friday",
+      "variant": "after",
+      "allocationSites": [
+        {
+          "function": "_byWeekday",
+          "file": "year-month-day-filter.ts",
+          "line": 126,
+          "fraction": 0.4922377214592454
+        },
+        {
+          "function": "(anonymous)",
+          "file": "year-month-day-filter.ts",
+          "line": 20,
+          "fraction": 0.27484920582769107
+        },
+        {
+          "function": "ndrange",
+          "file": "year-month-day.ts",
+          "line": 503,
+          "fraction": 0.08909103607943004
+        },
+        {
+          "function": "addDays",
+          "file": "year-month-day.ts",
+          "line": 250,
+          "fraction": 0.06758182559824837
+        },
+        {
+          "function": "ndsucc",
+          "file": "year-month-day.ts",
+          "line": 493,
+          "fraction": 0.056727207504766106
+        },
+        {
+          "function": "toResult",
+          "file": "year-month-day.ts",
+          "line": 45,
+          "fraction": 0.009422698536878086
+        },
+        {
+          "function": "from",
+          "file": "",
+          "line": 0,
+          "fraction": 0.008452739174331907
+        },
+        {
+          "function": "next",
+          "file": "",
+          "line": 0,
+          "fraction": 0.0012728908549817766
+        },
+        {
+          "function": "post",
+          "file": "inspector.js",
+          "line": 1,
+          "fraction": 0.00010968351717927387
+        },
+        {
+          "function": "#onMessage",
+          "file": "inspector.js",
+          "line": 1,
+          "fraction": 8.513490783319675e-05
+        }
+      ]
+    },
+    {
+      "workload": "last-friday",
+      "variant": "before",
+      "allocationSites": [
+        {
+          "function": "_byWeekday",
+          "file": "baseline-filter.ts",
+          "line": 109,
+          "fraction": 0.5548067145655603
+        },
+        {
+          "function": "(anonymous)",
+          "file": "baseline-filter.ts",
+          "line": 20,
+          "fraction": 0.15700189884647245
+        },
+        {
+          "function": "range",
+          "file": "range.ts",
+          "line": 9,
+          "fraction": 0.12213530128560657
+        },
+        {
+          "function": "next",
+          "file": "",
+          "line": 0,
+          "fraction": 0.05446756008381314
+        },
+        {
+          "function": "ndrange",
+          "file": "year-month-day.ts",
+          "line": 503,
+          "fraction": 0.02811979784963038
+        },
+        {
+          "function": "Map",
+          "file": "",
+          "line": 0,
+          "fraction": 0.017369472008249856
+        },
+        {
+          "function": "Set",
+          "file": "",
+          "line": 0,
+          "fraction": 0.015961287051094664
+        },
+        {
+          "function": "addOpt",
+          "file": "year-month-day.ts",
+          "line": 256,
+          "fraction": 0.015171254052816545
+        },
+        {
+          "function": "addDays",
+          "file": "year-month-day.ts",
+          "line": 250,
+          "fraction": 0.014356755937432474
+        },
+        {
+          "function": "set",
+          "file": "",
+          "line": 0,
+          "fraction": 0.009249526824247574
+        }
+      ]
+    },
+    {
+      "workload": "last-friday",
+      "variant": "rrule",
+      "allocationSites": [
+        {
+          "function": "Iterinfo.mdayset",
+          "file": "rrule.js",
+          "line": 2854,
+          "fraction": 0.7082427427842579
+        },
+        {
+          "function": "slice",
+          "file": "",
+          "line": 0,
+          "fraction": 0.19349262516215532
+        },
+        {
+          "function": "buildPoslist",
+          "file": "rrule.js",
+          "line": 2929,
+          "fraction": 0.04892659632910256
+        },
+        {
+          "function": "rebuildYear",
+          "file": "rrule.js",
+          "line": 2539,
+          "fraction": 0.013516122386817622
+        },
+        {
+          "function": "baseYearMasks",
+          "file": "rrule.js",
+          "line": 2641,
+          "fraction": 0.009460930424826559
+        },
+        {
+          "function": "removeFilteredDays",
+          "file": "rrule.js",
+          "line": 3079,
+          "fraction": 0.008754551907381773
+        },
+        {
+          "function": "assign",
+          "file": "",
+          "line": 0,
+          "fraction": 0.006251869715504089
+        },
+        {
+          "function": "iter",
+          "file": "rrule.js",
+          "line": 2979,
+          "fraction": 0.005131213234594224
+        },
+        {
+          "function": "valueOf",
+          "file": "",
+          "line": 0,
+          "fraction": 0.004338181902241755
+        },
+        {
+          "function": "push",
+          "file": "",
+          "line": 0,
+          "fraction": 0.0013573454663138456
+        }
+      ]
+    },
+    {
+      "workload": "penultimate-weekday",
+      "variant": "after",
+      "allocationSites": [
+        {
+          "function": "_byWeekday",
+          "file": "year-month-day-filter.ts",
+          "line": 126,
+          "fraction": 0.371056972820518
+        },
+        {
+          "function": "(anonymous)",
+          "file": "year-month-day-filter.ts",
+          "line": 20,
+          "fraction": 0.2175049667403881
+        },
+        {
+          "function": "next",
+          "file": "",
+          "line": 0,
+          "fraction": 0.14515878544704947
+        },
+        {
+          "function": "set",
+          "file": "",
+          "line": 0,
+          "fraction": 0.10573930259419143
+        },
+        {
+          "function": "sort",
+          "file": "",
+          "line": 0,
+          "fraction": 0.09394179881393364
+        },
+        {
+          "function": "ndrange",
+          "file": "year-month-day.ts",
+          "line": 503,
+          "fraction": 0.01790102626273579
+        },
+        {
+          "function": "addDays",
+          "file": "year-month-day.ts",
+          "line": 250,
+          "fraction": 0.014277334994936464
+        },
+        {
+          "function": "Map",
+          "file": "",
+          "line": 0,
+          "fraction": 0.011612479230749212
+        },
+        {
+          "function": "ndsucc",
+          "file": "year-month-day.ts",
+          "line": 493,
+          "fraction": 0.01159176996630668
+        },
+        {
+          "function": "Set",
+          "file": "",
+          "line": 0,
+          "fraction": 0.009392907052847893
+        }
+      ]
+    },
+    {
+      "workload": "penultimate-weekday",
+      "variant": "before",
+      "allocationSites": [
+        {
+          "function": "_byWeekday",
+          "file": "baseline-filter.ts",
+          "line": 109,
+          "fraction": 0.3958810985020051
+        },
+        {
+          "function": "(anonymous)",
+          "file": "baseline-filter.ts",
+          "line": 20,
+          "fraction": 0.18376860378765222
+        },
+        {
+          "function": "next",
+          "file": "",
+          "line": 0,
+          "fraction": 0.127643140030475
+        },
+        {
+          "function": "set",
+          "file": "",
+          "line": 0,
+          "fraction": 0.09085102991971893
+        },
+        {
+          "function": "sort",
+          "file": "",
+          "line": 0,
+          "fraction": 0.08424199404469111
+        },
+        {
+          "function": "range",
+          "file": "range.ts",
+          "line": 9,
+          "fraction": 0.0635632110679046
+        },
+        {
+          "function": "ndrange",
+          "file": "year-month-day.ts",
+          "line": 503,
+          "fraction": 0.015499645518746672
+        },
+        {
+          "function": "ndsucc",
+          "file": "year-month-day.ts",
+          "line": 493,
+          "fraction": 0.010145419370399715
+        },
+        {
+          "function": "Map",
+          "file": "",
+          "line": 0,
+          "fraction": 0.00985244328769054
+        },
+        {
+          "function": "Set",
+          "file": "",
+          "line": 0,
+          "fraction": 0.008869194526200651
+        }
+      ]
+    },
+    {
+      "workload": "penultimate-weekday",
+      "variant": "rrule",
+      "allocationSites": [
+        {
+          "function": "Iterinfo.mdayset",
+          "file": "rrule.js",
+          "line": 2854,
+          "fraction": 0.6727621158556537
+        },
+        {
+          "function": "slice",
+          "file": "",
+          "line": 0,
+          "fraction": 0.18110965644891877
+        },
+        {
+          "function": "buildPoslist",
+          "file": "rrule.js",
+          "line": 2929,
+          "fraction": 0.06737121678519478
+        },
+        {
+          "function": "removeFilteredDays",
+          "file": "rrule.js",
+          "line": 3079,
+          "fraction": 0.03979290972700247
+        },
+        {
+          "function": "rebuildYear",
+          "file": "rrule.js",
+          "line": 2539,
+          "fraction": 0.013461602844195291
+        },
+        {
+          "function": "baseYearMasks",
+          "file": "rrule.js",
+          "line": 2641,
+          "fraction": 0.008746563710142334
+        },
+        {
+          "function": "assign",
+          "file": "",
+          "line": 0,
+          "fraction": 0.005992657795668746
+        },
+        {
+          "function": "iter",
+          "file": "rrule.js",
+          "line": 2979,
+          "fraction": 0.005168723280237053
+        },
+        {
+          "function": "valueOf",
+          "file": "",
+          "line": 0,
+          "fraction": 0.0036527406621407453
+        },
+        {
+          "function": "push",
+          "file": "",
+          "line": 0,
+          "fraction": 0.0014420412111081503
+        }
+      ]
+    }
+  ],
+  "cpuProfiles": [
+    {
+      "workload": "penultimate-weekday",
+      "variant": "after",
+      "cpuSites": [
+        {
+          "function": "(anonymous)",
+          "file": "year-month-day-filter.ts",
+          "line": 20,
+          "fraction": 0.5891748003549245
+        },
+        {
+          "function": "_byWeekday",
+          "file": "year-month-day-filter.ts",
+          "line": 126,
+          "fraction": 0.16770186335403728
+        },
+        {
+          "function": "get dse",
+          "file": "year-month-day.ts",
+          "line": 116,
+          "fraction": 0.10070984915705412
+        },
+        {
+          "function": "ndrange",
+          "file": "year-month-day.ts",
+          "line": 503,
+          "fraction": 0.05856255545696539
+        },
+        {
+          "function": "(garbage collector)",
+          "file": "",
+          "line": 0,
+          "fraction": 0.024401064773735583
+        },
+        {
+          "function": "expand",
+          "file": "profile-penultimate.ts",
+          "line": 16,
+          "fraction": 0.015971606033717833
+        },
+        {
+          "function": "(anonymous)",
+          "file": "year-month-day-filter.ts",
+          "line": 48,
+          "fraction": 0.012422360248447204
+        },
+        {
+          "function": "toResult",
+          "file": "year-month-day.ts",
+          "line": 45,
+          "fraction": 0.009316770186335404
+        },
+        {
+          "function": "ndsucc",
+          "file": "year-month-day.ts",
+          "line": 493,
+          "fraction": 0.008873114463176575
+        },
+        {
+          "function": "fromYmd1Unchecked",
+          "file": "year-month-day.ts",
+          "line": 380,
+          "fraction": 0.003992901508429458
+        }
+      ]
+    }
+  ]
+}

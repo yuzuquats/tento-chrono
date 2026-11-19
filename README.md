@@ -124,3 +124,6 @@ cargo test        # Rust unit tests, doc tests, and the TypeScript build run in 
 
 The tests in `tests/` that run inside the boa JavaScript engine need `deno` on
 `PATH`. They bundle `chrono/` at build time.
+
+See [bench/](bench/README.md) for the recurrence benchmarks, memory profiles,
+and recorded results.

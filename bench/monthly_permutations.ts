@@ -1,6 +1,6 @@
 /**
- * deno test --no-lock benchmarks/monthly_permutations.ts
- * deno bench --no-lock benchmarks/monthly_permutations.ts
+ * deno test --lock=bench/deno.lock --frozen bench/monthly_permutations.ts
+ * deno bench --lock=bench/deno.lock --frozen bench/monthly_permutations.ts
  */
 import { assertEquals } from "@std/assert";
 import rrule from "npm:rrule@2.8.1";
