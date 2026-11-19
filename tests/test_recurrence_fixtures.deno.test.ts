@@ -6,7 +6,7 @@
  * 4. Direct NaiveDate.Filter composable pipeline behavior
  * 5. Scale (COUNT=1001) and canonical serialization (FREQ-first, duplicate-part deduplication, VALUE=PERIOD)
  */
-import { assert, assertEquals } from "@std/assert";
+import { assert, assertEquals, assertThrows } from "@std/assert";
 import {
   DateTime,
   DateUnit,
@@ -248,6 +248,113 @@ const extFixtures = await loadFixture<EngineExtensionFixtureCase>("rrule_engine_
 const setFixtures = await loadFixture<RecurrenceSetFixtureCase>("recurrence_sets_and_tz.json");
 const filterFixtures = await loadFixture<FilterFixtureCase>("filter_composition.json");
 
+const STRICT_RFC_DATE_RULE_KEYS = new Set([
+  "FREQ",
+  "UNTIL",
+  "COUNT",
+  "INTERVAL",
+  "BYMONTH",
+  "BYWEEKNO",
+  "BYYEARDAY",
+  "BYMONTHDAY",
+  "BYDAY",
+  "BYSETPOS",
+  "WKST",
+]);
+const STRICT_RFC_DATE_FREQS = new Set(["YEARLY", "MONTHLY", "WEEKLY", "DAILY"]);
+const STRICT_RFC_WKDAYS = new Set(["MO", "TU", "WE", "TH", "FR", "SA", "SU"]);
+
+function parseStrictIntList(raw: string, minAbs: number, maxAbs: number, allowNeg: boolean, label: string): number[] {
+  const tokens = raw.split(",");
+  assert(tokens.length > 0 && tokens.every((t) => t.length > 0), `${label}: empty integer list`);
+  return tokens.map((tok) => {
+    assert(/^[+-]?\d+$/.test(tok), `${label}: invalid integer token "${tok}"`);
+    const n = Number(tok);
+    assert(Number.isSafeInteger(n), `${label}: non-safe integer "${tok}"`);
+    if (!allowNeg) assert(n >= minAbs && n <= maxAbs, `${label}: value ${n} out of range ${minAbs}..${maxAbs}`);
+    else assert(n !== 0 && Math.abs(n) >= minAbs && Math.abs(n) <= maxAbs, `${label}: value ${n} out of range`);
+    return n;
+  });
+}
+
+function validateStrictRfcDateRule(rruleText: string, label: string): void {
+  const parts = new Map<string, string>();
+  for (const segment of rruleText.split(";")) {
+    const eq = segment.indexOf("=");
+    assert(eq > 0 && eq < segment.length - 1, `${label}: malformed rule part "${segment}"`);
+    const key = segment.slice(0, eq).toUpperCase();
+    const val = segment.slice(eq + 1);
+    assert(!parts.has(key), `${label}: duplicate rule part ${key}`);
+    assert(
+      key !== "BYHOUR" && key !== "BYMINUTE" && key !== "BYSECOND",
+      `${label}: DATE DTSTART with ${key} belongs in engine_extensions`,
+    );
+    assert(STRICT_RFC_DATE_RULE_KEYS.has(key), `${label}: unsupported or non-DATE RFC rule part ${key}`);
+    parts.set(key, val);
+  }
+
+  const freq = parts.get("FREQ")?.toUpperCase();
+  assert(freq != null && STRICT_RFC_DATE_FREQS.has(freq), `${label}: invalid DATE FREQ "${freq}"`);
+  assert(!(parts.has("COUNT") && parts.has("UNTIL")), `${label}: COUNT and UNTIL are mutually exclusive in RFC 5545`);
+
+  if (parts.has("COUNT")) {
+    assert(/^[1-9]\d*$/.test(parts.get("COUNT")!), `${label}: COUNT must be a positive integer`);
+  }
+  if (parts.has("INTERVAL")) {
+    assert(/^[1-9]\d*$/.test(parts.get("INTERVAL")!), `${label}: INTERVAL must be a positive integer`);
+  }
+  if (parts.has("UNTIL")) {
+    assert(/^\d{8}$/.test(parts.get("UNTIL")!), `${label}: DATE DTSTART must pair with DATE UNTIL`);
+  }
+  if (parts.has("WKST")) {
+    assert(STRICT_RFC_WKDAYS.has(parts.get("WKST")!.toUpperCase()), `${label}: invalid WKST`);
+  }
+  if (parts.has("BYMONTH")) {
+    parseStrictIntList(parts.get("BYMONTH")!, 1, 12, false, `${label}.BYMONTH`);
+  }
+  if (parts.has("BYWEEKNO")) {
+    assert(freq === "YEARLY", `${label}: BYWEEKNO is only legal with FREQ=YEARLY`);
+    parseStrictIntList(parts.get("BYWEEKNO")!, 1, 53, true, `${label}.BYWEEKNO`);
+  }
+  if (parts.has("BYYEARDAY")) {
+    assert(freq === "YEARLY", `${label}: ${freq}+BYYEARDAY belongs in engine_extensions`);
+    parseStrictIntList(parts.get("BYYEARDAY")!, 1, 366, true, `${label}.BYYEARDAY`);
+  }
+  if (parts.has("BYMONTHDAY")) {
+    assert(freq !== "WEEKLY", `${label}: WEEKLY+BYMONTHDAY belongs in engine_extensions`);
+    parseStrictIntList(parts.get("BYMONTHDAY")!, 1, 31, true, `${label}.BYMONTHDAY`);
+  }
+  if (parts.has("BYDAY")) {
+    const tokens = parts.get("BYDAY")!.split(",");
+    assert(tokens.length > 0, `${label}: empty BYDAY`);
+    for (const tok of tokens) {
+      const m = /^([+-]?\d+)?(MO|TU|WE|TH|FR|SA|SU)$/i.exec(tok);
+      assert(m != null, `${label}: invalid BYDAY token "${tok}"`);
+      if (m[1] != null) {
+        const ord = Number(m[1]);
+        assert(ord !== 0 && Math.abs(ord) <= 53, `${label}: BYDAY ordinal ${ord} out of range`);
+        assert(
+          freq === "MONTHLY" || (freq === "YEARLY" && !parts.has("BYWEEKNO")),
+          `${label}: BYDAY ordinal "${tok}" is prohibited for FREQ=${freq}${parts.has("BYWEEKNO") ? "+BYWEEKNO" : ""} in RFC 5545 §3.3.10`,
+        );
+      }
+    }
+  }
+  if (parts.has("BYSETPOS")) {
+    parseStrictIntList(parts.get("BYSETPOS")!, 1, 366, true, `${label}.BYSETPOS`);
+    const hasOtherByRule = ["BYMONTH", "BYWEEKNO", "BYYEARDAY", "BYMONTHDAY", "BYDAY"].some((k) => parts.has(k));
+    assert(hasOtherByRule, `${label}: BYSETPOS requires at least one other BYxxx rule part in RFC 5545 §3.3.10`);
+  }
+
+  const parsed = RRule.parse(`RRULE:${rruleText}`).exp();
+  if (parsed.inner.options?.until) {
+    assert(parsed.inner.options.until.nt == null, `${label}: parsed UNTIL must be date-only`);
+  }
+  if (parts.has("BYSETPOS")) {
+    assert((parsed.inner.options?.bysetpos?.length ?? 0) > 0, `${label}: parsed BYSETPOS must be non-empty`);
+  }
+}
+
 Deno.test("recurrence fixtures: strict runtime schema invariants hold across all JSON files", () => {
   const checkUniqueNames = (file: string, cases: readonly { name: string; category: string; expected: string[] }[]) => {
     assert(cases.length > 0, `${file} must not be empty`);
@@ -275,41 +382,7 @@ Deno.test("recurrence fixtures: strict runtime schema invariants hold across all
         `${label}: expected[0] (${c.expected[0]}) must match dtstart (${c.dtstart}) unless unsynchronizedDtstart=true`,
       );
     }
-    // Enforce RFC 5545 §3.3.10 DATE parity and rule-part legality in rrule_rfc5545.json
-    const parsed = RRule.parse(`RRULE:${c.rrule}`).exp();
-    if (parsed.inner.options?.until) {
-      assert(parsed.inner.options.until.nt == null, `${label}: DATE DTSTART must pair with DATE UNTIL`);
-    }
-    if (parsed.inner.freq === "weekly") {
-      assert(!parsed.inner.options?.bymonthday?.length, `${label}: WEEKLY+BYMONTHDAY belongs in engine_extensions`);
-      assert(!parsed.inner.options?.byyearday?.length, `${label}: WEEKLY+BYYEARDAY belongs in engine_extensions`);
-    }
-    if (parsed.inner.freq === "daily" || parsed.inner.freq === "monthly") {
-      assert(!parsed.inner.options?.byyearday?.length, `${label}: ${parsed.inner.freq}+BYYEARDAY belongs in engine_extensions`);
-    }
-    const opts = parsed.inner.options;
-    assert(!(opts?.count != null && opts?.until != null), `${label}: COUNT and UNTIL are mutually exclusive in RFC 5545`);
-    assert(
-      !(opts?.byhour?.length || opts?.byminute?.length || opts?.bysecond?.length),
-      `${label}: DATE DTSTART with BYHOUR/BYMINUTE/BYSECOND belongs in engine_extensions`,
-    );
-    if (opts?.byweekno?.length) {
-      assert(parsed.inner.freq === "yearly", `${label}: BYWEEKNO is only legal with FREQ=YEARLY`);
-    }
-    if (opts?.bysetpos?.length) {
-      const hasOtherByRule = Boolean(
-        opts.bymonth?.length ||
-        opts.byweekno?.length ||
-        opts.byyearday?.length ||
-        opts.bymonthday?.length ||
-        opts.byday?.length ||
-        opts.bynthday?.length ||
-        opts.byhour?.length ||
-        opts.byminute?.length ||
-        opts.bysecond?.length,
-      );
-      assert(hasOtherByRule, `${label}: BYSETPOS requires at least one other BYxxx rule part in RFC 5545 §3.3.10`);
-    }
+    validateStrictRfcDateRule(c.rrule, label);
   }
 
   checkUniqueNames("rrule_engine_extensions.json", extFixtures.cases);
@@ -434,19 +507,21 @@ Deno.test("recurrence fixtures: Recurrence sets, compositions, time parts, IANA 
 
       if (c.incrementalSteps) {
         const incGen = await rec.generateEvents(start, tz, comp);
-        const collected: string[] = [];
+        let cursor = 0;
         for (const stepStr of c.incrementalSteps) {
           const batch = incGen.generateUpToDate(NaiveDate.parse(stepStr)).map(String);
-          for (const tsStr of batch) {
-            assert(
-              tsStr.slice(0, 10) <= stepStr,
-              `${c.name} incremental(${stepStr}): returned timestamp ${tsStr} past query date`,
-            );
+          let nextCursor = cursor;
+          while (nextCursor < c.expected.length && c.expected[nextCursor]!.slice(0, 10) <= stepStr) {
+            nextCursor++;
           }
-          collected.push(...batch);
+          assertEquals(
+            batch,
+            c.expected.slice(cursor, nextCursor),
+            `${c.name} incremental(${stepStr})`,
+          );
+          cursor = nextCursor;
         }
-        assertEquals(collected, c.expected, `${c.name} incremental steps`);
-        assertStrictlyOrderedUnique(collected, `${c.name} incremental`);
+        assertEquals(cursor, c.expected.length, `${c.name} incremental steps covered all expected instances`);
       }
     });
   }
@@ -503,4 +578,23 @@ Deno.test("recurrence fixtures: COUNT > 1000 and canonical serialization invaria
     [...timedRdateRec.generateToDate(null, NaiveDate.parse("2026-01-10"), false)].map(String),
     ["2026-01-01", "2026-01-02", "2026-01-05"],
   );
+
+  // Strict RFC DATE validator rejects illegal rule text before parser normalization
+  for (const illegal of [
+    "FREQ=DAILY;COUNT=2;BYSETPOS=0",
+    "FREQ=WEEKLY;COUNT=2;BYDAY=1MO",
+    "FREQ=DAILY;COUNT=2;BYDAY=1MO",
+    "FREQ=YEARLY;BYWEEKNO=1;BYDAY=1MO;COUNT=2",
+    "FREQ=WEEKLY;INTERVAL=2;BYSETPOS=1;COUNT=4",
+    "FREQ=DAILY;COUNT=2;UNTIL=20240105",
+    "FREQ=DAILY;BYHOUR=9;COUNT=2",
+    "FREQ=DAILY;BYMONTHDAY=0;COUNT=2",
+    "FREQ=WEEKLY;BYMONTHDAY=1;COUNT=2",
+    "FREQ=DAILY;BYYEARDAY=1;COUNT=2",
+    "FREQ=MONTHLY;BYWEEKNO=1;COUNT=2",
+    "FREQ=DAILY;COUNT=2;COUNT=3",
+    "FREQ=DAILY;UNTIL=20240105T090000Z",
+  ]) {
+    assertThrows(() => validateStrictRfcDateRule(illegal, `illegal:${illegal}`));
+  }
 });

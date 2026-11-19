@@ -885,6 +885,70 @@
         "2026-01-03T00:00:00Z"
       ],
       "notes": "RFC 5545 \u00a73.3.10: generateEvents() ignores BYHOUR when DTSTART has VALUE=DATE"
+    },
+    {
+      "name": "google_mismatched_start_offset_incremental_ny",
+      "category": "dst",
+      "start": "2026-03-08T10:45:00+05:00",
+      "timezone": "America/New_York",
+      "composition": "GOOGLE",
+      "rules": [
+        "RRULE:FREQ=MINUTELY;INTERVAL=17;COUNT=3",
+        "RDATE:20260307T224500Z"
+      ],
+      "upTo": "2026-03-08",
+      "incrementalSteps": [
+        "2026-03-07",
+        "2026-03-07",
+        "2026-03-08"
+      ],
+      "expected": [
+        "2026-03-07T20:02:00Z",
+        "2026-03-07T20:19:00Z",
+        "2026-03-07T22:45:00Z",
+        "2026-03-08T05:45:00Z"
+      ],
+      "notes": "GOOGLE incremental lookahead includes DTSTART offset (+05:00) even when target zone has transitions, returning March 7 instances and RDATE in chronological order before March 8"
+    },
+    {
+      "name": "google_mismatched_start_offset_until_ny",
+      "category": "dst",
+      "start": "2026-03-08T10:45:00+05:00",
+      "timezone": "America/New_York",
+      "composition": "GOOGLE",
+      "rules": [
+        "RRULE:FREQ=MINUTELY;INTERVAL=17;UNTIL=20260308T055000Z"
+      ],
+      "upTo": "2026-03-09",
+      "expected": [
+        "2026-03-07T20:02:00Z",
+        "2026-03-07T20:19:00Z",
+        "2026-03-07T20:36:00Z",
+        "2026-03-07T20:53:00Z",
+        "2026-03-07T21:10:00Z",
+        "2026-03-07T21:27:00Z",
+        "2026-03-07T21:44:00Z",
+        "2026-03-08T05:45:00Z"
+      ],
+      "notes": "GOOGLE wallUntilBound includes DTSTART offset (+05:00) so pre-transition candidates resolving before UNTIL (e.g. 01:53 -> 20:53Z) are not truncated"
+    },
+    {
+      "name": "date_dtstart_subdaily_ignores_byhour_byminute_bysecond_rule_only",
+      "category": "time_parts",
+      "start": "2026-01-01T00:00:00Z",
+      "timezone": "UTC",
+      "composition": "RULE_ONLY",
+      "rules": [
+        "DTSTART;VALUE=DATE:20260101",
+        "RRULE:FREQ=HOURLY;INTERVAL=12;COUNT=3;BYHOUR=12;BYMINUTE=15;BYSECOND=20"
+      ],
+      "upTo": "2026-01-10",
+      "expected": [
+        "2026-01-01T00:00:00Z",
+        "2026-01-01T12:00:00Z",
+        "2026-01-02T00:00:00Z"
+      ],
+      "notes": "RFC 5545 \u00a73.3.10: subdaily rule with DATE DTSTART ignores BYHOUR/BYMINUTE/BYSECOND in generateEvents()"
     }
   ]
 }

@@ -149,6 +149,19 @@
         "2026-01-05"
       ],
       "notes": "Both generate() and generateToDate() apply COUNT before EXDATE and merge explicit RDATEs"
+    },
+    {
+      "name": "date_dtstart_subdaily_ignores_time_parts",
+      "category": "date_ignore_time_parts",
+      "dtstart": "2026-01-01",
+      "rules": [
+        "RRULE:FREQ=HOURLY;INTERVAL=12;COUNT=3;BYHOUR=12;BYMINUTE=15;BYSECOND=20"
+      ],
+      "expected": [
+        "2026-01-01",
+        "2026-01-02"
+      ],
+      "notes": "RFC 5545 \u00a73.3.10: subdaily rule with DATE DTSTART ignores BYHOUR/BYMINUTE/BYSECOND in generate() and generateToDate()"
     }
   ]
 }
