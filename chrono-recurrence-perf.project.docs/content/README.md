@@ -59,3 +59,42 @@ and paired run receipts are in `fleet/evidence/tento-chrono-recurrence-perf/`
 on the workspace hosts. After this change, filter composition and the
 article's closure-date string conversion are the largest remaining named
 costs in the lunch profile.
+
+## Monthly permutations expose the remaining positional-selection cost
+
+The standard suite now checks all 128 weekday masks across 120 months
+against UTC Date, including non-leap century years, leap centuries and
+dates on both sides of the Unix epoch. A second test checks all 120 orders
+of a candidate list containing an invalid date and a tied latest date,
+plus empty and invalid-only input.
+
+The opt-in rrule comparison covers 960 monthly rule combinations across
+six start dates, four intervals, five weekday sets and eight positional
+selections. Chrono matches the ordered, distinct reference dates in every
+case. The separate February 1900 fixture records a difference in raw
+output: positions 2 and -3 both name February 9, which rrule 2.8.1 emits
+twice. Chrono emits it once.
+
+| Workload | Chrono before | Chrono after | rrule 2.8.1 |
+| --- | ---: | ---: | ---: |
+| Last Friday, monthly | 2.270 ms | 0.635 ms | 2.932 ms |
+| Last Tuesday or Thursday, every three months | 0.858 ms | 0.277 ms | 0.998 ms |
+| Last day, monthly | 4.661 ms | 1.658 ms | 2.998 ms |
+| First Friday, monthly | 2.123 ms | 1.114 ms | 2.885 ms |
+| First and last weekend day, every other month | 1.349 ms | 0.871 ms | 1.815 ms |
+| Second-to-last weekday, monthly | 4.157 ms | 3.454 ms | 2.959 ms |
+| All days, monthly | 2.991 ms | 2.560 ms | 16.600 ms |
+
+The timed runs use the same host, runtime, core and three-pair method as
+the article benchmark. Each timing expands January 31, 2024 through
+December 15, 2123. All seven cases compare the raw ordered outputs before
+timing. The second-to-last weekday is the one case where rrule was faster.
+Its V8 profile attributed 59% of samples to the general positional filter,
+which builds a map and sorts all monthly candidates. This follow-up added
+coverage and measurements. Production source is the implementation in
+`a115343`.
+
+Run `deno test --no-lock benchmarks/monthly_permutations.ts` for the reference
+matrix and `deno bench --no-lock benchmarks/monthly_permutations.ts` for
+the timed cases. The paired measurements and penultimate profile are in
+`fleet/evidence/tento-chrono-recurrence-perf/`.
