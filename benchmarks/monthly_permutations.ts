@@ -27,7 +27,7 @@ const weekdays = {
 };
 type WeekdaySelection = keyof typeof weekdays;
 
-function monthly(
+export function monthly(
   start: NaiveDate,
   end: NaiveDate,
   interval: number,
@@ -50,13 +50,15 @@ function monthly(
     byweekday: selected.map((index) => rruleWeekdays[index]),
     bysetpos: positions,
   }, true);
+  const dates = () => start.range(DateUnit.months(interval), options);
   return {
-    chrono: () =>
-      Array.from(
-        start.range(DateUnit.months(interval), options),
-        (day) => day.dse,
-      ),
+    dates,
+    chrono: () => Array.from(dates(), (day) => day.dse),
     rrule: () => rule.all().map((day) => day.getTime() / dayMs),
+    raw: {
+      chrono: () => Array.from(dates()),
+      rrule: () => rule.all(),
+    },
   };
 }
 
@@ -134,7 +136,8 @@ for (const { selection, interval, positions } of clockCases) {
   if (mismatch >= 0) {
     throw new Error(`${label} differs at date index ${mismatch}`);
   }
-  for (const [name, run] of Object.entries(workload)) {
+  for (const name of ["chrono", "rrule"] as const) {
+    const run = workload[name];
     Deno.bench({
       name,
       group: label,

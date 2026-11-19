@@ -98,3 +98,53 @@ Run `deno test --no-lock benchmarks/monthly_permutations.ts` for the reference
 matrix and `deno bench --no-lock benchmarks/monthly_permutations.ts` for
 the timed cases. The paired measurements and penultimate profile are in
 `fleet/evidence/tento-chrono-recurrence-perf/`.
+
+## Allocation churn falls, and retaining date objects remains a separate cost
+
+Measure 100-year, cache-disabled expansions in fresh Deno processes on
+yuzuquats. Each run warms up for 16 expansions, then performs 24 measured
+expansions. The table reports the median of three process runs. The
+allocation estimate sums heap growth between successive V8 collections
+and divides by 24. Allocation sampling independently matched that estimate
+on the high-churn daily rrule case (550 MiB sampled, 549 MiB estimated from
+GC traces). For this V8 version, summing the trace's `allocated` field
+instead gives 775 MiB on that case.
+
+| Workload returning day numbers | Chrono before, MiB allocated | Chrono after, MiB allocated | rrule 2.8.1, MiB allocated |
+| --- | ---: | ---: | ---: |
+| Last Friday | 11.89 | 3.91 | 18.65 |
+| Last day of month | 24.57 | 13.42 | 19.05 |
+| Lunch with closure | 16.63 | 8.59 | 21.54 |
+| Second-to-last weekday | 21.62 | 18.89 | 19.01 |
+| All days using the monthly filter | 14.91 | 13.57 | 30.47 |
+| Unfiltered daily | 28.27 | 28.31 | 549.22 |
+
+The last-Friday path allocates 67% less after the change. Its observed peak
+still sits near 16 MiB above the warmed baseline for both revisions.
+The penultimate-weekday sample attributes about 42% of allocation to the
+general positional-filter frame, map insertion and sorting. In the daily
+rrule sample, daily-set construction and array slicing account for about
+94%.
+
+The dense monthly workload emits 36,478 dates. Peak is the largest observed
+heap increase above the warmed baseline over the 24 expansions, using
+pre-collection and post-expansion observations. Retained heap is the
+difference between forced-GC readings with the final result held and
+released.
+
+| Result format | Chrono peak, MiB | rrule peak, MiB | Chrono retained, MiB | rrule retained, MiB |
+| --- | ---: | ---: | ---: | ---: |
+| Native date objects | 54.35 | 70.37 | 5.58 | 3.73 |
+| Day numbers | 20.07 | 69.41 | 0.29 | 0.28 |
+| Chrono iterator consumed without accumulating dates | 16.10 | — | ~0 | — |
+
+Chrono's raw result has 50% more retained heap than the native JS Date
+array. When the caller only iterates the dates, the probe returns a count
+and retains no measurable date results. After release, all measured
+groups returned to within 46 KiB of their warmed baselines.
+
+The probe is `benchmarks/recurrence_memory.ts`. It accepts a workload,
+engine, and result format and prints GC trace data to stdout and phase
+markers to stderr. The run driver, parser, JSON summary, and V8 allocation
+profiles are under `fleet/evidence/tento-chrono-recurrence-perf/memory/`.
+These figures measure the V8 object heap.
