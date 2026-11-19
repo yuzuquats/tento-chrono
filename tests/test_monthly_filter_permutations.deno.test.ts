@@ -54,33 +54,43 @@ function* permutations<T>(items: readonly T[]): Generator<T[]> {
   }
 }
 
-Deno.test("Last-position selection keeps the final occurrence of the latest valid date", () => {
+Deno.test("First and second positions from either end keep distinct dates and the final tied value", () => {
   type Candidate = Parameters<NaiveDate.Filter>[0];
-  const month = naivedate(2024, 2, 1);
-  const latest = naivedate(2024, 2, 29);
-  const invalid = NaiveDate.fromYmd1Unchecked(2024, 2, 31);
+  const month = naivedate(1969, 12, 1);
+  const middle = naivedate(1969, 12, 15);
+  const latest = naivedate(1969, 12, 31);
+  const invalid = NaiveDate.fromYmd1Unchecked(1969, 12, 32);
+  const invalidCandidate: Candidate = [invalid, "day"];
   const candidates: Candidate[] = [
     [month, "day"],
-    [naivedate(2024, 2, 15), "day"],
+    [middle, "month"],
+    [middle, "week"],
     [latest, "day"],
     [latest, "week"],
-    [invalid, "day"],
+    invalidCandidate,
   ];
   const orders = [
     [],
-    [[invalid, "day"]] as Candidate[],
+    [invalidCandidate],
+    [candidates[1], candidates[2], invalidCandidate],
     ...permutations(candidates),
   ];
+  const period: Candidate = [month, "month"];
   for (const [index, order] of orders.entries()) {
     const source: NaiveDate.Filter = function* () {
       yield* order;
     };
-    const period: Candidate = [month, "month"];
-    const expected = order.findLast(([date]) => date === latest);
-    assertEquals(
-      [...Filter.bySetPos(source, [-1])(period)],
-      expected == null ? [] : [expected],
-      `candidate order ${index}`,
+    const present = [month, middle, latest].filter((date) =>
+      order.some(([candidate]) => candidate === date)
     );
+    for (const position of [1, 2, -1, -2]) {
+      const date = present.at(position > 0 ? position - 1 : position);
+      const expected = order.findLast(([candidate]) => candidate === date);
+      assertEquals(
+        [...Filter.bySetPos(source, [position])(period)],
+        expected == null ? [] : [expected],
+        `candidate order ${index}, position ${position}`,
+      );
+    }
   }
 });

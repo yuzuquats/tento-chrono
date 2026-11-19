@@ -27,3 +27,8 @@ and reference rules. Record results and link the benchmark and profiles.
 The article comparison, monthly permutation matrix and V8 memory profile
 are recorded in [bench/RESULTS.md](../../bench/RESULTS.md). The benchmark
 commands and suite runner are documented in [bench/README.md](../../bench/README.md).
+
+The follow-up uses bounded ranking for a single position one or two dates
+from either end. Its benchmarks use `a115343` as the baseline. The new
+timing, allocation and candidate-order checks are in the
+[follow-up results](../../bench/RESULTS.md#first-and-second-positions-from-either-end-november-19-follow-up).

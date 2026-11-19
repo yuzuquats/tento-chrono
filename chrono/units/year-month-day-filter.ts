@@ -35,19 +35,14 @@ export namespace YearMonthDayFilter {
    */
   export function bySetPos(inner: Filter, positions: readonly number[]): Filter {
     return function* (partialdate: PartialDate.Tuple): Generator<PartialDate.Tuple> {
-      if (positions.length === 1 && positions[0] === -1) {
-        let last: PartialDate.Tuple | undefined;
-        let latestDse = -Infinity;
-        for (const [day, unit] of inner(partialdate)) {
-          const valid = day.toResult().asOk();
-          // Match the map below: a later tuple for the same day supplies its unit.
-          if (valid != null && valid.dse >= latestDse) {
-            latestDse = valid.dse;
-            last = [valid, unit];
-          }
+      if (positions.length === 1) {
+        const position = positions[0];
+        const rank = Math.abs(position);
+        if (rank === 1 || rank === 2) {
+          const selected = selectEdge(inner(partialdate), rank, position < 0);
+          if (selected != null) yield selected;
+          return;
         }
-        if (last != null) yield last;
-        return;
       }
 
       const days = new Map<number, PartialDate.Tuple>();
@@ -63,6 +58,44 @@ export namespace YearMonthDayFilter {
       }
       for (const i of [...picked].sort((a, b) => a - b)) yield sorted[i];
     };
+  }
+
+  /** Rank the first or last two distinct days in a single pass. */
+  function selectEdge(
+    candidates: Generator<PartialDate.Tuple>,
+    rank: 1 | 2,
+    fromEnd: boolean,
+  ): PartialDate.Tuple | undefined {
+    const direction = fromEnd ? 1 : -1;
+    let firstKey = -Infinity;
+    let secondKey = -Infinity;
+    let firstDay: YearMonthDay | undefined;
+    let secondDay: YearMonthDay | undefined;
+    let firstUnit: DateUnit.Type = "day";
+    let secondUnit: DateUnit.Type = "day";
+    for (const [day, unit] of candidates) {
+      const valid = day.toResult().asOk();
+      if (valid == null) continue;
+      const key = direction * valid.dse;
+      // An equal key replaces the earlier tuple, as the general map does.
+      if (key >= firstKey) {
+        if (rank === 2 && key > firstKey) {
+          secondKey = firstKey;
+          secondDay = firstDay;
+          secondUnit = firstUnit;
+        }
+        firstKey = key;
+        firstDay = valid;
+        firstUnit = unit;
+      } else if (rank === 2 && key >= secondKey) {
+        secondKey = key;
+        secondDay = valid;
+        secondUnit = unit;
+      }
+    }
+
+    if (rank === 1 && firstDay != null) return [firstDay, firstUnit];
+    if (rank === 2 && secondDay != null) return [secondDay, secondUnit];
   }
 
   export function compose(filters: Filter[]): Filter {

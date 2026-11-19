@@ -128,3 +128,34 @@ engine, and result format and prints GC trace data to stdout and phase
 markers to stderr. The run driver, parser, JSON summary, and V8 allocation
 profiles can be regenerated with [the suite runner](README.md).
 These figures measure the V8 object heap.
+
+## First and second positions from either end, November 19 follow-up
+
+A single position of `1`, `2`, `-1`, or `-2` keeps at most two distinct
+candidate dates. The selector preserves the final tuple for a tied date,
+even when the inner filter yields dates out of order. The following paired
+runs use the filter from `a115343` as the baseline and the same 100-year
+windows, Deno version and CPU as the earlier monthly measurements.
+
+| Workload | Chrono before | Chrono with bounded selection | rrule 2.8.1 |
+| --- | ---: | ---: | ---: |
+| First Friday | 1.160 ms | 0.578 ms | 2.945 ms |
+| Second-to-last weekday | 3.785 ms | 1.280 ms | 3.126 ms |
+| First and last weekend day, every other month | 0.965 ms | 0.937 ms | 1.974 ms |
+
+The second-to-last weekday allocates 8.67 MiB per expansion, down from
+18.89 MiB. The observed heap peak is near 16.1 MiB above the warmed
+baseline in both revisions. It retains about 10 KiB with the final numeric
+result held. The new CPU profile spends 36% of samples in bounded
+selection and 28% constructing the weekday candidates.
+
+Timed outputs match in all eleven article and monthly benchmark groups.
+The differential test checks 960 monthly combinations. The added ranking
+coverage checks 2,892 combinations of position and candidate order,
+including missing positions, invalid dates and duplicate candidates.
+The type check, 732 standard tests and two opt-in reference tests passed.
+Seven standard tests were ignored.
+
+From this directory, use
+`python3 run.py /tmp/chrono-edge-ranks --baseline a115343`
+to reproduce the comparison, with `--cpu 8` for the recorded Linux affinity.
