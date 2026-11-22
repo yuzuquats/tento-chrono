@@ -9,3 +9,5 @@ Validate the regression before and after the fix, the Chrono Deno suite, and rel
 ## Validation
 
 The two conversion regressions failed on the old implementation and passed after the fix. The resize test also passed. Chrono type checks and the full Deno suite passed (669 tests, 202 steps, 7 existing ignores, and 96 documentation tests). The Lona consumer's timeline legend, column timezone and calendar span viewer-zone tests passed (8 tests). The owner logs are `~/workspace/fleet/evidence/chrono-region-conversion-{before,after,check,test,calendar}.log`.
+
+The exact conversion commit also passed 44 Rust tests and 2 Rust doctests in a clean source export. In the browser, Gemini Neon reproduced 10:15 PDT becoming 03:15 PDT using the served dev Chrono module and matching calendar zone data. The authenticated dev calendar grid required sign-in. The independent UTC relabeling issue in the month-move confirmation preview was fixed in the owning calendar repositories. No source push or dev deployment was performed.
