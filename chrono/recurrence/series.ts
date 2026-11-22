@@ -390,7 +390,10 @@ function profileRecurrence(
   }
   const rrule = new RRule({
     ...rule.inner,
-    options: { ...rule.inner.options, byeaster: parts.map(Number) },
+    options: {
+      ...rule.inner.options,
+      byeaster: { offsets: parts.map(Number), start: raw.dtstart?.dates[0]?.date },
+    },
   }, rule.parameterOrder);
   return new Recurrence(new ICalendar.Raw({ ...raw.lines, rrule }, raw.order));
 }

@@ -183,3 +183,11 @@ suite tests with 319 steps and seven existing ignores.
 
 The gap identity follow-up passed Deno type checking, 96 documentation
 tests, and 1,260 suite tests with 319 steps and seven existing ignores.
+
+The publication review found that dateutil uses the week’s starting year
+for BYEASTER, including the extra mask slots for early January. The
+first partial week starts at DTSTART. The weekly filter selects the mask
+before BYDAY narrows the week. Seven reference fixtures cover those
+boundaries and a daily control. Chrono builds each
+year’s mask on demand, so it can satisfy COUNT before dateutil’s
+lookahead would raise an out-of-range offset error.

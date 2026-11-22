@@ -505,7 +505,7 @@ export namespace YearMonthDayFilter {
   }
 
   /** Western Easter plus the dateutil rule's day offsets. */
-  export function byEaster(offsets: readonly number[]): Filter {
+  export function byEaster(offsets: readonly number[], start?: NaiveDate): Filter {
     const datesByYear = new Map<number, NaiveDate[]>();
     function datesOf(year: number): NaiveDate[] {
       const saved = datesByYear.get(year);
@@ -532,14 +532,11 @@ export namespace YearMonthDayFilter {
       const end = unit === "year" ? first.add({ yrs: 1 })
         : unit === "month" ? first.add({ mths: 1 })
         : first.addDays(unit === "week" ? 7 : 1);
-      const years = new Set([first.yr, end.addDays(-1).yr]);
-      const seen = new Set<number>();
-      for (const year of years) {
-        for (const day of datesOf(year)) {
-          if (day.dse < first.dse || day.dse >= end.dse || seen.has(day.dse)) continue;
-          seen.add(day.dse);
-          yield [day, "day"];
-        }
+      // dateutil starts the first partial week at DTSTART. Later weeks
+      // use their starting year's mask, including its trailing January slots.
+      const lower = unit === "week" && start != null && first.dse < start.dse ? start : first;
+      for (const day of datesOf(lower.yr)) {
+        if (day.dse >= lower.dse && day.dse < end.dse) yield [day, "day"];
       }
     };
   }

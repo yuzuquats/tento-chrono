@@ -30,7 +30,7 @@ export interface RRuleLike {
     byweekno: number[];
     byyearday: number[];
     /** Western Easter offsets, populated by the dateutil profile. */
-    byeaster: number[];
+    byeaster: { offsets: number[]; start?: NaiveDate };
     byhour: number[];
     byminute: number[];
     bysecond: number[];
@@ -593,8 +593,13 @@ export class RRule {
     }
     if (options?.byyearday && options.byyearday.length > 0)
       filters.push(NaiveDate.Filter.byDayOfYear(options.byyearday));
-    if (options?.byeaster?.length)
-      filters.push(NaiveDate.Filter.byEaster(options.byeaster));
+    if (options?.byeaster != null) {
+      const { offsets, start } = options.byeaster;
+      const easter = NaiveDate.Filter.byEaster(offsets, start);
+      // Weekly Easter masks are keyed by the week before BYDAY can expand it.
+      if (step.type === "week") filters.unshift(easter);
+      else filters.push(easter);
+    }
 
     const composed =
       filters.length > 0
@@ -665,7 +670,7 @@ export class RRule {
       options?.bynthday?.length ||
       options?.bymonthday?.length ||
       options?.byyearday?.length ||
-      options?.byeaster?.length,
+      options?.byeaster?.offsets.length,
     );
     if (hasWeekDayExpander) {
       filterOptions.weekStart = options?.wkst ?? Weekday.MON;
