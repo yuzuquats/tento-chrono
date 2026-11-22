@@ -193,46 +193,63 @@ export namespace YearMonthDayFilter {
     const generators: Generator<PartialDate.Tuple>[] = [];
     const uniqueDates = new Set<string>(); // To deduplicate final dates
 
-    let curr: PartialDate.Tuple = partialdate;
-    for (const [idx, f] of filters.entries()) {
-      const gen = f(curr);
-      const next = gen.next();
-      if (next.done) break;
-      generators.push(gen);
-      curr = next.value;
-      if (idx === filters.length - 1) {
-        const dateKey = curr[0].toString();
-        if (!uniqueDates.has(dateKey)) {
-          uniqueDates.add(dateKey);
-          yield curr;
-        }
-      }
-    }
-
-    while (true) {
-      if (generators.length === filters.length) {
-        const leaf = generators.pop();
-        if (!leaf) return;
-        for (const value of leaf) {
-          const dateKey = value[0].toString();
+    let iterationFailed = false;
+    try {
+      let curr: PartialDate.Tuple = partialdate;
+      for (const [idx, f] of filters.entries()) {
+        const gen = f(curr);
+        const next = gen.next();
+        if (next.done) break;
+        generators.push(gen);
+        curr = next.value;
+        if (idx === filters.length - 1) {
+          const dateKey = curr[0].toString();
           if (!uniqueDates.has(dateKey)) {
             uniqueDates.add(dateKey);
-            yield value;
+            yield curr;
           }
         }
       }
 
-      const top = generators.pop();
-      if (!top) break;
+      while (true) {
+        if (generators.length === filters.length) {
+          const leaf = generators.pop();
+          if (!leaf) return;
+          for (const value of leaf) {
+            const dateKey = value[0].toString();
+            if (!uniqueDates.has(dateKey)) {
+              uniqueDates.add(dateKey);
+              yield value;
+            }
+          }
+        }
 
-      const next = top.next();
-      if (next.done) continue;
+        const top = generators.pop();
+        if (!top) break;
 
-      curr = next.value;
-      generators.push(top);
+        const next = top.next();
+        if (next.done) continue;
 
-      const gen = filters[generators.length]!(curr);
-      generators.push(gen);
+        curr = next.value;
+        generators.push(top);
+
+        const gen = filters[generators.length]!(curr);
+        generators.push(gen);
+      }
+    } catch (error) {
+      iterationFailed = true;
+      throw error;
+    } finally {
+      // Close still-suspended iterators in the same order as nested for-of.
+      let closeFailure: { error: unknown } | undefined;
+      while (generators.length > 0) {
+        try {
+          generators.pop()!.return(undefined);
+        } catch (error) {
+          closeFailure ??= { error };
+        }
+      }
+      if (!iterationFailed && closeFailure) throw closeFailure.error;
     }
   }
 

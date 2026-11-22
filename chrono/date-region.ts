@@ -2,9 +2,8 @@ import { DateFragment } from "./date-fragment.ts";
 import { DateTime } from "./datetime.ts";
 import { NaiveDate } from "./naive-date.ts";
 import { NaiveDateTime } from "./naive-datetime.ts";
-import { NaiveTime } from "./naive-time.ts";
 import { Time } from "./time.ts";
-import { FixedOffset } from "./timezone.ts";
+import { FixedOffset, Utc } from "./timezone.ts";
 import { TimezoneRegion } from "./timezone-region.ts";
 import { MsSinceEpoch } from "./units/units.ts";
 import type { Option, Optional } from "./option.ts";
@@ -78,79 +77,85 @@ export class DateRegion {
 
   /**
    * Calculates the time shift between fragments if this date has a timezone transition.
-   * Returns null if the date has only one fragment (no transitions).
+   * Returns the first shift between adjacent fragments, or null.
    *
    * @returns {Option<DateFragment.Shift>} Information about the shift between fragments, or null
    */
   shift(): Option<DateFragment.Shift> {
-    const df = this.dateFragments();
-    if (df.length === 1) return null;
-    return df[0].comparison(df[1]);
-  }
-
-  /**
-   * Calculates the DateFragments for this region without using the cache.
-   *
-   * Given a naive date (2024-11-03), produces the appropriate fragments.
-   * For example, during a "fall back" DST transition:
-   *
-   *   2024-11-03T00:00:00-07:00 to 2024-11-03T02:00:00-07:00
-   *   2024-11-03T01:00:00-08:00 to 2024-11-04T00:00:00-08:00
-   *
-   * These represent all datetime ranges for the logical date, accounting for
-   * the timezone transition. Most days have just one fragment covering the
-   * entire day in a single timezone offset.
-   *
-   * @private
-   * @returns {DateFragment[]} Array of fragments representing this date
-   */
-  #uncachedDateFragments(): DateFragment[] {
-    const transitions = this.#transitions();
-
-    const dateStart = this.date.start;
-    if (transitions.length === 0) {
-      return [
-        new DateFragment(
-          new DateTime.Range(dateStart, dateStart.add({ hrs: 24 })),
-          this.tz,
-        ),
-      ];
+    const fragments = this.dateFragments();
+    for (let i = 1; i < fragments.length; i++) {
+      const before = fragments[i - 1];
+      const after = fragments[i];
+      if (before.end.mse === after.start.mse) return before.comparison(after);
     }
+    return null;
+  }
 
-    const transition = transitions[0];
-    const result = [
-      new DateFragment(
-        new DateTime.Range(dateStart, transition.after.time.toTz(dateStart.tz)),
-        this.tz,
-      ),
-      new DateFragment(
-        new DateTime.Range(
-          transition.after.time,
-          transition.after.time.add({ days: 1 }).withTime(NaiveTime.ZERO),
-        ),
-        this.tz,
-      ),
-    ];
+  /** Test exact civil-date membership, including disjoint midnight folds. */
+  containsInstant(instant: DateTime): boolean {
+    return this.dateFragments().some(({ start, end }) =>
+      start.mse <= instant.mse && instant.mse < end.mse
+    );
+  }
 
-    return result;
+  #uncachedDateFragments(): DateFragment[] {
+    const midnight = this.nd.mse;
+    const dayEnd = midnight + Time.MS_PER_DAY;
+    const from = (midnight - Time.MS_PER_DAY) as MsSinceEpoch;
+    const to = (dayEnd + Time.MS_PER_DAY) as MsSinceEpoch;
+    const fragments: DateFragment[] = [];
+
+    // Intersect the civil day with each constant-offset segment on the UTC timeline.
+    let segmentStart = from;
+    let zone = this.tz.activeTransition(from)
+      ? this.tz.tzAtMse(from)
+      : this.tz.transitions[0]?.before.time.tz ?? Utc;
+
+    const append = (segmentEnd: MsSinceEpoch) => {
+      const offset = zone.info.offset.toMs;
+      const start = Math.max(segmentStart, midnight - offset) as MsSinceEpoch;
+      const end = Math.min(segmentEnd, dayEnd - offset) as MsSinceEpoch;
+      if (start < end) {
+        fragments.push(new DateFragment(
+          new DateTime.Range(DateTime.fromMse(start, zone), DateTime.fromMse(end, zone)),
+          this.tz,
+        ));
+      }
+    };
+
+    for (const transition of this.tz.transitionsBetween({ start: from, end: to })) {
+      const boundary = transition.before.mse;
+      if (boundary <= from || boundary >= to) continue;
+      const nextZone = this.tz.tzAtMse(boundary);
+      if (nextZone.info.offset.toMs === zone.info.offset.toMs &&
+          nextZone.info.tzabbr === zone.info.tzabbr) continue;
+      append(boundary);
+      segmentStart = boundary;
+      zone = nextZone;
+    }
+    append(to);
+    return fragments;
   }
 
   /**
-   * Gets the DateTime range spanning this date in its timezone.
-   * This range goes from 00:00 to 23:59:59.999 in the local timezone.
-   *
-   * @returns {DateTime.Range<FixedOffset>} The datetime range for the whole day
+   * Contiguous range used by day-column callers. A midnight fold can split a
+   * civil date into separate intervals, so use dateFragments or containsInstant
+   * for exact membership. Skipped civil dates have an empty range.
    */
   get date(): DateTime.Range<FixedOffset> {
     if (this.cache.date) return this.cache.date;
+    const fragments = this.dateFragments();
+    const nextMidnight = () => this.tz.toWallClock(new NaiveDateTime(this.nd.addDays(1)));
+    if (fragments.length === 0) {
+      const boundary = nextMidnight();
+      return (this.cache.date = new DateTime.Range(boundary, boundary));
+    }
+    if (fragments.every((f, i) => i === 0 || fragments[i - 1].end.mse === f.start.mse)) {
+      return (this.cache.date = new DateTime.Range(fragments[0].start, fragments[fragments.length - 1].end));
+    }
     return (this.cache.date = new DateTime.Range(
-      this.tz.toWallClock(new NaiveDateTime(NaiveDate.fromMse(this.nd.mse))),
-      this.tz.toWallClock(
-        new NaiveDateTime(
-          // TODO: i dont think this is actually right
-          NaiveDate.fromMse((this.nd.mse + Time.MS_PER_DAY) as MsSinceEpoch),
-        ),
-      ),
+      this.tz.toWallClock(new NaiveDateTime(this.nd)),
+      nextMidnight(),
     ));
   }
 
@@ -160,24 +165,6 @@ export class DateRegion {
    */
   toString(): string {
     return `${this.nd.rfc3339()} ${this.tz.fullname}`;
-  }
-
-  /**
-   * Finds timezone transitions occurring on this date.
-   * Looks for transitions where the "after" time falls on this date.
-   *
-   * @private
-   * @returns {TimezoneRegion.Transition[]} Array of timezone transitions
-   */
-  #transitions(): TimezoneRegion.Transition[] {
-    return this.tz
-      .transitionsBetween({
-        start: (this.nd.mse - Time.MS_PER_DAY) as MsSinceEpoch,
-        end: (this.nd.mse + Time.MS_PER_DAY) as MsSinceEpoch,
-      })
-      .filter((t) => {
-        return t.after.time.ndt.date.equals(this.nd);
-      });
   }
 
   /**

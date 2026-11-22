@@ -432,16 +432,7 @@ class _YearMonthDay implements Ymd1Like {
 
   range(
     step: DateUnit = DateUnit.days(1),
-    options: Option<
-      Optional<{
-        end: YearMonthDay; // inclusive
-        limit: number;
-        recurLimit: number;
-        onExhausted: () => void;
-        filter: YearMonthDay.Filter | YearMonthDay.Filter[];
-        weekStart: Weekday;
-      }>
-    > = null,
+    options: Option<YearMonthDay.FilterPropsOptions> = null,
   ): Generator<YearMonthDay> {
     const recurLimit = options?.recurLimit ?? 5_000;
     const start = this.castMaybeInValid();
@@ -458,6 +449,7 @@ class _YearMonthDay implements Ymd1Like {
       end: options?.end,
       limit: options?.limit,
       weekStart: options?.weekStart ?? start.dayOfWeek,
+      periodLookbehindDays: options?.periodLookbehindDays ?? undefined,
     });
   }
 
@@ -518,6 +510,7 @@ export namespace YearMonthDay {
     onExhausted: () => void;
     filter: YearMonthDay.Filter | YearMonthDay.Filter[];
     weekStart: Weekday;
+    periodLookbehindDays: number;
   }>;
 
   export type FilterProps = {
@@ -724,6 +717,7 @@ export namespace YearMonthDay {
     end,
     limit,
     weekStart,
+    periodLookbehindDays = step.type === "year" ? 7 : 0,
   }: {
     start: YearMonthDay.MaybeValid;
     step: DateUnit;
@@ -733,6 +727,7 @@ export namespace YearMonthDay {
     end: Option<YearMonthDay>;
     limit: Option<number>;
     weekStart: Weekday;
+    periodLookbehindDays?: number;
   }): Generator<YearMonthDay> {
     if (limit != null && limit <= 0) return;
     if (Number.isNaN(recurLimit)) throw new RangeError("recurLimit must not be NaN");
@@ -755,8 +750,7 @@ export namespace YearMonthDay {
     // COUNT, and one that never matches (BYMONTH=2;BYMONTHDAY=30) ends.
     let idle = 0;
     for (const i of YearMonthDay.ndsucc(iterStart, step, Number.MAX_SAFE_INTEGER)) {
-      const slack = step.type === "year" ? 7 : 0;
-      if (end && firstDayOf(i, step.type).castValid().addDays(-slack).cmpInvalid(end) > 0) return;
+      if (end && firstDayOf(i, step.type).castValid().addDays(-periodLookbehindDays).cmpInvalid(end) > 0) return;
       // Explicit required reads bound examined periods as well as output.
       if (onExhausted && ++periods > recurLimit) { onExhausted(); return; }
       let yielded = false;
@@ -775,10 +769,7 @@ export namespace YearMonthDay {
       }
       if (yielded) idle = 0;
       else if (++idle >= IDLE_PERIODS && end == null) { onExhausted?.(); return; }
-      // A period whose first day is over a week past `end` (and every later
-      // one) holds no date to yield. The week of slack covers BYWEEKNO,
-      // whose week 1 can start in the previous year's last days.
-      if (end && firstDayOf(i, step.type).castValid().addDays(-7).cmpInvalid(end) > 0) return;
+
     }
   }
 

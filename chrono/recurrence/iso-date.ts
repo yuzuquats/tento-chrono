@@ -2,7 +2,6 @@ import { NaiveDate } from "../naive-date.ts";
 import { NaiveDateTime } from "../naive-datetime.ts";
 import { NaiveTime } from "../naive-time.ts";
 import { Result, erm, ok } from "../result.ts";
-import { TentoMath } from "../utils.ts";
 import type { Option } from "../option.ts";
 
 export class IsoDate {
@@ -21,7 +20,8 @@ export class IsoDate {
     s: string,
   ): Result<[NaiveDate, Option<NaiveTime>, Option<"Z">]> {
     const regex = /^(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2})?(\d{2})?)?Z?$/;
-    const match = s.trim().match(regex);
+    const input = s.trim();
+    const match = input.match(regex);
     if (!match) return erm(`icaldate/no-match/input=${s}`);
 
     const [_, year, month, day, hrs, mins, secs] = match;
@@ -30,16 +30,19 @@ export class IsoDate {
     if (ndr.isErr) return ndr.expeCast();
     const nd = ndr.asOk()!;
 
-    const nt =
-      hrs != null
-        ? NaiveTime.wrap({
-            hrs: TentoMath.int(hrs) || 0,
-            mins: TentoMath.int(mins) || 0,
-            secs: TentoMath.int(secs) || 0,
-          })
-        : null;
+    let nt: Option<NaiveTime> = null;
+    if (hrs != null) {
+      const hours = Number(hrs);
+      const minutes = Number(mins ?? "0");
+      const seconds = Number(secs ?? "0");
+      if (hours > 23 || minutes > 59 || seconds > 60) {
+        return erm(`icaldate/time-out-of-range/input=${s}`);
+      }
+      // RFC 5545 §3.3.12 treats :60 as :59 when leap seconds are unsupported.
+      nt = NaiveTime.wrap({ hrs: hours, mins: minutes, secs: Math.min(seconds, 59) });
+    }
 
-    return ok([nd, nt, s.endsWith("Z") ? "Z" : null]);
+    return ok([nd, nt, input.endsWith("Z") ? "Z" : null]);
   }
 
   trunc(): NaiveDate {

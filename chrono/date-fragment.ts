@@ -51,51 +51,9 @@ export class DateFragment {
     return this.inner.end;
   }
 
-  /**
-   * Calculates the duration of this fragment.
-   * Handles special case where end time is midnight (00:00) by treating it as 24:00.
-   * @returns {DurationTime} The length of the fragment as a TimeUnit
-   */
+  /** Elapsed time between the endpoints, including their calendar dates. */
   get length(): Duration.Time {
-    // TODO: we need precise times here
-    if (this.inner.start.time.equals(TimeOfDay.ZERO)) {
-      if (this.inner.end.time.equals(TimeOfDay.ZERO)) {
-        // 1) Full Day
-        return Duration.Time.DAY1;
-      } else {
-        // 2) 0...End
-        // dev(
-        //   "0...end",
-        //   Duration.Time.from({
-        //     ms: this.inner.end.time.toMs as Ms,
-        //   })
-        // );
-        return Duration.Time.from({
-          ms: this.inner.end.time.toMs as Ms,
-        });
-      }
-    } else {
-      if (this.inner.end.time.equals(TimeOfDay.ZERO)) {
-        // 3) start...24
-        // dev(
-        //   "start...24",
-        //   Duration.Time.DAY1.sub(this.inner.start.time.duration()).toHrsF
-        // );
-        return Duration.Time.DAY1.sub(this.inner.start.time.duration());
-      } else {
-        // 4) start...end
-        // dev(
-        //   "start...end",
-        //   this.inner.end.time.duration().sub(this.inner.start.time.duration())
-        //     .toHrsF,
-        //   this.inner.start.time.duration().toMs,
-        //   this.inner.end.time.duration().toMs
-        // );
-        return this.inner.end.time
-          .duration()
-          .sub(this.inner.start.time.duration());
-      }
-    }
+    return this.end.durationSince(this.start);
   }
 
   /**

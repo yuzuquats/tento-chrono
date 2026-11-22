@@ -596,7 +596,10 @@ export namespace DateTime {
         const begin = cursor++;
         while (cursor < len && rfc3339.charCodeAt(cursor) >= 48 && rfc3339.charCodeAt(cursor) <= 57) cursor++;
         if (cursor === begin + 1) return erm("DateTime.fromRfc3339: Invalid fraction");
-        fractionMs = Math.round(Number("0" + rfc3339.slice(begin, cursor)) * 1000);
+        for (let i = 1; i <= 3; i++) {
+          fractionMs = fractionMs * 10 + (begin + i < cursor ? rfc3339.charCodeAt(begin + i) - 48 : 0);
+        }
+        if (begin + 4 < cursor && rfc3339.charCodeAt(begin + 4) >= 53) fractionMs++;
       }
       if (cursor < len) {
         const begin = cursor;
@@ -618,7 +621,9 @@ export namespace DateTime {
     if (cursor !== len) return erm("DateTime.fromRfc3339: Invalid format");
     const date = YearMonthDay.fromYmd1Unchecked(year, month, day).toResult();
     if (date.isErr) return date.expeCast();
-    const timeMs = (h * 3600 + m * 60 + sec) * 1000 + fractionMs;
+    let timeMs = (h * 3600 + m * 60 + sec) * 1000 + fractionMs;
+    // At the upper RFC 3339 boundary, retain the closest representable timestamp.
+    if (timeMs === Time.MS_PER_DAY && year === 9999 && month === 12 && day === 31) timeMs--;
     // Rounding a fraction can carry through midnight into the following date.
     const nd = timeMs >= Time.MS_PER_DAY ? date.exp().addDays(1) : date.exp();
     const nt = new NaiveTime((timeMs % Time.MS_PER_DAY) as Ms);

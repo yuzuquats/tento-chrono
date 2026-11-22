@@ -670,6 +670,7 @@ export class RRule {
       filterOptions.weekStart = options?.wkst ?? Weekday.MON;
     }
     filterOptions.filter = filter;
+    filterOptions.periodLookbehindDays = step.type === "year" && hasWeekNoFilter ? 7 : 0;
     filterOptions.recurLimit = filterOptions.end != null ? Number.POSITIVE_INFINITY : Math.max(1000, options?.count ?? 0, limit ?? 0);
 
     // For Google Calendar yearly BYWEEKNO patterns, ensure we don't limit the generator prematurely
@@ -736,7 +737,7 @@ export namespace RRule {
       }
 
       const until = rules.get("UNTIL");
-      const untilResult = until ? IsoDate.parse(until) : null;
+      const untilResult = until != null ? IsoDate.parse(until) : null;
       if (untilResult?.isErr) return untilResult.expeCast();
 
       // Parse BYHOUR
