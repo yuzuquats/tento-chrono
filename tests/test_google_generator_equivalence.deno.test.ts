@@ -6,7 +6,10 @@
  * recorded from the generator as it was before its per-occurrence work was
  * reduced, so a change to any instant fails here. The BYSETPOS rows were
  * re-recorded when BYSETPOS was implemented: before, it was ignored (every
- * weekday instead of the month's last).
+ * weekday instead of the month's last). The 84 unlimited DAILY rows were
+ * extended past the former 1000-date cap in chrono-audit-critical: every old
+ * digest matched the new result's prefix, and each complete result matched
+ * independent calendar-day enumeration using the existing zone resolver.
  */
 import { assertEquals } from "@std/assert";
 import { ICalendar } from "../chrono/recurrence/ical.ts";

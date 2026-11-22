@@ -12,10 +12,10 @@ export type EthiopianDate = {
  * Ethiopian (Ge'ez) calendar.
  *
  * 13-month solar calendar: 12 months of 30 days + Ṗaguméʿ (5 or 6 days).
- * Leap year: Y % 4 == 0 (years whose corresponding Gregorian year contains Feb 29).
+ * Leap year: Y % 4 == 3; the extra day precedes the following year start.
  *
  * Epoch: 1 Mäskäräm 1 AM = JDN 1724221, calibrated to
- * 1 Mäskäräm 2016 EC = 11 September 2023 CE.
+ * 1 Mäskäräm 2016 EC = 12 September 2023 CE.
  * Verified for 2010–2017 EC.
  */
 
@@ -23,12 +23,12 @@ const EPOCH_JDN = 1724221;
 const DSE_TO_JDN = 2440588;
 
 function isLeap(year: number): boolean {
-  return year % 4 === 0;
+  return year % 4 === 3;
 }
 
 function yearStartJDN(year: number): number {
   const y = year - 1;
-  return EPOCH_JDN + y * 365 + Math.floor(y / 4);
+  return EPOCH_JDN + y * 365 + Math.floor(year / 4);
 }
 
 function monthLength(month: number, leap: boolean): number {

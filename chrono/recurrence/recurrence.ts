@@ -899,6 +899,7 @@ export class GoogleEventGenerator {
         false,
         generationLimit,
         localUntilDateOverride,
+        true,
       )
       : (function* () {})();
 
@@ -1176,6 +1177,7 @@ function* generateUntilExcl(
   excludeDates: boolean = !useGoogleCalendarBehavior,
   generationLimit?: number,
   untilDateOverride?: Option<NaiveDate>,
+  incremental: boolean = false,
 ) {
   const originalStartDate = date ?? inner.dtstart?.dates[0]?.date;
   const excl = excludeDates ? createExcludedDatesSet(inner) : new Set<number>();
@@ -1209,6 +1211,12 @@ function* generateUntilExcl(
     untilDateOverride,
     ignoreTimeParts,
   );
+  if (incremental) {
+    props.options ??= {};
+    // Each read stops at its requested date. Do not truncate later reads
+    // merely because the same lazy iterator has already yielded 1000 dates.
+    props.options.recurLimit = Number.POSITIVE_INFINITY;
+  }
   if (generationLimit != null) {
     props.options ??= {};
     props.options.recurLimit = generationLimit;

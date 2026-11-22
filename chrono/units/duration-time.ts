@@ -311,8 +311,10 @@ export class DurationTime
     op: (n: number) => number = Math.round,
   ): DurationTime {
     const nearestTu = DurationTime.from(nearest);
-    const multiple = op(this.toMs / nearestTu.toMs);
-    return new DurationTime(multiple * nearestTu.toMs * this.sign);
+    const step = Math.abs(nearestTu.toMs);
+    if (step === 0 || !Number.isFinite(step)) return this;
+    const multiple = op(this.toMs / step);
+    return new DurationTime(multiple * step);
   }
 
   round(nearest: DurationTime.Parts.Opt): DurationTime {

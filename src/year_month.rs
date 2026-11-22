@@ -155,7 +155,7 @@ impl<'de> Deserialize<'de> for YearMonth {
   where
     D: Deserializer<'de>,
   {
-    deserializer.deserialize_str(YearMonthVisitor)
+    deserializer.deserialize_any(YearMonthVisitor)
   }
 }
 
@@ -165,7 +165,20 @@ impl<'de> Visitor<'de> for YearMonthVisitor {
   type Value = YearMonth;
 
   fn expecting(&self, f: &mut fmt::Formatter) -> fmt::Result {
-    f.write_str("a string in the format 'YYYY-MM'")
+    f.write_str("a YYYY-MM string or an object with yr and mth1")
+  }
+
+  fn visit_map<A>(self, map: A) -> Result<Self::Value, A::Error>
+  where
+    A: de::MapAccess<'de>,
+  {
+    #[derive(Deserialize)]
+    struct Fields { yr: i32, mth1: u32 }
+    let fields = Fields::deserialize(de::value::MapAccessDeserializer::new(map))?;
+    if !(1..=12).contains(&fields.mth1) {
+      return Err(de::Error::custom("Month must be 1..=12"));
+    }
+    Ok(YearMonth { yr: fields.yr, mth1: fields.mth1 })
   }
 
   fn visit_str<E>(self, value: &str) -> Result<Self::Value, E>

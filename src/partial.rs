@@ -143,12 +143,15 @@ impl PartialDate {
     // Start with the Monday of the week containing our range start date
     let start_date = range.start;
     let days_from_monday = start_date.weekday().num_days_from_monday();
-    let start_monday = start_date - chrono::Duration::days(days_from_monday as i64);
+    let start_monday = start_date
+      .checked_sub_signed(chrono::Duration::days(days_from_monday as i64))
+      .unwrap_or(NaiveDate::MIN);
 
     // Create the iterator
     WeekIterator {
       current_date: start_monday,
       end_date: range.end,
+      exhausted: false,
     }
   }
 
@@ -362,96 +365,27 @@ impl<'de> Deserialize<'de> for PartialDate {
 pub struct WeekIterator {
   current_date: NaiveDate,
   end_date: NaiveDate,
+  exhausted: bool,
 }
 
 impl Iterator for WeekIterator {
   type Item = (PartialDate, PartialDate);
 
   fn next(&mut self) -> Option<Self::Item> {
-    // If we've gone past the end date, stop iteration
-    // We use >= instead of > to make the iterator inclusive of the end date
-    if self.current_date >= self.end_date {
-      // Special case: if the current date is exactly on the end date,
-      // include it as the last week in the iteration
-      if self.current_date == self.end_date {
-        // Get the ISO year and week number for the current date (Monday)
-        let iso_year = self.current_date.iso_week().year();
-        let iso_week = self.current_date.iso_week().week();
-
-        // Create the PartialDate for this week
-        let week_pd = PartialDate::Yw {
-          yr: iso_year,
-          week: iso_week,
-        };
-
-        // Calculate the next week's date, being careful with bounds
-        let next_date = if let Some(next) = self
-          .current_date
-          .checked_add_signed(chrono::Duration::days(7))
-        {
-          next
-        } else {
-          // If we can't calculate next week (due to overflow), use MAX
-          return Some((week_pd.clone(), week_pd));
-        };
-
-        // Get the next week's PartialDate
-        let next_iso_year = next_date.iso_week().year();
-        let next_iso_week = next_date.iso_week().week();
-        let next_week_pd = PartialDate::Yw {
-          yr: next_iso_year,
-          week: next_iso_week,
-        };
-
-        // Move the current_date past the end to stop iteration next time
-        self.current_date = self
-          .end_date
-          .checked_add_signed(chrono::Duration::days(1))
-          .unwrap_or(NaiveDate::MAX);
-
-        // Return the week at the end date and the next week
-        return Some((week_pd, next_week_pd));
-      }
+    if self.exhausted || self.current_date > self.end_date {
       return None;
     }
-
-    // Get the ISO year and week number for the current date (Monday)
-    let iso_year = self.current_date.iso_week().year();
-    let iso_week = self.current_date.iso_week().week();
-
-    // Create the PartialDate for this week
-    let week_pd = PartialDate::Yw {
-      yr: iso_year,
-      week: iso_week,
+    let iso = self.current_date.iso_week();
+    let current = PartialDate::Yw { yr: iso.year(), week: iso.week() };
+    // MIN may cut off the first week's Monday; advance to the next Monday.
+    let days = 7 - self.current_date.weekday().num_days_from_monday();
+    let Some(next_date) = self.current_date.checked_add_signed(chrono::Duration::days(days as i64)) else {
+      self.exhausted = true;
+      return Some((current.clone(), current));
     };
-
-    // Calculate the next week's date, being careful with bounds
-    let next_date = if let Some(next) = self
-      .current_date
-      .checked_add_signed(chrono::Duration::days(7))
-    {
-      next
-    } else {
-      // Handle potential overflow by stopping iteration
-      return None;
-    };
-
-    // Get the next week's PartialDate
-    let next_iso_year = next_date.iso_week().year();
-    let next_iso_week = next_date.iso_week().week();
-    let next_week_pd = PartialDate::Yw {
-      yr: next_iso_year,
-      week: next_iso_week,
-    };
-
-    // Save the current value before moving iterator state
-    let result = Some((week_pd, next_week_pd));
-
-    // Move the current_date forward to the next week
+    let next_iso = next_date.iso_week();
     self.current_date = next_date;
-
-    // Return the current week and the next week
-    result
+    Some((current, PartialDate::Yw { yr: next_iso.year(), week: next_iso.week() }))
   }
 }
 

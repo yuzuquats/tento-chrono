@@ -85,7 +85,7 @@ export namespace ICalDateLine {
       const attributes = ICalAttributes.fromRawAttributes(rawParams.split(";"));
       const rawValues = rawTimestamps.split(",");
       const periodEnds: (string | null)[] = [];
-      const timestamps = rawValues
+      const parsedTimestamps = rawValues
         .map((value) => {
           // A PERIOD value (RDATE;VALUE=PERIOD:start/end or start/duration)
           // is read as its start for occurrence expansion, while preserving the
@@ -97,8 +97,10 @@ export namespace ICalDateLine {
           }
           periodEnds.push(null);
           return IsoDate.parse(value);
-        })
-        .map((ts) => ts.exp());
+        });
+      const failed = parsedTimestamps.find((ts) => ts.isErr);
+      if (failed) return failed.expeCast();
+      const timestamps = parsedTimestamps.map((ts) => ts.exp());
 
       const tagCandidate = attributes.order[0];
       if (requiresTag) {

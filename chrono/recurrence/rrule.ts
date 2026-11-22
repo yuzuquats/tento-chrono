@@ -82,8 +82,7 @@ export class RRule {
     for (const exdateLine of exdateLines) {
       const exdateResult = ExDate.parse(exdateLine);
       if (!exdateResult.isOk) {
-        console.error("invalid exdate", exdateLine);
-        continue;
+        return exdateResult.expeCast();
       }
 
       const exdate = exdateResult.asOk()!;
@@ -452,7 +451,7 @@ export class RRule {
     const options = this.inner.options;
 
     let step: DateUnit;
-    const interval = options?.interval ?? 1;
+    const interval = Math.max(1, options?.interval ?? 1);
 
     // Google Calendar behavior: BYWEEKNO with monthly/weekly frequency generates consecutive weekly events
     const hasWeekNoFilter = options?.byweekno && options.byweekno.length > 0;
@@ -669,7 +668,7 @@ export class RRule {
       filterOptions.weekStart = options?.wkst ?? Weekday.MON;
     }
     filterOptions.filter = filter;
-    filterOptions.recurLimit = Math.max(1000, options?.count ?? 0, limit ?? 0);
+    filterOptions.recurLimit = filterOptions.end != null ? Number.POSITIVE_INFINITY : Math.max(1000, options?.count ?? 0, limit ?? 0);
 
     // For Google Calendar yearly BYWEEKNO patterns, ensure we don't limit the generator prematurely
     if (
@@ -734,6 +733,8 @@ export namespace RRule {
       }
 
       const until = rules.get("UNTIL");
+      const untilResult = until ? IsoDate.parse(until) : null;
+      if (untilResult?.isErr) return untilResult.expeCast();
 
       // Parse BYHOUR
       let byhour: Option<number[]> = null;
@@ -817,7 +818,7 @@ export namespace RRule {
               byminute: byminute,
               bysecond: bysecond,
               tzid: rules.get("TZID") as Option<Tzname>,
-              until: until ? IsoDate.parse(until).exp() : null,
+              until: untilResult?.asOk() ?? null,
             },
           },
           rules.order,

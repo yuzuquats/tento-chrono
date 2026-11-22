@@ -374,7 +374,7 @@ class _YearMonthDay implements Ymd1Like {
   }
 
   toStartOfWeekMon(): YearMonthDay {
-    return this.addDays(-this.dayOfWeek.dow + 2).assertValid();
+    return this.addDays(-(this.dayOfWeek.isoDow1 - 1)).assertValid();
   }
 
   mthIsoStart(): YearMonthDay {
@@ -686,8 +686,9 @@ export namespace YearMonthDay {
 
   export let _today: Option<Valid>;
   export function today(): Valid {
-    if (_today) return _today;
     const date = new Date();
+    if (_today && _today.yr === date.getFullYear() &&
+        _today.month1 === date.getMonth() + 1 && _today.day1 === date.getDate()) return _today;
     return (_today = YearMonthDay.fromYmd1Exp(
       date.getFullYear(),
       date.getMonth() + 1,

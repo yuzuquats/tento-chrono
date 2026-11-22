@@ -12,7 +12,6 @@ import { TimeOfDay } from "./units/time-of-day.ts";
 import { DaysSinceEpoch, MsSinceEpoch } from "./units/units.ts";
 import { Weekday } from "./units/weekday.ts";
 import { YearMonthDay } from "./units/year-month-day.ts";
-import { TentoMath } from "./utils.ts";
 import type { Option } from "./option.ts";
 
 /**
@@ -21,31 +20,10 @@ import type { Option } from "./option.ts";
  * Supports both standard offsets (Z or +/-HH:MM) and extended offsets with seconds (+/-HH:MM:SS).
  */
 const RFC3339_REGEX =
-  /^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2}):(\d{2})(\.\d+)?(Z|[+-]\d{2}:\d{2}(?::\d{2})?)?)?$/;
+  /^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2}):(\d{2})(\.\d+)?(Z|[+-]\d{2}:\d{2}(?::\d{2})?)?)?$/i;
 
 const RFC3339_CACHE_MAX = 128;
 const _rfc3339Cache = new Map<string, Result<DateTime<FixedOffset>>>();
-
-/** Parse 2-digit integer at position i. Returns NaN on non-digit. */
-function digit(s: string, i: number): number {
-  const parsed = s.charCodeAt(i) - 48;
-  return parsed >= 0 && parsed <= 9 ? parsed : Number.NaN;
-}
-
-/** Parse 2-digit integer at position i. Returns NaN on non-digit. */
-function int2(s: string, i: number): number {
-  return digit(s, i) * 10 + digit(s, i + 1);
-}
-
-/** Parse 4-digit integer at position i. Returns NaN on non-digit. */
-function int4(s: string, i: number): number {
-  return (
-    digit(s, i) * 1000 +
-    digit(s, i + 1) * 100 +
-    digit(s, i + 2) * 10 +
-    digit(s, i + 3)
-  );
-}
 
 /**
  * Represents a specific moment in time with associated timezone information.
@@ -600,80 +578,30 @@ export namespace DateTime {
       }
     }
 
-    // Fast path: parse fixed-position fields without regex.
-    // RFC3339: YYYY-MM-DD[THH:MM:SS[.fff][Z|±HH:MM]]
-    const len = rfc3339.length;
-    if (len >= 10 && rfc3339.charCodeAt(4) === 45 /* - */) {
-      const yr = int4(rfc3339, 0);
-      const mth = int2(rfc3339, 5);
-      const day = int2(rfc3339, 8);
-      const hasValidDateFields =
-        !Number.isNaN(yr) &&
-        !Number.isNaN(mth) &&
-        !Number.isNaN(day) &&
-        mth >= 1 &&
-        mth <= 12 &&
-        day >= 1 &&
-        day <= 31;
-
-      if (hasValidDateFields) {
-        const ndResult = YearMonthDay.fromYmd1Unchecked(yr, mth, day).toResult();
-        if (ndResult.isErr) return ndResult.expeCast();
-        const nd = ndResult.exp();
-        let hrs = 0, mins = 0, secs = 0, ms = 0;
-        let tzStr = "Z";
-
-        if (len > 10 && rfc3339.charCodeAt(10) === 84 /* T */) {
-          hrs = int2(rfc3339, 11);
-          mins = int2(rfc3339, 14);
-          secs = len > 17 ? int2(rfc3339, 17) : 0;
-          let tzStart = 19;
-          if (tzStart < len && rfc3339.charCodeAt(tzStart) === 46 /* . */) {
-            let fracEnd = tzStart + 1;
-            while (fracEnd < len && rfc3339.charCodeAt(fracEnd) >= 48 && rfc3339.charCodeAt(fracEnd) <= 57) fracEnd++;
-            ms = Math.round(Number.parseFloat("0" + rfc3339.substring(tzStart, fracEnd)) * 1000);
-            tzStart = fracEnd;
-          }
-          if (tzStart < len) tzStr = rfc3339.substring(tzStart);
-        }
-
-        const nt = new NaiveTime(((hrs * 3600 + mins * 60 + secs) * 1000 + ms) as Ms);
-        const tz = LogicalTimezone.parse(tzStr, tzname, tzabbr);
-        const result = ok(new DateTime(new NaiveDateTime(nd, nt), tz));
-
-        if (!tzname && !tzabbr) {
-          if (_rfc3339Cache.size >= RFC3339_CACHE_MAX) {
-            _rfc3339Cache.delete(_rfc3339Cache.keys().next().value!);
-          }
-          _rfc3339Cache.set(rfc3339, result);
-        }
-        return result;
+    const match = rfc3339.match(RFC3339_REGEX);
+    if (!match || match[0] !== rfc3339) return erm("DateTime.fromRfc3339: Invalid format");
+    const [, year, month, day, hour = "00", minute = "00", second = "00",
+      fraction = ".0", offset = "Z"] = match;
+    const date = NaiveDate.fromYmd1Str(year, month, day);
+    if (date.isErr) return date.expeCast();
+    const h = Number(hour), m = Number(minute), sec = Number(second);
+    if (h > 23 || m > 59 || sec > 59) return erm("DateTime.fromRfc3339: Invalid time");
+    if (offset !== "Z" && offset !== "z") {
+      const [oh, om, os = "00"] = offset.slice(1).split(":");
+      if (Number(oh) > 23 || Number(om) > 59 || Number(os) > 59) {
+        return erm("DateTime.fromRfc3339: Invalid offset");
       }
     }
-
-    // Slow fallback: regex for non-standard formats
-    const match = rfc3339.match(RFC3339_REGEX);
-    if (!match) return erm("DateTime.fromRfc3339: Invalid format");
-
-    const [, yearStr, monthStr, dayStr,
-      hourStr = "00", minuteStr = "00", secondStr = "00",
-      fractionStr = ".0", timezoneStr = "Z"] = match;
-
-    const ndr = NaiveDate.fromYmd1Str(yearStr, monthStr, dayStr);
-    if (ndr.isErr) return ndr.expeCast();
-    const nd = ndr.exp();
-
-    const ms2 = Math.round(Number.parseFloat("0" + fractionStr) * 1000);
-    const ntr = NaiveTime.tryFrom({
-      hrs: TentoMath.int(hourStr),
-      mins: TentoMath.int(minuteStr),
-      secs: TentoMath.int(secondStr),
-      ms: ms2 as Ms,
-    });
-    if (ntr.isErr) return ntr.expeCast();
-
-    const tz = LogicalTimezone.parse(timezoneStr, tzname, tzabbr);
-    return ok(new DateTime(new NaiveDateTime(ndr.exp(), ntr.exp()), tz));
+    const timeMs = (h * 3600 + m * 60 + sec) * 1000 + Math.round(Number("0" + fraction) * 1000);
+    // Rounding a fraction can carry through midnight into the following date.
+    const nd = timeMs >= Time.MS_PER_DAY ? date.exp().addDays(1) : date.exp();
+    const nt = new NaiveTime((timeMs % Time.MS_PER_DAY) as Ms);
+    const result = ok(new DateTime(new NaiveDateTime(nd, nt), LogicalTimezone.parse(offset, tzname, tzabbr)));
+    if (!tzname && !tzabbr) {
+      if (_rfc3339Cache.size >= RFC3339_CACHE_MAX) _rfc3339Cache.delete(_rfc3339Cache.keys().next().value!);
+      _rfc3339Cache.set(rfc3339, result);
+    }
+    return result;
   }
 
   /**
@@ -747,22 +675,25 @@ export namespace DateTime {
       return null;
     }
 
+    /** Both endpoints must be inside this range (inclusive of its bounds). */
     containsRangeInclusive(o: DateTime.Range): boolean {
-      return this.containsInclusive(o.start) || this.containsInclusive(o.end);
+      return this.containsInclusive(o.start) && this.containsInclusive(o.end);
     }
 
+    /** Both endpoints must be strictly inside this range. */
     containsRangeExclusive(o: DateTime.Range): boolean {
       return (
-        this.containsExclusiveBoth(o.start) || this.containsExclusiveBoth(o.end)
+        this.containsExclusiveBoth(o.start) && this.containsExclusiveBoth(o.end)
       );
     }
 
     overlapsInclusive(o: DateTime.Range): boolean {
-      return this.containsRangeInclusive(o) || o.containsRangeInclusive(this);
+      return this.start.mse <= o.end.mse && o.start.mse <= this.end.mse;
     }
 
+    /** Strict crossing; a point inside a nonempty range still overlaps it. */
     overlapsExclusive(o: DateTime.Range): boolean {
-      return this.containsRangeExclusive(o) || o.containsRangeExclusive(this);
+      return this.start.mse < o.end.mse && o.start.mse < this.end.mse;
     }
 
     /**
