@@ -991,6 +991,3015 @@
         "2024-02-01"
       ],
       "notes": "Nested compose([first, janFeb]) between feb and allDays stays equivalent to flat compose([feb, first, janFeb, allDays])"
+    },
+    {
+      "start": "2013-01-01",
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "byDayOfMonth",
+        "days": [
+          28
+        ]
+      },
+      "expected": [
+        "2013-01-28",
+        "2013-02-28",
+        "2013-03-28"
+      ],
+      "name": "rrule/feb28",
+      "category": "date_range"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "years",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "identity"
+      },
+      "expected": [
+        "1997-09-02",
+        "1998-09-02",
+        "1999-09-02"
+      ],
+      "name": "testYearly",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testYearly"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "years",
+        "value": 2
+      },
+      "limit": 3,
+      "filter": {
+        "op": "identity"
+      },
+      "expected": [
+        "1997-09-02",
+        "1999-09-02",
+        "2001-09-02"
+      ],
+      "name": "testYearlyInterval",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testYearlyInterval"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "years",
+        "value": 100
+      },
+      "limit": 3,
+      "filter": {
+        "op": "identity"
+      },
+      "expected": [
+        "1997-09-02",
+        "2097-09-02",
+        "2197-09-02"
+      ],
+      "name": "testYearlyIntervalLarge",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testYearlyIntervalLarge"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "years",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "byMonthOfYear",
+        "months": [
+          1,
+          3
+        ]
+      },
+      "expected": [
+        "1998-01-02",
+        "1998-03-02",
+        "1999-01-02"
+      ],
+      "name": "testYearlyByMonth",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testYearlyByMonth"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "years",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "byDayOfMonth",
+        "days": [
+          1,
+          3
+        ]
+      },
+      "expected": [
+        "1997-09-03",
+        "1997-10-01",
+        "1997-10-03"
+      ],
+      "name": "testYearlyByMonthDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testYearlyByMonthDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "years",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              1,
+              3
+            ]
+          },
+          {
+            "op": "byDayOfMonth",
+            "days": [
+              5,
+              7
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-01-05",
+        "1998-01-07",
+        "1998-03-05"
+      ],
+      "name": "testYearlyByMonthAndMonthDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testYearlyByMonthAndMonthDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "years",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "byWeekday",
+        "weekdays": [
+          "TUE",
+          "THU"
+        ]
+      },
+      "expected": [
+        "1997-09-02",
+        "1997-09-04",
+        "1997-09-09"
+      ],
+      "name": "testYearlyByWeekDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testYearlyByWeekDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "years",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "byNthWeekday",
+        "nths": [
+          [
+            1,
+            "TUE"
+          ],
+          [
+            -1,
+            "THU"
+          ]
+        ]
+      },
+      "expected": [
+        "1997-12-25",
+        "1998-01-06",
+        "1998-12-31"
+      ],
+      "name": "testYearlyByNWeekDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testYearlyByNWeekDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "years",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "byNthWeekday",
+        "nths": [
+          [
+            3,
+            "TUE"
+          ],
+          [
+            -3,
+            "THU"
+          ]
+        ]
+      },
+      "expected": [
+        "1997-12-11",
+        "1998-01-20",
+        "1998-12-17"
+      ],
+      "name": "testYearlyByNWeekDayLarge",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testYearlyByNWeekDayLarge"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "years",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "byNthWeekday",
+        "nths": [
+          [
+            13,
+            "TUE"
+          ],
+          [
+            -13,
+            "THU"
+          ]
+        ]
+      },
+      "expected": [
+        "1997-10-02",
+        "1998-03-31",
+        "1998-10-08"
+      ],
+      "name": "testYearlyByNWeekDayLargeLarge",
+      "category": "date_range"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "years",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              1,
+              3
+            ]
+          },
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "TUE",
+              "THU"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-01-01",
+        "1998-01-06",
+        "1998-01-08"
+      ],
+      "name": "testYearlyByMonthAndWeekDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testYearlyByMonthAndWeekDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "years",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              1,
+              3
+            ]
+          },
+          {
+            "op": "byNthWeekday",
+            "nths": [
+              [
+                1,
+                "TUE"
+              ],
+              [
+                -1,
+                "THU"
+              ]
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-01-06",
+        "1998-01-29",
+        "1998-03-03"
+      ],
+      "name": "testYearlyByMonthAndNWeekDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testYearlyByMonthAndNWeekDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "years",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              1,
+              3
+            ]
+          },
+          {
+            "op": "byNthWeekday",
+            "nths": [
+              [
+                3,
+                "TUE"
+              ],
+              [
+                -3,
+                "THU"
+              ]
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-01-15",
+        "1998-01-20",
+        "1998-03-12"
+      ],
+      "name": "testYearlyByMonthAndNWeekDayLarge",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testYearlyByMonthAndNWeekDayLarge"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "years",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byDayOfMonth",
+            "days": [
+              1,
+              3
+            ]
+          },
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "TUE",
+              "THU"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-01-01",
+        "1998-02-03",
+        "1998-03-03"
+      ],
+      "name": "testYearlyByMonthDayAndWeekDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testYearlyByMonthDayAndWeekDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "years",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              1,
+              3
+            ]
+          },
+          {
+            "op": "byDayOfMonth",
+            "days": [
+              1,
+              3
+            ]
+          },
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "TUE",
+              "THU"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-01-01",
+        "1998-03-03",
+        "2001-03-01"
+      ],
+      "name": "testYearlyByMonthAndMonthDayAndWeekDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testYearlyByMonthAndMonthDayAndWeekDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "years",
+        "value": 1
+      },
+      "limit": 4,
+      "filter": {
+        "op": "byDayOfYear",
+        "days": [
+          1,
+          100,
+          200,
+          365
+        ]
+      },
+      "expected": [
+        "1997-12-31",
+        "1998-01-01",
+        "1998-04-10",
+        "1998-07-19"
+      ],
+      "name": "testYearlyByYearDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testYearlyByYearDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "years",
+        "value": 1
+      },
+      "limit": 4,
+      "filter": {
+        "op": "byDayOfYear",
+        "days": [
+          -365,
+          -266,
+          -166,
+          -1
+        ]
+      },
+      "expected": [
+        "1997-12-31",
+        "1998-01-01",
+        "1998-04-10",
+        "1998-07-19"
+      ],
+      "name": "testYearlyByYearDayNeg",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testYearlyByYearDayNeg"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "years",
+        "value": 1
+      },
+      "limit": 4,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              4,
+              7
+            ]
+          },
+          {
+            "op": "byDayOfYear",
+            "days": [
+              1,
+              100,
+              200,
+              365
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-04-10",
+        "1998-07-19",
+        "1999-04-10",
+        "1999-07-19"
+      ],
+      "name": "testYearlyByMonthAndYearDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testYearlyByMonthAndYearDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "years",
+        "value": 1
+      },
+      "limit": 4,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              4,
+              7
+            ]
+          },
+          {
+            "op": "byDayOfYear",
+            "days": [
+              -365,
+              -266,
+              -166,
+              -1
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-04-10",
+        "1998-07-19",
+        "1999-04-10",
+        "1999-07-19"
+      ],
+      "name": "testYearlyByMonthAndYearDayNeg",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testYearlyByMonthAndYearDayNeg"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "years",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "byWeekNo",
+        "weekno": 20,
+        "useCalendarYear": true
+      },
+      "expected": [
+        "1998-05-11",
+        "1998-05-12",
+        "1998-05-13"
+      ],
+      "name": "testYearlyByWeekNo",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testYearlyByWeekNo"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "years",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byWeekNo",
+            "weekno": 1
+          },
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "MON"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1997-12-29",
+        "1999-01-04",
+        "2000-01-03"
+      ],
+      "name": "testYearlyByWeekNoAndWeekDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testYearlyByWeekNoAndWeekDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "years",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byWeekNo",
+            "weekno": 52
+          },
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "SUN"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1997-12-28",
+        "1998-12-27",
+        "2000-01-02"
+      ],
+      "name": "testYearlyByWeekNoAndWeekDayLarge",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testYearlyByWeekNoAndWeekDayLarge"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "years",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byWeekNo",
+            "weekno": -1
+          },
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "SUN"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1997-12-28",
+        "1999-01-03",
+        "2000-01-02"
+      ],
+      "name": "testYearlyByWeekNoAndWeekDayLast",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testYearlyByWeekNoAndWeekDayLast"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "years",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byWeekNo",
+            "weekno": 53
+          },
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "MON"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-12-28",
+        "2004-12-27",
+        "2009-12-28"
+      ],
+      "name": "testYearlyByWeekNoAndWeekDay53",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testYearlyByWeekNoAndWeekDay53"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "identity"
+      },
+      "expected": [
+        "1997-09-02",
+        "1997-10-02",
+        "1997-11-02"
+      ],
+      "name": "testMonthly",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testMonthly"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "months",
+        "value": 2
+      },
+      "limit": 3,
+      "filter": {
+        "op": "identity"
+      },
+      "expected": [
+        "1997-09-02",
+        "1997-11-02",
+        "1998-01-02"
+      ],
+      "name": "testMonthlyInterval",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testMonthlyInterval"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "months",
+        "value": 18
+      },
+      "limit": 3,
+      "filter": {
+        "op": "identity"
+      },
+      "expected": [
+        "1997-09-02",
+        "1999-03-02",
+        "2000-09-02"
+      ],
+      "name": "testMonthlyIntervalLarge",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testMonthlyIntervalLarge"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "byMonthOfYear",
+        "months": [
+          1,
+          3
+        ]
+      },
+      "expected": [
+        "1998-01-02",
+        "1998-03-02",
+        "1999-01-02"
+      ],
+      "name": "testMonthlyByMonth",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testMonthlyByMonth"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "byDayOfMonth",
+        "days": [
+          1,
+          3
+        ]
+      },
+      "expected": [
+        "1997-09-03",
+        "1997-10-01",
+        "1997-10-03"
+      ],
+      "name": "testMonthlyByMonthDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testMonthlyByMonthDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              1,
+              3
+            ]
+          },
+          {
+            "op": "byDayOfMonth",
+            "days": [
+              5,
+              7
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-01-05",
+        "1998-01-07",
+        "1998-03-05"
+      ],
+      "name": "testMonthlyByMonthAndMonthDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testMonthlyByMonthAndMonthDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "byWeekday",
+        "weekdays": [
+          "TUE",
+          "THU"
+        ]
+      },
+      "expected": [
+        "1997-09-02",
+        "1997-09-04",
+        "1997-09-09"
+      ],
+      "name": "testMonthlyByWeekDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testMonthlyByWeekDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "byNthWeekday",
+        "nths": [
+          [
+            1,
+            "TUE"
+          ],
+          [
+            -1,
+            "THU"
+          ]
+        ]
+      },
+      "expected": [
+        "1997-09-02",
+        "1997-09-25",
+        "1997-10-07"
+      ],
+      "name": "testMonthlyByNWeekDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testMonthlyByNWeekDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "byNthWeekday",
+        "nths": [
+          [
+            3,
+            "TUE"
+          ],
+          [
+            -3,
+            "THU"
+          ]
+        ]
+      },
+      "expected": [
+        "1997-09-11",
+        "1997-09-16",
+        "1997-10-16"
+      ],
+      "name": "testMonthlyByNWeekDayLarge",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testMonthlyByNWeekDayLarge"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              1,
+              3
+            ]
+          },
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "TUE",
+              "THU"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-01-01",
+        "1998-01-06",
+        "1998-01-08"
+      ],
+      "name": "testMonthlyByMonthAndWeekDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testMonthlyByMonthAndWeekDay"
+    },
+    {
+      "start": "1998-01-25",
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              1,
+              3
+            ]
+          },
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "TUE",
+              "THU"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-01-27",
+        "1998-01-29",
+        "1998-03-03"
+      ],
+      "name": "testMonthlyByMonthAndWeekDay98",
+      "category": "date_range"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              1,
+              3
+            ]
+          },
+          {
+            "op": "byNthWeekday",
+            "nths": [
+              [
+                1,
+                "TUE"
+              ],
+              [
+                -1,
+                "THU"
+              ]
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-01-06",
+        "1998-01-29",
+        "1998-03-03"
+      ],
+      "name": "testMonthlyByMonthAndNWeekDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testMonthlyByMonthAndNWeekDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              1,
+              3
+            ]
+          },
+          {
+            "op": "byNthWeekday",
+            "nths": [
+              [
+                3,
+                "TUE"
+              ],
+              [
+                -3,
+                "THU"
+              ]
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-01-15",
+        "1998-01-20",
+        "1998-03-12"
+      ],
+      "name": "testMonthlyByMonthAndNWeekDayLarge",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testMonthlyByMonthAndNWeekDayLarge"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byDayOfMonth",
+            "days": [
+              1,
+              3
+            ]
+          },
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "TUE",
+              "THU"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-01-01",
+        "1998-02-03",
+        "1998-03-03"
+      ],
+      "name": "testMonthlyByMonthDayAndWeekDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testMonthlyByMonthDayAndWeekDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              1,
+              3
+            ]
+          },
+          {
+            "op": "byDayOfMonth",
+            "days": [
+              1,
+              3
+            ]
+          },
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "TUE",
+              "THU"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-01-01",
+        "1998-03-03",
+        "2001-03-01"
+      ],
+      "name": "testMonthlyByMonthAndMonthDayAndWeekDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testMonthlyByMonthAndMonthDayAndWeekDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
+      "limit": 4,
+      "filter": {
+        "op": "byDayOfYear",
+        "days": [
+          1,
+          100,
+          200,
+          365
+        ]
+      },
+      "expected": [
+        "1997-12-31",
+        "1998-01-01",
+        "1998-04-10",
+        "1998-07-19"
+      ],
+      "name": "testMonthlyByYearDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testMonthlyByYearDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
+      "limit": 4,
+      "filter": {
+        "op": "byDayOfYear",
+        "days": [
+          -365,
+          -266,
+          -166,
+          -1
+        ]
+      },
+      "expected": [
+        "1997-12-31",
+        "1998-01-01",
+        "1998-04-10",
+        "1998-07-19"
+      ],
+      "name": "testMonthlyByYearDayNeg",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testMonthlyByYearDayNeg"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
+      "limit": 4,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              4,
+              7
+            ]
+          },
+          {
+            "op": "byDayOfYear",
+            "days": [
+              1,
+              100,
+              200,
+              365
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-04-10",
+        "1998-07-19",
+        "1999-04-10",
+        "1999-07-19"
+      ],
+      "name": "testMonthlyByMonthAndYearDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testMonthlyByMonthAndYearDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
+      "limit": 4,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              4,
+              7
+            ]
+          },
+          {
+            "op": "byDayOfYear",
+            "days": [
+              -365,
+              -266,
+              -166,
+              -1
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-04-10",
+        "1998-07-19",
+        "1999-04-10",
+        "1999-07-19"
+      ],
+      "name": "testMonthlyByMonthAndYearDayNeg",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testMonthlyByMonthAndYearDayNeg"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "byWeekNo",
+        "weekno": 20
+      },
+      "expected": [
+        "1998-05-11",
+        "1998-05-12",
+        "1998-05-13"
+      ],
+      "name": "testMonthlyByWeekNo",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testMonthlyByWeekNo"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "byWeekNo",
+        "weekno": 1,
+        "useCalendarYear": true
+      },
+      "expected": [
+        "1997-12-29",
+        "1997-12-30",
+        "1997-12-31"
+      ],
+      "name": "testMonthlyByWeekNo1",
+      "category": "date_range"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byWeekNo",
+            "weekno": 1,
+            "useCalendarYear": true
+          },
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "MON"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1997-12-29",
+        "1999-01-04",
+        "2000-01-03"
+      ],
+      "name": "testMonthlyByWeekNoAndWeekDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testMonthlyByWeekNoAndWeekDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byWeekNo",
+            "weekno": 52,
+            "useCalendarYear": true
+          },
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "SUN"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1997-12-28",
+        "1998-12-27",
+        "2000-01-02"
+      ],
+      "name": "testMonthlyByWeekNoAndWeekDayLarge",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testMonthlyByWeekNoAndWeekDayLarge"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byWeekNo",
+            "weekno": -1
+          },
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "SUN"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1997-12-28",
+        "1999-01-03",
+        "2000-01-02"
+      ],
+      "name": "testMonthlyByWeekNoAndWeekDayLast",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testMonthlyByWeekNoAndWeekDayLast"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byWeekNo",
+            "weekno": 53
+          },
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "MON"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-12-28",
+        "2004-12-27",
+        "2009-12-28"
+      ],
+      "name": "testMonthlyByWeekNoAndWeekDay53",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testMonthlyByWeekNoAndWeekDay53"
+    },
+    {
+      "start": "2013-12-01",
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
+      "limit": 4,
+      "filter": {
+        "op": "byDayOfMonth",
+        "days": [
+          -1
+        ]
+      },
+      "expected": [
+        "2013-12-31",
+        "2014-01-31",
+        "2014-02-28",
+        "2014-03-31"
+      ],
+      "name": "testMonthlyNegByMonthDayJanFebForNonLeapYear",
+      "category": "date_range"
+    },
+    {
+      "start": "2015-12-01",
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
+      "limit": 4,
+      "filter": {
+        "op": "byDayOfMonth",
+        "days": [
+          -1
+        ]
+      },
+      "expected": [
+        "2015-12-31",
+        "2016-01-31",
+        "2016-02-29",
+        "2016-03-31"
+      ],
+      "name": "testMonthlyNegByMonthDayJanFebForLeapYear",
+      "category": "date_range"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "weeks",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "identity"
+      },
+      "expected": [
+        "1997-09-02",
+        "1997-09-09",
+        "1997-09-16"
+      ],
+      "name": "testWeekly",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testWeekly"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "weeks",
+        "value": 2
+      },
+      "limit": 3,
+      "filter": {
+        "op": "identity"
+      },
+      "expected": [
+        "1997-09-02",
+        "1997-09-16",
+        "1997-09-30"
+      ],
+      "name": "testWeeklyInterval",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testWeeklyInterval"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "weeks",
+        "value": 20
+      },
+      "limit": 3,
+      "filter": {
+        "op": "identity"
+      },
+      "expected": [
+        "1997-09-02",
+        "1998-01-20",
+        "1998-06-09"
+      ],
+      "name": "testWeeklyIntervalLarge",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testWeeklyIntervalLarge"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "weeks",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "byMonthOfYear",
+        "months": [
+          1,
+          3
+        ]
+      },
+      "expected": [
+        "1998-01-06",
+        "1998-01-13",
+        "1998-01-20"
+      ],
+      "name": "testWeeklyByMonth",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testWeeklyByMonth"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "weeks",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "byDayOfMonth",
+        "days": [
+          1,
+          3
+        ]
+      },
+      "expected": [
+        "1997-09-03",
+        "1997-10-01",
+        "1997-10-03"
+      ],
+      "name": "testWeeklyByMonthDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testWeeklyByMonthDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "weeks",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              1,
+              3
+            ]
+          },
+          {
+            "op": "byDayOfMonth",
+            "days": [
+              5,
+              7
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-01-05",
+        "1998-01-07",
+        "1998-03-05"
+      ],
+      "name": "testWeeklyByMonthAndMonthDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testWeeklyByMonthAndMonthDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "weeks",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "byWeekday",
+        "weekdays": [
+          "TUE",
+          "THU"
+        ]
+      },
+      "expected": [
+        "1997-09-02",
+        "1997-09-04",
+        "1997-09-09"
+      ],
+      "name": "testWeeklyByWeekDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testWeeklyByWeekDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "weeks",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "byNthWeekday",
+        "nths": [
+          [
+            1,
+            "TUE"
+          ],
+          [
+            -1,
+            "THU"
+          ]
+        ]
+      },
+      "expected": [
+        "1997-09-02",
+        "1997-09-04",
+        "1997-09-09"
+      ],
+      "name": "testWeeklyByNWeekDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testWeeklyByNWeekDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "weeks",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "TUE",
+              "THU"
+            ]
+          },
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              1,
+              3
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-01-01",
+        "1998-01-06",
+        "1998-01-08"
+      ],
+      "name": "testWeeklyByMonthAndWeekDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testWeeklyByMonthAndWeekDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "weeks",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "TUE",
+              "THU"
+            ]
+          },
+          {
+            "op": "byDayOfMonth",
+            "days": [
+              1,
+              3
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-01-01",
+        "1998-02-03",
+        "1998-03-03"
+      ],
+      "name": "testWeeklyByMonthDayAndWeekDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testWeeklyByMonthDayAndWeekDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "weeks",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "TUE",
+              "THU"
+            ]
+          },
+          {
+            "op": "byDayOfMonth",
+            "days": [
+              1,
+              3
+            ]
+          },
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              1,
+              3
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-01-01",
+        "1998-03-03",
+        "2001-03-01"
+      ],
+      "name": "testWeeklyByMonthAndMonthDayAndWeekDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testWeeklyByMonthAndMonthDayAndWeekDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "weeks",
+        "value": 1
+      },
+      "limit": 4,
+      "filter": {
+        "op": "byDayOfYear",
+        "days": [
+          1,
+          100,
+          200,
+          365
+        ]
+      },
+      "expected": [
+        "1997-12-31",
+        "1998-01-01",
+        "1998-04-10",
+        "1998-07-19"
+      ],
+      "name": "testWeeklyByYearDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testWeeklyByYearDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "weeks",
+        "value": 1
+      },
+      "limit": 4,
+      "filter": {
+        "op": "byDayOfYear",
+        "days": [
+          -365,
+          -266,
+          -166,
+          -1
+        ]
+      },
+      "expected": [
+        "1997-12-31",
+        "1998-01-01",
+        "1998-04-10",
+        "1998-07-19"
+      ],
+      "name": "testWeeklyByYearDayNeg",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testWeeklyByYearDayNeg"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "weeks",
+        "value": 1
+      },
+      "limit": 4,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byDayOfYear",
+            "days": [
+              1,
+              100,
+              200,
+              365
+            ]
+          },
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              1,
+              7
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-01-01",
+        "1998-07-19",
+        "1999-01-01",
+        "1999-07-19"
+      ],
+      "name": "testWeeklyByMonthAndYearDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testWeeklyByMonthAndYearDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "weeks",
+        "value": 1
+      },
+      "limit": 4,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byDayOfYear",
+            "days": [
+              -365,
+              -266,
+              -166,
+              -1
+            ]
+          },
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              1,
+              7
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-01-01",
+        "1998-07-19",
+        "1999-01-01",
+        "1999-07-19"
+      ],
+      "name": "testWeeklyByMonthAndYearDayNeg",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testWeeklyByMonthAndYearDayNeg"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "weeks",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "byWeekNo",
+        "weekno": 20
+      },
+      "expected": [
+        "1998-05-11",
+        "1998-05-12",
+        "1998-05-13"
+      ],
+      "name": "testWeeklyByWeekNo",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testWeeklyByWeekNo"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "weeks",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "MON"
+            ]
+          },
+          {
+            "op": "byWeekNo",
+            "weekno": 1
+          }
+        ]
+      },
+      "expected": [
+        "1997-12-29",
+        "1999-01-04",
+        "2000-01-03"
+      ],
+      "name": "testWeeklyByWeekNoAndWeekDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testWeeklyByWeekNoAndWeekDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "weeks",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "SUN"
+            ]
+          },
+          {
+            "op": "byWeekNo",
+            "weekno": 52
+          }
+        ]
+      },
+      "expected": [
+        "1997-12-28",
+        "1998-12-27",
+        "2000-01-02"
+      ],
+      "name": "testWeeklyByWeekNoAndWeekDayLarge",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testWeeklyByWeekNoAndWeekDayLarge"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "weeks",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "SUN"
+            ]
+          },
+          {
+            "op": "byWeekNo",
+            "weekno": -1
+          }
+        ]
+      },
+      "expected": [
+        "1997-12-28",
+        "1999-01-03",
+        "2000-01-02"
+      ],
+      "name": "testWeeklyByWeekNoAndWeekDayLast",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testWeeklyByWeekNoAndWeekDayLast"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "weeks",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "MON"
+            ]
+          },
+          {
+            "op": "byWeekNo",
+            "weekno": 53
+          }
+        ]
+      },
+      "expected": [
+        "1998-12-28",
+        "2004-12-27",
+        "2009-12-28"
+      ],
+      "name": "testWeeklyByWeekNoAndWeekDay53",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testWeeklyByWeekNoAndWeekDay53"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "days",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "identity"
+      },
+      "expected": [
+        "1997-09-02",
+        "1997-09-03",
+        "1997-09-04"
+      ],
+      "name": "testDaily",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testDaily"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "days",
+        "value": 2
+      },
+      "limit": 3,
+      "filter": {
+        "op": "identity"
+      },
+      "expected": [
+        "1997-09-02",
+        "1997-09-04",
+        "1997-09-06"
+      ],
+      "name": "testDailyInterval",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testDailyInterval"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "days",
+        "value": 92
+      },
+      "limit": 3,
+      "filter": {
+        "op": "identity"
+      },
+      "expected": [
+        "1997-09-02",
+        "1997-12-03",
+        "1998-03-05"
+      ],
+      "name": "testDailyIntervalLarge",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testDailyIntervalLarge"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "days",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "byMonthOfYear",
+        "months": [
+          1,
+          3
+        ]
+      },
+      "expected": [
+        "1998-01-01",
+        "1998-01-02",
+        "1998-01-03"
+      ],
+      "name": "testDailyByMonth",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testDailyByMonth"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "days",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "byDayOfMonth",
+        "days": [
+          1,
+          3
+        ]
+      },
+      "expected": [
+        "1997-09-03",
+        "1997-10-01",
+        "1997-10-03"
+      ],
+      "name": "testDailyByMonthDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testDailyByMonthDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "days",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              1,
+              3
+            ]
+          },
+          {
+            "op": "byDayOfMonth",
+            "days": [
+              5,
+              7
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-01-05",
+        "1998-01-07",
+        "1998-03-05"
+      ],
+      "name": "testDailyByMonthAndMonthDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testDailyByMonthAndMonthDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "days",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "byWeekday",
+        "weekdays": [
+          "TUE",
+          "THU"
+        ]
+      },
+      "expected": [
+        "1997-09-02",
+        "1997-09-04",
+        "1997-09-09"
+      ],
+      "name": "testDailyByWeekDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testDailyByWeekDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "days",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "byNthWeekday",
+        "nths": [
+          [
+            1,
+            "TUE"
+          ],
+          [
+            -1,
+            "THU"
+          ]
+        ]
+      },
+      "expected": [
+        "1997-09-02",
+        "1997-09-04",
+        "1997-09-09"
+      ],
+      "name": "testDailyByNWeekDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testDailyByNWeekDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "days",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              1,
+              3
+            ]
+          },
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "TUE",
+              "THU"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-01-01",
+        "1998-01-06",
+        "1998-01-08"
+      ],
+      "name": "testDailyByMonthAndWeekDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testDailyByMonthAndWeekDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "days",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              1,
+              3
+            ]
+          },
+          {
+            "op": "byNthWeekday",
+            "nths": [
+              [
+                1,
+                "TUE"
+              ],
+              [
+                -1,
+                "THU"
+              ]
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-01-01",
+        "1998-01-06",
+        "1998-01-08"
+      ],
+      "name": "testDailyByMonthAndNWeekDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testDailyByMonthAndNWeekDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "days",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byDayOfMonth",
+            "days": [
+              1,
+              3
+            ]
+          },
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "TUE",
+              "THU"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-01-01",
+        "1998-02-03",
+        "1998-03-03"
+      ],
+      "name": "testDailyByMonthDayAndWeekDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testDailyByMonthDayAndWeekDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "days",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              1,
+              3
+            ]
+          },
+          {
+            "op": "byDayOfMonth",
+            "days": [
+              1,
+              3
+            ]
+          },
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "TUE",
+              "THU"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-01-01",
+        "1998-03-03",
+        "2001-03-01"
+      ],
+      "name": "testDailyByMonthAndMonthDayAndWeekDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testDailyByMonthAndMonthDayAndWeekDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "days",
+        "value": 1
+      },
+      "limit": 4,
+      "filter": {
+        "op": "byDayOfYear",
+        "days": [
+          1,
+          100,
+          200,
+          365
+        ]
+      },
+      "expected": [
+        "1997-12-31",
+        "1998-01-01",
+        "1998-04-10",
+        "1998-07-19"
+      ],
+      "name": "testDailyByYearDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testDailyByYearDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "days",
+        "value": 1
+      },
+      "limit": 4,
+      "filter": {
+        "op": "byDayOfYear",
+        "days": [
+          -365,
+          -266,
+          -166,
+          -1
+        ]
+      },
+      "expected": [
+        "1997-12-31",
+        "1998-01-01",
+        "1998-04-10",
+        "1998-07-19"
+      ],
+      "name": "testDailyByYearDayNeg",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testDailyByYearDayNeg"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "days",
+        "value": 1
+      },
+      "limit": 4,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              1,
+              7
+            ]
+          },
+          {
+            "op": "byDayOfYear",
+            "days": [
+              1,
+              100,
+              200,
+              365
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-01-01",
+        "1998-07-19",
+        "1999-01-01",
+        "1999-07-19"
+      ],
+      "name": "testDailyByMonthAndYearDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testDailyByMonthAndYearDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "days",
+        "value": 1
+      },
+      "limit": 4,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              1,
+              7
+            ]
+          },
+          {
+            "op": "byDayOfYear",
+            "days": [
+              -365,
+              -266,
+              -166,
+              -1
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-01-01",
+        "1998-07-19",
+        "1999-01-01",
+        "1999-07-19"
+      ],
+      "name": "testDailyByMonthAndYearDayNeg",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testDailyByMonthAndYearDayNeg"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "days",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "byWeekNo",
+        "weekno": 20
+      },
+      "expected": [
+        "1998-05-11",
+        "1998-05-12",
+        "1998-05-13"
+      ],
+      "name": "testDailyByWeekNo",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testDailyByWeekNo"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "days",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byWeekNo",
+            "weekno": 1
+          },
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "MON"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1997-12-29",
+        "1999-01-04",
+        "2000-01-03"
+      ],
+      "name": "testDailyByWeekNoAndWeekDay",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testDailyByWeekNoAndWeekDay"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "days",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byWeekNo",
+            "weekno": 52
+          },
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "SUN"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1997-12-28",
+        "1998-12-27",
+        "2000-01-02"
+      ],
+      "name": "testDailyByWeekNoAndWeekDayLarge",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testDailyByWeekNoAndWeekDayLarge"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "days",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byWeekNo",
+            "weekno": -1
+          },
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "SUN"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1997-12-28",
+        "1999-01-03",
+        "2000-01-02"
+      ],
+      "name": "testDailyByWeekNoAndWeekDayLast",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testDailyByWeekNoAndWeekDayLast"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "days",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byWeekNo",
+            "weekno": 53
+          },
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "MON"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1998-12-28",
+        "2004-12-27",
+        "2009-12-28"
+      ],
+      "name": "testDailyByWeekNoAndWeekDay53",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testDailyByWeekNoAndWeekDay53"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "days",
+        "value": 1
+      },
+      "limit": 3,
+      "end": "1997-09-05",
+      "filter": {
+        "op": "identity"
+      },
+      "expected": [
+        "1997-09-02",
+        "1997-09-03",
+        "1997-09-04"
+      ],
+      "name": "testUntilNotMatching",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testUntilNotMatching"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "days",
+        "value": 1
+      },
+      "limit": 3,
+      "end": "1997-09-04",
+      "filter": {
+        "op": "identity"
+      },
+      "expected": [
+        "1997-09-02",
+        "1997-09-03",
+        "1997-09-04"
+      ],
+      "name": "testUntilMatching",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testUntilMatching"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "days",
+        "value": 1
+      },
+      "limit": 3,
+      "end": "1997-09-02",
+      "filter": {
+        "op": "identity"
+      },
+      "expected": [
+        "1997-09-02"
+      ],
+      "name": "testUntilSingle",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testUntilSingle"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "days",
+        "value": 1
+      },
+      "limit": 3,
+      "end": "1997-09-01",
+      "filter": {
+        "op": "identity"
+      },
+      "expected": [],
+      "name": "testUntilEmpty",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testUntilEmpty"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "days",
+        "value": 1
+      },
+      "limit": 3,
+      "end": "1997-09-05",
+      "filter": {
+        "op": "identity"
+      },
+      "expected": [
+        "1997-09-02",
+        "1997-09-03",
+        "1997-09-04"
+      ],
+      "name": "testUntilWithDate",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testUntilWithDate"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "weeks",
+        "value": 2
+      },
+      "limit": 3,
+      "weekStart": "MON",
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "TUE",
+              "SUN"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1997-09-02",
+        "1997-09-07",
+        "1997-09-16"
+      ],
+      "name": "testWkStIntervalMO",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testWkStIntervalMO"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "weeks",
+        "value": 2
+      },
+      "limit": 3,
+      "weekStart": "SUN",
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "TUE",
+              "SUN"
+            ]
+          }
+        ]
+      },
+      "expected": [
+        "1997-09-02",
+        "1997-09-14",
+        "1997-09-16"
+      ],
+      "name": "testWkStIntervalSU",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testWkStIntervalSU"
+    },
+    {
+      "start": "1997-09-02",
+      "step": {
+        "unit": "days",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "identity"
+      },
+      "expected": [
+        "1997-09-02",
+        "1997-09-03",
+        "1997-09-04"
+      ],
+      "name": "testDTStartIsDate",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testDTStartIsDate"
+    },
+    {
+      "start": "9997-09-02",
+      "step": {
+        "unit": "years",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "compose",
+        "filters": [
+          {
+            "op": "byMonthOfYear",
+            "months": [
+              2
+            ]
+          },
+          {
+            "op": "byDayOfMonth",
+            "days": [
+              31
+            ]
+          },
+          {
+            "op": "byWeekday",
+            "weekdays": [
+              "SUN"
+            ]
+          }
+        ]
+      },
+      "expected": [],
+      "name": "testMaxYear",
+      "category": "date_range",
+      "source": "dateutil:RRuleTest.testMaxYear"
+    },
+    {
+      "start": "0990-01-01",
+      "step": {
+        "unit": "days",
+        "value": 1
+      },
+      "limit": 3,
+      "filter": {
+        "op": "identity"
+      },
+      "expected": [
+        "0990-01-01",
+        "0990-01-02",
+        "0990-01-03"
+      ],
+      "name": "3-digit years",
+      "category": "date_range"
+    },
+    {
+      "start": "2018-08-06",
+      "step": {
+        "unit": "months",
+        "value": 1
+      },
+      "end": "2018-10-08",
+      "limit": 3,
+      "filter": {
+        "op": "identity"
+      },
+      "expected": [
+        "2018-08-06",
+        "2018-09-06",
+        "2018-10-06"
+      ],
+      "name": "generates monthly (#233)",
+      "category": "date_range"
+    },
+    {
+      "start": "2018-08-10",
+      "step": {
+        "unit": "weeks",
+        "value": 1
+      },
+      "end": "2018-11-30",
+      "filter": {
+        "op": "identity"
+      },
+      "expected": [
+        "2018-08-10",
+        "2018-08-17",
+        "2018-08-24",
+        "2018-08-31",
+        "2018-09-07",
+        "2018-09-14",
+        "2018-09-21",
+        "2018-09-28",
+        "2018-10-05",
+        "2018-10-12",
+        "2018-10-19",
+        "2018-10-26",
+        "2018-11-02",
+        "2018-11-09",
+        "2018-11-16",
+        "2018-11-23",
+        "2018-11-30"
+      ],
+      "name": "generates weekly events (#247)",
+      "category": "date_range"
+    },
+    {
+      "start": "2018-11-01",
+      "step": {
+        "unit": "weeks",
+        "value": 1
+      },
+      "limit": 4,
+      "weekStart": "SUN",
+      "filter": {
+        "op": "byWeekday",
+        "weekdays": [
+          "MON",
+          "WED",
+          "FRI"
+        ]
+      },
+      "expected": [
+        "2018-11-02",
+        "2018-11-05",
+        "2018-11-07",
+        "2018-11-09"
+      ],
+      "name": "generates around dst (#249)",
+      "category": "date_range"
     }
   ]
 }

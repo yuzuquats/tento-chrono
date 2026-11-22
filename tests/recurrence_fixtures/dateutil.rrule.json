@@ -1,0 +1,5829 @@
+{
+  "type": "dateutil",
+  "name": "Python dateutil reference",
+  "referenceVersion": "2.8.2",
+  "cases": [
+    {
+      "name": "RRuleTest.testStrAppendRRULEToken#reparse",
+      "input": {
+        "serializeLines": [
+          "DTSTART:19970105T083000",
+          "RRULE:FREQ=YEARLY;INTERVAL=2"
+        ]
+      },
+      "expected": [
+        "DTSTART:19970105T083000",
+        "RRULE:FREQ=YEARLY;INTERVAL=2"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrAppendRRULEToken",
+      "input": {
+        "serializeLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=YEARLY;COUNT=5"
+        ]
+      },
+      "expected": [
+        "DTSTART:19970902T090000",
+        "RRULE:FREQ=YEARLY;COUNT=5"
+      ]
+    },
+    {
+      "name": "RRuleSetTest.testSetDate",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "lines": [
+          "RRULE:FREQ=YEARLY;COUNT=1;BYDAY=TU",
+          "RDATE:19970904T090000",
+          "RDATE:19970909T090000"
+        ]
+      },
+      "expected": [
+        "1997-09-02T09:00:00Z",
+        "1997-09-04T09:00:00Z",
+        "1997-09-09T09:00:00Z"
+      ]
+    },
+    {
+      "name": "RRuleSetTest.testSetDateAndExDate",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "lines": [
+          "RDATE:19970902T090000",
+          "RDATE:19970904T090000",
+          "RDATE:19970909T090000",
+          "RDATE:19970911T090000",
+          "RDATE:19970916T090000",
+          "RDATE:19970918T090000",
+          "EXDATE:19970904T090000",
+          "EXDATE:19970911T090000",
+          "EXDATE:19970918T090000"
+        ]
+      },
+      "expected": [
+        "1997-09-02T09:00:00Z",
+        "1997-09-09T09:00:00Z",
+        "1997-09-16T09:00:00Z"
+      ]
+    },
+    {
+      "name": "RRuleSetTest.testSetExDate",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "lines": [
+          "RRULE:FREQ=YEARLY;COUNT=6;BYDAY=TU,TH",
+          "EXDATE:19970904T090000",
+          "EXDATE:19970911T090000",
+          "EXDATE:19970918T090000"
+        ]
+      },
+      "expected": [
+        "1997-09-02T09:00:00Z",
+        "1997-09-09T09:00:00Z",
+        "1997-09-16T09:00:00Z"
+      ]
+    },
+    {
+      "name": "RRuleSetTest.testSetExDateRevOrder",
+      "input": {
+        "start": "2004-01-01T09:00:00",
+        "lines": [
+          "RRULE:FREQ=MONTHLY;COUNT=5;BYMONTHDAY=10",
+          "EXDATE:20040410T090000",
+          "EXDATE:20040210T090000"
+        ]
+      },
+      "expected": [
+        "2004-01-10T09:00:00Z",
+        "2004-03-10T09:00:00Z",
+        "2004-05-10T09:00:00Z"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearly",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1998-09-02T09:00:00",
+        "1999-09-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyInterval",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;INTERVAL=2;COUNT=3"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1999-09-02T09:00:00",
+        "2001-09-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyIntervalLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;INTERVAL=100;COUNT=3"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "2097-09-02T09:00:00",
+        "2197-09-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyByMonth",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYMONTH=1,3"
+      },
+      "expected": [
+        "1998-01-02T09:00:00",
+        "1998-03-02T09:00:00",
+        "1999-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyByMonthDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYMONTHDAY=1,3"
+      },
+      "expected": [
+        "1997-09-03T09:00:00",
+        "1997-10-01T09:00:00",
+        "1997-10-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyByMonthAndMonthDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=5,7"
+      },
+      "expected": [
+        "1998-01-05T09:00:00",
+        "1998-01-07T09:00:00",
+        "1998-03-05T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyByWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-04T09:00:00",
+        "1997-09-09T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyByNWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYDAY=+1TU,-1TH"
+      },
+      "expected": [
+        "1997-12-25T09:00:00",
+        "1998-01-06T09:00:00",
+        "1998-12-31T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyByNWeekDayLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYDAY=+3TU,-3TH"
+      },
+      "expected": [
+        "1997-12-11T09:00:00",
+        "1998-01-20T09:00:00",
+        "1998-12-17T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyByMonthAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-01-06T09:00:00",
+        "1998-01-08T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyByMonthAndNWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYMONTH=1,3;BYDAY=+1TU,-1TH"
+      },
+      "expected": [
+        "1998-01-06T09:00:00",
+        "1998-01-29T09:00:00",
+        "1998-03-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyByMonthAndNWeekDayLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYMONTH=1,3;BYDAY=+3TU,-3TH"
+      },
+      "expected": [
+        "1998-01-15T09:00:00",
+        "1998-01-20T09:00:00",
+        "1998-03-12T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyByMonthDayAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYMONTHDAY=1,3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-02-03T09:00:00",
+        "1998-03-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyByMonthAndMonthDayAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=1,3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-03-03T09:00:00",
+        "2001-03-01T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyByYearDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=4;BYYEARDAY=1,100,200,365"
+      },
+      "expected": [
+        "1997-12-31T09:00:00",
+        "1998-01-01T09:00:00",
+        "1998-04-10T09:00:00",
+        "1998-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyByYearDayNeg",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=4;BYYEARDAY=-365,-266,-166,-1"
+      },
+      "expected": [
+        "1997-12-31T09:00:00",
+        "1998-01-01T09:00:00",
+        "1998-04-10T09:00:00",
+        "1998-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyByMonthAndYearDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=4;BYMONTH=4,7;BYYEARDAY=1,100,200,365"
+      },
+      "expected": [
+        "1998-04-10T09:00:00",
+        "1998-07-19T09:00:00",
+        "1999-04-10T09:00:00",
+        "1999-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyByMonthAndYearDayNeg",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=4;BYMONTH=4,7;BYYEARDAY=-365,-266,-166,-1"
+      },
+      "expected": [
+        "1998-04-10T09:00:00",
+        "1998-07-19T09:00:00",
+        "1999-04-10T09:00:00",
+        "1999-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyByWeekNo",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYWEEKNO=20"
+      },
+      "expected": [
+        "1998-05-11T09:00:00",
+        "1998-05-12T09:00:00",
+        "1998-05-13T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyByWeekNoAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYWEEKNO=1;BYDAY=MO"
+      },
+      "expected": [
+        "1997-12-29T09:00:00",
+        "1999-01-04T09:00:00",
+        "2000-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyByWeekNoAndWeekDayLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYWEEKNO=52;BYDAY=SU"
+      },
+      "expected": [
+        "1997-12-28T09:00:00",
+        "1998-12-27T09:00:00",
+        "2000-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyByWeekNoAndWeekDayLast",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYWEEKNO=-1;BYDAY=SU"
+      },
+      "expected": [
+        "1997-12-28T09:00:00",
+        "1999-01-03T09:00:00",
+        "2000-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyByWeekNoAndWeekDay53",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYWEEKNO=53;BYDAY=MO"
+      },
+      "expected": [
+        "1998-12-28T09:00:00",
+        "2004-12-27T09:00:00",
+        "2009-12-28T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyByHour",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYHOUR=6,18"
+      },
+      "expected": [
+        "1997-09-02T18:00:00",
+        "1998-09-02T06:00:00",
+        "1998-09-02T18:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyByMinute",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYMINUTE=6,18"
+      },
+      "expected": [
+        "1997-09-02T09:06:00",
+        "1997-09-02T09:18:00",
+        "1998-09-02T09:06:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyBySecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYSECOND=6,18"
+      },
+      "expected": [
+        "1997-09-02T09:00:06",
+        "1997-09-02T09:00:18",
+        "1998-09-02T09:00:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyByHourAndMinute",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18"
+      },
+      "expected": [
+        "1997-09-02T18:06:00",
+        "1997-09-02T18:18:00",
+        "1998-09-02T06:06:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyByHourAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYHOUR=6,18;BYSECOND=6,18"
+      },
+      "expected": [
+        "1997-09-02T18:00:06",
+        "1997-09-02T18:00:18",
+        "1998-09-02T06:00:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyByMinuteAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYMINUTE=6,18;BYSECOND=6,18"
+      },
+      "expected": [
+        "1997-09-02T09:06:06",
+        "1997-09-02T09:06:18",
+        "1997-09-02T09:18:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyByHourAndMinuteAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18;BYSECOND=6,18"
+      },
+      "expected": [
+        "1997-09-02T18:06:06",
+        "1997-09-02T18:06:18",
+        "1997-09-02T18:18:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testYearlyBySetPos",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYSETPOS=3,-3;BYMONTHDAY=15;BYHOUR=6,18"
+      },
+      "expected": [
+        "1997-11-15T18:00:00",
+        "1998-02-15T06:00:00",
+        "1998-11-15T18:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthly",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-10-02T09:00:00",
+        "1997-11-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyInterval",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;INTERVAL=2;COUNT=3"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-11-02T09:00:00",
+        "1998-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyIntervalLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;INTERVAL=18;COUNT=3"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1999-03-02T09:00:00",
+        "2000-09-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyByMonth",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYMONTH=1,3"
+      },
+      "expected": [
+        "1998-01-02T09:00:00",
+        "1998-03-02T09:00:00",
+        "1999-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyByMonthDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYMONTHDAY=1,3"
+      },
+      "expected": [
+        "1997-09-03T09:00:00",
+        "1997-10-01T09:00:00",
+        "1997-10-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyByMonthAndMonthDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=5,7"
+      },
+      "expected": [
+        "1998-01-05T09:00:00",
+        "1998-01-07T09:00:00",
+        "1998-03-05T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyByNWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYDAY=+1TU,-1TH"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-25T09:00:00",
+        "1997-10-07T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyByNWeekDayLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYDAY=+3TU,-3TH"
+      },
+      "expected": [
+        "1997-09-11T09:00:00",
+        "1997-09-16T09:00:00",
+        "1997-10-16T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyByMonthAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-01-06T09:00:00",
+        "1998-01-08T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyByMonthAndNWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYMONTH=1,3;BYDAY=+1TU,-1TH"
+      },
+      "expected": [
+        "1998-01-06T09:00:00",
+        "1998-01-29T09:00:00",
+        "1998-03-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyByMonthAndNWeekDayLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYMONTH=1,3;BYDAY=+3TU,-3TH"
+      },
+      "expected": [
+        "1998-01-15T09:00:00",
+        "1998-01-20T09:00:00",
+        "1998-03-12T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyByMonthDayAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYMONTHDAY=1,3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-02-03T09:00:00",
+        "1998-03-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyByMonthAndMonthDayAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=1,3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-03-03T09:00:00",
+        "2001-03-01T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyByYearDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=4;BYYEARDAY=1,100,200,365"
+      },
+      "expected": [
+        "1997-12-31T09:00:00",
+        "1998-01-01T09:00:00",
+        "1998-04-10T09:00:00",
+        "1998-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyByYearDayNeg",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=4;BYYEARDAY=-365,-266,-166,-1"
+      },
+      "expected": [
+        "1997-12-31T09:00:00",
+        "1998-01-01T09:00:00",
+        "1998-04-10T09:00:00",
+        "1998-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyByMonthAndYearDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=4;BYMONTH=4,7;BYYEARDAY=1,100,200,365"
+      },
+      "expected": [
+        "1998-04-10T09:00:00",
+        "1998-07-19T09:00:00",
+        "1999-04-10T09:00:00",
+        "1999-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyByMonthAndYearDayNeg",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=4;BYMONTH=4,7;BYYEARDAY=-365,-266,-166,-1"
+      },
+      "expected": [
+        "1998-04-10T09:00:00",
+        "1998-07-19T09:00:00",
+        "1999-04-10T09:00:00",
+        "1999-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyByWeekNo",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYWEEKNO=20"
+      },
+      "expected": [
+        "1998-05-11T09:00:00",
+        "1998-05-12T09:00:00",
+        "1998-05-13T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyByWeekNoAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYWEEKNO=1;BYDAY=MO"
+      },
+      "expected": [
+        "1997-12-29T09:00:00",
+        "1999-01-04T09:00:00",
+        "2000-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyByWeekNoAndWeekDayLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYWEEKNO=52;BYDAY=SU"
+      },
+      "expected": [
+        "1997-12-28T09:00:00",
+        "1998-12-27T09:00:00",
+        "2000-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyByWeekNoAndWeekDayLast",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYWEEKNO=-1;BYDAY=SU"
+      },
+      "expected": [
+        "1997-12-28T09:00:00",
+        "1999-01-03T09:00:00",
+        "2000-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyByWeekNoAndWeekDay53",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYWEEKNO=53;BYDAY=MO"
+      },
+      "expected": [
+        "1998-12-28T09:00:00",
+        "2004-12-27T09:00:00",
+        "2009-12-28T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyByHour",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYHOUR=6,18"
+      },
+      "expected": [
+        "1997-09-02T18:00:00",
+        "1997-10-02T06:00:00",
+        "1997-10-02T18:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyByMinute",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYMINUTE=6,18"
+      },
+      "expected": [
+        "1997-09-02T09:06:00",
+        "1997-09-02T09:18:00",
+        "1997-10-02T09:06:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyBySecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYSECOND=6,18"
+      },
+      "expected": [
+        "1997-09-02T09:00:06",
+        "1997-09-02T09:00:18",
+        "1997-10-02T09:00:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyByHourAndMinute",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18"
+      },
+      "expected": [
+        "1997-09-02T18:06:00",
+        "1997-09-02T18:18:00",
+        "1997-10-02T06:06:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyByHourAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYHOUR=6,18;BYSECOND=6,18"
+      },
+      "expected": [
+        "1997-09-02T18:00:06",
+        "1997-09-02T18:00:18",
+        "1997-10-02T06:00:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyByMinuteAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYMINUTE=6,18;BYSECOND=6,18"
+      },
+      "expected": [
+        "1997-09-02T09:06:06",
+        "1997-09-02T09:06:18",
+        "1997-09-02T09:18:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyByHourAndMinuteAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18;BYSECOND=6,18"
+      },
+      "expected": [
+        "1997-09-02T18:06:06",
+        "1997-09-02T18:06:18",
+        "1997-09-02T18:18:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyBySetPos",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYSETPOS=3,-3;BYMONTHDAY=13,17;BYHOUR=6,18"
+      },
+      "expected": [
+        "1997-09-13T18:00:00",
+        "1997-09-17T06:00:00",
+        "1997-10-13T18:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWeekly",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-09T09:00:00",
+        "1997-09-16T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWeeklyInterval",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;INTERVAL=2;COUNT=3"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-16T09:00:00",
+        "1997-09-30T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWeeklyIntervalLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;INTERVAL=20;COUNT=3"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1998-01-20T09:00:00",
+        "1998-06-09T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWeeklyByMonth",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYMONTH=1,3"
+      },
+      "expected": [
+        "1998-01-06T09:00:00",
+        "1998-01-13T09:00:00",
+        "1998-01-20T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWeeklyByMonthDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYMONTHDAY=1,3"
+      },
+      "expected": [
+        "1997-09-03T09:00:00",
+        "1997-10-01T09:00:00",
+        "1997-10-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWeeklyByMonthAndMonthDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=5,7"
+      },
+      "expected": [
+        "1998-01-05T09:00:00",
+        "1998-01-07T09:00:00",
+        "1998-03-05T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWeeklyByWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-04T09:00:00",
+        "1997-09-09T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWeeklyByNWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-04T09:00:00",
+        "1997-09-09T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWeeklyByMonthAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-01-06T09:00:00",
+        "1998-01-08T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWeeklyByMonthAndNWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-01-06T09:00:00",
+        "1998-01-08T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWeeklyByMonthDayAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYMONTHDAY=1,3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-02-03T09:00:00",
+        "1998-03-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWeeklyByMonthAndMonthDayAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=1,3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-03-03T09:00:00",
+        "2001-03-01T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWeeklyByYearDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=4;BYYEARDAY=1,100,200,365"
+      },
+      "expected": [
+        "1997-12-31T09:00:00",
+        "1998-01-01T09:00:00",
+        "1998-04-10T09:00:00",
+        "1998-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWeeklyByYearDayNeg",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=4;BYYEARDAY=-365,-266,-166,-1"
+      },
+      "expected": [
+        "1997-12-31T09:00:00",
+        "1998-01-01T09:00:00",
+        "1998-04-10T09:00:00",
+        "1998-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWeeklyByMonthAndYearDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=4;BYMONTH=1,7;BYYEARDAY=1,100,200,365"
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-07-19T09:00:00",
+        "1999-01-01T09:00:00",
+        "1999-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWeeklyByMonthAndYearDayNeg",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=4;BYMONTH=1,7;BYYEARDAY=-365,-266,-166,-1"
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-07-19T09:00:00",
+        "1999-01-01T09:00:00",
+        "1999-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWeeklyByWeekNo",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYWEEKNO=20"
+      },
+      "expected": [
+        "1998-05-11T09:00:00",
+        "1998-05-12T09:00:00",
+        "1998-05-13T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWeeklyByWeekNoAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYWEEKNO=1;BYDAY=MO"
+      },
+      "expected": [
+        "1997-12-29T09:00:00",
+        "1999-01-04T09:00:00",
+        "2000-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWeeklyByWeekNoAndWeekDayLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYWEEKNO=52;BYDAY=SU"
+      },
+      "expected": [
+        "1997-12-28T09:00:00",
+        "1998-12-27T09:00:00",
+        "2000-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWeeklyByWeekNoAndWeekDayLast",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYWEEKNO=-1;BYDAY=SU"
+      },
+      "expected": [
+        "1997-12-28T09:00:00",
+        "1999-01-03T09:00:00",
+        "2000-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWeeklyByWeekNoAndWeekDay53",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYWEEKNO=53;BYDAY=MO"
+      },
+      "expected": [
+        "1998-12-28T09:00:00",
+        "2004-12-27T09:00:00",
+        "2009-12-28T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWeeklyByHour",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYHOUR=6,18"
+      },
+      "expected": [
+        "1997-09-02T18:00:00",
+        "1997-09-09T06:00:00",
+        "1997-09-09T18:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWeeklyByMinute",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYMINUTE=6,18"
+      },
+      "expected": [
+        "1997-09-02T09:06:00",
+        "1997-09-02T09:18:00",
+        "1997-09-09T09:06:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWeeklyBySecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYSECOND=6,18"
+      },
+      "expected": [
+        "1997-09-02T09:00:06",
+        "1997-09-02T09:00:18",
+        "1997-09-09T09:00:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWeeklyByHourAndMinute",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18"
+      },
+      "expected": [
+        "1997-09-02T18:06:00",
+        "1997-09-02T18:18:00",
+        "1997-09-09T06:06:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWeeklyByHourAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYHOUR=6,18;BYSECOND=6,18"
+      },
+      "expected": [
+        "1997-09-02T18:00:06",
+        "1997-09-02T18:00:18",
+        "1997-09-09T06:00:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWeeklyByMinuteAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYMINUTE=6,18;BYSECOND=6,18"
+      },
+      "expected": [
+        "1997-09-02T09:06:06",
+        "1997-09-02T09:06:18",
+        "1997-09-02T09:18:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWeeklyByHourAndMinuteAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18;BYSECOND=6,18"
+      },
+      "expected": [
+        "1997-09-02T18:06:06",
+        "1997-09-02T18:06:18",
+        "1997-09-02T18:18:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWeeklyBySetPos",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYSETPOS=3,-3;BYDAY=TU,TH;BYHOUR=6,18"
+      },
+      "expected": [
+        "1997-09-02T18:00:00",
+        "1997-09-04T06:00:00",
+        "1997-09-09T18:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDaily",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-03T09:00:00",
+        "1997-09-04T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDailyInterval",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;INTERVAL=2;COUNT=3"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-04T09:00:00",
+        "1997-09-06T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDailyIntervalLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;INTERVAL=92;COUNT=3"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-12-03T09:00:00",
+        "1998-03-05T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDailyByMonth",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYMONTH=1,3"
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-01-02T09:00:00",
+        "1998-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDailyByMonthDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYMONTHDAY=1,3"
+      },
+      "expected": [
+        "1997-09-03T09:00:00",
+        "1997-10-01T09:00:00",
+        "1997-10-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDailyByMonthAndMonthDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=5,7"
+      },
+      "expected": [
+        "1998-01-05T09:00:00",
+        "1998-01-07T09:00:00",
+        "1998-03-05T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDailyByWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-04T09:00:00",
+        "1997-09-09T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDailyByNWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-04T09:00:00",
+        "1997-09-09T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDailyByMonthAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-01-06T09:00:00",
+        "1998-01-08T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDailyByMonthAndNWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-01-06T09:00:00",
+        "1998-01-08T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDailyByMonthDayAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYMONTHDAY=1,3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-02-03T09:00:00",
+        "1998-03-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDailyByMonthAndMonthDayAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=1,3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-03-03T09:00:00",
+        "2001-03-01T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDailyByYearDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=4;BYYEARDAY=1,100,200,365"
+      },
+      "expected": [
+        "1997-12-31T09:00:00",
+        "1998-01-01T09:00:00",
+        "1998-04-10T09:00:00",
+        "1998-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDailyByYearDayNeg",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=4;BYYEARDAY=-365,-266,-166,-1"
+      },
+      "expected": [
+        "1997-12-31T09:00:00",
+        "1998-01-01T09:00:00",
+        "1998-04-10T09:00:00",
+        "1998-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDailyByMonthAndYearDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=4;BYMONTH=1,7;BYYEARDAY=1,100,200,365"
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-07-19T09:00:00",
+        "1999-01-01T09:00:00",
+        "1999-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDailyByMonthAndYearDayNeg",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=4;BYMONTH=1,7;BYYEARDAY=-365,-266,-166,-1"
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-07-19T09:00:00",
+        "1999-01-01T09:00:00",
+        "1999-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDailyByWeekNo",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYWEEKNO=20"
+      },
+      "expected": [
+        "1998-05-11T09:00:00",
+        "1998-05-12T09:00:00",
+        "1998-05-13T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDailyByWeekNoAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYWEEKNO=1;BYDAY=MO"
+      },
+      "expected": [
+        "1997-12-29T09:00:00",
+        "1999-01-04T09:00:00",
+        "2000-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDailyByWeekNoAndWeekDayLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYWEEKNO=52;BYDAY=SU"
+      },
+      "expected": [
+        "1997-12-28T09:00:00",
+        "1998-12-27T09:00:00",
+        "2000-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDailyByWeekNoAndWeekDayLast",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYWEEKNO=-1;BYDAY=SU"
+      },
+      "expected": [
+        "1997-12-28T09:00:00",
+        "1999-01-03T09:00:00",
+        "2000-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDailyByWeekNoAndWeekDay53",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYWEEKNO=53;BYDAY=MO"
+      },
+      "expected": [
+        "1998-12-28T09:00:00",
+        "2004-12-27T09:00:00",
+        "2009-12-28T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDailyByHour",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYHOUR=6,18"
+      },
+      "expected": [
+        "1997-09-02T18:00:00",
+        "1997-09-03T06:00:00",
+        "1997-09-03T18:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDailyByMinute",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYMINUTE=6,18"
+      },
+      "expected": [
+        "1997-09-02T09:06:00",
+        "1997-09-02T09:18:00",
+        "1997-09-03T09:06:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDailyBySecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYSECOND=6,18"
+      },
+      "expected": [
+        "1997-09-02T09:00:06",
+        "1997-09-02T09:00:18",
+        "1997-09-03T09:00:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDailyByHourAndMinute",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18"
+      },
+      "expected": [
+        "1997-09-02T18:06:00",
+        "1997-09-02T18:18:00",
+        "1997-09-03T06:06:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDailyByHourAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYHOUR=6,18;BYSECOND=6,18"
+      },
+      "expected": [
+        "1997-09-02T18:00:06",
+        "1997-09-02T18:00:18",
+        "1997-09-03T06:00:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDailyByMinuteAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYMINUTE=6,18;BYSECOND=6,18"
+      },
+      "expected": [
+        "1997-09-02T09:06:06",
+        "1997-09-02T09:06:18",
+        "1997-09-02T09:18:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDailyByHourAndMinuteAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18;BYSECOND=6,18"
+      },
+      "expected": [
+        "1997-09-02T18:06:06",
+        "1997-09-02T18:06:18",
+        "1997-09-02T18:18:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDailyBySetPos",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYSETPOS=3,-3;BYHOUR=6,18;BYMINUTE=15,45"
+      },
+      "expected": [
+        "1997-09-02T18:15:00",
+        "1997-09-03T06:45:00",
+        "1997-09-03T18:15:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testHourly",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-02T10:00:00",
+        "1997-09-02T11:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testHourlyInterval",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;INTERVAL=2;COUNT=3"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-02T11:00:00",
+        "1997-09-02T13:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testHourlyIntervalLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;INTERVAL=769;COUNT=3"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-10-04T10:00:00",
+        "1997-11-05T11:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testHourlyByMonth",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYMONTH=1,3"
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T01:00:00",
+        "1998-01-01T02:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testHourlyByMonthDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYMONTHDAY=1,3"
+      },
+      "expected": [
+        "1997-09-03T00:00:00",
+        "1997-09-03T01:00:00",
+        "1997-09-03T02:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testHourlyByMonthAndMonthDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=5,7"
+      },
+      "expected": [
+        "1998-01-05T00:00:00",
+        "1998-01-05T01:00:00",
+        "1998-01-05T02:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testHourlyByWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-02T10:00:00",
+        "1997-09-02T11:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testHourlyByNWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-02T10:00:00",
+        "1997-09-02T11:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testHourlyByMonthAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T01:00:00",
+        "1998-01-01T02:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testHourlyByMonthAndNWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T01:00:00",
+        "1998-01-01T02:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testHourlyByMonthDayAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYMONTHDAY=1,3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T01:00:00",
+        "1998-01-01T02:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testHourlyByMonthAndMonthDayAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=1,3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T01:00:00",
+        "1998-01-01T02:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testHourlyByYearDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=4;BYYEARDAY=1,100,200,365"
+      },
+      "expected": [
+        "1997-12-31T00:00:00",
+        "1997-12-31T01:00:00",
+        "1997-12-31T02:00:00",
+        "1997-12-31T03:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testHourlyByYearDayNeg",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=4;BYYEARDAY=-365,-266,-166,-1"
+      },
+      "expected": [
+        "1997-12-31T00:00:00",
+        "1997-12-31T01:00:00",
+        "1997-12-31T02:00:00",
+        "1997-12-31T03:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testHourlyByMonthAndYearDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=4;BYMONTH=4,7;BYYEARDAY=1,100,200,365"
+      },
+      "expected": [
+        "1998-04-10T00:00:00",
+        "1998-04-10T01:00:00",
+        "1998-04-10T02:00:00",
+        "1998-04-10T03:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testHourlyByMonthAndYearDayNeg",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=4;BYMONTH=4,7;BYYEARDAY=-365,-266,-166,-1"
+      },
+      "expected": [
+        "1998-04-10T00:00:00",
+        "1998-04-10T01:00:00",
+        "1998-04-10T02:00:00",
+        "1998-04-10T03:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testHourlyByWeekNo",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYWEEKNO=20"
+      },
+      "expected": [
+        "1998-05-11T00:00:00",
+        "1998-05-11T01:00:00",
+        "1998-05-11T02:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testHourlyByWeekNoAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYWEEKNO=1;BYDAY=MO"
+      },
+      "expected": [
+        "1997-12-29T00:00:00",
+        "1997-12-29T01:00:00",
+        "1997-12-29T02:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testHourlyByWeekNoAndWeekDayLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYWEEKNO=52;BYDAY=SU"
+      },
+      "expected": [
+        "1997-12-28T00:00:00",
+        "1997-12-28T01:00:00",
+        "1997-12-28T02:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testHourlyByWeekNoAndWeekDayLast",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYWEEKNO=-1;BYDAY=SU"
+      },
+      "expected": [
+        "1997-12-28T00:00:00",
+        "1997-12-28T01:00:00",
+        "1997-12-28T02:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testHourlyByWeekNoAndWeekDay53",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYWEEKNO=53;BYDAY=MO"
+      },
+      "expected": [
+        "1998-12-28T00:00:00",
+        "1998-12-28T01:00:00",
+        "1998-12-28T02:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testHourlyByHour",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYHOUR=6,18"
+      },
+      "expected": [
+        "1997-09-02T18:00:00",
+        "1997-09-03T06:00:00",
+        "1997-09-03T18:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testHourlyByMinute",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYMINUTE=6,18"
+      },
+      "expected": [
+        "1997-09-02T09:06:00",
+        "1997-09-02T09:18:00",
+        "1997-09-02T10:06:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testHourlyBySecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYSECOND=6,18"
+      },
+      "expected": [
+        "1997-09-02T09:00:06",
+        "1997-09-02T09:00:18",
+        "1997-09-02T10:00:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testHourlyByHourAndMinute",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18"
+      },
+      "expected": [
+        "1997-09-02T18:06:00",
+        "1997-09-02T18:18:00",
+        "1997-09-03T06:06:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testHourlyByHourAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYHOUR=6,18;BYSECOND=6,18"
+      },
+      "expected": [
+        "1997-09-02T18:00:06",
+        "1997-09-02T18:00:18",
+        "1997-09-03T06:00:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testHourlyByMinuteAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYMINUTE=6,18;BYSECOND=6,18"
+      },
+      "expected": [
+        "1997-09-02T09:06:06",
+        "1997-09-02T09:06:18",
+        "1997-09-02T09:18:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testHourlyByHourAndMinuteAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18;BYSECOND=6,18"
+      },
+      "expected": [
+        "1997-09-02T18:06:06",
+        "1997-09-02T18:06:18",
+        "1997-09-02T18:18:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testHourlyBySetPos",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYSETPOS=3,-3;BYMINUTE=15,45;BYSECOND=15,45"
+      },
+      "expected": [
+        "1997-09-02T09:15:45",
+        "1997-09-02T09:45:15",
+        "1997-09-02T10:15:45"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMinutely",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-02T09:01:00",
+        "1997-09-02T09:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMinutelyInterval",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;INTERVAL=2;COUNT=3"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-02T09:02:00",
+        "1997-09-02T09:04:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMinutelyIntervalLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;INTERVAL=1501;COUNT=3"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-03T10:01:00",
+        "1997-09-04T11:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMinutelyByMonth",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYMONTH=1,3"
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T00:01:00",
+        "1998-01-01T00:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMinutelyByMonthDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYMONTHDAY=1,3"
+      },
+      "expected": [
+        "1997-09-03T00:00:00",
+        "1997-09-03T00:01:00",
+        "1997-09-03T00:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMinutelyByMonthAndMonthDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=5,7"
+      },
+      "expected": [
+        "1998-01-05T00:00:00",
+        "1998-01-05T00:01:00",
+        "1998-01-05T00:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMinutelyByWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-02T09:01:00",
+        "1997-09-02T09:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMinutelyByNWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-02T09:01:00",
+        "1997-09-02T09:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMinutelyByMonthAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T00:01:00",
+        "1998-01-01T00:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMinutelyByMonthAndNWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T00:01:00",
+        "1998-01-01T00:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMinutelyByMonthDayAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYMONTHDAY=1,3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T00:01:00",
+        "1998-01-01T00:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMinutelyByMonthAndMonthDayAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=1,3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T00:01:00",
+        "1998-01-01T00:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMinutelyByYearDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=4;BYYEARDAY=1,100,200,365"
+      },
+      "expected": [
+        "1997-12-31T00:00:00",
+        "1997-12-31T00:01:00",
+        "1997-12-31T00:02:00",
+        "1997-12-31T00:03:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMinutelyByYearDayNeg",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=4;BYYEARDAY=-365,-266,-166,-1"
+      },
+      "expected": [
+        "1997-12-31T00:00:00",
+        "1997-12-31T00:01:00",
+        "1997-12-31T00:02:00",
+        "1997-12-31T00:03:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMinutelyByMonthAndYearDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=4;BYMONTH=4,7;BYYEARDAY=1,100,200,365"
+      },
+      "expected": [
+        "1998-04-10T00:00:00",
+        "1998-04-10T00:01:00",
+        "1998-04-10T00:02:00",
+        "1998-04-10T00:03:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMinutelyByMonthAndYearDayNeg",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=4;BYMONTH=4,7;BYYEARDAY=-365,-266,-166,-1"
+      },
+      "expected": [
+        "1998-04-10T00:00:00",
+        "1998-04-10T00:01:00",
+        "1998-04-10T00:02:00",
+        "1998-04-10T00:03:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMinutelyByWeekNo",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYWEEKNO=20"
+      },
+      "expected": [
+        "1998-05-11T00:00:00",
+        "1998-05-11T00:01:00",
+        "1998-05-11T00:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMinutelyByWeekNoAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYWEEKNO=1;BYDAY=MO"
+      },
+      "expected": [
+        "1997-12-29T00:00:00",
+        "1997-12-29T00:01:00",
+        "1997-12-29T00:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMinutelyByWeekNoAndWeekDayLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYWEEKNO=52;BYDAY=SU"
+      },
+      "expected": [
+        "1997-12-28T00:00:00",
+        "1997-12-28T00:01:00",
+        "1997-12-28T00:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMinutelyByWeekNoAndWeekDayLast",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYWEEKNO=-1;BYDAY=SU"
+      },
+      "expected": [
+        "1997-12-28T00:00:00",
+        "1997-12-28T00:01:00",
+        "1997-12-28T00:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMinutelyByWeekNoAndWeekDay53",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYWEEKNO=53;BYDAY=MO"
+      },
+      "expected": [
+        "1998-12-28T00:00:00",
+        "1998-12-28T00:01:00",
+        "1998-12-28T00:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMinutelyByHour",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYHOUR=6,18"
+      },
+      "expected": [
+        "1997-09-02T18:00:00",
+        "1997-09-02T18:01:00",
+        "1997-09-02T18:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMinutelyByMinute",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYMINUTE=6,18"
+      },
+      "expected": [
+        "1997-09-02T09:06:00",
+        "1997-09-02T09:18:00",
+        "1997-09-02T10:06:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMinutelyBySecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYSECOND=6,18"
+      },
+      "expected": [
+        "1997-09-02T09:00:06",
+        "1997-09-02T09:00:18",
+        "1997-09-02T09:01:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMinutelyByHourAndMinute",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18"
+      },
+      "expected": [
+        "1997-09-02T18:06:00",
+        "1997-09-02T18:18:00",
+        "1997-09-03T06:06:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMinutelyByHourAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYHOUR=6,18;BYSECOND=6,18"
+      },
+      "expected": [
+        "1997-09-02T18:00:06",
+        "1997-09-02T18:00:18",
+        "1997-09-02T18:01:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMinutelyByMinuteAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYMINUTE=6,18;BYSECOND=6,18"
+      },
+      "expected": [
+        "1997-09-02T09:06:06",
+        "1997-09-02T09:06:18",
+        "1997-09-02T09:18:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMinutelyByHourAndMinuteAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18;BYSECOND=6,18"
+      },
+      "expected": [
+        "1997-09-02T18:06:06",
+        "1997-09-02T18:06:18",
+        "1997-09-02T18:18:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMinutelyBySetPos",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYSETPOS=3,-3;BYSECOND=15,30,45"
+      },
+      "expected": [
+        "1997-09-02T09:00:15",
+        "1997-09-02T09:00:45",
+        "1997-09-02T09:01:15"
+      ]
+    },
+    {
+      "name": "RRuleTest.testSecondly",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-02T09:00:01",
+        "1997-09-02T09:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testSecondlyInterval",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;INTERVAL=2;COUNT=3"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-02T09:00:02",
+        "1997-09-02T09:00:04"
+      ]
+    },
+    {
+      "name": "RRuleTest.testSecondlyIntervalLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;INTERVAL=90061;COUNT=3"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-03T10:01:01",
+        "1997-09-04T11:02:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testSecondlyByMonth",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYMONTH=1,3"
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T00:00:01",
+        "1998-01-01T00:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testSecondlyByMonthDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYMONTHDAY=1,3"
+      },
+      "expected": [
+        "1997-09-03T00:00:00",
+        "1997-09-03T00:00:01",
+        "1997-09-03T00:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testSecondlyByMonthAndMonthDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=5,7"
+      },
+      "expected": [
+        "1998-01-05T00:00:00",
+        "1998-01-05T00:00:01",
+        "1998-01-05T00:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testSecondlyByWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-02T09:00:01",
+        "1997-09-02T09:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testSecondlyByNWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-02T09:00:01",
+        "1997-09-02T09:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testSecondlyByMonthAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T00:00:01",
+        "1998-01-01T00:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testSecondlyByMonthAndNWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T00:00:01",
+        "1998-01-01T00:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testSecondlyByMonthDayAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYMONTHDAY=1,3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T00:00:01",
+        "1998-01-01T00:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testSecondlyByMonthAndMonthDayAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=1,3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T00:00:01",
+        "1998-01-01T00:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testSecondlyByYearDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=4;BYYEARDAY=1,100,200,365"
+      },
+      "expected": [
+        "1997-12-31T00:00:00",
+        "1997-12-31T00:00:01",
+        "1997-12-31T00:00:02",
+        "1997-12-31T00:00:03"
+      ]
+    },
+    {
+      "name": "RRuleTest.testSecondlyByYearDayNeg",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=4;BYYEARDAY=-365,-266,-166,-1"
+      },
+      "expected": [
+        "1997-12-31T00:00:00",
+        "1997-12-31T00:00:01",
+        "1997-12-31T00:00:02",
+        "1997-12-31T00:00:03"
+      ]
+    },
+    {
+      "name": "RRuleTest.testSecondlyByMonthAndYearDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=4;BYMONTH=4,7;BYYEARDAY=1,100,200,365"
+      },
+      "expected": [
+        "1998-04-10T00:00:00",
+        "1998-04-10T00:00:01",
+        "1998-04-10T00:00:02",
+        "1998-04-10T00:00:03"
+      ]
+    },
+    {
+      "name": "RRuleTest.testSecondlyByMonthAndYearDayNeg",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=4;BYMONTH=4,7;BYYEARDAY=-365,-266,-166,-1"
+      },
+      "expected": [
+        "1998-04-10T00:00:00",
+        "1998-04-10T00:00:01",
+        "1998-04-10T00:00:02",
+        "1998-04-10T00:00:03"
+      ]
+    },
+    {
+      "name": "RRuleTest.testSecondlyByWeekNo",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYWEEKNO=20"
+      },
+      "expected": [
+        "1998-05-11T00:00:00",
+        "1998-05-11T00:00:01",
+        "1998-05-11T00:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testSecondlyByWeekNoAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYWEEKNO=1;BYDAY=MO"
+      },
+      "expected": [
+        "1997-12-29T00:00:00",
+        "1997-12-29T00:00:01",
+        "1997-12-29T00:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testSecondlyByWeekNoAndWeekDayLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYWEEKNO=52;BYDAY=SU"
+      },
+      "expected": [
+        "1997-12-28T00:00:00",
+        "1997-12-28T00:00:01",
+        "1997-12-28T00:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testSecondlyByWeekNoAndWeekDayLast",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYWEEKNO=-1;BYDAY=SU"
+      },
+      "expected": [
+        "1997-12-28T00:00:00",
+        "1997-12-28T00:00:01",
+        "1997-12-28T00:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testSecondlyByWeekNoAndWeekDay53",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYWEEKNO=53;BYDAY=MO"
+      },
+      "expected": [
+        "1998-12-28T00:00:00",
+        "1998-12-28T00:00:01",
+        "1998-12-28T00:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testSecondlyByHour",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYHOUR=6,18"
+      },
+      "expected": [
+        "1997-09-02T18:00:00",
+        "1997-09-02T18:00:01",
+        "1997-09-02T18:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testSecondlyByMinute",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYMINUTE=6,18"
+      },
+      "expected": [
+        "1997-09-02T09:06:00",
+        "1997-09-02T09:06:01",
+        "1997-09-02T09:06:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testSecondlyBySecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYSECOND=6,18"
+      },
+      "expected": [
+        "1997-09-02T09:00:06",
+        "1997-09-02T09:00:18",
+        "1997-09-02T09:01:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testSecondlyByHourAndMinute",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18"
+      },
+      "expected": [
+        "1997-09-02T18:06:00",
+        "1997-09-02T18:06:01",
+        "1997-09-02T18:06:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testSecondlyByHourAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYHOUR=6,18;BYSECOND=6,18"
+      },
+      "expected": [
+        "1997-09-02T18:00:06",
+        "1997-09-02T18:00:18",
+        "1997-09-02T18:01:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testSecondlyByMinuteAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYMINUTE=6,18;BYSECOND=6,18"
+      },
+      "expected": [
+        "1997-09-02T09:06:06",
+        "1997-09-02T09:06:18",
+        "1997-09-02T09:18:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testSecondlyByHourAndMinuteAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18;BYSECOND=6,18"
+      },
+      "expected": [
+        "1997-09-02T18:06:06",
+        "1997-09-02T18:06:18",
+        "1997-09-02T18:18:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testSecondlyByHourAndMinuteAndSecondBug",
+      "input": {
+        "start": "2010-03-22T12:01:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYMINUTE=1;BYSECOND=0"
+      },
+      "expected": [
+        "2010-03-22T12:01:00",
+        "2010-03-22T13:01:00",
+        "2010-03-22T14:01:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testUntilNotMatching",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;UNTIL=19970905T080000"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-03T09:00:00",
+        "1997-09-04T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testUntilMatching",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;UNTIL=19970904T090000"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-03T09:00:00",
+        "1997-09-04T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testUntilSingle",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;UNTIL=19970902T090000"
+      },
+      "expected": [
+        "1997-09-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testUntilEmpty",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;UNTIL=19970901T090000"
+      },
+      "expected": []
+    },
+    {
+      "name": "RRuleTest.testUntilWithDate",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;UNTIL=19970905T000000"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-03T09:00:00",
+        "1997-09-04T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWkStIntervalMO",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;INTERVAL=2;COUNT=3;BYDAY=TU,SU"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-07T09:00:00",
+        "1997-09-16T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testWkStIntervalSU",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;INTERVAL=2;WKST=SU;COUNT=3;BYDAY=TU,SU"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-14T09:00:00",
+        "1997-09-16T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDTStartIsDate",
+      "input": {
+        "start": "1997-09-02T00:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3"
+      },
+      "expected": [
+        "1997-09-02T00:00:00",
+        "1997-09-03T00:00:00",
+        "1997-09-04T00:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testDTStartWithMicroseconds",
+      "input": {
+        "start": "1997-09-02T09:00:00.500",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3"
+      },
+      "expected": {
+        "python": [
+          "1997-09-02T09:00:00",
+          "1997-09-03T09:00:00",
+          "1997-09-04T09:00:00"
+        ],
+        "chrono": [
+          "1997-09-02T09:00:00.500",
+          "1997-09-03T09:00:00.500",
+          "1997-09-04T09:00:00.500"
+        ]
+      },
+      "note": "dateutil drops DTSTART microseconds. Chrono preserves the millisecond component."
+    },
+    {
+      "name": "RRuleTest.testMaxYear",
+      "input": {
+        "start": "9997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYMONTH=2;BYMONTHDAY=31",
+        "through": "9999-12-31T23:59:59.999"
+      },
+      "expected": [],
+      "note": "Match Python datetime's terminal year with an explicit Chrono horizon."
+    },
+    {
+      "name": "RRuleTest.testCount",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-03T09:00:00",
+        "1997-09-04T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testCountZero",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=0"
+      },
+      "expected": []
+    },
+    {
+      "name": "RRuleTest.testStr",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=YEARLY;COUNT=3"
+        ]
+      },
+      "expected": [
+        "1997-09-02T09:00:00Z",
+        "1998-09-02T09:00:00Z",
+        "1999-09-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrWithTZID",
+      "input": {
+        "start": "1997-09-02T09:00:00-04:00",
+        "lines": [
+          "DTSTART;TZID=America/New_York:19970902T090000",
+          "RRULE:FREQ=YEARLY;COUNT=3"
+        ]
+      },
+      "expected": [
+        "1997-09-02T13:00:00Z",
+        "1998-09-02T13:00:00Z",
+        "1999-09-02T13:00:00Z"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrCase",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "lines": [
+          "dtstart:19970902T090000",
+          "rrule:freq=yearly;count=3"
+        ]
+      },
+      "expected": [
+        "1997-09-02T09:00:00Z",
+        "1998-09-02T09:00:00Z",
+        "1999-09-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrSpacesAndLines",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=YEARLY;COUNT=3"
+        ]
+      },
+      "expected": [
+        "1997-09-02T09:00:00Z",
+        "1998-09-02T09:00:00Z",
+        "1999-09-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrNoDTStart",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "lines": [
+          "RRULE:FREQ=YEARLY;COUNT=3"
+        ]
+      },
+      "expected": [
+        "1997-09-02T09:00:00Z",
+        "1998-09-02T09:00:00Z",
+        "1999-09-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrValueOnly",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "lines": [
+          "RRULE:FREQ=YEARLY;COUNT=3"
+        ]
+      },
+      "expected": [
+        "1997-09-02T09:00:00Z",
+        "1998-09-02T09:00:00Z",
+        "1999-09-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrSetDate",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=YEARLY;COUNT=1;BYDAY=TU",
+          "RDATE:19970904T090000",
+          "RDATE:19970909T090000"
+        ]
+      },
+      "expected": [
+        "1997-09-02T09:00:00Z",
+        "1997-09-04T09:00:00Z",
+        "1997-09-09T09:00:00Z"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrSetExDate",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=YEARLY;COUNT=6;BYDAY=TU,TH",
+          "EXDATE:19970904T090000",
+          "EXDATE:19970911T090000",
+          "EXDATE:19970918T090000"
+        ]
+      },
+      "expected": [
+        "1997-09-02T09:00:00Z",
+        "1997-09-09T09:00:00Z",
+        "1997-09-16T09:00:00Z"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrSetExDateMultiple",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=YEARLY;COUNT=6;BYDAY=TU,TH",
+          "EXDATE:19970904T090000,19970911T090000,19970918T090000"
+        ]
+      },
+      "expected": [
+        "1997-09-02T09:00:00Z",
+        "1997-09-09T09:00:00Z",
+        "1997-09-16T09:00:00Z"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrSetExDateWithTZID",
+      "input": {
+        "start": "1997-09-02T09:00:00+02:00",
+        "lines": [
+          "DTSTART;TZID=Europe/Brussels:19970902T090000",
+          "RRULE:FREQ=YEARLY;COUNT=6;BYDAY=TU,TH",
+          "EXDATE;TZID=Europe/Brussels:19970904T090000",
+          "EXDATE;TZID=Europe/Brussels:19970911T090000",
+          "EXDATE;TZID=Europe/Brussels:19970918T090000"
+        ]
+      },
+      "expected": [
+        "1997-09-02T07:00:00Z",
+        "1997-09-09T07:00:00Z",
+        "1997-09-16T07:00:00Z"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrSetExDateValueDateTimeNoTZID",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=YEARLY;COUNT=4;BYDAY=TU,TH",
+          "EXDATE;VALUE=DATE-TIME:19970902T090000",
+          "EXDATE;VALUE=DATE-TIME:19970909T090000"
+        ]
+      },
+      "expected": [
+        "1997-09-04T09:00:00Z",
+        "1997-09-11T09:00:00Z"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrSetExDateValueMixDateTimeNoTZID",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=YEARLY;COUNT=4;BYDAY=TU,TH",
+          "EXDATE;VALUE=DATE-TIME:19970902T090000",
+          "EXDATE:19970909T090000"
+        ]
+      },
+      "expected": [
+        "1997-09-04T09:00:00Z",
+        "1997-09-11T09:00:00Z"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrSetExDateValueDateTimeWithTZID",
+      "input": {
+        "start": "1997-09-02T09:00:00+02:00",
+        "lines": [
+          "DTSTART;VALUE=DATE-TIME;TZID=Europe/Brussels:19970902T090000",
+          "RRULE:FREQ=YEARLY;COUNT=4;BYDAY=TU,TH",
+          "EXDATE;VALUE=DATE-TIME;TZID=Europe/Brussels:19970902T090000",
+          "EXDATE;VALUE=DATE-TIME;TZID=Europe/Brussels:19970909T090000"
+        ]
+      },
+      "expected": [
+        "1997-09-04T07:00:00Z",
+        "1997-09-11T07:00:00Z"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrSetExDateValueDate",
+      "input": {
+        "start": "1997-09-02T00:00:00",
+        "lines": [
+          "DTSTART;VALUE=DATE:19970902",
+          "RRULE:FREQ=YEARLY;COUNT=4;BYDAY=TU,TH",
+          "EXDATE;VALUE=DATE:19970902",
+          "EXDATE;VALUE=DATE:19970909"
+        ]
+      },
+      "expected": [
+        "1997-09-04T00:00:00Z",
+        "1997-09-11T00:00:00Z"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrSetDateAndExDate",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RDATE:19970902T090000",
+          "RDATE:19970904T090000",
+          "RDATE:19970909T090000",
+          "RDATE:19970911T090000",
+          "RDATE:19970916T090000",
+          "RDATE:19970918T090000",
+          "EXDATE:19970904T090000",
+          "EXDATE:19970911T090000",
+          "EXDATE:19970918T090000"
+        ]
+      },
+      "expected": [
+        "1997-09-02T09:00:00Z",
+        "1997-09-09T09:00:00Z",
+        "1997-09-16T09:00:00Z"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrNWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=YEARLY;COUNT=3;BYDAY=1TU,-1TH"
+        ]
+      },
+      "expected": [
+        "1997-12-25T09:00:00Z",
+        "1998-01-06T09:00:00Z",
+        "1998-12-31T09:00:00Z"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrUntil",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=YEARLY;UNTIL=19990101T000000;BYDAY=1TU,-1TH"
+        ]
+      },
+      "expected": [
+        "1997-12-25T09:00:00Z",
+        "1998-01-06T09:00:00Z",
+        "1998-12-31T09:00:00Z"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrValueDatetime",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "lines": [
+          "DTSTART;VALUE=DATE-TIME:19970902T090000",
+          "RRULE:FREQ=YEARLY;COUNT=2"
+        ]
+      },
+      "expected": [
+        "1997-09-02T09:00:00Z",
+        "1998-09-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrValueDate",
+      "input": {
+        "start": "1997-09-02T00:00:00",
+        "lines": [
+          "DTSTART;VALUE=DATE:19970902",
+          "RRULE:FREQ=YEARLY;COUNT=2"
+        ]
+      },
+      "expected": [
+        "1997-09-02T00:00:00Z",
+        "1998-09-02T00:00:00Z"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrInvalidUntil",
+      "input": {
+        "parseLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=YEARLY;UNTIL=TheCowsComeHome;BYDAY=1TU,-1TH"
+        ]
+      },
+      "expected": false
+    },
+    {
+      "name": "RRuleTest.testStrUntilWithTZ",
+      "input": {
+        "start": "1997-01-01T00:00:00-05:00",
+        "lines": [
+          "DTSTART;TZID=America/New_York:19970101T000000",
+          "RRULE:FREQ=YEARLY;UNTIL=19990101T000000Z"
+        ]
+      },
+      "expected": [
+        "1997-01-01T05:00:00Z",
+        "1998-01-01T05:00:00Z"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearly",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1998-09-02T09:00:00",
+        "1999-09-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyInterval",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;INTERVAL=2;COUNT=3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1999-09-02T09:00:00",
+        "2001-09-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByMonth",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYMONTH=1,3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-02T09:00:00",
+        "1998-03-02T09:00:00",
+        "1999-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByMonthDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYMONTHDAY=1,3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-03T09:00:00",
+        "1997-10-01T09:00:00",
+        "1997-10-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByMonthAndMonthDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=5,7",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-05T09:00:00",
+        "1998-01-07T09:00:00",
+        "1998-03-05T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-04T09:00:00",
+        "1997-09-09T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByNWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYDAY=+1TU,-1TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-25T09:00:00",
+        "1998-01-06T09:00:00",
+        "1998-12-31T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByNWeekDayLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYDAY=+3TU,-3TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-11T09:00:00",
+        "1998-01-20T09:00:00",
+        "1998-12-17T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByMonthAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-01-06T09:00:00",
+        "1998-01-08T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByMonthAndNWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYMONTH=1,3;BYDAY=+1TU,-1TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-06T09:00:00",
+        "1998-01-29T09:00:00",
+        "1998-03-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByMonthAndNWeekDayLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYMONTH=1,3;BYDAY=+3TU,-3TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-15T09:00:00",
+        "1998-01-20T09:00:00",
+        "1998-03-12T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByMonthDayAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYMONTHDAY=1,3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-02-03T09:00:00",
+        "1998-03-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByMonthAndMonthDayAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=1,3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-03-03T09:00:00",
+        "2001-03-01T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByYearDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=4;BYYEARDAY=1,100,200,365",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-31T09:00:00",
+        "1998-01-01T09:00:00",
+        "1998-04-10T09:00:00",
+        "1998-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByYearDayNeg",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=4;BYYEARDAY=-365,-266,-166,-1",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-31T09:00:00",
+        "1998-01-01T09:00:00",
+        "1998-04-10T09:00:00",
+        "1998-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByMonthAndYearDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=4;BYMONTH=4,7;BYYEARDAY=1,100,200,365",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-04-10T09:00:00",
+        "1998-07-19T09:00:00",
+        "1999-04-10T09:00:00",
+        "1999-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByMonthAndYearDayNeg",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=4;BYMONTH=4,7;BYYEARDAY=-365,-266,-166,-1",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-04-10T09:00:00",
+        "1998-07-19T09:00:00",
+        "1999-04-10T09:00:00",
+        "1999-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByWeekNo",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYWEEKNO=20",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-05-11T09:00:00",
+        "1998-05-12T09:00:00",
+        "1998-05-13T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByWeekNoAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYWEEKNO=1;BYDAY=MO",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-29T09:00:00",
+        "1999-01-04T09:00:00",
+        "2000-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByWeekNoAndWeekDayLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYWEEKNO=52;BYDAY=SU",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-28T09:00:00",
+        "1998-12-27T09:00:00",
+        "2000-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByWeekNoAndWeekDayLast",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYWEEKNO=-1;BYDAY=SU",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-28T09:00:00",
+        "1999-01-03T09:00:00",
+        "2000-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByWeekNoAndWeekDay53",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYWEEKNO=53;BYDAY=MO",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-12-28T09:00:00",
+        "2004-12-27T09:00:00",
+        "2009-12-28T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByHour",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYHOUR=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:00:00",
+        "1998-09-02T06:00:00",
+        "1998-09-02T18:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByMinute",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYMINUTE=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:06:00",
+        "1997-09-02T09:18:00",
+        "1998-09-02T09:06:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyBySecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYSECOND=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:06",
+        "1997-09-02T09:00:18",
+        "1998-09-02T09:00:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByHourAndMinute",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:06:00",
+        "1997-09-02T18:18:00",
+        "1998-09-02T06:06:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByHourAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYHOUR=6,18;BYSECOND=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:00:06",
+        "1997-09-02T18:00:18",
+        "1998-09-02T06:00:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByMinuteAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYMINUTE=6,18;BYSECOND=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:06:06",
+        "1997-09-02T09:06:18",
+        "1997-09-02T09:18:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByHourAndMinuteAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18;BYSECOND=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:06:06",
+        "1997-09-02T18:06:18",
+        "1997-09-02T18:18:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyBySetPos",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYSETPOS=3,-3;BYMONTHDAY=15;BYHOUR=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-11-15T18:00:00",
+        "1998-02-15T06:00:00",
+        "1998-11-15T18:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthly",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-10-02T09:00:00",
+        "1997-11-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyInterval",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;INTERVAL=2;COUNT=3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-11-02T09:00:00",
+        "1998-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyIntervalLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;INTERVAL=18;COUNT=3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1999-03-02T09:00:00",
+        "2000-09-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByMonth",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYMONTH=1,3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-02T09:00:00",
+        "1998-03-02T09:00:00",
+        "1999-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByMonthDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYMONTHDAY=1,3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-03T09:00:00",
+        "1997-10-01T09:00:00",
+        "1997-10-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByMonthAndMonthDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=5,7",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-05T09:00:00",
+        "1998-01-07T09:00:00",
+        "1998-03-05T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByNWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYDAY=+1TU,-1TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-25T09:00:00",
+        "1997-10-07T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByNWeekDayLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYDAY=+3TU,-3TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-11T09:00:00",
+        "1997-09-16T09:00:00",
+        "1997-10-16T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByMonthAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-01-06T09:00:00",
+        "1998-01-08T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByMonthAndNWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYMONTH=1,3;BYDAY=+1TU,-1TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-06T09:00:00",
+        "1998-01-29T09:00:00",
+        "1998-03-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByMonthAndNWeekDayLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYMONTH=1,3;BYDAY=+3TU,-3TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-15T09:00:00",
+        "1998-01-20T09:00:00",
+        "1998-03-12T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByMonthDayAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYMONTHDAY=1,3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-02-03T09:00:00",
+        "1998-03-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByMonthAndMonthDayAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=1,3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-03-03T09:00:00",
+        "2001-03-01T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByYearDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=4;BYYEARDAY=1,100,200,365",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-31T09:00:00",
+        "1998-01-01T09:00:00",
+        "1998-04-10T09:00:00",
+        "1998-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByYearDayNeg",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=4;BYYEARDAY=-365,-266,-166,-1",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-31T09:00:00",
+        "1998-01-01T09:00:00",
+        "1998-04-10T09:00:00",
+        "1998-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByMonthAndYearDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=4;BYMONTH=4,7;BYYEARDAY=1,100,200,365",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-04-10T09:00:00",
+        "1998-07-19T09:00:00",
+        "1999-04-10T09:00:00",
+        "1999-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByMonthAndYearDayNeg",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=4;BYMONTH=4,7;BYYEARDAY=-365,-266,-166,-1",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-04-10T09:00:00",
+        "1998-07-19T09:00:00",
+        "1999-04-10T09:00:00",
+        "1999-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByWeekNo",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYWEEKNO=20",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-05-11T09:00:00",
+        "1998-05-12T09:00:00",
+        "1998-05-13T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByWeekNoAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYWEEKNO=1;BYDAY=MO",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-29T09:00:00",
+        "1999-01-04T09:00:00",
+        "2000-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByWeekNoAndWeekDayLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYWEEKNO=52;BYDAY=SU",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-28T09:00:00",
+        "1998-12-27T09:00:00",
+        "2000-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByWeekNoAndWeekDayLast",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYWEEKNO=-1;BYDAY=SU",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-28T09:00:00",
+        "1999-01-03T09:00:00",
+        "2000-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByWeekNoAndWeekDay53",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYWEEKNO=53;BYDAY=MO",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-12-28T09:00:00",
+        "2004-12-27T09:00:00",
+        "2009-12-28T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByHour",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYHOUR=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:00:00",
+        "1997-10-02T06:00:00",
+        "1997-10-02T18:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByMinute",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYMINUTE=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:06:00",
+        "1997-09-02T09:18:00",
+        "1997-10-02T09:06:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyBySecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYSECOND=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:06",
+        "1997-09-02T09:00:18",
+        "1997-10-02T09:00:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByHourAndMinute",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:06:00",
+        "1997-09-02T18:18:00",
+        "1997-10-02T06:06:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByHourAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYHOUR=6,18;BYSECOND=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:00:06",
+        "1997-09-02T18:00:18",
+        "1997-10-02T06:00:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByMinuteAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYMINUTE=6,18;BYSECOND=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:06:06",
+        "1997-09-02T09:06:18",
+        "1997-09-02T09:18:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByHourAndMinuteAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18;BYSECOND=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:06:06",
+        "1997-09-02T18:06:18",
+        "1997-09-02T18:18:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyBySetPos",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYSETPOS=3,-3;BYMONTHDAY=13,17;BYHOUR=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-13T18:00:00",
+        "1997-09-17T06:00:00",
+        "1997-10-13T18:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWeekly",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-09T09:00:00",
+        "1997-09-16T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyInterval",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;INTERVAL=2;COUNT=3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-16T09:00:00",
+        "1997-09-30T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyIntervalLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;INTERVAL=20;COUNT=3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1998-01-20T09:00:00",
+        "1998-06-09T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyByMonth",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYMONTH=1,3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-06T09:00:00",
+        "1998-01-13T09:00:00",
+        "1998-01-20T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyByMonthDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYMONTHDAY=1,3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-03T09:00:00",
+        "1997-10-01T09:00:00",
+        "1997-10-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyByMonthAndMonthDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=5,7",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-05T09:00:00",
+        "1998-01-07T09:00:00",
+        "1998-03-05T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyByWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-04T09:00:00",
+        "1997-09-09T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyByNWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-04T09:00:00",
+        "1997-09-09T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyByMonthAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-01-06T09:00:00",
+        "1998-01-08T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyByMonthAndNWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-01-06T09:00:00",
+        "1998-01-08T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyByMonthDayAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYMONTHDAY=1,3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-02-03T09:00:00",
+        "1998-03-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyByMonthAndMonthDayAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=1,3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-03-03T09:00:00",
+        "2001-03-01T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyByYearDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=4;BYYEARDAY=1,100,200,365",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-31T09:00:00",
+        "1998-01-01T09:00:00",
+        "1998-04-10T09:00:00",
+        "1998-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyByYearDayNeg",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=4;BYYEARDAY=-365,-266,-166,-1",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-31T09:00:00",
+        "1998-01-01T09:00:00",
+        "1998-04-10T09:00:00",
+        "1998-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyByMonthAndYearDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=4;BYMONTH=1,7;BYYEARDAY=1,100,200,365",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-07-19T09:00:00",
+        "1999-01-01T09:00:00",
+        "1999-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyByMonthAndYearDayNeg",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=4;BYMONTH=1,7;BYYEARDAY=-365,-266,-166,-1",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-07-19T09:00:00",
+        "1999-01-01T09:00:00",
+        "1999-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyByWeekNo",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYWEEKNO=20",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-05-11T09:00:00",
+        "1998-05-12T09:00:00",
+        "1998-05-13T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyByWeekNoAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYWEEKNO=1;BYDAY=MO",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-29T09:00:00",
+        "1999-01-04T09:00:00",
+        "2000-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyByWeekNoAndWeekDayLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYWEEKNO=52;BYDAY=SU",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-28T09:00:00",
+        "1998-12-27T09:00:00",
+        "2000-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyByWeekNoAndWeekDayLast",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYWEEKNO=-1;BYDAY=SU",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-28T09:00:00",
+        "1999-01-03T09:00:00",
+        "2000-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyByWeekNoAndWeekDay53",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYWEEKNO=53;BYDAY=MO",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-12-28T09:00:00",
+        "2004-12-27T09:00:00",
+        "2009-12-28T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyByHour",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYHOUR=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:00:00",
+        "1997-09-09T06:00:00",
+        "1997-09-09T18:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyByMinute",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYMINUTE=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:06:00",
+        "1997-09-02T09:18:00",
+        "1997-09-09T09:06:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyBySecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYSECOND=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:06",
+        "1997-09-02T09:00:18",
+        "1997-09-09T09:00:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyByHourAndMinute",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:06:00",
+        "1997-09-02T18:18:00",
+        "1997-09-09T06:06:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyByHourAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYHOUR=6,18;BYSECOND=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:00:06",
+        "1997-09-02T18:00:18",
+        "1997-09-09T06:00:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyByMinuteAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYMINUTE=6,18;BYSECOND=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:06:06",
+        "1997-09-02T09:06:18",
+        "1997-09-02T09:18:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyByHourAndMinuteAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18;BYSECOND=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:06:06",
+        "1997-09-02T18:06:18",
+        "1997-09-02T18:18:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyBySetPos",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYSETPOS=3,-3;BYDAY=TU,TH;BYHOUR=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:00:00",
+        "1997-09-04T06:00:00",
+        "1997-09-09T18:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrDaily",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-03T09:00:00",
+        "1997-09-04T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrDailyInterval",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;INTERVAL=2;COUNT=3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-04T09:00:00",
+        "1997-09-06T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrDailyIntervalLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;INTERVAL=92;COUNT=3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-12-03T09:00:00",
+        "1998-03-05T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrDailyByMonth",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYMONTH=1,3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-01-02T09:00:00",
+        "1998-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrDailyByMonthDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYMONTHDAY=1,3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-03T09:00:00",
+        "1997-10-01T09:00:00",
+        "1997-10-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrDailyByMonthAndMonthDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=5,7",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-05T09:00:00",
+        "1998-01-07T09:00:00",
+        "1998-03-05T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrDailyByWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-04T09:00:00",
+        "1997-09-09T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrDailyByNWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-04T09:00:00",
+        "1997-09-09T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrDailyByMonthAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-01-06T09:00:00",
+        "1998-01-08T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrDailyByMonthAndNWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-01-06T09:00:00",
+        "1998-01-08T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrDailyByMonthDayAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYMONTHDAY=1,3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-02-03T09:00:00",
+        "1998-03-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrDailyByMonthAndMonthDayAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=1,3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-03-03T09:00:00",
+        "2001-03-01T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrDailyByYearDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=4;BYYEARDAY=1,100,200,365",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-31T09:00:00",
+        "1998-01-01T09:00:00",
+        "1998-04-10T09:00:00",
+        "1998-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrDailyByYearDayNeg",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=4;BYYEARDAY=-365,-266,-166,-1",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-31T09:00:00",
+        "1998-01-01T09:00:00",
+        "1998-04-10T09:00:00",
+        "1998-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrDailyByMonthAndYearDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=4;BYMONTH=1,7;BYYEARDAY=1,100,200,365",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-07-19T09:00:00",
+        "1999-01-01T09:00:00",
+        "1999-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrDailyByMonthAndYearDayNeg",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=4;BYMONTH=1,7;BYYEARDAY=-365,-266,-166,-1",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T09:00:00",
+        "1998-07-19T09:00:00",
+        "1999-01-01T09:00:00",
+        "1999-07-19T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrDailyByWeekNo",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYWEEKNO=20",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-05-11T09:00:00",
+        "1998-05-12T09:00:00",
+        "1998-05-13T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrDailyByWeekNoAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYWEEKNO=1;BYDAY=MO",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-29T09:00:00",
+        "1999-01-04T09:00:00",
+        "2000-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrDailyByWeekNoAndWeekDayLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYWEEKNO=52;BYDAY=SU",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-28T09:00:00",
+        "1998-12-27T09:00:00",
+        "2000-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrDailyByWeekNoAndWeekDayLast",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYWEEKNO=-1;BYDAY=SU",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-28T09:00:00",
+        "1999-01-03T09:00:00",
+        "2000-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrDailyByWeekNoAndWeekDay53",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYWEEKNO=53;BYDAY=MO",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-12-28T09:00:00",
+        "2004-12-27T09:00:00",
+        "2009-12-28T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrDailyByHour",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYHOUR=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:00:00",
+        "1997-09-03T06:00:00",
+        "1997-09-03T18:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrDailyByMinute",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYMINUTE=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:06:00",
+        "1997-09-02T09:18:00",
+        "1997-09-03T09:06:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrDailyBySecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYSECOND=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:06",
+        "1997-09-02T09:00:18",
+        "1997-09-03T09:00:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrDailyByHourAndMinute",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:06:00",
+        "1997-09-02T18:18:00",
+        "1997-09-03T06:06:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrDailyByHourAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYHOUR=6,18;BYSECOND=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:00:06",
+        "1997-09-02T18:00:18",
+        "1997-09-03T06:00:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrDailyByMinuteAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYMINUTE=6,18;BYSECOND=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:06:06",
+        "1997-09-02T09:06:18",
+        "1997-09-02T09:18:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrDailyByHourAndMinuteAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18;BYSECOND=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:06:06",
+        "1997-09-02T18:06:18",
+        "1997-09-02T18:18:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrDailyBySetPos",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYSETPOS=3,-3;BYHOUR=6,18;BYMINUTE=15,45",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:15:00",
+        "1997-09-03T06:45:00",
+        "1997-09-03T18:15:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrHourly",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-02T10:00:00",
+        "1997-09-02T11:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyInterval",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;INTERVAL=2;COUNT=3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-02T11:00:00",
+        "1997-09-02T13:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyIntervalLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;INTERVAL=769;COUNT=3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-10-04T10:00:00",
+        "1997-11-05T11:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyByMonth",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYMONTH=1,3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T01:00:00",
+        "1998-01-01T02:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyByMonthDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYMONTHDAY=1,3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-03T00:00:00",
+        "1997-09-03T01:00:00",
+        "1997-09-03T02:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyByMonthAndMonthDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=5,7",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-05T00:00:00",
+        "1998-01-05T01:00:00",
+        "1998-01-05T02:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyByWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-02T10:00:00",
+        "1997-09-02T11:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyByNWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-02T10:00:00",
+        "1997-09-02T11:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyByMonthAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T01:00:00",
+        "1998-01-01T02:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyByMonthAndNWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T01:00:00",
+        "1998-01-01T02:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyByMonthDayAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYMONTHDAY=1,3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T01:00:00",
+        "1998-01-01T02:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyByMonthAndMonthDayAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=1,3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T01:00:00",
+        "1998-01-01T02:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyByYearDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=4;BYYEARDAY=1,100,200,365",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-31T00:00:00",
+        "1997-12-31T01:00:00",
+        "1997-12-31T02:00:00",
+        "1997-12-31T03:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyByYearDayNeg",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=4;BYYEARDAY=-365,-266,-166,-1",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-31T00:00:00",
+        "1997-12-31T01:00:00",
+        "1997-12-31T02:00:00",
+        "1997-12-31T03:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyByMonthAndYearDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=4;BYMONTH=4,7;BYYEARDAY=1,100,200,365",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-04-10T00:00:00",
+        "1998-04-10T01:00:00",
+        "1998-04-10T02:00:00",
+        "1998-04-10T03:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyByMonthAndYearDayNeg",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=4;BYMONTH=4,7;BYYEARDAY=-365,-266,-166,-1",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-04-10T00:00:00",
+        "1998-04-10T01:00:00",
+        "1998-04-10T02:00:00",
+        "1998-04-10T03:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyByWeekNo",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYWEEKNO=20",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-05-11T00:00:00",
+        "1998-05-11T01:00:00",
+        "1998-05-11T02:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyByWeekNoAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYWEEKNO=1;BYDAY=MO",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-29T00:00:00",
+        "1997-12-29T01:00:00",
+        "1997-12-29T02:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyByWeekNoAndWeekDayLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYWEEKNO=52;BYDAY=SU",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-28T00:00:00",
+        "1997-12-28T01:00:00",
+        "1997-12-28T02:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyByWeekNoAndWeekDayLast",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYWEEKNO=-1;BYDAY=SU",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-28T00:00:00",
+        "1997-12-28T01:00:00",
+        "1997-12-28T02:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyByWeekNoAndWeekDay53",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYWEEKNO=53;BYDAY=MO",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-12-28T00:00:00",
+        "1998-12-28T01:00:00",
+        "1998-12-28T02:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyByHour",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYHOUR=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:00:00",
+        "1997-09-03T06:00:00",
+        "1997-09-03T18:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyByMinute",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYMINUTE=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:06:00",
+        "1997-09-02T09:18:00",
+        "1997-09-02T10:06:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyBySecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYSECOND=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:06",
+        "1997-09-02T09:00:18",
+        "1997-09-02T10:00:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyByHourAndMinute",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:06:00",
+        "1997-09-02T18:18:00",
+        "1997-09-03T06:06:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyByHourAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYHOUR=6,18;BYSECOND=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:00:06",
+        "1997-09-02T18:00:18",
+        "1997-09-03T06:00:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyByMinuteAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYMINUTE=6,18;BYSECOND=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:06:06",
+        "1997-09-02T09:06:18",
+        "1997-09-02T09:18:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyByHourAndMinuteAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18;BYSECOND=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:06:06",
+        "1997-09-02T18:06:18",
+        "1997-09-02T18:18:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyBySetPos",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYSETPOS=3,-3;BYMINUTE=15,45;BYSECOND=15,45",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:15:45",
+        "1997-09-02T09:45:15",
+        "1997-09-02T10:15:45"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMinutely",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-02T09:01:00",
+        "1997-09-02T09:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyInterval",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;INTERVAL=2;COUNT=3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-02T09:02:00",
+        "1997-09-02T09:04:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyIntervalLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;INTERVAL=1501;COUNT=3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-03T10:01:00",
+        "1997-09-04T11:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyByMonth",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYMONTH=1,3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T00:01:00",
+        "1998-01-01T00:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyByMonthDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYMONTHDAY=1,3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-03T00:00:00",
+        "1997-09-03T00:01:00",
+        "1997-09-03T00:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyByMonthAndMonthDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=5,7",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-05T00:00:00",
+        "1998-01-05T00:01:00",
+        "1998-01-05T00:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyByWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-02T09:01:00",
+        "1997-09-02T09:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyByNWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-02T09:01:00",
+        "1997-09-02T09:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyByMonthAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T00:01:00",
+        "1998-01-01T00:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyByMonthAndNWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T00:01:00",
+        "1998-01-01T00:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyByMonthDayAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYMONTHDAY=1,3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T00:01:00",
+        "1998-01-01T00:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyByMonthAndMonthDayAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=1,3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T00:01:00",
+        "1998-01-01T00:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyByYearDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=4;BYYEARDAY=1,100,200,365",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-31T00:00:00",
+        "1997-12-31T00:01:00",
+        "1997-12-31T00:02:00",
+        "1997-12-31T00:03:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyByYearDayNeg",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=4;BYYEARDAY=-365,-266,-166,-1",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-31T00:00:00",
+        "1997-12-31T00:01:00",
+        "1997-12-31T00:02:00",
+        "1997-12-31T00:03:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyByMonthAndYearDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=4;BYMONTH=4,7;BYYEARDAY=1,100,200,365",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-04-10T00:00:00",
+        "1998-04-10T00:01:00",
+        "1998-04-10T00:02:00",
+        "1998-04-10T00:03:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyByMonthAndYearDayNeg",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=4;BYMONTH=4,7;BYYEARDAY=-365,-266,-166,-1",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-04-10T00:00:00",
+        "1998-04-10T00:01:00",
+        "1998-04-10T00:02:00",
+        "1998-04-10T00:03:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyByWeekNo",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYWEEKNO=20",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-05-11T00:00:00",
+        "1998-05-11T00:01:00",
+        "1998-05-11T00:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyByWeekNoAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYWEEKNO=1;BYDAY=MO",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-29T00:00:00",
+        "1997-12-29T00:01:00",
+        "1997-12-29T00:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyByWeekNoAndWeekDayLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYWEEKNO=52;BYDAY=SU",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-28T00:00:00",
+        "1997-12-28T00:01:00",
+        "1997-12-28T00:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyByWeekNoAndWeekDayLast",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYWEEKNO=-1;BYDAY=SU",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-28T00:00:00",
+        "1997-12-28T00:01:00",
+        "1997-12-28T00:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyByWeekNoAndWeekDay53",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYWEEKNO=53;BYDAY=MO",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-12-28T00:00:00",
+        "1998-12-28T00:01:00",
+        "1998-12-28T00:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyByHour",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYHOUR=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:00:00",
+        "1997-09-02T18:01:00",
+        "1997-09-02T18:02:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyByMinute",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYMINUTE=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:06:00",
+        "1997-09-02T09:18:00",
+        "1997-09-02T10:06:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyBySecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYSECOND=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:06",
+        "1997-09-02T09:00:18",
+        "1997-09-02T09:01:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyByHourAndMinute",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:06:00",
+        "1997-09-02T18:18:00",
+        "1997-09-03T06:06:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyByHourAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYHOUR=6,18;BYSECOND=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:00:06",
+        "1997-09-02T18:00:18",
+        "1997-09-02T18:01:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyByMinuteAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYMINUTE=6,18;BYSECOND=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:06:06",
+        "1997-09-02T09:06:18",
+        "1997-09-02T09:18:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyByHourAndMinuteAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18;BYSECOND=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:06:06",
+        "1997-09-02T18:06:18",
+        "1997-09-02T18:18:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyBySetPos",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYSETPOS=3,-3;BYSECOND=15,30,45",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:15",
+        "1997-09-02T09:00:45",
+        "1997-09-02T09:01:15"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrSecondly",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-02T09:00:01",
+        "1997-09-02T09:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyInterval",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;INTERVAL=2;COUNT=3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-02T09:00:02",
+        "1997-09-02T09:00:04"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyIntervalLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;INTERVAL=90061;COUNT=3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-03T10:01:01",
+        "1997-09-04T11:02:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyByMonth",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYMONTH=1,3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T00:00:01",
+        "1998-01-01T00:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyByMonthDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYMONTHDAY=1,3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-03T00:00:00",
+        "1997-09-03T00:00:01",
+        "1997-09-03T00:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyByMonthAndMonthDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=5,7",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-05T00:00:00",
+        "1998-01-05T00:00:01",
+        "1998-01-05T00:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyByWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-02T09:00:01",
+        "1997-09-02T09:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyByNWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-02T09:00:01",
+        "1997-09-02T09:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyByMonthAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T00:00:01",
+        "1998-01-01T00:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyByMonthAndNWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T00:00:01",
+        "1998-01-01T00:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyByMonthDayAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYMONTHDAY=1,3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T00:00:01",
+        "1998-01-01T00:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyByMonthAndMonthDayAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYMONTH=1,3;BYMONTHDAY=1,3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-01-01T00:00:00",
+        "1998-01-01T00:00:01",
+        "1998-01-01T00:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyByYearDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=4;BYYEARDAY=1,100,200,365",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-31T00:00:00",
+        "1997-12-31T00:00:01",
+        "1997-12-31T00:00:02",
+        "1997-12-31T00:00:03"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyByYearDayNeg",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=4;BYYEARDAY=-365,-266,-166,-1",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-31T00:00:00",
+        "1997-12-31T00:00:01",
+        "1997-12-31T00:00:02",
+        "1997-12-31T00:00:03"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyByMonthAndYearDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=4;BYMONTH=4,7;BYYEARDAY=1,100,200,365",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-04-10T00:00:00",
+        "1998-04-10T00:00:01",
+        "1998-04-10T00:00:02",
+        "1998-04-10T00:00:03"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyByMonthAndYearDayNeg",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=4;BYMONTH=4,7;BYYEARDAY=-365,-266,-166,-1",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-04-10T00:00:00",
+        "1998-04-10T00:00:01",
+        "1998-04-10T00:00:02",
+        "1998-04-10T00:00:03"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyByWeekNo",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYWEEKNO=20",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-05-11T00:00:00",
+        "1998-05-11T00:00:01",
+        "1998-05-11T00:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyByWeekNoAndWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYWEEKNO=1;BYDAY=MO",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-29T00:00:00",
+        "1997-12-29T00:00:01",
+        "1997-12-29T00:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyByWeekNoAndWeekDayLarge",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYWEEKNO=52;BYDAY=SU",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-28T00:00:00",
+        "1997-12-28T00:00:01",
+        "1997-12-28T00:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyByWeekNoAndWeekDayLast",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYWEEKNO=-1;BYDAY=SU",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-12-28T00:00:00",
+        "1997-12-28T00:00:01",
+        "1997-12-28T00:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyByWeekNoAndWeekDay53",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYWEEKNO=53;BYDAY=MO",
+        "roundTrip": true
+      },
+      "expected": [
+        "1998-12-28T00:00:00",
+        "1998-12-28T00:00:01",
+        "1998-12-28T00:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyByHour",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYHOUR=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:00:00",
+        "1997-09-02T18:00:01",
+        "1997-09-02T18:00:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyByMinute",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYMINUTE=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:06:00",
+        "1997-09-02T09:06:01",
+        "1997-09-02T09:06:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyBySecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYSECOND=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:06",
+        "1997-09-02T09:00:18",
+        "1997-09-02T09:01:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyByHourAndMinute",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:06:00",
+        "1997-09-02T18:06:01",
+        "1997-09-02T18:06:02"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyByHourAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYHOUR=6,18;BYSECOND=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:00:06",
+        "1997-09-02T18:00:18",
+        "1997-09-02T18:01:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyByMinuteAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYMINUTE=6,18;BYSECOND=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:06:06",
+        "1997-09-02T09:06:18",
+        "1997-09-02T09:18:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyByHourAndMinuteAndSecond",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYHOUR=6,18;BYMINUTE=6,18;BYSECOND=6,18",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T18:06:06",
+        "1997-09-02T18:06:18",
+        "1997-09-02T18:18:06"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyByHourAndMinuteAndSecondBug",
+      "input": {
+        "start": "2010-03-22T12:01:00",
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYMINUTE=1;BYSECOND=0",
+        "roundTrip": true
+      },
+      "expected": [
+        "2010-03-22T12:01:00",
+        "2010-03-22T13:01:00",
+        "2010-03-22T14:01:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrWithWkSt",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=WEEKLY;WKST=SU;COUNT=3",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-09T09:00:00",
+        "1997-09-16T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyByWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYDAY=TU,TH"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-04T09:00:00",
+        "1997-09-09T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testMonthlyByWeekDay#between",
+      "input": {
+        "start": "1997-09-01T00:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;BYDAY=+3MO",
+        "after": "1997-09-01T00:00:00",
+        "through": "1997-12-01T00:00:00"
+      },
+      "expected": [
+        "1997-09-15T00:00:00",
+        "1997-10-20T00:00:00",
+        "1997-11-17T00:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByWeekDay",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYDAY=TU,TH",
+        "roundTrip": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-04T09:00:00",
+        "1997-09-09T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByWeekDay#between",
+      "input": {
+        "start": "1997-09-01T00:00:00",
+        "rrule": "RRULE:FREQ=MONTHLY;BYDAY=+3MO",
+        "after": "1997-09-01T00:00:00",
+        "through": "1997-12-01T00:00:00"
+      },
+      "expected": [
+        "1997-09-15T00:00:00",
+        "1997-10-20T00:00:00",
+        "1997-11-17T00:00:00"
+      ]
+    }
+  ]
+}

@@ -7,3 +7,13 @@ Keep cases that exercise the public API's state and lifecycle in focused TypeScr
 Use the vendored `tests/reference_tests/test_rrule.py` as the pinned reference. Track its class and test names so a gap is visible. Preserve Python's expected values, describe runtime differences explicitly, and keep Python-only API cases in the inventory. Run the committed fixtures using Deno.
 
 Keep generated property checks separate from the fixed fixtures. Report seeds and inputs on failure, and use integer PRNG arithmetic so the samples exercise more than a narrow subset of values.
+
+## Implemented suite
+
+The dateutil fixture file runs 455 rows covering 452 named tests from the vendored reference. Most rows expand concrete RRULE inputs or check serialization round trips. The inventory records the other 110 named tests, including 42 Python API contracts and 68 unsupported or differing behaviors. A Deno test checks the exact source IDs and pinned file hash, so every reference test has a disposition.
+
+The imported Python expectations come from the vendored literal assertions and, for serialization-only checks, dateutil 2.8.2. The maximum-year case explicitly bounds the Chrono search at the end of year 9999. The microsecond case retains both the Python result and Chrono's documented millisecond-preserving result. For future parity work, the inventory retains inputs and Python outcomes for BYEASTER, the BYWEEKDAY alias, and several validation differences. The compiler and test runners require Deno only.
+
+The existing filter runner now owns 106 migrated examples that still call `NaiveDate.range`. The two independent rrule.js subsecond rows and the narrow API tests remain. The formatter and regional property tests use a reproducible 32-bit PRNG in `tests/fuzz/`.
+
+Deno type checking passed. The full run passed 96 tests in the documentation and co-located test command, plus 918 suite tests with 308 steps and seven existing ignores. The implementation is committed locally under Change-Id `I103465865a484d41a9a70d398351bbc`.
