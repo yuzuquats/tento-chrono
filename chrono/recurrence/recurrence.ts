@@ -22,6 +22,10 @@ import { ICalDateLine } from "./ical-date-line.ts";
 import { ICalendar } from "./ical.ts";
 import { IsoDate } from "./iso-date.ts";
 import { RRuleInstances } from "./instances.ts";
+import { GraphRecurrenceOptions, GraphRecurringMaster, readGraphRecurrence } from "./graph.ts";
+import { ICalendarRecurrenceOptions, RecurrenceSeries } from "./series.ts";
+export type { GraphRecurrenceOptions, GraphRecurringMaster } from "./graph.ts";
+export type { ICalendarRecurrenceOptions, ICalendarRecurrenceProfile, RecurrenceOccurrence, RecurrenceProfile, RecurrenceStart, RecurrenceSeries } from "./series.ts";
 import type { MsSinceEpoch } from "../units/units.ts";
 import type { Option } from "../option.ts";
 
@@ -126,6 +130,11 @@ export interface RecurrenceComposition {
    * `useGoogleCalendarBehavior` flag.
    */
   readonly googleByweekno: boolean;
+  readonly resolveWallTime?: (
+    zone: TimezoneRegion,
+    local: NaiveDateTime,
+    start: DateTime<FixedOffset>,
+  ) => DateTime<FixedOffset>;
   /**
    * An EXDATE uses up a COUNT slot in every composition, on every path
    * (BYWEEKNO included). EXDATE removes instances from the set the rule and
@@ -375,6 +384,7 @@ function resolveSeriesWall(
   local: NaiveDateTime,
 ): DateTime<Utc> {
   if (timezone == null) return local.withTz(startDateTime.tz).toUtc();
+  if (composition.resolveWallTime != null) return composition.resolveWallTime(timezone, local, startDateTime).toUtc();
   return composition.name === "rule-only"
     ? timezone.toRfc5545WallClock(local).toUtc()
     : timezone.googleDatetimeResolved(local, startDateTime).toUtc();
@@ -795,15 +805,16 @@ export class GoogleEventGenerator {
     timezone?: Option<TimezoneRegion>,
     readonly composition: RecurrenceComposition = RecurrenceComposition.GOOGLE,
     generationLimit?: number,
+    startWall?: NaiveDateTime,
   ) {
     if (generationLimit != null && (!Number.isSafeInteger(generationLimit) || generationLimit < 0)) {
       throw new RangeError("recurrence generation limit must be a nonnegative safe integer");
     }
     timezone ??= recurrence.inner.dtstart?.region;
     const startUtc = startDateTime.toUtc();
-    const startLocal = timezone
+    const startLocal = startWall ?? (timezone
       ? startUtc.toTz(timezone.tzAtMse(startDateTime.mse)).ndt
-      : startDateTime.ndt;
+      : startDateTime.ndt);
     const startDateParsed = startLocal.date;
 
     // Check if RRULE has an UNTIL date
@@ -935,6 +946,14 @@ export class GoogleEventGenerator {
 
 export class Recurrence {
   constructor(readonly inner: ICalendar.Raw) {}
+
+  static fromICalendar(lines: readonly string[], options?: ICalendarRecurrenceOptions): Promise<Result<RecurrenceSeries>> {
+    return RecurrenceSeries.read(lines, options);
+  }
+
+  static fromGraph(master: GraphRecurringMaster, options?: GraphRecurrenceOptions): Promise<Result<RecurrenceSeries>> {
+    return readGraphRecurrence(master, options);
+  }
 
   static async parse(
     ss: string[],

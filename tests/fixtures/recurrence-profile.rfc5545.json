@@ -1,0 +1,368 @@
+{
+  "type": "recurrence-profile",
+  "name": "RFC 5545 default",
+  "cases": [
+    {
+      "name": "unfold time selectors",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;\r\n\tBYHOUR=9,17;COUNT=2"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-01T17:00:00Z"
+      ]
+    },
+    {
+      "name": "exact UTC until",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;UNTIL=20260102T085959Z"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z"
+      ]
+    },
+    {
+      "name": "exdate only removes the matched instant",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=9,17;COUNT=4",
+          "EXDATE:20260101T090000Z"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T17:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-02T17:00:00Z"
+      ]
+    },
+    {
+      "name": "inclusive civil-date until",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20260101",
+          "RRULE:FREQ=DAILY;BYHOUR=9,17;UNTIL=20260103"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01",
+        "2026-01-02",
+        "2026-01-03"
+      ]
+    },
+    {
+      "name": "floating until",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;UNTIL=20260102T090000"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "time components preceding setpos",
+      "input": {
+        "lines": [
+          "DTSTART:20260130T090000Z",
+          "RRULE:FREQ=MONTHLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=9,17;BYSETPOS=-2;COUNT=4"
+        ],
+        "through": "2026-06-01"
+      },
+      "expected": [
+        "2026-01-30T09:00:00Z",
+        "2026-02-27T09:00:00Z",
+        "2026-03-31T09:00:00Z",
+        "2026-04-30T09:00:00Z"
+      ]
+    },
+    {
+      "name": "verified erratum 4271",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260307T023000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-12"
+      },
+      "expected": [
+        "2026-03-07T07:30:00Z",
+        "2026-03-08T07:30:00Z",
+        "2026-03-09T06:30:00Z"
+      ]
+    },
+    {
+      "name": "leap second fallback",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090059Z",
+          "RRULE:FREQ=HOURLY;BYSECOND=59,60;COUNT=3"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:59Z",
+        "2026-01-01T10:00:59Z",
+        "2026-01-01T11:00:59Z"
+      ]
+    },
+    {
+      "name": "leap second fallback in a daily rule",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090059Z",
+          "RRULE:FREQ=DAILY;BYSECOND=60;COUNT=2"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:59Z",
+        "2026-01-02T09:00:59Z"
+      ]
+    },
+    {
+      "name": "case-insensitive recurrence",
+      "input": {
+        "lines": [
+          "dtstart:20260101t090000z",
+          "rrule:freq=daily;count=2"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "RFC example monthly first Friday",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:19970905T090000",
+          "RRULE:FREQ=MONTHLY;BYDAY=1FR;COUNT=3"
+        ],
+        "through": "1997-12-01"
+      },
+      "expected": [
+        "1997-09-05T13:00:00Z",
+        "1997-10-03T13:00:00Z",
+        "1997-11-07T14:00:00Z"
+      ]
+    },
+    {
+      "name": "RFC example invalid month days do not count",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20070115T090000",
+          "RRULE:FREQ=MONTHLY;BYMONTHDAY=15,30;COUNT=5"
+        ],
+        "through": "2007-05-01"
+      },
+      "expected": [
+        "2007-01-15T14:00:00Z",
+        "2007-01-30T14:00:00Z",
+        "2007-02-15T14:00:00Z",
+        "2007-03-15T13:00:00Z",
+        "2007-03-30T13:00:00Z"
+      ]
+    },
+    {
+      "name": "count with until",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2;UNTIL=20260101T090000Z"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "mutually exclusive"
+      }
+    },
+    {
+      "name": "duplicate count",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2;COUNT=3"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "Duplicate"
+      }
+    },
+    {
+      "name": "zero interval",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;INTERVAL=0"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "positive integer"
+      }
+    },
+    {
+      "name": "non-yearly week number",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=WEEKLY;BYWEEKNO=1;COUNT=2"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "requires YEARLY"
+      }
+    },
+    {
+      "name": "ordinal daily weekday",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;BYDAY=1MO;COUNT=2"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "Ordinal BYDAY"
+      }
+    },
+    {
+      "name": "weekly monthday",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=WEEKLY;BYMONTHDAY=1;COUNT=2"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "invalid for WEEKLY"
+      }
+    },
+    {
+      "name": "date-only until for timed start",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;UNTIL=20260103"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "DTSTART form"
+      }
+    },
+    {
+      "name": "out-of-range hour",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=24"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "Invalid BYHOUR"
+      }
+    },
+    {
+      "name": "setpos without selector",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;BYSETPOS=1"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "requires another"
+      }
+    },
+    {
+      "name": "unknown extension",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=YEARLY;BYEASTER=0"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "Unknown RRULE"
+      }
+    },
+    {
+      "name": "untagged date DTSTART",
+      "input": {
+        "lines": [
+          "DTSTART:20260101",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "DTSTART type"
+      }
+    },
+    {
+      "name": "zoned until must be UTC",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260101T090000",
+          "RRULE:FREQ=DAILY;UNTIL=20260103T090000"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "DTSTART form"
+      }
+    },
+    {
+      "name": "exdate type must match",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE;VALUE=DATE:20260101"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "EXDATE type"
+      }
+    },
+    {
+      "name": "multiple rules default validation",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RRULE:FREQ=WEEKLY;COUNT=2"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "at most one"
+      }
+    }
+  ]
+}

@@ -230,6 +230,7 @@ export class TimezoneRegion {
   googleDatetimeResolved(
     ndt: NaiveDateTime,
     originalDateTime?: DateTime<any>,
+    useActualSpringGap = false,
   ): DateTime<FixedOffset> {
     // If no original datetime context, fall back to standard resolution
     if (!originalDateTime) {
@@ -290,9 +291,11 @@ export class TimezoneRegion {
     if (isSpringForward) {
       // Spring forward: use post-transition timezone if >=60 minutes after transition
       const timeGapMs = currentTime.toMs - transitionTime.toMs;
-      const hourInMs = 60 * 60 * 1000;
+      const gap = useActualSpringGap
+        ? lastTransition.after.time.ndt.mse - lastTransition.before.time.ndt.mse
+        : Time.MS_PER_HR;
 
-      if (timeGapMs >= hourInMs) {
+      if (timeGapMs >= gap) {
         return new DateTime(ndt, lastTransition.after.time.tz);
       }
       return new DateTime(ndt, originalDateTime.tz);
@@ -316,6 +319,15 @@ export class TimezoneRegion {
    * - Valid post-transition times: uses the post-transition offset.
    */
   toRfc5545WallClock(ndt: NaiveDateTime): DateTime<FixedOffset> {
+    return this.#recurrenceWallClock(ndt, false);
+  }
+
+  /** dateutil's tz.gettz uses the later offset in a gap and the earlier one in a fold. */
+  toDateutilWallClock(ndt: NaiveDateTime): DateTime<FixedOffset> {
+    return this.#recurrenceWallClock(ndt, true);
+  }
+
+  #recurrenceWallClock(ndt: NaiveDateTime, gapUsesLaterOffset: boolean): DateTime<FixedOffset> {
     const dse = ndt.date.dse;
     const cached = this._rfc5545WallClockTzCache.get(dse);
     if (cached) return ndt.withTz(cached);
@@ -345,7 +357,8 @@ export class TimezoneRegion {
       if (minWall < dayEndMse && cutoffWall >= dayStartMse) {
         hasTransitionOnDay = true;
       }
-      if (cutoffWall <= wallMse) {
+      const cutoff = gapUsesLaterOffset && afterWall > beforeWall ? beforeWall : cutoffWall;
+      if (cutoff <= wallMse) {
         resolved = this.asAsked(tr.after.time.tz);
       }
     }

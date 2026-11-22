@@ -1,5 +1,5 @@
 import { assert, assertEquals, assertNotEquals } from "@std/assert";
-import { DateTime, Recurrence, TimezoneRegion, Tzname } from "../chrono/mod.ts";
+import { DateTime, Recurrence } from "../chrono/mod.ts";
 import { Fixtures } from "./fixture-runner.deno.ts";
 import { installTimezoneLoader } from "./utils.deno.ts";
 
@@ -20,12 +20,10 @@ installTimezoneLoader();
 const dir = new URL("./fixtures/", import.meta.url).pathname;
 Fixtures.load<GoogleSeries, RecordedExpansion>(dir, "google-expansion").run(
   async ({ start, timezone, rules, window }) => {
-    const name = Tzname.parseOpt(timezone);
-    assert(name != null, "invalid zone for Google master: " + timezone);
-    const tz = await TimezoneRegion.getOpt(name);
-    assert(tz != null, "missing zone for Google master: " + timezone);
-    const recurrence = (await Recurrence.parse(rules)).exp();
-    const startWall = tz.toTz(DateTime.fromRfc3339(start).exp());
+    const series = (await Recurrence.fromICalendar(rules, {
+      profile: "google",
+      dtstart: { dateTime: start, timeZone: timezone },
+    })).exp();
     const from = DateTime.fromRfc3339(window.start).exp().toUtc();
     const to = DateTime.fromRfc3339(window.end).exp().toUtc();
     assert(from.mse < to.mse, "expected a nonempty query window");
@@ -34,17 +32,18 @@ Fixtures.load<GoogleSeries, RecordedExpansion>(dir, "google-expansion").run(
       Math.floor((end.dse - from.ndt.date.dse) / 2),
     );
 
-    const oneShot = await recurrence.generateGoogleEvents(startWall, tz);
-    const incremental = await recurrence.generateGoogleEvents(startWall, tz);
+    const incremental = series.generator();
     return [
-      oneShot.generateUpToDate(end),
+      series.occurrences({ through: end }),
       [
         ...incremental.generateUpToDate(midpoint),
         ...incremental.generateUpToDate(end),
       ],
     ].map((events) =>
-      events.filter((event) => event.mse >= from.mse && event.mse < to.mse)
-        .map((event) => event.toString())
+      events.filter((event) => {
+        assert(event instanceof DateTime, "expected a timed occurrence");
+        return event.mse >= from.mse && event.mse < to.mse;
+      }).map(String)
     );
   },
   ([oneShot, incremental], expected) => {

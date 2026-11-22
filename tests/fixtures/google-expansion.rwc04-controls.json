@@ -150,17 +150,7 @@
           "2026-02-28T09:00:00Z",
           "2026-03-31T09:00:00Z",
           "2026-04-30T09:00:00Z"
-        ],
-        "knownDifference": {
-          "reason": "Google uses only the master's 09:00 time. Chrono expands both BYHOUR values.",
-          "chrono": [
-            "2026-01-30T09:00:00Z",
-            "2026-01-31T09:00:00Z",
-            "2026-01-31T17:00:00Z",
-            "2026-02-28T09:00:00Z",
-            "2026-02-28T17:00:00Z"
-          ]
-        }
+        ]
       }
     },
     {
@@ -186,17 +176,7 @@
           "2026-02-28T17:00:00Z",
           "2026-03-31T17:00:00Z",
           "2026-04-30T17:00:00Z"
-        ],
-        "knownDifference": {
-          "reason": "Google uses only the master's 17:00 time. Chrono expands both BYHOUR values.",
-          "chrono": [
-            "2026-01-30T17:00:00Z",
-            "2026-01-31T09:00:00Z",
-            "2026-01-31T17:00:00Z",
-            "2026-02-28T09:00:00Z",
-            "2026-02-28T17:00:00Z"
-          ]
-        }
+        ]
       }
     },
     {
@@ -222,17 +202,7 @@
           "2026-01-04T09:10:05Z",
           "2026-01-05T09:10:05Z",
           "2026-01-06T09:10:05Z"
-        ],
-        "knownDifference": {
-          "reason": "Google uses only the master's minute. Chrono expands both BYMINUTE values.",
-          "chrono": [
-            "2026-01-02T09:10:05Z",
-            "2026-01-02T09:40:05Z",
-            "2026-01-03T09:10:05Z",
-            "2026-01-03T09:40:05Z",
-            "2026-01-04T09:10:05Z"
-          ]
-        }
+        ]
       }
     },
     {
@@ -258,17 +228,7 @@
           "2026-01-04T09:10:05Z",
           "2026-01-05T09:10:05Z",
           "2026-01-06T09:10:05Z"
-        ],
-        "knownDifference": {
-          "reason": "Google uses only the master's second. Chrono expands both BYSECOND values.",
-          "chrono": [
-            "2026-01-02T09:10:05Z",
-            "2026-01-02T09:10:35Z",
-            "2026-01-03T09:10:05Z",
-            "2026-01-03T09:10:35Z",
-            "2026-01-04T09:10:05Z"
-          ]
-        }
+        ]
       }
     },
     {

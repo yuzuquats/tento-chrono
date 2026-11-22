@@ -206,24 +206,7 @@
           "2025-05-05T10:00:00Z",
           "2025-05-12T10:00:00Z",
           "2025-05-19T10:00:00Z"
-        ],
-        "knownDifference": {
-          "reason": "Google emits Mondays in alternate months. Chrono emits consecutive Mondays.",
-          "chrono": [
-            "2025-01-06T10:00:00Z",
-            "2025-01-13T10:00:00Z",
-            "2025-01-20T10:00:00Z",
-            "2025-01-27T10:00:00Z",
-            "2025-02-03T10:00:00Z",
-            "2025-02-10T10:00:00Z",
-            "2025-02-17T10:00:00Z",
-            "2025-02-24T10:00:00Z",
-            "2025-03-03T10:00:00Z",
-            "2025-03-10T10:00:00Z",
-            "2025-03-17T10:00:00Z",
-            "2025-03-24T10:00:00Z"
-          ]
-        }
+        ]
       }
     },
     {
@@ -289,24 +272,7 @@
           "2025-05-12T10:00:00Z",
           "2025-05-26T10:00:00Z",
           "2025-06-09T10:00:00Z"
-        ],
-        "knownDifference": {
-          "reason": "Google emits alternate Mondays. Chrono emits consecutive Mondays.",
-          "chrono": [
-            "2025-01-06T10:00:00Z",
-            "2025-01-13T10:00:00Z",
-            "2025-01-20T10:00:00Z",
-            "2025-01-27T10:00:00Z",
-            "2025-02-03T10:00:00Z",
-            "2025-02-10T10:00:00Z",
-            "2025-02-17T10:00:00Z",
-            "2025-02-24T10:00:00Z",
-            "2025-03-03T10:00:00Z",
-            "2025-03-10T10:00:00Z",
-            "2025-03-17T10:00:00Z",
-            "2025-03-24T10:00:00Z"
-          ]
-        }
+        ]
       }
     },
     {
@@ -358,17 +324,7 @@
           "2026-10-03T15:30:00Z",
           "2026-10-04T15:30:00Z",
           "2026-10-05T15:30:00Z"
-        ],
-        "knownDifference": {
-          "reason": "Google uses the new offset at the end of the 30-minute gap. Chrono still uses the old offset.",
-          "chrono": [
-            "2026-10-01T16:00:00Z",
-            "2026-10-02T16:00:00Z",
-            "2026-10-03T16:00:00Z",
-            "2026-10-04T15:30:00Z",
-            "2026-10-05T15:30:00Z"
-          ]
-        }
+        ]
       }
     },
     {
@@ -394,17 +350,7 @@
           "2026-10-03T15:59:00Z",
           "2026-10-04T15:59:00Z",
           "2026-10-05T15:59:00Z"
-        ],
-        "knownDifference": {
-          "reason": "Google uses the new offset just before 03:00. Chrono still uses the old offset.",
-          "chrono": [
-            "2026-10-01T16:29:00Z",
-            "2026-10-02T16:29:00Z",
-            "2026-10-03T16:29:00Z",
-            "2026-10-04T15:59:00Z",
-            "2026-10-05T15:59:00Z"
-          ]
-        }
+        ]
       }
     },
     {
@@ -456,16 +402,7 @@
           "2026-03-30T09:00:00Z",
           "2026-04-29T09:00:00Z",
           "2026-05-28T09:00:00Z"
-        ],
-        "knownDifference": {
-          "reason": "Google emits the second-last weekday at the master time. Chrono selects the second-last timestamp.",
-          "chrono": [
-            "2026-01-30T09:00:00Z",
-            "2026-02-27T09:00:00Z",
-            "2026-03-31T09:00:00Z",
-            "2026-04-30T09:00:00Z"
-          ]
-        }
+        ]
       }
     },
     {
@@ -491,17 +428,7 @@
           "2026-03-30T17:00:00Z",
           "2026-04-29T17:00:00Z",
           "2026-05-28T17:00:00Z"
-        ],
-        "knownDifference": {
-          "reason": "Google emits the second-last weekday at the master time. Chrono selects the second-last timestamp.",
-          "chrono": [
-            "2026-01-30T17:00:00Z",
-            "2026-02-27T09:00:00Z",
-            "2026-03-31T09:00:00Z",
-            "2026-04-30T09:00:00Z",
-            "2026-05-29T09:00:00Z"
-          ]
-        }
+        ]
       }
     },
     {

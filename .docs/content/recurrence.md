@@ -73,3 +73,34 @@ such as:
 - `Monthly on the 2nd Tuesday, 6 times`
 
 Use it for lightweight labels, not as a replacement for the structured rule.
+
+## Recurrence profiles
+
+`Recurrence.fromICalendar` reads recurrence properties and binds the expansion
+profile to the resulting series. Supply `DTSTART` in the content lines or as
+an external `dtstart` value. The default profile validates RFC 5545
+recurrence properties before expansion.
+
+```ts
+const series = (await Recurrence.fromICalendar([
+  "DTSTART:20260101T090000Z",
+  "RRULE:FREQ=DAILY;COUNT=3",
+])).exp();
+const starts = series.occurrences({ through: NaiveDate.parse("2026-01-07") });
+```
+
+To read a Google master, pass `{ profile: "google", dtstart: master.start }`.
+Select `dateutil` or `rrule-js` explicitly to replay those libraries' rule
+sets. For a Microsoft Graph master, use `Recurrence.fromGraph(master)`.
+Supply `resolveTimeZone` if Graph returns Windows identifiers the runtime
+cannot resolve. It maps a Graph identifier to its IANA timezone name.
+
+`occurrences` returns civil dates for `DATE` starts, naive date-times for
+floating starts, and UTC date-times for timed starts with a zone or offset.
+`through` is an inclusive UTC day for instants and an inclusive civil day
+for the other forms. Use `series.generator().generateUpToDate(day)` for
+successive reads, with an optional generation limit on the generator.
+
+The profile reader covers recurrence properties. Importers resolve full
+calendar components and detached instances before choosing how to present
+the occurrence set.

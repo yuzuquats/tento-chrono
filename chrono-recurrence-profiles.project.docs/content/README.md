@@ -24,3 +24,38 @@ Graph captures precede any claim of local Outlook parity. The scope is
 occurrence starts, including civil dates and floating start values. Full
 VCALENDAR parsing, custom VTIMEZONE definitions, and application of detached
 events belong to the calendar import layer.
+
+## Verified implementation
+
+The default reader unfolds RFC content lines, validates the recurrence
+properties together with DTSTART, expands timed instances before applying
+BYSETPOS, and treats second 60 as second 59 at millisecond precision. It keeps
+civil dates, floating times, and instants distinct. The bound cursor reads
+incrementally through the same selected profile.
+
+| Fixture source | Result through the profile API |
+| --- | --- |
+| RFC 5545 examples and audit regressions | 26 cases, including rejected invalid rules |
+| Google Calendar API | 29 exact matches out of 32, with three tracked differences in yearly week-number selection and COUNT |
+| Python dateutil 2.8.2 (`tz.gettz`) | 19 exact matches out of 20 |
+| rrule.js 2.8.1 (`TZ=UTC`) | 19 exact matches out of 20 |
+| Microsoft Graph v1.0 `calendarView` | 13 exact matches across all six pattern kinds and three range types |
+
+Google time-selector controls, explicit-interval weekly and monthly rules,
+and the Lord Howe gap now match through the new profile. The two library
+captures retain an ambiguous event when a UTC EXDATE names its instant.
+Chrono's two profiles still remove it. The JSON keeps both actual results.
+The prior dateutil inventory and Google recordings still run through the
+legacy entry points. Those entry points retain their established contracts.
+
+The Graph captures include 61 occurrence starts. A first leap-day listing
+returned HTTP 400. A shorter listing window yielded four starts and showed
+that Graph clamps February 29 to February 28 in common years. All 14
+temporary Graph masters, including the initial leap-day attempt, were
+removed and verified absent. The caller supplies Windows-to-IANA mapping
+where required. Graph parity is measured for starts, with moved instances
+and cancellations outside this capture.
+
+The sanitized source captures and test logs are on yuzuquats under
+`~/workspace/fleet/evidence/chrono-fixture-suite` as `graph-expansion-rwc04*`,
+`recurrence-profile-*`, and `profile-*.log`.

@@ -1,0 +1,368 @@
+{
+  "type": "recurrence-profile",
+  "name": "dateutil 2.8.2",
+  "source": "python-dateutil 2.8.2 with tz.gettz",
+  "cases": [
+    {
+      "name": "daily-count",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z",
+        "2026-01-04T09:00:00Z"
+      ]
+    },
+    {
+      "name": "until-exact",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;UNTIL=20260104T090000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z",
+        "2026-01-04T09:00:00Z"
+      ]
+    },
+    {
+      "name": "until-before",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;UNTIL=20260104T085959Z"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "unsynchronized-start",
+      "input": {
+        "lines": [
+          "DTSTART:20260106T090000Z",
+          "RRULE:FREQ=WEEKLY;BYDAY=FR;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-01-09T09:00:00Z",
+        "2026-01-16T09:00:00Z",
+        "2026-01-23T09:00:00Z"
+      ]
+    },
+    {
+      "name": "biweekly-sunday",
+      "input": {
+        "lines": [
+          "DTSTART:20260103T090000Z",
+          "RRULE:FREQ=WEEKLY;WKST=SU;INTERVAL=2;BYDAY=SA,SU;COUNT=6"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-01-03T09:00:00Z",
+        "2026-01-11T09:00:00Z",
+        "2026-01-17T09:00:00Z",
+        "2026-01-25T09:00:00Z",
+        "2026-01-31T09:00:00Z",
+        "2026-02-08T09:00:00Z"
+      ]
+    },
+    {
+      "name": "yearly-week-one",
+      "input": {
+        "lines": [
+          "DTSTART:20260104T090000Z",
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1;BYDAY=SU,MO;WKST=SU;COUNT=8"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-01-04T09:00:00Z",
+        "2026-01-05T09:00:00Z",
+        "2027-01-03T09:00:00Z",
+        "2027-01-04T09:00:00Z",
+        "2028-01-02T09:00:00Z",
+        "2028-01-03T09:00:00Z",
+        "2028-12-31T09:00:00Z",
+        "2029-01-01T09:00:00Z"
+      ]
+    },
+    {
+      "name": "monthly-day-31",
+      "input": {
+        "lines": [
+          "DTSTART:20260131T090000Z",
+          "RRULE:FREQ=MONTHLY;BYMONTHDAY=31;COUNT=5"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-01-31T09:00:00Z",
+        "2026-03-31T09:00:00Z",
+        "2026-05-31T09:00:00Z",
+        "2026-07-31T09:00:00Z",
+        "2026-08-31T09:00:00Z"
+      ]
+    },
+    {
+      "name": "leap-day-skip",
+      "input": {
+        "lines": [
+          "DTSTART:20240229T090000Z",
+          "RRULE:FREQ=YEARLY;BYMONTH=2;BYMONTHDAY=29;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2024-02-29T09:00:00Z",
+        "2028-02-29T09:00:00Z",
+        "2032-02-29T09:00:00Z"
+      ]
+    },
+    {
+      "name": "negative-year-day",
+      "input": {
+        "lines": [
+          "DTSTART:20251231T090000Z",
+          "RRULE:FREQ=YEARLY;BYYEARDAY=-1;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2025-12-31T09:00:00Z",
+        "2026-12-31T09:00:00Z",
+        "2027-12-31T09:00:00Z",
+        "2028-12-31T09:00:00Z"
+      ]
+    },
+    {
+      "name": "ordinal-weekday",
+      "input": {
+        "lines": [
+          "DTSTART:20260126T090000Z",
+          "RRULE:FREQ=MONTHLY;BYDAY=-1MO;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-01-26T09:00:00Z",
+        "2026-02-23T09:00:00Z",
+        "2026-03-30T09:00:00Z",
+        "2026-04-27T09:00:00Z"
+      ]
+    },
+    {
+      "name": "timed-setpos",
+      "input": {
+        "lines": [
+          "DTSTART:20260130T090000Z",
+          "RRULE:FREQ=MONTHLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=9,17;BYSETPOS=-2;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-01-30T09:00:00Z",
+        "2026-02-27T09:00:00Z",
+        "2026-03-31T09:00:00Z",
+        "2026-04-30T09:00:00Z"
+      ]
+    },
+    {
+      "name": "subdaily",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=3;BYMINUTE=0,30;BYSETPOS=1;COUNT=5"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-01T12:00:00Z",
+        "2026-01-01T15:00:00Z",
+        "2026-01-01T18:00:00Z",
+        "2026-01-01T21:00:00Z"
+      ]
+    },
+    {
+      "name": "floating",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-02T09:00:00",
+        "2026-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "multiple-rules",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RRULE:FREQ=WEEKLY;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z",
+        "2026-01-08T09:00:00Z",
+        "2026-01-15T09:00:00Z"
+      ]
+    },
+    {
+      "name": "union-exdate",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RRULE:FREQ=WEEKLY;COUNT=3",
+          "EXDATE:20260101T090000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z",
+        "2026-01-08T09:00:00Z",
+        "2026-01-15T09:00:00Z"
+      ]
+    },
+    {
+      "name": "dedup-and-rdate",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20260102T090000Z,20260108T090000Z",
+          "EXDATE:20260108T090000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "rdate-after-until",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;UNTIL=20260103T090000Z",
+          "RDATE:20260108T090000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z",
+        "2026-01-08T09:00:00Z"
+      ]
+    },
+    {
+      "name": "spring-gap",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260307T023000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-03-07T07:30:00Z",
+        "2026-03-08T06:30:00Z",
+        "2026-03-09T06:30:00Z"
+      ]
+    },
+    {
+      "name": "fall-fold",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261030T013000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-10-30T05:30:00Z",
+        "2026-10-31T05:30:00Z",
+        "2026-11-01T05:30:00Z",
+        "2026-11-02T06:30:00Z",
+        "2026-11-03T06:30:00Z"
+      ]
+    },
+    {
+      "name": "zoned-exdate",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261030T013000",
+          "RRULE:FREQ=DAILY;COUNT=5",
+          "EXDATE:20261101T053000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": {
+        "reference": [
+          "2026-10-30T05:30:00Z",
+          "2026-10-31T05:30:00Z",
+          "2026-11-01T05:30:00Z",
+          "2026-11-02T06:30:00Z",
+          "2026-11-03T06:30:00Z"
+        ],
+        "chrono": [
+          "2026-10-30T05:30:00Z",
+          "2026-10-31T05:30:00Z",
+          "2026-11-02T06:30:00Z",
+          "2026-11-03T06:30:00Z"
+        ],
+        "reason": "The reference retains the ambiguous occurrence when EXDATE is UTC. Chrono excludes the matching instant."
+      }
+    }
+  ]
+}

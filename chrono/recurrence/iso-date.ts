@@ -19,7 +19,7 @@ export class IsoDate {
   static parseRaw(
     s: string,
   ): Result<[NaiveDate, Option<NaiveTime>, Option<"Z">]> {
-    const regex = /^(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2})?(\d{2})?)?Z?$/;
+    const regex = /^(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2})?(\d{2})?)?Z?$/i;
     const input = s.trim();
     const match = input.match(regex);
     if (!match) return erm(`icaldate/no-match/input=${s}`);
@@ -42,7 +42,7 @@ export class IsoDate {
       nt = NaiveTime.wrap({ hrs: hours, mins: minutes, secs: Math.min(seconds, 59) });
     }
 
-    return ok([nd, nt, input.endsWith("Z") ? "Z" : null]);
+    return ok([nd, nt, input.toUpperCase().endsWith("Z") ? "Z" : null]);
   }
 
   trunc(): NaiveDate {
