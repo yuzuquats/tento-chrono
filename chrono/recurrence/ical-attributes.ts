@@ -1,5 +1,10 @@
 import type { Option } from "../option.ts";
 
+export function icalPropertyName(line: string): string {
+  const end = line.search(/[:;]/);
+  return (end < 0 ? line : line.slice(0, end)).toUpperCase();
+}
+
 export class ICalAttributes {
   constructor(
     private readonly inner: Map<string, Option<string>>,

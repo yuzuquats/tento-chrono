@@ -550,8 +550,9 @@ export namespace YearMonthDay {
   }
 
   export function fromRfc3339(s: string): Result<YearMonthDay> {
-    const [yr, mth, day] = s.split("-");
-    return YearMonthDay.fromYmd1Str(yr, mth, day);
+    const match = /^(\d{4})-(\d{1,2})-(\d{1,2})$/.exec(s);
+    if (!match) return erm("invalid date format");
+    return YearMonthDay.fromYmd1Str(match[1], match[2], match[3]);
   }
 
   export function parse(s: string): YearMonthDay {
@@ -560,7 +561,7 @@ export namespace YearMonthDay {
 
   export function parseOpt(s: Option<string>): Option<YearMonthDay> {
     if (!s) return null;
-    return YearMonthDay.parse(s);
+    return YearMonthDay.fromRfc3339(s).asOk() ?? null;
   }
 
   /**

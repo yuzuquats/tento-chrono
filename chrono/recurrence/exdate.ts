@@ -3,6 +3,7 @@ import { NaiveDateTime } from "../naive-datetime.ts";
 import { NaiveTime } from "../naive-time.ts";
 import { Result, err, ok } from "../result.ts";
 import { Tzname } from "../timezone.ts";
+import { icalPropertyName } from "./ical-attributes.ts";
 import { IsoDate } from "./iso-date.ts";
 import { TentoMath } from "../utils.ts";
 import type { Option } from "../option.ts";
@@ -28,7 +29,7 @@ export class ExDate {
    * Parse a single EXDATE line from an iCalendar recurrence array
    */
   static parse(exdateString: string): Result<ExDate> {
-    if (!exdateString.startsWith("EXDATE")) {
+    if (icalPropertyName(exdateString) !== "EXDATE") {
       return err(Error("String must start with EXDATE"));
     }
 
@@ -102,7 +103,7 @@ export class ExDate {
     const exdates: ExDate[] = [];
     
     for (const line of recurrence) {
-      if (line.startsWith("EXDATE")) {
+      if (icalPropertyName(line) === "EXDATE") {
         const result = ExDate.parse(line);
         if (result.isOk) {
           exdates.push(result.asOk()!);

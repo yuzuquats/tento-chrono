@@ -1,4 +1,5 @@
 import { Result, err, ok } from "../result.ts";
+import { icalPropertyName } from "./ical-attributes.ts";
 import { ICalDateLine } from "./ical-date-line.ts";
 import { RRule } from "./rrule.ts";
 import type { Option, Optional } from "../option.ts";
@@ -34,13 +35,14 @@ export namespace ICalendar {
       const order: Option<string[]> = deterministic ? [] : null;
 
       for (const line of lines) {
-        if (line.startsWith("RRULE")) {
+        const property = icalPropertyName(line);
+        if (property === "RRULE") {
           const rrule = RRule.parse(line);
           order?.push("RRULE");
           if (rrule.asErr())
             return err(Error("failed to parse rrule", rrule.asErr()!));
           inner.rrule = rrule.asOk()!;
-        } else if (line.startsWith("EXDATE")) {
+        } else if (property === "EXDATE") {
           const date = await ICalDateLine.parse(line, deterministic);
           order?.push("EXDATE");
           if (date.asErr())
@@ -49,13 +51,13 @@ export namespace ICalendar {
             inner.exdate = [];
           }
           inner.exdate.push(date.asOk()!);
-        } else if (line.startsWith("RDATE")) {
+        } else if (property === "RDATE") {
           const date = await ICalDateLine.parse(line, deterministic);
           order?.push("RDATE");
           if (date.asErr())
             return err(Error("failed to parse rdate", date.asErr()!));
           (inner.rdate ??= []).push(date.asOk()!);
-        } else if (line.startsWith("DTSTART")) {
+        } else if (property === "DTSTART") {
           const date = await ICalDateLine.parse(line, deterministic);
           order?.push("DTSTART");
           if (date.asErr())
@@ -69,6 +71,7 @@ export namespace ICalendar {
 
     toString(): string {
       const parts: string[] = [];
+      let nextExdate = 0;
       let nextRdate = 0;
 
       for (const order of this.order ?? ["DTSTART", "RRULE", "EXDATE", "RDATE"]) {
@@ -77,8 +80,11 @@ export namespace ICalendar {
         } else if (order === "RRULE" && this.lines.rrule) {
           parts.push(this.lines.rrule.toString());
         } else if (order === "EXDATE" && this.lines.exdate) {
-          for (const exdate of this.lines.exdate) {
-            parts.push(exdate.toString());
+          if (this.order == null) {
+            for (const exdate of this.lines.exdate) parts.push(exdate.toString());
+          } else {
+            const exdate = this.lines.exdate[nextExdate++];
+            if (exdate != null) parts.push(exdate.toString());
           }
         } else if (order === "RDATE" && this.lines.rdate) {
           if (this.order == null) {

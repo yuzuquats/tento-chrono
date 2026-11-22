@@ -17,6 +17,7 @@ import {
   startDateMatchesByday,
 } from "./google-calendar-utils.ts";
 import { ExDate } from "./exdate.ts";
+import { icalPropertyName } from "./ical-attributes.ts";
 import { ICalDateLine } from "./ical-date-line.ts";
 import { ICalendar } from "./ical.ts";
 import { IsoDate } from "./iso-date.ts";
@@ -202,9 +203,6 @@ interface RecurrenceGenerationState {
   rdates: readonly DateTime<Utc>[];
   rdateNext: number;
   startHandled: boolean;
-  // DTSTART's wall-clock time in `timezone`: the same for every occurrence,
-  // so it is resolved once, on the first occurrence that needs it.
-  startLocalTime?: NaiveDateTime["time"];
   generationComplete: boolean; // Track if we've exhausted the generator
   generationLimit?: number;
   candidates: number;
@@ -339,7 +337,7 @@ export function exclusionsOfLines(
   const localTimes = new Set<number>();
   const instants = new Set<number>();
   for (const line of lines) {
-    if (!line.startsWith("EXDATE")) continue;
+    if (icalPropertyName(line) !== "EXDATE") continue;
     const parsed = ExDate.parse(line);
     if (parsed.isErr) continue;
     const exdate = parsed.asOk()!;
@@ -370,12 +368,13 @@ function isExcluded(ex: Exclusions, local: NaiveDateTime, at: DateTime<Utc>): bo
   return ex.instants.has(at.mse) || ex.localTimes.has(local.mse) || ex.localDays.has(local.date.dse);
 }
 
-function resolveWallInZone(
+function resolveSeriesWall(
   composition: RecurrenceComposition,
-  timezone: TimezoneRegion,
+  timezone: Option<TimezoneRegion>,
   startDateTime: DateTime<FixedOffset>,
   local: NaiveDateTime,
 ): DateTime<Utc> {
+  if (timezone == null) return local.withTz(startDateTime.tz).toUtc();
   return composition.name === "rule-only"
     ? timezone.toRfc5545WallClock(local).toUtc()
     : timezone.googleDatetimeResolved(local, startDateTime).toUtc();
@@ -419,7 +418,7 @@ function ensureEventsGenerated(
       endInstantMse,
       state.composition.name === "rule-only" ? undefined : state.startDateTime.tz.info.offset.toMs,
     )
-    : endInstantMse;
+    : endInstantMse + state.startDateTime.tz.info.offset.toMs;
 
   // First, include start date if it should be included (after any RDATE
   // instance before it).
@@ -474,47 +473,9 @@ function ensureEventsGenerated(
     // that day is DTSTART, placed and excluded as any instance is.
     if (dateInstance.dse === state.startDateParsed.dse && state.composition.dtstartAlwaysInstance) continue;
 
-    // Create datetime with proper timezone handling
-    let event: DateTime<Utc>;
-    let local: NaiveDateTime;
-    if (state.timezone) {
-      // Convert the original start time to the proper local time in the target timezone
-      // (loop-invariant: computed once per series).
-      const originalLocalTime = state.startLocalTime ??= state.startDateTime
-        .toUtc()
-        .toTz(state.timezone.tzAtMse(state.startDateTime.mse)).ndt.time;
-
-      // Create a naive datetime for the recurrence date at the same local time
-      local = dateInstance.withTime(originalLocalTime);
-      state.lastCandidateWallMse = local.mse;
-
-      event = resolveWallInZone(
-        state.composition,
-        state.timezone,
-        state.startDateTime,
-        local,
-      );
-      if (state.untilDt?.isBefore(event)) {
-        if (state.wallUntilBound != null && local.mse <= state.wallUntilBound.mse) continue;
-        state.generationComplete = true;
-        flushRdates(state, Infinity);
-        return;
-      }
-      if (isExcluded(state.excl, local, event)) continue;
-    } else {
-      // No timezone, just use the same time as the original start datetime
-      local = dateInstance.withTime(state.startDateTime.ndt.time);
-      state.lastCandidateWallMse = local.mse;
-      event = new DateTime(local, Utc);
-      if (state.untilDt?.isBefore(event)) {
-        state.generationComplete = true;
-        flushRdates(state, Infinity);
-        return;
-      }
-      if (isExcluded(state.excl, local, event)) continue;
-    }
-    flushRdates(state, event.mse);
-    appendGenerated(state, event);
+    const local = dateInstance.withTime(state.startLocal.time);
+    state.lastCandidateWallMse = local.mse;
+    if (placeInstance(state, local)) return;
   }
 }
 
@@ -526,12 +487,7 @@ function ensureEventsGenerated(
  * UNTIL ended the series.
  */
 function placeInstance(state: RecurrenceGenerationState, local: NaiveDateTime): boolean {
-  let event: DateTime<Utc>;
-  if (state.timezone) {
-    event = resolveWallInZone(state.composition, state.timezone, state.startDateTime, local);
-  } else {
-    event = new DateTime(local, Utc);
-  }
+  const event = resolveSeriesWall(state.composition, state.timezone, state.startDateTime, local);
   if (state.untilDt?.isBefore(event)) {
     // A spring-forward gap candidate can shift past UNTIL while a later
     // post-gap wall time resolves <= UNTIL. Only end the series once wall
@@ -614,7 +570,7 @@ function rdateInstant(
   const ndt = line.dates[i]!;
   const form = line.forms?.[i] ?? { timed: true, utc: false };
   const inSeries = (wall: NaiveDateTime): DateTime<Utc> =>
-    timezone ? resolveWallInZone(composition, timezone, startDateTime, wall) : new DateTime(wall, Utc);
+    resolveSeriesWall(composition, timezone, startDateTime, wall);
   if (line.value === "DATE" || !form.timed) return inSeries(ndt.date.withTime(startLocal.time));
   if (form.utc) return new DateTime(ndt, Utc);
   if (line.region != null && line.region.fullname !== timezone?.fullname) {
@@ -712,9 +668,9 @@ export function shiftRecurrenceLines(
   const wallOf = (at: DateTime<Utc>): NaiveDateTime =>
     seriesZone ? at.toTz(seriesZone.tzAtMse(at.mse)).ndt : at.ndt;
   for (const line of lines) {
-    const tag = line.startsWith("EXDATE") ? "EXDATE" : line.startsWith("RDATE") ? "RDATE" : null;
+    const tag = icalPropertyName(line);
     const colon = line.indexOf(":");
-    if (tag == null || colon < 0) {
+    if ((tag !== "EXDATE" && tag !== "RDATE") || colon < 0) {
       out.push(line);
       continue;
     }
@@ -843,6 +799,7 @@ export class GoogleEventGenerator {
     if (generationLimit != null && (!Number.isSafeInteger(generationLimit) || generationLimit < 0)) {
       throw new RangeError("recurrence generation limit must be a nonnegative safe integer");
     }
+    timezone ??= recurrence.inner.dtstart?.region;
     const startUtc = startDateTime.toUtc();
     const startLocal = timezone
       ? startUtc.toTz(timezone.tzAtMse(startDateTime.mse)).ndt
@@ -853,15 +810,11 @@ export class GoogleEventGenerator {
     const rrule = recurrence.inner.rrule;
     const rruleUntil = rrule?.inner.options?.until;
     const untilDate = rruleUntil?.trunc();
-    const untilDt =
-      untilDate && rruleUntil?.nt
-        ? (rruleUntil.z != null || !timezone
-          ? new DateTime(new NaiveDateTime(untilDate, rruleUntil.nt), Utc)
-          : resolveWallInZone(composition, timezone, startDateTime, new NaiveDateTime(untilDate, rruleUntil.nt)))
-        : null;
-    const untilLocal = untilDt != null
-      ? (timezone ? untilDt.toTz(timezone.tzAtMse(untilDt.mse)).ndt : untilDt.ndt)
-      : null;
+    const untilWall = untilDate && rruleUntil?.nt ? untilDate.withTime(rruleUntil.nt) : null;
+    const untilDt = untilWall == null ? null : rruleUntil?.z != null
+      ? untilWall.asUtc()
+      : resolveSeriesWall(composition, timezone, startDateTime, untilWall);
+    const untilLocal = untilDt?.toTz(timezone?.tzAtMse(untilDt.mse) ?? startDateTime.tz).ndt ?? null;
     // Exact upper wall-clock bound for `untilDt`: covers multi-hour fall-back
     // overlaps (e.g. Antarctica/Casey's 3-hour fall-back) and forward jumps
     // without generating extra candidates on non-transition days.
@@ -995,6 +948,9 @@ export class Recurrence {
   }
 
   async timezone(): Promise<Option<TimezoneRegion>> {
+    const startRegion = this.inner.dtstart?.region;
+    if (startRegion != null) return startRegion;
+
     const tzid = this.inner.rrule?.inner.options?.tzid;
     if (!tzid) return null;
     return await TimezoneRegion.get(tzid, Tzname.UTC, "rrule");
@@ -1034,7 +990,7 @@ export class Recurrence {
     composition: RecurrenceComposition,
     generationLimit?: number,
   ): Promise<GoogleEventGenerator> {
-    const effectiveTimezone = timezone || (await this.timezone());
+    const effectiveTimezone = timezone ?? (await this.timezone());
     return new GoogleEventGenerator(this, startDateTime, effectiveTimezone, composition, generationLimit);
   }
 }

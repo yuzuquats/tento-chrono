@@ -176,15 +176,17 @@ export class NaiveDateTime {
  */
 export namespace NaiveDateTime {
   export function parse(s: string): Option<NaiveDateTime> {
-    const [d, t] = s.split("T");
-    const date = NaiveDate.parseOpt(d);
+    // A trailing Z is accepted for callers using UTC timestamps as naive values.
+    const match = /^(\d{4}-\d{1,2}-\d{1,2})T(\d{1,2}):(\d{1,2})(?::(\d{1,2})(?:\.(\d{1,3}))?)?Z?$/.exec(s);
+    if (!match) return null;
+    const [, dateText, hours, minutes, seconds = "0", fraction = ""] = match;
+    const date = NaiveDate.parseOpt(dateText);
     if (date == null) return null;
 
-    const time = Duration.Time.parse(t);
-    if (time.isErr) return null;
-
-    const tt = time.asOk()!;
-    return new NaiveDateTime(date, tt.toTimeOfDayWrapping());
+    const hrs = Number(hours), mins = Number(minutes), secs = Number(seconds);
+    if (hrs > 23 || mins > 59 || secs > 59) return null;
+    const time = NaiveTime.fromHms({ hrs, mins, secs, ms: Number(fraction.padEnd(3, "0")) });
+    return new NaiveDateTime(date, time);
   }
 
   /**

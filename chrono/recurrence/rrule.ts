@@ -12,7 +12,7 @@ import {
 import { TentoMath } from "../utils.ts";
 import { ExDate } from "./exdate.ts";
 import { Frequency } from "./frequency.ts";
-import { ICalAttributes } from "./ical-attributes.ts";
+import { ICalAttributes, icalPropertyName } from "./ical-attributes.ts";
 import { IsoDate } from "./iso-date.ts";
 import type { Option, Optional } from "../option.ts";
 
@@ -66,7 +66,7 @@ export class RRule {
   }
 
   static parseWithRecurrence(recurrence: string[]): Result<RRule> {
-    const rruleString = recurrence.find((r) => r.startsWith("RRULE:"));
+    const rruleString = recurrence.find((r) => /^RRULE:/i.test(r));
     if (!rruleString) return err(Error("No RRULE found in recurrence"));
 
     const parseResult = RRule.parse(rruleString);
@@ -74,10 +74,10 @@ export class RRule {
 
     const rrule = parseResult.asOk()!;
 
-    for (const line of recurrence) if (line.startsWith("RDATE")) rrule.rdateLines.push(line);
+    for (const line of recurrence) if (icalPropertyName(line) === "RDATE") rrule.rdateLines.push(line);
 
     // Parse all EXDATE lines using the new ExDate parser
-    const exdateLines = recurrence.filter((r) => r.startsWith("EXDATE"));
+    const exdateLines = recurrence.filter((r) => icalPropertyName(r) === "EXDATE");
 
     for (const exdateLine of exdateLines) {
       const exdateResult = ExDate.parse(exdateLine);
@@ -704,7 +704,7 @@ export namespace RRule {
 
     static parse(s: string): Raw {
       const PREFIX = "RRULE:";
-      if (s.startsWith(PREFIX)) {
+      if (s.slice(0, PREFIX.length).toUpperCase() === PREFIX) {
         s = s.slice(PREFIX.length);
       }
       const attributes = ICalAttributes.fromRawAttributes(s.split(";"));

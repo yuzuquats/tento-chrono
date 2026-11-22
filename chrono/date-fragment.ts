@@ -84,61 +84,19 @@ export class DateFragment {
    * @returns {DateFragmentShift} Object containing information about the shift between fragments
    */
   comparison(other: DateFragment): DateFragment.Shift {
-    const start = this.end.time;
-    const end = other.start.time;
     return {
       from: this.end,
-      shift: start.durationUntil(end),
+      shift: Duration.Time.ms(other.start.ndt.mse - this.end.ndt.mse),
       to: other.start,
     };
   }
 
   /**
-   * Clamps this fragment to the given time window, returning a new fragment
-   * that represents the intersection of this fragment with the window.
-   *
-   * @param {TimeOfDay.Range} window - The time window to clamp to
-   * @returns {DateFragment} A new fragment clamped to the window
+   * Intersects this fragment with a time window on its civil date.
+   * A disjoint window produces a zero-length range at the nearest boundary.
    */
-  clamp(window: TimeOfDay.Range): DateTime.Range<any> {
-    // Start time is the max of fragment start and window start
-    const startTime = this.start.time.max(window.start);
-    const clampedStart = this.start.withTime(startTime);
-
-    // For the end time, handle overnight windows and full-day fragments specially
-    let clampedEnd: DateTime<FixedOffset>;
-    if (window.endsOnNextDay) {
-      // Window extends to next day (e.g., 22:00-02:00)
-      // Special case: full day window (00:00-00:00 overnight) means "don't constrain"
-      // In this case, use the fragment's actual end time
-      if (window.start.equals(TimeOfDay.ZERO) && window.end.equals(TimeOfDay.ZERO)) {
-        clampedEnd = this.end;
-      } else {
-        // Use the window's end time on the next day to show the full window
-        clampedEnd = this.start.withTime(window.end).add({ days: 1 });
-      }
-    } else {
-      // Window is same-day
-      // Check if fragment spans to next day (end time is 00:00 on next day)
-      const fragmentSpansDay = !this.start.date.equals(this.end.date);
-
-      if (fragmentSpansDay && this.end.time.equals(TimeOfDay.ZERO)) {
-        // Fragment ends at midnight next day, use window end since it's earlier
-        clampedEnd = this.start.withTime(window.end);
-      } else {
-        // Take min of fragment end and window end
-        // Special case: if window.end is 00:00 (full day), don't constrain the end
-        // because 00:00 means "end of day" (24:00), not "start of day"
-        if (window.end.equals(TimeOfDay.ZERO)) {
-          clampedEnd = this.end;
-        } else {
-          const endTime = this.end.time.min(window.end);
-          clampedEnd = this.start.withTime(endTime);
-        }
-      }
-    }
-
-    return new DateTime.Range(clampedStart, clampedEnd);
+  clamp(window: TimeOfDay.Range): DateTime.Range<FixedOffset> {
+    return clampFragment(this, window, false);
   }
 
   /**
@@ -150,6 +108,38 @@ export class DateFragment {
       this.inner.start.tz.info.tzabbr
     } }`;
   }
+}
+
+function clampFragment(
+  fragment: DateFragment,
+  window: TimeOfDay.Range,
+  extendOvernight: boolean,
+): DateTime.Range<FixedOffset> {
+  const start = fragment.start.withTime(window.start);
+  const end = fragment.start.withTime(window.end);
+  if (!window.endsOnNextDay) return clipRange(fragment.start, fragment.end, start, end);
+  const overnightEnd = end.add({ days: 1 });
+  // Overnight display can continue a fragment that reaches the next
+  // midnight. Fragments ending at an earlier transition stop there.
+  const limit = extendOvernight && fragment.end.mse === overnightEnd.mse - window.end.toMs
+    ? overnightEnd
+    : fragment.end;
+  return clipRange(fragment.start, limit, start, overnightEnd);
+}
+
+function clipRange(
+  start: DateTime<FixedOffset>,
+  end: DateTime<FixedOffset>,
+  lower?: DateTime<FixedOffset>,
+  upper?: DateTime<FixedOffset>,
+): DateTime.Range<FixedOffset> {
+  if (lower != null && lower.mse > start.mse) {
+    start = lower.mse <= end.mse ? lower : end;
+  }
+  if (upper != null && upper.mse < end.mse) {
+    end = upper.mse >= start.mse ? upper : start;
+  }
+  return new DateTime.Range(start, end);
 }
 
 export namespace DateFragment {
@@ -224,90 +214,36 @@ export namespace DateFragment {
         return new DateTime.Range(this.fragment.start, endWallClock);
       }
 
-      let start = this.fragment.start;
-      let end = this.fragment.end;
+      return this.#applyPartialWindow(this.fragment.inner);
+    }
 
-      if (this.partialWindow.start != null) {
-        const constraintStart = this.fragment.parent.toWallClock(
-          this.partialWindow.start,
-        );
-        if (constraintStart.mse > start.mse) {
-          start = constraintStart;
-        }
-      }
-
-      if (this.partialWindow.end != null) {
-        const constraintEnd = this.fragment.parent.toWallClock(
-          this.partialWindow.end,
-        );
-        if (constraintEnd.mse < end.mse) {
-          end = constraintEnd;
-        }
-      }
-
-      return new DateTime.Range(start, end);
+    #applyPartialWindow(range: DateTime.Range<FixedOffset>): DateTime.Range<FixedOffset> {
+      const start = this.partialWindow?.start;
+      const end = this.partialWindow?.end;
+      return clipRange(
+        range.start,
+        range.end,
+        start == null ? undefined : this.tzr.toWallClock(start),
+        end == null ? undefined : this.tzr.toWallClock(end),
+      );
     }
 
     /**
      * Applies only the valid hours transformation.
-     * Returns the fragment restricted to the specified time-of-day window.
+     * Returns the fragment's portion of the display window.
      */
     applyValidHours(): DateTime.Range<FixedOffset> {
-      const clampedRange = this.fragment.clamp(this.validHours);
-      return new DateTime.Range(clampedRange.start, clampedRange.end);
+      return clampFragment(this.fragment, this.validHours, true);
     }
 
     /**
-     * Applies both transformations in sequence: partial window first, then valid hours.
-     * Returns the final windowed timespan in the fragment's timezone.
+     * Applies both the valid hours and partial window constraints.
      */
     applyAll(): DateTime.Range<FixedOffset> {
       if (this.cache.applyAll) return this.cache.applyAll;
 
-      let start = this.fragment.start;
-      let end = this.fragment.end;
-
-      if (this.partialWindow) {
-        if (this.partialWindow.start != null) {
-          const constraintStart = this.fragment.parent.toWallClock(
-            this.partialWindow.start,
-          );
-          if (constraintStart.mse > start.mse) {
-            start = constraintStart;
-          }
-        }
-
-        if (this.partialWindow.end != null) {
-          const constraintEnd = this.fragment.parent.toWallClock(
-            this.partialWindow.end,
-          );
-          if (constraintEnd.mse < end.mse) {
-            end = constraintEnd;
-          }
-        }
-      }
-
-      const partialFragment = new DateFragment(
-        new DateTime.Range(start, end),
-        this.fragment.parent,
-      );
-
-      if (this.validHours) {
-        const clampedRange = partialFragment.clamp(this.validHours);
-        // Only constrain to partial window end if it was explicitly set
-        // This allows overnight valid hours to extend past midnight when no partial window end is set
-        const hasExplicitPartialEnd = this.partialWindow?.end != null;
-        const finalEnd =
-          hasExplicitPartialEnd && clampedRange.end.mse > end.mse
-            ? end
-            : clampedRange.end;
-        return (this.cache.applyAll = new DateTime.Range(
-          clampedRange.start,
-          finalEnd,
-        ));
-      }
-
-      return (this.cache.applyAll = new DateTime.Range(start, end));
+      const valid = clampFragment(this.fragment, this.validHours, this.partialWindow?.end == null);
+      return (this.cache.applyAll = this.#applyPartialWindow(valid));
     }
 
     /**
