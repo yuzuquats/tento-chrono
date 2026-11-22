@@ -61,3 +61,19 @@ EXDATE and COUNT and the RDATE/EXDATE precedence cases match Google.
 
 The sanitized Google response and the Chrono comparison are retained on
 yuzuquats in `~/workspace/fleet/evidence/chrono-fixture-suite/google-expansion-rwc04-*`.
+
+A second rwc-04 capture added 16 series and 76 starts in
+`tests/fixtures/google-expansion.rwc04-controls.json`. Eleven match Chrono.
+The positive-only BYWEEKNO control confirms that Google changes week-one
+dates for Sunday WKST. Ordinary biweekly rules match with both week starts.
+The two monthly BYHOUR controls and the daily BYMINUTE and BYSECOND controls
+retain the master time even without BYSETPOS. A monthly BYSETPOS control
+without BYHOUR matches Chrono.
+
+The Los Angeles fall-back recording uses the first 01:30. EXDATE removes that
+instant and leaves it intact when addressed to the second 01:30. All three
+Los Angeles UNTIL boundary cases match, including the exact UTC cutoff on
+the spring-forward day. Google retains RDATE after a datetime UNTIL, as does
+Chrono. All 16 temporary masters were removed and verified absent. The
+sanitized response and replay comparison are in `google-expansion-rwc04-controls*.json`
+in the same evidence directory.

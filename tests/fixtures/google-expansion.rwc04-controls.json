@@ -1,0 +1,479 @@
+{
+  "type": "google-expansion",
+  "name": "Google Calendar API controls",
+  "source": "Google Calendar API events.instances",
+  "capturedAt": "2026-11-22T05:35:19.457489+00:00",
+  "captureCliCommit": "77f899aac5",
+  "cases": [
+    {
+      "name": "positive-week-number-wkst-mo",
+      "input": {
+        "start": "2025-12-29T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=MO;COUNT=6;BYWEEKNO=1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2025-12-28T00:00:00Z",
+          "end": "2032-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1;BYDAY=SU,MO;WKST=MO;COUNT=6"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-12-29T10:00:00Z",
+          "2026-01-04T10:00:00Z",
+          "2027-01-04T10:00:00Z",
+          "2027-01-10T10:00:00Z",
+          "2028-01-03T10:00:00Z",
+          "2028-01-09T10:00:00Z",
+          "2029-01-01T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "biweekly-wkst-mo",
+      "input": {
+        "start": "2026-01-03T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;WKST=MO;COUNT=6;INTERVAL=2;BYDAY=SA,SU"
+        ],
+        "window": {
+          "start": "2026-01-01T00:00:00Z",
+          "end": "2026-05-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=SA,SU;WKST=MO;COUNT=6"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2026-01-03T09:00:00Z",
+          "2026-01-04T09:00:00Z",
+          "2026-01-17T09:00:00Z",
+          "2026-01-18T09:00:00Z",
+          "2026-01-31T09:00:00Z",
+          "2026-02-01T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "positive-week-number-wkst-su",
+      "input": {
+        "start": "2025-12-29T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=SU;COUNT=6;BYWEEKNO=1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2025-12-28T00:00:00Z",
+          "end": "2032-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1;BYDAY=SU,MO;WKST=SU;COUNT=6"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-12-29T10:00:00Z",
+          "2026-01-04T10:00:00Z",
+          "2026-01-05T10:00:00Z",
+          "2027-01-03T10:00:00Z",
+          "2027-01-04T10:00:00Z",
+          "2028-01-02T10:00:00Z",
+          "2028-01-03T10:00:00Z"
+        ],
+        "knownDifference": {
+          "reason": "Google changes the week-one dates for Sunday WKST. Chrono returns the Monday WKST expansion.",
+          "chrono": [
+            "2025-12-29T10:00:00Z",
+            "2026-01-04T10:00:00Z",
+            "2027-01-04T10:00:00Z",
+            "2027-01-10T10:00:00Z",
+            "2028-01-03T10:00:00Z",
+            "2028-01-09T10:00:00Z",
+            "2029-01-01T10:00:00Z"
+          ]
+        }
+      }
+    },
+    {
+      "name": "biweekly-wkst-su",
+      "input": {
+        "start": "2026-01-03T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;WKST=SU;COUNT=6;INTERVAL=2;BYDAY=SA,SU"
+        ],
+        "window": {
+          "start": "2026-01-01T00:00:00Z",
+          "end": "2026-05-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=SA,SU;WKST=SU;COUNT=6"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2026-01-03T09:00:00Z",
+          "2026-01-11T09:00:00Z",
+          "2026-01-17T09:00:00Z",
+          "2026-01-25T09:00:00Z",
+          "2026-01-31T09:00:00Z",
+          "2026-02-08T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "monthly-byhour-start-09",
+      "input": {
+        "start": "2026-01-30T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;COUNT=4;BYMONTHDAY=-1;BYHOUR=9,17"
+        ],
+        "window": {
+          "start": "2026-01-01T00:00:00Z",
+          "end": "2027-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=MONTHLY;BYMONTHDAY=-1;BYHOUR=9,17;COUNT=4"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2026-01-30T09:00:00Z",
+          "2026-01-31T09:00:00Z",
+          "2026-02-28T09:00:00Z",
+          "2026-03-31T09:00:00Z",
+          "2026-04-30T09:00:00Z"
+        ],
+        "knownDifference": {
+          "reason": "Google uses only the master's 09:00 time. Chrono expands both BYHOUR values.",
+          "chrono": [
+            "2026-01-30T09:00:00Z",
+            "2026-01-31T09:00:00Z",
+            "2026-01-31T17:00:00Z",
+            "2026-02-28T09:00:00Z",
+            "2026-02-28T17:00:00Z"
+          ]
+        }
+      }
+    },
+    {
+      "name": "monthly-byhour-start-17",
+      "input": {
+        "start": "2026-01-30T17:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;COUNT=4;BYMONTHDAY=-1;BYHOUR=9,17"
+        ],
+        "window": {
+          "start": "2026-01-01T00:00:00Z",
+          "end": "2027-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=MONTHLY;BYMONTHDAY=-1;BYHOUR=9,17;COUNT=4"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2026-01-30T17:00:00Z",
+          "2026-01-31T17:00:00Z",
+          "2026-02-28T17:00:00Z",
+          "2026-03-31T17:00:00Z",
+          "2026-04-30T17:00:00Z"
+        ],
+        "knownDifference": {
+          "reason": "Google uses only the master's 17:00 time. Chrono expands both BYHOUR values.",
+          "chrono": [
+            "2026-01-30T17:00:00Z",
+            "2026-01-31T09:00:00Z",
+            "2026-01-31T17:00:00Z",
+            "2026-02-28T09:00:00Z",
+            "2026-02-28T17:00:00Z"
+          ]
+        }
+      }
+    },
+    {
+      "name": "daily-byminute",
+      "input": {
+        "start": "2026-01-02T09:10:05Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=5;BYMINUTE=10,40"
+        ],
+        "window": {
+          "start": "2026-01-01T00:00:00Z",
+          "end": "2026-02-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;BYMINUTE=10,40;COUNT=5"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2026-01-02T09:10:05Z",
+          "2026-01-03T09:10:05Z",
+          "2026-01-04T09:10:05Z",
+          "2026-01-05T09:10:05Z",
+          "2026-01-06T09:10:05Z"
+        ],
+        "knownDifference": {
+          "reason": "Google uses only the master's minute. Chrono expands both BYMINUTE values.",
+          "chrono": [
+            "2026-01-02T09:10:05Z",
+            "2026-01-02T09:40:05Z",
+            "2026-01-03T09:10:05Z",
+            "2026-01-03T09:40:05Z",
+            "2026-01-04T09:10:05Z"
+          ]
+        }
+      }
+    },
+    {
+      "name": "daily-bysecond",
+      "input": {
+        "start": "2026-01-02T09:10:05Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=5;BYSECOND=5,35"
+        ],
+        "window": {
+          "start": "2026-01-01T00:00:00Z",
+          "end": "2026-02-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;BYSECOND=5,35;COUNT=5"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2026-01-02T09:10:05Z",
+          "2026-01-03T09:10:05Z",
+          "2026-01-04T09:10:05Z",
+          "2026-01-05T09:10:05Z",
+          "2026-01-06T09:10:05Z"
+        ],
+        "knownDifference": {
+          "reason": "Google uses only the master's second. Chrono expands both BYSECOND values.",
+          "chrono": [
+            "2026-01-02T09:10:05Z",
+            "2026-01-02T09:10:35Z",
+            "2026-01-03T09:10:05Z",
+            "2026-01-03T09:10:35Z",
+            "2026-01-04T09:10:05Z"
+          ]
+        }
+      }
+    },
+    {
+      "name": "monthly-setpos-without-byhour",
+      "input": {
+        "start": "2026-01-30T17:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;COUNT=4;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=-2"
+        ],
+        "window": {
+          "start": "2026-01-01T00:00:00Z",
+          "end": "2027-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=MONTHLY;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=-2;COUNT=4"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2026-01-30T17:00:00Z",
+          "2026-02-26T17:00:00Z",
+          "2026-03-30T17:00:00Z",
+          "2026-04-29T17:00:00Z",
+          "2026-05-28T17:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "los-angeles-fold-control",
+      "input": {
+        "start": "2026-10-30T08:30:00Z",
+        "timezone": "America/Los_Angeles",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "window": {
+          "start": "2026-10-29T00:00:00Z",
+          "end": "2026-11-08T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2026-10-30T08:30:00Z",
+          "2026-10-31T08:30:00Z",
+          "2026-11-01T08:30:00Z",
+          "2026-11-02T09:30:00Z",
+          "2026-11-03T09:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "los-angeles-fold-early",
+      "input": {
+        "start": "2026-10-30T08:30:00Z",
+        "timezone": "America/Los_Angeles",
+        "rules": [
+          "EXDATE;VALUE=DATE-TIME:20261101T083000Z",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "window": {
+          "start": "2026-10-29T00:00:00Z",
+          "end": "2026-11-08T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=5",
+          "EXDATE:20261101T083000Z"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2026-10-30T08:30:00Z",
+          "2026-10-31T08:30:00Z",
+          "2026-11-02T09:30:00Z",
+          "2026-11-03T09:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "los-angeles-fold-late",
+      "input": {
+        "start": "2026-10-30T08:30:00Z",
+        "timezone": "America/Los_Angeles",
+        "rules": [
+          "EXDATE;VALUE=DATE-TIME:20261101T093000Z",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "window": {
+          "start": "2026-10-29T00:00:00Z",
+          "end": "2026-11-08T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=5",
+          "EXDATE:20261101T093000Z"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2026-10-30T08:30:00Z",
+          "2026-10-31T08:30:00Z",
+          "2026-11-01T08:30:00Z",
+          "2026-11-02T09:30:00Z",
+          "2026-11-03T09:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "los-angeles-until-exact",
+      "input": {
+        "start": "2026-03-06T17:00:00Z",
+        "timezone": "America/Los_Angeles",
+        "rules": [
+          "RRULE:FREQ=DAILY;UNTIL=20260308T160000Z"
+        ],
+        "window": {
+          "start": "2026-03-05T00:00:00Z",
+          "end": "2026-03-12T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;UNTIL=20260308T160000Z"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2026-03-06T17:00:00Z",
+          "2026-03-07T17:00:00Z",
+          "2026-03-08T16:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "los-angeles-until-one-second-before",
+      "input": {
+        "start": "2026-03-06T17:00:00Z",
+        "timezone": "America/Los_Angeles",
+        "rules": [
+          "RRULE:FREQ=DAILY;UNTIL=20260308T155959Z"
+        ],
+        "window": {
+          "start": "2026-03-05T00:00:00Z",
+          "end": "2026-03-12T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;UNTIL=20260308T155959Z"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2026-03-06T17:00:00Z",
+          "2026-03-07T17:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "los-angeles-until-date-only",
+      "input": {
+        "start": "2026-03-06T17:00:00Z",
+        "timezone": "America/Los_Angeles",
+        "rules": [
+          "RRULE:FREQ=DAILY;UNTIL=20260308"
+        ],
+        "window": {
+          "start": "2026-03-05T00:00:00Z",
+          "end": "2026-03-12T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;UNTIL=20260308"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2026-03-06T17:00:00Z",
+          "2026-03-07T17:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rdate-after-until",
+      "input": {
+        "start": "2026-01-02T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RDATE;VALUE=DATE-TIME:20260108T090000Z",
+          "RRULE:FREQ=DAILY;UNTIL=20260104T090000Z"
+        ],
+        "window": {
+          "start": "2026-01-01T00:00:00Z",
+          "end": "2026-02-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;UNTIL=20260104T090000Z",
+          "RDATE:20260108T090000Z"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2026-01-02T09:00:00Z",
+          "2026-01-03T09:00:00Z",
+          "2026-01-04T09:00:00Z",
+          "2026-01-08T09:00:00Z"
+        ]
+      }
+    }
+  ]
+}
