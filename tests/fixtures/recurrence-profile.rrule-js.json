@@ -817,6 +817,211 @@
         "2026-03-08T09:30:00Z",
         "2026-03-08T10:30:00Z"
       ]
+    },
+    {
+      "name": "weekly-bysetpos-partial-first-week",
+      "input": {
+        "lines": [
+          "DTSTART:20260107T090000Z",
+          "RRULE:FREQ=WEEKLY;BYDAY=MO,WE;BYSETPOS=1;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-01-07T09:00:00Z",
+        "2026-01-12T09:00:00Z",
+        "2026-01-19T09:00:00Z"
+      ]
+    },
+    {
+      "name": "timed-weekly-bysetpos-partial-first-week",
+      "input": {
+        "lines": [
+          "DTSTART:20260107T090000Z",
+          "RRULE:FREQ=WEEKLY;BYDAY=MO,WE;BYHOUR=9;BYSETPOS=1;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-01-07T09:00:00Z",
+        "2026-01-12T09:00:00Z",
+        "2026-01-19T09:00:00Z"
+      ]
+    },
+    {
+      "name": "timed-weekly-bysetpos-earlier-clock-on-start-day",
+      "input": {
+        "lines": [
+          "DTSTART:20260107T090000Z",
+          "RRULE:FREQ=WEEKLY;BYDAY=MO,WE;BYHOUR=8,9;BYSETPOS=1;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-01-12T08:00:00Z",
+        "2026-01-19T08:00:00Z",
+        "2026-01-26T08:00:00Z"
+      ]
+    },
+    {
+      "name": "zoned-until-utc-fields-west-of-utc",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260306T090000",
+          "RRULE:FREQ=DAILY;UNTIL=20260308T090000Z"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-03-06T14:00:00Z",
+        "2026-03-07T14:00:00Z",
+        "2026-03-08T13:00:00Z"
+      ]
+    },
+    {
+      "name": "zoned-until-utc-fields-east-of-utc",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Asia/Tokyo:20260101T090000",
+          "RRULE:FREQ=DAILY;UNTIL=20260103T000000Z"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-01-01T00:00:00Z",
+        "2026-01-02T00:00:00Z"
+      ]
+    },
+    {
+      "name": "zoned-until-local-fields-with-time-parts",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260306T090000",
+          "RRULE:FREQ=DAILY;BYHOUR=9;UNTIL=20260308T090000"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-03-06T14:00:00Z",
+        "2026-03-07T14:00:00Z",
+        "2026-03-08T13:00:00Z"
+      ]
+    },
+    {
+      "name": "zoned-subdaily-until-excludes-later-wall-fields",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Asia/Tokyo:20260101T090000",
+          "RRULE:FREQ=HOURLY;UNTIL=20260101T100000Z"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-01-01T00:00:00Z",
+        "2026-01-01T01:00:00Z"
+      ]
+    },
+    {
+      "name": "zoned-until-retains-rdate-after-cutoff",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260306T090000",
+          "RRULE:FREQ=DAILY;UNTIL=20260308T090000Z",
+          "RDATE:20260310T090000Z"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-03-06T14:00:00Z",
+        "2026-03-07T14:00:00Z",
+        "2026-03-08T13:00:00Z",
+        "2026-03-10T13:00:00Z"
+      ]
+    },
+    {
+      "name": "zoned-exrule-before-conversion",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260306T090000",
+          "RRULE:FREQ=DAILY;COUNT=4",
+          "EXRULE:FREQ=DAILY;UNTIL=20260308T090000Z"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-03-09T13:00:00Z"
+      ]
+    },
+    {
+      "name": "bare-until-is-midnight-on-timed-rule",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;UNTIL=20260103"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-01-07"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "zoned-bare-until-compares-encoded-midnight",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Asia/Tokyo:20260101T090000",
+          "RRULE:FREQ=DAILY;UNTIL=20260103"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-01-07"
+      },
+      "expected": [
+        "2026-01-01T00:00:00Z",
+        "2026-01-02T00:00:00Z"
+      ]
+    },
+    {
+      "name": "bare-until-includes-exact-midnight",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;UNTIL=20260103"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-01-07"
+      },
+      "expected": [
+        "2026-01-01T00:00:00Z",
+        "2026-01-02T00:00:00Z",
+        "2026-01-03T00:00:00Z"
+      ]
+    },
+    {
+      "name": "bare-until-remains-inclusive-for-civil-dates",
+      "input": {
+        "lines": [
+          "DTSTART:20260101",
+          "RRULE:FREQ=DAILY;UNTIL=20260103"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-01-07"
+      },
+      "expected": [
+        "2026-01-01",
+        "2026-01-02",
+        "2026-01-03"
+      ]
     }
   ]
 }

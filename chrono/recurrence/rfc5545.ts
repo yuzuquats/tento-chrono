@@ -139,6 +139,14 @@ function validateRule(line: string, start: Form): void {
     content.attributes.slice(1).every((part) => /^[A-Z0-9-]+=/i.test(part)),
     "Invalid RRULE parameter",
   );
+  const valueParams = content.attributes.slice(1).filter((part) =>
+    /^VALUE=/i.test(part)
+  );
+  check(
+    valueParams.length === 0 ||
+      (valueParams.length === 1 && valueParams[0].toUpperCase() === "VALUE=RECUR"),
+    "RRULE requires VALUE=RECUR",
+  );
   const parts = new Map<string, string>();
   for (const part of content.value.toUpperCase().split(";")) {
     const match = /^([A-Z]+)=([^=]+)$/.exec(part);

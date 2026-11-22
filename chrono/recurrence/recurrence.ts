@@ -125,7 +125,11 @@ export interface RecurrenceComposition {
   /** A provider's RDATE set may use DTSTART only to supply context. */
   readonly includeStartWithoutRule?: boolean;
   /** dateutil compares same-zone rule candidates by their original wall time. */
-  readonly distinguishImaginaryWallTimes?: boolean;
+  readonly useDateutilWallIdentity?: boolean;
+  /** Count positions within the first weekly day set from DTSTART's date. */
+  readonly clipFirstWeek?: boolean;
+  /** Compare timed UNTIL with the encoded wall fields before timezone conversion. */
+  readonly untilUsesWallTime?: boolean;
   /**
    * Google's BYWEEKNO handling: the consecutive-weekly COUNT patterns
    * (`detectCountPattern`), the generator start date
@@ -333,7 +337,7 @@ export function exclusionsOf(
       const form = line.forms?.[i] ?? { timed: true, utc: false };
       if (line.value === "DATE" || !form.timed) localDays.add(ndt.date.dse);
       else if (
-        composition.distinguishImaginaryWallTimes && !form.utc &&
+        composition.useDateutilWallIdentity && !form.utc &&
         line.region != null && line.region.fullname === timezone?.fullname
       ) localTimes.add(ndt.mse);
       else if (composition.resolveExdate != null) {
@@ -378,7 +382,7 @@ export function exclusionsOfLines(
       const ndt = d.extend();
       if (exdate.valueType === "DATE" || d.nt == null) localDays.add(ndt.date.dse);
       else if (
-        composition.distinguishImaginaryWallTimes && d.z == null &&
+        composition.useDateutilWallIdentity && d.z == null &&
         exdate.tzid != null && exdate.tzid === seriesZone
       ) localTimes.add(ndt.mse);
       else if (composition.resolveExdate != null) {
@@ -539,7 +543,10 @@ function ensureEventsGenerated(
  */
 function placeInstance(state: RecurrenceGenerationState, local: NaiveDateTime): boolean {
   const event = resolveSeriesWall(state.composition, state.timezone, state.startDateTime, local);
-  if (state.untilDt?.isBefore(event)) {
+  const pastUntil = state.composition.untilUsesWallTime
+    ? state.wallUntilBound != null && local.mse > state.wallUntilBound.mse
+    : state.untilDt?.isBefore(event);
+  if (pastUntil) {
     // A spring-forward gap candidate can shift past UNTIL while a later
     // post-gap wall time resolves <= UNTIL. Only end the series once wall
     // time itself passes `wallUntilBound`.
@@ -552,13 +559,17 @@ function placeInstance(state: RecurrenceGenerationState, local: NaiveDateTime): 
   }
   if (isExcluded(state.excl, local, event)) return false;
   flushRdates(state, event.mse);
-  const imaginary = state.composition.distinguishImaginaryWallTimes &&
-    state.timezone != null &&
-    state.timezone.toTz(event).ndt.mse !== local.mse;
-  // dateutil compares adjacent UTC RDATEs by instant. A different candidate
-  // between the RDATE and the imaginary wall time ends that equality.
-  if (state.lastMergedRdateMse !== event.mse) state.lastMergedRdateMse = undefined;
-  const key = imaginary && state.lastMergedRdateMse == null ? "wall:" + local.mse : event.mse;
+  let key: number | string = event.mse;
+  if (state.composition.useDateutilWallIdentity && state.timezone != null) {
+    const imaginary = state.timezone.toTz(event).ndt.mse !== local.mse;
+    const repeated = !imaginary && state.timezone.toWallClock(local).mse > event.mse;
+    // UTC RDATE can compare equal to an adjacent gap candidate. In a fold
+    // Python's cross-zone equality keeps a UTC RDATE and a rule's wall time distinct.
+    if (state.lastMergedRdateMse !== event.mse) state.lastMergedRdateMse = undefined;
+    if (repeated || (imaginary && state.lastMergedRdateMse == null)) {
+      key = "wall:" + local.mse;
+    }
+  }
   appendGenerated(state, event, key);
   return false;
 }
@@ -573,7 +584,7 @@ function flushRdates(state: RecurrenceGenerationState, beforeMse: number): void 
     const next = state.rdates[state.rdateNext]!;
     if (next.mse > beforeMse) return;
     state.rdateNext++;
-    if (state.composition.distinguishImaginaryWallTimes) {
+    if (state.composition.useDateutilWallIdentity) {
       state.lastMergedRdateMse = next.mse;
     }
     appendGenerated(state, next);
@@ -874,14 +885,14 @@ export class GoogleEventGenerator {
     const rruleUntil = rrule?.inner.options?.until;
     const untilDate = rruleUntil?.trunc();
     const untilWall = untilDate && rruleUntil?.nt ? untilDate.withTime(rruleUntil.nt) : null;
-    const untilDt = untilWall == null ? null : rruleUntil?.z != null
+    const untilDt = untilWall == null || composition.untilUsesWallTime ? null : rruleUntil?.z != null
       ? untilWall.asUtc()
       : resolveSeriesWall(composition, timezone, startDateTime, untilWall);
     const untilLocal = untilDt?.toTz(timezone?.tzAtMse(untilDt.mse) ?? startDateTime.tz).ndt ?? null;
     // Exact upper wall-clock bound for `untilDt`: covers multi-hour fall-back
     // overlaps (e.g. Antarctica/Casey's 3-hour fall-back) and forward jumps
     // without generating extra candidates on non-transition days.
-    let wallUntilBound: Option<NaiveDateTime> = null;
+    let wallUntilBound = composition.untilUsesWallTime ? untilWall : null;
     if (untilDt != null && untilLocal != null) {
       if (timezone != null) {
         const untilOffsetMs = timezone.tzAtMse(untilDt.mse).info.offset.toMs;
@@ -903,7 +914,13 @@ export class GoogleEventGenerator {
     // EXDATEs match instances (RFC 5545 §3.8.5.1), DTSTART's included.
     const excl = exclusionsOf(recurrence, timezone ?? null, composition);
     const startDateExcluded = isExcluded(excl, startLocal, startUtc);
-    const rdates = rdatesOf(recurrence, startDateTime, timezone ?? null, startLocal, excl, composition);
+    // dateutil's zoned rules have UTC RDATEs. Compare their EXDATEs in the
+    // UTC frame so fold-sensitive wall exclusions apply only to rule instances.
+    const rdateExcl = composition.useDateutilWallIdentity && timezone != null &&
+        recurrence.inner.lines.rdate?.length
+      ? exclusionsOf(recurrence, null, composition)
+      : excl;
+    const rdates = rdatesOf(recurrence, startDateTime, timezone ?? null, startLocal, rdateExcl, composition);
 
     // The rule's dates, unfiltered by EXDATE (matched per instance here).
     const generator = rrule != null
@@ -920,7 +937,9 @@ export class GoogleEventGenerator {
       )
       : (function* () {})();
 
-    const wallGenerator = shouldUseTimeParts(recurrence.inner)
+    const clipFirstWeek = composition.clipFirstWeek === true &&
+      rrule?.inner.freq === "weekly" && Boolean(rrule.inner.options?.bysetpos?.length);
+    const wallGenerator = clipFirstWeek || shouldUseTimeParts(recurrence.inner)
       ? RRuleInstances.expand(
         rrule!,
         startLocal,
@@ -930,6 +949,7 @@ export class GoogleEventGenerator {
         isDateOnlyDtstart(recurrence.inner),
         undefined,
         composition.useGoogleYearlyWeeks,
+        clipFirstWeek,
       )
       : null;
 

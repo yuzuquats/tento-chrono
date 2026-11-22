@@ -575,6 +575,33 @@
         "2026-01-01T09:00:00Z",
         "2026-01-02T09:00:00Z"
       ]
+    },
+    {
+      "name": "rrule-reject-incorrect-value-type",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE;VALUE=TEXT;X-NOTE=Example:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31"
+      },
+      "expected": {
+        "error": "RRULE requires VALUE=RECUR"
+      }
+    },
+    {
+      "name": "rrule-accept-explicit-recur-value-type",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE;VALUE=RECUR;X-NOTE=Example:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
     }
   ]
 }

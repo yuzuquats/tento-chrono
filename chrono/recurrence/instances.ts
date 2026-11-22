@@ -50,6 +50,7 @@ export namespace RRuleInstances {
     ignoreTimeParts: boolean = false,
     horizonMs: number = Infinity,
     useGoogleYearlyWeeks: boolean = false,
+    clipFirstWeek: boolean = false,
   ): Generator<NaiveDateTime> {
     if (generationLimit != null && (!Number.isSafeInteger(generationLimit) || generationLimit < 0)) throw new RangeError("generationLimit must be a nonnegative safe integer");
     const options = rule.inner.options;
@@ -68,7 +69,7 @@ export namespace RRuleInstances {
     const cutoff = Math.min(horizonMs, untilWall?.mse ?? (untilDay != null
       ? (untilDay.dse + (useGoogleCalendarBehavior ? 0 : 1)) * Time.MS_PER_DAY - 1 : Infinity));
     let emitted = 0;
-    for (const at of candidates(rule, dtstart, useGoogleCalendarBehavior, generationLimit, ignoreTimeParts, cutoff, useGoogleYearlyWeeks)) {
+    for (const at of candidates(rule, dtstart, useGoogleCalendarBehavior, generationLimit, ignoreTimeParts, cutoff, useGoogleYearlyWeeks, clipFirstWeek && rule.inner.freq === "weekly")) {
       if (at.mse < dtstart.mse) continue;
       if (ended(at) || at.mse > cutoff) return;
       if (generationLimit != null && emitted >= generationLimit) throw new RecurrenceExpansionLimitError(generationLimit);
@@ -97,6 +98,7 @@ export namespace RRuleInstances {
     ignoreTimeParts: boolean = false,
     horizonMs: number = Infinity,
     useGoogleYearlyWeeks: boolean = false,
+    clipFirstWeek: boolean = false,
   ): Generator<NaiveDateTime> {
     switch (rule.inner.freq) {
       case "hourly":
@@ -104,7 +106,7 @@ export namespace RRuleInstances {
       case "secondly":
         return subDaily(rule, dtstart, google, generationLimit, ignoreTimeParts, horizonMs);
       default:
-        return byDay(rule, dtstart, google, generationLimit, ignoreTimeParts, horizonMs, useGoogleYearlyWeeks);
+        return byDay(rule, dtstart, google, generationLimit, ignoreTimeParts, horizonMs, useGoogleYearlyWeeks, clipFirstWeek);
     }
   }
 
@@ -136,14 +138,17 @@ export namespace RRuleInstances {
     ignoreTimeParts: boolean = false,
     horizonMs: number = Infinity,
     useGoogleYearlyWeeks: boolean = false,
+    clipFirstWeek: boolean = false,
   ): Generator<NaiveDateTime> {
     const props = rule.toFilterProps(
-      null, null, google, null, ignoreTimeParts, useGoogleYearlyWeeks ? dtstart.date : undefined,
+      null, null, google, null, ignoreTimeParts, useGoogleYearlyWeeks ? dtstart.date : undefined, clipFirstWeek,
     );
     const step = props.step;
     const filter = filterOf(props);
     // Without time parts the day filter already applied BYSETPOS (`toFilterProps`).
-    const setpos = !ignoreTimeParts && rule.hasTimeParts() ? nonEmpty(rule.inner.options?.bysetpos) : null;
+    const setpos = clipFirstWeek || (!ignoreTimeParts && rule.hasTimeParts())
+      ? nonEmpty(rule.inner.options?.bysetpos)
+      : null;
     const times = timesOfDay(rule, dtstart, ignoreTimeParts);
     if (times.length === 0) return;
 
@@ -167,7 +172,11 @@ export namespace RRuleInstances {
       const days = new Map<number, NaiveDate>();
       for (const [day] of filter([period, step.type])) {
         const valid = day.toResult().asOk();
-        if (valid != null) days.set(valid.dse, valid);
+        // The first weekly day set in dateutil and rrule.js starts on DTSTART's
+        // date. Times on that date still participate in selecting positions.
+        if (valid != null && (!clipFirstWeek || valid.dse >= dtstart.date.dse)) {
+          days.set(valid.dse, valid);
+        }
       }
       const sorted = [...days.values()].sort((a, b) => a.dse - b.dse);
       // Select positions by index, or yield the grid lazily. A yearly rule

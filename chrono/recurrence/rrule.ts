@@ -450,6 +450,7 @@ export class RRule {
     untilDateOverride?: Option<NaiveDate>,
     ignoreTimeParts: boolean = false,
     googleYearlyStart?: NaiveDate | null,
+    deferSetPos = false,
   ): NaiveDate.FilterProps {
     const options = this.inner.options;
 
@@ -610,7 +611,7 @@ export class RRule {
     // BYSETPOS picks from each period's whole set of days. A rule with time
     // parts applies it to the set of instants instead (`RRuleInstances`).
     const setpos = options?.bysetpos;
-    const filter = setpos != null && setpos.length > 0 && (ignoreTimeParts || !this.hasTimeParts())
+    const filter = !deferSetPos && setpos != null && setpos.length > 0 && (ignoreTimeParts || !this.hasTimeParts())
       ? NaiveDate.Filter.bySetPos(composed, setpos)
       : composed;
 

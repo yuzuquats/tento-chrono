@@ -191,3 +191,37 @@ before BYDAY narrows the week. Seven reference fixtures cover those
 boundaries and a daily control. Chrono builds each
 year’s mask on demand, so it can satisfy COUNT before dateutil’s
 lookahead would raise an out-of-range offset error.
+
+
+## Partial weeks, encoded UNTIL, and fold equality
+
+Both pinned libraries limit the first weekly date set to days on or after
+DTSTART before selecting BYSETPOS. They still let earlier times on the
+start date affect the selection. The bound profiles now apply that ordering
+to both date-level and timed rules.
+
+rrule.js 2.8.1 compares zoned candidates to UNTIL before timezone
+conversion. The captured New York rule includes a March 8 start whose
+resolved UTC instant is after the literal cutoff. The Tokyo control omits
+a start that resolves exactly to the literal cutoff. EXRULE uses the same
+comparison, and RDATE remains independent of a rule's cutoff.
+
+dateutil 2.8.2 keeps an ambiguous rule start and a UTC RDATE at the same
+instant as separate occurrences. The fold fixtures also verify each
+exclusion form, including EXRULE. The bound reader applies dateutil's
+timezone-awareness checks to rule sets at read time, including mismatches
+Python reports during iteration, and accepts its supported RDATE
+parameter. The RFC reader checks the explicit RRULE value type.
+
+The profile fixtures add 15 dateutil captures, nine rrule.js captures
+under `TZ=UTC`, and two RFC validation controls. The validation logs are
+`profile-partial-week-*.log` in the existing evidence directory.
+
+The publication cutoff check also found that both pinned libraries read
+bare UNTIL dates as midnight on timed rules. Seven captures cover that
+interpretation, exact midnight inclusivity, and DATE series. Six dateutil
+captures verify that RDATE and EXDATE agree on timezone awareness with
+EXRULE or each other, including sets without an RRULE.
+
+The publication export passed Deno type checking, 96 doc tests, and
+1,306 suite tests with 319 steps and seven existing ignores.

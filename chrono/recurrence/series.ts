@@ -179,14 +179,19 @@ export class RecurrenceSeries {
         } else {
           if (name === "DTSTART" || name === "RDATE" || name === "EXDATE") {
             const property = splitICalProperty(line);
+            if (profile === "dateutil" && name === "RDATE") {
+              const unsupported = property?.attributes.slice(1).find((attribute) =>
+                attribute.toUpperCase() !== "VALUE=DATE-TIME"
+              );
+              if (unsupported != null) {
+                throw new Error("unsupported RDATE parm: " + unsupported.toUpperCase());
+              }
+            }
             const tzidIndex = property?.attributes.findIndex((attribute) =>
               /^TZID=/i.test(attribute)
             ) ?? -1;
             if (property != null && tzidIndex >= 0) {
               const attribute = property.attributes[tzidIndex];
-              if (profile === "dateutil" && name === "RDATE") {
-                throw new Error("unsupported RDATE parm: " + attribute.toUpperCase());
-              }
               const zone = await loadZone(attribute.slice(5).replace(/^"([^"]*)"$/, "$1"));
               property.attributes[tzidIndex] = "TZID=" + zone.fullname;
               shared.push(property.attributes.join(";") + ":" + property.value);
@@ -212,6 +217,9 @@ export class RecurrenceSeries {
         const raw = await ICalendar.Raw.parse([normalizedStart, rule]);
         if (raw.isErr) return err(raw.asErr()!);
         exclusionRules.push(profileRecurrence(raw.exp(), rule, profile));
+      }
+      if (profile === "dateutil") {
+        validateDateutilDateSet(rules[0].inner, ruleLines.length > 0 || exclusionLines.length > 0);
       }
       if (bound == null) {
         const parsed = rules[0].inner.dtstart!;
@@ -253,7 +261,8 @@ function compositionFor(profile: RecurrenceProfile): RecurrenceComposition {
     return {
       ...RecurrenceComposition.RULE_ONLY,
       includeStartWithoutRule: false,
-      distinguishImaginaryWallTimes: true,
+      useDateutilWallIdentity: true,
+      clipFirstWeek: true,
       resolveWallTime: (zone, local) => zone.toDateutilWallClock(local),
       resolveExdate: dateutilExdate,
     };
@@ -262,6 +271,8 @@ function compositionFor(profile: RecurrenceProfile): RecurrenceComposition {
     return {
       ...RecurrenceComposition.RULE_ONLY,
       includeStartWithoutRule: false,
+      clipFirstWeek: true,
+      untilUsesWallTime: true,
       resolveWallTime: (zone, local) => rruleJsDate(local, zone),
       resolveExdate: (value, _region, _utc, seriesZone) =>
         rruleJsDate(value, seriesZone),
@@ -375,9 +386,9 @@ function profileRecurrence(
   profile: RecurrenceProfile,
 ): Recurrence {
   const rule = raw.rrule;
-  if (profile !== "dateutil" || line == null || rule == null) {
-    return new Recurrence(raw);
-  }
+  if (profile !== "dateutil") return new Recurrence(raw);
+  validateDateutilUntil(raw);
+  if (line == null || rule == null) return new Recurrence(raw);
   const easter = /(?:^RRULE:|;)BYEASTER=([^;]*)/.exec(line)?.[1];
   if (easter == null) return new Recurrence(raw);
   const parts = easter.split(",");
@@ -396,6 +407,31 @@ function profileRecurrence(
     },
   }, rule.parameterOrder);
   return new Recurrence(new ICalendar.Raw({ ...raw.lines, rrule }, raw.order));
+}
+
+function dateutilStartIsAware(raw: ICalendar.Raw): boolean {
+  return raw.dtstart?.region != null || raw.dtstart?.forms?.[0]?.utc === true;
+}
+
+function validateDateutilUntil(raw: ICalendar.Raw): void {
+  const until = raw.rrule?.inner.options?.until;
+  if (until != null && (until.z != null) !== dateutilStartIsAware(raw)) {
+    throw new Error("RRULE UNTIL values must be specified in UTC when DTSTART is timezone-aware");
+  }
+}
+
+function validateDateutilDateSet(raw: ICalendar.Raw, hasRules: boolean): void {
+  // DTSTART supplies context only when no rule generates occurrences from it.
+  let aware = hasRules ? dateutilStartIsAware(raw) : undefined;
+  for (const line of [...(raw.lines.rdate ?? []), ...(raw.lines.exdate ?? [])]) {
+    for (const form of line.forms ?? []) {
+      const dateIsAware = line.region != null || form.utc;
+      aware ??= dateIsAware;
+      if (dateIsAware !== aware) {
+        throw new Error("can't compare offset-naive and offset-aware datetimes");
+      }
+    }
+  }
 }
 
 function profileRule(
@@ -421,6 +457,10 @@ function profileRule(
         value.split(",").map((second) => Number(second) === 60 ? "59" : second)
           .join(","),
     );
+  }
+  if (profile === "dateutil" || profile === "rrule-js") {
+    // The libraries parse bare UNTIL dates as midnight timestamps.
+    return rule.replace(/([:;]UNTIL=)(\d{8})(?=;|$)/, "$1$2T000000");
   }
   if (profile !== "google") return rule;
   const frequency = /(?:^RRULE:|;)FREQ=([^;]+)/.exec(rule)?.[1];
