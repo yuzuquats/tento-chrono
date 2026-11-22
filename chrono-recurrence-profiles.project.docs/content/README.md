@@ -111,3 +111,12 @@ The fixture suite now covers 185 captured expansions and 18 captured
 rejections, plus 27 RFC cases. Source captures are under the existing
 evidence directory as `google-expansion-rwc04-{coverage,frequency-confirm}.json`,
 `graph-expansion-rwc04-coverage.json`, and `recurrence-profile-rdate-*.json`.
+
+## Public usage and RFC controls
+
+The recurrence guide and runnable example now use the profile-bound reader
+for RFC and Google inputs. Three additional default-profile fixtures verify
+hourly recurrence, both explicit UTC RDATE instants in a DST fold, and
+foreign-TZID RDATE resolution. These exercise the same inputs that require
+different behavior in the compatibility profiles. The corpus now contains
+203 captured outcomes and 30 RFC cases.

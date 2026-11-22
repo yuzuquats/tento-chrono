@@ -380,6 +380,57 @@
         "2026-11-02T06:30:00Z",
         "2026-11-03T06:30:00Z"
       ]
+    },
+    {
+      "name": "hourly frequency expands the RFC minute selectors",
+      "input": {
+        "lines": [
+          "DTSTART:20260105T091005Z",
+          "RRULE:FREQ=HOURLY;BYMINUTE=10,40;COUNT=4"
+        ],
+        "through": "2026-01-05"
+      },
+      "expected": [
+        "2026-01-05T09:10:05Z",
+        "2026-01-05T09:40:05Z",
+        "2026-01-05T10:10:05Z",
+        "2026-01-05T10:40:05Z"
+      ]
+    },
+    {
+      "name": "UTC rdate keeps both fold instants",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261031T001500",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20261101T053000Z,20261101T063000Z"
+        ],
+        "through": "2026-11-04"
+      },
+      "expected": [
+        "2026-10-31T04:15:00Z",
+        "2026-11-01T04:15:00Z",
+        "2026-11-01T05:30:00Z",
+        "2026-11-01T06:30:00Z",
+        "2026-11-02T05:15:00Z"
+      ]
+    },
+    {
+      "name": "rdate with a foreign tzid resolves in that zone",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260307T011500",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE;TZID=America/Chicago:20260308T023000"
+        ],
+        "through": "2026-03-10"
+      },
+      "expected": [
+        "2026-03-07T06:15:00Z",
+        "2026-03-08T06:15:00Z",
+        "2026-03-08T08:30:00Z",
+        "2026-03-09T05:15:00Z"
+      ]
     }
   ]
 }

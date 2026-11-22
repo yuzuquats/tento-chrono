@@ -151,13 +151,9 @@ export interface RecurrenceComposition {
    * (BYWEEKNO included). EXDATE removes instances from the set the rule and
    * its RDATEs generated; it never pulls in a later instance to refill the
    * count. This is RFC 5545's set semantics (§3.8.5.1, §3.3.10), and it is
-   * what every recorded Google expansion that has both COUNT and EXDATE
-   * shows: `weekly_multiple_exdates` (COUNT=8 with 3 EXDATEs gives 5) and
-   * `start_date_excluded_by_exdate` (COUNT=5 with 1 EXDATE gives 4). Google
-   * has no recording with BYWEEKNO and EXDATE together. The BYWEEKNO path
-   * was brought into line by per-instance EXDATE (8cba6513fa), and the
-   * operator accepted that on 2026-10-03. The case `byweekno_with_exdate` in
-   * `tests/test_recurrence_composition.deno.test.ts` pins it.
+   * what the Google recordings show. The live `week-count-exclude` capture
+   * combines BYWEEKNO, COUNT=4, and an EXDATE. Google returns three
+   * occurrences and leaves the later rule candidate outside the count.
    */
   readonly exdateCountsTowardCount: true;
 }

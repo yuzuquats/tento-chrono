@@ -55,17 +55,13 @@ This policy keeps wall-clock resolution deterministic. Code that needs to show
 the transition itself should use `DateRegion` and `DateFragment`, which expose
 multiple fragments for a day that changes offset.
 
-## Google Calendar Behavior
+## Google Calendar behavior
 
-`googleDatetimeResolved()` exists because Google Calendar recurrence behavior is
-not a pure RFC 5545 implementation. For recurring events, Google preserves local
-time across daylight-saving transitions. The implementation also models Google's
-spring-forward boundary behavior, including the 60-minute rule used by the test
-fixtures.
-
-Use this path through `Recurrence` / `GoogleEventGenerator`; application code
-should not call it unless it is intentionally matching Google Calendar event
-generation.
+Choose the Google profile when reading a recurrence with
+`Recurrence.fromICalendar()`. The profile applies Google's wall-clock rules
+during expansion. The Lord Howe captures show that Google uses the new offset
+at the end of the 30-minute spring gap. The low-level resolver's original
+60-minute option remains available for existing callers.
 
 ## DateTimeRegion
 
