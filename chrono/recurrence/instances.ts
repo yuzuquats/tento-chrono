@@ -37,6 +37,9 @@ export namespace RRuleInstances {
    * (RFC 5545 §3.3.10) and exclusive of that day when
    * `useGoogleCalendarBehavior` is true. `useGoogleCalendarBehavior` also
    * selects Google's BYWEEKNO reading, matching the date generator.
+   * `horizonMs` is an inclusive wall-clock caller bound. Finite horizons
+   * scan all relevant periods unless an explicit work budget is exhausted;
+   * unbounded searches without a budget retain graceful IDLE_LIMIT termination.
    */
   export function* expand(
     rule: RRule,
@@ -45,7 +48,9 @@ export namespace RRuleInstances {
     generationLimit?: number,
     untilWallOverride?: Option<NaiveDateTime>,
     ignoreTimeParts: boolean = false,
+    horizonMs: number = Infinity,
   ): Generator<NaiveDateTime> {
+    if (generationLimit != null && (!Number.isSafeInteger(generationLimit) || generationLimit < 0)) throw new RangeError("generationLimit must be a nonnegative safe integer");
     const options = rule.inner.options;
     const count = options?.count ?? null;
     if (count != null && count <= 0) return;
@@ -59,10 +64,13 @@ export namespace RRuleInstances {
         ? at.mse > untilWall.mse
         : untilDay != null && (useGoogleCalendarBehavior ? at.date.dse >= untilDay.dse : at.date.dse > untilDay.dse);
 
+    const cutoff = Math.min(horizonMs, untilWall?.mse ?? (untilDay != null
+      ? (untilDay.dse + (useGoogleCalendarBehavior ? 0 : 1)) * Time.MS_PER_DAY - 1 : Infinity));
     let emitted = 0;
-    for (const at of candidates(rule, dtstart, useGoogleCalendarBehavior, generationLimit, ignoreTimeParts)) {
+    for (const at of candidates(rule, dtstart, useGoogleCalendarBehavior, generationLimit, ignoreTimeParts, cutoff)) {
       if (at.mse < dtstart.mse) continue;
-      if (ended(at)) return;
+      if (ended(at) || at.mse > cutoff) return;
+      if (generationLimit != null && emitted >= generationLimit) throw new RecurrenceExpansionLimitError(generationLimit);
       yield at;
       emitted++;
       if (count != null && emitted >= count) return;
@@ -86,14 +94,15 @@ export namespace RRuleInstances {
     google: boolean,
     generationLimit?: number,
     ignoreTimeParts: boolean = false,
+    horizonMs: number = Infinity,
   ): Generator<NaiveDateTime> {
     switch (rule.inner.freq) {
       case "hourly":
       case "minutely":
       case "secondly":
-        return subDaily(rule, dtstart, google, generationLimit, ignoreTimeParts);
+        return subDaily(rule, dtstart, google, generationLimit, ignoreTimeParts, horizonMs);
       default:
-        return byDay(rule, dtstart, google, generationLimit, ignoreTimeParts);
+        return byDay(rule, dtstart, google, generationLimit, ignoreTimeParts, horizonMs);
     }
   }
 
@@ -123,6 +132,7 @@ export namespace RRuleInstances {
     google: boolean,
     generationLimit?: number,
     ignoreTimeParts: boolean = false,
+    horizonMs: number = Infinity,
   ): Generator<NaiveDateTime> {
     const props = rule.toFilterProps(null, null, google, null, ignoreTimeParts);
     const step = props.step;
@@ -143,6 +153,11 @@ export namespace RRuleInstances {
     let examined = 0;
     let idle = 0;
     for (const period of NaiveDate.ndsucc(start, step, Number.MAX_SAFE_INTEGER)) {
+      const firstDay = step.type === "year" ? NaiveDate.fromYmd1Exp(period.yr, 1, 1)
+        : step.type === "month" ? NaiveDate.fromYmd1Exp(period.yr, period.mth, 1) : period;
+      // BYWEEKNO may select the preceding year's final days.
+      const slack = step.type === "year" && nonEmpty(rule.inner.options?.byweekno) != null ? 7 : 0;
+      if ((firstDay.dse - slack) * Time.MS_PER_DAY > horizonMs) return;
       if (generationLimit != null && ++examined > generationLimit) throw new RecurrenceExpansionLimitError(generationLimit);
       const days = new Map<number, NaiveDate>();
       for (const [day] of filter([period, step.type])) {
@@ -159,9 +174,7 @@ export namespace RRuleInstances {
       const last = size === 0 ? null : new NaiveDateTime(sorted[sorted.length - 1], times[times.length - 1]);
       // Periods wholly before DTSTART (none: the first period holds it) and empty ones count toward the idle limit.
       if (last == null || (indices != null && indices.length === 0) || last.mse < dtstart.mse) {
-        if (++idle >= (generationLimit ?? IDLE_LIMIT)) {
-          throw new RecurrenceExpansionLimitError(generationLimit ?? IDLE_LIMIT);
-        }
+        if (++idle >= IDLE_LIMIT && generationLimit == null && !Number.isFinite(horizonMs)) return;
         continue;
       }
       idle = 0;
@@ -185,6 +198,7 @@ export namespace RRuleInstances {
     google: boolean,
     generationLimit?: number,
     ignoreTimeParts: boolean = false,
+    horizonMs: number = Infinity,
   ): Generator<NaiveDateTime> {
     const options = rule.inner.options;
     const freq = rule.inner.freq;
@@ -213,16 +227,15 @@ export namespace RRuleInstances {
     let examined = 0;
     let idle = 0;
     while (true) {
-      if (generationLimit != null && ++examined > generationLimit) throw new RecurrenceExpansionLimitError(generationLimit);
       const periodMs = first + k * stepMs;
+      if (periodMs > horizonMs) return;
+      if (generationLimit != null && ++examined > generationLimit) throw new RecurrenceExpansionLimitError(generationLimit);
       const period = NaiveDateTime.fromMse(periodMs as MsSinceEpoch);
       // The first period, at or after `ms`, that the stepping reaches.
       const skipTo = (ms: number) => {
         k = Math.max(k + 1, Math.ceil((ms - first) / stepMs));
       };
-      if (++idle > (generationLimit ?? IDLE_LIMIT)) {
-        throw new RecurrenceExpansionLimitError(generationLimit ?? IDLE_LIMIT);
-      }
+      if (++idle > IDLE_LIMIT && generationLimit == null && !Number.isFinite(horizonMs)) return;
 
       if (!dayOk(period.date)) {
         skipTo((period.date.dse + 1) * Time.MS_PER_DAY);

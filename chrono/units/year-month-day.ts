@@ -735,6 +735,7 @@ export namespace YearMonthDay {
     weekStart: Weekday;
   }): Generator<YearMonthDay> {
     if (limit != null && limit <= 0) return;
+    if (Number.isNaN(recurLimit)) throw new RangeError("recurLimit must not be NaN");
     if (recurLimit <= 0) { onExhausted?.(); return; }
     if (step.value < 0) throw new RangeError("date range step must be positive");
     let periods = 0;
@@ -754,6 +755,8 @@ export namespace YearMonthDay {
     // COUNT, and one that never matches (BYMONTH=2;BYMONTHDAY=30) ends.
     let idle = 0;
     for (const i of YearMonthDay.ndsucc(iterStart, step, Number.MAX_SAFE_INTEGER)) {
+      const slack = step.type === "year" ? 7 : 0;
+      if (end && firstDayOf(i, step.type).castValid().addDays(-slack).cmpInvalid(end) > 0) return;
       // Explicit required reads bound examined periods as well as output.
       if (onExhausted && ++periods > recurLimit) { onExhausted(); return; }
       let yielded = false;
@@ -762,12 +765,13 @@ export namespace YearMonthDay {
         if (!nd) continue;
         if (nd.cmpInvalid(start) < 0) continue;
         if (end && nd.cmpInvalid(end) > 0) continue;
+        if (recurCnt >= recurLimit) { onExhausted?.(); return; }
         yield nd;
         yielded = true;
         cnt += 1;
         recurCnt += 1;
         if (limit != null && cnt >= limit) return;
-        if (recurCnt >= recurLimit) { onExhausted?.(); return; }
+        if (!onExhausted && recurCnt >= recurLimit) return;
       }
       if (yielded) idle = 0;
       else if (++idle >= IDLE_PERIODS && end == null) { onExhausted?.(); return; }

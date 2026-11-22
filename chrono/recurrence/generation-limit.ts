@@ -7,8 +7,9 @@
  * Date generators are lazy; event reads eagerly retain their generated buffer.
  * Omit the work budget for complete finite horizons, or supply it when latency
  * and memory must be bounded and handle this error. A lookahead may consume work.
- * Timed searches also fail explicitly on their idle-work guard; legacy unbounded
- * date-only searches retain their idle termination and default output cap.
+ * Finite timed horizons scan all relevant periods without an implicit idle cap.
+ * Unbounded searches without a budget retain graceful idle termination; legacy
+ * date-only materialization also retains its default output cap.
  */
 export class RecurrenceExpansionLimitError extends Error {
   constructor(readonly limit: number, readonly eventId?: string) {

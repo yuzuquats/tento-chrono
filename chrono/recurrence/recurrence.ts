@@ -1156,7 +1156,8 @@ function* timedDays(
   const ignoreTimeParts = isDateOnlyDtstart(inner);
   const ruleDays = (function* () {
     let last: Option<number> = null;
-    for (const at of RRuleInstances.expand(inner.rrule!, start, google, undefined, undefined, ignoreTimeParts)) {
+    for (const at of RRuleInstances.expand(inner.rrule!, start, google, undefined, undefined, ignoreTimeParts,
+      end != null ? (end.dse + 1) * 86400000 - 1 : Infinity)) {
       const dse = at.date.dse;
       if (end != null && dse > end.dse) return;
       if (dse === last) continue;

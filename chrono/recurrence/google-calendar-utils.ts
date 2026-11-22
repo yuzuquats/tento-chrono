@@ -233,5 +233,6 @@ export function* processAllEvents(
     
     yield event;
     emittedCount++;
+    if (countLimit != null && emittedCount >= countLimit) return;
   }
 }

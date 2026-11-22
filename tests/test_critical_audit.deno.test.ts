@@ -200,3 +200,58 @@ Deno.test("audit follow-up: zero COUNT keeps independent RDATEs and subdaily NaN
     assertThrows(() => [...r.generate(undefined, 2)], RangeError);
   }
 });
+
+Deno.test("audit r3: timed empty periods stop at UNTIL and caller horizons", async () => {
+  for (const [start, rule, expected] of [
+    ["20260101T000000Z", "FREQ=SECONDLY;INTERVAL=65521;BYMONTH=1;BYMONTHDAY=1;BYHOUR=0;BYMINUTE=0;BYSECOND=0;UNTIL=20260102T000000Z", ["2026-01-01"]],
+    ["20260101T090000Z", "FREQ=DAILY;BYMONTH=2;BYMONTHDAY=30;BYHOUR=9;UNTIL=20260301T000000Z", []],
+  ] as const) {
+    const r = (await Recurrence.parse([`DTSTART:${start}`, `RRULE:${rule}`])).exp();
+    assertEquals([...r.generate()].map(d => d.rfc3339()), [...expected]);
+    assertEquals([...r.generateToDate(undefined, day(2026, 3, 1))].map(d => d.rfc3339()), [...expected]);
+    const direct = await import("../chrono/recurrence/instances.ts");
+    assertEquals([...direct.RRuleInstances.expand(r.inner.rrule!, r.inner.dtstart!.dates[0])].map(d => d.date.rfc3339()), [...expected]);
+    const g = await r.generateGoogleEvents(at(start.includes("090000") ? "2026-01-01T09:00:00Z" : "2026-01-01T00:00:00Z"), null);
+    assertEquals(g.generateUpToDate(day(2026, 3, 1)).map(d => d.ndt.date.rfc3339()), ["2026-01-01"]);
+  }
+});
+
+Deno.test("audit r3: direct expansion output budgets and exact fits", async () => {
+  const { RRuleInstances } = await import("../chrono/recurrence/instances.ts");
+  const r = (await Recurrence.parse(["DTSTART:20260101T090000Z", "RRULE:FREQ=DAILY;BYHOUR=9,10,11,12,13,14,15,16,17,18;UNTIL=20260101T180000Z"])).exp();
+  const start = r.inner.dtstart!.dates[0];
+  for (const n of [NaN, -1, 1.5, Infinity]) assertThrows(() => [...RRuleInstances.expand(r.inner.rrule!, start, false, n)], RangeError);
+  for (const n of [0, 2]) assertThrows(() => [...RRuleInstances.expand(r.inner.rrule!, start, false, n)], RecurrenceExpansionLimitError);
+  assertEquals([...RRuleInstances.expand(r.inner.rrule!, start, false, 10)].length, 10);
+  const empty = (await Recurrence.parse(["DTSTART:20260101T090000Z", "RRULE:FREQ=DAILY;BYMONTH=2;BYHOUR=9;UNTIL=20260104T000000Z"])).exp();
+  assertEquals([...RRuleInstances.expand(empty.inner.rrule!, start, false, 4)].length, 0);
+  assertThrows(() => [...RRuleInstances.expand(empty.inner.rrule!, start, false, 2)], RecurrenceExpansionLimitError);
+});
+
+Deno.test("audit r3: exact date and Google COUNT budgets avoid lookahead", async () => {
+  const props = new RRule({freq: "daily"}).toFilterProps(null, day(2026, 1, 4));
+  props.options ??= {};
+  props.options.recurLimit = 4;
+  props.options.onExhausted = () => { throw new Error("unexpected exhaustion"); };
+  assertEquals([...day(2026, 1, 1).rangeProps(props)].length, 4);
+  props.options.end = day(2026, 1, 5);
+  assertThrows(() => [...day(2026, 1, 1).rangeProps(props)], Error, "unexpected exhaustion");
+  props.options.recurLimit = NaN;
+  assertThrows(() => [...day(2026, 1, 1).rangeProps(props)], RangeError);
+  const r = (await Recurrence.parse(["DTSTART:20260105T090000Z", "RRULE:FREQ=YEARLY;BYWEEKNO=2;BYDAY=MO,WE;COUNT=2"])).exp();
+  const g = await r.generateGoogleEvents(at("2026-01-05T09:00:00Z"), null, 2);
+  assertEquals(g.generateUpToDate(day(2026, 12, 31)).length, 2);
+  const growing = (await Recurrence.parse(["DTSTART:20260101T090000Z", "RRULE:FREQ=DAILY;BYHOUR=9;COUNT=5"])).exp();
+  const gg = await growing.generateGoogleEvents(at("2026-01-01T09:00:00Z"), null);
+  assertEquals(gg.generateUpToDate(day(2026, 1, 2)).length, 2);
+  assertEquals(gg.generateUpToDate(day(2026, 1, 5)).length, 3);
+});
+
+Deno.test("audit r3: caller horizon bounds empty timed rules and subdaily exact fit", async () => {
+  const r = (await Recurrence.parse(["DTSTART:20260101T090000Z", "RRULE:FREQ=DAILY;BYMONTH=2;BYMONTHDAY=30;BYHOUR=9"])).exp();
+  assertEquals([...r.generateToDate(undefined, day(2026, 3, 1))], []);
+  const { RRuleInstances } = await import("../chrono/recurrence/instances.ts");
+  const s = (await Recurrence.parse(["DTSTART:20260101T000000Z", "RRULE:FREQ=SECONDLY;UNTIL=20260101T000001Z"])).exp();
+  assertEquals([...RRuleInstances.expand(s.inner.rrule!, s.inner.dtstart!.dates[0], false, 2)].length, 2);
+  assertThrows(() => [...RRuleInstances.expand(s.inner.rrule!, s.inner.dtstart!.dates[0], false, 1)], RecurrenceExpansionLimitError);
+});
