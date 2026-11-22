@@ -1,0 +1,487 @@
+{
+  "type": "google-expansion",
+  "name": "Google Calendar API union and timezone edges",
+  "source": "Google Calendar API events.instances",
+  "captureCliCommit": "77f899aac5",
+  "capturedAt": "2026-11-22T06:40:45.071314+00:00",
+  "cases": [
+    {
+      "name": "multi-rule-overlap",
+      "input": {
+        "start": "2026-01-05T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RRULE:FREQ=WEEKLY;COUNT=3;BYDAY=MO"
+        ],
+        "window": {
+          "start": "2026-01-05T00:00:00Z",
+          "end": "2026-03-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RRULE:FREQ=WEEKLY;COUNT=3;BYDAY=MO"
+        ],
+        "submittedStart": {
+          "dateTime": "2026-01-05T09:00:00Z",
+          "timeZone": "UTC"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2026-01-05T09:00:00Z",
+          "2026-01-06T09:00:00Z",
+          "2026-01-07T09:00:00Z",
+          "2026-01-12T09:00:00Z",
+          "2026-01-19T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "multi-rule-reverse",
+      "input": {
+        "start": "2026-01-05T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RRULE:FREQ=WEEKLY;COUNT=3;BYDAY=MO"
+        ],
+        "window": {
+          "start": "2026-01-05T00:00:00Z",
+          "end": "2026-03-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=WEEKLY;COUNT=3;BYDAY=MO",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "submittedStart": {
+          "dateTime": "2026-01-05T09:00:00Z",
+          "timeZone": "UTC"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2026-01-05T09:00:00Z",
+          "2026-01-06T09:00:00Z",
+          "2026-01-07T09:00:00Z",
+          "2026-01-12T09:00:00Z",
+          "2026-01-19T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "multi-rule-exdate",
+      "input": {
+        "start": "2026-01-05T09:00:00Z",
+        "rules": [
+          "EXDATE;VALUE=DATE-TIME:20260105T090000Z,20260112T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RRULE:FREQ=WEEKLY;COUNT=3;BYDAY=MO"
+        ],
+        "window": {
+          "start": "2026-01-05T00:00:00Z",
+          "end": "2026-03-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RRULE:FREQ=WEEKLY;COUNT=3;BYDAY=MO",
+          "EXDATE:20260105T090000Z,20260112T090000Z"
+        ],
+        "submittedStart": {
+          "dateTime": "2026-01-05T09:00:00Z",
+          "timeZone": "UTC"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2026-01-06T09:00:00Z",
+          "2026-01-07T09:00:00Z",
+          "2026-01-19T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rdate-without-rule",
+      "input": {
+        "start": "2026-01-05T09:00:00Z",
+        "rules": [
+          "RDATE;VALUE=DATE-TIME:20260112T090000Z,20260119T090000Z"
+        ],
+        "window": {
+          "start": "2026-01-05T00:00:00Z",
+          "end": "2026-03-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RDATE:20260112T090000Z,20260119T090000Z"
+        ],
+        "submittedStart": {
+          "dateTime": "2026-01-05T09:00:00Z",
+          "timeZone": "UTC"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2026-01-05T09:00:00Z",
+          "2026-01-12T09:00:00Z",
+          "2026-01-19T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "daily-control",
+      "input": {
+        "start": "2026-01-05T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2026-01-05T00:00:00Z",
+          "end": "2026-03-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "submittedStart": {
+          "dateTime": "2026-01-05T09:00:00Z",
+          "timeZone": "UTC"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2026-01-05T09:00:00Z",
+          "2026-01-06T09:00:00Z",
+          "2026-01-07T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "all-day-multi-rule",
+      "input": {
+        "start": "2026-01-05",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RRULE:FREQ=WEEKLY;COUNT=3;BYDAY=MO"
+        ],
+        "window": {
+          "start": "2026-01-05T00:00:00-08:00",
+          "end": "2026-03-01T00:00:00-08:00"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RRULE:FREQ=WEEKLY;COUNT=3;BYDAY=MO"
+        ],
+        "submittedStart": {
+          "date": "2026-01-05"
+        }
+      },
+      "expected": {
+        "google": [
+          "2026-01-05",
+          "2026-01-06",
+          "2026-01-07",
+          "2026-01-12",
+          "2026-01-19"
+        ]
+      }
+    },
+    {
+      "name": "lord-howe-fold-0129",
+      "input": {
+        "start": "2027-04-01T14:29:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "window": {
+          "start": "2027-04-01T00:00:00Z",
+          "end": "2027-04-09T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "submittedStart": {
+          "dateTime": "2027-04-02T01:29:00+11:00",
+          "timeZone": "Australia/Lord_Howe"
+        },
+        "timezone": "Australia/Lord_Howe"
+      },
+      "expected": {
+        "google": [
+          "2027-04-01T14:29:00Z",
+          "2027-04-02T14:29:00Z",
+          "2027-04-03T14:29:00Z",
+          "2027-04-04T14:59:00Z",
+          "2027-04-05T14:59:00Z"
+        ]
+      }
+    },
+    {
+      "name": "lord-howe-fold-0130",
+      "input": {
+        "start": "2027-04-01T14:30:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "window": {
+          "start": "2027-04-01T00:00:00Z",
+          "end": "2027-04-09T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "submittedStart": {
+          "dateTime": "2027-04-02T01:30:00+11:00",
+          "timeZone": "Australia/Lord_Howe"
+        },
+        "timezone": "Australia/Lord_Howe"
+      },
+      "expected": {
+        "google": [
+          "2027-04-01T14:30:00Z",
+          "2027-04-02T14:30:00Z",
+          "2027-04-03T14:30:00Z",
+          "2027-04-04T15:00:00Z",
+          "2027-04-05T15:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "lord-howe-fold-0145",
+      "input": {
+        "start": "2027-04-01T14:45:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "window": {
+          "start": "2027-04-01T00:00:00Z",
+          "end": "2027-04-09T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "submittedStart": {
+          "dateTime": "2027-04-02T01:45:00+11:00",
+          "timeZone": "Australia/Lord_Howe"
+        },
+        "timezone": "Australia/Lord_Howe"
+      },
+      "expected": {
+        "google": [
+          "2027-04-01T14:45:00Z",
+          "2027-04-02T14:45:00Z",
+          "2027-04-03T14:45:00Z",
+          "2027-04-04T15:15:00Z",
+          "2027-04-05T15:15:00Z"
+        ]
+      }
+    },
+    {
+      "name": "lord-howe-fold-0159",
+      "input": {
+        "start": "2027-04-01T14:59:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "window": {
+          "start": "2027-04-01T00:00:00Z",
+          "end": "2027-04-09T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "submittedStart": {
+          "dateTime": "2027-04-02T01:59:00+11:00",
+          "timeZone": "Australia/Lord_Howe"
+        },
+        "timezone": "Australia/Lord_Howe"
+      },
+      "expected": {
+        "google": [
+          "2027-04-01T14:59:00Z",
+          "2027-04-02T14:59:00Z",
+          "2027-04-03T14:59:00Z",
+          "2027-04-04T15:29:00Z",
+          "2027-04-05T15:29:00Z"
+        ]
+      }
+    },
+    {
+      "name": "lord-howe-fold-0200",
+      "input": {
+        "start": "2027-04-01T15:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "window": {
+          "start": "2027-04-01T00:00:00Z",
+          "end": "2027-04-09T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "submittedStart": {
+          "dateTime": "2027-04-02T02:00:00+11:00",
+          "timeZone": "Australia/Lord_Howe"
+        },
+        "timezone": "Australia/Lord_Howe"
+      },
+      "expected": {
+        "google": [
+          "2027-04-01T15:00:00Z",
+          "2027-04-02T15:00:00Z",
+          "2027-04-03T15:30:00Z",
+          "2027-04-04T15:30:00Z",
+          "2027-04-05T15:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "los-angeles-fold-initial-early",
+      "input": {
+        "start": "2026-11-01T08:30:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "window": {
+          "start": "2026-10-31T00:00:00Z",
+          "end": "2026-11-09T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "submittedStart": {
+          "dateTime": "2026-11-01T01:30:00-07:00",
+          "timeZone": "America/Los_Angeles"
+        },
+        "timezone": "America/Los_Angeles"
+      },
+      "expected": {
+        "google": [
+          "2026-11-01T08:30:00Z",
+          "2026-11-02T09:30:00Z",
+          "2026-11-03T09:30:00Z",
+          "2026-11-04T09:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "los-angeles-fold-initial-late",
+      "input": {
+        "start": "2026-11-01T08:30:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "window": {
+          "start": "2026-10-31T00:00:00Z",
+          "end": "2026-11-09T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "submittedStart": {
+          "dateTime": "2026-11-01T01:30:00-08:00",
+          "timeZone": "America/Los_Angeles"
+        },
+        "timezone": "America/Los_Angeles"
+      },
+      "expected": {
+        "google": [
+          "2026-11-01T08:30:00Z",
+          "2026-11-02T09:30:00Z",
+          "2026-11-03T09:30:00Z",
+          "2026-11-04T09:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "los-angeles-spring-ordinary",
+      "input": {
+        "start": "2027-03-12T10:30:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "window": {
+          "start": "2027-03-11T00:00:00Z",
+          "end": "2027-03-19T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "submittedStart": {
+          "dateTime": "2027-03-12T02:30:00-08:00",
+          "timeZone": "America/Los_Angeles"
+        },
+        "timezone": "America/Los_Angeles"
+      },
+      "expected": {
+        "google": [
+          "2027-03-12T10:30:00Z",
+          "2027-03-13T10:30:00Z",
+          "2027-03-14T10:30:00Z",
+          "2027-03-15T09:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "los-angeles-spring-gap-start",
+      "input": {
+        "start": "2027-03-14T10:30:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "window": {
+          "start": "2027-03-11T00:00:00Z",
+          "end": "2027-03-19T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "submittedStart": {
+          "dateTime": "2027-03-14T02:30:00-08:00",
+          "timeZone": "America/Los_Angeles"
+        },
+        "timezone": "America/Los_Angeles"
+      },
+      "expected": {
+        "google": [
+          "2027-03-14T10:30:00Z",
+          "2027-03-15T10:30:00Z",
+          "2027-03-16T10:30:00Z",
+          "2027-03-17T10:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "apia-skipped-date",
+      "input": {
+        "start": "2011-12-28T19:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=6"
+        ],
+        "window": {
+          "start": "2011-12-27T00:00:00Z",
+          "end": "2012-01-06T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=6"
+        ],
+        "submittedStart": {
+          "dateTime": "2011-12-28T09:00:00-10:00",
+          "timeZone": "Pacific/Apia"
+        },
+        "timezone": "Pacific/Apia"
+      },
+      "expected": {
+        "google": [
+          "2011-12-28T19:00:00Z",
+          "2011-12-29T19:00:00Z",
+          "2011-12-30T19:00:00Z",
+          "2011-12-31T19:00:00Z",
+          "2012-01-01T19:00:00Z"
+        ]
+      }
+    }
+  ]
+}

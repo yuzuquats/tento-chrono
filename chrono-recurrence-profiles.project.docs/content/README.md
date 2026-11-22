@@ -120,3 +120,27 @@ hourly recurrence, both explicit UTC RDATE instants in a DST fold, and
 foreign-TZID RDATE resolution. These exercise the same inputs that require
 different behavior in the compatibility profiles. The corpus now contains
 203 captured outcomes and 30 RFC cases.
+
+## Multiple-rule and transition captures
+
+A further 16 Google Calendar series yielded 70 starts. Google accepts two
+RRULE lines in either submitted order, unifies overlaps, and applies EXDATE
+to that set. This holds for the timed and all-day captures. The Google
+profile now permits the union. The default RFC reader still rejects
+multiple RRULE lines.
+
+The Lord Howe fold, the Los Angeles gap and fold starts, and the Apia skipped
+date match exactly. Google returned the earlier fold instant for both
+submitted offsets at the Los Angeles master start. The Apia series had
+COUNT=6 and five distinct starts. Its offline fixture uses the production
+2024b transition data.
+
+Eight additional Graph series yielded 40 starts and matched Chrono. They
+cover Pacific gap and fold times, two-month cadence on the 30th or 31st,
+and a UTC master expanded in the Pacific recurrence timezone. All 24
+temporary provider masters were removed and verified absent.
+
+The sanitized responses are `google-expansion-rwc04-edge-cases.json` and
+`graph-expansion-rwc04-edge-cases.json` in the evidence directory. The
+profile suite now replays 209 captured expansions, 18 captured rejections,
+and 30 RFC fixtures.

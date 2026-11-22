@@ -24,6 +24,10 @@ service answers them (judge r13 C-N10): the first two drop the zone's last
 offset change (Honolulu ends at -10:30, Regina at -07:00), the last two are
 `[]`. `../test_tz_offsets.deno.test.ts` loads them against the platform.
 
+The Pacific/Apia recurrence fixture uses the
+[production 2024b Pacific/Apia transition file](https://static.lona.so/timezones/2024b/1900_2050/Pacific~Apia.json).
+It includes the December 2011 change that skipped a civil date.
+
 SHA-256 provenance, captured during fleet validation:
 
 ```json
@@ -52,6 +56,7 @@ SHA-256 provenance, captured during fleet validation:
   "Europe~Brussels.json": "6387568fa8f970bced0abf140b93795ae6a5f71f3618e516d3e478f1b20e19b6",
   "Europe~London.json": "b7e5e7b8129f1a26a0b36c424122d1ab98202066202d69087f725bea1b51772a",
   "Pacific~Auckland.json": "a91f1ea26a462779fd32c630861a1f598b77189d65e5c82eb26c572957291efc",
+  "Pacific~Apia.json": "a20db177be3e1dff96fb84ba7530e1c0cc616c291338b8651622383590a19170",
   "Pacific~Chatham.json": "48dc22c3fce8ed98be3ef3629c0b153f935388bef5ba225a46f08ed42ad79573",
   "Pacific~Kiritimati.json": "ebba558aad0be64cbc137af5f4d9e4386096f1144717bb7b2d6a90acbd51ab84",
   "Pacific~Niue.json": "eb99e58c3d2c8ad137c4e8249559c56dea8c7fdb7b9eb6fe685a577eeaf27fdc",

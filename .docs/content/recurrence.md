@@ -35,7 +35,9 @@ const series = (await Recurrence.fromICalendar(master.recurrence, {
 Google uses the master’s clock time for date-level rules and rejects
 subdaily frequencies. A date-only `UNTIL` includes its date for an all-day
 series and excludes that date for a timed series. A date-time `UNTIL`
-includes the occurrence at the exact cutoff.
+includes the occurrence at the exact cutoff. Google also accepts multiple
+RRULE lines and expands their union, with duplicates collapsed and EXDATE
+applied across the set.
 
 Select `dateutil` or `rrule-js` to replay those libraries' rule sets. The
 dateutil 2.8.2 profile rejects a `TZID` parameter on `RDATE`. The rrule.js

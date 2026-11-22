@@ -176,12 +176,6 @@ export class RecurrenceSeries {
           shared.push(line);
         }
       }
-      if (
-        ruleLines.length > 1 && profile !== "dateutil" && profile !== "rrule-js"
-      ) {
-        throw new Error("This profile requires at most one RRULE");
-      }
-
       const rules = [];
       for (const rule of ruleLines.length ? ruleLines : [null]) {
         const raw = await ICalendar.Raw.parse(
