@@ -6,19 +6,8 @@ import { naivedatetime } from "../chrono/mod.ts";
 import { TimezoneRegion } from "../chrono/timezone-region.ts";
 import { Tzname } from "../chrono/timezone.ts";
 
-/**
- * The FRAME contract behind the calendar's "form follow" bug (task #22).
- *
- * A calendar column hands gestures a day start framed in the COLUMN's zone
- * (`DateFragment.start` is a `DateTime<FixedOffset>`). Every range a gesture
- * publishes must be CONVERTED to UTC before it reaches a display surface,
- * because the display conversion — `DateTimeRegion.Range.fromSingleTz`, which
- * calls `TimezoneRegion.toTz` → `dt.asUtc()` — RE-TAGS its input as UTC rather
- * than converting it. Feed it a column-local wall clock and the rendered time
- * slides by the UTC offset: 10:15 PDT renders as 3:15 am.
- *
- * These tests pin both halves so the seam cannot regress silently.
- */
+// Calendar gestures resolve the moving edge in the column's timezone. Region
+// conversion must preserve that instant through the display and form paths.
 
 const LOS_ANGELES = "America/Los_Angeles" as Tzname;
 
@@ -45,30 +34,45 @@ function draggedEndLocal(tz: TimezoneRegion): DateTime<string> {
   return dayStart.add({ hrs: 10, mins: 15 });
 }
 
-Deno.test({
-  name: "frame — TimezoneRegion.toTz re-tags a column-local DateTime",
-  fn() {
-    const tz = losAngeles();
-    const local = draggedEndLocal(tz);
+Deno.test("frame — region conversion preserves the calendar drag instant", () => {
+  const tz = losAngeles();
+  const local = draggedEndLocal(tz);
 
-    assertEquals(local.time.hrs, 10, "the drag lands at 10:15 local");
-    assertEquals(local.tz.info.offset.toHrsF, -7, "the column column is PDT");
+  const regional = tz.toTz(local);
+  assertEquals(regional.rfc3339(), "2027-09-20T10:15:00-07:00");
+  assertEquals(regional.mse, local.mse);
+  assertEquals(tz.toTz(local.toUtc()).mse, local.mse);
+  assertEquals(TimezoneRegion.UTC.toTz(local).toUtc().rfc3339(), "2027-09-20T17:15:00Z");
+});
 
-    // Converted first: the display agrees with the drag.
-    const converted = tz.toTz(local.toUtc());
-    assertEquals(converted.time.hrs, 10);
-    assertEquals(converted.time.mins, 15);
+Deno.test("frame — region conversion selects the offset at the original instant", () => {
+  const name = "America/New_York" as Tzname;
+  const tz = new TimezoneRegion(name, [
+    TimezoneRegion.Transition.parse({
+      before: "2025-03-09T02:00:00-05:00",
+      before_tz_abbr: "EST",
+      after: "2025-03-09T03:00:00-04:00",
+      after_tz_abbr: "EDT",
+    }, name),
+    TimezoneRegion.Transition.parse({
+      before: "2025-11-02T02:00:00-04:00",
+      before_tz_abbr: "EDT",
+      after: "2025-11-02T01:00:00-05:00",
+      after_tz_abbr: "EST",
+    }, name),
+  ]);
 
-    // Handed over local: `toTz` re-tags 10:15 as UTC and then converts to
-    // PDT — the reported "3:15 am".
-    const retagged = tz.toTz(local);
-    assertEquals(retagged.time.hrs, 3);
-    assertEquals(retagged.time.mins, 15);
-  },
+  // The Los Angeles source clocks read 22:30 and 23:30 on the previous date.
+  const first = DateTime.fromRfc3339("2025-11-01T22:30:00-07:00").exp();
+  const second = DateTime.fromRfc3339("2025-11-01T23:30:00-07:00").exp();
+  assertEquals(tz.toTz(first).rfc3339(), "2025-11-02T01:30:00-04:00");
+  assertEquals(tz.toTz(second).rfc3339(), "2025-11-02T01:30:00-05:00");
+  assertEquals(tz.toTz(first).mse, first.mse);
+  assertEquals(tz.toTz(second).mse, second.mse);
 });
 
 Deno.test({
-  name: "frame — the form's end time follows a resize only when framed UTC",
+  name: "frame — the form's end time follows a resize after UTC conversion",
   fn() {
     const tz = losAngeles();
     const local = draggedEndLocal(tz);
@@ -84,9 +88,8 @@ Deno.test({
     assertEquals(displayed.end.ndt.time.hrs, 10, "end follows the drag");
     assertEquals(displayed.end.ndt.time.mins, 15);
 
-    // What the un-migrated resize published: a UTC-framed anchor beside a
-    // column-local moving edge. Only the END is corrupted — exactly the
-    // reported shape (start reads 10:00, end reads 3:15 am).
+    // Explicitly reinterpreting the moving edge as UTC changes its instant.
+    // A subsequent display conversion correctly shows that different instant.
     const corrupted = DateTimeRegion.Range.fromSingleTz(
       new DateTime.Range(anchor, local.asUtc()),
       tz,

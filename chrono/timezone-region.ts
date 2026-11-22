@@ -462,7 +462,7 @@ export class TimezoneRegion {
 
   toTz(dt: DateTime<any>): DateTime<FixedOffset> {
     const tz = this.tzAtMse(dt.mse);
-    return dt.asUtc().toTz(tz);
+    return dt.toTz(tz);
   }
 
   tzAtMse(mse: MsSinceEpoch): LogicalTimezone<any> {
