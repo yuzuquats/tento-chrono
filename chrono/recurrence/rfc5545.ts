@@ -1,10 +1,21 @@
-import { ICalAttributes, icalPropertyName } from "./ical-attributes.ts";
+import {
+  ICalAttributes,
+  icalPropertyName,
+  splitICalProperty,
+} from "./ical-attributes.ts";
 import { IsoDate } from "./iso-date.ts";
 
 type Form = "date" | "floating" | "utc" | "zoned";
 
 const DATE = /^\d{8}$/;
 const DATE_TIME = /^\d{8}T\d{6}Z?$/i;
+// RFC 5545 DURATION is weeks or days/time. PERIOD requires a positive duration.
+const DURATION_TIME = String
+  .raw`T(?:\d+H(?:\d+M(?:\d+S)?)?|\d+M(?:\d+S)?|\d+S)`;
+const PERIOD_DURATION = new RegExp(
+  String.raw`^\+?P(?:\d+W|\d+D(?:${DURATION_TIME})?|${DURATION_TIME})$`,
+  "i",
+);
 const WEEKDAY = /^(MO|TU|WE|TH|FR|SA|SU)$/;
 const FREQUENCY = /^(SECONDLY|MINUTELY|HOURLY|DAILY|WEEKLY|MONTHLY|YEARLY)$/;
 const NUMBER_PARTS: Record<string, [number, number, boolean?]> = {
@@ -43,13 +54,11 @@ function dateForm(value: string, hasZone: boolean): Form {
 }
 
 function property(line: string) {
-  const colon = line.indexOf(":");
-  check(colon >= 0, "Missing iCalendar property value");
-  const attributes = ICalAttributes.fromRawAttributes(
-    line.slice(0, colon).split(";"),
-  );
+  const content = splitICalProperty(line);
+  check(content != null, "Missing iCalendar property value");
+  const attributes = ICalAttributes.fromRawAttributes(content.attributes);
   return {
-    values: line.slice(colon + 1).split(","),
+    values: content.value.split(","),
     type: (attributes.get("VALUE") ?? "DATE-TIME").toUpperCase(),
     zoned: attributes.get("TZID") != null,
   };
@@ -65,6 +74,10 @@ export function validateRfc5545(
   check(
     start.type === (form === "date" ? "DATE" : "DATE-TIME"),
     "DTSTART type does not match VALUE",
+  );
+  check(
+    !lines.some((line) => icalPropertyName(line) === "EXRULE"),
+    "EXRULE is not an RFC 5545 property",
   );
   const rules = lines.filter((line) => icalPropertyName(line) === "RRULE");
   check(rules.length <= 1, "RFC recurrence requires at most one RRULE");
@@ -84,14 +97,7 @@ export function validateRfc5545(
     );
     for (const value of values) {
       if (type === "PERIOD") {
-        const [begin, end, extra] = value.split("/");
-        check(
-          end && extra == null && dateForm(begin, zoned) !== "date",
-          "Invalid RDATE period",
-        );
-        if (!/^\+?P/i.test(end)) {
-          check(dateForm(end, zoned) !== "date", "Invalid RDATE period end");
-        }
+        validatePeriod(value, zoned);
       } else {
         check(
           (dateForm(value, zoned) === "date") === (type === "DATE"),
@@ -102,14 +108,39 @@ export function validateRfc5545(
   }
 }
 
+function validatePeriod(value: string, zoned: boolean): void {
+  const [begin, end, extra] = value.split("/");
+  check(end != null && extra == null, "Invalid RDATE period");
+  const beginForm = dateForm(begin, zoned);
+  check(beginForm !== "date", "Invalid RDATE period start");
+  if (/^[+-]?P/i.test(end)) {
+    check(
+      PERIOD_DURATION.test(end) && /[1-9]/.test(end),
+      "Invalid RDATE period duration",
+    );
+    return;
+  }
+  const endForm = dateForm(end, zoned);
+  check(endForm !== "date", "Invalid RDATE period end");
+  if (beginForm === endForm) {
+    const a = IsoDate.parse(begin).exp().extend();
+    const b = IsoDate.parse(end).exp().extend();
+    check(a.mse < b.mse, "RDATE period end must follow its start");
+  }
+}
+
 function validateRule(line: string, start: Form): void {
+  const content = splitICalProperty(line);
   check(
-    icalPropertyName(line) === "RRULE" &&
-      line.slice(0, 6).toUpperCase() === "RRULE:",
+    content?.attributes[0].toUpperCase() === "RRULE",
     "Invalid RRULE property",
   );
+  check(
+    content.attributes.slice(1).every((part) => /^[A-Z0-9-]+=/i.test(part)),
+    "Invalid RRULE parameter",
+  );
   const parts = new Map<string, string>();
-  for (const part of line.slice(6).toUpperCase().split(";")) {
+  for (const part of content.value.toUpperCase().split(";")) {
     const match = /^([A-Z]+)=([^=]+)$/.exec(part);
     check(match != null, "Invalid RRULE part: " + part);
     const [, key, value] = match;

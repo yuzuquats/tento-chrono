@@ -5,7 +5,7 @@ import { err, ok, Result } from "../result.ts";
 import { TimezoneRegion } from "../timezone-region.ts";
 import { FixedOffset, Tzname, Utc } from "../timezone.ts";
 import { RecurrenceExpansionLimitError } from "./generation-limit.ts";
-import { icalPropertyName } from "./ical-attributes.ts";
+import { icalPropertyName, splitICalProperty } from "./ical-attributes.ts";
 import { ICalendar } from "./ical.ts";
 import { IsoDate } from "./iso-date.ts";
 import {
@@ -14,6 +14,7 @@ import {
   RecurrenceComposition,
 } from "./recurrence.ts";
 import { validateRfc5545 } from "./rfc5545.ts";
+import { RRule } from "./rrule.ts";
 
 export type ICalendarRecurrenceProfile =
   | "rfc5545"
@@ -45,6 +46,7 @@ export class RecurrenceSeries {
     readonly profile: RecurrenceProfile,
     private readonly start: BoundStart,
     private readonly rules: readonly Recurrence[],
+    private readonly exclusionRules: readonly Recurrence[],
   ) {}
 
   /** Expand through a UTC date for instants, or a civil date for DATE/floating values. */
@@ -58,7 +60,7 @@ export class RecurrenceSeries {
   /** Read successive inclusive date windows without restarting expansion. */
   generator(generationLimit?: number) {
     const composition = compositionFor(this.profile);
-    const generators = this.rules.map((rule) =>
+    const build = (rule: Recurrence) =>
       new GoogleEventGenerator(
         rule,
         this.start.instant,
@@ -66,8 +68,11 @@ export class RecurrenceSeries {
         composition,
         generationLimit,
         this.start.local,
-      )
-    );
+      );
+    const generators = this.rules.map(build);
+    const exclusions = this.exclusionRules.map(build);
+    const keyOf = (instance: DateTime<Utc>) =>
+      this.start.kind === "date" ? instance.ndt.date.dse : instance.mse;
     let total = 0;
     let failure: Error | undefined;
     return {
@@ -75,17 +80,26 @@ export class RecurrenceSeries {
         if (failure != null) throw failure;
         const instances = new Map<number, DateTime<Utc>>();
         try {
+          let lastPositiveDay: NaiveDate | undefined;
           for (const generator of generators) {
             for (const instance of generator.generateUpToDate(through)) {
-              const key = this.start.kind === "date"
-                ? instance.ndt.date.dse
-                : instance.mse;
-              instances.set(key, instance);
+              instances.set(keyOf(instance), instance);
+              const day = instance.ndt.date;
+              if (lastPositiveDay == null || day.dse > lastPositiveDay.dse) {
+                lastPositiveDay = day;
+              }
               if (
                 generationLimit != null &&
                 total + instances.size > generationLimit
               ) {
                 throw new RecurrenceExpansionLimitError(generationLimit);
+              }
+            }
+          }
+          if (lastPositiveDay != null) {
+            for (const exclusion of exclusions) {
+              for (const instance of exclusion.generateUpToDate(lastPositiveDay)) {
+                instances.delete(keyOf(instance));
               }
             }
           }
@@ -154,22 +168,30 @@ export class RecurrenceSeries {
 
       const shared = [];
       const ruleLines = [];
+      const exclusionLines = [];
       for (const line of lines) {
         const name = icalPropertyName(line);
         if (name === "RRULE") {
           ruleLines.push(profileRule(line, profile, dateStart));
+        } else if (name === "EXRULE") {
+          if (profile !== "dateutil" && profile !== "rrule-js") {
+            throw new Error("Unsupported EXRULE in " + profile + " recurrence");
+          }
+          exclusionLines.push(profileRule(line, profile, dateStart));
         } else {
           if (name === "DTSTART" || name === "RDATE" || name === "EXDATE") {
-            const match = /;TZID=(?:"([^"]+)"|([^;:]+))/i.exec(line);
-            if (match != null) {
+            const property = splitICalProperty(line);
+            const tzidIndex = property?.attributes.findIndex((attribute) =>
+              /^TZID=/i.test(attribute)
+            ) ?? -1;
+            if (property != null && tzidIndex >= 0) {
+              const attribute = property.attributes[tzidIndex];
               if (profile === "dateutil" && name === "RDATE") {
-                throw new Error(
-                  "unsupported RDATE parm: " + match[0].slice(1).toUpperCase(),
-                );
+                throw new Error("unsupported RDATE parm: " + attribute.toUpperCase());
               }
-              const zone = await loadZone(match[1] ?? match[2]);
-              // The low-level date parser takes an unquoted IANA name.
-              shared.push(line.replace(match[0], ";TZID=" + zone.fullname));
+              const zone = await loadZone(attribute.slice(5).replace(/^"([^"]*)"$/, "$1"));
+              property.attributes[tzidIndex] = "TZID=" + zone.fullname;
+              shared.push(property.attributes.join(";") + ":" + property.value);
               continue;
             }
           }
@@ -182,7 +204,16 @@ export class RecurrenceSeries {
           rule == null ? shared : [...shared, rule],
         );
         if (raw.isErr) return err(raw.asErr()!);
-        rules.push(new Recurrence(raw.exp()));
+        rules.push(profileRecurrence(raw.exp(), rule, profile));
+      }
+      const exclusionRules = [];
+      const normalizedStart = shared.find((line) =>
+        icalPropertyName(line) === "DTSTART"
+      )!;
+      for (const rule of exclusionLines) {
+        const raw = await ICalendar.Raw.parse([normalizedStart, rule]);
+        if (raw.isErr) return err(raw.asErr()!);
+        exclusionRules.push(profileRecurrence(raw.exp(), rule, profile));
       }
       if (bound == null) {
         const parsed = rules[0].inner.dtstart!;
@@ -204,7 +235,7 @@ export class RecurrenceSeries {
           kind,
         };
       }
-      return ok(new RecurrenceSeries(profile, bound, rules));
+      return ok(new RecurrenceSeries(profile, bound, rules, exclusionRules));
     } catch (error) {
       return err(error instanceof Error ? error : new Error(String(error)));
     }
@@ -223,6 +254,7 @@ function compositionFor(profile: RecurrenceProfile): RecurrenceComposition {
   if (profile === "dateutil") {
     return {
       ...RecurrenceComposition.RULE_ONLY,
+      includeStartWithoutRule: false,
       resolveWallTime: (zone, local) => zone.toDateutilWallClock(local),
       resolveExdate: dateutilExdate,
     };
@@ -230,6 +262,8 @@ function compositionFor(profile: RecurrenceProfile): RecurrenceComposition {
   if (profile === "rrule-js") {
     return {
       ...RecurrenceComposition.RULE_ONLY,
+      includeStartWithoutRule: false,
+      resolveWallTime: (zone, local) => rruleJsDate(local, zone),
       resolveExdate: (value, _region, _utc, seriesZone) =>
         rruleJsDate(value, seriesZone),
       resolveRdate: rruleJsDate,
@@ -291,6 +325,7 @@ function resolveStart(
   zone: TimezoneRegion | null,
   profile: RecurrenceProfile,
 ) {
+  if (zone != null && profile === "rrule-js") return rruleJsDate(local, zone);
   return zone == null
     ? local.asUtc()
     : profile === "dateutil"
@@ -335,13 +370,44 @@ async function bindExternalStart(
   return { line, start: { local, instant, zone, kind } };
 }
 
+function profileRecurrence(
+  raw: ICalendar.Raw,
+  line: string | null,
+  profile: RecurrenceProfile,
+): Recurrence {
+  const rule = raw.rrule;
+  if (profile !== "dateutil" || line == null || rule == null) {
+    return new Recurrence(raw);
+  }
+  const easter = /(?:^RRULE:|;)BYEASTER=([^;]*)/.exec(line)?.[1];
+  if (easter == null) return new Recurrence(raw);
+  const parts = easter.split(",");
+  if (
+    !parts.every((part) =>
+      /^[+-]?\d+$/.test(part) && Number.isSafeInteger(Number(part))
+    )
+  ) {
+    throw new Error("Invalid BYEASTER");
+  }
+  const rrule = new RRule({
+    ...rule.inner,
+    options: { ...rule.inner.options, byeaster: parts.map(Number) },
+  }, rule.parameterOrder);
+  return new Recurrence(new ICalendar.Raw({ ...raw.lines, rrule }, raw.order));
+}
+
 function profileRule(
   line: string,
   profile: RecurrenceProfile,
   dateStart: boolean,
 ): string {
-  const rule = line.toUpperCase();
-  if (/(?:^|;)(BYEASTER|BYWEEKDAY)=/.test(rule)) {
+  const property = splitICalProperty(line);
+  if (property == null) throw new Error("Invalid recurrence rule property");
+  const rule = "RRULE:" + property.value.toUpperCase();
+  if (
+    /(?:^RRULE:|;)BYWEEKDAY=/.test(rule) ||
+    (profile !== "dateutil" && /(?:^RRULE:|;)BYEASTER=/.test(rule))
+  ) {
     throw new Error("Unsupported recurrence selector");
   }
   if (profile === "rfc5545") {

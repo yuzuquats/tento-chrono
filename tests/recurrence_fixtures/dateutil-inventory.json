@@ -3,321 +3,6 @@
   "sourceSha256": "c34eb0f944b82a1817ca64dcfe427f7bbbbd600640e1e83e0e7671a047736c68",
   "otherCases": [
     {
-      "source": "RRuleTest.testYearlyByEaster",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
-      "input": {
-        "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYEASTER=0"
-      },
-      "expected": [
-        "1998-04-12T09:00:00",
-        "1999-04-04T09:00:00",
-        "2000-04-23T09:00:00"
-      ],
-      "line": 267,
-      "status": "unsupported"
-    },
-    {
-      "source": "RRuleTest.testYearlyByEasterPos",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
-      "input": {
-        "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYEASTER=1"
-      },
-      "expected": [
-        "1998-04-13T09:00:00",
-        "1999-04-05T09:00:00",
-        "2000-04-24T09:00:00"
-      ],
-      "line": 276,
-      "status": "unsupported"
-    },
-    {
-      "source": "RRuleTest.testYearlyByEasterNeg",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
-      "input": {
-        "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYEASTER=-1"
-      },
-      "expected": [
-        "1998-04-11T09:00:00",
-        "1999-04-03T09:00:00",
-        "2000-04-22T09:00:00"
-      ],
-      "line": 285,
-      "status": "unsupported"
-    },
-    {
-      "source": "RRuleTest.testMonthlyByEaster",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
-      "input": {
-        "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYEASTER=0"
-      },
-      "expected": [
-        "1998-04-12T09:00:00",
-        "1999-04-04T09:00:00",
-        "2000-04-23T09:00:00"
-      ],
-      "line": 619,
-      "status": "unsupported"
-    },
-    {
-      "source": "RRuleTest.testMonthlyByEasterPos",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
-      "input": {
-        "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYEASTER=1"
-      },
-      "expected": [
-        "1998-04-13T09:00:00",
-        "1999-04-05T09:00:00",
-        "2000-04-24T09:00:00"
-      ],
-      "line": 628,
-      "status": "unsupported"
-    },
-    {
-      "source": "RRuleTest.testMonthlyByEasterNeg",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
-      "input": {
-        "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYEASTER=-1"
-      },
-      "expected": [
-        "1998-04-11T09:00:00",
-        "1999-04-03T09:00:00",
-        "2000-04-22T09:00:00"
-      ],
-      "line": 637,
-      "status": "unsupported"
-    },
-    {
-      "source": "RRuleTest.testWeeklyByEaster",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
-      "input": {
-        "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYEASTER=0"
-      },
-      "expected": [
-        "1998-04-12T09:00:00",
-        "1999-04-04T09:00:00",
-        "2000-04-23T09:00:00"
-      ],
-      "line": 936,
-      "status": "unsupported"
-    },
-    {
-      "source": "RRuleTest.testWeeklyByEasterPos",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
-      "input": {
-        "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYEASTER=1"
-      },
-      "expected": [
-        "1998-04-13T09:00:00",
-        "1999-04-05T09:00:00",
-        "2000-04-24T09:00:00"
-      ],
-      "line": 945,
-      "status": "unsupported"
-    },
-    {
-      "source": "RRuleTest.testWeeklyByEasterNeg",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
-      "input": {
-        "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYEASTER=-1"
-      },
-      "expected": [
-        "1998-04-11T09:00:00",
-        "1999-04-03T09:00:00",
-        "2000-04-22T09:00:00"
-      ],
-      "line": 954,
-      "status": "unsupported"
-    },
-    {
-      "source": "RRuleTest.testDailyByEaster",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
-      "input": {
-        "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYEASTER=0"
-      },
-      "expected": [
-        "1998-04-12T09:00:00",
-        "1999-04-04T09:00:00",
-        "2000-04-23T09:00:00"
-      ],
-      "line": 1250,
-      "status": "unsupported"
-    },
-    {
-      "source": "RRuleTest.testDailyByEasterPos",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
-      "input": {
-        "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYEASTER=1"
-      },
-      "expected": [
-        "1998-04-13T09:00:00",
-        "1999-04-05T09:00:00",
-        "2000-04-24T09:00:00"
-      ],
-      "line": 1259,
-      "status": "unsupported"
-    },
-    {
-      "source": "RRuleTest.testDailyByEasterNeg",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
-      "input": {
-        "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYEASTER=-1"
-      },
-      "expected": [
-        "1998-04-11T09:00:00",
-        "1999-04-03T09:00:00",
-        "2000-04-22T09:00:00"
-      ],
-      "line": 1268,
-      "status": "unsupported"
-    },
-    {
-      "source": "RRuleTest.testHourlyByEaster",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
-      "input": {
-        "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYEASTER=0"
-      },
-      "expected": [
-        "1998-04-12T00:00:00",
-        "1998-04-12T01:00:00",
-        "1998-04-12T02:00:00"
-      ],
-      "line": 1560,
-      "status": "unsupported"
-    },
-    {
-      "source": "RRuleTest.testHourlyByEasterPos",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
-      "input": {
-        "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYEASTER=1"
-      },
-      "expected": [
-        "1998-04-13T00:00:00",
-        "1998-04-13T01:00:00",
-        "1998-04-13T02:00:00"
-      ],
-      "line": 1569,
-      "status": "unsupported"
-    },
-    {
-      "source": "RRuleTest.testHourlyByEasterNeg",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
-      "input": {
-        "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYEASTER=-1"
-      },
-      "expected": [
-        "1998-04-11T00:00:00",
-        "1998-04-11T01:00:00",
-        "1998-04-11T02:00:00"
-      ],
-      "line": 1578,
-      "status": "unsupported"
-    },
-    {
-      "source": "RRuleTest.testMinutelyByEaster",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
-      "input": {
-        "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYEASTER=0"
-      },
-      "expected": [
-        "1998-04-12T00:00:00",
-        "1998-04-12T00:01:00",
-        "1998-04-12T00:02:00"
-      ],
-      "line": 1870,
-      "status": "unsupported"
-    },
-    {
-      "source": "RRuleTest.testMinutelyByEasterPos",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
-      "input": {
-        "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYEASTER=1"
-      },
-      "expected": [
-        "1998-04-13T00:00:00",
-        "1998-04-13T00:01:00",
-        "1998-04-13T00:02:00"
-      ],
-      "line": 1879,
-      "status": "unsupported"
-    },
-    {
-      "source": "RRuleTest.testMinutelyByEasterNeg",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
-      "input": {
-        "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYEASTER=-1"
-      },
-      "expected": [
-        "1998-04-11T00:00:00",
-        "1998-04-11T00:01:00",
-        "1998-04-11T00:02:00"
-      ],
-      "line": 1888,
-      "status": "unsupported"
-    },
-    {
-      "source": "RRuleTest.testSecondlyByEaster",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
-      "input": {
-        "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYEASTER=0"
-      },
-      "expected": [
-        "1998-04-12T00:00:00",
-        "1998-04-12T00:00:01",
-        "1998-04-12T00:00:02"
-      ],
-      "line": 2179,
-      "status": "unsupported"
-    },
-    {
-      "source": "RRuleTest.testSecondlyByEasterPos",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
-      "input": {
-        "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYEASTER=1"
-      },
-      "expected": [
-        "1998-04-13T00:00:00",
-        "1998-04-13T00:00:01",
-        "1998-04-13T00:00:02"
-      ],
-      "line": 2188,
-      "status": "unsupported"
-    },
-    {
-      "source": "RRuleTest.testSecondlyByEasterNeg",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
-      "input": {
-        "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYEASTER=-1"
-      },
-      "expected": [
-        "1998-04-11T00:00:00",
-        "1998-04-11T00:00:01",
-        "1998-04-11T00:00:02"
-      ],
-      "line": 2197,
-      "status": "unsupported"
-    },
-    {
       "source": "RRuleTest.testLongIntegers",
       "reason": "Exercises Python 2 integer types.",
       "line": 2285,
@@ -590,18 +275,6 @@
       "status": "unsupported"
     },
     {
-      "source": "RRuleTest.testStrSetExRule",
-      "reason": "EXRULE is a legacy recurrence-set feature outside Chrono's model.",
-      "line": 2833,
-      "status": "unsupported"
-    },
-    {
-      "source": "RRuleTest.testStrSetDateAndExRule",
-      "reason": "EXRULE is a legacy recurrence-set feature outside Chrono's model.",
-      "line": 2940,
-      "status": "unsupported"
-    },
-    {
       "source": "RRuleTest.testStrKeywords",
       "line": 2955,
       "status": "unsupported",
@@ -693,7 +366,7 @@
     },
     {
       "source": "RRuleTest.testToStrYearlyByEaster",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
+      "reason": "The dateutil profile expands BYEASTER. The profile reader does not expose a dateutil-compatible serializer.",
       "input": {
         "start": "1997-09-02T09:00:00",
         "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYEASTER=0",
@@ -709,7 +382,7 @@
     },
     {
       "source": "RRuleTest.testToStrYearlyByEasterPos",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
+      "reason": "The dateutil profile expands BYEASTER. The profile reader does not expose a dateutil-compatible serializer.",
       "input": {
         "start": "1997-09-02T09:00:00",
         "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYEASTER=1",
@@ -725,7 +398,7 @@
     },
     {
       "source": "RRuleTest.testToStrYearlyByEasterNeg",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
+      "reason": "The dateutil profile expands BYEASTER. The profile reader does not expose a dateutil-compatible serializer.",
       "input": {
         "start": "1997-09-02T09:00:00",
         "rrule": "RRULE:FREQ=YEARLY;COUNT=3;BYEASTER=-1",
@@ -741,7 +414,7 @@
     },
     {
       "source": "RRuleTest.testToStrMonthlyByEaster",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
+      "reason": "The dateutil profile expands BYEASTER. The profile reader does not expose a dateutil-compatible serializer.",
       "input": {
         "start": "1997-09-02T09:00:00",
         "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYEASTER=0",
@@ -757,7 +430,7 @@
     },
     {
       "source": "RRuleTest.testToStrMonthlyByEasterPos",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
+      "reason": "The dateutil profile expands BYEASTER. The profile reader does not expose a dateutil-compatible serializer.",
       "input": {
         "start": "1997-09-02T09:00:00",
         "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYEASTER=1",
@@ -773,7 +446,7 @@
     },
     {
       "source": "RRuleTest.testToStrMonthlyByEasterNeg",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
+      "reason": "The dateutil profile expands BYEASTER. The profile reader does not expose a dateutil-compatible serializer.",
       "input": {
         "start": "1997-09-02T09:00:00",
         "rrule": "RRULE:FREQ=MONTHLY;COUNT=3;BYEASTER=-1",
@@ -789,7 +462,7 @@
     },
     {
       "source": "RRuleTest.testToStrWeeklyByEaster",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
+      "reason": "The dateutil profile expands BYEASTER. The profile reader does not expose a dateutil-compatible serializer.",
       "input": {
         "start": "1997-09-02T09:00:00",
         "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYEASTER=0",
@@ -805,7 +478,7 @@
     },
     {
       "source": "RRuleTest.testToStrWeeklyByEasterPos",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
+      "reason": "The dateutil profile expands BYEASTER. The profile reader does not expose a dateutil-compatible serializer.",
       "input": {
         "start": "1997-09-02T09:00:00",
         "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYEASTER=1",
@@ -821,7 +494,7 @@
     },
     {
       "source": "RRuleTest.testToStrWeeklyByEasterNeg",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
+      "reason": "The dateutil profile expands BYEASTER. The profile reader does not expose a dateutil-compatible serializer.",
       "input": {
         "start": "1997-09-02T09:00:00",
         "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYEASTER=-1",
@@ -837,7 +510,7 @@
     },
     {
       "source": "RRuleTest.testToStrDailyByEaster",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
+      "reason": "The dateutil profile expands BYEASTER. The profile reader does not expose a dateutil-compatible serializer.",
       "input": {
         "start": "1997-09-02T09:00:00",
         "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYEASTER=0",
@@ -853,7 +526,7 @@
     },
     {
       "source": "RRuleTest.testToStrDailyByEasterPos",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
+      "reason": "The dateutil profile expands BYEASTER. The profile reader does not expose a dateutil-compatible serializer.",
       "input": {
         "start": "1997-09-02T09:00:00",
         "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYEASTER=1",
@@ -869,7 +542,7 @@
     },
     {
       "source": "RRuleTest.testToStrDailyByEasterNeg",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
+      "reason": "The dateutil profile expands BYEASTER. The profile reader does not expose a dateutil-compatible serializer.",
       "input": {
         "start": "1997-09-02T09:00:00",
         "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYEASTER=-1",
@@ -885,7 +558,7 @@
     },
     {
       "source": "RRuleTest.testToStrHourlyByEaster",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
+      "reason": "The dateutil profile expands BYEASTER. The profile reader does not expose a dateutil-compatible serializer.",
       "input": {
         "start": "1997-09-02T09:00:00",
         "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYEASTER=0",
@@ -901,7 +574,7 @@
     },
     {
       "source": "RRuleTest.testToStrHourlyByEasterPos",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
+      "reason": "The dateutil profile expands BYEASTER. The profile reader does not expose a dateutil-compatible serializer.",
       "input": {
         "start": "1997-09-02T09:00:00",
         "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYEASTER=1",
@@ -917,7 +590,7 @@
     },
     {
       "source": "RRuleTest.testToStrHourlyByEasterNeg",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
+      "reason": "The dateutil profile expands BYEASTER. The profile reader does not expose a dateutil-compatible serializer.",
       "input": {
         "start": "1997-09-02T09:00:00",
         "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYEASTER=-1",
@@ -933,7 +606,7 @@
     },
     {
       "source": "RRuleTest.testToStrMinutelyByEaster",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
+      "reason": "The dateutil profile expands BYEASTER. The profile reader does not expose a dateutil-compatible serializer.",
       "input": {
         "start": "1997-09-02T09:00:00",
         "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYEASTER=0",
@@ -949,7 +622,7 @@
     },
     {
       "source": "RRuleTest.testToStrMinutelyByEasterPos",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
+      "reason": "The dateutil profile expands BYEASTER. The profile reader does not expose a dateutil-compatible serializer.",
       "input": {
         "start": "1997-09-02T09:00:00",
         "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYEASTER=1",
@@ -965,7 +638,7 @@
     },
     {
       "source": "RRuleTest.testToStrMinutelyByEasterNeg",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
+      "reason": "The dateutil profile expands BYEASTER. The profile reader does not expose a dateutil-compatible serializer.",
       "input": {
         "start": "1997-09-02T09:00:00",
         "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYEASTER=-1",
@@ -981,7 +654,7 @@
     },
     {
       "source": "RRuleTest.testToStrSecondlyByEaster",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
+      "reason": "The dateutil profile expands BYEASTER. The profile reader does not expose a dateutil-compatible serializer.",
       "input": {
         "start": "1997-09-02T09:00:00",
         "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYEASTER=0",
@@ -997,7 +670,7 @@
     },
     {
       "source": "RRuleTest.testToStrSecondlyByEasterPos",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
+      "reason": "The dateutil profile expands BYEASTER. The profile reader does not expose a dateutil-compatible serializer.",
       "input": {
         "start": "1997-09-02T09:00:00",
         "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYEASTER=1",
@@ -1013,7 +686,7 @@
     },
     {
       "source": "RRuleTest.testToStrSecondlyByEasterNeg",
-      "reason": "BYEASTER is a dateutil extension outside Chrono's RRULE model.",
+      "reason": "The dateutil profile expands BYEASTER. The profile reader does not expose a dateutil-compatible serializer.",
       "input": {
         "start": "1997-09-02T09:00:00",
         "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYEASTER=-1",
@@ -1064,24 +737,6 @@
       "status": "unsupported"
     },
     {
-      "source": "RRuleSetTest.testSetExRule",
-      "reason": "EXRULE is a legacy recurrence-set feature outside Chrono's model.",
-      "line": 4666,
-      "status": "unsupported"
-    },
-    {
-      "source": "RRuleSetTest.testSetDateAndExRule",
-      "reason": "EXRULE is a legacy recurrence-set feature outside Chrono's model.",
-      "line": 4716,
-      "status": "unsupported"
-    },
-    {
-      "source": "RRuleSetTest.testSetCount",
-      "reason": "EXRULE is a legacy recurrence-set feature outside Chrono's model.",
-      "line": 4731,
-      "status": "unsupported"
-    },
-    {
       "source": "RRuleSetTest.testSetCachePre",
       "reason": "Exercises dateutil's optional iterator cache and cache internals.",
       "line": 4739,
@@ -1113,9 +768,9 @@
     },
     {
       "source": "RRuleSetTest.testSetExRuleCount",
-      "reason": "EXRULE is a legacy recurrence-set feature outside Chrono's model.",
+      "reason": "Exercises cache invalidation and independently anchored positive and negative rules through Python's mutable set API.",
       "line": 4814,
-      "status": "unsupported"
+      "status": "python-api"
     },
     {
       "source": "RRuleSetTest.testSetExDateCount",

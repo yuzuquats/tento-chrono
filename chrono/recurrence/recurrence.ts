@@ -122,6 +122,8 @@ export interface RecurrenceComposition {
    * Off: DTSTART is an instance only when the rule produces it.
    */
   readonly dtstartAlwaysInstance: boolean;
+  /** A provider's RDATE set may use DTSTART only to supply context. */
+  readonly includeStartWithoutRule?: boolean;
   /**
    * Google's BYWEEKNO handling: the consecutive-weekly COUNT patterns
    * (`detectCountPattern`), the generator start date
@@ -452,7 +454,9 @@ function ensureEventsGenerated(
     state.startHandled = true;
     const start = state.startDateTime.toUtc();
     flushRdates(state, start.mse);
-    if ((state.composition.dtstartAlwaysInstance || !state.hasRrule) && !state.startDateExcluded) {
+    const includeStart = state.composition.dtstartAlwaysInstance ||
+      (!state.hasRrule && state.composition.includeStartWithoutRule !== false);
+    if (includeStart && !state.startDateExcluded) {
       appendGenerated(state, start);
     }
     if (state.hasRrule) {

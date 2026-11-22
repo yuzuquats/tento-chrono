@@ -431,6 +431,150 @@
         "2026-03-08T08:30:00Z",
         "2026-03-09T05:15:00Z"
       ]
+    },
+    {
+      "name": "rrule permits other parameters",
+      "input": {
+        "lines": [
+          "DTSTART:20260105T090000Z",
+          "RRULE;X-EXAMPLE=\"source:a;b\":FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-05T09:00:00Z",
+        "2026-01-06T09:00:00Z"
+      ]
+    },
+    {
+      "name": "parameterized RRULE still validates its value",
+      "input": {
+        "lines": [
+          "DTSTART:20260105T090000Z",
+          "RRULE;X-EXAMPLE=1:FREQ=DAILY;INTERVAL=0"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "positive integer"
+      }
+    },
+    {
+      "name": "RFC rejects EXRULE",
+      "input": {
+        "lines": [
+          "DTSTART:20260105T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "EXRULE is not an RFC 5545 property"
+      }
+    },
+    {
+      "name": "positive period duration and explicit end",
+      "input": {
+        "lines": [
+          "DTSTART:20260105T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;VALUE=PERIOD:20260108T090000Z/PT1H30M,20260109T090000Z/20260109T100000Z",
+          "RDATE;VALUE=PERIOD;X-EXAMPLE=\"source:a;b\":20260110T090000Z/P1DT3H"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-05T09:00:00Z",
+        "2026-01-06T09:00:00Z",
+        "2026-01-08T09:00:00Z",
+        "2026-01-09T09:00:00Z",
+        "2026-01-10T09:00:00Z"
+      ]
+    },
+    {
+      "name": "reject malformed period duration",
+      "input": {
+        "lines": [
+          "DTSTART:20260105T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;VALUE=PERIOD:20260108T090000Z/PNONSENSE"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "Invalid RDATE period duration"
+      }
+    },
+    {
+      "name": "reject zero period duration",
+      "input": {
+        "lines": [
+          "DTSTART:20260105T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;VALUE=PERIOD:20260108T090000Z/PT0H"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "Invalid RDATE period duration"
+      }
+    },
+    {
+      "name": "reject negative period duration",
+      "input": {
+        "lines": [
+          "DTSTART:20260105T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;VALUE=PERIOD:20260108T090000Z/-PT1H"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "Invalid RDATE period duration"
+      }
+    },
+    {
+      "name": "reject mixed-weeks period duration",
+      "input": {
+        "lines": [
+          "DTSTART:20260105T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;VALUE=PERIOD:20260108T090000Z/P1W2D"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "Invalid RDATE period duration"
+      }
+    },
+    {
+      "name": "reject reversed period endpoints",
+      "input": {
+        "lines": [
+          "DTSTART:20260105T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;VALUE=PERIOD:20260108T090000Z/20260108T083000Z"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "period end must follow"
+      }
+    },
+    {
+      "name": "quoted DTSTART extension parameter does not bind a timezone",
+      "input": {
+        "lines": [
+          "DTSTART;X-NOTE=\"sent;uri:;TZID=Not/AZone\":20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
     }
   ]
 }

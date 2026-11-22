@@ -504,6 +504,61 @@ export namespace YearMonthDayFilter {
     }
   }
 
+  /** Western Easter plus the dateutil rule's day offsets. */
+  export function byEaster(offsets: readonly number[]): Filter {
+    const datesByYear = new Map<number, NaiveDate[]>();
+    function datesOf(year: number): NaiveDate[] {
+      const saved = datesByYear.get(year);
+      if (saved != null) return saved;
+      const jan1 = NaiveDate.fromYmd1Exp(year, 1, 1);
+      const easterIndex = westernEaster(year).dse - jan1.dse;
+      const maskLength = Year.length(year) + 7;
+      const days = new Set<number>();
+      for (const offset of offsets) {
+        const slot = easterIndex + offset;
+        // dateutil indexes a year mask with seven trailing slots and permits negative indices.
+        const index = slot < 0 ? maskLength + slot : slot;
+        if (index < 0 || index >= maskLength) throw new RangeError("BYEASTER offset is outside the year mask");
+        days.add(index);
+      }
+      const dates = [...days].sort((a, b) => a - b).map((day) => jan1.addDays(day));
+      datesByYear.set(year, dates);
+      return dates;
+    }
+    return function* ([candidate, unit]) {
+      const first = unit === "year" ? NaiveDate.fromYmd1Exp(candidate.yr, 1, 1)
+        : unit === "month" ? NaiveDate.fromYmd1Exp(candidate.yr, candidate.mth, 1)
+        : candidate.castValid();
+      const end = unit === "year" ? first.add({ yrs: 1 })
+        : unit === "month" ? first.add({ mths: 1 })
+        : first.addDays(unit === "week" ? 7 : 1);
+      const years = new Set([first.yr, end.addDays(-1).yr]);
+      const seen = new Set<number>();
+      for (const year of years) {
+        for (const day of datesOf(year)) {
+          if (day.dse < first.dse || day.dse >= end.dse || seen.has(day.dse)) continue;
+          seen.add(day.dse);
+          yield [day, "day"];
+        }
+      }
+    };
+  }
+
+  // Meeus/Jones/Butcher Gregorian computus.
+  function westernEaster(year: number): NaiveDate {
+    const goldenNumber = year % 19;
+    const century = Math.floor(year / 100);
+    const yearInCentury = year % 100;
+    const centuryLeapYears = Math.floor(century / 4);
+    const solarCorrection = Math.floor((century + 8) / 25);
+    const lunarCorrection = Math.floor((century - solarCorrection + 1) / 3);
+    const epact = (19 * goldenNumber + century - centuryLeapYears - lunarCorrection + 15) % 30;
+    const weekday = (32 + 2 * (century % 4) + 2 * Math.floor(yearInCentury / 4) - epact - yearInCentury % 4) % 7;
+    const correction = Math.floor((goldenNumber + 11 * epact + 22 * weekday) / 451);
+    const marchOffset = epact + weekday - 7 * correction + 114;
+    return NaiveDate.fromYmd1Exp(year, Math.floor(marchOffset / 31), marchOffset % 31 + 1);
+  }
+
   export function byWeekNo(
     weekno1: number,
     useCalendarYear: boolean = false,

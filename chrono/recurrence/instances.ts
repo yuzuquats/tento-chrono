@@ -282,6 +282,7 @@ export namespace RRuleInstances {
         bymonthday: options?.bymonthday,
         byweekno: options?.byweekno,
         byyearday: options?.byyearday,
+        byeaster: options?.byeaster,
       },
     });
     const filter = filterOf(daily.toFilterProps(null, null, google));

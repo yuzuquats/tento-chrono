@@ -144,3 +144,36 @@ The sanitized responses are `google-expansion-rwc04-edge-cases.json` and
 `graph-expansion-rwc04-edge-cases.json` in the evidence directory. The
 profile suite now replays 209 captured expansions, 18 captured rejections,
 and 30 RFC fixtures.
+
+
+## Exclusion rules, Easter, and post-transition times
+
+The default reader accepts RRULE extension parameters, including delimiters
+inside quotes, and checks RDATE PERIOD durations against the RFC grammar.
+It rejects zero and negative durations and checks that comparable explicit
+endpoints are in chronological order.
+
+The pinned library profiles expand EXRULE separately with its own COUNT and
+subtract matching instances from the rule set. The exclusion cursor reads
+through the last day with an inclusion in each batch. The dateutil profile
+also expands BYEASTER, including multiple offsets and BYSETPOS. The rrule.js
+profile applies its encoded-time timezone conversion to generated dates.
+For a daily 03:30 New York rule on March 8, 2026, rrule.js 2.8.1 under
+`TZ=UTC` returns 08:30Z and the RFC profile returns 07:30Z.
+
+The profile suite adds 21 pinned-library cases and ten RFC controls.
+The vendored Python suite now runs 21 additional Easter expansions and five
+EXRULE tests. The reference exports are
+`recurrence-profile-rule-set-dateutil-2.8.2.json`,
+`recurrence-profile-rule-set-rrule-js-2.8.1.json`, and
+`recurrence-profile-easter-dateutil-2.8.2.json` under
+`fleet/evidence/chrono-fixture-suite/`.
+
+The dateutil export also records an unresolved subdaily spring-gap difference.
+Python retains two wall candidates that both resolve to 06:30Z on March 8,
+2026. Chrono's occurrence API deduplicates by instant. That row remains
+reference evidence outside the parity assertions.
+
+Deno type checking passed for `chrono`, `tests`, `tests.e2e`, and
+`examples`. The complete run passed 96 documentation tests and 1,249
+suite tests with 319 steps and seven existing ignores.

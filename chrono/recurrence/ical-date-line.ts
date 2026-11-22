@@ -1,5 +1,5 @@
 import { NaiveDateTime, Result, TimezoneRegion, Tzname, erm } from "../mod.ts";
-import { ICalAttributes } from "./ical-attributes.ts";
+import { ICalAttributes, splitICalProperty } from "./ical-attributes.ts";
 import { IsoDate } from "./iso-date.ts";
 import type { Option, Optional } from "../option.ts";
 
@@ -77,13 +77,11 @@ export namespace ICalDateLine {
       const lines = s.split(/\r?\n/);
       const line = lines.join("");
 
-      const m = line.match(/^([^:]+):(.*)$/);
-      if (!m) return erm("invalid");
+      const property = splitICalProperty(line);
+      if (property == null || !property.attributes[0]) return erm("invalid");
 
-      const [_, rawParams, rawTimestamps] = m;
-
-      const attributes = ICalAttributes.fromRawAttributes(rawParams.split(";"));
-      const rawValues = rawTimestamps.split(",");
+      const attributes = ICalAttributes.fromRawAttributes(property.attributes);
+      const rawValues = property.value.split(",");
       const periodEnds: (string | null)[] = [];
       const parsedTimestamps = rawValues
         .map((value) => {

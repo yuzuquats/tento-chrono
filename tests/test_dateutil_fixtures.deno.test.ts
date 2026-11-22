@@ -20,6 +20,7 @@ type Input =
     through?: string;
   }
   | { start: string; lines: string[] }
+  | { profileLines: string[]; through: string }
   | { parseLines: string[] }
   | { serializeLines: string[] };
 type Expected = boolean | string[] | { python: string[]; chrono: string[] };
@@ -80,6 +81,15 @@ Deno.test("dateutil fixtures account for every vendored Python test", async () =
 
 fixtures.run(
   async (input) => {
+    if ("profileLines" in input) {
+      const series = (await Recurrence.fromICalendar(input.profileLines, {
+        profile: "dateutil",
+      })).exp();
+      return series.occurrences({
+        through: NaiveDate.parse(input.through),
+        generationLimit: 500_000,
+      }).map(String);
+    }
     if ("serializeLines" in input) {
       return (await ICalendar.Raw.parse(input.serializeLines)).exp().toString()
         .split("\n");

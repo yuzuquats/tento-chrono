@@ -644,6 +644,203 @@
       "expected": {
         "error": "unsupported RDATE parm: TZID=AMERICA/NEW_YORK"
       }
+    },
+    {
+      "name": "exrule-removes-its-own-count",
+      "input": {
+        "lines": [
+          "DTSTART:20260105T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=4",
+          "EXRULE:FREQ=DAILY;INTERVAL=2;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-01-06T09:00:00Z",
+        "2026-01-08T09:00:00Z"
+      ]
+    },
+    {
+      "name": "multiple-exrules",
+      "input": {
+        "lines": [
+          "DTSTART:20260105T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=7",
+          "EXRULE:FREQ=DAILY;INTERVAL=2;COUNT=3",
+          "EXRULE:FREQ=WEEKLY;BYDAY=TH;COUNT=1"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-01-06T09:00:00Z",
+        "2026-01-10T09:00:00Z",
+        "2026-01-11T09:00:00Z"
+      ]
+    },
+    {
+      "name": "exrule-subtracts-rdate",
+      "input": {
+        "lines": [
+          "DTSTART:20260105T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:20260108T090000Z,20260109T090000Z",
+          "EXRULE:FREQ=DAILY;INTERVAL=3;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-01-06T09:00:00Z",
+        "2026-01-09T09:00:00Z"
+      ]
+    },
+    {
+      "name": "exrule-does-not-inherit-exdate",
+      "input": {
+        "lines": [
+          "DTSTART:20260105T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=8",
+          "EXDATE:20260107T090000Z",
+          "EXRULE:FREQ=DAILY;INTERVAL=2;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-01-06T09:00:00Z",
+        "2026-01-08T09:00:00Z",
+        "2026-01-09T09:00:00Z",
+        "2026-01-10T09:00:00Z",
+        "2026-01-11T09:00:00Z",
+        "2026-01-12T09:00:00Z"
+      ]
+    },
+    {
+      "name": "rdate-only-with-exrule",
+      "input": {
+        "lines": [
+          "DTSTART:20260105T090000Z",
+          "RDATE:20260107T090000Z,20260108T090000Z",
+          "EXRULE:FREQ=WEEKLY;BYDAY=WE;COUNT=1"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-01-08T09:00:00Z"
+      ]
+    },
+    {
+      "name": "exrule-only",
+      "input": {
+        "lines": [
+          "DTSTART:20260105T090000Z",
+          "EXRULE:FREQ=WEEKLY;BYDAY=WE;COUNT=1"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": []
+    },
+    {
+      "name": "after-spring-gap",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260307T033000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-03-07T08:30:00Z",
+        "2026-03-08T07:30:00Z",
+        "2026-03-09T07:30:00Z"
+      ]
+    },
+    {
+      "name": "after-autumn-fold",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261031T023000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-10-31T06:30:00Z",
+        "2026-11-01T07:30:00Z",
+        "2026-11-02T07:30:00Z"
+      ]
+    },
+    {
+      "name": "easter-list-setpos",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=YEARLY;BYEASTER=-2,0,1;BYSETPOS=-1;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-04-06T09:00:00Z",
+        "2027-03-29T09:00:00Z",
+        "2028-04-17T09:00:00Z",
+        "2029-04-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "easter-intersects-month",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=YEARLY;BYEASTER=0;BYMONTH=3;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2027-03-28T09:00:00Z",
+        "2032-03-28T09:00:00Z"
+      ]
+    },
+    {
+      "name": "easter-week-and-time",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=WEEKLY;BYEASTER=-2,0;WKST=SU;BYHOUR=9,17;COUNT=5"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-04-03T09:00:00Z",
+        "2026-04-03T17:00:00Z",
+        "2026-04-05T09:00:00Z",
+        "2026-04-05T17:00:00Z",
+        "2027-03-26T09:00:00Z"
+      ]
+    },
+    {
+      "name": "finite inclusion with dense unbounded EXRULE",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXRULE:FREQ=SECONDLY;BYSECOND=1"
+        ],
+        "profile": "dateutil",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-01-01T00:00:00Z",
+        "2026-01-02T00:00:00Z"
+      ]
     }
   ]
 }
