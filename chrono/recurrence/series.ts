@@ -71,19 +71,17 @@ export class RecurrenceSeries {
       );
     const generators = this.rules.map(build);
     const exclusions = this.exclusionRules.map(build);
-    const keyOf = (instance: DateTime<Utc>) =>
-      this.start.kind === "date" ? instance.ndt.date.dse : instance.mse;
     let total = 0;
     let failure: Error | undefined;
     return {
       generateUpToDate: (through: NaiveDate): RecurrenceOccurrence[] => {
         if (failure != null) throw failure;
-        const instances = new Map<number, DateTime<Utc>>();
+        const instances = new Map<number | string, DateTime<Utc>>();
         try {
           let lastPositiveDay: NaiveDate | undefined;
           for (const generator of generators) {
-            for (const instance of generator.generateUpToDate(through)) {
-              instances.set(keyOf(instance), instance);
+            for (const { instant: instance, key } of generator.generateOccurrencesUpToDate(through)) {
+              instances.set(this.start.kind === "date" ? instance.ndt.date.dse : key, instance);
               const day = instance.ndt.date;
               if (lastPositiveDay == null || day.dse > lastPositiveDay.dse) {
                 lastPositiveDay = day;
@@ -98,8 +96,8 @@ export class RecurrenceSeries {
           }
           if (lastPositiveDay != null) {
             for (const exclusion of exclusions) {
-              for (const instance of exclusion.generateUpToDate(lastPositiveDay)) {
-                instances.delete(keyOf(instance));
+              for (const { instant, key } of exclusion.generateOccurrencesUpToDate(lastPositiveDay)) {
+                instances.delete(this.start.kind === "date" ? instant.ndt.date.dse : key);
               }
             }
           }
@@ -255,6 +253,7 @@ function compositionFor(profile: RecurrenceProfile): RecurrenceComposition {
     return {
       ...RecurrenceComposition.RULE_ONLY,
       includeStartWithoutRule: false,
+      distinguishImaginaryWallTimes: true,
       resolveWallTime: (zone, local) => zone.toDateutilWallClock(local),
       resolveExdate: dateutilExdate,
     };

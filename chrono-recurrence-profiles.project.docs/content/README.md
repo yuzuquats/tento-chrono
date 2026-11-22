@@ -169,11 +169,17 @@ EXRULE tests. The reference exports are
 `recurrence-profile-easter-dateutil-2.8.2.json` under
 `fleet/evidence/chrono-fixture-suite/`.
 
-The dateutil export also records an unresolved subdaily spring-gap difference.
-Python retains two wall candidates that both resolve to 06:30Z on March 8,
-2026. Chrono's occurrence API deduplicates by instant. That row remains
-reference evidence outside the parity assertions.
+The dateutil profile now retains the 01:30 and 02:30 New York wall
+candidates that both resolve to 06:30Z on March 8, 2026. The original
+reference row and ten additional dateutil 2.8.2 captures run in
+`tests/fixtures/recurrence-profile.dateutil.json`. They cover same-zone
+and UTC exclusions, overlapping rules, UTC additions, candidate order,
+and reads split across UTC days. The fixture compares results in
+Chrono's UTC chronological order, including equal instants.
 
 Deno type checking passed for `chrono`, `tests`, `tests.e2e`, and
 `examples`. The complete run passed 96 documentation tests and 1,249
 suite tests with 319 steps and seven existing ignores.
+
+The gap identity follow-up passed Deno type checking, 96 documentation
+tests, and 1,260 suite tests with 319 steps and seven existing ignores.

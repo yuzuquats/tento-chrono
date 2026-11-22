@@ -124,6 +124,8 @@ export interface RecurrenceComposition {
   readonly dtstartAlwaysInstance: boolean;
   /** A provider's RDATE set may use DTSTART only to supply context. */
   readonly includeStartWithoutRule?: boolean;
+  /** dateutil compares same-zone rule candidates by their original wall time. */
+  readonly distinguishImaginaryWallTimes?: boolean;
   /**
    * Google's BYWEEKNO handling: the consecutive-weekly COUNT patterns
    * (`detectCountPattern`), the generator start date
@@ -189,11 +191,16 @@ export namespace RecurrenceComposition {
   }
 }
 
+interface GeneratedOccurrence {
+  readonly instant: DateTime<Utc>;
+  readonly key: number | string;
+}
+
 // State for generating recurrence events
 interface RecurrenceGenerationState {
   composition: RecurrenceComposition;
   hasRrule: boolean;
-  seenInstants: Set<number>;
+  seenOccurrences: Set<number | string>;
   generator: Generator<YearMonthDay>;
   // A rule with time parts (`RRule.hasTimeParts`): its instances as wall
   // times in the series' zone (`RRuleInstances`), in place of `generator`.
@@ -215,11 +222,12 @@ interface RecurrenceGenerationState {
   // used to stop incremental expansion only once no future candidate can fall
   // on or before the queried UTC date (even across large forward jumps).
   lastCandidateWallMse: Option<number>;
-  allGeneratedEvents: DateTime<Utc>[]; // Buffer all generated events
+  allGeneratedEvents: GeneratedOccurrence[]; // Buffer all generated events
   // RDATE instances (sorted, unique) and the
   // next one not yet merged into `allGeneratedEvents`.
   rdates: readonly DateTime<Utc>[];
   rdateNext: number;
+  lastMergedRdateMse?: number;
   startHandled: boolean;
   generationComplete: boolean; // Track if we've exhausted the generator
   generationLimit?: number;
@@ -324,6 +332,10 @@ export function exclusionsOf(
     line.dates.forEach((ndt, i) => {
       const form = line.forms?.[i] ?? { timed: true, utc: false };
       if (line.value === "DATE" || !form.timed) localDays.add(ndt.date.dse);
+      else if (
+        composition.distinguishImaginaryWallTimes && !form.utc &&
+        line.region != null && line.region.fullname === timezone?.fullname
+      ) localTimes.add(ndt.mse);
       else if (composition.resolveExdate != null) {
         const instant = composition.resolveExdate(ndt, line.region ?? null, form.utc, timezone ?? null);
         if (instant != null) instants.add(instant.mse);
@@ -365,6 +377,10 @@ export function exclusionsOfLines(
     for (const d of exdate.dates) {
       const ndt = d.extend();
       if (exdate.valueType === "DATE" || d.nt == null) localDays.add(ndt.date.dse);
+      else if (
+        composition.distinguishImaginaryWallTimes && d.z == null &&
+        exdate.tzid != null && exdate.tzid === seriesZone
+      ) localTimes.add(ndt.mse);
       else if (composition.resolveExdate != null) {
         const region = exdate.tzid == null ? null : regionOf(exdate.tzid);
         const zone = seriesZone == null ? null : regionOf(seriesZone);
@@ -408,24 +424,29 @@ function resolveSeriesWall(
     : timezone.googleDatetimeResolved(local, startDateTime).toUtc();
 }
 
-function appendGenerated(state: RecurrenceGenerationState, event: DateTime<Utc>): void {
-  if (state.seenInstants.has(event.mse)) return;
+function appendGenerated(
+  state: RecurrenceGenerationState,
+  event: DateTime<Utc>,
+  key: number | string = event.mse,
+): void {
+  if (state.seenOccurrences.has(key)) return;
   if (state.generationLimit != null && state.allGeneratedEvents.length >= state.generationLimit) {
     throw new RecurrenceExpansionLimitError(state.generationLimit);
   }
-  state.seenInstants.add(event.mse);
+  state.seenOccurrences.add(key);
+  const occurrence = { instant: event, key };
   const list = state.allGeneratedEvents;
-  if (list.length === 0 || list[list.length - 1]!.mse < event.mse) {
-    list.push(event);
+  if (list.length === 0 || list[list.length - 1]!.instant.mse <= event.mse) {
+    list.push(occurrence);
     return;
   }
   // Preserve chronological order if a DST spring-forward gap shifts an earlier
   // wall-clock candidate past a later post-gap instant.
   let idx = list.length;
-  while (idx > state.lastReturnedIndex && list[idx - 1]!.mse > event.mse) {
+  while (idx > state.lastReturnedIndex && list[idx - 1]!.instant.mse > event.mse) {
     idx--;
   }
-  list.splice(idx, 0, event);
+  list.splice(idx, 0, occurrence);
 }
 
 function countCandidate(state: RecurrenceGenerationState): void {
@@ -531,7 +552,14 @@ function placeInstance(state: RecurrenceGenerationState, local: NaiveDateTime): 
   }
   if (isExcluded(state.excl, local, event)) return false;
   flushRdates(state, event.mse);
-  appendGenerated(state, event);
+  const imaginary = state.composition.distinguishImaginaryWallTimes &&
+    state.timezone != null &&
+    state.timezone.toTz(event).ndt.mse !== local.mse;
+  // dateutil compares adjacent UTC RDATEs by instant. A different candidate
+  // between the RDATE and the imaginary wall time ends that equality.
+  if (state.lastMergedRdateMse !== event.mse) state.lastMergedRdateMse = undefined;
+  const key = imaginary && state.lastMergedRdateMse == null ? "wall:" + local.mse : event.mse;
+  appendGenerated(state, event, key);
   return false;
 }
 
@@ -545,6 +573,9 @@ function flushRdates(state: RecurrenceGenerationState, beforeMse: number): void 
     const next = state.rdates[state.rdateNext]!;
     if (next.mse > beforeMse) return;
     state.rdateNext++;
+    if (state.composition.distinguishImaginaryWallTimes) {
+      state.lastMergedRdateMse = next.mse;
+    }
     appendGenerated(state, next);
   }
 }
@@ -764,13 +795,13 @@ export function shiftRecurrenceLines(
 function generateEventsUpToDate(
   state: RecurrenceGenerationState,
   endDate: NaiveDate,
-): DateTime<Utc>[] {
+): GeneratedOccurrence[] {
   // Ensure we have generated enough events up to the requested date
   ensureEventsGenerated(state, endDate);
 
   // Find all events up to (and including) the endDate
   const eventsUpToEndDate = state.allGeneratedEvents.filter(
-    (event) => event.ndt.date.dse <= endDate.dse,
+    ({ instant }) => instant.ndt.date.dse <= endDate.dse,
   );
 
   // Return only the new events beyond what we've already returned
@@ -905,7 +936,7 @@ export class GoogleEventGenerator {
     this.state = {
       composition,
       hasRrule: rrule != null,
-      seenInstants: new Set<number>(),
+      seenOccurrences: new Set(),
       generator,
       wallGenerator,
       startLocal,
@@ -955,6 +986,11 @@ export class GoogleEventGenerator {
    * @returns Array of generated events in UTC timezone
    */
   generateUpToDate(endDate: NaiveDate): DateTime<Utc>[] {
+    return this.generateOccurrencesUpToDate(endDate).map(({ instant }) => instant);
+  }
+
+  /** @internal Keep occurrence identity when composing a bound recurrence set. */
+  generateOccurrencesUpToDate(endDate: NaiveDate): GeneratedOccurrence[] {
     // UNTIL bounds the rule's instances where they are generated (the date
     // generator and `untilDt`), not this read: an RDATE past UNTIL is still
     // in the set (RFC 5545 §3.8.5.2).
