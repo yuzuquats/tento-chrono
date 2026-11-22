@@ -35,6 +35,14 @@ export class DateTimeRegion {
     this.tz = tz;
   }
 
+  /** Convert an instant to this region while retaining its resolved offset. */
+  static fromInstant(dt: DateTime, tz: TimezoneRegion): DateTimeRegion {
+    const local = tz.toTz(dt);
+    const result = new DateTimeRegion(local.ndt, tz);
+    result.cache.wallclock = local;
+    return result;
+  }
+
   /**
    * @deprecated Use `asWallClock()` instead. This method has confusing semantics -
    * it treats the NaiveDateTime as if it were UTC, which is almost never the correct
@@ -61,8 +69,8 @@ export namespace DateTimeRegion {
   export class Range extends GenericRange<DateTimeRegion> {
     static fromSingleTz(dtr: DateTime.Range<Utc>, tz: TimezoneRegion): DateTimeRegion.Range {
       return new DateTimeRegion.Range(
-        new DateTimeRegion(tz.toTz(dtr.start).ndt, tz),
-        new DateTimeRegion(tz.toTz(dtr.end).ndt, tz),
+        DateTimeRegion.fromInstant(dtr.start, tz),
+        DateTimeRegion.fromInstant(dtr.end, tz),
       );
     }
 

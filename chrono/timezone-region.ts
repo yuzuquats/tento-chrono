@@ -1,7 +1,7 @@
 import { DateRegion } from "./date-region.ts";
 import { DateTimeRegion } from "./date-time-region.ts";
 import { DateTime } from "./datetime.ts";
-import { NaiveDate } from "./naive-date.ts";
+import type { NaiveDate } from "./naive-date.ts";
 import { NaiveDateTime } from "./naive-datetime.ts";
 import {
   FixedOffset,
@@ -12,6 +12,7 @@ import {
   Tzname,
   Utc,
 } from "./timezone.ts";
+import { Time } from "./time.ts";
 import { PlatformZone } from "./timezone-platform.ts";
 import { Epoch } from "./units/epoch.ts";
 import { TimeOfDay } from "./units/time-of-day.ts";
@@ -182,14 +183,11 @@ export class TimezoneRegion {
   }
 
   today(): DateRegion {
-    return new DateRegion(NaiveDate.today(), this);
+    return new DateRegion(this.now().ndt.date, this);
   }
 
   now(): DateTimeRegion {
-    // Convert current UTC time to local wall-clock time
-    const utcNow = DateTime.fromMse(Epoch.currentMse(), Utc);
-    const localNow = this.toTz(utcNow);
-    return new DateTimeRegion(localNow.ndt, this);
+    return DateTimeRegion.fromInstant(DateTime.fromMse(Epoch.currentMse(), Utc), this);
   }
 
   date(nd: NaiveDate): DateRegion {
@@ -304,19 +302,7 @@ export class TimezoneRegion {
     return new DateTime(ndt, originalDateTime.tz);
   }
 
-  /**
-   * Convert a wall-clock NaiveDateTime to DateTime, properly handling DST edge cases.
-   *
-   * This function correctly resolves ambiguous or invalid wall-clock times:
-   * - For times in spring-forward gap (e.g., 2:30 AM on DST day): uses post-transition (later) offset
-   * - For times in fall-back overlap (e.g., 1:30 AM occurs twice): uses post-transition (later) offset
-   *
-   * This finds DST transitions by checking the actual day of the NaiveDateTime,
-   * rather than comparing `ndt.mse` (which is a naive "wall-clock MSE") against
-   * UTC-based transition timestamps.
-   */
-  // Cache the "no transition" timezone per DSE to avoid repeated bst lookups.
-  // Most dates have no transitions — this skips transitionsBetween entirely.
+  // Cache the offset for civil days with no offset change.
   private _wallClockTzCache = new Map<number, LogicalTimezone<any>>();
   private _rfc5545WallClockTzCache = new Map<number, LogicalTimezone<any>>();
 
@@ -370,84 +356,35 @@ export class TimezoneRegion {
     return ndt.withTz(resolved);
   }
 
+  /**
+   * Resolve a local wall clock, choosing the post-transition offset in a gap or overlap.
+   */
   toWallClock(ndt: NaiveDateTime): DateTime<FixedOffset> {
+    // Keep the UTC region's existing fixed-offset representation.
+    if (this === TimezoneRegion.UTC) return ndt.withTz(this.tzAtMse(ndt.mse));
     const dse = ndt.date.dse;
+    const cached = this._wallClockTzCache.get(dse);
+    if (cached) return ndt.withTz(cached);
 
-    // Fast path: if we've already determined this date has no transitions,
-    // reuse the cached timezone directly.
-    const cachedTz = this._wallClockTzCache.get(dse);
-    if (cachedTz) return ndt.withTz(cachedTz);
+    const dayStart = dse * Time.MS_PER_DAY;
+    const dayEnd = dayStart + Time.MS_PER_DAY;
+    // A transition's UTC instant can fall on either side of the local date.
+    const first = this.bst((dayStart - Time.MS_PER_DAY) as MsSinceEpoch);
+    const last = this.bst((dayEnd + Time.MS_PER_DAY) as MsSinceEpoch);
+    let resolved = this.transitions[first]?.after.time.tz ??
+      this.transitions[0]?.before.time.tz ?? Utc;
+    let changesOnDay = false;
 
-    const dayStartMse = ndt.date.withTime(TimeOfDay.fromHms({ hrs: 0 })).mse;
-    const dayEndMse = dayStartMse + 24 * 60 * 60 * 1000;
-
-    const transitions = this.transitionsBetween({
-      start: (dayStartMse - 24 * 60 * 60 * 1000) as MsSinceEpoch,
-      end: (dayEndMse + 24 * 60 * 60 * 1000) as MsSinceEpoch,
-    });
-
-    if (transitions.length === 0) {
-      const tz = this.tzAtMse(ndt.mse);
-      this._wallClockTzCache.set(dse, tz);
-      return ndt.withTz(tz);
+    for (let i = first + 1; i <= last; i++) {
+      const transition = this.transitions[i];
+      const cutoff = Math.min(transition.before.time.ndt.mse, transition.after.time.ndt.mse);
+      if (cutoff >= dayStart && cutoff < dayEnd) changesOnDay = true;
+      if (cutoff <= ndt.mse) resolved = transition.after.time.tz;
     }
 
-    for (const transition of transitions) {
-      const transitionDate = transition.after.time.ndt.date;
-
-      if (!ndt.date.equals(transitionDate)) {
-        continue;
-      }
-
-      const beforeOffset = transition.before.time.tz.info.offset;
-      const afterOffset = transition.after.time.tz.info.offset;
-      const beforeOffsetHrs = beforeOffset.toHrsF;
-      const afterOffsetHrs = afterOffset.toHrsF;
-
-      const isSpringForward = afterOffsetHrs > beforeOffsetHrs;
-      const isFallBack = afterOffsetHrs < beforeOffsetHrs;
-
-      const transitionWallTime = transition.before.time.ndt.time;
-
-      if (isSpringForward) {
-        const gapSizeMs =
-          (afterOffsetHrs - beforeOffsetHrs) * 60 * 60 * 1000;
-        const gapStartMs = transitionWallTime.toMs;
-        const gapEndMs = gapStartMs + gapSizeMs;
-        const currentTimeMs = ndt.time.toMs;
-
-        if (currentTimeMs >= gapStartMs && currentTimeMs < gapEndMs) {
-          return ndt.withTz(this.asAsked(transition.after.time.tz));
-        }
-
-        if (currentTimeMs >= gapEndMs) {
-          return ndt.withTz(this.asAsked(transition.after.time.tz));
-        }
-
-        return ndt.withTz(this.asAsked(transition.before.time.tz));
-      }
-
-      if (isFallBack) {
-        const overlapSizeMs =
-          (beforeOffsetHrs - afterOffsetHrs) * 60 * 60 * 1000;
-        const overlapStartMs = transitionWallTime.toMs - overlapSizeMs;
-        const overlapEndMs = transitionWallTime.toMs;
-        const currentTimeMs = ndt.time.toMs;
-
-        if (currentTimeMs >= overlapStartMs && currentTimeMs < overlapEndMs) {
-          return ndt.withTz(this.asAsked(transition.after.time.tz));
-        }
-
-        if (currentTimeMs >= overlapEndMs) {
-          return ndt.withTz(this.asAsked(transition.after.time.tz));
-        }
-
-        return ndt.withTz(this.asAsked(transition.before.time.tz));
-      }
-    }
-
-    const tz = this.tzAtMse(ndt.mse);
-    return ndt.withTz(tz);
+    resolved = this.asAsked(resolved);
+    if (!changesOnDay) this._wallClockTzCache.set(dse, resolved);
+    return ndt.withTz(resolved);
   }
 
   /**
