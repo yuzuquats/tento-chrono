@@ -143,6 +143,9 @@ function clipRange(
 }
 
 export namespace DateFragment {
+  /** Partial bounds that have already been resolved to specific instants. */
+  export type InstantBounds = { readonly start?: DateTime<Utc>; readonly end?: DateTime<Utc> };
+
   /**
    * Represents a shift between two DateFragments, typically used for timezone transitions.
    * @typedef {Object} DateFragmentShift
@@ -191,6 +194,8 @@ export namespace DateFragment {
       readonly fragment: DateFragment,
       readonly partialWindow?: GenericRange<Option<NaiveDateTime>>,
       readonly validHours: TimeOfDay.Range = TimeOfDay.Range.DAY,
+      /** Exact instants take precedence over the corresponding civil bounds. */
+      readonly instantBounds?: InstantBounds,
     ) {}
 
     get tzr(): TimezoneRegion {
@@ -206,7 +211,7 @@ export namespace DateFragment {
      * Returns the fragment clipped to the specified start/end times.
      */
     applyPartialWindow(): DateTime.Range<FixedOffset> {
-      if (!this.partialWindow) {
+      if (!this.partialWindow && !this.instantBounds) {
         // Convert end through UTC to get proper offset representation for DST boundaries
         const endWallClock = this.fragment.parent.toTz(
           this.fragment.end.toUtc(),
@@ -218,14 +223,17 @@ export namespace DateFragment {
     }
 
     #applyPartialWindow(range: DateTime.Range<FixedOffset>): DateTime.Range<FixedOffset> {
-      const start = this.partialWindow?.start;
-      const end = this.partialWindow?.end;
       return clipRange(
         range.start,
         range.end,
-        start == null ? undefined : this.tzr.toWallClock(start),
-        end == null ? undefined : this.tzr.toWallClock(end),
+        this.#resolveBound(this.partialWindow?.start, this.instantBounds?.start),
+        this.#resolveBound(this.partialWindow?.end, this.instantBounds?.end),
       );
+    }
+
+    #resolveBound(civil: Option<NaiveDateTime>, instant?: DateTime<Utc>): DateTime<FixedOffset> | undefined {
+      if (instant) return this.tzr.toTz(instant);
+      return civil == null ? undefined : this.tzr.toWallClock(civil);
     }
 
     /**
@@ -242,7 +250,7 @@ export namespace DateFragment {
     applyAll(): DateTime.Range<FixedOffset> {
       if (this.cache.applyAll) return this.cache.applyAll;
 
-      const valid = clampFragment(this.fragment, this.validHours, this.partialWindow?.end == null);
+      const valid = clampFragment(this.fragment, this.validHours, this.partialWindow?.end == null && this.instantBounds?.end == null);
       return (this.cache.applyAll = this.#applyPartialWindow(valid));
     }
 
@@ -389,7 +397,9 @@ export namespace DateFragment {
      * // partialWindowStartHrs = 0
      */
     get partialWindowStartHrs(): number {
-      return this.partialWindow?.start?.time.duration().toHrsF ?? 0;
+      const instant = this.instantBounds?.start;
+      const time = instant ? this.tzr.toTz(instant).time : this.partialWindow?.start?.time;
+      return time?.duration().toHrsF ?? 0;
     }
 
     /**
@@ -474,10 +484,10 @@ export namespace DateFragment {
       return {
         linesOffsetPx: lineOffset,
         partialTop:
-          this.partialWindow?.start != null ||
+          this.instantBounds?.start != null || this.partialWindow?.start != null ||
           (start.mse > wd.start.mse && start.mse < wd.end.mse),
         partialBottom:
-          this.partialWindow?.end != null ||
+          this.instantBounds?.end != null || this.partialWindow?.end != null ||
           (end.mse > wd.start.mse && end.mse < wd.end.mse),
         transformY: (windowedStartHrs - validHoursStartHrs) * pixelsPerHour,
         height: (windowed.duration.toMs / Time.MS_PER_HR) * pixelsPerHour,

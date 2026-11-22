@@ -9,3 +9,9 @@ Claude and Gemini Neon confirmed five findings against dc64ff8. Correct civil-da
 The iCalendar parser validates clock fields, retains compatibility with abbreviated times and interprets leap second 60 as 59 per RFC 5545 when leap seconds are unsupported. Malformed clock fields follow the existing parse-error path. RFC 3339 rounds decimal strings exactly, with normal midnight carry. An otherwise out-of-range carry after 9999-12-31 stays at the last representable millisecond.
 
 All six focused regressions, the full Deno suite (680 tests, 202 steps, seven existing ignores, and 96 doc tests), type checks and two rrule.js permutation tests passed. Independent Temporal checks confirmed exact civil-date membership in 7,970 samples across 10 zones. Calendar passed 25 Sheets UI and 14 app tests. Three additional pending-event tests passed at runtime with type checking disabled. Their four type errors also reproduce against the published Chrono baseline. Logs use the `chrono-correctness-followup-` prefix in owner-host fleet evidence.
+
+## Exact partial-column bounds
+
+Flight timeline callers can pass resolved UTC bounds to `DateFragment.Windowed`. Each supplied instant takes precedence over its corresponding civil bound. Clipping retains the first occurrence of a repeated wall time and continues to resolve existing civil-only inputs in the fragment's zone.
+
+The Los Angeles fall-back case verifies partial clipping, valid-hours intersection and positioning. The 14 targeted Deno tests passed at runtime, including 20 data-driven window cases. Type checking the full test import graph encounters existing recurrence work in the shared checkout.

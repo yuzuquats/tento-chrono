@@ -543,3 +543,15 @@ Deno.test({
     console.log(`✅ Height: ${positioning.height.toFixed(1)}px (expected ${expectedHeight}px)`);
   },
 });
+
+Deno.test("resolved partial bounds clip the first occurrence of a repeated wall time", async () => {
+  const zone = await TimezoneRegion.get("America/Los_Angeles" as Tzname);
+  const end = Utc.parse("2026-11-01T08:30:00Z")!;
+  const fragment = zone.date(end.date).dateFragments()[0]!;
+  const wall = { start: null, end: zone.toTz(end).ndt };
+  assertEquals(new DateFragment.Windowed(fragment, wall).applyAll().end.toUtc().rfc3339(), "2026-11-01T09:00:00Z");
+  const windowed = new DateFragment.Windowed(fragment, wall, undefined, { end });
+  assertEquals(windowed.applyPartialWindow().end.mse, end.mse);
+  assertEquals(windowed.applyAll().end.mse, end.mse);
+  assertEquals(windowed.getPositioning(60)?.height, 90);
+});
