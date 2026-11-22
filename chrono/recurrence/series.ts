@@ -214,6 +214,7 @@ function compositionFor(profile: RecurrenceProfile): RecurrenceComposition {
   if (profile === "google") {
     return {
       ...RecurrenceComposition.GOOGLE,
+      useGoogleYearlyWeeks: true,
       resolveWallTime: (zone, local, start) =>
         zone.googleDatetimeResolved(local, start, true),
     };
@@ -222,9 +223,49 @@ function compositionFor(profile: RecurrenceProfile): RecurrenceComposition {
     return {
       ...RecurrenceComposition.RULE_ONLY,
       resolveWallTime: (zone, local) => zone.toDateutilWallClock(local),
+      resolveExdate: dateutilExdate,
+    };
+  }
+  if (profile === "rrule-js") {
+    return {
+      ...RecurrenceComposition.RULE_ONLY,
+      // RRuleSet interprets EXDATE's clock fields in the DTSTART zone.
+      resolveExdate: (value, _region, _utc, seriesZone) =>
+        seriesZone?.toRfc5545WallClock(value).toUtc() ?? value.asUtc(),
     };
   }
   return RecurrenceComposition.RULE_ONLY;
+}
+
+function dateutilExdate(
+  value: NaiveDateTime,
+  region: TimezoneRegion | null,
+  utc: boolean,
+  seriesZone: TimezoneRegion | null,
+): DateTime<Utc> | null {
+  const sourceZone = utc ? null : region ?? seriesZone;
+  const instant = sourceZone?.toDateutilWallClock(value).toUtc() ??
+    value.asUtc();
+  if (sourceZone?.fullname !== seriesZone?.fullname) {
+    // Python datetime equality rejects an inter-zone match when a fold changes either offset.
+    if (sourceZone != null && isRepeatedWallTime(sourceZone, value)) {
+      return null;
+    }
+    if (
+      seriesZone != null &&
+      isRepeatedWallTime(seriesZone, seriesZone.toTz(instant).ndt)
+    ) return null;
+  }
+  return instant;
+}
+
+function isRepeatedWallTime(
+  zone: TimezoneRegion,
+  value: NaiveDateTime,
+): boolean {
+  // In a fold the RFC resolver selects the earlier instant and toWallClock selects the later one.
+  // In a gap the two instants have the opposite order.
+  return zone.toRfc5545WallClock(value).mse < zone.toWallClock(value).mse;
 }
 
 async function loadZone(name: string): Promise<TimezoneRegion> {

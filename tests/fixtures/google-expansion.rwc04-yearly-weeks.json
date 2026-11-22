@@ -1,0 +1,947 @@
+{
+  "type": "google-expansion",
+  "name": "Google Calendar API yearly weeks",
+  "source": "Google Calendar API events.instances",
+  "captureCliCommit": "77f899aac5",
+  "batches": [
+    {
+      "name": "week-parity",
+      "capturedAt": "2026-11-22T06:13:33.077101+00:00"
+    },
+    {
+      "name": "negative-weeks",
+      "capturedAt": "2026-11-22T06:15:08.244533+00:00"
+    },
+    {
+      "name": "rollover",
+      "capturedAt": "2026-11-22T06:16:50.661899+00:00"
+    }
+  ],
+  "cases": [
+    {
+      "name": "week-mo-count-1",
+      "input": {
+        "start": "2025-12-29T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=MO;COUNT=1;BYWEEKNO=1,-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2025-12-01T00:00:00Z",
+          "end": "2033-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1,-1;BYDAY=SU,MO;WKST=MO;COUNT=1"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-12-29T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "week-mo-count-2",
+      "input": {
+        "start": "2025-12-29T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=MO;COUNT=2;BYWEEKNO=1,-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2025-12-01T00:00:00Z",
+          "end": "2033-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1,-1;BYDAY=SU,MO;WKST=MO;COUNT=2"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-12-29T10:00:00Z",
+          "2026-01-04T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "week-mo-count-3",
+      "input": {
+        "start": "2025-12-29T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=MO;COUNT=3;BYWEEKNO=1,-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2025-12-01T00:00:00Z",
+          "end": "2033-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1,-1;BYDAY=SU,MO;WKST=MO;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-12-29T10:00:00Z",
+          "2026-01-04T10:00:00Z",
+          "2026-12-28T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "week-mo-negative-only",
+      "input": {
+        "start": "2025-12-29T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=MO;COUNT=4;BYWEEKNO=-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2025-12-01T00:00:00Z",
+          "end": "2033-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=-1;BYDAY=SU,MO;WKST=MO;COUNT=4"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-12-29T10:00:00Z",
+          "2026-12-28T10:00:00Z",
+          "2027-12-27T10:00:00Z",
+          "2028-12-25T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "week-mo-matching-start",
+      "input": {
+        "start": "2026-01-04T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=MO;COUNT=6;BYWEEKNO=1,-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2025-12-01T00:00:00Z",
+          "end": "2033-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1,-1;BYDAY=SU,MO;WKST=MO;COUNT=6"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2026-01-04T10:00:00Z",
+          "2026-12-28T10:00:00Z",
+          "2027-01-04T10:00:00Z",
+          "2027-01-10T10:00:00Z",
+          "2027-12-27T10:00:00Z",
+          "2028-01-03T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "week-mo-week-two",
+      "input": {
+        "start": "2025-12-29T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=MO;COUNT=5;BYWEEKNO=2,-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2025-12-01T00:00:00Z",
+          "end": "2033-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=2,-1;BYDAY=SU,MO;WKST=MO;COUNT=5"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-12-29T10:00:00Z",
+          "2026-01-05T10:00:00Z",
+          "2026-01-11T10:00:00Z",
+          "2026-12-28T10:00:00Z",
+          "2027-01-11T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "week-su-count-1",
+      "input": {
+        "start": "2025-12-29T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=SU;COUNT=1;BYWEEKNO=1,-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2025-12-01T00:00:00Z",
+          "end": "2033-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1,-1;BYDAY=SU,MO;WKST=SU;COUNT=1"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-12-29T10:00:00Z",
+          "2026-01-04T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "week-su-count-2",
+      "input": {
+        "start": "2025-12-29T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=SU;COUNT=2;BYWEEKNO=1,-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2025-12-01T00:00:00Z",
+          "end": "2033-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1,-1;BYDAY=SU,MO;WKST=SU;COUNT=2"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-12-29T10:00:00Z",
+          "2026-01-04T10:00:00Z",
+          "2026-01-05T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "week-su-count-3",
+      "input": {
+        "start": "2025-12-29T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=SU;COUNT=3;BYWEEKNO=1,-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2025-12-01T00:00:00Z",
+          "end": "2033-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1,-1;BYDAY=SU,MO;WKST=SU;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-12-29T10:00:00Z",
+          "2026-01-04T10:00:00Z",
+          "2026-01-05T10:00:00Z",
+          "2026-12-27T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "week-su-negative-only",
+      "input": {
+        "start": "2025-12-29T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=SU;COUNT=4;BYWEEKNO=-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2025-12-01T00:00:00Z",
+          "end": "2033-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=-1;BYDAY=SU,MO;WKST=SU;COUNT=4"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-12-29T10:00:00Z",
+          "2026-12-27T10:00:00Z",
+          "2026-12-28T10:00:00Z",
+          "2027-12-26T10:00:00Z",
+          "2027-12-27T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "week-su-matching-start",
+      "input": {
+        "start": "2026-01-04T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=SU;COUNT=6;BYWEEKNO=1,-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2025-12-01T00:00:00Z",
+          "end": "2033-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1,-1;BYDAY=SU,MO;WKST=SU;COUNT=6"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2026-01-04T10:00:00Z",
+          "2026-01-05T10:00:00Z",
+          "2026-12-27T10:00:00Z",
+          "2026-12-28T10:00:00Z",
+          "2027-01-03T10:00:00Z",
+          "2027-01-04T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "week-su-week-two",
+      "input": {
+        "start": "2025-12-29T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=SU;COUNT=5;BYWEEKNO=2,-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2025-12-01T00:00:00Z",
+          "end": "2033-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=2,-1;BYDAY=SU,MO;WKST=SU;COUNT=5"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-12-29T10:00:00Z",
+          "2026-01-11T10:00:00Z",
+          "2026-01-12T10:00:00Z",
+          "2026-12-27T10:00:00Z",
+          "2026-12-28T10:00:00Z",
+          "2027-01-10T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "year-edge-mo-negative",
+      "input": {
+        "start": "2025-01-01T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=MO;COUNT=6;BYWEEKNO=-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2024-12-31T00:00:00Z",
+          "end": "2033-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=-1;BYDAY=SU,MO;WKST=MO;COUNT=6"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-01-01T10:00:00Z",
+          "2025-12-22T10:00:00Z",
+          "2025-12-28T10:00:00Z",
+          "2026-12-28T10:00:00Z",
+          "2027-12-27T10:00:00Z",
+          "2028-12-25T10:00:00Z",
+          "2028-12-31T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "year-edge-mo-second-last",
+      "input": {
+        "start": "2025-01-01T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=MO;COUNT=6;BYWEEKNO=-2;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2024-12-31T00:00:00Z",
+          "end": "2033-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=-2;BYDAY=SU,MO;WKST=MO;COUNT=6"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-01-01T10:00:00Z",
+          "2025-12-15T10:00:00Z",
+          "2025-12-21T10:00:00Z",
+          "2026-12-21T10:00:00Z",
+          "2026-12-27T10:00:00Z",
+          "2027-12-20T10:00:00Z",
+          "2027-12-26T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "year-edge-mo-mixed",
+      "input": {
+        "start": "2025-01-01T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=MO;COUNT=6;BYWEEKNO=1,-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2024-12-31T00:00:00Z",
+          "end": "2033-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1,-1;BYDAY=SU,MO;WKST=MO;COUNT=6"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-01-01T10:00:00Z",
+          "2025-01-05T10:00:00Z",
+          "2025-12-22T10:00:00Z",
+          "2025-12-28T10:00:00Z",
+          "2026-01-04T10:00:00Z",
+          "2026-12-28T10:00:00Z",
+          "2027-01-04T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "year-edge-mo-december-21",
+      "input": {
+        "start": "2025-12-21T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=MO;COUNT=6;BYWEEKNO=-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2024-12-31T00:00:00Z",
+          "end": "2033-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=-1;BYDAY=SU,MO;WKST=MO;COUNT=6"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-12-21T10:00:00Z",
+          "2025-12-22T10:00:00Z",
+          "2025-12-28T10:00:00Z",
+          "2026-12-28T10:00:00Z",
+          "2027-12-27T10:00:00Z",
+          "2028-12-25T10:00:00Z",
+          "2028-12-31T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "year-edge-mo-december-22",
+      "input": {
+        "start": "2025-12-22T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=MO;COUNT=6;BYWEEKNO=-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2024-12-31T00:00:00Z",
+          "end": "2033-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=-1;BYDAY=SU,MO;WKST=MO;COUNT=6"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-12-22T10:00:00Z",
+          "2025-12-28T10:00:00Z",
+          "2026-12-28T10:00:00Z",
+          "2027-12-27T10:00:00Z",
+          "2028-12-25T10:00:00Z",
+          "2028-12-31T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "year-edge-mo-december-28",
+      "input": {
+        "start": "2025-12-28T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=MO;COUNT=6;BYWEEKNO=-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2024-12-31T00:00:00Z",
+          "end": "2033-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=-1;BYDAY=SU,MO;WKST=MO;COUNT=6"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-12-28T10:00:00Z",
+          "2025-12-29T10:00:00Z",
+          "2026-12-28T10:00:00Z",
+          "2027-12-27T10:00:00Z",
+          "2028-12-25T10:00:00Z",
+          "2028-12-31T10:00:00Z",
+          "2029-12-24T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "year-edge-su-negative",
+      "input": {
+        "start": "2025-01-01T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=SU;COUNT=6;BYWEEKNO=-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2024-12-31T00:00:00Z",
+          "end": "2033-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=-1;BYDAY=SU,MO;WKST=SU;COUNT=6"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-01-01T10:00:00Z",
+          "2025-12-28T10:00:00Z",
+          "2025-12-29T10:00:00Z",
+          "2026-12-27T10:00:00Z",
+          "2026-12-28T10:00:00Z",
+          "2027-12-26T10:00:00Z",
+          "2027-12-27T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "year-edge-su-second-last",
+      "input": {
+        "start": "2025-01-01T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=SU;COUNT=6;BYWEEKNO=-2;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2024-12-31T00:00:00Z",
+          "end": "2033-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=-2;BYDAY=SU,MO;WKST=SU;COUNT=6"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-01-01T10:00:00Z",
+          "2025-12-21T10:00:00Z",
+          "2025-12-22T10:00:00Z",
+          "2026-12-20T10:00:00Z",
+          "2026-12-21T10:00:00Z",
+          "2027-12-19T10:00:00Z",
+          "2027-12-20T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "year-edge-su-mixed",
+      "input": {
+        "start": "2025-01-01T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=SU;COUNT=6;BYWEEKNO=1,-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2024-12-31T00:00:00Z",
+          "end": "2033-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1,-1;BYDAY=SU,MO;WKST=SU;COUNT=6"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-01-01T10:00:00Z",
+          "2025-12-28T10:00:00Z",
+          "2025-12-29T10:00:00Z",
+          "2026-01-04T10:00:00Z",
+          "2026-01-05T10:00:00Z",
+          "2026-12-27T10:00:00Z",
+          "2026-12-28T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "year-edge-su-december-21",
+      "input": {
+        "start": "2025-12-21T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=SU;COUNT=6;BYWEEKNO=-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2024-12-31T00:00:00Z",
+          "end": "2033-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=-1;BYDAY=SU,MO;WKST=SU;COUNT=6"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-12-21T10:00:00Z",
+          "2025-12-28T10:00:00Z",
+          "2025-12-29T10:00:00Z",
+          "2026-12-27T10:00:00Z",
+          "2026-12-28T10:00:00Z",
+          "2027-12-26T10:00:00Z",
+          "2027-12-27T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "year-edge-su-december-22",
+      "input": {
+        "start": "2025-12-22T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=SU;COUNT=6;BYWEEKNO=-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2024-12-31T00:00:00Z",
+          "end": "2033-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=-1;BYDAY=SU,MO;WKST=SU;COUNT=6"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-12-22T10:00:00Z",
+          "2025-12-28T10:00:00Z",
+          "2025-12-29T10:00:00Z",
+          "2026-12-27T10:00:00Z",
+          "2026-12-28T10:00:00Z",
+          "2027-12-26T10:00:00Z",
+          "2027-12-27T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "year-edge-su-december-28",
+      "input": {
+        "start": "2025-12-28T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=SU;COUNT=6;BYWEEKNO=-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2024-12-31T00:00:00Z",
+          "end": "2033-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=-1;BYDAY=SU,MO;WKST=SU;COUNT=6"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-12-28T10:00:00Z",
+          "2026-12-27T10:00:00Z",
+          "2026-12-28T10:00:00Z",
+          "2027-12-26T10:00:00Z",
+          "2027-12-27T10:00:00Z",
+          "2028-12-24T10:00:00Z",
+          "2028-12-25T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rollover-mo-2024-12-29",
+      "input": {
+        "start": "2024-12-29T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=MO;COUNT=3;BYWEEKNO=-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2024-12-01T00:00:00Z",
+          "end": "2034-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=-1;BYDAY=SU,MO;WKST=MO;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2024-12-29T10:00:00Z",
+          "2025-12-22T10:00:00Z",
+          "2025-12-28T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rollover-mo-2024-12-30",
+      "input": {
+        "start": "2024-12-30T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=MO;COUNT=3;BYWEEKNO=-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2024-12-01T00:00:00Z",
+          "end": "2034-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=-1;BYDAY=SU,MO;WKST=MO;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2024-12-30T10:00:00Z",
+          "2025-12-22T10:00:00Z",
+          "2025-12-28T10:00:00Z",
+          "2026-12-28T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rollover-mo-2026-12-27",
+      "input": {
+        "start": "2026-12-27T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=MO;COUNT=3;BYWEEKNO=-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2024-12-01T00:00:00Z",
+          "end": "2034-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=-1;BYDAY=SU,MO;WKST=MO;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2026-12-27T10:00:00Z",
+          "2027-12-27T10:00:00Z",
+          "2028-12-25T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rollover-mo-2026-12-28",
+      "input": {
+        "start": "2026-12-28T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=MO;COUNT=3;BYWEEKNO=-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2024-12-01T00:00:00Z",
+          "end": "2034-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=-1;BYDAY=SU,MO;WKST=MO;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2026-12-28T10:00:00Z",
+          "2027-12-27T10:00:00Z",
+          "2028-12-25T10:00:00Z",
+          "2028-12-31T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rollover-mo-2027-12-27",
+      "input": {
+        "start": "2027-12-27T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=MO;COUNT=3;BYWEEKNO=-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2024-12-01T00:00:00Z",
+          "end": "2034-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=-1;BYDAY=SU,MO;WKST=MO;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-12-27T10:00:00Z",
+          "2028-12-25T10:00:00Z",
+          "2028-12-31T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rollover-mo-2028-12-31",
+      "input": {
+        "start": "2028-12-31T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=MO;COUNT=3;BYWEEKNO=-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2024-12-01T00:00:00Z",
+          "end": "2034-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=-1;BYDAY=SU,MO;WKST=MO;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2028-12-31T10:00:00Z",
+          "2029-12-24T10:00:00Z",
+          "2029-12-30T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rollover-su-2024-12-29",
+      "input": {
+        "start": "2024-12-29T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=SU;COUNT=3;BYWEEKNO=-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2024-12-01T00:00:00Z",
+          "end": "2034-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=-1;BYDAY=SU,MO;WKST=SU;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2024-12-29T10:00:00Z",
+          "2024-12-30T10:00:00Z",
+          "2025-12-28T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rollover-su-2024-12-30",
+      "input": {
+        "start": "2024-12-30T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=SU;COUNT=3;BYWEEKNO=-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2024-12-01T00:00:00Z",
+          "end": "2034-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=-1;BYDAY=SU,MO;WKST=SU;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2024-12-30T10:00:00Z",
+          "2025-12-28T10:00:00Z",
+          "2025-12-29T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rollover-su-2026-12-27",
+      "input": {
+        "start": "2026-12-27T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=SU;COUNT=3;BYWEEKNO=-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2024-12-01T00:00:00Z",
+          "end": "2034-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=-1;BYDAY=SU,MO;WKST=SU;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2026-12-27T10:00:00Z",
+          "2026-12-28T10:00:00Z",
+          "2027-12-26T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rollover-su-2026-12-28",
+      "input": {
+        "start": "2026-12-28T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=SU;COUNT=3;BYWEEKNO=-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2024-12-01T00:00:00Z",
+          "end": "2034-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=-1;BYDAY=SU,MO;WKST=SU;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2026-12-28T10:00:00Z",
+          "2027-12-26T10:00:00Z",
+          "2027-12-27T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rollover-su-2027-12-27",
+      "input": {
+        "start": "2027-12-27T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=SU;COUNT=3;BYWEEKNO=-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2024-12-01T00:00:00Z",
+          "end": "2034-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=-1;BYDAY=SU,MO;WKST=SU;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-12-27T10:00:00Z",
+          "2028-12-24T10:00:00Z",
+          "2028-12-25T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rollover-su-2028-12-31",
+      "input": {
+        "start": "2028-12-31T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=SU;COUNT=3;BYWEEKNO=-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2024-12-01T00:00:00Z",
+          "end": "2034-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=-1;BYDAY=SU,MO;WKST=SU;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2028-12-31T10:00:00Z",
+          "2029-12-23T10:00:00Z",
+          "2029-12-24T10:00:00Z",
+          "2030-12-22T10:00:00Z"
+        ]
+      }
+    }
+  ]
+}

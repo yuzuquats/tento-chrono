@@ -363,6 +363,23 @@
       "expected": {
         "error": "at most one"
       }
+    },
+    {
+      "name": "UTC exdate matches the earlier fold instant",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261030T013000",
+          "RRULE:FREQ=DAILY;COUNT=5",
+          "EXDATE:20261101T053000Z"
+        ],
+        "through": "2026-11-06"
+      },
+      "expected": [
+        "2026-10-30T05:30:00Z",
+        "2026-10-31T05:30:00Z",
+        "2026-11-02T06:30:00Z",
+        "2026-11-03T06:30:00Z"
+      ]
     }
   ]
 }

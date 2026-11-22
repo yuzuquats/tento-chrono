@@ -59,3 +59,26 @@ and cancellations outside this capture.
 The sanitized source captures and test logs are on yuzuquats under
 `~/workspace/fleet/evidence/chrono-fixture-suite` as `graph-expansion-rwc04*`,
 `recurrence-profile-*`, and `profile-*.log`.
+
+## Exact replay of the provider captures
+
+The remaining three Google captures now match through the bound Google
+profile. Thirty-six follow-up Calendar API series (169 starts) exercised
+Monday and Sunday week starts, matched and unmatched DTSTART, small COUNT
+values, and negative week numbers over several New Year boundaries. Google
+uses the next year's week count for the first year's negative ordinals
+when the series starts in its final Sunday-based week. The week is still
+anchored to the candidate year. The short COUNT probes distinguish a
+DTSTART that consumed a rule slot from one supplied separately.
+
+The library controls separate two exclusion policies. dateutil retains an
+ambiguous occurrence when the exclusion refers to a different timezone.
+rrule.js interprets the exclusion's clock fields in the series timezone.
+The RFC default uses an exact instant for a UTC EXDATE. Each pinned library
+has 25 exact fixture matches, including exclusions on ordinary days and
+during a fold. All 68 Google and 13 Graph series match the captured starts.
+
+All 36 extra synthetic Calendar masters were verified absent. The
+sanitized recordings are in the existing evidence directory under
+`google-expansion-rwc04-{week-parity,negative-weeks,rollover}.json` and
+`recurrence-profile-exdate-*.json`.

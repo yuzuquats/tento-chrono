@@ -522,6 +522,8 @@ export namespace YearMonthDayFilter {
   export function byWeekNoGoogle(
     weekno1: number,
     useCalendarYear: boolean = false,
+    wkst: Weekday = Weekday.MON,
+    seriesStart?: NaiveDate,
   ): Filter {
     if (weekno1 === 0) throw new Error("weekno1 cannot be 0");
     return (partialdate: PartialDate.Tuple) =>
@@ -529,6 +531,8 @@ export namespace YearMonthDayFilter {
         partialdate,
         weekno1 as WeekOfYear1,
         useCalendarYear,
+        wkst,
+        seriesStart,
       );
   }
 
@@ -727,7 +731,9 @@ export namespace YearMonthDayFilter {
   function* _byWeekNoGoogle(
     [cand, unit]: PartialDate.Tuple,
     weekno1: WeekOfYear1,
-    useCalendarYear: boolean = false,
+    useCalendarYear: boolean,
+    wkst: Weekday,
+    seriesStart?: NaiveDate,
   ): Generator<PartialDate.Tuple> {
     let bounds: NaiveDate.Range;
     
@@ -765,16 +771,25 @@ export namespace YearMonthDayFilter {
     }
 
     const seen = new Set<string>();
+    const week1 = week1Start(cand.yr, wkst);
+    let ordinal: number = weekno1;
     if (weekno1 < 0) {
-      const monday = weekFromEnd(cand.yr, weekno1);
-      if (monday != null) yield* clippedWeek(monday, 0, bounds, seen, cand.yr);
-      return;
+      const lastDay = NaiveDate.fromYmd1Exp(cand.yr, 12, 31);
+      const sunday = lastDay.addDays(-(lastDay.dayOfWeek.dow - Weekday.SUN.dow + 7) % 7);
+      // At a start in the final Sunday-based week, Google uses the next year's
+      // week count for the initial year's negative ordinals. Later years use
+      // their own count. The selected week remains anchored to the candidate year.
+      const countYear = seriesStart?.yr === cand.yr && seriesStart.dse >= sunday.dse
+        ? cand.yr + 1
+        : cand.yr;
+      const weeks = (week1Start(countYear + 1, wkst).dse - week1Start(countYear, wkst).dse) / 7;
+      ordinal = weeks + weekno1 + 1;
+      if (ordinal <= 0) return;
     }
 
-    const week1 = Year.isoWeekMon(cand.yr, 1 as WeekOfYear1);
-    const monday = week1.addDays((weekno1 - 1) * 7);
-    if (unit === "year" || monday.yr === cand.yr) {
-      yield* clippedWeek(monday, 0, bounds, seen, cand.yr);
+    const week = week1.addDays((ordinal - 1) * 7);
+    if (unit === "year" || week.yr === cand.yr || weekno1 < 0) {
+      yield* clippedWeek(week, 0, bounds, seen, cand.yr);
     }
   }
 }

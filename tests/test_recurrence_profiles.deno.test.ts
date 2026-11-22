@@ -1,9 +1,4 @@
-import {
-  assert,
-  assertEquals,
-  assertNotEquals,
-  assertStringIncludes,
-} from "@std/assert";
+import { assert, assertEquals, assertStringIncludes } from "@std/assert";
 import {
   GraphRecurringMaster,
   ICalendarRecurrenceProfile,
@@ -19,11 +14,7 @@ type Input =
   | { lines: string[]; profile?: ICalendarRecurrenceProfile; through: string }
   | { graph: GraphRecurringMaster; through: string };
 
-type Expected = string[] | { error: string } | {
-  reference: string[];
-  chrono: string[];
-  reason: string;
-};
+type Expected = string[] | { error: string };
 
 const dir = new URL("./fixtures/", import.meta.url).pathname;
 Fixtures.load<Input, Expected>(dir, "recurrence-profile").run(
@@ -60,16 +51,9 @@ Fixtures.load<Input, Expected>(dir, "recurrence-profile").run(
   (actual, expected, name) => {
     if (Array.isArray(expected)) {
       assertEquals(actual, expected, name);
-    } else if ("error" in expected) {
+    } else {
       assert(!Array.isArray(actual), name);
       assertStringIncludes(actual.error, expected.error, name);
-    } else {
-      assertNotEquals(
-        actual,
-        expected.reference,
-        "Remove the recorded difference once parity is restored",
-      );
-      assertEquals(actual, expected.chrono, expected.reason);
     }
   },
 );

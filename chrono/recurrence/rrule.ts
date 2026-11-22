@@ -447,6 +447,7 @@ export class RRule {
     useGoogleCalendarBehavior?: boolean,
     untilDateOverride?: Option<NaiveDate>,
     ignoreTimeParts: boolean = false,
+    googleYearlyStart?: NaiveDate | null,
   ): NaiveDate.FilterProps {
     const options = this.inner.options;
 
@@ -502,6 +503,15 @@ export class RRule {
       options.byweekno.length > 0 &&
       this.inner.freq === "yearly";
     const hasByday = options?.byday && options.byday.length > 0;
+    const byWeekNo = (weekno: number) => {
+      const wkst = options?.wkst ?? Weekday.MON;
+      if (useGoogleCalendarBehavior && hasYearlyByweekno && googleYearlyStart != null) {
+        return NaiveDate.Filter.byWeekNoGoogle(weekno, true, wkst, googleYearlyStart);
+      }
+      return useGoogleCalendarBehavior && weekno > 0
+        ? NaiveDate.Filter.byWeekNoGoogle(weekno, true)
+        : NaiveDate.Filter.byWeekNo(weekno, useGoogleCalendarBehavior, wkst);
+    };
 
     if (hasYearlyByweekno && hasByday && useGoogleCalendarBehavior) {
       // Special handling for yearly BYWEEKNO + BYDAY patterns
@@ -511,12 +521,7 @@ export class RRule {
           const byDse = new Map<number, PartialDate.Tuple>();
           for (const weekno of options.byweekno!) {
             // Apply BYWEEKNO filter first
-            const useCalendarYear = useGoogleCalendarBehavior;
-            const useGoogleCalendarLogic =
-              useGoogleCalendarBehavior && weekno > 0;
-            const singleWeekFilter = useGoogleCalendarLogic
-              ? NaiveDate.Filter.byWeekNoGoogle(weekno, useCalendarYear)
-              : NaiveDate.Filter.byWeekNo(weekno, useCalendarYear, options?.wkst ?? Weekday.MON);
+            const singleWeekFilter = byWeekNo(weekno);
 
             // Then apply BYDAY filter to each result
             for (const [weekDate, _weekUnit] of singleWeekFilter(partialdate)) {
@@ -564,16 +569,7 @@ export class RRule {
             return (function* () {
               const byDse = new Map<number, PartialDate.Tuple>();
               for (const weekno of options.byweekno!) {
-                // For Google Calendar behavior:
-                // - Positive week numbers: use calendar year mode
-                // - Negative week numbers: use calendar year mode
-                // - For non-Google behavior: use ISO week mode (false)
-                const useCalendarYear = useGoogleCalendarBehavior;
-                const useGoogleCalendarLogic =
-                  useGoogleCalendarBehavior && weekno > 0;
-                const singleWeekFilter = useGoogleCalendarLogic
-                  ? NaiveDate.Filter.byWeekNoGoogle(weekno, useCalendarYear)
-                  : NaiveDate.Filter.byWeekNo(weekno, useCalendarYear, options?.wkst ?? Weekday.MON);
+                const singleWeekFilter = byWeekNo(weekno);
 
                 for (const result of singleWeekFilter(partialdate)) {
                   const valid = result[0].toResult().asOk();

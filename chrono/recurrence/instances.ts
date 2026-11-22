@@ -49,6 +49,7 @@ export namespace RRuleInstances {
     untilWallOverride?: Option<NaiveDateTime>,
     ignoreTimeParts: boolean = false,
     horizonMs: number = Infinity,
+    useGoogleYearlyWeeks: boolean = false,
   ): Generator<NaiveDateTime> {
     if (generationLimit != null && (!Number.isSafeInteger(generationLimit) || generationLimit < 0)) throw new RangeError("generationLimit must be a nonnegative safe integer");
     const options = rule.inner.options;
@@ -67,7 +68,7 @@ export namespace RRuleInstances {
     const cutoff = Math.min(horizonMs, untilWall?.mse ?? (untilDay != null
       ? (untilDay.dse + (useGoogleCalendarBehavior ? 0 : 1)) * Time.MS_PER_DAY - 1 : Infinity));
     let emitted = 0;
-    for (const at of candidates(rule, dtstart, useGoogleCalendarBehavior, generationLimit, ignoreTimeParts, cutoff)) {
+    for (const at of candidates(rule, dtstart, useGoogleCalendarBehavior, generationLimit, ignoreTimeParts, cutoff, useGoogleYearlyWeeks)) {
       if (at.mse < dtstart.mse) continue;
       if (ended(at) || at.mse > cutoff) return;
       if (generationLimit != null && emitted >= generationLimit) throw new RecurrenceExpansionLimitError(generationLimit);
@@ -95,6 +96,7 @@ export namespace RRuleInstances {
     generationLimit?: number,
     ignoreTimeParts: boolean = false,
     horizonMs: number = Infinity,
+    useGoogleYearlyWeeks: boolean = false,
   ): Generator<NaiveDateTime> {
     switch (rule.inner.freq) {
       case "hourly":
@@ -102,7 +104,7 @@ export namespace RRuleInstances {
       case "secondly":
         return subDaily(rule, dtstart, google, generationLimit, ignoreTimeParts, horizonMs);
       default:
-        return byDay(rule, dtstart, google, generationLimit, ignoreTimeParts, horizonMs);
+        return byDay(rule, dtstart, google, generationLimit, ignoreTimeParts, horizonMs, useGoogleYearlyWeeks);
     }
   }
 
@@ -133,8 +135,11 @@ export namespace RRuleInstances {
     generationLimit?: number,
     ignoreTimeParts: boolean = false,
     horizonMs: number = Infinity,
+    useGoogleYearlyWeeks: boolean = false,
   ): Generator<NaiveDateTime> {
-    const props = rule.toFilterProps(null, null, google, null, ignoreTimeParts);
+    const props = rule.toFilterProps(
+      null, null, google, null, ignoreTimeParts, useGoogleYearlyWeeks ? dtstart.date : undefined,
+    );
     const step = props.step;
     const filter = filterOf(props);
     // Without time parts the day filter already applied BYSETPOS (`toFilterProps`).

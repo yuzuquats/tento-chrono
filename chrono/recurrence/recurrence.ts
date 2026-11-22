@@ -130,11 +130,20 @@ export interface RecurrenceComposition {
    * `useGoogleCalendarBehavior` flag.
    */
   readonly googleByweekno: boolean;
+  /** Use the provider's WKST and first-year negative week selection. */
+  readonly useGoogleYearlyWeeks?: boolean;
   readonly resolveWallTime?: (
     zone: TimezoneRegion,
     local: NaiveDateTime,
     start: DateTime<FixedOffset>,
   ) => DateTime<FixedOffset>;
+  /** Interpret a timed EXDATE according to a compatibility profile. Null omits it. */
+  readonly resolveExdate?: (
+    value: NaiveDateTime,
+    region: TimezoneRegion | null,
+    utc: boolean,
+    seriesZone: TimezoneRegion | null,
+  ) => DateTime<Utc> | null;
   /**
    * An EXDATE uses up a COUNT slot in every composition, on every path
    * (BYWEEKNO included). EXDATE removes instances from the set the rule and
@@ -315,7 +324,10 @@ export function exclusionsOf(
     line.dates.forEach((ndt, i) => {
       const form = line.forms?.[i] ?? { timed: true, utc: false };
       if (line.value === "DATE" || !form.timed) localDays.add(ndt.date.dse);
-      else if (form.utc) instants.add(new DateTime(ndt, Utc).mse);
+      else if (composition.resolveExdate != null) {
+        const instant = composition.resolveExdate(ndt, line.region ?? null, form.utc, timezone ?? null);
+        if (instant != null) instants.add(instant.mse);
+      } else if (form.utc) instants.add(new DateTime(ndt, Utc).mse);
       else if (line.region != null && line.region.fullname !== timezone?.fullname) {
         instants.add(resolveForeignWall(composition, line.region, ndt).mse);
       } else if (composition.name === "rule-only" && timezone != null) {
@@ -353,7 +365,13 @@ export function exclusionsOfLines(
     for (const d of exdate.dates) {
       const ndt = d.extend();
       if (exdate.valueType === "DATE" || d.nt == null) localDays.add(ndt.date.dse);
-      else if (d.z != null) instants.add(new DateTime(ndt, Utc).mse);
+      else if (composition.resolveExdate != null) {
+        const region = exdate.tzid == null ? null : regionOf(exdate.tzid);
+        const zone = seriesZone == null ? null : regionOf(seriesZone);
+        if ((exdate.tzid != null && region == null) || (seriesZone != null && zone == null)) return null;
+        const instant = composition.resolveExdate(ndt, region ?? null, d.z != null, zone ?? null);
+        if (instant != null) instants.add(instant.mse);
+      } else if (d.z != null) instants.add(new DateTime(ndt, Utc).mse);
       else if (exdate.tzid != null && exdate.tzid !== seriesZone) {
         const region = regionOf(exdate.tzid);
         if (region == null) return null;
@@ -864,6 +882,7 @@ export class GoogleEventGenerator {
         generationLimit,
         localUntilDateOverride,
         true,
+        composition.useGoogleYearlyWeeks,
       )
       : (function* () {})();
 
@@ -875,6 +894,8 @@ export class GoogleEventGenerator {
         generationLimit,
         wallUntilBound ?? undefined,
         isDateOnlyDtstart(recurrence.inner),
+        undefined,
+        composition.useGoogleYearlyWeeks,
       )
       : null;
 
@@ -1156,6 +1177,7 @@ function* generateUntilExcl(
   generationLimit?: number,
   untilDateOverride?: Option<NaiveDate>,
   incremental: boolean = false,
+  useGoogleYearlyWeeks: boolean = false,
 ) {
   const originalStartDate = date ?? inner.dtstart?.dates[0]?.date;
   const excl = excludeDates ? createExcludedDatesSet(inner) : new Set<number>();
@@ -1188,6 +1210,7 @@ function* generateUntilExcl(
     useGoogleCalendarBehavior,
     untilDateOverride,
     ignoreTimeParts,
+    useGoogleYearlyWeeks ? originalStartDate : undefined,
   );
   if (incremental) {
     props.options ??= {};

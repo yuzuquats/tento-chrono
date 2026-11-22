@@ -1,4 +1,4 @@
-import { assert, assertEquals, assertNotEquals } from "@std/assert";
+import { assert, assertEquals } from "@std/assert";
 import { DateTime, Recurrence } from "../chrono/mod.ts";
 import { Fixtures } from "./fixture-runner.deno.ts";
 import { installTimezoneLoader } from "./utils.deno.ts";
@@ -12,7 +12,6 @@ interface GoogleSeries {
 
 interface RecordedExpansion {
   google: string[];
-  knownDifference?: { reason: string; chrono: string[] };
 }
 
 installTimezoneLoader();
@@ -52,16 +51,6 @@ Fixtures.load<GoogleSeries, RecordedExpansion>(dir, "google-expansion").run(
       oneShot,
       "incremental reads must match one-shot generation",
     );
-    const known = expected.knownDifference;
-    if (known != null) {
-      assertNotEquals(
-        oneShot,
-        expected.google,
-        "Google parity restored. Remove the known difference from this fixture.",
-      );
-      assertEquals(oneShot, known.chrono, known.reason);
-    } else {
-      assertEquals(oneShot, expected.google);
-    }
+    assertEquals(oneShot, expected.google);
   },
 );

@@ -347,22 +347,106 @@
         "profile": "rrule-js",
         "through": "2033-01-01"
       },
-      "expected": {
-        "reference": [
-          "2026-10-30T05:30:00Z",
-          "2026-10-31T05:30:00Z",
-          "2026-11-01T05:30:00Z",
-          "2026-11-02T06:30:00Z",
-          "2026-11-03T06:30:00Z"
+      "expected": [
+        "2026-10-30T05:30:00Z",
+        "2026-10-31T05:30:00Z",
+        "2026-11-01T05:30:00Z",
+        "2026-11-02T06:30:00Z",
+        "2026-11-03T06:30:00Z"
+      ]
+    },
+    {
+      "name": "zoned-exdate-later-fold",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261030T013000",
+          "RRULE:FREQ=DAILY;COUNT=5",
+          "EXDATE:20261101T063000Z"
         ],
-        "chrono": [
-          "2026-10-30T05:30:00Z",
-          "2026-10-31T05:30:00Z",
-          "2026-11-02T06:30:00Z",
-          "2026-11-03T06:30:00Z"
+        "profile": "rrule-js",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-10-30T05:30:00Z",
+        "2026-10-31T05:30:00Z",
+        "2026-11-01T05:30:00Z",
+        "2026-11-02T06:30:00Z",
+        "2026-11-03T06:30:00Z"
+      ]
+    },
+    {
+      "name": "zoned-exdate-utc-wall-fields",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261030T013000",
+          "RRULE:FREQ=DAILY;COUNT=5",
+          "EXDATE:20261101T013000Z"
         ],
-        "reason": "The reference retains the ambiguous occurrence when EXDATE is UTC. Chrono excludes the matching instant."
-      }
+        "profile": "rrule-js",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-10-30T05:30:00Z",
+        "2026-10-31T05:30:00Z",
+        "2026-11-02T06:30:00Z",
+        "2026-11-03T06:30:00Z"
+      ]
+    },
+    {
+      "name": "zoned-exdate-normal-day",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261030T013000",
+          "RRULE:FREQ=DAILY;COUNT=5",
+          "EXDATE:20261102T063000Z"
+        ],
+        "profile": "rrule-js",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-10-30T05:30:00Z",
+        "2026-10-31T05:30:00Z",
+        "2026-11-01T05:30:00Z",
+        "2026-11-02T06:30:00Z",
+        "2026-11-03T06:30:00Z"
+      ]
+    },
+    {
+      "name": "zoned-exdate-series-tzid",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261030T013000",
+          "RRULE:FREQ=DAILY;COUNT=5",
+          "EXDATE;TZID=America/New_York:20261101T013000"
+        ],
+        "profile": "rrule-js",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-10-30T05:30:00Z",
+        "2026-10-31T05:30:00Z",
+        "2026-11-02T06:30:00Z",
+        "2026-11-03T06:30:00Z"
+      ]
+    },
+    {
+      "name": "zoned-exdate-foreign-normal-day",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261030T013000",
+          "RRULE:FREQ=DAILY;COUNT=5",
+          "EXDATE;TZID=America/Chicago:20261102T003000"
+        ],
+        "profile": "rrule-js",
+        "through": "2033-01-01"
+      },
+      "expected": [
+        "2026-10-30T05:30:00Z",
+        "2026-10-31T05:30:00Z",
+        "2026-11-01T05:30:00Z",
+        "2026-11-02T06:30:00Z",
+        "2026-11-03T06:30:00Z"
+      ]
     }
   ]
 }
