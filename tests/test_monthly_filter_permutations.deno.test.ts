@@ -42,6 +42,50 @@ Deno.test("Monthly weekday filters match UTC Date for every weekday mask", () =>
   }
 });
 
+Deno.test("Monthly weekday positions match the iterator for every weekday mask", () => {
+  const positions = [
+    [], [1], [2], [-1], [-2], [3], [-3], [0], [32], [-32],
+    [-1, 1], [2, -2, 1, -1], [1, 1, -1, -1], [0, 1, 31, -31, 32],
+  ];
+  for (let mask = 0; mask < 128; mask++) {
+    const weekdays = Weekday.DOW1.filter((_, i) => (mask & (1 << i)) !== 0);
+    const direct = Filter.byWeekday(weekdays);
+    const wrapped: NaiveDate.Filter = (period) => direct(period);
+    const selectors = positions.map((p) => [
+      Filter.bySetPos(direct, p),
+      Filter.bySetPos(wrapped, p),
+    ]);
+    for (const year of [1900, 1969, 2000, 2024]) {
+      for (let month = 1; month <= 12; month++) {
+        const period = naivedate(year, month, 15);
+        for (const [index, [select, iterate]] of selectors.entries()) {
+          const read = (filter: NaiveDate.Filter) =>
+            Array.from(filter([period, "month"]), ([date, unit]) => [date.dse, unit]);
+          assertEquals(
+            read(select),
+            read(iterate),
+            `${year}-${month}, weekday mask ${mask}, positions ${positions[index]}`,
+          );
+        }
+      }
+    }
+  }
+});
+
+Deno.test("A composed exclusion runs before monthly weekday position selection", () => {
+  const fri = Filter.byWeekday([Weekday.FRI]);
+  const closed = naivedate(2024, 3, 29).dse;
+  const keepOpen: NaiveDate.Filter = function* (candidate) {
+    if (candidate[0].dse !== closed) yield candidate;
+  };
+  const month = naivedate(2024, 3, 1);
+  const lastOpenFriday = Filter.bySetPos(Filter.compose([fri, keepOpen]), [-1]);
+  assertEquals(
+    Array.from(lastOpenFriday([month, "month"]), ([date]) => String(date)),
+    ["2024-03-22"],
+  );
+});
+
 function* permutations<T>(items: readonly T[]): Generator<T[]> {
   if (items.length === 0) {
     yield [];

@@ -6,7 +6,7 @@ import { DayOfMonth1, DayOfYear1, Month1, WeekOfYear1 } from "./units.ts";
 import { Weekday } from "./weekday.ts";
 import { Year } from "./year.ts";
 import { YearMonth, Ym1Like } from "./year-month.ts";
-import { YearMonthDay } from "./year-month-day.ts";
+import { YearMonthDay, Ymd1Like } from "./year-month-day.ts";
 import type { Option } from "../option.ts";
 
 export type YearMonthDayFilter = (
@@ -24,6 +24,15 @@ export namespace YearMonthDayFilter {
     nd: YearMonthDay.MaybeValid,
   ): Generator<PartialDate.Tuple> {
     yield [nd, "day"];
+  }
+
+  const SELECT_MONTH_POSITIONS = Symbol("YearMonthDayFilter.selectMonthPositions");
+
+  interface MonthlyPositionFilter extends Filter {
+    readonly [SELECT_MONTH_POSITIONS]?: (
+      month: YearMonthDay.MaybeValid,
+      positions: readonly number[],
+    ) => Generator<PartialDate.Tuple> | undefined;
   }
 
   /**
@@ -48,7 +57,15 @@ export namespace YearMonthDayFilter {
   }
 
   export function bySetPos(inner: Filter, positions: readonly number[]): Filter {
+    const selectMonthPositions = (inner as MonthlyPositionFilter)[SELECT_MONTH_POSITIONS];
     const filter = function* (partialdate: PartialDate.Tuple): Generator<PartialDate.Tuple> {
+      if (partialdate[1] === "month" && selectMonthPositions) {
+        const selected = selectMonthPositions(partialdate[0], positions);
+        if (selected) {
+          yield* selected;
+          return;
+        }
+      }
       if (positions.length === 1) {
         const position = positions[0];
         const rank = Math.abs(position);
@@ -65,17 +82,26 @@ export namespace YearMonthDayFilter {
         if (valid != null) days.set(valid.dse, [valid, unit]);
       }
       const sorted = [...days.entries()].sort((a, b) => a[0] - b[0]).map(([, t]) => t);
-      const picked = new Set<number>();
-      for (const p of positions) {
-        const i = p > 0 ? p - 1 : sorted.length + p;
-        if (p !== 0 && i >= 0 && i < sorted.length) picked.add(i);
-      }
-      for (const i of [...picked].sort((a, b) => a - b)) yield sorted[i];
+      for (const i of positionIndices(positions, sorted.length)) yield sorted[i];
     };
     return Object.assign(filter, {
       restrict: (keep: (date: YearMonthDay.MaybeValid) => boolean): Filter =>
         bySetPos(keepFilter(inner, keep), positions),
     });
+  }
+
+  function positionIndex(position: number, length: number): number {
+    const index = position > 0 ? position - 1 : length + position;
+    return index >= 0 && index < length ? index : -1;
+  }
+
+  function positionIndices(positions: readonly number[], length: number): number[] {
+    const picked = new Set<number>();
+    for (const position of positions) {
+      const index = positionIndex(position, length);
+      if (index >= 0) picked.add(index);
+    }
+    return [...picked].sort((a, b) => a - b);
   }
 
   /** Rank the first or last two distinct days in a single pass. */
@@ -258,7 +284,54 @@ export namespace YearMonthDayFilter {
     for (const dow of dayOfWeeks) {
       dow1[dow.dow] = true;
     }
-    return (partialdate: PartialDate.Tuple) => _byWeekday(partialdate, dow1);
+    const filter = (partialdate: PartialDate.Tuple) => _byWeekday(partialdate, dow1);
+    return Object.assign(filter, {
+      [SELECT_MONTH_POSITIONS]: (
+        { yr, mth }: YearMonthDay.MaybeValid,
+        positions: readonly number[],
+      ) => {
+        const start = { yr, mth, day: 1 as DayOfMonth1 };
+        const daysInMonth = YearMonth.daysInMonth(start);
+        const firstDay = Ymd1Like.dse(start);
+        // The iterator ranks and deduplicates by epoch day. Keep that path
+        // when day counts lose precision or a position is not an integer.
+        if (
+          !Number.isSafeInteger(firstDay) ||
+          !Number.isSafeInteger(firstDay + daysInMonth) ||
+          !positions.every(Number.isInteger)
+        ) return undefined;
+        return selectMonthlyWeekdays(start, daysInMonth, Weekday.fromDse(firstDay), dow1, positions);
+      },
+    });
+  }
+
+  function* selectMonthlyWeekdays(
+    { yr, mth }: Ym1Like,
+    daysInMonth: number,
+    firstWeekday: number,
+    dow1: Option<boolean>[],
+    positions: readonly number[],
+  ): Generator<PartialDate.Tuple> {
+    const daysInWeek: number[] = [];
+    let count = 0;
+    for (let day = 1; day <= 7; day++) {
+      if (dow1[(firstWeekday + day - 2) % 7 + 1]) {
+        daysInWeek.push(day);
+        count += Math.floor((daysInMonth - day) / 7) + 1;
+      }
+    }
+
+    // Each full week repeats the first week's candidates in the same order.
+    const dayAt = (index: number) =>
+      7 * Math.floor(index / daysInWeek.length) + daysInWeek[index % daysInWeek.length];
+    if (positions.length === 1) {
+      const index = positionIndex(positions[0], count);
+      if (index >= 0) yield [YearMonthDay.fromYmd1Exp(yr, mth, dayAt(index)), "day"];
+      return;
+    }
+    for (const index of positionIndices(positions, count)) {
+      yield [YearMonthDay.fromYmd1Exp(yr, mth, dayAt(index)), "day"];
+    }
   }
 
   function* _byWeekday(

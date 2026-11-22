@@ -37,3 +37,22 @@ The full filter pass compares every public date filter and its important
 variants through the dedicated filter suite. The
 [results and replay command](../../bench/RESULTS.md#pass-over-all-date-filters)
 record the measured workloads, compatibility checks, and implementation changes.
+
+## Select monthly weekday positions before constructing dates
+
+A private capability on the built-in weekday filter selects positions
+within a month by repeating the first week's weekday offsets and clipping
+the partial final week. Only the selected days are materialized as dates.
+The positional filter shares its index and ordering rules between the
+shortcut and the general iterator. Composed filters and restrictions,
+including the lunch closure, still select from the full candidate stream.
+
+Against `15fd8f9`, the six monthly position workloads ran 1.73 to 4.69
+times as fast on yuzuquats. Across three benchmark rounds, last day
+went from 1.522 to 0.325 ms, second-to-last weekday from 1.224 to 0.333 ms,
+and last Friday from 0.629 to 0.364 ms per 100-year expansion. The
+benchmarks retain the original rules and check ordered results against
+rrule.js 2.8.1. The regression tests compare against the iterator for all
+128 weekday masks and verify that a closure on March 29 still selects
+March 22. Raw runs and check logs are in
+`fleet/evidence/tento-chrono-recurrence-perf/monthly-position-shortcut/`.
