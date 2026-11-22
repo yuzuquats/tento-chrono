@@ -1,0 +1,565 @@
+{
+  "type": "google-expansion",
+  "name": "Google Calendar API",
+  "source": "Google Calendar API events.instances",
+  "capturedAt": "2026-11-22T05:29:46.434024+00:00",
+  "captureCliCommit": "77f899aac5",
+  "cases": [
+    {
+      "name": "week-count-control",
+      "input": {
+        "start": "2025-01-06T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;COUNT=4;BYWEEKNO=1,2;BYDAY=MO"
+        ],
+        "window": {
+          "start": "2025-01-01T00:00:00Z",
+          "end": "2030-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1,2;BYDAY=MO;COUNT=4"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-01-06T10:00:00Z",
+          "2026-01-05T10:00:00Z",
+          "2027-01-04T10:00:00Z",
+          "2027-01-11T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "week-count-exclude",
+      "input": {
+        "start": "2025-01-06T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "EXDATE;VALUE=DATE-TIME:20260105T100000Z",
+          "RRULE:FREQ=YEARLY;COUNT=4;BYWEEKNO=1,2;BYDAY=MO"
+        ],
+        "window": {
+          "start": "2025-01-01T00:00:00Z",
+          "end": "2030-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1,2;BYDAY=MO;COUNT=4",
+          "EXDATE:20260105T100000Z"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-01-06T10:00:00Z",
+          "2027-01-04T10:00:00Z",
+          "2027-01-11T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "mixed-week-numbers-wkst-mo",
+      "input": {
+        "start": "2025-12-29T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=MO;COUNT=8;BYWEEKNO=1,-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2025-12-01T00:00:00Z",
+          "end": "2032-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1,-1;BYDAY=SU,MO;WKST=MO;COUNT=8"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-12-29T10:00:00Z",
+          "2026-01-04T10:00:00Z",
+          "2026-12-28T10:00:00Z",
+          "2027-01-04T10:00:00Z",
+          "2027-01-10T10:00:00Z",
+          "2027-12-27T10:00:00Z",
+          "2028-01-03T10:00:00Z",
+          "2028-01-09T10:00:00Z"
+        ],
+        "knownDifference": {
+          "reason": "Chrono emits one extra occurrence after Google exhausts COUNT.",
+          "chrono": [
+            "2025-12-29T10:00:00Z",
+            "2026-01-04T10:00:00Z",
+            "2026-12-28T10:00:00Z",
+            "2027-01-04T10:00:00Z",
+            "2027-01-10T10:00:00Z",
+            "2027-12-27T10:00:00Z",
+            "2028-01-03T10:00:00Z",
+            "2028-01-09T10:00:00Z",
+            "2028-12-25T10:00:00Z"
+          ]
+        }
+      }
+    },
+    {
+      "name": "mixed-week-numbers-wkst-su",
+      "input": {
+        "start": "2025-12-29T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;WKST=SU;COUNT=8;BYWEEKNO=1,-1;BYDAY=SU,MO"
+        ],
+        "window": {
+          "start": "2025-12-01T00:00:00Z",
+          "end": "2032-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1,-1;BYDAY=SU,MO;WKST=SU;COUNT=8"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-12-29T10:00:00Z",
+          "2026-01-04T10:00:00Z",
+          "2026-01-05T10:00:00Z",
+          "2026-12-27T10:00:00Z",
+          "2026-12-28T10:00:00Z",
+          "2027-01-03T10:00:00Z",
+          "2027-01-04T10:00:00Z",
+          "2027-12-26T10:00:00Z",
+          "2027-12-27T10:00:00Z"
+        ],
+        "knownDifference": {
+          "reason": "Chrono emits its Monday-start expansion for the Sunday WKST rule.",
+          "chrono": [
+            "2025-12-29T10:00:00Z",
+            "2026-01-04T10:00:00Z",
+            "2026-12-28T10:00:00Z",
+            "2027-01-04T10:00:00Z",
+            "2027-01-10T10:00:00Z",
+            "2027-12-27T10:00:00Z",
+            "2028-01-03T10:00:00Z",
+            "2028-01-09T10:00:00Z",
+            "2028-12-25T10:00:00Z"
+          ]
+        }
+      }
+    },
+    {
+      "name": "monthly-week-number-control",
+      "input": {
+        "start": "2025-01-06T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;COUNT=12;BYWEEKNO=1;BYDAY=MO"
+        ],
+        "window": {
+          "start": "2025-01-01T00:00:00Z",
+          "end": "2026-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=MONTHLY;BYWEEKNO=1;BYDAY=MO;COUNT=12"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-01-06T10:00:00Z",
+          "2025-01-13T10:00:00Z",
+          "2025-01-20T10:00:00Z",
+          "2025-01-27T10:00:00Z",
+          "2025-02-03T10:00:00Z",
+          "2025-02-10T10:00:00Z",
+          "2025-02-17T10:00:00Z",
+          "2025-02-24T10:00:00Z",
+          "2025-03-03T10:00:00Z",
+          "2025-03-10T10:00:00Z",
+          "2025-03-17T10:00:00Z",
+          "2025-03-24T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "monthly-week-number-interval-2",
+      "input": {
+        "start": "2025-01-06T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;COUNT=12;INTERVAL=2;BYWEEKNO=1;BYDAY=MO"
+        ],
+        "window": {
+          "start": "2025-01-01T00:00:00Z",
+          "end": "2026-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=MONTHLY;BYWEEKNO=1;BYDAY=MO;COUNT=12;INTERVAL=2"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-01-06T10:00:00Z",
+          "2025-01-13T10:00:00Z",
+          "2025-01-20T10:00:00Z",
+          "2025-01-27T10:00:00Z",
+          "2025-03-03T10:00:00Z",
+          "2025-03-10T10:00:00Z",
+          "2025-03-17T10:00:00Z",
+          "2025-03-24T10:00:00Z",
+          "2025-03-31T10:00:00Z",
+          "2025-05-05T10:00:00Z",
+          "2025-05-12T10:00:00Z",
+          "2025-05-19T10:00:00Z"
+        ],
+        "knownDifference": {
+          "reason": "Google emits Mondays in alternate months. Chrono emits consecutive Mondays.",
+          "chrono": [
+            "2025-01-06T10:00:00Z",
+            "2025-01-13T10:00:00Z",
+            "2025-01-20T10:00:00Z",
+            "2025-01-27T10:00:00Z",
+            "2025-02-03T10:00:00Z",
+            "2025-02-10T10:00:00Z",
+            "2025-02-17T10:00:00Z",
+            "2025-02-24T10:00:00Z",
+            "2025-03-03T10:00:00Z",
+            "2025-03-10T10:00:00Z",
+            "2025-03-17T10:00:00Z",
+            "2025-03-24T10:00:00Z"
+          ]
+        }
+      }
+    },
+    {
+      "name": "weekly-week-number-control",
+      "input": {
+        "start": "2025-01-06T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;COUNT=12;BYWEEKNO=1;BYDAY=MO"
+        ],
+        "window": {
+          "start": "2025-01-01T00:00:00Z",
+          "end": "2026-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=WEEKLY;BYWEEKNO=1;BYDAY=MO;COUNT=12"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-01-06T10:00:00Z",
+          "2025-01-13T10:00:00Z",
+          "2025-01-20T10:00:00Z",
+          "2025-01-27T10:00:00Z",
+          "2025-02-03T10:00:00Z",
+          "2025-02-10T10:00:00Z",
+          "2025-02-17T10:00:00Z",
+          "2025-02-24T10:00:00Z",
+          "2025-03-03T10:00:00Z",
+          "2025-03-10T10:00:00Z",
+          "2025-03-17T10:00:00Z",
+          "2025-03-24T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "weekly-week-number-interval-2",
+      "input": {
+        "start": "2025-01-06T10:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;COUNT=12;INTERVAL=2;BYWEEKNO=1;BYDAY=MO"
+        ],
+        "window": {
+          "start": "2025-01-01T00:00:00Z",
+          "end": "2026-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=WEEKLY;BYWEEKNO=1;BYDAY=MO;COUNT=12;INTERVAL=2"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2025-01-06T10:00:00Z",
+          "2025-01-20T10:00:00Z",
+          "2025-02-03T10:00:00Z",
+          "2025-02-17T10:00:00Z",
+          "2025-03-03T10:00:00Z",
+          "2025-03-17T10:00:00Z",
+          "2025-03-31T10:00:00Z",
+          "2025-04-14T10:00:00Z",
+          "2025-04-28T10:00:00Z",
+          "2025-05-12T10:00:00Z",
+          "2025-05-26T10:00:00Z",
+          "2025-06-09T10:00:00Z"
+        ],
+        "knownDifference": {
+          "reason": "Google emits alternate Mondays. Chrono emits consecutive Mondays.",
+          "chrono": [
+            "2025-01-06T10:00:00Z",
+            "2025-01-13T10:00:00Z",
+            "2025-01-20T10:00:00Z",
+            "2025-01-27T10:00:00Z",
+            "2025-02-03T10:00:00Z",
+            "2025-02-10T10:00:00Z",
+            "2025-02-17T10:00:00Z",
+            "2025-02-24T10:00:00Z",
+            "2025-03-03T10:00:00Z",
+            "2025-03-10T10:00:00Z",
+            "2025-03-17T10:00:00Z",
+            "2025-03-24T10:00:00Z"
+          ]
+        }
+      }
+    },
+    {
+      "name": "lord-howe-gap-0215",
+      "input": {
+        "start": "2026-10-01T15:45:00Z",
+        "timezone": "Australia/Lord_Howe",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "window": {
+          "start": "2026-10-01T00:00:00Z",
+          "end": "2026-10-08T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2026-10-01T15:45:00Z",
+          "2026-10-02T15:45:00Z",
+          "2026-10-03T15:45:00Z",
+          "2026-10-04T15:15:00Z",
+          "2026-10-05T15:15:00Z"
+        ]
+      }
+    },
+    {
+      "name": "lord-howe-gap-0230",
+      "input": {
+        "start": "2026-10-01T16:00:00Z",
+        "timezone": "Australia/Lord_Howe",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "window": {
+          "start": "2026-10-01T00:00:00Z",
+          "end": "2026-10-08T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2026-10-01T16:00:00Z",
+          "2026-10-02T16:00:00Z",
+          "2026-10-03T15:30:00Z",
+          "2026-10-04T15:30:00Z",
+          "2026-10-05T15:30:00Z"
+        ],
+        "knownDifference": {
+          "reason": "Google uses the new offset at the end of the 30-minute gap. Chrono still uses the old offset.",
+          "chrono": [
+            "2026-10-01T16:00:00Z",
+            "2026-10-02T16:00:00Z",
+            "2026-10-03T16:00:00Z",
+            "2026-10-04T15:30:00Z",
+            "2026-10-05T15:30:00Z"
+          ]
+        }
+      }
+    },
+    {
+      "name": "lord-howe-gap-0259",
+      "input": {
+        "start": "2026-10-01T16:29:00Z",
+        "timezone": "Australia/Lord_Howe",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "window": {
+          "start": "2026-10-01T00:00:00Z",
+          "end": "2026-10-08T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2026-10-01T16:29:00Z",
+          "2026-10-02T16:29:00Z",
+          "2026-10-03T15:59:00Z",
+          "2026-10-04T15:59:00Z",
+          "2026-10-05T15:59:00Z"
+        ],
+        "knownDifference": {
+          "reason": "Google uses the new offset just before 03:00. Chrono still uses the old offset.",
+          "chrono": [
+            "2026-10-01T16:29:00Z",
+            "2026-10-02T16:29:00Z",
+            "2026-10-03T16:29:00Z",
+            "2026-10-04T15:59:00Z",
+            "2026-10-05T15:59:00Z"
+          ]
+        }
+      }
+    },
+    {
+      "name": "lord-howe-gap-0300",
+      "input": {
+        "start": "2026-10-01T16:30:00Z",
+        "timezone": "Australia/Lord_Howe",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "window": {
+          "start": "2026-10-01T00:00:00Z",
+          "end": "2026-10-08T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2026-10-01T16:30:00Z",
+          "2026-10-02T16:30:00Z",
+          "2026-10-03T16:00:00Z",
+          "2026-10-04T16:00:00Z",
+          "2026-10-05T16:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "monthly-setpos-start-09",
+      "input": {
+        "start": "2026-01-30T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;COUNT=4;BYDAY=MO,TU,WE,TH,FR;BYHOUR=9,17;BYSETPOS=-2"
+        ],
+        "window": {
+          "start": "2026-01-01T00:00:00Z",
+          "end": "2027-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=MONTHLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=9,17;BYSETPOS=-2;COUNT=4"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2026-01-30T09:00:00Z",
+          "2026-02-26T09:00:00Z",
+          "2026-03-30T09:00:00Z",
+          "2026-04-29T09:00:00Z",
+          "2026-05-28T09:00:00Z"
+        ],
+        "knownDifference": {
+          "reason": "Google emits the second-last weekday at the master time. Chrono selects the second-last timestamp.",
+          "chrono": [
+            "2026-01-30T09:00:00Z",
+            "2026-02-27T09:00:00Z",
+            "2026-03-31T09:00:00Z",
+            "2026-04-30T09:00:00Z"
+          ]
+        }
+      }
+    },
+    {
+      "name": "monthly-setpos-start-17",
+      "input": {
+        "start": "2026-01-30T17:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;COUNT=4;BYDAY=MO,TU,WE,TH,FR;BYHOUR=9,17;BYSETPOS=-2"
+        ],
+        "window": {
+          "start": "2026-01-01T00:00:00Z",
+          "end": "2027-01-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=MONTHLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=9,17;BYSETPOS=-2;COUNT=4"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2026-01-30T17:00:00Z",
+          "2026-02-26T17:00:00Z",
+          "2026-03-30T17:00:00Z",
+          "2026-04-29T17:00:00Z",
+          "2026-05-28T17:00:00Z"
+        ],
+        "knownDifference": {
+          "reason": "Google emits the second-last weekday at the master time. Chrono selects the second-last timestamp.",
+          "chrono": [
+            "2026-01-30T17:00:00Z",
+            "2026-02-27T09:00:00Z",
+            "2026-03-31T09:00:00Z",
+            "2026-04-30T09:00:00Z",
+            "2026-05-29T09:00:00Z"
+          ]
+        }
+      }
+    },
+    {
+      "name": "rdate-control",
+      "input": {
+        "start": "2026-01-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RDATE;VALUE=DATE-TIME:20260102T090000Z,20260107T090000Z,20260109T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2026-01-01T00:00:00Z",
+          "end": "2026-02-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20260102T090000Z,20260107T090000Z,20260109T090000Z"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2026-01-01T09:00:00Z",
+          "2026-01-02T09:00:00Z",
+          "2026-01-03T09:00:00Z",
+          "2026-01-07T09:00:00Z",
+          "2026-01-09T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rdate-exclude-added-date",
+      "input": {
+        "start": "2026-01-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "EXDATE;VALUE=DATE-TIME:20260107T090000Z",
+          "RDATE;VALUE=DATE-TIME:20260102T090000Z,20260107T090000Z,20260109T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2026-01-01T00:00:00Z",
+          "end": "2026-02-01T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20260102T090000Z,20260107T090000Z,20260109T090000Z",
+          "EXDATE:20260107T090000Z"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2026-01-01T09:00:00Z",
+          "2026-01-02T09:00:00Z",
+          "2026-01-03T09:00:00Z",
+          "2026-01-09T09:00:00Z"
+        ]
+      }
+    }
+  ]
+}

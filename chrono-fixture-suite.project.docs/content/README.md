@@ -37,3 +37,27 @@ The regional fuzz comparison uses the runtime IANA data for its wall-clock oracl
 The Gregorian check compares 8,192 reproducible inputs with JavaScript UTC Date, including pre-epoch and early four-digit years, month-end clamping, negative arithmetic, and time crossing midnight. The recurrence checks enumerate every day or second in a bounded window using independent arithmetic. They cover 320 date rules through the date generator, event generator, and instance expander, plus 120 subdaily rules through incremental reads with COUNT, EXDATE and RDATE. These test combinations beyond the existing fixed Python, Google Calendar, parser, and timezone fixtures.
 
 Deno type checking passed. The complete Deno run passed 96 documentation and co-located tests and 935 suite tests with 319 steps and seven existing ignores. Rust passed 44 tests and two doctests with eight existing ignores from a clean export of published `afa37fe`. The added checks are TypeScript tests only. The Rust and Deno logs are in `~/workspace/fleet/evidence/chrono-fixture-suite/correctness-*.log` on yuzuquats.
+
+## Live Google Calendar expansions
+
+The rwc-04 tester used the dedicated test-events calendar and the
+event-instances command from tento-google commit `77f899aac5`. Google accepted
+all 16 synthetic series across six groups, returning 111 occurrence starts.
+The operator test calendar was checked for absence after removing each series.
+
+`tests/fixtures/google-expansion.rwc04.json` preserves the submitted and
+returned recurrence lines, the master start and timezone, the UTC query
+window, and the recorded starts. The shared fixture runner compares one-shot
+and incremental Chrono expansion using the same regional start conversion as
+the Calendar caller. Eight rows match Google directly. Eight record the exact
+current Chrono output alongside Google's result, with a reason. These cases
+fail when the mismatch changes or disappears, so a parity fix must remove the
+known-difference entry.
+
+The mismatches cover mixed BYWEEKNO with WKST and COUNT, explicit INTERVAL
+on monthly and weekly BYWEEKNO, two near-boundary times on Lord Howe's
+30-minute spring transition, and BYSETPOS with BYHOUR. The BYWEEKNO with
+EXDATE and COUNT and the RDATE/EXDATE precedence cases match Google.
+
+The sanitized Google response and the Chrono comparison are retained on
+yuzuquats in `~/workspace/fleet/evidence/chrono-fixture-suite/google-expansion-rwc04-*`.
