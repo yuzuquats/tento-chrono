@@ -1,0 +1,323 @@
+{
+  "type": "recurrence-profile",
+  "name": "Outlook Graph interval and end-date controls",
+  "source": "Microsoft Graph v1.0 calendarView",
+  "capturedAt": "2026-11-22T06:25:36.470354+00:00",
+  "cases": [
+    {
+      "name": "alternate-month-third",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-01-07T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday",
+                "wednesday",
+                "friday"
+              ],
+              "firstDayOfWeek": "sunday",
+              "index": "third",
+              "interval": 2,
+              "month": 0,
+              "type": "relativeMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2026-01-07",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-02-28"
+      },
+      "expected": [
+        "2026-01-07T09:00:00Z",
+        "2026-03-06T09:00:00Z",
+        "2026-05-06T09:00:00Z",
+        "2026-07-06T09:00:00Z",
+        "2026-09-07T09:00:00Z"
+      ]
+    },
+    {
+      "name": "alternate-year-third",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-02-06T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday",
+                "wednesday",
+                "friday"
+              ],
+              "firstDayOfWeek": "sunday",
+              "index": "third",
+              "interval": 2,
+              "month": 2,
+              "type": "relativeYearly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2026-02-06",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2030-09-30"
+      },
+      "expected": [
+        "2026-02-06T09:00:00Z",
+        "2028-02-07T09:00:00Z",
+        "2030-02-06T09:00:00Z"
+      ]
+    },
+    {
+      "name": "alternate-month-fourth",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-01-09T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday",
+                "wednesday",
+                "friday"
+              ],
+              "firstDayOfWeek": "sunday",
+              "index": "fourth",
+              "interval": 2,
+              "month": 0,
+              "type": "relativeMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2026-01-09",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-02-28"
+      },
+      "expected": [
+        "2026-01-09T09:00:00Z",
+        "2026-03-09T09:00:00Z",
+        "2026-05-08T09:00:00Z",
+        "2026-07-08T09:00:00Z",
+        "2026-09-09T09:00:00Z"
+      ]
+    },
+    {
+      "name": "alternate-year-fourth",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-02-09T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday",
+                "wednesday",
+                "friday"
+              ],
+              "firstDayOfWeek": "sunday",
+              "index": "fourth",
+              "interval": 2,
+              "month": 2,
+              "type": "relativeYearly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2026-02-09",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2030-09-30"
+      },
+      "expected": [
+        "2026-02-09T09:00:00Z",
+        "2028-02-09T09:00:00Z",
+        "2030-02-08T09:00:00Z"
+      ]
+    },
+    {
+      "name": "alternate-month-last",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-01-30T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday",
+                "wednesday",
+                "friday"
+              ],
+              "firstDayOfWeek": "sunday",
+              "index": "last",
+              "interval": 2,
+              "month": 0,
+              "type": "relativeMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2026-01-30",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-02-28"
+      },
+      "expected": [
+        "2026-01-30T09:00:00Z",
+        "2026-03-30T09:00:00Z",
+        "2026-05-29T09:00:00Z",
+        "2026-07-31T09:00:00Z",
+        "2026-09-30T09:00:00Z"
+      ]
+    },
+    {
+      "name": "alternate-year-last",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-02-27T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday",
+                "wednesday",
+                "friday"
+              ],
+              "firstDayOfWeek": "sunday",
+              "index": "last",
+              "interval": 2,
+              "month": 2,
+              "type": "relativeYearly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2026-02-27",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2030-09-30"
+      },
+      "expected": [
+        "2026-02-27T09:00:00Z",
+        "2028-02-28T09:00:00Z",
+        "2030-02-27T09:00:00Z"
+      ]
+    },
+    {
+      "name": "pacific-inclusive-end-late",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-03-07T07:45:00.0000000",
+            "timeZone": "UTC"
+          },
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2026-03-08",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Pacific Standard Time",
+              "startDate": "2026-03-06",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2026-03-11"
+      },
+      "expected": [
+        "2026-03-07T07:45:00Z",
+        "2026-03-08T07:45:00Z",
+        "2026-03-09T06:45:00Z"
+      ]
+    },
+    {
+      "name": "pacific-nonmatching-end-late",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-03-07T07:45:00.0000000",
+            "timeZone": "UTC"
+          },
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 2,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2026-03-09",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Pacific Standard Time",
+              "startDate": "2026-03-06",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2026-03-11"
+      },
+      "expected": [
+        "2026-03-07T07:45:00Z",
+        "2026-03-09T06:45:00Z"
+      ]
+    }
+  ]
+}

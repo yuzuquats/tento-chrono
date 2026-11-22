@@ -144,6 +144,8 @@ export interface RecurrenceComposition {
     utc: boolean,
     seriesZone: TimezoneRegion | null,
   ) => DateTime<Utc> | null;
+  /** Interpret a timed RDATE using the selected profile. */
+  readonly resolveRdate?: (value: NaiveDateTime, seriesZone: TimezoneRegion | null) => DateTime<Utc>;
   /**
    * An EXDATE uses up a COUNT slot in every composition, on every path
    * (BYWEEKNO included). EXDATE removes instances from the set the rule and
@@ -600,6 +602,7 @@ function rdateInstant(
   const inSeries = (wall: NaiveDateTime): DateTime<Utc> =>
     resolveSeriesWall(composition, timezone, startDateTime, wall);
   if (line.value === "DATE" || !form.timed) return inSeries(ndt.date.withTime(startLocal.time));
+  if (composition.resolveRdate != null) return composition.resolveRdate(ndt, timezone ?? null);
   if (form.utc) return new DateTime(ndt, Utc);
   if (line.region != null && line.region.fullname !== timezone?.fullname) {
     return resolveForeignWall(composition, line.region, ndt);

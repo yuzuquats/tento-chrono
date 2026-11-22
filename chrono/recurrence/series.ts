@@ -150,16 +150,23 @@ export class RecurrenceSeries {
       }
       if (startLines.length !== 1) throw new Error("Expected one DTSTART");
       if (strict) validateRfc5545(lines, startLines[0]);
+      const dateStart = bound?.kind === "date" || /:\d{8}$/.test(startLines[0]);
 
       const shared = [];
       const ruleLines = [];
       for (const line of lines) {
         const name = icalPropertyName(line);
-        if (name === "RRULE") ruleLines.push(profileRule(line, profile));
-        else {
+        if (name === "RRULE") {
+          ruleLines.push(profileRule(line, profile, dateStart));
+        } else {
           if (name === "DTSTART" || name === "RDATE" || name === "EXDATE") {
             const match = /;TZID=(?:"([^"]+)"|([^;:]+))/i.exec(line);
             if (match != null) {
+              if (profile === "dateutil" && name === "RDATE") {
+                throw new Error(
+                  "unsupported RDATE parm: " + match[0].slice(1).toUpperCase(),
+                );
+              }
               const zone = await loadZone(match[1] ?? match[2]);
               // The low-level date parser takes an unquoted IANA name.
               shared.push(line.replace(match[0], ";TZID=" + zone.fullname));
@@ -229,12 +236,22 @@ function compositionFor(profile: RecurrenceProfile): RecurrenceComposition {
   if (profile === "rrule-js") {
     return {
       ...RecurrenceComposition.RULE_ONLY,
-      // RRuleSet interprets EXDATE's clock fields in the DTSTART zone.
       resolveExdate: (value, _region, _utc, seriesZone) =>
-        seriesZone?.toRfc5545WallClock(value).toUtc() ?? value.asUtc(),
+        rruleJsDate(value, seriesZone),
+      resolveRdate: rruleJsDate,
     };
   }
   return RecurrenceComposition.RULE_ONLY;
+}
+
+function rruleJsDate(
+  value: NaiveDateTime,
+  seriesZone: TimezoneRegion | null,
+): DateTime<Utc> {
+  // RRuleSet rezones the encoded date using the series zone's offset at
+  // the encoded instant. The TZID and Z on an individual date don't change it.
+  const offset = seriesZone?.tzAtMse(value.mse);
+  return offset == null ? value.asUtc() : value.withTz(offset).toUtc();
 }
 
 function dateutilExdate(
@@ -324,7 +341,11 @@ async function bindExternalStart(
   return { line, start: { local, instant, zone, kind } };
 }
 
-function profileRule(line: string, profile: RecurrenceProfile): string {
+function profileRule(
+  line: string,
+  profile: RecurrenceProfile,
+  dateStart: boolean,
+): string {
   const rule = line.toUpperCase();
   if (/(?:^|;)(BYEASTER|BYWEEKDAY)=/.test(rule)) {
     throw new Error("Unsupported recurrence selector");
@@ -340,8 +361,13 @@ function profileRule(line: string, profile: RecurrenceProfile): string {
     );
   }
   if (profile !== "google") return rule;
-  // Google preserves the master time for these selector/frequency pairs in the captures.
   const frequency = /(?:^RRULE:|;)FREQ=([^;]+)/.exec(rule)?.[1];
+  if (
+    frequency === "HOURLY" || frequency === "MINUTELY" ||
+    frequency === "SECONDLY"
+  ) {
+    throw new Error("Unsupported Google recurrence frequency: " + frequency);
+  }
   const parts = rule.slice(6).split(";");
   const interval = Number(
     parts.find((part) => part.startsWith("INTERVAL="))?.slice(9) ?? 1,
@@ -354,12 +380,13 @@ function profileRule(line: string, profile: RecurrenceProfile): string {
         part,
       )
     );
-  return "RRULE:" + parts.filter((part) => {
-    if (ignoreWeekNumber && part.startsWith("BYWEEKNO=")) return false;
-    if (frequency === "DAILY" && /^BY(?:MINUTE|SECOND)=/.test(part)) {
-      return false;
-    }
-    if (frequency === "MONTHLY" && part.startsWith("BYHOUR=")) return false;
-    return true;
-  }).join(";");
+  return "RRULE:" + parts.filter((part) =>
+    // Google retains the master time for date-level frequencies.
+    !/^BY(?:HOUR|MINUTE|SECOND)=/.test(part) &&
+    !(ignoreWeekNumber && part.startsWith("BYWEEKNO="))
+  ).map((part) =>
+    // The all-day series has a civil date timeline at UTC midnight internally.
+    // A DATE cutoff includes that date, unlike Google's date cutoff for timed series.
+    dateStart ? part.replace(/^UNTIL=(\d{8})$/, "UNTIL=$1T000000Z") : part
+  ).join(";");
 }

@@ -82,3 +82,32 @@ All 36 extra synthetic Calendar masters were verified absent. The
 sanitized recordings are in the existing evidence directory under
 `google-expansion-rwc04-{week-parity,negative-weeks,rollover}.json` and
 `recurrence-profile-exdate-*.json`.
+
+## Frequency, civil-date, and RDATE controls
+
+The follow-up added 72 provider outcomes. Google supplied 29 expansions
+(151 starts) and rejected 11 subdaily submissions with HTTP 400. The
+latter include controls with longer event durations. For every supported
+date-level frequency, independent probes now show that Google keeps the
+master's clock time in the presence of BYHOUR, BYMINUTE or BYSECOND.
+Six all-day series across a Los Angeles offset change confirm inclusive
+DATE UNTIL, DATE EXDATE, duplicate RDATE handling, and RDATE after UNTIL.
+Saturday and Sunday controls across two year ends matched the existing
+Google negative-week filter, including BYWEEKNO=-2.
+
+Eight further Outlook Graph series (29 starts) verify third, fourth and
+last relative multi-weekday patterns on alternate months and years, plus
+local inclusive end dates for late-evening events across a DST change.
+Every Google and Graph master created for the follow-up was verified absent.
+
+Twelve RDATE gap and fold probes were captured per pinned library.
+dateutil accepts the five UTC-only probes and rejects seven containing
+TZID on RDATE. rrule.js accepts all twelve and rezones added date fields
+in the series timezone, even if a value has Z or a different TZID. These
+results apply through the named profiles. The RFC default uses the original
+form of each RDATE value.
+
+The fixture suite now covers 185 captured expansions and 18 captured
+rejections, plus 27 RFC cases. Source captures are under the existing
+evidence directory as `google-expansion-rwc04-{coverage,frequency-confirm}.json`,
+`graph-expansion-rwc04-coverage.json`, and `recurrence-profile-rdate-*.json`.

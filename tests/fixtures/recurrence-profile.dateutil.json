@@ -446,6 +446,204 @@
         "2026-11-01T05:30:00Z",
         "2026-11-03T06:30:00Z"
       ]
+    },
+    {
+      "name": "rdate-gap-utc-pre-gap",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260307T011500",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20260308T063000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-11-08"
+      },
+      "expected": [
+        "2026-03-07T06:15:00Z",
+        "2026-03-08T06:15:00Z",
+        "2026-03-08T06:30:00Z",
+        "2026-03-09T05:15:00Z"
+      ]
+    },
+    {
+      "name": "rdate-gap-utc-post-gap",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260307T011500",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20260308T073000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-11-08"
+      },
+      "expected": [
+        "2026-03-07T06:15:00Z",
+        "2026-03-08T06:15:00Z",
+        "2026-03-08T07:30:00Z",
+        "2026-03-09T05:15:00Z"
+      ]
+    },
+    {
+      "name": "rdate-gap-series-zone",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260307T011500",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE;TZID=America/New_York:20260308T023000"
+        ],
+        "profile": "dateutil",
+        "through": "2026-11-08"
+      },
+      "expected": {
+        "error": "unsupported RDATE parm: TZID=AMERICA/NEW_YORK"
+      }
+    },
+    {
+      "name": "rdate-gap-foreign-zone",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260307T011500",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE;TZID=America/Chicago:20260308T023000"
+        ],
+        "profile": "dateutil",
+        "through": "2026-11-08"
+      },
+      "expected": {
+        "error": "unsupported RDATE parm: TZID=AMERICA/CHICAGO"
+      }
+    },
+    {
+      "name": "rdate-gap-dedup",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260307T011500",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE;TZID=America/New_York:20260308T011500"
+        ],
+        "profile": "dateutil",
+        "through": "2026-11-08"
+      },
+      "expected": {
+        "error": "unsupported RDATE parm: TZID=AMERICA/NEW_YORK"
+      }
+    },
+    {
+      "name": "rdate-gap-foreign-with-utc",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260307T011500",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE;TZID=America/Chicago:20260308T023000",
+          "RDATE:20260308T073000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-11-08"
+      },
+      "expected": {
+        "error": "unsupported RDATE parm: TZID=AMERICA/CHICAGO"
+      }
+    },
+    {
+      "name": "rdate-fold-utc-early",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261031T001500",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20261101T053000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-11-08"
+      },
+      "expected": [
+        "2026-10-31T04:15:00Z",
+        "2026-11-01T04:15:00Z",
+        "2026-11-01T05:30:00Z",
+        "2026-11-02T05:15:00Z"
+      ]
+    },
+    {
+      "name": "rdate-fold-utc-late",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261031T001500",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20261101T063000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-11-08"
+      },
+      "expected": [
+        "2026-10-31T04:15:00Z",
+        "2026-11-01T04:15:00Z",
+        "2026-11-01T06:30:00Z",
+        "2026-11-02T05:15:00Z"
+      ]
+    },
+    {
+      "name": "rdate-fold-series-zone",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261031T001500",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE;TZID=America/New_York:20261101T013000"
+        ],
+        "profile": "dateutil",
+        "through": "2026-11-08"
+      },
+      "expected": {
+        "error": "unsupported RDATE parm: TZID=AMERICA/NEW_YORK"
+      }
+    },
+    {
+      "name": "rdate-fold-foreign-zone",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261031T001500",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE;TZID=America/Chicago:20261101T013000"
+        ],
+        "profile": "dateutil",
+        "through": "2026-11-08"
+      },
+      "expected": {
+        "error": "unsupported RDATE parm: TZID=AMERICA/CHICAGO"
+      }
+    },
+    {
+      "name": "rdate-fold-utc-both",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261031T001500",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20261101T053000Z,20261101T063000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-11-08"
+      },
+      "expected": [
+        "2026-10-31T04:15:00Z",
+        "2026-11-01T04:15:00Z",
+        "2026-11-01T05:30:00Z",
+        "2026-11-01T06:30:00Z",
+        "2026-11-02T05:15:00Z"
+      ]
+    },
+    {
+      "name": "rdate-fold-series-with-utc",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261031T001500",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE;TZID=America/New_York:20261101T013000",
+          "RDATE:20261101T053000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-11-08"
+      },
+      "expected": {
+        "error": "unsupported RDATE parm: TZID=AMERICA/NEW_YORK"
+      }
     }
   ]
 }
