@@ -240,7 +240,7 @@ export class RRule {
 
   toReadableDisplay(): string {
     const options = this.inner.options;
-    const interval = options?.interval ?? 1;
+    const interval = options?.interval === 0 ? 1 : (options?.interval ?? 1);
     let description = "";
 
     // Build frequency description
@@ -451,7 +451,9 @@ export class RRule {
     const options = this.inner.options;
 
     let step: DateUnit;
-    const interval = Math.max(1, options?.interval ?? 1);
+    const rawInterval = options?.interval ?? 1;
+    if (!Number.isSafeInteger(rawInterval) || rawInterval < 0) throw new RangeError("recurrence interval must be a nonnegative safe integer");
+    const interval = Math.max(1, rawInterval);
 
     // Google Calendar behavior: BYWEEKNO with monthly/weekly frequency generates consecutive weekly events
     const hasWeekNoFilter = options?.byweekno && options.byweekno.length > 0;
@@ -635,7 +637,7 @@ export class RRule {
       }
     }
 
-    if (options?.count) {
+    if (options?.count != null) {
       // For Google Calendar consecutive weekly BYWEEKNO behavior,
       // we manage COUNT manually in the recurrence generator
       const isYearlyMultiEvent =
@@ -687,6 +689,7 @@ export class RRule {
       filterOptions.limit = limit != null && count != null ? Math.min(limit, count) : (limit ?? count);
     }
 
+    if (options?.count === 0 || limit === 0) filterOptions.limit = 0;
     return {
       step,
       options: filterOptions,

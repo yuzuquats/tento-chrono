@@ -314,7 +314,7 @@ export class DurationTime
     const step = Math.abs(nearestTu.toMs);
     if (step === 0 || !Number.isFinite(step)) return this;
     const multiple = op(this.toMs / step);
-    return new DurationTime(multiple * step);
+    return new DurationTime(multiple === 0 ? 0 : multiple * step);
   }
 
   round(nearest: DurationTime.Parts.Opt): DurationTime {

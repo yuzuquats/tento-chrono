@@ -187,6 +187,7 @@ export function* processAllEvents(
   inner?: ICalendar.Raw,
   useGoogleCalendarBehavior: boolean = true,
 ): Generator<YearMonthDay> {
+  if (countLimit != null && countLimit <= 0) return;
   let emittedCount = 0;
   const seenEvents = new Set<string>();
   
@@ -208,7 +209,7 @@ export function* processAllEvents(
           emittedCount++;
           
           // Check COUNT limit after emitting start date
-          if (countLimit && emittedCount >= countLimit) {
+          if (countLimit != null && emittedCount >= countLimit) {
             return;
           }
         }
@@ -226,7 +227,7 @@ export function* processAllEvents(
     seenEvents.add(eventKey);
     
     // Check COUNT limit before emitting
-    if (countLimit && emittedCount >= countLimit) {
+    if (countLimit != null && emittedCount >= countLimit) {
       return;
     }
     

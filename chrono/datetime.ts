@@ -14,14 +14,6 @@ import { Weekday } from "./units/weekday.ts";
 import { YearMonthDay } from "./units/year-month-day.ts";
 import type { Option } from "./option.ts";
 
-/**
- * Regular expression for parsing RFC3339 / ISO 8601 date-time strings.
- * Captures year, month, day, hour, minute, second, fractional seconds, and timezone offset.
- * Supports both standard offsets (Z or +/-HH:MM) and extended offsets with seconds (+/-HH:MM:SS).
- */
-const RFC3339_REGEX =
-  /^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2}):(\d{2})(\.\d+)?(Z|[+-]\d{2}:\d{2}(?::\d{2})?)?)?$/i;
-
 const RFC3339_CACHE_MAX = 128;
 const _rfc3339Cache = new Map<string, Result<DateTime<FixedOffset>>>();
 
@@ -578,21 +570,55 @@ export namespace DateTime {
       }
     }
 
-    const match = rfc3339.match(RFC3339_REGEX);
-    if (!match || match[0] !== rfc3339) return erm("DateTime.fromRfc3339: Invalid format");
-    const [, year, month, day, hour = "00", minute = "00", second = "00",
-      fraction = ".0", offset = "Z"] = match;
-    const date = NaiveDate.fromYmd1Str(year, month, day);
-    if (date.isErr) return date.expeCast();
-    const h = Number(hour), m = Number(minute), sec = Number(second);
-    if (h > 23 || m > 59 || sec > 59) return erm("DateTime.fromRfc3339: Invalid time");
-    if (offset !== "Z" && offset !== "z") {
-      const [oh, om, os = "00"] = offset.slice(1).split(":");
-      if (Number(oh) > 23 || Number(om) > 59 || Number(os) > 59) {
-        return erm("DateTime.fromRfc3339: Invalid offset");
+    // Scan fixed fields without match arrays, field slices or offset splits.
+    // Every separator/digit and the final cursor are checked before construction.
+    const len = rfc3339.length;
+    const digits = (pos: number, n: number): number => {
+      let value = 0;
+      if (pos + n > len) return NaN;
+      for (let i = pos; i < pos + n; i++) {
+        const d = rfc3339.charCodeAt(i) - 48;
+        if (d < 0 || d > 9) return NaN;
+        value = value * 10 + d;
+      }
+      return value;
+    };
+    const year = digits(0, 4), month = digits(5, 2), day = digits(8, 2);
+    let h = 0, m = 0, sec = 0, fractionMs = 0, offset = "Z", cursor = 10;
+    if (len < 10 || rfc3339[4] !== "-" || rfc3339[7] !== "-" ||
+      !Number.isFinite(year + month + day)) return erm("DateTime.fromRfc3339: Invalid format");
+    if (len > 10) {
+      if ((rfc3339[10] !== "T" && rfc3339[10] !== "t") ||
+        rfc3339[13] !== ":" || rfc3339[16] !== ":") return erm("DateTime.fromRfc3339: Invalid format");
+      h = digits(11, 2); m = digits(14, 2); sec = digits(17, 2); cursor = 19;
+      if (!Number.isFinite(h + m + sec) || h > 23 || m > 59 || sec > 59) return erm("DateTime.fromRfc3339: Invalid time");
+      if (rfc3339[cursor] === ".") {
+        const begin = cursor++;
+        while (cursor < len && rfc3339.charCodeAt(cursor) >= 48 && rfc3339.charCodeAt(cursor) <= 57) cursor++;
+        if (cursor === begin + 1) return erm("DateTime.fromRfc3339: Invalid fraction");
+        fractionMs = Math.round(Number("0" + rfc3339.slice(begin, cursor)) * 1000);
+      }
+      if (cursor < len) {
+        const begin = cursor;
+        const sign = rfc3339[cursor++];
+        if (sign !== "Z" && sign !== "z") {
+          if (sign !== "+" && sign !== "-") return erm("DateTime.fromRfc3339: Invalid offset");
+          const oh = digits(cursor, 2), om = digits(cursor + 3, 2);
+          if (rfc3339[cursor + 2] !== ":" || !Number.isFinite(oh + om) || oh > 23 || om > 59) return erm("DateTime.fromRfc3339: Invalid offset");
+          cursor += 5;
+          if (rfc3339[cursor] === ":") {
+            const os = digits(cursor + 1, 2);
+            if (!Number.isFinite(os) || os > 59) return erm("DateTime.fromRfc3339: Invalid offset");
+            cursor += 3;
+          }
+        }
+        offset = rfc3339.slice(begin, cursor);
       }
     }
-    const timeMs = (h * 3600 + m * 60 + sec) * 1000 + Math.round(Number("0" + fraction) * 1000);
+    if (cursor !== len) return erm("DateTime.fromRfc3339: Invalid format");
+    const date = YearMonthDay.fromYmd1Unchecked(year, month, day).toResult();
+    if (date.isErr) return date.expeCast();
+    const timeMs = (h * 3600 + m * 60 + sec) * 1000 + fractionMs;
     // Rounding a fraction can carry through midnight into the following date.
     const nd = timeMs >= Time.MS_PER_DAY ? date.exp().addDays(1) : date.exp();
     const nt = new NaiveTime((timeMs % Time.MS_PER_DAY) as Ms);

@@ -402,7 +402,7 @@ function appendGenerated(state: RecurrenceGenerationState, event: DateTime<Utc>)
 }
 
 function countCandidate(state: RecurrenceGenerationState): void {
-  if (state.generationLimit != null && ++state.candidates >= state.generationLimit) {
+  if (state.generationLimit != null && ++state.candidates > state.generationLimit) {
     throw new RecurrenceExpansionLimitError(state.generationLimit);
   }
 }
@@ -840,8 +840,8 @@ export class GoogleEventGenerator {
     readonly composition: RecurrenceComposition = RecurrenceComposition.GOOGLE,
     generationLimit?: number,
   ) {
-    if (generationLimit != null && (!Number.isSafeInteger(generationLimit) || generationLimit < 1)) {
-      throw new RangeError("recurrence generation limit must be a positive safe integer");
+    if (generationLimit != null && (!Number.isSafeInteger(generationLimit) || generationLimit < 0)) {
+      throw new RangeError("recurrence generation limit must be a nonnegative safe integer");
     }
     const startUtc = startDateTime.toUtc();
     const startLocal = timezone
@@ -933,7 +933,8 @@ export class GoogleEventGenerator {
       allGeneratedEvents: [],
       rdates,
       rdateNext: 0,
-      startHandled: false,
+      // COUNT=0 suppresses the rule's DTSTART too; explicit RDATEs remain independent.
+      startHandled: rrule?.inner.options?.count === 0,
       generationComplete: false,
       lastReturnedIndex: 0,
       generationLimit,
@@ -1075,6 +1076,7 @@ function* mergeSortedDaysWithRdates(
   end?: Option<NaiveDate>,
   limit?: Option<number>,
 ): Generator<YearMonthDay> {
+  if (limit != null && limit <= 0) return;
   const rdates = sortedRdateDays(inner, excl);
   const seen = new Set<number>();
   let emitted = 0;

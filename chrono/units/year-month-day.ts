@@ -704,8 +704,12 @@ export namespace YearMonthDay {
     step: DateUnit,
     recurLimit: number,
   ): Generator<YearMonthDay.MaybeValid> {
+    if (!Number.isFinite(step.value) || step.value === 0 || !Number.isSafeInteger(step.value)) {
+      throw new RangeError("date iteration step must be a nonzero integer");
+    }
     for (let i = 0; i < recurLimit; ++i) {
       const next = curr.addOpt(step);
+      if (next.cmpInvalid(curr) === 0) throw new RangeError("date iteration step does not advance");
       yield curr;
       curr = next;
     }
@@ -730,6 +734,10 @@ export namespace YearMonthDay {
     limit: Option<number>;
     weekStart: Weekday;
   }): Generator<YearMonthDay> {
+    if (limit != null && limit <= 0) return;
+    if (recurLimit <= 0) { onExhausted?.(); return; }
+    if (step.value < 0) throw new RangeError("date range step must be positive");
+    let periods = 0;
     let recurCnt = 0;
     let cnt = 0;
 
@@ -746,6 +754,8 @@ export namespace YearMonthDay {
     // COUNT, and one that never matches (BYMONTH=2;BYMONTHDAY=30) ends.
     let idle = 0;
     for (const i of YearMonthDay.ndsucc(iterStart, step, Number.MAX_SAFE_INTEGER)) {
+      // Explicit required reads bound examined periods as well as output.
+      if (onExhausted && ++periods > recurLimit) { onExhausted(); return; }
       let yielded = false;
       for (const [ndu, _] of filter([i, step.type])) {
         const nd = ndu.toResult().asOk();
@@ -756,11 +766,11 @@ export namespace YearMonthDay {
         yielded = true;
         cnt += 1;
         recurCnt += 1;
-        if (limit && cnt >= limit) return;
+        if (limit != null && cnt >= limit) return;
         if (recurCnt >= recurLimit) { onExhausted?.(); return; }
       }
       if (yielded) idle = 0;
-      else if (++idle >= IDLE_PERIODS) { onExhausted?.(); return; }
+      else if (++idle >= IDLE_PERIODS && end == null) { onExhausted?.(); return; }
       // A period whose first day is over a week past `end` (and every later
       // one) holds no date to yield. The week of slack covers BYWEEKNO,
       // whose week 1 can start in the previous year's last days.

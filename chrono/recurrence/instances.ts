@@ -48,6 +48,7 @@ export namespace RRuleInstances {
   ): Generator<NaiveDateTime> {
     const options = rule.inner.options;
     const count = options?.count ?? null;
+    if (count != null && count <= 0) return;
     const until = options?.until ?? null;
     const untilWall = untilWallOverride !== undefined
       ? untilWallOverride
@@ -139,8 +140,10 @@ export namespace RRuleInstances {
       if (diff !== 0) start = dtstart.date.addDays(-diff);
     }
 
+    let examined = 0;
     let idle = 0;
     for (const period of NaiveDate.ndsucc(start, step, Number.MAX_SAFE_INTEGER)) {
+      if (generationLimit != null && ++examined > generationLimit) throw new RecurrenceExpansionLimitError(generationLimit);
       const days = new Map<number, NaiveDate>();
       for (const [day] of filter([period, step.type])) {
         const valid = day.toResult().asOk();
@@ -157,8 +160,7 @@ export namespace RRuleInstances {
       // Periods wholly before DTSTART (none: the first period holds it) and empty ones count toward the idle limit.
       if (last == null || (indices != null && indices.length === 0) || last.mse < dtstart.mse) {
         if (++idle >= (generationLimit ?? IDLE_LIMIT)) {
-          if (generationLimit != null) throw new RecurrenceExpansionLimitError(generationLimit);
-          return;
+          throw new RecurrenceExpansionLimitError(generationLimit ?? IDLE_LIMIT);
         }
         continue;
       }
@@ -187,7 +189,9 @@ export namespace RRuleInstances {
     const options = rule.inner.options;
     const freq = rule.inner.freq;
     const unitMs = freq === "hourly" ? Time.MS_PER_HR : freq === "minutely" ? Time.MS_PER_MIN : Time.MS_PER_SEC;
-    const stepMs = unitMs * Math.max(1, options?.interval ?? 1);
+    const interval = options?.interval ?? 1;
+    if (!Number.isSafeInteger(interval) || interval < 0) throw new RangeError("recurrence interval must be a nonnegative safe integer");
+    const stepMs = unitMs * Math.max(1, interval);
     const setpos = nonEmpty(options?.bysetpos);
     const byhour = ignoreTimeParts ? null : nonEmpty(options?.byhour);
     const byminute = ignoreTimeParts ? null : nonEmpty(options?.byminute);
@@ -206,8 +210,10 @@ export namespace RRuleInstances {
     const first = Math.floor(dtstart.mse / unitMs) * unitMs;
 
     let k = 0;
+    let examined = 0;
     let idle = 0;
     while (true) {
+      if (generationLimit != null && ++examined > generationLimit) throw new RecurrenceExpansionLimitError(generationLimit);
       const periodMs = first + k * stepMs;
       const period = NaiveDateTime.fromMse(periodMs as MsSinceEpoch);
       // The first period, at or after `ms`, that the stepping reaches.
@@ -215,8 +221,7 @@ export namespace RRuleInstances {
         k = Math.max(k + 1, Math.ceil((ms - first) / stepMs));
       };
       if (++idle > (generationLimit ?? IDLE_LIMIT)) {
-        if (generationLimit != null) throw new RecurrenceExpansionLimitError(generationLimit);
-        return;
+        throw new RecurrenceExpansionLimitError(generationLimit ?? IDLE_LIMIT);
       }
 
       if (!dayOk(period.date)) {
