@@ -25,3 +25,9 @@ Fixed parser, iCalendar, and fragment examples now use the shared fixture helper
 Regional fuzzing compares Chrono's local date and time to `Intl.DateTimeFormat`, then checks that the civil-day fragments include the original instant. The four configured zones yielded 239 offset transitions in the test window, giving 1,195 boundary probes in addition to 4,096 seeded random instants on the owner host.
 
 Deno type checking passed. The full run passed 96 documentation and co-located tests plus 931 suite tests with 319 steps and seven existing ignores. The follow-up is in local Change-Id `I555e48b8de684651bcfdf092c8c971fd`.
+
+## Publication review fix
+
+Ten imported Python rows retain ordinal BYDAY tokens on weekly through secondly rules. Python's serializer normalizes those tokens away, but the source cases exercise how the engine handles them. The expected dates are unchanged. A focused API test pins default date step and range exhaustion.
+
+The regional fuzz comparison uses the runtime IANA data for its wall-clock oracle. A future timezone data update can change the expected clock fields without a Chrono code change.

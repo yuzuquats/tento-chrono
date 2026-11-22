@@ -928,7 +928,7 @@
       "name": "RRuleTest.testWeeklyByNWeekDay",
       "input": {
         "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYDAY=TU,TH"
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYDAY=+1TU,-1TH"
       },
       "expected": [
         "1997-09-02T09:00:00",
@@ -952,7 +952,7 @@
       "name": "RRuleTest.testWeeklyByMonthAndNWeekDay",
       "input": {
         "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH"
+        "rrule": "RRULE:FREQ=WEEKLY;COUNT=3;BYMONTH=1,3;BYDAY=+1TU,-1TH"
       },
       "expected": [
         "1998-01-01T09:00:00",
@@ -1280,7 +1280,7 @@
       "name": "RRuleTest.testDailyByNWeekDay",
       "input": {
         "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYDAY=TU,TH"
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYDAY=+1TU,-1TH"
       },
       "expected": [
         "1997-09-02T09:00:00",
@@ -1304,7 +1304,7 @@
       "name": "RRuleTest.testDailyByMonthAndNWeekDay",
       "input": {
         "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH"
+        "rrule": "RRULE:FREQ=DAILY;COUNT=3;BYMONTH=1,3;BYDAY=+1TU,-1TH"
       },
       "expected": [
         "1998-01-01T09:00:00",
@@ -1632,7 +1632,7 @@
       "name": "RRuleTest.testHourlyByNWeekDay",
       "input": {
         "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYDAY=TU,TH"
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYDAY=+1TU,-1TH"
       },
       "expected": [
         "1997-09-02T09:00:00",
@@ -1656,7 +1656,7 @@
       "name": "RRuleTest.testHourlyByMonthAndNWeekDay",
       "input": {
         "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH"
+        "rrule": "RRULE:FREQ=HOURLY;COUNT=3;BYMONTH=1,3;BYDAY=+1TU,-1TH"
       },
       "expected": [
         "1998-01-01T00:00:00",
@@ -1984,7 +1984,7 @@
       "name": "RRuleTest.testMinutelyByNWeekDay",
       "input": {
         "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYDAY=TU,TH"
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYDAY=+1TU,-1TH"
       },
       "expected": [
         "1997-09-02T09:00:00",
@@ -2008,7 +2008,7 @@
       "name": "RRuleTest.testMinutelyByMonthAndNWeekDay",
       "input": {
         "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH"
+        "rrule": "RRULE:FREQ=MINUTELY;COUNT=3;BYMONTH=1,3;BYDAY=+1TU,-1TH"
       },
       "expected": [
         "1998-01-01T00:00:00",
@@ -2336,7 +2336,7 @@
       "name": "RRuleTest.testSecondlyByNWeekDay",
       "input": {
         "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYDAY=TU,TH"
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYDAY=+1TU,-1TH"
       },
       "expected": [
         "1997-09-02T09:00:00",
@@ -2360,7 +2360,7 @@
       "name": "RRuleTest.testSecondlyByMonthAndNWeekDay",
       "input": {
         "start": "1997-09-02T09:00:00",
-        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYMONTH=1,3;BYDAY=TU,TH"
+        "rrule": "RRULE:FREQ=SECONDLY;COUNT=3;BYMONTH=1,3;BYDAY=+1TU,-1TH"
       },
       "expected": [
         "1998-01-01T00:00:00",
