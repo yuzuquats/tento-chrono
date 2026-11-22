@@ -949,6 +949,148 @@
         "2026-01-02T00:00:00Z"
       ],
       "notes": "RFC 5545 \u00a73.3.10: subdaily rule with DATE DTSTART ignores BYHOUR/BYMINUTE/BYSECOND in generateEvents()"
+    },
+    {
+      "name": "dtstart_region_daily_rule_only",
+      "category": "input_integrity",
+      "start": "2026-03-07T17:00:00Z",
+      "timezone": null,
+      "composition": "RULE_ONLY",
+      "rules": [
+        "DTSTART;TZID=America/Los_Angeles:20260307T090000",
+        "RRULE:FREQ=DAILY;COUNT=3"
+      ],
+      "upTo": "2026-03-10",
+      "expected": [
+        "2026-03-07T17:00:00Z",
+        "2026-03-08T16:00:00Z",
+        "2026-03-09T16:00:00Z"
+      ],
+      "incrementalSteps": [
+        "2026-03-07",
+        "2026-03-10"
+      ]
+    },
+    {
+      "name": "dtstart_region_daily_google",
+      "category": "input_integrity",
+      "start": "2026-03-07T17:00:00Z",
+      "timezone": null,
+      "composition": "GOOGLE",
+      "rules": [
+        "DTSTART;TZID=America/Los_Angeles:20260307T090000",
+        "RRULE:FREQ=DAILY;COUNT=3"
+      ],
+      "upTo": "2026-03-10",
+      "expected": [
+        "2026-03-07T17:00:00Z",
+        "2026-03-08T16:00:00Z",
+        "2026-03-09T16:00:00Z"
+      ],
+      "incrementalSteps": [
+        "2026-03-07",
+        "2026-03-10"
+      ]
+    },
+    {
+      "name": "dtstart_region_timed_rule_only",
+      "category": "input_integrity",
+      "start": "2026-03-07T17:00:00Z",
+      "timezone": null,
+      "composition": "RULE_ONLY",
+      "rules": [
+        "DTSTART;TZID=America/Los_Angeles:20260307T090000",
+        "RRULE:FREQ=DAILY;COUNT=3;BYHOUR=9"
+      ],
+      "upTo": "2026-03-10",
+      "expected": [
+        "2026-03-07T17:00:00Z",
+        "2026-03-08T16:00:00Z",
+        "2026-03-09T16:00:00Z"
+      ],
+      "incrementalSteps": [
+        "2026-03-07",
+        "2026-03-10"
+      ]
+    },
+    {
+      "name": "dtstart_region_timed_google",
+      "category": "input_integrity",
+      "start": "2026-03-07T17:00:00Z",
+      "timezone": null,
+      "composition": "GOOGLE",
+      "rules": [
+        "DTSTART;TZID=America/Los_Angeles:20260307T090000",
+        "RRULE:FREQ=DAILY;COUNT=3;BYHOUR=9"
+      ],
+      "upTo": "2026-03-10",
+      "expected": [
+        "2026-03-07T17:00:00Z",
+        "2026-03-08T16:00:00Z",
+        "2026-03-09T16:00:00Z"
+      ],
+      "incrementalSteps": [
+        "2026-03-07",
+        "2026-03-10"
+      ]
+    },
+    {
+      "name": "explicit_region_overrides_dtstart",
+      "category": "input_integrity",
+      "start": "2026-03-07T17:00:00Z",
+      "timezone": "UTC",
+      "composition": "RULE_ONLY",
+      "rules": [
+        "DTSTART;TZID=America/Los_Angeles:20260307T090000",
+        "RRULE:FREQ=DAILY;COUNT=2"
+      ],
+      "upTo": "2026-03-10",
+      "expected": [
+        "2026-03-07T17:00:00Z",
+        "2026-03-08T17:00:00Z"
+      ]
+    },
+    {
+      "name": "missing_region_uses_supplied_offset",
+      "category": "input_integrity",
+      "start": "2026-03-08T01:00:00+14:00",
+      "timezone": null,
+      "composition": "RULE_ONLY",
+      "rules": [
+        "RRULE:FREQ=DAILY;UNTIL=20260309T110000Z",
+        "EXDATE:20260308T110000Z",
+        "RDATE:20260311T010000"
+      ],
+      "upTo": "2026-03-11",
+      "expected": [
+        "2026-03-07T11:00:00Z",
+        "2026-03-09T11:00:00Z",
+        "2026-03-10T11:00:00Z"
+      ],
+      "incrementalSteps": [
+        "2026-03-07",
+        "2026-03-11"
+      ]
+    },
+    {
+      "name": "mixed_case_ical_property_names",
+      "category": "input_integrity",
+      "start": "2026-01-01T09:00:00Z",
+      "timezone": null,
+      "composition": "RULE_ONLY",
+      "rules": [
+        "dtstart:20260101T090000Z",
+        "rRuLe:freq=daily;count=3",
+        "exdate:20260102T090000Z",
+        "rdate:20260105T090000Z",
+        "RRULE-EXT:FREQ=MONTHLY"
+      ],
+      "upTo": "2026-01-06",
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-03T09:00:00Z",
+        "2026-01-05T09:00:00Z"
+      ]
     }
   ]
 }

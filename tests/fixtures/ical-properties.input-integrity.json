@@ -1,0 +1,20 @@
+{
+  "type": "ical-properties",
+  "name": "ical-properties input integrity",
+  "cases": [
+    {
+      "name": "property matching is case-insensitive and exact",
+      "input": [
+        "dtstart:20260101T090000Z",
+        "rRuLe:freq=daily;count=3",
+        "exdate:20260102T090000Z",
+        "rdate:20260105T090000Z",
+        "RRULE-EXT:FREQ=MONTHLY"
+      ],
+      "expected": {
+        "frequency": "daily",
+        "exdateLines": 1
+      }
+    }
+  ]
+}

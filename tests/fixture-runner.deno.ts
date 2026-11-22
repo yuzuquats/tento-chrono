@@ -25,7 +25,7 @@ type UntypedJson = any;
 export class Fixtures<I, E> {
   private constructor(readonly items: Fixtures.File<I, E>[]) {}
 
-  /** Load all `{type}.*.json` fixtures from a directory. */
+  /** Load a nonempty corpus of `{type}.*.json` fixtures from a directory. */
   static load<I = UntypedJson, E = UntypedJson>(
     dir: string,
     type: string,
@@ -33,10 +33,14 @@ export class Fixtures<I, E> {
     const prefix = type + ".";
     const files: Fixtures.File<I, E>[] = [];
     for (const entry of Deno.readDirSync(dir)) {
-      if (!entry.name.startsWith(prefix) || !entry.name.endsWith(".json")) continue;
+      if (!(entry.isFile || entry.isSymlink) || !entry.name.startsWith(prefix) || !entry.name.endsWith(".json")) continue;
       const raw = JSON.parse(Deno.readTextFileSync(`${dir}/${entry.name}`));
+      if (!Array.isArray(raw?.cases) || raw.cases.length === 0) {
+        throw new Error(`Fixture file has no cases: ${dir}/${entry.name}`);
+      }
       files.push(raw);
     }
+    if (files.length === 0) throw new Error(`No ${type}.*.json fixtures in ${dir}`);
     return new Fixtures(files);
   }
 

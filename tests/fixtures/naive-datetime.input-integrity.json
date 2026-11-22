@@ -1,0 +1,78 @@
+{
+  "type": "naive-datetime",
+  "name": "naive-datetime input integrity",
+  "cases": [
+    {
+      "name": "require time",
+      "input": "2026-01-01",
+      "expected": null
+    },
+    {
+      "name": "reject invalid date",
+      "input": "2026-02-30T09:00",
+      "expected": null
+    },
+    {
+      "name": "reject extra time",
+      "input": "2026-01-01T09:00T12:00",
+      "expected": null
+    },
+    {
+      "name": "reject nonnumeric hour",
+      "input": "2026-01-01T09x:00",
+      "expected": null
+    },
+    {
+      "name": "reject hour 24",
+      "input": "2026-01-01T24:00",
+      "expected": null
+    },
+    {
+      "name": "reject minute 60",
+      "input": "2026-01-01T09:60",
+      "expected": null
+    },
+    {
+      "name": "reject second 60",
+      "input": "2026-01-01T09:00:60",
+      "expected": null
+    },
+    {
+      "name": "reject numeric offset",
+      "input": "2026-01-01T09:00+02:00",
+      "expected": null
+    },
+    {
+      "name": "accept short numeric fields",
+      "input": "2026-1-2T9:0",
+      "expected": {
+        "text": "2026-01-02T09:00:00",
+        "ms": 32400000
+      }
+    },
+    {
+      "name": "preserve tenths",
+      "input": "2026-01-01T09:00:30.5",
+      "expected": {
+        "text": "2026-01-01T09:00:30.500",
+        "ms": 32430500
+      }
+    },
+    {
+      "name": "preserve thousandths",
+      "input": "2026-01-01T09:00:30.005",
+      "expected": {
+        "text": "2026-01-01T09:00:30.005",
+        "ms": 32430005
+      }
+    },
+    {
+      "name": "accept trailing UTC marker",
+      "input": "2026-01-01T09:00:30.500Z",
+      "expected": {
+        "text": "2026-01-01T09:00:30.500",
+        "ms": 32430500
+      }
+    }
+  ]
+}

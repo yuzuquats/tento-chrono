@@ -1,0 +1,142 @@
+{
+  "type": "fragment-clip",
+  "name": "fragment-clip input integrity",
+  "cases": [
+    {
+      "name": "window before the post-gap fragment",
+      "input": {
+        "zone": "America/Los_Angeles",
+        "day": "2026-03-08",
+        "fragment": 1,
+        "operation": "clamp",
+        "hours": [
+          0,
+          2,
+          false
+        ]
+      },
+      "expected": {
+        "minutes": 0,
+        "utcEdges": [
+          "2026-03-08T10:00:00Z",
+          "2026-03-08T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "overnight window after the pre-gap fragment",
+      "input": {
+        "zone": "America/Los_Angeles",
+        "day": "2026-03-08",
+        "fragment": 0,
+        "operation": "clamp",
+        "hours": [
+          22,
+          2,
+          true
+        ]
+      },
+      "expected": {
+        "minutes": 0,
+        "utcEdges": [
+          "2026-03-08T10:00:00Z",
+          "2026-03-08T10:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "window intersects part of the pre-gap fragment",
+      "input": {
+        "zone": "America/Los_Angeles",
+        "day": "2026-03-08",
+        "fragment": 0,
+        "operation": "clamp",
+        "hours": [
+          1,
+          3,
+          false
+        ]
+      },
+      "expected": {
+        "minutes": 60
+      }
+    },
+    {
+      "name": "pre-gap fragment cannot extend overnight",
+      "input": {
+        "zone": "America/Los_Angeles",
+        "day": "2026-03-08",
+        "fragment": 0,
+        "operation": "display",
+        "hours": [
+          22,
+          2,
+          true
+        ]
+      },
+      "expected": {
+        "minutes": 0
+      }
+    },
+    {
+      "name": "clamp stops at midnight",
+      "input": {
+        "zone": "America/Los_Angeles",
+        "day": "2026-03-09",
+        "fragment": 0,
+        "operation": "clamp",
+        "hours": [
+          22,
+          2,
+          true
+        ]
+      },
+      "expected": {
+        "minutes": 120
+      }
+    },
+    {
+      "name": "display can continue past midnight",
+      "input": {
+        "zone": "America/Los_Angeles",
+        "day": "2026-03-09",
+        "fragment": 0,
+        "operation": "display",
+        "hours": [
+          22,
+          2,
+          true
+        ]
+      },
+      "expected": {
+        "minutes": 240
+      }
+    },
+    {
+      "name": "partial window ends before the fragment",
+      "input": {
+        "zone": "America/Los_Angeles",
+        "day": "2026-03-08",
+        "fragment": 1,
+        "operation": "partial",
+        "partialEnd": "2026-03-08T01:00"
+      },
+      "expected": {
+        "minutes": 0
+      }
+    },
+    {
+      "name": "combined window ends before the fragment",
+      "input": {
+        "zone": "America/Los_Angeles",
+        "day": "2026-03-08",
+        "fragment": 1,
+        "operation": "display",
+        "partialEnd": "2026-03-08T01:00"
+      },
+      "expected": {
+        "minutes": 0
+      }
+    }
+  ]
+}

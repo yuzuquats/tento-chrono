@@ -1,0 +1,21 @@
+{
+  "type": "naive-date",
+  "name": "naive-date input integrity",
+  "cases": [
+    {
+      "name": "reject suffix",
+      "input": "2026-01-01junk",
+      "expected": null
+    },
+    {
+      "name": "reject extra field",
+      "input": "2026-01-01-02",
+      "expected": null
+    },
+    {
+      "name": "reject invalid day",
+      "input": "2026-02-30",
+      "expected": null
+    }
+  ]
+}

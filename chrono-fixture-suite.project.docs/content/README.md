@@ -17,3 +17,11 @@ The imported Python expectations come from the vendored literal assertions and, 
 The existing filter runner now owns 106 migrated examples that still call `NaiveDate.range`. The two independent rrule.js subsecond rows and the narrow API tests remain. The formatter and regional property tests use a reproducible 32-bit PRNG in `tests/fuzz/`.
 
 Deno type checking passed. The full run passed 96 tests in the documentation and co-located test command, plus 918 suite tests with 308 steps and seven existing ignores. The implementation is committed locally under Change-Id `I103465865a484d41a9a70d398351bbc`.
+
+## Test structure follow-up
+
+Fixed parser, iCalendar, and fragment examples now use the shared fixture helper. The existing recurrence runner covers the timezone precedence and incremental DST cases, and the date-filter fixtures exercise the daily, weekly, and yearly range boundaries directly. The TypeScript date-range test covers the unchecked-start contract. Fixture discovery fails when a corpus is missing or a matched file contains no cases.
+
+Regional fuzzing compares Chrono's local date and time to `Intl.DateTimeFormat`, then checks that the civil-day fragments include the original instant. The four configured zones yielded 239 offset transitions in the test window, giving 1,195 boundary probes in addition to 4,096 seeded random instants on the owner host.
+
+Deno type checking passed. The full run passed 96 documentation and co-located tests plus 931 suite tests with 319 steps and seven existing ignores. The follow-up is in local Change-Id `I555e48b8de684651bcfdf092c8c971fd`.

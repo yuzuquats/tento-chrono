@@ -1,0 +1,29 @@
+{
+  "type": "ical-round-trip",
+  "name": "ical-round-trip input integrity",
+  "cases": [
+    {
+      "name": "interleaved exclusions stay singular",
+      "input": [
+        "DTSTART:20260101T090000Z",
+        "EXDATE;VALUE=DATE:20260102,20260104",
+        "RDATE:20260106T090000Z",
+        "EXDATE:20260103T090000Z",
+        "RRULE:FREQ=DAILY;COUNT=4"
+      ],
+      "expected": {
+        "deterministic": [
+          "DTSTART:20260101T090000Z",
+          "EXDATE;VALUE=DATE:20260102,20260104",
+          "RDATE:20260106T090000Z",
+          "EXDATE:20260103T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "canonicalExdates": [
+          "EXDATE;VALUE=DATE:20260102,20260104",
+          "EXDATE:20260103T090000Z"
+        ]
+      }
+    }
+  ]
+}
