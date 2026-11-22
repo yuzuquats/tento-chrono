@@ -31,3 +31,9 @@ Deno type checking passed. The full run passed 96 documentation and co-located t
 Ten imported Python rows retain ordinal BYDAY tokens on weekly through secondly rules. Python's serializer normalizes those tokens away, but the source cases exercise how the engine handles them. The expected dates are unchanged. A focused API test pins default date step and range exhaustion.
 
 The regional fuzz comparison uses the runtime IANA data for its wall-clock oracle. A future timezone data update can change the expected clock fields without a Chrono code change.
+
+## Generated correctness checks
+
+The Gregorian check compares 8,192 reproducible inputs with JavaScript UTC Date, including pre-epoch and early four-digit years, month-end clamping, negative arithmetic, and time crossing midnight. The recurrence checks enumerate every day or second in a bounded window using independent arithmetic. They cover 320 date rules through the date generator, event generator, and instance expander, plus 120 subdaily rules through incremental reads with COUNT, EXDATE and RDATE. These test combinations beyond the existing fixed Python, Google Calendar, parser, and timezone fixtures.
+
+Deno type checking passed. The complete Deno run passed 96 documentation and co-located tests and 935 suite tests with 319 steps and seven existing ignores. Rust passed 44 tests and two doctests with eight existing ignores from a clean export of published `afa37fe`. The added checks are TypeScript tests only. The Rust and Deno logs are in `~/workspace/fleet/evidence/chrono-fixture-suite/correctness-*.log` on yuzuquats.
