@@ -164,9 +164,9 @@ export class RecurrenceSeries {
       if (strict) validateRfc5545(lines, startLines[0]);
       const dateStart = bound?.kind === "date" || /:\d{8}$/.test(startLines[0]);
 
-      const shared = [];
-      const ruleLines = [];
-      const exclusionLines = [];
+      const shared: string[] = [];
+      const ruleLines: string[] = [];
+      const exclusionLines: string[] = [];
       for (const line of lines) {
         const name = icalPropertyName(line);
         if (name === "RRULE") {
@@ -201,7 +201,7 @@ export class RecurrenceSeries {
           shared.push(line);
         }
       }
-      const rules = [];
+      const rules: Recurrence[] = [];
       for (const rule of ruleLines.length ? ruleLines : [null]) {
         const raw = await ICalendar.Raw.parse(
           rule == null ? shared : [...shared, rule],
@@ -209,7 +209,7 @@ export class RecurrenceSeries {
         if (raw.isErr) return err(raw.asErr()!);
         rules.push(profileRecurrence(raw.exp(), rule, profile));
       }
-      const exclusionRules = [];
+      const exclusionRules: Recurrence[] = [];
       const normalizedStart = shared.find((line) =>
         icalPropertyName(line) === "DTSTART"
       )!;

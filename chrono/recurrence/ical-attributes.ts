@@ -9,7 +9,7 @@ export function icalPropertyName(line: string): string {
 export function splitICalProperty(
   line: string,
 ): { attributes: string[]; value: string } | null {
-  const attributes = [];
+  const attributes: string[] = [];
   let quoted = false;
   let start = 0;
   for (let i = 0; i < line.length; i++) {
