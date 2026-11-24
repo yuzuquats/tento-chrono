@@ -23,6 +23,21 @@ Fixtures.load<string, string | null>(dir, "naive-date").run(
   (actual, expected) => assertEquals(actual, [expected, expected]),
 );
 
+Deno.test("checked civil dates require integer components", () => {
+  for (const invalid of [NaN, Infinity, -Infinity, 1.5]) {
+    assert(NaiveDate.fromYmd1(invalid, 1, 1).isErr, "year: " + invalid);
+    assert(NaiveDate.fromYmd1(2024, invalid, 1).isErr, "month: " + invalid);
+    assert(NaiveDate.fromYmd1(2024, 2, invalid).isErr, "day: " + invalid);
+  }
+  assert(NaiveDate.fromYmd1(0, 2, 29).isOk);
+  assert(NaiveDate.fromYmd1(-1, 1, 1).isOk);
+});
+
+Fixtures.load<string, string | null>(dir, "flexible-date").run(
+  (text) => NaiveDate.parseFlexibleOpt(text)?.toString() ?? null,
+  (actual, expected) => assertEquals(actual, expected),
+);
+
 Fixtures.load<string, { text: string; ms: number } | null>(
   dir,
   "naive-datetime",

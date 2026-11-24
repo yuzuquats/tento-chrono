@@ -26,3 +26,21 @@ range. Normal padding and month intervals retain their established rounding.
 All 47 Rust tests and doctests passed, with eight existing ignores. The focused
 month tests passed after the final cleanup. Logs are under
 `~/workspace/fleet/evidence/chrono-followup-edge-cases/`.
+
+## Validate civil date inputs and extreme month deltas
+
+Checked TypeScript dates require integer year, month and day components. The
+flexible date parser tries day first for slash input whose month-first reading
+is invalid. If both readings are valid, the existing month-first interpretation
+wins. The date input fixtures pin both cases.
+
+Rust civil month arithmetic normalizes in a wider integer type and retains the
+day for recurrence candidates. Checked addition returns None if the resulting
+year cannot fit in the civil date representation. The regression exercises both
+extreme deltas and years, and keeps the February 31 recurrence candidate.
+
+The scoped source passed type checking, 7,930 Deno tests with 319 steps, and
+98 documentation and co-located tests. The owner build passed all 49 Rust
+tests and doctests with all features enabled. A run in the shared working tree
+also picked up eight uncommitted Graph DST fixtures that required in-progress
+series duration support. The committed corpus passed in the scoped source run.

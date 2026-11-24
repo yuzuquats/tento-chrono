@@ -21,25 +21,21 @@ impl YearMonthDay {
     }
   }
 
+  /// Move by whole months, retaining the original day of month.
+  ///
+  /// Panics if the resulting year does not fit in an i32.
   pub fn add_months(&self, mths: i32) -> YearMonthDay {
-    let mut yr = self.yr;
-    let mut mth = mths + self.mth1 as i32;
-    if mth > 12 || mth <= 0 {
-      let md = mth.rem_euclid(12);
-      let div = mth.div_euclid(12);
-      yr += div;
-      if md == 0 {
-        mth = 12;
-        yr -= 1;
-      } else {
-        mth = md;
-      }
-    }
-    YearMonthDay {
-      yr,
-      mth1: mth as u32,
+    self.checked_add_months(mths).expect("resulting year must fit in i32")
+  }
+
+  fn checked_add_months(&self, mths: i32) -> Option<YearMonthDay> {
+    let month0 = i64::from(self.mth1) - 1 + i64::from(mths);
+    let year = i64::from(self.yr) + month0.div_euclid(12);
+    Some(YearMonthDay {
+      yr: i32::try_from(year).ok()?,
+      mth1: month0.rem_euclid(12) as u32 + 1,
       day1: self.day1,
-    }
+    })
   }
 
   /// `self` moved by `du`. Years and months keep the day of month, even past
@@ -53,7 +49,7 @@ impl YearMonthDay {
         mth1: self.mth1,
         day1: self.day1,
       }),
-      DateUnitType::Months => Some(self.add_months(du.value)),
+      DateUnitType::Months => self.checked_add_months(du.value),
       DateUnitType::Days => self.add_days(i64::from(du.value)),
       DateUnitType::Weeks => self.add_days(i64::from(du.value) * 7),
     }

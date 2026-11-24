@@ -83,8 +83,13 @@ class _YearMonthDay implements Ymd1Like {
   ) {}
 
   #validationError(): Option<Error> {
-    if (this.month1 < 1 || this.month1 > 12) return Error("month/bounds");
-    if (!YearMonth.isDayValid(this, this.day)) return Error("day/bounds");
+    if (!Number.isInteger(this.yr)) return Error("year/bounds");
+    if (!Number.isInteger(this.month1) || this.month1 < 1 || this.month1 > 12) {
+      return Error("month/bounds");
+    }
+    if (!Number.isInteger(this.day) || !YearMonth.isDayValid(this, this.day)) {
+      return Error("day/bounds");
+    }
     return null;
   }
 
@@ -571,6 +576,7 @@ export namespace YearMonthDay {
    * - European format: DD.MM.YYYY or DD/MM/YYYY
    * - Compact format: YYYYMMDD
    *
+   * Slash dates prefer month first when both orders are valid.
    * Returns a Result with either the parsed date or an error
    */
   export function parseFlexible(value: string): Result<YearMonthDay> {
@@ -590,15 +596,19 @@ export namespace YearMonthDay {
       );
     }
 
-    // Try US format (MM/DD/YYYY or MM-DD-YYYY)
-    const usMatch = value.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);
+    // Slash dates can use either order. Keep month-first precedence.
+    const usMatch = value.match(/^(\d{1,2})([\/\-])(\d{1,2})([\/\-])(\d{4})$/);
     if (usMatch) {
-      const [, month, day, year] = usMatch;
-      return YearMonthDay.fromYmd1(
-        Number.parseInt(year, 10),
-        Number.parseInt(month, 10),
-        Number.parseInt(day, 10),
-      );
+      const [, first, firstSeparator, second, secondSeparator, year] = usMatch;
+      const month = Number.parseInt(first, 10);
+      const day = Number.parseInt(second, 10);
+      const yr = Number.parseInt(year, 10);
+      const monthFirst = YearMonthDay.fromYmd1(yr, month, day);
+      if (monthFirst.isErr && firstSeparator === "/" && secondSeparator === "/") {
+        const dayFirst = YearMonthDay.fromYmd1(yr, day, month);
+        if (dayFirst.isOk) return dayFirst;
+      }
+      return monthFirst;
     }
 
     // Try European format (DD.MM.YYYY or DD/MM/YYYY)

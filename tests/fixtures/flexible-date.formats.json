@@ -1,0 +1,56 @@
+{
+  "type": "flexible-date",
+  "name": "flexible civil date formats",
+  "cases": [
+    {
+      "name": "day first when the first number cannot be a month",
+      "input": "31/12/2026",
+      "expected": "2026-12-31"
+    },
+    {
+      "name": "day-first leap day",
+      "input": "29/2/2024",
+      "expected": "2024-02-29"
+    },
+    {
+      "name": "month first when both readings are valid",
+      "input": "02/03/2026",
+      "expected": "2026-02-03"
+    },
+    {
+      "name": "month first slash format",
+      "input": "12/31/2026",
+      "expected": "2026-12-31"
+    },
+    {
+      "name": "month first dash format",
+      "input": "12-31-2026",
+      "expected": "2026-12-31"
+    },
+    {
+      "name": "day first dotted format",
+      "input": "31.12.2026",
+      "expected": "2026-12-31"
+    },
+    {
+      "name": "invalid leap day",
+      "input": "29/02/2026",
+      "expected": null
+    },
+    {
+      "name": "day first does not apply to dashes",
+      "input": "31-12-2026",
+      "expected": null
+    },
+    {
+      "name": "compact format",
+      "input": "20261231",
+      "expected": "2026-12-31"
+    },
+    {
+      "name": "ISO format with surrounding whitespace",
+      "input": "  2026-12-31  ",
+      "expected": "2026-12-31"
+    }
+  ]
+}

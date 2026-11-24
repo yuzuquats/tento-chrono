@@ -34,3 +34,35 @@ fn weeks_at_max_are_inclusive_and_exhausted() {
   assert_eq!(PartialDate::iter_weeks(monday..monday + Duration::days(7)).count(), 2);
   assert!(PartialDate::iter_weeks(NaiveDate::MIN..NaiveDate::MIN).next().is_some());
 }
+
+#[test]
+fn civil_month_arithmetic_accepts_extreme_deltas() {
+  use tento_chrono::date_unit::{DateUnit, DateUnitType};
+  use tento_chrono::year_month_day::YearMonthDay;
+
+  let start = YearMonthDay { yr: 2024, mth1: 2, day1: 29 };
+  for (value, expected) in [
+    (i32::MIN, (-178_954_947, 6, 29)),
+    (i32::MAX, (178_958_994, 9, 29)),
+  ] {
+    let direct = start.add_months(value);
+    assert_eq!((direct.yr, direct.mth1, direct.day1), expected);
+    let checked = start.add(&DateUnit { ty: DateUnitType::Months, value }).unwrap();
+    assert_eq!((checked.yr, checked.mth1, checked.day1), expected);
+  }
+
+  let jan31 = YearMonthDay { yr: 2024, mth1: 1, day1: 31 };
+  let feb = jan31.add_months(1);
+  assert_eq!((feb.yr, feb.mth1, feb.day1), (2024, 2, 31));
+}
+
+#[test]
+fn checked_civil_month_arithmetic_rejects_unrepresentable_years() {
+  use tento_chrono::date_unit::{DateUnit, DateUnitType};
+  use tento_chrono::year_month_day::YearMonthDay;
+
+  let first = YearMonthDay { yr: i32::MIN, mth1: 1, day1: 1 };
+  let last = YearMonthDay { yr: i32::MAX, mth1: 12, day1: 1 };
+  assert!(first.add(&DateUnit { ty: DateUnitType::Months, value: -1 }).is_none());
+  assert!(last.add(&DateUnit { ty: DateUnitType::Months, value: 1 }).is_none());
+}
