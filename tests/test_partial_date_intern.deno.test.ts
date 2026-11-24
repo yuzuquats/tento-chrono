@@ -33,8 +33,8 @@ Deno.test("Partial.parse: what one caller reads does not show in another's parti
 
 Deno.test("Partial.parse interning is bounded and keeps answering the same fields", () => {
   const first = NaiveDate.Partial.parse("ymd-1901-1-1").exp();
-  // 5000 distinct texts that do not parse (a year 0): failures are never interned.
-  for (let i = 0; i < 5000; i++) assert(NaiveDate.Partial.parse(`ymd-0-1-${i + 1}`).isErr);
+  // 5000 distinct texts with invalid month zero: failures are never interned.
+  for (let i = 0; i < 5000; i++) assert(NaiveDate.Partial.parse(`ymd-0-0-${i + 1}`).isErr);
   for (let y = 0; y < 4200; y++) NaiveDate.Partial.parse(`y-${3000 + y}`);
   const again = NaiveDate.Partial.parse("ymd-1901-1-1").exp();
   assert(again.equals(first), "an evicted text parses again to the same fields");

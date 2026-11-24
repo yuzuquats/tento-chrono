@@ -34,27 +34,29 @@ export namespace SemanticTime {
   export function fromPartialDate(partial: NaiveDate.Partial): SemanticTime {
     const raw = partial.toString();
     // The fields `NaiveDate.Partial.parse` would read back from `raw`, checked
-    // directly (each a number, at least 1 as an integer) instead of parsing
+    // directly (a safe integer year and positive integer fields) instead of parsing
     // the text just built: the same values pass and fail.
     if (partialFieldsParse(partial)) return raw as SemanticTime;
     throw new Error(`SemanticTime.fromPartialDate: invalid partial date "${raw}"`);
   }
 
-  /** Whether every field `partial.toString()` prints reads back as an integer ≥ 1 (`NaiveDate.Partial.parse`'s rule). */
+  /** Match the signed-year and positive-field grammar of Partial.parse. */
   function partialFieldsParse(partial: NaiveDate.Partial): boolean {
+    const validYear = Number.isSafeInteger(partial.yr);
     const atLeastOne = (v: Option<number>): boolean => {
+      if (!/^\d+$/.test(String(v))) return false;
       const n = TentoMath.int(String(v));
       return !Number.isNaN(n) && n >= 1;
     };
     switch (partial.type) {
       case "year":
-        return atLeastOne(partial.yr);
+        return validYear;
       case "month":
-        return atLeastOne(partial.yr) && atLeastOne(partial.mth);
+        return validYear && atLeastOne(partial.mth);
       case "day":
-        return atLeastOne(partial.yr) && atLeastOne(partial.mth) && atLeastOne(partial.day);
+        return validYear && atLeastOne(partial.mth) && atLeastOne(partial.day);
       case "week":
-        return atLeastOne(partial.yr) && atLeastOne(partial.wno);
+        return validYear && atLeastOne(partial.wno);
     }
   }
 

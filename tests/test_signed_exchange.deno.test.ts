@@ -1,5 +1,5 @@
-import { assert, assertEquals } from "@std/assert";
-import { PartialDate } from "../chrono/mod.ts";
+import { assert, assertEquals, assertThrows } from "@std/assert";
+import { PartialDate, SemanticTime } from "../chrono/mod.ts";
 
 Deno.test("partial-date exchange preserves signed, zero and legacy positive years", () => {
   for (const yr of [-262143, -44, -1, 0, 1, 2024, 262142]) {
@@ -21,5 +21,29 @@ Deno.test("partial-date grammar consumes every field without shifting signed yea
   for (const text of ["y--", "ym--44--3", "y-2024-", "y-2024-1", "ym-2024-2-3", "ymd-2024-2", "yw-2024-1-2", "y-1.5", "y-9007199254740992"]) {
     assert(PartialDate.parse(text).isErr, text);
     assertEquals(PartialDate.parseOptional(text), null);
+  }
+});
+
+
+Deno.test("SemanticTime agrees with public partial parsing for signed, zero and invalid fields", () => {
+  for (const yr of [-262143, -44, -1, 0, 1, 2024, 262142]) {
+    for (const raw of [`y-${yr}`, `ym-${yr}-3`, `ymd-${yr}-3-15`, `yw-${yr}-10`]) {
+      const partial = PartialDate.parse(raw).exp();
+      assertEquals(SemanticTime.fromPartialDate(partial), raw);
+      assertEquals(SemanticTime.parse(raw), raw);
+    }
+  }
+  for (const partial of [
+    PartialDate.fromYear(Number.NaN),
+    PartialDate.fromYear(Number.POSITIVE_INFINITY),
+    PartialDate.fromYear(1.5),
+    PartialDate.fromYear(9007199254740992),
+    PartialDate.fromMonth(0, 0),
+    PartialDate.fromMonth(-44, 1.5),
+    PartialDate.fromWeek(0, -1),
+    PartialDate.fromWeek(-44, 1e21),
+  ]) {
+    assert(PartialDate.parse(partial.toString()).isErr, partial.toString());
+    assertThrows(() => SemanticTime.fromPartialDate(partial), Error, "invalid partial date");
   }
 });
