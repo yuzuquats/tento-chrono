@@ -4,6 +4,9 @@ import { NaiveDate } from "../chrono/mod.ts";
 Deno.test("PartialDate optional probing preserves grammar and existing permissive parsing", () => {
   const cases = [
     ["y-2026", "y-2026"],
+    ["y-0", "y-0"],
+    ["y--44", "y--44"],
+    ["ymd--44-3-15", "ymd--44-3-15"],
     ["ym-2026-09", "ym-2026-9"],
     ["ymd-2026-09-09", "ymd-2026-9-9"],
     ["yw-2026-37", "yw-2026-37"],
@@ -34,7 +37,6 @@ Deno.test("PartialDate keeps public errors and rejects malformed recognized part
     ["ymd-bad-9-9", "<1"],
     ["ymd-2026-0-9", "<1"],
     ["yw-2026-0", "<1"],
-    ["y-0", "<1"],
     ["ymd-2026--9", "<1"],
   ] as const;
   for (const [raw, message] of cases) {

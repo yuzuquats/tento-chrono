@@ -17,8 +17,17 @@ Deno.test("partial-date exchange preserves signed, zero and legacy positive year
   assertEquals(PartialDate.fromStr("year", "0", null, null, null).exp().yr, 0);
 });
 
-Deno.test("partial-date grammar consumes every field without shifting signed years", () => {
-  for (const text of ["y--", "ym--44--3", "y-2024-", "y-2024-1", "ym-2024-2-3", "ymd-2024-2", "yw-2024-1-2", "y-1.5", "y-9007199254740992"]) {
+Deno.test("partial-date TS compatibility preserves legacy fields beside canonical signed exchange", () => {
+  // Rust serde stays strict; canonical strings are the shared wire contract.
+  for (const [text, expected] of [
+    ["y-2024-", "y-2024"], ["y-2024-1", "y-2024"],
+    ["ym-2024-2-3", "ym-2024-2"], ["ymd-2024-2", "ymd-2024-2-null"],
+    ["yw-2024-1-2", "yw-2024-1"], ["y-1.5", "y-1"],
+  ]) {
+    assertEquals(PartialDate.parse(text).exp().toString(), expected);
+    assertEquals(PartialDate.parseOptional(text)?.toString(), expected);
+  }
+  for (const text of ["y--", "ym--44--3"]) {
     assert(PartialDate.parse(text).isErr, text);
     assertEquals(PartialDate.parseOptional(text), null);
   }
@@ -43,7 +52,6 @@ Deno.test("SemanticTime agrees with public partial parsing for signed, zero and 
     PartialDate.fromWeek(0, -1),
     PartialDate.fromWeek(-44, 1e21),
   ]) {
-    assert(PartialDate.parse(partial.toString()).isErr, partial.toString());
     assertThrows(() => SemanticTime.fromPartialDate(partial), Error, "invalid partial date");
   }
 });

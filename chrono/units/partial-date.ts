@@ -369,16 +369,13 @@ export namespace PartialDate {
   }
 
   function parseText(s: string): Option<Result<PartialDate>> {
-    // The sign belongs to the year, not to a hyphen-delimited field.
-    const match = /^(ymd|ym|yw|y)-([+-]?\d+)(?:-(\d+))?(?:-(\d+))?$/.exec(s);
-    if (match == null) {
-      return /^(ymd|ym|yw|y)-/.test(s) ? erm("invalid partial date") : null;
+    // Retain published permissive fields; the sign belongs to the year.
+    const [ty, ...fields] = s.split("-");
+    let yr = fields.shift()!;
+    if (yr === "" && /^\d+$/.test(fields[0] ?? "")) {
+      yr = `-${fields.shift()}`;
     }
-    const [, ty, yr, mw, d] = match;
-    const fields = ty === "y" ? 0 : ty === "ymd" ? 2 : 1;
-    if ((mw == null ? 0 : d == null ? 1 : 2) !== fields) {
-      return erm("invalid partial-date fields");
-    }
+    const [mw, d] = fields;
     switch (ty) {
       case "ymd":
         return PartialDate.fromStr("day", yr, mw, d, null);
@@ -446,9 +443,12 @@ export namespace PartialDate {
 
   // Astronomical years include zero and BCE; month/day/week stay 1-indexed.
   function parseYear(s: string): Result<number> {
-    if (!/^[+-]?\d+$/.test(s)) return erm("invalid year");
-    const num = Number(s);
-    return Number.isSafeInteger(num) ? ok(num) : erm("invalid year");
+    if (/^[+-]?\d+$/.test(s ?? "")) {
+      const num = Number(s);
+      if (Number.isSafeInteger(num)) return ok(num);
+    }
+    // Preserve legacy parseInt-style positive years and their diagnostics.
+    return parse1idx(s) as Result<number>;
   }
 
   function parse1idx(s: Option<string>): Result<Option<number>> {
