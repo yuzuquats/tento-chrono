@@ -1,5 +1,10 @@
 # Recurrence and iCalendar
 
+> Retained older guide. The documentation provider reads
+> [the current guide](content/recurrence.md); edit that source for current APIs.
+> This copy is not synchronized automatically. See
+> [guide maintenance](../README.md#editing-the-guides).
+
 The recurrence layer parses iCalendar recurrence strings, preserves exclusion
 dates, generates matching dates, and models Google Calendar compatibility where
 Google behavior differs from plain RFC 5545.

@@ -1,5 +1,10 @@
 # Timezone Regions
 
+> Retained older guide. The documentation provider reads
+> [the current guide](content/timezone-regions.md); edit that source for current APIs.
+> This copy is not synchronized automatically. See
+> [guide maintenance](../README.md#editing-the-guides).
+
 `TimezoneRegion` is the named-timezone layer. It knows transition history for a
 timezone such as `America/Los_Angeles`, which fixed offsets alone cannot model.
 

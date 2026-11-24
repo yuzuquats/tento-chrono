@@ -122,8 +122,43 @@ deno task test    # doc examples, unit tests and the examples
 cargo test        # Rust unit tests, doc tests, and the TypeScript build run in boa
 ```
 
-The tests in `tests/` that run inside the boa JavaScript engine need `deno` on
-`PATH`. They bundle `chrono/` at build time.
+The Rust tests that run TypeScript in Boa need `deno` on `PATH`. Cargo
+generates their bundle from cached dependencies and checks the Deno lockfile.
+
+Before the first Rust test run with an empty Deno cache, populate that cache
+with the pinned generator and its esbuild executable. Run this once with
+network access from the repository root:
+
+```sh
+bootstrap_output=$(mktemp -d)
+(
+  cd bindings
+  OUTPUT_DIR="$bootstrap_output" deno run --frozen --no-prompt \
+    --node-modules-dir=none --allow-all build.deno.ts
+)
+```
+
+The bootstrap writes a throwaway bundle outside the checkout. Run `cargo test`
+with the same Deno cache afterward. If you set `DENO_DIR`, use the same value
+for both commands. Rerun the bootstrap after switching to an empty cache or
+when updated generator dependencies are missing.
 
 See [bench/](bench/README.md) for the recurrence benchmarks, memory profiles,
 and recorded results.
+
+## Editing the guides
+
+The documentation provider reads [`.docs/content/`](.docs/content/), with
+navigation in [`.docs/toc.json`](.docs/toc.json). Edit those Markdown sources
+for current API guidance. Lona registers this package's `.docs` root in
+`lona/docs.toml`; `tento-ssr` resolves each slug under that root's `content/`
+directory. Generated route content is build output and is overwritten.
+
+The Markdown files directly under `.docs/` are retained older guide copies;
+they are not the provider's page inputs and can describe superseded APIs.
+They are not generated mirrors: there is no required synchronization step
+from `content/` back to those copies. Put fixes in `content/`, update the TOC
+when adding navigation, and use links to the current guide when directing a
+reader from an older copy. Do not copy older API examples over current pages.
+If a consumer still needs an older guide, verify that caller before changing
+its content or retiring its path.
