@@ -109,31 +109,30 @@ impl PartialDate {
 
   pub fn end(&self) -> NaiveDate {
     match self {
-      PartialDate::Y(yr) => NaiveDate::from_ymd_opt(*yr + 1, 1, 1).unwrap_or(NaiveDate::MAX),
+      PartialDate::Y(yr) => yr
+        .checked_add(1)
+        .and_then(|next| NaiveDate::from_ymd_opt(next, 1, 1))
+        .unwrap_or(NaiveDate::MAX),
       PartialDate::Ym(YearMonth { yr, mth1 }) => {
-        if let Some(date) = if *mth1 == 12 {
-          NaiveDate::from_ymd_opt(*yr + 1, 1, 1)
+        let next = if *mth1 == 12 {
+          yr.checked_add(1)
+            .and_then(|next| NaiveDate::from_ymd_opt(next, 1, 1))
         } else {
-          NaiveDate::from_ymd_opt(*yr, mth1 + 1, 1)
-        } {
-          return date;
-        }
-
-        return NaiveDate::MAX;
+          mth1
+            .checked_add(1)
+            .and_then(|next| NaiveDate::from_ymd_opt(*yr, next, 1))
+        };
+        next.unwrap_or(NaiveDate::MAX)
       }
-      // todo!: if the number is too large we can have issues
       PartialDate::Ymd(nd) => nd.succ_opt().unwrap_or(*nd),
-      PartialDate::Yw { yr, week } => {
-        if let Some(nd) = NaiveDate::from_isoywd_opt(*yr, *week + 1, chrono::Weekday::Mon) {
-          return nd;
-        };
-
-        if let Some(nd) = NaiveDate::from_isoywd_opt(*yr + 1, 1, chrono::Weekday::Mon) {
-          return nd;
-        };
-
-        return NaiveDate::MAX;
-      }
+      PartialDate::Yw { yr, week } => week
+        .checked_add(1)
+        .and_then(|next| NaiveDate::from_isoywd_opt(*yr, next, chrono::Weekday::Mon))
+        .or_else(|| {
+          yr.checked_add(1)
+            .and_then(|next| NaiveDate::from_isoywd_opt(next, 1, chrono::Weekday::Mon))
+        })
+        .unwrap_or(NaiveDate::MAX),
     }
   }
 
@@ -244,35 +243,36 @@ impl PartialDate {
   }
 
   fn parse_fields(s: &str) -> anyhow::Result<PartialDate> {
-    let parts: Vec<&str> = s.split('-').collect();
-
-    match parts.as_slice() {
-      ["y", year] => year
+    let (kind, fields) = s
+      .split_once('-')
+      .ok_or_else(|| anyhow!("Missing partial-date fields"))?;
+    match kind {
+      "y" => fields
         .parse::<i32>()
         .map(PartialDate::Y)
         .context("Year Invalid"),
-      ["ym", year, month] => {
-        let yr = year.parse::<i32>().context("Year Invalid")?;
-        let mth1 = month.parse::<u32>().context("Month Invalid")?;
-        Ok(PartialDate::Ym(YearMonth { yr, mth1 }))
-      }
-      ["ymd", year, month, day] => {
-        let year = year.parse::<i32>().context("Year Invalid")?;
-        let month = month.parse::<u32>().context("Month Invalid")?;
+      "ym" => YearMonth::parse(fields).map(PartialDate::Ym),
+      "ymd" => {
+        let (year_month, day) = fields
+          .rsplit_once('-')
+          .ok_or_else(|| anyhow!("Day Invalid"))?;
+        let ym = YearMonth::parse(year_month)?;
         let day = day.parse::<u32>().context("Day Invalid")?;
-        NaiveDate::from_ymd_opt(year, month, day)
+        NaiveDate::from_ymd_opt(ym.yr, ym.mth1, day)
           .ok_or_else(|| anyhow!("invalid date"))
           .map(PartialDate::Ymd)
       }
-      ["yw", yr, week] => {
-        let yr = yr.parse::<i32>().context("Year Invalid")?;
+      "yw" => {
+        let (year, week) = fields
+          .rsplit_once('-')
+          .ok_or_else(|| anyhow!("Week Invalid"))?;
+        let yr = year.parse::<i32>().context("Year Invalid")?;
         let week = week.parse::<u32>().context("Week Invalid")?;
         Ok(PartialDate::Yw { yr, week })
       }
-      parts => Err(anyhow!(format!(
-        "Invalid type, expected one of (y, ym, ymd, yw), found: {:?}",
-        parts.get(0)
-      ))),
+      _ => Err(anyhow!(
+        "Invalid type, expected one of (y, ym, ymd, yw), found: {kind}"
+      )),
     }
   }
 

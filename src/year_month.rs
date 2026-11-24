@@ -21,14 +21,15 @@ pub struct YearMonth {
 impl YearMonth {
   /// Parses `YYYY-MM`; the month must be 1..=12.
   pub fn parse(s: &str) -> anyhow::Result<YearMonth> {
-    let parts: Vec<&str> = s.split("-").collect();
-    let Some(yr) = parts.get(0).map(|y| y.parse().ok()).flatten() else {
-      return Err(anyhow!("Year can't be parsed, got: '{:?}'", parts.get(0)));
-    };
-
-    let Some(mth1) = parts.get(1).map(|m| m.parse().ok()).flatten() else {
-      return Err(anyhow!("Month can't be parsed, got: '{:?}'", parts.get(1)));
-    };
+    let (year, month) = s
+      .rsplit_once('-')
+      .ok_or_else(|| anyhow!("Expected a signed year and month separated by '-'"))?;
+    let yr = year
+      .parse::<i32>()
+      .map_err(|_| anyhow!("Year can't be parsed: '{year}'"))?;
+    let mth1 = month
+      .parse::<u32>()
+      .map_err(|_| anyhow!("Month can't be parsed: '{month}'"))?;
     if !(1..=12).contains(&mth1) {
       return Err(anyhow!("Month must be 1..=12, got: {mth1}"));
     }
@@ -67,39 +68,65 @@ impl YearMonth {
     NaiveDate::from_ymd_opt(self.yr, self.mth1, 1)
   }
 
-  /// Get the next month
-  pub fn succ(&self) -> YearMonth {
+  /// Returns the next month, or None for invalid months or year overflow.
+  pub fn checked_succ(&self) -> Option<YearMonth> {
+    if !(1..=12).contains(&self.mth1) {
+      return None;
+    }
     if self.mth1 == 12 {
-      YearMonth {
-        yr: self.yr + 1,
+      Some(YearMonth {
+        yr: self.yr.checked_add(1)?,
         mth1: 1,
-      }
+      })
     } else {
-      YearMonth {
+      Some(YearMonth {
         yr: self.yr,
         mth1: self.mth1 + 1,
-      }
+      })
     }
   }
 
-  /// Get the previous month
-  pub fn pred(&self) -> YearMonth {
+  /// Returns the previous month, or None for invalid months or year overflow.
+  pub fn checked_pred(&self) -> Option<YearMonth> {
+    if !(1..=12).contains(&self.mth1) {
+      return None;
+    }
     if self.mth1 == 1 {
-      YearMonth {
-        yr: self.yr - 1,
+      Some(YearMonth {
+        yr: self.yr.checked_sub(1)?,
         mth1: 12,
-      }
+      })
     } else {
-      YearMonth {
+      Some(YearMonth {
         yr: self.yr,
         mth1: self.mth1 - 1,
-      }
+      })
     }
   }
 
-  /// The days of this month, half-open; `None` when it is not a real month.
+  /// The next month.
+  ///
+  /// Panics for an invalid month or year overflow. Use checked_succ for
+  /// fallible stepping.
+  pub fn succ(&self) -> YearMonth {
+    self
+      .checked_succ()
+      .expect("next month is not representable")
+  }
+
+  /// The previous month.
+  ///
+  /// Panics for an invalid month or year overflow. Use checked_pred for
+  /// fallible stepping.
+  pub fn pred(&self) -> YearMonth {
+    self
+      .checked_pred()
+      .expect("previous month is not representable")
+  }
+
+  /// The days of this month, half-open; None if either endpoint is invalid.
   pub fn dates(&self) -> Option<Range<NaiveDate>> {
-    Some(self.to_nd()?..self.succ().to_nd()?)
+    Some(self.to_nd()?..self.checked_succ()?.to_nd()?)
   }
 
   pub fn months(self, num_months: i32) -> impl Coroutine<Yield = YearMonth, Return = ()> {
