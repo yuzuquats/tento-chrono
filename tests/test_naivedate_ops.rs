@@ -59,13 +59,13 @@ mod test {
   /// - Covers month transitions across years with -/+12, -/+24, -/+36, -/+48 months
   /// - Tests partial year transitions with -/+1, -/+3, -/+6, -/+11 months
   /// - Tests non-standard transitions: -/+13, -/+18 months (crossing year boundaries)
-  /// - Correctly handles month-end date adjustments (e.g., Jan 31 + 1 month → Feb 28/29)
-  /// - Skip tests when target date would be invalid due to month length differences
+  /// - Checks invalid month-end results (e.g., Jan 31 + 1 month)
+  /// - Asserts invalidity when the preserved day does not exist in the target month
   ///
   /// Years:
   /// - Tests adding both positive and negative year offsets (-100 to +100 years)
   /// - Tests short, medium, and long-term year shifts with -/+1, -/+4, -/+10, -/+20, -/+50, -/+100
-  /// - Handles leap year edge cases (Feb 29 in leap years correctly adjusts to Feb 28 in non-leap years)
+  /// - Handles leap year edge cases (Feb 29 becomes invalid in non-leap years)
   /// - Verifies results across different test base dates to ensure consistency
   ///
   /// Base Dates:
@@ -106,46 +106,21 @@ mod test {
         48,
       ] {
         let month = base_date.month() as i32 + months;
-        let year_delta = (month - 1) / 12;
-        let new_month = ((month - 1) % 12) + 1;
+        let year_delta = (month - 1).div_euclid(12);
+        let new_month = (month - 1).rem_euclid(12) + 1;
         let new_year = base_date.year() + year_delta;
 
         let day = base_date.day();
-        if let Some(result_date) = NaiveDate::from_ymd_opt(new_year, new_month as u32, day) {
-          // Only test valid date combinations
-          if let Err(e) = check_js_add_months(&mut rt, base_date, months, result_date) {
-            println!("Warning: {e}");
-          }
-        } else if let Some(_last_day) = get_last_day_of_month(new_year, new_month as u32) {
-          // For cases where the original day doesn't exist in target month,
-          // skip the test as JS implementation might handle it differently
-          println!(
-            "Skipping invalid date: {}-{}-{} + {} months",
-            base_date.year(),
-            base_date.month(),
-            base_date.day(),
-            months
-          );
-        }
+        let expected = NaiveDate::from_ymd_opt(new_year, new_month as u32, day);
+        check_js_add_months(&mut rt, base_date, months, expected).unwrap();
       }
 
       // Test adding years
       for years in [-100, -50, -20, -10, -4, -1, 0, 1, 4, 10, 20, 50, 100] {
         let new_year = base_date.year() + years;
-        // Handle February 29 in non-leap years
-        let new_day = if base_date.month() == 2 && base_date.day() == 29 && !is_leap_year(new_year)
-        {
-          28
-        } else {
-          base_date.day()
-        };
-
-        if let Some(result_date) = NaiveDate::from_ymd_opt(new_year, base_date.month(), new_day) {
-          // Only unwrap if we have a valid date as result
-          if let Err(e) = check_js_add_years(&mut rt, base_date, years, result_date) {
-            println!("Error in addYears: {e}");
-          }
-        }
+        // Calendar shifts preserve the day: non-leap February 29 is invalid.
+        let expected = NaiveDate::from_ymd_opt(new_year, base_date.month(), base_date.day());
+        check_js_add_years(&mut rt, base_date, years, expected).unwrap();
       }
     }
   }
@@ -164,13 +139,13 @@ mod test {
   /// - Covers month transitions across years with 12, 24, 36, 48 months
   /// - Tests partial year transitions with 1, 3, 6, 11 months
   /// - Tests non-standard transitions: 13, 18 months (crossing year boundaries)
-  /// - Correctly handles month-end date adjustments (e.g., Mar 31 - 1 month → Feb 28/29)
-  /// - Skip tests when target date would be invalid due to month length differences
+  /// - Checks invalid month-end results (e.g., Mar 31 - 1 month)
+  /// - Asserts invalidity when the preserved day does not exist in the target month
   ///
   /// Years:
   /// - Tests subtracting year counts from 0 up to 100 years
   /// - Tests short, medium, and long-term year shifts with 1, 4, 10, 20, 50, 100
-  /// - Handles leap year edge cases (Feb 29 in leap years correctly adjusts to Feb 28 in non-leap years)
+  /// - Handles leap year edge cases (Feb 29 becomes invalid in non-leap years)
   /// - Verifies results across different test base dates to ensure consistency
   ///
   /// Base Dates:
@@ -208,46 +183,21 @@ mod test {
       // Test subtracting months
       for months in [48, 36, 24, 18, 13, 12, 11, 6, 3, 2, 1, 0] {
         let month = base_date.month() as i32 - months;
-        let year_delta = (month - 1) / 12;
-        let new_month = ((month - 1) % 12) + 1;
+        let year_delta = (month - 1).div_euclid(12);
+        let new_month = (month - 1).rem_euclid(12) + 1;
         let new_year = base_date.year() + year_delta;
 
         let day = base_date.day();
-        if let Some(result_date) = NaiveDate::from_ymd_opt(new_year, new_month as u32, day) {
-          // Only test valid date combinations
-          if let Err(e) = check_js_subtract_months(&mut rt, base_date, months, result_date) {
-            println!("Warning: {e}");
-          }
-        } else if let Some(_last_day) = get_last_day_of_month(new_year, new_month as u32) {
-          // For cases where the original day doesn't exist in target month,
-          // skip the test as JS implementation might handle it differently
-          println!(
-            "Skipping invalid date: {}-{}-{} - {} months",
-            base_date.year(),
-            base_date.month(),
-            base_date.day(),
-            months
-          );
-        }
+        let expected = NaiveDate::from_ymd_opt(new_year, new_month as u32, day);
+        check_js_subtract_months(&mut rt, base_date, months, expected).unwrap();
       }
 
       // Test subtracting years
       for years in [100, 50, 20, 10, 4, 1, 0] {
         let new_year = base_date.year() - years;
-        // Handle February 29 in non-leap years
-        let new_day = if base_date.month() == 2 && base_date.day() == 29 && !is_leap_year(new_year)
-        {
-          28
-        } else {
-          base_date.day()
-        };
-
-        if let Some(result_date) = NaiveDate::from_ymd_opt(new_year, base_date.month(), new_day) {
-          // Only unwrap if we have a valid date as result
-          if let Err(e) = check_js_subtract_years(&mut rt, base_date, years, result_date) {
-            println!("Error in subtractYears: {e}");
-          }
-        }
+        // Calendar shifts preserve the day: non-leap February 29 is invalid.
+        let expected = NaiveDate::from_ymd_opt(new_year, base_date.month(), base_date.day());
+        check_js_subtract_years(&mut rt, base_date, years, expected).unwrap();
       }
     }
   }
@@ -338,38 +288,6 @@ mod test {
     }
   }
 
-  /// Helper function to determine if a year is a leap year.
-  ///
-  /// Implements the standard leap year algorithm:
-  /// - Years divisible by 4 are leap years
-  /// - Except years divisible by 100 are not leap years
-  /// - Unless they are also divisible by 400, in which case they are leap years
-  ///
-  /// Examples:
-  /// - 2000: Leap year (divisible by 400)
-  /// - 2004: Leap year (divisible by 4, not by 100)
-  /// - 2100: Not a leap year (divisible by 100, not by 400)
-  fn is_leap_year(year: i32) -> bool {
-    (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)
-  }
-
-  /// Helper function to get the last day of a month, accounting for leap years.
-  ///
-  /// Returns the number of days in the specified month for the given year:
-  /// - 31 days: January, March, May, July, August, October, December
-  /// - 30 days: April, June, September, November
-  /// - 28/29 days: February (29 in leap years, 28 otherwise)
-  ///
-  /// Returns None for invalid month numbers (outside 1-12 range).
-  fn get_last_day_of_month(year: i32, month: u32) -> Option<u32> {
-    match month {
-      1 | 3 | 5 | 7 | 8 | 10 | 12 => Some(31),
-      4 | 6 | 9 | 11 => Some(30),
-      2 => Some(if is_leap_year(year) { 29 } else { 28 }),
-      _ => None,
-    }
-  }
-
   /// Helper function to calculate the number of calendar months between two dates.
   ///
   /// This calculation:
@@ -437,33 +355,21 @@ mod test {
       // Test adding months
       for months in [-24, -12, -6, -1, 0, 1, 6, 12, 24] {
         let month = base_date.month() as i32 + months;
-        let year_delta = (month - 1) / 12;
-        let new_month = ((month - 1) % 12) + 1;
+        let year_delta = (month - 1).div_euclid(12);
+        let new_month = (month - 1).rem_euclid(12) + 1;
         let new_year = base_date.year() + year_delta;
 
         let day = base_date.day();
-        if let Some(result_date) = NaiveDate::from_ymd_opt(new_year, new_month as u32, day) {
-          check_js_add_months(&mut rt, base_date, months, result_date).unwrap();
-        }
+        let expected = NaiveDate::from_ymd_opt(new_year, new_month as u32, day);
+        check_js_add_months(&mut rt, base_date, months, expected).unwrap();
       }
 
       // Test adding years
       for years in [-50, -10, -1, 0, 1, 10, 50] {
         let new_year = base_date.year() + years;
-        // Handle February 29 in non-leap years
-        let new_day = if base_date.month() == 2 && base_date.day() == 29 && !is_leap_year(new_year)
-        {
-          28
-        } else {
-          base_date.day()
-        };
-
-        if let Some(result_date) = NaiveDate::from_ymd_opt(new_year, base_date.month(), new_day) {
-          // Only unwrap if we have a valid date as result
-          if let Err(e) = check_js_add_years(&mut rt, base_date, years, result_date) {
-            println!("Error in addYears: {e}");
-          }
-        }
+        // Calendar shifts preserve the day: non-leap February 29 is invalid.
+        let expected = NaiveDate::from_ymd_opt(new_year, base_date.month(), base_date.day());
+        check_js_add_years(&mut rt, base_date, years, expected).unwrap();
       }
     }
   }
@@ -517,131 +423,19 @@ fn check_js_add_days(
 fn check_js_add_months(
   rt: &mut Runtime,
   base_date: NaiveDate,
-  months: i32,
-  expected: NaiveDate,
+  offset: i32,
+  expected: Option<NaiveDate>,
 ) -> anyhow::Result<()> {
-  let year = base_date.year();
-  let month = base_date.month();
-  let day = base_date.day();
-
-  let namespace = rt
-    .eval_module(&format!(
-      r#"
-        import {{ NaiveDate }} from "./naive-date.js";
-        const nd = NaiveDate.fromYmd1Exp({year}, {month}, {day});
-        const result = nd.addMonths({months}).assertValid();
-        export let resultStr = result.rfc3339();
-      "#,
-    ))
-    .map_err(|e| {
-      anyhow!(
-        "couldn't run module for addMonths(y={year}, m={month}, d={day}, months={months}): {e}"
-      )
-    })?;
-
-  let result = namespace
-    .get(js_string!("resultStr"), &mut rt.context)
-    .map_err(|e| {
-      anyhow!(
-        "couldn't get result for addMonths(y={year}, m={month}, d={day}, months={months}): {e:?}"
-      )
-    })?;
-
-  let js_result = result
-    .to_string(&mut rt.context)
-    .map_err(|e| anyhow!("couldn't convert result to string for addMonths(y={year}, m={month}, d={day}, months={months}): {e}"))?
-    .to_std_string_lossy();
-
-  let expected_str = expected.format("%Y-%m-%d").to_string();
-
-  if expected_str != js_result {
-    return Err(anyhow!(
-      "addMonths mismatch for base=(y={year}, m={month}, d={day}), months={months}: expected '{expected_str}', got '{js_result}'"
-    ));
-  }
-
-  Ok(())
+  check_js_calendar_shift(rt, base_date, "addMonths", offset, expected)
 }
 
 fn check_js_add_years(
   rt: &mut Runtime,
   base_date: NaiveDate,
-  years: i32,
-  expected: NaiveDate,
+  offset: i32,
+  expected: Option<NaiveDate>,
 ) -> anyhow::Result<()> {
-  let year = base_date.year();
-  let month = base_date.month();
-  let day = base_date.day();
-
-  // Handle MaybeValid return type from addYears
-  let namespace = rt
-    .eval_module(&format!(
-      r#"
-        import {{ NaiveDate }} from "./naive-date.js";
-        const nd = NaiveDate.fromYmd1Exp({year}, {month}, {day});
-        const newDate = nd.addYears({years});
-        export let isValid = newDate.isValid();
-        export let resultStr = newDate.isValid() ? newDate.rfc3339() : "invalid";
-      "#,
-    ))
-    .map_err(|e| {
-      anyhow!("couldn't run module for addYears(y={year}, m={month}, d={day}, years={years}): {e}")
-    })?;
-
-  let is_valid = namespace
-    .get(js_string!("isValid"), &mut rt.context)
-    .map_err(|e| {
-      anyhow!(
-        "couldn't get isValid for addYears(y={year}, m={month}, d={day}, years={years}): {e:?}"
-      )
-    })?;
-
-  let is_valid_bool = is_valid.as_boolean().unwrap_or(false);
-
-  // Calculate what the Rust implementation should return
-  let new_year = base_date.year() + years;
-  let rust_result = NaiveDate::from_ymd_opt(new_year, base_date.month(), day);
-
-  // Compare if both implementations agree on validity
-  if is_valid_bool && rust_result.is_some() {
-    // 1) Both implementations say date is valid, compare the results
-    let result = namespace
-      .get(js_string!("resultStr"), &mut rt.context)
-      .map_err(|e| {
-        anyhow!(
-          "couldn't get result for addYears(y={year}, m={month}, d={day}, years={years}): {e:?}"
-        )
-      })?;
-
-    let js_result = result
-      .to_string(&mut rt.context)
-      .map_err(|e| anyhow!("couldn't convert result to string for addYears(y={year}, m={month}, d={day}, years={years}): {e}"))?
-      .to_std_string_lossy();
-
-    let expected_str = expected.format("%Y-%m-%d").to_string();
-
-    if expected_str != js_result {
-      return Err(anyhow!(
-        "addYears mismatch for base=(y={year}, m={month}, d={day}), years={years}: expected '{expected_str}', got '{js_result}'"
-      ));
-    }
-  } else if !is_valid_bool && rust_result.is_none() {
-    // 2) Both implementations say date is invalid - this is good
-    return Ok(());
-  } else if is_valid_bool && rust_result.is_none() {
-    // 3) JS thinks it's valid but Rust doesn't
-    return Err(anyhow!(
-      "addYears for base=(y={year}, m={month}, d={day}), years={years} is invalid in Rust but valid in JS"
-    ));
-  } else {
-    // 4) JS thinks it's invalid but Rust thinks it's valid
-    return Err(anyhow!(
-      "addYears for base=(y={year}, m={month}, d={day}), years={years} {} is valid in Rust but invalid in JS",
-      rust_result.expect("").to_string()
-    ));
-  }
-
-  Ok(())
+  check_js_calendar_shift(rt, base_date, "addYears", offset, expected)
 }
 
 fn check_js_subtract_days(
@@ -697,135 +491,19 @@ fn check_js_subtract_days(
 fn check_js_subtract_months(
   rt: &mut Runtime,
   base_date: NaiveDate,
-  months: i32,
-  expected: NaiveDate,
+  offset: i32,
+  expected: Option<NaiveDate>,
 ) -> anyhow::Result<()> {
-  let year = base_date.year();
-  let month = base_date.month();
-  let day = base_date.day();
-
-  let namespace = rt
-    .eval_module(&format!(
-      r#"
-        import {{ NaiveDate }} from "./naive-date.js";
-        const nd = NaiveDate.fromYmd1Exp({year}, {month}, {day});
-        // In JavaScript we implement subtraction as adding negative months
-        const result = nd.addMonths(-{months}).assertValid();
-        export let resultStr = result.rfc3339();
-      "#,
-    ))
-    .map_err(|e| {
-      anyhow!(
-        "couldn't run module for subtractMonths(y={year}, m={month}, d={day}, months={months}): {e}"
-      )
-    })?;
-
-  let result = namespace
-    .get(js_string!("resultStr"), &mut rt.context)
-    .map_err(|e| {
-      anyhow!(
-        "couldn't get result for subtractMonths(y={year}, m={month}, d={day}, months={months}): {e:?}"
-      )
-    })?;
-
-  let js_result = result
-    .to_string(&mut rt.context)
-    .map_err(|e| anyhow!("couldn't convert result to string for subtractMonths(y={year}, m={month}, d={day}, months={months}): {e}"))?
-    .to_std_string_lossy();
-
-  let expected_str = expected.format("%Y-%m-%d").to_string();
-
-  if expected_str != js_result {
-    return Err(anyhow!(
-      "subtractMonths mismatch for base=(y={year}, m={month}, d={day}), months={months}: expected '{expected_str}', got '{js_result}'"
-    ));
-  }
-
-  Ok(())
+  check_js_calendar_shift(rt, base_date, "addMonths", -offset, expected)
 }
 
 fn check_js_subtract_years(
   rt: &mut Runtime,
   base_date: NaiveDate,
-  years: i32,
-  expected: NaiveDate,
+  offset: i32,
+  expected: Option<NaiveDate>,
 ) -> anyhow::Result<()> {
-  let year = base_date.year();
-  let month = base_date.month();
-  let day = base_date.day();
-
-  // Handle MaybeValid return type from subtractYears (implemented as addYears(-years))
-  let namespace = rt
-    .eval_module(&format!(
-      r#"
-        import {{ NaiveDate }} from "./naive-date.js";
-        const nd = NaiveDate.fromYmd1Exp({year}, {month}, {day});
-        // In JavaScript we implement subtraction as adding negative years
-        const newDate = nd.addYears(-{years});
-        export let isValid = newDate.isValid();
-        export let resultStr = newDate.isValid() ? newDate.rfc3339() : "invalid";
-      "#,
-    ))
-    .map_err(|e| {
-      anyhow!(
-        "couldn't run module for subtractYears(y={year}, m={month}, d={day}, years={years}): {e}"
-      )
-    })?;
-
-  let is_valid = namespace
-    .get(js_string!("isValid"), &mut rt.context)
-    .map_err(|e| {
-      anyhow!(
-        "couldn't get isValid for subtractYears(y={year}, m={month}, d={day}, years={years}): {e:?}"
-      )
-    })?;
-
-  let is_valid_bool = is_valid.as_boolean().unwrap_or(false);
-
-  // Calculate what the Rust implementation should return
-  let new_year = base_date.year() - years;
-  let rust_result = NaiveDate::from_ymd_opt(new_year, base_date.month(), day);
-
-  // Compare if both implementations agree on validity
-  if is_valid_bool && rust_result.is_some() {
-    // 1) Both implementations say date is valid, compare the results
-    let result = namespace
-      .get(js_string!("resultStr"), &mut rt.context)
-      .map_err(|e| {
-        anyhow!(
-          "couldn't get result for subtractYears(y={year}, m={month}, d={day}, years={years}): {e:?}"
-        )
-      })?;
-
-    let js_result = result
-      .to_string(&mut rt.context)
-      .map_err(|e| anyhow!("couldn't convert result to string for subtractYears(y={year}, m={month}, d={day}, years={years}): {e}"))?
-      .to_std_string_lossy();
-
-    let expected_str = expected.format("%Y-%m-%d").to_string();
-
-    if expected_str != js_result {
-      return Err(anyhow!(
-        "subtractYears mismatch for base=(y={year}, m={month}, d={day}), years={years}: expected '{expected_str}', got '{js_result}'"
-      ));
-    }
-  } else if !is_valid_bool && rust_result.is_none() {
-    // 2) Both implementations say date is invalid - this is good
-    return Ok(());
-  } else if is_valid_bool && rust_result.is_none() {
-    // 3) JS thinks it's valid but Rust doesn't
-    return Err(anyhow!(
-      "subtractYears for base=(y={year}, m={month}, d={day}), years={years} is invalid in Rust but valid in JS"
-    ));
-  } else {
-    // 4) JS thinks it's invalid but Rust thinks it's valid
-    return Err(anyhow!(
-      "subtractYears for base=(y={year}, m={month}, d={day}), years={years} {} is valid in Rust but invalid in JS",
-      rust_result.expect("").to_string()
-    ));
-  }
-
-  Ok(())
+  check_js_calendar_shift(rt, base_date, "addYears", -offset, expected)
 }
 
 fn check_js_difference_in_days(
@@ -922,4 +600,47 @@ fn check_js_difference_in_months(
   }
 
   Ok(())
+}
+
+// The wire format remains RFC3339; validity is compared before reading it.
+fn check_js_calendar_shift(
+  rt: &mut Runtime,
+  base_date: NaiveDate,
+  method: &str,
+  offset: i32,
+  expected: Option<NaiveDate>,
+) -> anyhow::Result<()> {
+  let (year, month, day) = (base_date.year(), base_date.month(), base_date.day());
+  let namespace = rt
+    .eval_module(&format!(
+      r#"
+    import {{ NaiveDate }} from "./naive-date.js";
+    const result = NaiveDate.fromYmd1Exp({year}, {month}, {day}).{method}({offset});
+    export const resultStr = result.isValid() ? result.rfc3339() : "invalid";
+  "#
+    ))
+    .map_err(|e| anyhow!("{method}({base_date}, {offset}) evaluation failed: {e}"))?;
+  let actual = namespace
+    .get(js_string!("resultStr"), &mut rt.context)
+    .map_err(|e| anyhow!("{method} result unavailable: {e:?}"))?
+    .to_string(&mut rt.context)
+    .map_err(|e| anyhow!("{method} result conversion failed: {e}"))?
+    .to_std_string_lossy();
+  let expected = expected
+    .map(|date| date.format("%Y-%m-%d").to_string())
+    .unwrap_or_else(|| "invalid".to_owned());
+  anyhow::ensure!(
+    actual == expected,
+    "{method} mismatch for {base_date}, offset={offset}: expected {expected}, got {actual}"
+  );
+  Ok(())
+}
+
+#[test]
+#[should_panic(expected = "controlled parity mismatch")]
+fn parity_mismatch_is_observable() {
+  let mut rt = Runtime::env_test().expect("couldn't construct runtime");
+  let base = NaiveDate::from_ymd_opt(2000, 1, 1).unwrap();
+  let deliberately_wrong = NaiveDate::from_ymd_opt(2000, 3, 1);
+  check_js_add_months(&mut rt, base, 1, deliberately_wrong).expect("controlled parity mismatch");
 }
