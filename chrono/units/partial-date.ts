@@ -369,7 +369,16 @@ export namespace PartialDate {
   }
 
   function parseText(s: string): Option<Result<PartialDate>> {
-    const [ty, yr, mw, d] = s.split("-");
+    // The sign belongs to the year, not to a hyphen-delimited field.
+    const match = /^(ymd|ym|yw|y)-([+-]?\d+)(?:-(\d+))?(?:-(\d+))?$/.exec(s);
+    if (match == null) {
+      return /^(ymd|ym|yw|y)-/.test(s) ? erm("invalid partial date") : null;
+    }
+    const [, ty, yr, mw, d] = match;
+    const fields = ty === "y" ? 0 : ty === "ymd" ? 2 : 1;
+    if ((mw == null ? 0 : d == null ? 1 : 2) !== fields) {
+      return erm("invalid partial-date fields");
+    }
     switch (ty) {
       case "ymd":
         return PartialDate.fromStr("day", yr, mw, d, null);
@@ -412,7 +421,7 @@ export namespace PartialDate {
     dom1: Option<string>,
     wk1: Option<string>,
   ): Result<PartialDate> {
-    let _yr = parse1idx(yr);
+    const _yr = parseYear(yr);
     if (_yr.isErr) return _yr.expeCast();
 
     let _mth1 = parse1idx(mth1);
@@ -433,6 +442,13 @@ export namespace PartialDate {
         _wk1.exp()! as WeekOfYear1,
       ),
     );
+  }
+
+  // Astronomical years include zero and BCE; month/day/week stay 1-indexed.
+  function parseYear(s: string): Result<number> {
+    if (!/^[+-]?\d+$/.test(s)) return erm("invalid year");
+    const num = Number(s);
+    return Number.isSafeInteger(num) ? ok(num) : erm("invalid year");
   }
 
   function parse1idx(s: Option<string>): Result<Option<number>> {
