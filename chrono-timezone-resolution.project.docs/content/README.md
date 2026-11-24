@@ -21,3 +21,21 @@ both. The iCalendar and RRULE readers continue to request UTC explicitly.
 The focused timezone suite passed 156 tests. The full Deno suite passed 7,903
 tests and 319 steps with seven existing ignores. All 98 documentation tests
 passed. Logs are under `~/workspace/fleet/evidence/chrono-timezone-explicit-fallback/`.
+
+## Bound transition queries and resolve offsets at the right instant
+
+`transitionsBetween()` keeps the transition in force at the start and includes
+entries through the end. A window earlier than the first entry returns no
+entries. Instant projection and wall-clock resolution now use the same initial
+offset before the first transition in a named zone.
+
+`DateTime.fromMse(ms, Local)` and `dt.toTz(Local)` use the host offset at the
+instant being converted. A local wall clock follows the host's JavaScript Date
+choice for gaps and overlaps. A resolved value retains its offset for fixed
+offset arithmetic. `DateTime.dse` remains a local day index for existing
+formatters, and its UTC counterpart is `toUtc().dse`.
+
+The full Deno suite passed 7,907 tests and 319 steps with seven existing ignores.
+All 98 documentation tests passed. Local offset regressions use an isolated
+Los Angeles process and cover summer, winter, and both DST transitions.
+Logs are in `~/workspace/fleet/evidence/chrono-followup-edge-cases/`.

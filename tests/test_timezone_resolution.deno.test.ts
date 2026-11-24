@@ -140,3 +140,62 @@ Deno.test("wall-clock resolution observes both transitions on the same date", ()
     0,
   ]);
 });
+
+Deno.test("transition queries stop before or at the first table entry", () => {
+  const la = losAngeles();
+  const [first, second] = la.transitions;
+  const before = Utc.parse("2025-03-09T09:59:59Z")!.mse;
+  const between = Utc.parse("2025-06-01T00:00:00Z")!.mse;
+
+  assertEquals(la.transitionsBetween({ start: before, end: before }), []);
+  assertEquals(la.transitionsBetween({ start: before, end: first.before.mse }), [first]);
+  assertEquals(la.transitionsBetween({ start: between, end: between }), [first]);
+  assertEquals(la.transitionsBetween({ start: second.before.mse, end: second.before.mse }), [second]);
+  assertEquals(la.transitionsBetween({ start: between, end: before }), []);
+});
+
+Deno.test("wall-clock resolution and instant projection agree before the first transition", () => {
+  const la = losAngeles();
+  const wall = Utc.parse("2025-02-01T12:00:00Z")!.ndt;
+  const resolved = la.toWallClock(wall);
+  const projected = la.toTz(resolved.toUtc());
+  assertEquals(resolved.rfc3339(), "2025-02-01T12:00:00-08:00");
+  assertEquals(projected.rfc3339(), resolved.rfc3339());
+  assertEquals(projected.mse, resolved.mse);
+  assertEquals(projected.tz.info.tzname, la.fullname);
+});
+
+Deno.test("Local resolves each instant using the host offset for that timestamp", async () => {
+  const module = new URL("../chrono/mod.ts", import.meta.url).href;
+  const { code, stdout, stderr } = await new Deno.Command(Deno.execPath(), {
+    args: ["eval", "--no-lock", `
+      import { DateTime, Local, Utc } from ${JSON.stringify(module)};
+      const winter = Utc.parse("2025-01-01T12:00:00Z");
+      const summer = Utc.parse("2025-07-01T12:00:00Z");
+      const lateFold = Utc.parse("2025-11-02T09:30:00Z");
+      const wall = Utc.parse("2025-11-02T01:30:00Z").ndt;
+      const skipped = Utc.parse("2025-03-09T02:30:00Z").ndt;
+      console.log(JSON.stringify([
+        Local.fromMse(winter.mse).rfc3339(),
+        DateTime.fromMse(summer.mse, Local).rfc3339(),
+        summer.toTz(Local).rfc3339(),
+        lateFold.toTz(Local).rfc3339(),
+        lateFold.toTz(Local).toUtc().rfc3339(),
+        new DateTime(wall, Local).rfc3339(),
+        new DateTime(skipped, Local).toUtc().rfc3339(),
+      ]));
+    `],
+    env: { TZ: "America/Los_Angeles" },
+  }).output();
+  const decoder = new TextDecoder();
+  assertEquals(code, 0, decoder.decode(stderr));
+  assertEquals(JSON.parse(decoder.decode(stdout)), [
+    "2025-01-01T04:00:00-08:00",
+    "2025-07-01T05:00:00-07:00",
+    "2025-07-01T05:00:00-07:00",
+    "2025-11-02T01:30:00-08:00",
+    "2025-11-02T09:30:00Z",
+    "2025-11-02T01:30:00-07:00",
+    "2025-03-09T10:30:00Z",
+  ]);
+});

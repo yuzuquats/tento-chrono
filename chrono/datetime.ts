@@ -4,7 +4,7 @@ import { NaiveTime } from "./naive-time.ts";
 import { GenericRange } from "./range.ts";
 import { Result, erm, ok } from "./result.ts";
 import { Time } from "./time.ts";
-import { FixedOffset, Local, LogicalTimezone, Utc } from "./timezone.ts";
+import { FixedOffset, Local, LocalTimezone, LogicalTimezone, Utc } from "./timezone.ts";
 import { Duration } from "./units/duration.ts";
 import { DurationTime } from "./units/duration-time.ts";
 import { Ms } from "./units/ms.ts";
@@ -55,7 +55,9 @@ export class DateTime<TzType extends string = any> {
   constructor(
     public readonly ndt: NaiveDateTime,
     public readonly tz: LogicalTimezone<TzType>,
-  ) {}
+  ) {
+    if (tz instanceof LocalTimezone) this.tz = tz.atWallClock(ndt.mse) as typeof tz;
+  }
 
   /**
    * Gets the total number of milliseconds since the Unix epoch (1970-01-01T00:00:00Z).
@@ -76,7 +78,8 @@ export class DateTime<TzType extends string = any> {
   }
 
   /**
-   * Gets the total number of days since the Unix epoch (1970-01-01), based on the UTC representation.
+   * Gets the day index of the date in this DateTime's timezone relative to 1970-01-01.
+   * Use `toUtc().dse` for the UTC day index.
    * @returns Days since epoch.
    *
    * @example
@@ -88,7 +91,6 @@ export class DateTime<TzType extends string = any> {
    * ```
    */
   get dse(): DaysSinceEpoch {
-    // Convert to UTC first to get the correct epoch days
     return this.ndt.dse;
   }
 
@@ -292,6 +294,7 @@ export class DateTime<TzType extends string = any> {
    * ```
    */
   toTz<Tz extends string = any>(tz: LogicalTimezone<Tz>): DateTime<Tz> {
+    if (tz instanceof LocalTimezone) tz = tz.atInstant(this.mse) as typeof tz;
     if (this.tz.info === tz.info) {
       // The same offset: the same wall clock, labelled with `tz` (a +00:00 zone's time `toUtc` is Utc's).
       return (this.tz as LogicalTimezone<string>) === tz ? this as unknown as DateTime<Tz> : new DateTime(this.ndt, tz);
@@ -500,6 +503,7 @@ export namespace DateTime {
     mse: MsSinceEpoch,
     tz: LogicalTimezone<TzType>,
   ): DateTime<TzType> {
+    if (tz instanceof LocalTimezone) tz = tz.atInstant(mse) as typeof tz;
     if (tz.info.offset.toMs === 0) {
       return new DateTime(NaiveDateTime.fromMse(mse), tz);
     }
@@ -511,11 +515,11 @@ export namespace DateTime {
 
   /**
    * Creates a DateTime instance from the number of days since the Unix epoch.
-   * The time component will be midnight (00:00:00.000) in the specified timezone.
+   * Projects midnight UTC on that epoch day into the specified timezone.
    * @template TzType - The type of the target timezone identifier.
    * @param dse The total number of days since 1970-01-01.
    * @param tz The target logical timezone.
-   * @returns A new DateTime instance representing midnight on the given epoch day in the specified timezone.
+   * @returns A DateTime for UTC midnight on the given epoch day, expressed in the specified timezone.
    *
    * @example
    * ```ts

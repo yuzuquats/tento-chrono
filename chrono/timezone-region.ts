@@ -145,6 +145,7 @@ export class TimezoneRegion {
     return transition;
   }
 
+  /** Return the transition in force at start and subsequent entries through end, inclusive. */
   transitionsBetween({
     start,
     end,
@@ -152,12 +153,10 @@ export class TimezoneRegion {
     start: MsSinceEpoch;
     end: MsSinceEpoch;
   }): TimezoneRegion.Transition[] {
+    if (start > end) return [];
     const startIdx = this.bst(start);
     const endIdx = this.bst(end);
-    return this.transitions.slice(
-      startIdx > 0 ? startIdx : undefined,
-      endIdx > 0 ? endIdx + 1 : undefined,
-    );
+    return this.transitions.slice(Math.max(0, startIdx), endIdx + 1);
   }
 
   private bst(target: MsSinceEpoch): number {
@@ -416,7 +415,7 @@ export class TimezoneRegion {
 
   tzAtMse(mse: MsSinceEpoch): LogicalTimezone<any> {
     const transition = this.activeTransition(mse);
-    if (!transition) return Utc;
+    if (!transition) return this.asAsked(this.transitions[0]?.before.time.tz ?? Utc);
     const tzabbr = transition.after.tzabbr;
 
     // Remove all caching to avoid issues with GMT/BST sharing the same tzabbr

@@ -41,37 +41,8 @@ export interface TimezoneInfo {
 }
 
 export namespace TimezoneInfo {
-  let _local: Option<TimezoneInfo>;
   export function local(): TimezoneInfo {
-    if (_local) return _local;
-    return (_local = {
-      tzabbr: localTzabbr(),
-      tzname: localTzName(),
-      offset: Duration.Time.from({
-        // NOTE: Date().getTzOffset is reversed from the RFC3339 implementation
-        // ie.
-        //   For tzname = "America/New_York"
-        //     js::Date -> getTimezoneOffset() === "+5:00"
-        //     rfc3339  ->                     === "-5:00"
-        //
-        mins: -new Date().getTimezoneOffset(),
-      }),
-    });
-  }
-
-  function localTzName(): Option<Tzname> {
-    if (typeof Intl === "undefined") return null;
-    return Intl.DateTimeFormat("en-US").resolvedOptions().timeZone as Tzname;
-  }
-
-  function localTzabbr(): Option<Tzabbr> {
-    if (typeof Intl === "undefined") return "unknown";
-    const formatter = new Intl.DateTimeFormat("en-US", {
-      timeZoneName: "short",
-    });
-    const parts = formatter.formatToParts(new Date());
-    const timeZone = parts.find((part) => part.type === "timeZoneName");
-    return timeZone ? timeZone.value : null;
+    return localInfo(new Date());
   }
 
   export function tzabbr(info: TimezoneInfo): string {
@@ -80,6 +51,27 @@ export namespace TimezoneInfo {
     }
     return info.tzabbr ?? "-";
   }
+}
+
+let localFormatter: Intl.DateTimeFormat | undefined;
+
+function localOffsetMs(instant: Date): number {
+  const localAsUtc = new Date(0);
+  localAsUtc.setUTCFullYear(instant.getFullYear(), instant.getMonth(), instant.getDate());
+  localAsUtc.setUTCHours(
+    instant.getHours(), instant.getMinutes(), instant.getSeconds(), instant.getMilliseconds(),
+  );
+  return localAsUtc.getTime() - instant.getTime();
+}
+
+function localInfo(instant: Date, offsetMs = localOffsetMs(instant)): TimezoneInfo {
+  const offset = Duration.Time.from({ ms: offsetMs });
+  if (typeof Intl === "undefined") return { offset, tzabbr: "unknown" };
+
+  localFormatter ??= new Intl.DateTimeFormat("en-US", { timeZoneName: "short" });
+  const tzname = localFormatter.resolvedOptions().timeZone as Tzname;
+  const tzabbr = localFormatter.formatToParts(instant).find((part) => part.type === "timeZoneName")?.value;
+  return { offset, tzname, tzabbr };
 }
 
 export interface LogicalTimezone<Id extends string = any> {
@@ -199,7 +191,45 @@ export class FixedTimezone<Id extends Tzabbr = FixedOffset>
 
 export class LocalTimezone implements LogicalTimezone<Local> {
   id: Local = "local";
-  info: TimezoneInfo = TimezoneInfo.local();
+  #resolved?: TimezoneInfo;
+
+  constructor(info?: TimezoneInfo) {
+    this.#resolved = info;
+  }
+
+  get info(): TimezoneInfo {
+    return this.#resolved ?? TimezoneInfo.local();
+  }
+
+  set info(info: TimezoneInfo) {
+    this.#resolved = info;
+  }
+
+  /** @internal Snapshot the host offset at this instant. */
+  atInstant(mse: MsSinceEpoch): LocalTimezone {
+    if (this.#resolved != null) return this;
+    const instant = new Date(mse);
+    return new LocalTimezone(Number.isFinite(instant.getTime()) ? localInfo(instant) : this.info);
+  }
+
+  /** @internal Interpret a naive epoch value as host-local civil fields. */
+  atWallClock(mse: MsSinceEpoch): LocalTimezone {
+    if (this.#resolved != null) return this;
+    const wall = new Date(mse);
+    if (!Number.isFinite(wall.getTime())) return new LocalTimezone(this.info);
+
+    // Offset-less ISO parsing uses the host zone, choosing the earlier
+    // occurrence in an overlap and advancing by the gap when one is skipped.
+    const instant = new Date(wall.toISOString().slice(0, -1));
+    const resolvedMse = instant.getTime();
+    if (!Number.isFinite(resolvedMse)) return new LocalTimezone(this.info);
+
+    const offset = mse - resolvedMse;
+    const gap = localOffsetMs(instant) - offset;
+    // Keep the original civil fields and the corresponding pre-gap label.
+    const labelInstant = gap > 0 ? new Date(resolvedMse - gap) : instant;
+    return new LocalTimezone(localInfo(labelInstant, offset));
+  }
 
   now(): DateTime<Local> {
     return DateTime.fromMse(Epoch.currentMse(), Local);
