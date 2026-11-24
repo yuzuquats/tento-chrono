@@ -6,14 +6,18 @@ timezone such as `America/Los_Angeles`, which fixed offsets alone cannot model.
 ## Loading Regions
 
 ```typescript
-import { TimezoneRegion, type Tzname } from "@tento-chrono";
+import { TimezoneRegion, Tzname } from "@tento-chrono";
 
-const tz = await TimezoneRegion.get("America/Los_Angeles" as Tzname);
-const maybeTz = await TimezoneRegion.getOpt("America/Los_Angeles" as Tzname);
+const name = "America/Los_Angeles" as Tzname;
+const tz = await TimezoneRegion.get(name);
+const maybeTz = await TimezoneRegion.getOpt(name);
+const tzOrUtc = await TimezoneRegion.get(name, Tzname.UTC);
 ```
 
-`get()` falls back to a default timezone if loading fails. `getOpt()` returns
-`null` for invalid or unavailable zones.
+`get(name)` throws a `RangeError` if the name cannot be resolved.
+`getOpt(name)` returns `null` in that case. The optional second argument to
+`get()` names an explicit fallback. If neither zone loads, `get()` throws and
+names both zones.
 
 The default dynamic loader fetches timezone transition JSON from the application
 server's static host. Tests and isolated hosts can replace it with

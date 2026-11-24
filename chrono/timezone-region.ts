@@ -120,8 +120,7 @@ export class TimezoneRegion {
   }
 
   static async local(): Promise<TimezoneRegion> {
-    let info = TimezoneInfo.local();
-    return await TimezoneRegion.get(info.tzname!, undefined, "runtime");
+    return TimezoneRegion.get();
   }
 
   static UTC: TimezoneRegion = new TimezoneRegion("UTC" as Tzname, [
@@ -724,24 +723,30 @@ export namespace TimezoneRegion {
     ["UTC", new TimezoneRegion("UTC" as Tzname, [])],
   ]);
   /**
-   * `tzname`'s zone, or `defaultTz`'s when it does not load. `source` names
-   * the read that asked (an iCal line's `TZID`, a recurrence rule's zone, the
-   * runtime's zone), carried by the fallback it records.
+   * Load the named timezone or throw if it is unavailable. Supply
+   * `fallbackTz` to try a different timezone when the requested one fails.
+   * A successful fallback is recorded with the caller's `source`.
    */
   export async function get(
     tzname: Tzname = TimezoneInfo.local().tzname!,
-    defaultTz: Tzname = "UTC" as Tzname,
+    fallbackTz?: Tzname,
     source: FallbackSource = "other",
   ): Promise<TimezoneRegion> {
-    // A link name loads as its canonical zone, exactly as `getOpt` loads it.
     const region = await getOpt(tzname);
     if (region != null) return region;
-    // Never silently: the fallback is recorded for a host to report (`takeFallbacks`), and every listener hears it (`onOutcome`).
-    if (!fallbacksUnreported.some((f) => f.requested === tzname && f.used === defaultTz)) {
-      fallbacksUnreported.push({ requested: tzname, used: defaultTz, source });
+    if (fallbackTz == null) throw new RangeError(`Unable to load timezone "${tzname}"`);
+
+    const fallback = await getOpt(fallbackTz);
+    if (fallback == null) {
+      throw new RangeError(`Unable to load timezone "${tzname}" or fallback timezone "${fallbackTz}"`);
     }
-    announce({ kind: "fallback", requested: tzname, used: defaultTz, source });
-    return defaultCache.get(defaultTz)!;
+
+    const used = fallback.fullname;
+    if (!fallbacksUnreported.some((f) => f.requested === tzname && f.used === used)) {
+      fallbacksUnreported.push({ requested: tzname, used, source });
+    }
+    announce({ kind: "fallback", requested: tzname, used, source });
+    return fallback;
   }
 
   /** Which of chrono's reads took a fallback (`get`): an iCal line's `TZID`, a recurrence rule's zone, the runtime's zone, or another caller. */
@@ -836,8 +841,8 @@ export namespace TimezoneRegion {
   }
 
   /**
-   * Gets a timezone region or returns null if the timezone is invalid.
-   * Unlike get(), this does not fall back to a default timezone.
+   * Gets a timezone region or returns null if it is invalid or unavailable.
+   * Use get() to throw on a missing zone or to supply an explicit fallback.
    * A zone the service serves with no transitions (Pacific/Port_Moresby) is
    * not loaded. A loaded zone is checked against the platform's offset for
    * the same name now, half a year either side and at its last transition

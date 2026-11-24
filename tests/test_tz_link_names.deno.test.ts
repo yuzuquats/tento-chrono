@@ -1,6 +1,6 @@
 import { assert, assertEquals, assertStrictEquals } from "@std/assert";
 import { TimezoneRegion } from "../chrono/timezone-region.ts";
-import type { Tzname } from "../chrono/timezone.ts";
+import { Tzname } from "../chrono/timezone.ts";
 import { installTimezoneLoader } from "./utils.deno.ts";
 
 installTimezoneLoader();
@@ -30,9 +30,9 @@ Deno.test("getOpt loads a name the platform canonicalizes to a zone the loader l
   assertEquals<string>(region.fullname, "Asia/Kolkata");
 });
 
-Deno.test("get loads a link as its canonical zone too, and still falls back to the default for an unknown name", async () => {
+Deno.test("get loads a link as its canonical zone and supports an explicit UTC fallback", async () => {
   assertEquals<string>((await TimezoneRegion.get("US/Pacific" as Tzname)).fullname, "America/Los_Angeles");
-  assertEquals<string>((await TimezoneRegion.get("Not/AZone" as Tzname)).fullname, "UTC");
+  assertEquals<string>((await TimezoneRegion.get("Not/AZone" as Tzname, Tzname.UTC)).fullname, "UTC");
 });
 
 Deno.test("getOpt still answers null for a name the platform and the loader both refuse", async () => {

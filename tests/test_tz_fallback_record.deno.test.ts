@@ -16,8 +16,9 @@
  *   `Recurrence.timezone`, and the fallback is recorded.
  * - A zone that loads records nothing.
  */
-import { assert, assertEquals } from "@std/assert";
+import { assert, assertEquals, assertRejects } from "@std/assert";
 import { TimezoneRegion } from "../chrono/timezone-region.ts";
+import type { Tzname } from "../chrono/timezone.ts";
 import { ICalDateLine } from "../chrono/recurrence/ical-date-line.ts";
 import { Recurrence } from "../chrono/recurrence/recurrence.ts";
 import { installTimezoneLoader } from "./utils.deno.ts";
@@ -35,6 +36,33 @@ const quietly = async <T>(f: () => Promise<T>): Promise<T> => {
   }
 };
 const recorded = () => TimezoneRegion.takeFallbacks().map((f) => [String(f.requested), String(f.used)]);
+
+Deno.test("named timezone lookup rejects unknown names without an explicit fallback", async () => {
+  TimezoneRegion.takeFallbacks();
+  const unknown = "Mars/Unmapped" as Tzname;
+
+  await assertRejects(() => quietly(() => TimezoneRegion.get(unknown)), RangeError, unknown);
+  assertEquals(await TimezoneRegion.getOpt(unknown), null);
+
+  await assertRejects(
+    () => quietly(() => TimezoneRegion.get(unknown, "Mars/Unavailable" as Tzname)),
+    RangeError,
+    'timezone "Mars/Unmapped" or fallback timezone "Mars/Unavailable"',
+  );
+  assertEquals(recorded(), []);
+});
+
+Deno.test("an explicit named fallback loads even when it is not in the cache", async () => {
+  TimezoneRegion.takeFallbacks();
+  const unknown = "Mars/Unmapped" as Tzname;
+  const namedFallback = "Asia/Kathmandu" as Tzname;
+  assertEquals(TimezoneRegion.getLoaded(namedFallback), null);
+
+  const fallback = await quietly(() => TimezoneRegion.get(unknown, namedFallback));
+  assertEquals(fallback.fullname, namedFallback);
+  assertEquals(TimezoneRegion.getLoaded(namedFallback), fallback);
+  assertEquals(recorded(), [[unknown, namedFallback]]);
+});
 
 Deno.test("an EXDATE whose TZID does not load is read in UTC, and the fallback is recorded once while pending", async () => {
   TimezoneRegion.takeFallbacks();
