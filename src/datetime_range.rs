@@ -41,7 +41,9 @@ impl DateTimeRange {
     pad_mths: i32,
     nearest_mths: i32,
   ) -> Option<Range<DateTime<Utc>>> {
-    Some(round_date(&dt.start, -pad_mths, nearest_mths, false)?..round_date(&dt.end, pad_mths, nearest_mths, true)?)
+    let start = round_date(&dt.start, pad_mths.checked_neg()?, nearest_mths, false)?;
+    let end = round_date(&dt.end, pad_mths, nearest_mths, true)?;
+    Some(start..end)
   }
 
   /// `self` with each end moved out by `pad_mths` and rounded out with
@@ -63,45 +65,25 @@ pub fn round_date(
   rounding_interval_mths: i32,
   round_up: bool,
 ) -> Option<DateTime<Utc>> {
-  let mut year = dt.year();
-  let mut month = dt.month() as i32 - 1; // (0..=11)
+  let padded_month0 = i64::from(dt.month0()) + i64::from(padding_mths);
+  let year = i64::from(dt.year()) + padded_month0.div_euclid(12);
+  let month = padded_month0.rem_euclid(12) + 1;
 
-  month += padding_mths;
-  while month < 0 {
-    month += 12;
-    year -= 1;
-  }
-  while month > 11 {
-    month -= 12;
-    year += 1;
-  }
-
-  // Round to the nearest interval
-  //
-  // note: convert back to 1..=12 before rounding
-  // rounding December by 2 should leave us with December
-  //
-  // 12, 2 => 12
-  // 11, 2 => 10, 12
-  // 10, 2 => 10
-  // 9,  2 => 8, 10
-  // ...
-  // 1,  2 => 0, 2
-  //
-  let rounded_month = if rounding_interval_mths > 1 {
-    let remainder = (month + 1) % rounding_interval_mths;
+  // Round the one-based month. Zero denotes December of the preceding year.
+  let interval = i64::from(rounding_interval_mths);
+  let rounded_month = if interval > 1 {
+    let remainder = month % interval;
     if round_up {
-      month + 1 + (rounding_interval_mths - remainder) % rounding_interval_mths
+      month + (interval - remainder) % interval
     } else {
-      month + 1 - remainder
+      month - remainder
     }
   } else {
-    month + 1
+    month
   };
 
-  // Back to a year and a month in 1..=12 (rounding can leave 0 or 13+).
   let month0 = rounded_month - 1;
-  year = year.checked_add(month0.div_euclid(12))?;
+  let year = i32::try_from(year + month0.div_euclid(12)).ok()?;
   let rounded_naive_date = NaiveDate::from_ymd_opt(year, month0.rem_euclid(12) as u32 + 1, 1)?;
   let rounded_naive_datetime = NaiveDateTime::new(rounded_naive_date, chrono::NaiveTime::MIN);
   Some(DateTime::<Utc>::from_naive_utc_and_offset(rounded_naive_datetime, Utc))
@@ -143,6 +125,17 @@ mod tests {
     let max = DateTime::<Utc>::MAX_UTC;
     assert_eq!(round_date(&max, 12, 1, true), None);
     assert_eq!(round_date(&utc("2024-12-10T00:00:00Z"), 0, 25, true).unwrap(), utc("2026-01-01T00:00:00Z"));
+  }
+
+  #[test]
+  fn extreme_padding_returns_none() {
+    let date = utc("2024-05-10T00:00:00Z");
+    assert_eq!(round_date(&date, i32::MAX, 1, false), None);
+    assert_eq!(round_date(&date, i32::MIN, 1, false), None);
+
+    let range = DateTimeRange(date..date);
+    assert!(range.pad_and_round_range(i32::MIN, 1).is_none());
+    assert!(range.pad_and_round_range(i32::MAX, 1).is_none());
   }
 
   #[test]

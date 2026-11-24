@@ -15,3 +15,14 @@ All six focused regressions, the full Deno suite (680 tests, 202 steps, seven ex
 Flight timeline callers can pass resolved UTC bounds to `DateFragment.Windowed`. Each supplied instant takes precedence over its corresponding civil bound. Clipping retains the first occurrence of a repeated wall time and continues to resolve existing civil-only inputs in the fragment's zone.
 
 The Los Angeles fall-back case verifies partial clipping, valid-hours intersection and positioning. The 14 targeted Deno tests passed at runtime, including 20 data-driven window cases. Type checking the full test import graph encounters existing recurrence work in the shared checkout.
+
+## Bound Rust month padding and rounding
+
+Month normalization uses Euclidean arithmetic in a wider integer type.
+Range padding checks negation before calculating the lower bound. Both
+operations return `None` for extreme padding that leaves the supported date
+range. Normal padding and month intervals retain their established rounding.
+
+All 47 Rust tests and doctests passed, with eight existing ignores. The focused
+month tests passed after the final cleanup. Logs are under
+`~/workspace/fleet/evidence/chrono-followup-edge-cases/`.
