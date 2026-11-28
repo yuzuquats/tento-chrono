@@ -11,6 +11,8 @@ Calendar and time types for TypeScript and Rust, built for calendar apps:
   ranges on top of [`chrono`](https://docs.rs/chrono), with the same text
   forms as the TypeScript side so the two can exchange values.
 
+See the [changelog](https://github.com/yuzuquats/tento-chrono/blob/master/CHANGELOG.md) for changes to recurrence behavior.
+
 ## TypeScript
 
 ```sh
