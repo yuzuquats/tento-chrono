@@ -1,0 +1,236 @@
+{
+  "type": "recurrence-profile",
+  "name": "Ordinal weekday composition across profiles",
+  "source": "RFC 5545 \u00a73.3.10 Gregorian oracle with dateutil 2.8.2 and rrule.js 2.8.1 controls",
+  "cases": [
+    {
+      "name": "monthly union of Mondays and second Tuesdays before positions and exclusions",
+      "input": {
+        "lines": [
+          "DTSTART:20230109T093000Z",
+          "RRULE:FREQ=MONTHLY;INTERVAL=2;COUNT=4;BYDAY=MO,2TU;BYMONTHDAY=1,2,3,8,9,15,-1,-2,-7;BYSETPOS=-2",
+          "RDATE:20230109T093003Z",
+          "EXDATE:20230703T093000Z"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2023-12-31",
+          "2024-12-31",
+          "2025-12-31",
+          "2026-12-31"
+        ]
+      },
+      "expected": [
+        "2023-01-09T09:30:00Z",
+        "2023-01-09T09:30:03Z",
+        "2023-05-09T09:30:00Z",
+        "2024-01-09T09:30:00Z"
+      ]
+    },
+    {
+      "name": "monthly fifth weekdays skip months with no matching ordinal",
+      "input": {
+        "lines": [
+          "DTSTART:20200103T093000Z",
+          "RRULE:FREQ=MONTHLY;INTERVAL=1;COUNT=4;BYDAY=5MO,-5FR;BYMONTHDAY=1,2,3,8,9,15,-1,-2,-7;BYHOUR=9,17;BYSETPOS=-2"
+        ],
+        "through": "2024-12-31",
+        "checkpoints": [
+          "2020-12-31",
+          "2021-12-31",
+          "2022-12-31",
+          "2023-12-31"
+        ]
+      },
+      "expected": [
+        "2020-01-03T09:30:00Z",
+        "2020-03-30T09:30:00Z",
+        "2020-05-01T09:30:00Z",
+        "2020-06-29T09:30:00Z"
+      ]
+    },
+    {
+      "name": "yearly selects the penultimate time after month-day and year-day filters",
+      "input": {
+        "lines": [
+          "DTSTART:20201225T093000Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=1;COUNT=4;BYMONTH=1,2,5,12;BYDAY=1MO,-1FR;BYMONTHDAY=1,2,3,8,9,15,-1,-2,-7;BYYEARDAY=1,2,7,31,59,60,61,365,366,-1,-2,-7;BYHOUR=9,17;BYSETPOS=-2",
+          "RDATE:20201225T093003Z",
+          "EXDATE:20221230T093000Z"
+        ],
+        "through": "2024-12-31",
+        "checkpoints": [
+          "2020-12-31",
+          "2021-12-31",
+          "2022-12-31",
+          "2023-12-31"
+        ]
+      },
+      "expected": [
+        "2020-12-25T09:30:00Z",
+        "2020-12-25T09:30:03Z",
+        "2021-12-31T09:30:00Z",
+        "2023-01-02T09:30:00Z"
+      ]
+    },
+    {
+      "name": "yearly positions omit unavailable fifty-third weekdays",
+      "input": {
+        "lines": [
+          "DTSTART:20201231T093000Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=1;UNTIL=20241231T235959Z;BYDAY=53TH,-53TH,1MO;BYYEARDAY=1,2,7,31,59,60,61,365,366,-1,-2,-7;BYSETPOS=2,-1",
+          "RDATE:20201231T093003Z",
+          "EXDATE:20230102T093000Z"
+        ],
+        "through": "2024-12-31",
+        "checkpoints": [
+          "2020-12-31",
+          "2021-12-31",
+          "2022-12-31",
+          "2023-12-31"
+        ]
+      },
+      "expected": [
+        "2020-12-31T09:30:00Z",
+        "2020-12-31T09:30:03Z",
+        "2024-01-01T09:30:00Z"
+      ]
+    },
+    {
+      "name": "yearly duplicate set positions count each selected start once",
+      "input": {
+        "lines": [
+          "DTSTART:20200203T093000Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=1;COUNT=4;BYMONTH=1,2,5,12;BYDAY=MO,2TU;BYMONTHDAY=1,2,3,8,9,15,-1,-2,-7;BYHOUR=9,17;BYSETPOS=1,1,-1"
+        ],
+        "through": "2024-12-31",
+        "checkpoints": [
+          "2020-12-31",
+          "2021-12-31",
+          "2022-12-31",
+          "2023-12-31"
+        ]
+      },
+      "expected": [
+        "2020-02-03T09:30:00Z",
+        "2020-12-08T17:30:00Z",
+        "2021-01-25T09:30:00Z",
+        "2021-05-31T17:30:00Z"
+      ]
+    },
+    {
+      "name": "yearly fifty-third weekdays span the civil year without BYMONTH",
+      "input": {
+        "lines": [
+          "DTSTART:20200102T093000Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=1;UNTIL=20241231T235959Z;BYDAY=53TH,-53TH,1MO"
+        ],
+        "through": "2024-12-31",
+        "checkpoints": [
+          "2020-12-31",
+          "2021-12-31",
+          "2022-12-31",
+          "2023-12-31"
+        ]
+      },
+      "expected": [
+        "2020-01-02T09:30:00Z",
+        "2020-01-06T09:30:00Z",
+        "2020-12-31T09:30:00Z",
+        "2021-01-04T09:30:00Z",
+        "2022-01-03T09:30:00Z",
+        "2023-01-02T09:30:00Z",
+        "2024-01-01T09:30:00Z"
+      ]
+    },
+    {
+      "name": "yearly ordinals rank within the selected months before interval positions",
+      "input": {
+        "lines": [
+          "DTSTART:20200501T093000Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=2;UNTIL=20241231T235959Z;BYMONTH=1,2,5,12;BYDAY=5MO,-5FR;BYHOUR=9,17;BYSETPOS=-2"
+        ],
+        "through": "2024-12-31",
+        "checkpoints": [
+          "2020-12-31",
+          "2021-12-31",
+          "2022-12-31",
+          "2023-12-31"
+        ]
+      },
+      "expected": [
+        "2020-05-01T09:30:00Z",
+        "2022-12-02T09:30:00Z",
+        "2024-12-30T09:30:00Z"
+      ]
+    },
+    {
+      "name": "yearly overlapping plain and ordinal weekdays with explicit dates",
+      "input": {
+        "lines": [
+          "DTSTART:20230101T093000Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=1;COUNT=4;BYMONTH=1,2,5,12;BYDAY=-1SU,SU,5MO;BYMONTHDAY=1,2,3,8,9,15,-1,-2,-7;BYYEARDAY=1,2,7,31,59,60,61,365,366,-1,-2,-7;BYHOUR=9,17;BYSETPOS=1,1,-1",
+          "RDATE:20230101T093003Z",
+          "EXDATE:20241230T093000Z"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2023-12-31",
+          "2024-12-31",
+          "2025-12-31",
+          "2026-12-31"
+        ]
+      },
+      "expected": [
+        "2023-01-01T09:30:00Z",
+        "2023-01-01T09:30:03Z",
+        "2023-12-31T17:30:00Z",
+        "2024-12-30T17:30:00Z"
+      ]
+    },
+    {
+      "name": "dateutil intersects ordinary Mondays with ordinal Tuesdays",
+      "input": {
+        "lines": [
+          "DTSTART:20230109T093000Z",
+          "RRULE:FREQ=MONTHLY;INTERVAL=2;COUNT=4;BYDAY=MO,2TU;BYMONTHDAY=1,2,3,8,9,15,-1,-2,-7;BYSETPOS=-2",
+          "RDATE:20230109T093003Z",
+          "EXDATE:20230703T093000Z"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2023-12-31",
+          "2024-12-31",
+          "2025-12-31",
+          "2026-12-31"
+        ],
+        "profile": "dateutil"
+      },
+      "expected": [
+        "2023-01-09T09:30:03Z"
+      ]
+    },
+    {
+      "name": "rrule-js intersects ordinary Mondays with ordinal Tuesdays",
+      "input": {
+        "lines": [
+          "DTSTART:20230109T093000Z",
+          "RRULE:FREQ=MONTHLY;INTERVAL=2;COUNT=4;BYDAY=MO,2TU;BYMONTHDAY=1,2,3,8,9,15,-1,-2,-7;BYSETPOS=-2",
+          "RDATE:20230109T093003Z",
+          "EXDATE:20230703T093000Z"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2023-12-31",
+          "2024-12-31",
+          "2025-12-31",
+          "2026-12-31"
+        ],
+        "profile": "rrule-js"
+      },
+      "expected": [
+        "2023-01-09T09:30:03Z"
+      ]
+    }
+  ]
+}

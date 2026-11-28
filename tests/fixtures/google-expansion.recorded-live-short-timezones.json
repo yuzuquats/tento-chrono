@@ -1,0 +1,939 @@
+{
+  "type": "google-expansion",
+  "name": "Google Calendar API short timezones",
+  "source": "Google Calendar API events.instances",
+  "captureCliCommit": "8db8950f7cf894e781d289f6e513f5e53e6d587a",
+  "capturedAt": "2026-11-23T13:37:31.637967+00:00",
+  "cases": [
+    {
+      "name": "short-ACT",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=ACT:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Australia/Darwin:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-07T23:30:00Z",
+          "2027-07-07T23:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-AET",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=AET:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Australia/Sydney:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-07T22:00:00Z",
+          "2027-07-07T23:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-AGT",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=AGT:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=America/Argentina/Buenos_Aires:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-08T12:00:00Z",
+          "2027-07-08T12:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-ART",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=ART:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Africa/Cairo:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-08T07:00:00Z",
+          "2027-07-08T06:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-AST",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=AST:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=America/Anchorage:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-08T18:00:00Z",
+          "2027-07-08T17:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-BET",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=BET:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=America/Sao_Paulo:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-08T12:00:00Z",
+          "2027-07-08T12:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-BST",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=BST:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Asia/Dhaka:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-08T03:00:00Z",
+          "2027-07-08T03:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-CAT",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=CAT:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Africa/Maputo:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-08T07:00:00Z",
+          "2027-07-08T07:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-CNT",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=CNT:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=America/St_Johns:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-08T12:30:00Z",
+          "2027-07-08T11:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-CST",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=CST:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=America/Chicago:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-08T15:00:00Z",
+          "2027-07-08T14:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-CTT",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=CTT:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Asia/Shanghai:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-08T01:00:00Z",
+          "2027-07-08T01:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-EAT",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=EAT:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Africa/Nairobi:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-08T06:00:00Z",
+          "2027-07-08T06:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-ECT",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=ECT:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Europe/Paris:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-08T08:00:00Z",
+          "2027-07-08T07:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-IET",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=IET:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=America/Indiana/Indianapolis:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-08T14:00:00Z",
+          "2027-07-08T13:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-IST",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=IST:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Asia/Kolkata:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-08T03:30:00Z",
+          "2027-07-08T03:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-JST",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=JST:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Asia/Tokyo:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-08T00:00:00Z",
+          "2027-07-08T00:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-MIT",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=MIT:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Pacific/Apia:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-07T20:00:00Z",
+          "2027-07-07T20:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-NET",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=NET:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Asia/Yerevan:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-08T05:00:00Z",
+          "2027-07-08T05:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-NST",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=NST:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Pacific/Auckland:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-07T20:00:00Z",
+          "2027-07-07T21:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-PLT",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=PLT:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Asia/Karachi:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-08T04:00:00Z",
+          "2027-07-08T04:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-PNT",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=PNT:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=America/Phoenix:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-08T16:00:00Z",
+          "2027-07-08T16:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-PRT",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=PRT:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=America/Puerto_Rico:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-08T13:00:00Z",
+          "2027-07-08T13:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-SST",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=SST:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Pacific/Guadalcanal:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-07T22:00:00Z",
+          "2027-07-07T22:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-VST",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=VST:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Asia/Ho_Chi_Minh:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-08T02:00:00Z",
+          "2027-07-08T02:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-EST",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=EST:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=America/Panama:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-08T14:00:00Z",
+          "2027-07-08T14:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-HST",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=HST:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Pacific/Honolulu:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-08T19:00:00Z",
+          "2027-07-08T19:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-MST",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=MST:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=America/Phoenix:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-08T16:00:00Z",
+          "2027-07-08T16:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-UT",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=UT:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=UT:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-08T09:00:00Z",
+          "2027-07-08T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-GMT+0",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=GMT+0:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Etc/GMT:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-08T09:00:00Z",
+          "2027-07-08T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-GMT-0",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=GMT-0:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Etc/GMT:20270108T090000,20270708T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-08T09:00:00Z",
+          "2027-07-08T09:00:00Z"
+        ]
+      }
+    }
+  ]
+}

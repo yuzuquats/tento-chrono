@@ -1,0 +1,159 @@
+{
+  "type": "recurrence-profile",
+  "name": "rrule.js content-line parameters",
+  "source": "rrule.js 2.8.1 rrulestr with forceset and an RFC 5545 control",
+  "cases": [
+    {
+      "name": "the first colon in a quoted RDATE TZID ends the header",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "lines": [
+          "DTSTART:20260307T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE;TZID=\"X:CALENDAR\":20260308T090000Z"
+        ],
+        "through": "2026-03-12",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": {
+        "error": "Invalid UNTIL value: CALENDAR\":20260308T090000Z"
+      }
+    },
+    {
+      "name": "a semicolon in a quoted EXDATE TZID splits the parameters",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "lines": [
+          "DTSTART:20260307T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE;TZID=\"X;CALENDAR\":20260308T090000Z"
+        ],
+        "through": "2026-03-12",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": {
+        "error": "unsupported RDATE/EXDATE parm: CALENDAR\""
+      }
+    },
+    {
+      "name": "an unsupported parameter retains text up to the first colon",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "lines": [
+          "DTSTART:20260307T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE;X-NOTE=\"a:b\";TZID=America/New_York:20260308T090000Z"
+        ],
+        "through": "2026-03-12",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": {
+        "error": "unsupported RDATE/EXDATE parm: X-NOTE=\"a"
+      }
+    },
+    {
+      "name": "an unbroken quoted zone still fails at expansion",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "lines": [
+          "DTSTART:20260307T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE;TZID=\"America/New_York\":20260308T090000Z"
+        ],
+        "through": "2026-03-12",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": {
+        "expansionError": "Invalid time zone specified: \"America/New_York\""
+      }
+    },
+    {
+      "name": "a leading unquoted zone still applies to the set",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "lines": [
+          "DTSTART:20260307T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE;TZID=America/New_York;VALUE=DATE-TIME:20260308T090000Z"
+        ],
+        "through": "2026-03-12",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": {
+        "expansionError": "Invalid time zone specified: America/New_York;VALUE"
+      }
+    },
+    {
+      "name": "an RRULE error preserves parameter spelling and order",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260307T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RRULE;Value=Recur;X-Rule=one:FREQ=DAILY;COUNT=1"
+        ],
+        "through": "2026-03-12"
+      },
+      "expected": {
+        "error": "unsupported RRULE parm: Value=Recur,X-Rule=one"
+      }
+    },
+    {
+      "name": "an EXRULE error preserves the splits inside quotes",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260307T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXRULE;X-Label=\"a;b\":FREQ=DAILY;COUNT=1"
+        ],
+        "through": "2026-03-12"
+      },
+      "expected": {
+        "error": "unsupported EXRULE parm: X-Label=\"a,b\""
+      }
+    },
+    {
+      "name": "the RFC reader accepts a colon and semicolon in a quoted extension parameter",
+      "reference": "RFC 5545 \u00a73.1 quoted-string and \u00a73.8.5.2 RDATE",
+      "input": {
+        "lines": [
+          "DTSTART:20260307T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;X-NOTE=\"a:b;c\":20260309T090000Z"
+        ],
+        "through": "2026-03-12"
+      },
+      "expected": [
+        "2026-03-07T09:00:00Z",
+        "2026-03-08T09:00:00Z",
+        "2026-03-09T09:00:00Z"
+      ]
+    }
+  ]
+}

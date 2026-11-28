@@ -1,0 +1,183 @@
+{
+  "type": "recurrence-profile",
+  "name": "RFC 5545 ASCII recurrence tokens",
+  "source": "RFC 5545 §§3.1, 3.3.10 and RFC 5234 §2.3",
+  "cases": [
+    {
+      "name": "long-s-in-dtstart",
+      "input": {
+        "lines": [
+          "DTſTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "Invalid iCalendar property name"
+      }
+    },
+    {
+      "name": "st-ligature-in-dtstart",
+      "input": {
+        "lines": [
+          "DTﬆART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "Invalid iCalendar property name"
+      }
+    },
+    {
+      "name": "dotless-i-in-daily",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAıLY;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "RRULE must use ASCII tokens"
+      }
+    },
+    {
+      "name": "long-s-in-secondly",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=ſECONDLY;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "RRULE must use ASCII tokens"
+      }
+    },
+    {
+      "name": "dotless-i-in-interval",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;ıNTERVAL=2;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "RRULE must use ASCII tokens"
+      }
+    },
+    {
+      "name": "long-s-in-byday",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=WEEKLY;BYDAY=TH,ſA;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "RRULE must use ASCII tokens"
+      }
+    },
+    {
+      "name": "long-s-in-bysetpos",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=9;BYſETPOſ=1;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "RRULE must use ASCII tokens"
+      }
+    },
+    {
+      "name": "st-ligature-in-wkst",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=WEEKLY;WKﬆ=MO;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "RRULE must use ASCII tokens"
+      }
+    },
+    {
+      "name": "long-s-in-week-start",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=WEEKLY;WKST=ſU;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "RRULE must use ASCII tokens"
+      }
+    },
+    {
+      "name": "folded-dotless-i-in-byminute",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;BYM\r\n ıNUTE=0;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "RRULE must use ASCII tokens"
+      }
+    },
+    {
+      "name": "lowercase-ascii-with-unicode-paramtext",
+      "input": {
+        "lines": [
+          "dtstart;x-note=São Paulo:20260101t090000z",
+          "rrule;x-note=élève:count=2;freq=daily"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "folded-quoted-unicode-parameters",
+      "input": {
+        "lines": [
+          "dtstart;x-note=\"São Paulo;α,β😀\":20260101T090000Z",
+          "rrule:freq=daily;count=2",
+          "rdate;x-note=\"New\r\n York;東京\":20260104t090000z"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-04T09:00:00Z"
+      ]
+    }
+  ]
+}

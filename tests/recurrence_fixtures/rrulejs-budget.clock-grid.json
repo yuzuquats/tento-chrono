@@ -1,0 +1,177 @@
+{
+  "type": "rrulejs-budget",
+  "name": "rrule.js clock grid budget",
+  "cases": [
+    {
+      "name": "repeated daily product exceeds both the budget and a whole day",
+      "input": {
+        "freq": "DAILY",
+        "hours": [
+          8,
+          64
+        ],
+        "minutes": [
+          0,
+          64
+        ],
+        "seconds": [
+          0,
+          64
+        ],
+        "count": 1,
+        "generationLimit": 3
+      },
+      "expected": {
+        "limit": 3
+      }
+    },
+    {
+      "name": "large daily product with a carry",
+      "input": {
+        "freq": "DAILY",
+        "hours": [
+          24,
+          4096
+        ],
+        "minutes": [
+          0,
+          4096
+        ],
+        "seconds": [
+          0,
+          4096
+        ],
+        "count": 1,
+        "generationLimit": 3
+      },
+      "expected": {
+        "limit": 3
+      }
+    },
+    {
+      "name": "hourly repetitions fit the grid allowance and COUNT stops the read",
+      "input": {
+        "freq": "HOURLY",
+        "minutes": [
+          0,
+          64
+        ],
+        "seconds": [
+          0,
+          64
+        ],
+        "count": 1,
+        "generationLimit": 3
+      },
+      "expected": [
+        "2024-01-01T00:00:00Z"
+      ]
+    },
+    {
+      "name": "an affordable grid keeps input order and repeated slots",
+      "input": {
+        "freq": "DAILY",
+        "hours": "10,9,10",
+        "minutes": "5,0",
+        "seconds": "0",
+        "count": 6,
+        "generationLimit": 6
+      },
+      "expected": [
+        "2024-01-01T10:05:00Z",
+        "2024-01-01T10:00:00Z",
+        "2024-01-01T09:05:00Z",
+        "2024-01-01T09:00:00Z",
+        "2024-01-01T10:05:00Z",
+        "2024-01-01T10:00:00Z"
+      ]
+    },
+    {
+      "name": "daily COUNT fits a budget smaller than the hour list",
+      "input": {
+        "freq": "DAILY",
+        "hours": "9,12,17",
+        "count": 2,
+        "through": "2024-01-01",
+        "generationLimit": 2
+      },
+      "expected": [
+        "2024-01-01T09:00:00Z",
+        "2024-01-01T12:00:00Z"
+      ]
+    },
+    {
+      "name": "daily COUNT fits a budget smaller than a full minute grid",
+      "input": {
+        "freq": "DAILY",
+        "hours": {
+          "start": 0,
+          "length": 24
+        },
+        "minutes": {
+          "start": 0,
+          "length": 60
+        },
+        "count": 5,
+        "through": "2024-01-01",
+        "generationLimit": 1000
+      },
+      "expected": [
+        "2024-01-01T00:00:00Z",
+        "2024-01-01T00:01:00Z",
+        "2024-01-01T00:02:00Z",
+        "2024-01-01T00:03:00Z",
+        "2024-01-01T00:04:00Z"
+      ]
+    },
+    {
+      "name": "hourly COUNT fits a budget smaller than a full second grid",
+      "input": {
+        "freq": "HOURLY",
+        "minutes": {
+          "start": 0,
+          "length": 60
+        },
+        "seconds": {
+          "start": 0,
+          "length": 60
+        },
+        "count": 5,
+        "through": "2024-01-01",
+        "generationLimit": 1000
+      },
+      "expected": [
+        "2024-01-01T00:00:00Z",
+        "2024-01-01T00:00:01Z",
+        "2024-01-01T00:00:02Z",
+        "2024-01-01T00:00:03Z",
+        "2024-01-01T00:00:04Z"
+      ]
+    },
+    {
+      "name": "distinct clock grid straddling the Date ceiling fails fast",
+      "input": {
+        "freq": "DAILY",
+        "hours": {
+          "start": 2399518624,
+          "length": 16384
+        },
+        "minutes": {
+          "start": 0,
+          "length": 16384
+        },
+        "seconds": {
+          "start": 0,
+          "length": 16384
+        },
+        "count": 1,
+        "through": "2024-01-01",
+        "generationLimit": 3
+      },
+      "expected": {
+        "limit": 3,
+        "maxElapsedMs": 1000
+      }
+    }
+  ]
+}

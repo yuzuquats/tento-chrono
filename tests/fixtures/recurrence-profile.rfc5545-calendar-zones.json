@@ -1,0 +1,813 @@
+{
+  "type": "recurrence-profile",
+  "rfcDateMode": "written",
+  "name": "RFC 5545 calendar-defined timezones",
+  "source": "RFC 5545 sections 3.2.19, 3.3.5, 3.3.9 and 3.6.5 with independent piecewise offset calculations",
+  "cases": [
+    {
+      "name": "spring-gap-uses-pre-transition-offset",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=/example/Office:20260307T021500",
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "through": "2026-03-09",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ],
+        "rfcTimeZones": {
+          "/example/Office": {
+            "transitions": [
+              {
+                "before": "2026-03-08T02:00:00+09:00",
+                "before_tz_abbr": "STD",
+                "after": "2026-03-08T02:30:00+09:30",
+                "after_tz_abbr": "DST"
+              },
+              {
+                "before": "2026-11-01T02:30:00+09:30",
+                "before_tz_abbr": "DST",
+                "after": "2026-11-01T02:00:00+09:00",
+                "after_tz_abbr": "STD"
+              }
+            ]
+          },
+          "Floor: West;議場, winter": {
+            "transitions": [
+              {
+                "before": "2026-03-08T02:00:00+09:00",
+                "before_tz_abbr": "STD",
+                "after": "2026-03-08T02:30:00+09:30",
+                "after_tz_abbr": "DST"
+              },
+              {
+                "before": "2026-11-01T02:30:00+09:30",
+                "before_tz_abbr": "DST",
+                "after": "2026-11-01T02:00:00+09:00",
+                "after_tz_abbr": "STD"
+              }
+            ]
+          },
+          "Local/Annex": {
+            "name": "America/New_York",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+10:00",
+                "before_tz_abbr": "ANN",
+                "after": "2026-01-01T00:00:00+10:00",
+                "after_tz_abbr": "ANN"
+              }
+            ]
+          }
+        }
+      },
+      "expected": [
+        "2026-03-06T17:15:00Z",
+        "2026-03-07T17:15:00Z",
+        "2026-03-08T16:45:00Z",
+        "2026-03-09T16:45:00Z"
+      ]
+    },
+    {
+      "name": "fold-uses-first-instant",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=/example/Office:20261031T021500",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-11-01",
+        "checkpoints": [
+          "2026-10-30",
+          "2026-10-31",
+          "2026-11-01"
+        ],
+        "rfcTimeZones": {
+          "/example/Office": {
+            "transitions": [
+              {
+                "before": "2026-03-08T02:00:00+09:00",
+                "before_tz_abbr": "STD",
+                "after": "2026-03-08T02:30:00+09:30",
+                "after_tz_abbr": "DST"
+              },
+              {
+                "before": "2026-11-01T02:30:00+09:30",
+                "before_tz_abbr": "DST",
+                "after": "2026-11-01T02:00:00+09:00",
+                "after_tz_abbr": "STD"
+              }
+            ]
+          },
+          "Floor: West;議場, winter": {
+            "transitions": [
+              {
+                "before": "2026-03-08T02:00:00+09:00",
+                "before_tz_abbr": "STD",
+                "after": "2026-03-08T02:30:00+09:30",
+                "after_tz_abbr": "DST"
+              },
+              {
+                "before": "2026-11-01T02:30:00+09:30",
+                "before_tz_abbr": "DST",
+                "after": "2026-11-01T02:00:00+09:00",
+                "after_tz_abbr": "STD"
+              }
+            ]
+          },
+          "Local/Annex": {
+            "name": "America/New_York",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+10:00",
+                "before_tz_abbr": "ANN",
+                "after": "2026-01-01T00:00:00+10:00",
+                "after_tz_abbr": "ANN"
+              }
+            ]
+          }
+        }
+      },
+      "expected": [
+        "2026-10-30T16:45:00Z",
+        "2026-10-31T16:45:00Z",
+        "2026-11-01T17:15:00Z"
+      ]
+    },
+    {
+      "name": "quoted-calendar-tzid",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=\"Floor: West;議場, winter\":20260307T021500",
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "through": "2026-03-09",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ],
+        "rfcTimeZones": {
+          "Floor: West;議場, winter": {
+            "transitions": [
+              {
+                "before": "2026-03-08T02:00:00+09:00",
+                "before_tz_abbr": "STD",
+                "after": "2026-03-08T02:30:00+09:30",
+                "after_tz_abbr": "DST"
+              },
+              {
+                "before": "2026-11-01T02:30:00+09:30",
+                "before_tz_abbr": "DST",
+                "after": "2026-11-01T02:00:00+09:00",
+                "after_tz_abbr": "STD"
+              }
+            ]
+          }
+        }
+      },
+      "expected": [
+        "2026-03-06T17:15:00Z",
+        "2026-03-07T17:15:00Z",
+        "2026-03-08T16:45:00Z",
+        "2026-03-09T16:45:00Z"
+      ]
+    },
+    {
+      "name": "external-zoned-start",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "through": "2026-03-09",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ],
+        "rfcTimeZones": {
+          "/example/Office": {
+            "transitions": [
+              {
+                "before": "2026-03-08T02:00:00+09:00",
+                "before_tz_abbr": "STD",
+                "after": "2026-03-08T02:30:00+09:30",
+                "after_tz_abbr": "DST"
+              },
+              {
+                "before": "2026-11-01T02:30:00+09:30",
+                "before_tz_abbr": "DST",
+                "after": "2026-11-01T02:00:00+09:00",
+                "after_tz_abbr": "STD"
+              }
+            ]
+          },
+          "Floor: West;議場, winter": {
+            "transitions": [
+              {
+                "before": "2026-03-08T02:00:00+09:00",
+                "before_tz_abbr": "STD",
+                "after": "2026-03-08T02:30:00+09:30",
+                "after_tz_abbr": "DST"
+              },
+              {
+                "before": "2026-11-01T02:30:00+09:30",
+                "before_tz_abbr": "DST",
+                "after": "2026-11-01T02:00:00+09:00",
+                "after_tz_abbr": "STD"
+              }
+            ]
+          },
+          "Local/Annex": {
+            "name": "America/New_York",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+10:00",
+                "before_tz_abbr": "ANN",
+                "after": "2026-01-01T00:00:00+10:00",
+                "after_tz_abbr": "ANN"
+              }
+            ]
+          }
+        },
+        "dtstart": {
+          "dateTime": "2026-03-07T02:15:00",
+          "timeZone": "Floor: West;議場, winter"
+        }
+      },
+      "expected": [
+        "2026-03-06T17:15:00Z",
+        "2026-03-07T17:15:00Z",
+        "2026-03-08T16:45:00Z",
+        "2026-03-09T16:45:00Z"
+      ]
+    },
+    {
+      "name": "external-later-fold-instant",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-11-01",
+        "checkpoints": [
+          "2026-10-31",
+          "2026-11-01"
+        ],
+        "rfcTimeZones": {
+          "/example/Office": {
+            "transitions": [
+              {
+                "before": "2026-03-08T02:00:00+09:00",
+                "before_tz_abbr": "STD",
+                "after": "2026-03-08T02:30:00+09:30",
+                "after_tz_abbr": "DST"
+              },
+              {
+                "before": "2026-11-01T02:30:00+09:30",
+                "before_tz_abbr": "DST",
+                "after": "2026-11-01T02:00:00+09:00",
+                "after_tz_abbr": "STD"
+              }
+            ]
+          },
+          "Floor: West;議場, winter": {
+            "transitions": [
+              {
+                "before": "2026-03-08T02:00:00+09:00",
+                "before_tz_abbr": "STD",
+                "after": "2026-03-08T02:30:00+09:30",
+                "after_tz_abbr": "DST"
+              },
+              {
+                "before": "2026-11-01T02:30:00+09:30",
+                "before_tz_abbr": "DST",
+                "after": "2026-11-01T02:00:00+09:00",
+                "after_tz_abbr": "STD"
+              }
+            ]
+          },
+          "Local/Annex": {
+            "name": "America/New_York",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+10:00",
+                "before_tz_abbr": "ANN",
+                "after": "2026-01-01T00:00:00+10:00",
+                "after_tz_abbr": "ANN"
+              }
+            ]
+          }
+        },
+        "dtstart": {
+          "dateTime": "2026-10-31T17:15:00Z",
+          "timeZone": "/example/Office"
+        }
+      },
+      "expected": [
+        "2026-10-31T17:15:00Z",
+        "2026-11-01T17:15:00Z"
+      ]
+    },
+    {
+      "name": "until-is-inclusive-at-gap-instant",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=/example/Office:20260307T021500",
+          "RRULE:FREQ=DAILY;UNTIL=20260307T171500Z"
+        ],
+        "through": "2026-03-07",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ],
+        "rfcTimeZones": {
+          "/example/Office": {
+            "transitions": [
+              {
+                "before": "2026-03-08T02:00:00+09:00",
+                "before_tz_abbr": "STD",
+                "after": "2026-03-08T02:30:00+09:30",
+                "after_tz_abbr": "DST"
+              },
+              {
+                "before": "2026-11-01T02:30:00+09:30",
+                "before_tz_abbr": "DST",
+                "after": "2026-11-01T02:00:00+09:00",
+                "after_tz_abbr": "STD"
+              }
+            ]
+          },
+          "Floor: West;議場, winter": {
+            "transitions": [
+              {
+                "before": "2026-03-08T02:00:00+09:00",
+                "before_tz_abbr": "STD",
+                "after": "2026-03-08T02:30:00+09:30",
+                "after_tz_abbr": "DST"
+              },
+              {
+                "before": "2026-11-01T02:30:00+09:30",
+                "before_tz_abbr": "DST",
+                "after": "2026-11-01T02:00:00+09:00",
+                "after_tz_abbr": "STD"
+              }
+            ]
+          },
+          "Local/Annex": {
+            "name": "America/New_York",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+10:00",
+                "before_tz_abbr": "ANN",
+                "after": "2026-01-01T00:00:00+10:00",
+                "after_tz_abbr": "ANN"
+              }
+            ]
+          }
+        }
+      },
+      "expected": [
+        "2026-03-06T17:15:00Z",
+        "2026-03-07T17:15:00Z"
+      ]
+    },
+    {
+      "name": "custom-explicit-dates-and-utc-exclusion",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=/example/Office:20261031T021500",
+          "RDATE;TZID=/example/Office:20261101T021500,20261102T021500",
+          "EXDATE:20261031T164500Z"
+        ],
+        "through": "2026-11-01",
+        "checkpoints": [
+          "2026-10-30",
+          "2026-11-01"
+        ],
+        "rfcTimeZones": {
+          "/example/Office": {
+            "transitions": [
+              {
+                "before": "2026-03-08T02:00:00+09:00",
+                "before_tz_abbr": "STD",
+                "after": "2026-03-08T02:30:00+09:30",
+                "after_tz_abbr": "DST"
+              },
+              {
+                "before": "2026-11-01T02:30:00+09:30",
+                "before_tz_abbr": "DST",
+                "after": "2026-11-01T02:00:00+09:00",
+                "after_tz_abbr": "STD"
+              }
+            ]
+          },
+          "Floor: West;議場, winter": {
+            "transitions": [
+              {
+                "before": "2026-03-08T02:00:00+09:00",
+                "before_tz_abbr": "STD",
+                "after": "2026-03-08T02:30:00+09:30",
+                "after_tz_abbr": "DST"
+              },
+              {
+                "before": "2026-11-01T02:30:00+09:30",
+                "before_tz_abbr": "DST",
+                "after": "2026-11-01T02:00:00+09:00",
+                "after_tz_abbr": "STD"
+              }
+            ]
+          },
+          "Local/Annex": {
+            "name": "America/New_York",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+10:00",
+                "before_tz_abbr": "ANN",
+                "after": "2026-01-01T00:00:00+10:00",
+                "after_tz_abbr": "ANN"
+              }
+            ]
+          }
+        }
+      },
+      "expected": [
+        "2026-10-30T16:45:00Z",
+        "2026-11-01T17:15:00Z"
+      ]
+    },
+    {
+      "name": "custom-exdate-removes-a-matching-utc-start",
+      "input": {
+        "lines": [
+          "DTSTART:20261031T164500Z",
+          "EXDATE;TZID=/example/Office:20261101T021500"
+        ],
+        "through": "2026-12-01",
+        "checkpoints": [],
+        "rfcTimeZones": {
+          "/example/Office": {
+            "transitions": [
+              {
+                "before": "2026-03-08T02:00:00+09:00",
+                "before_tz_abbr": "STD",
+                "after": "2026-03-08T02:30:00+09:30",
+                "after_tz_abbr": "DST"
+              },
+              {
+                "before": "2026-11-01T02:30:00+09:30",
+                "before_tz_abbr": "DST",
+                "after": "2026-11-01T02:00:00+09:00",
+                "after_tz_abbr": "STD"
+              }
+            ]
+          },
+          "Floor: West;議場, winter": {
+            "transitions": [
+              {
+                "before": "2026-03-08T02:00:00+09:00",
+                "before_tz_abbr": "STD",
+                "after": "2026-03-08T02:30:00+09:30",
+                "after_tz_abbr": "DST"
+              },
+              {
+                "before": "2026-11-01T02:30:00+09:30",
+                "before_tz_abbr": "DST",
+                "after": "2026-11-01T02:00:00+09:00",
+                "after_tz_abbr": "STD"
+              }
+            ]
+          },
+          "Local/Annex": {
+            "name": "America/New_York",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+10:00",
+                "before_tz_abbr": "ANN",
+                "after": "2026-01-01T00:00:00+10:00",
+                "after_tz_abbr": "ANN"
+              }
+            ]
+          }
+        }
+      },
+      "expected": []
+    },
+    {
+      "name": "period-uses-local-gap-and-post-gap-offsets",
+      "input": {
+        "lines": [
+          "DTSTART:20260307T160000Z",
+          "RDATE;VALUE=PERIOD;TZID=/example/Office:20260308T022000/20260308T023100"
+        ],
+        "through": "2026-12-01",
+        "checkpoints": [],
+        "rfcTimeZones": {
+          "/example/Office": {
+            "transitions": [
+              {
+                "before": "2026-03-08T02:00:00+09:00",
+                "before_tz_abbr": "STD",
+                "after": "2026-03-08T02:30:00+09:30",
+                "after_tz_abbr": "DST"
+              },
+              {
+                "before": "2026-11-01T02:30:00+09:30",
+                "before_tz_abbr": "DST",
+                "after": "2026-11-01T02:00:00+09:00",
+                "after_tz_abbr": "STD"
+              }
+            ]
+          },
+          "Floor: West;議場, winter": {
+            "transitions": [
+              {
+                "before": "2026-03-08T02:00:00+09:00",
+                "before_tz_abbr": "STD",
+                "after": "2026-03-08T02:30:00+09:30",
+                "after_tz_abbr": "DST"
+              },
+              {
+                "before": "2026-11-01T02:30:00+09:30",
+                "before_tz_abbr": "DST",
+                "after": "2026-11-01T02:00:00+09:00",
+                "after_tz_abbr": "STD"
+              }
+            ]
+          },
+          "Local/Annex": {
+            "name": "America/New_York",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+10:00",
+                "before_tz_abbr": "ANN",
+                "after": "2026-01-01T00:00:00+10:00",
+                "after_tz_abbr": "ANN"
+              }
+            ]
+          }
+        }
+      },
+      "expected": {
+        "error": "RDATE period end must follow its start"
+      }
+    },
+    {
+      "name": "valid-period-with-custom-tzid",
+      "input": {
+        "lines": [
+          "DTSTART:20260307T160000Z",
+          "RDATE;VALUE=PERIOD;TZID=/example/Office:20260308T022000/20260308T025100"
+        ],
+        "through": "2026-03-07",
+        "checkpoints": [
+          "2026-03-07"
+        ],
+        "rfcTimeZones": {
+          "/example/Office": {
+            "transitions": [
+              {
+                "before": "2026-03-08T02:00:00+09:00",
+                "before_tz_abbr": "STD",
+                "after": "2026-03-08T02:30:00+09:30",
+                "after_tz_abbr": "DST"
+              },
+              {
+                "before": "2026-11-01T02:30:00+09:30",
+                "before_tz_abbr": "DST",
+                "after": "2026-11-01T02:00:00+09:00",
+                "after_tz_abbr": "STD"
+              }
+            ]
+          },
+          "Floor: West;議場, winter": {
+            "transitions": [
+              {
+                "before": "2026-03-08T02:00:00+09:00",
+                "before_tz_abbr": "STD",
+                "after": "2026-03-08T02:30:00+09:30",
+                "after_tz_abbr": "DST"
+              },
+              {
+                "before": "2026-11-01T02:30:00+09:30",
+                "before_tz_abbr": "DST",
+                "after": "2026-11-01T02:00:00+09:00",
+                "after_tz_abbr": "STD"
+              }
+            ]
+          },
+          "Local/Annex": {
+            "name": "America/New_York",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+10:00",
+                "before_tz_abbr": "ANN",
+                "after": "2026-01-01T00:00:00+10:00",
+                "after_tz_abbr": "ANN"
+              }
+            ]
+          }
+        }
+      },
+      "expected": [
+        "2026-03-07T16:00:00Z",
+        "2026-03-07T17:20:00Z"
+      ]
+    },
+    {
+      "name": "custom-lookup-does-not-shadow-iana-with-backing-name",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Local/Annex:20260101T090000",
+          "RDATE;TZID=America/New_York:20260101T090000"
+        ],
+        "through": "2026-01-01",
+        "checkpoints": [
+          "2025-12-31",
+          "2026-01-01"
+        ],
+        "rfcTimeZones": {
+          "Local/Annex": {
+            "name": "America/New_York",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+10:00",
+                "before_tz_abbr": "ANN",
+                "after": "2026-01-01T00:00:00+10:00",
+                "after_tz_abbr": "ANN"
+              }
+            ]
+          }
+        }
+      },
+      "expected": [
+        "2025-12-31T23:00:00Z",
+        "2026-01-01T14:00:00Z"
+      ]
+    },
+    {
+      "name": "calendar-definition-wins-over-iana",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-01",
+        "checkpoints": [
+          "2025-12-31",
+          "2026-01-01"
+        ],
+        "rfcTimeZones": {
+          "America/New_York": {
+            "name": "America/New_York",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+10:00",
+                "before_tz_abbr": "ANN",
+                "after": "2026-01-01T00:00:00+10:00",
+                "after_tz_abbr": "ANN"
+              }
+            ]
+          }
+        }
+      },
+      "expected": [
+        "2025-12-31T23:00:00Z",
+        "2026-01-01T23:00:00Z"
+      ]
+    },
+    {
+      "name": "calendar-definitions-stay-local-to-call",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-02",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ],
+        "rfcTimeZones": {}
+      },
+      "expected": [
+        "2026-01-01T14:00:00Z",
+        "2026-01-02T14:00:00Z"
+      ]
+    },
+    {
+      "name": "unknown-custom-tzid-is-reported",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=/example/Office:20260307T021500",
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "through": "2026-12-01",
+        "checkpoints": [],
+        "rfcTimeZones": {}
+      },
+      "expected": {
+        "error": "Unknown recurrence timezone: /example/Office"
+      }
+    },
+    {
+      "name": "google-ignores-rfc-calendar-definitions",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-02",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ],
+        "rfcTimeZones": {
+          "America/New_York": {
+            "name": "America/New_York",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+10:00",
+                "before_tz_abbr": "ANN",
+                "after": "2026-01-01T00:00:00+10:00",
+                "after_tz_abbr": "ANN"
+              }
+            ]
+          }
+        },
+        "profile": "google"
+      },
+      "expected": [
+        "2026-01-01T14:00:00Z",
+        "2026-01-02T14:00:00Z"
+      ]
+    },
+    {
+      "name": "dateutil-ignores-rfc-calendar-definitions",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-02",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ],
+        "rfcTimeZones": {
+          "America/New_York": {
+            "name": "America/New_York",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+10:00",
+                "before_tz_abbr": "ANN",
+                "after": "2026-01-01T00:00:00+10:00",
+                "after_tz_abbr": "ANN"
+              }
+            ]
+          }
+        },
+        "profile": "dateutil"
+      },
+      "expected": [
+        "2026-01-01T14:00:00Z",
+        "2026-01-02T14:00:00Z"
+      ]
+    },
+    {
+      "name": "rrule-js-ignores-rfc-calendar-definitions",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-02",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ],
+        "rfcTimeZones": {
+          "America/New_York": {
+            "name": "America/New_York",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+10:00",
+                "before_tz_abbr": "ANN",
+                "after": "2026-01-01T00:00:00+10:00",
+                "after_tz_abbr": "ANN"
+              }
+            ]
+          }
+        },
+        "profile": "rrule-js"
+      },
+      "expected": [
+        "2026-01-01T14:00:00Z",
+        "2026-01-02T14:00:00Z"
+      ]
+    }
+  ]
+}

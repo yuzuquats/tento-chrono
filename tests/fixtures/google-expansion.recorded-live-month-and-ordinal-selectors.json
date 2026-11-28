@@ -1,0 +1,1700 @@
+{
+  "type": "google-expansion",
+  "name": "Google Calendar month and ordinal selectors across calendar boundaries",
+  "source": "Google Calendar API events.instances",
+  "captureCliCommit": "8db8950f7cf894e781d289f6e513f5e53e6d587a",
+  "cases": [
+    {
+      "name": "daily-february-month",
+      "input": {
+        "start": "1500-02-24T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=9;BYMONTH=2"
+        ],
+        "window": {
+          "start": "1500-02-24T00:00:00Z",
+          "end": "1501-03-02T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=9;BYMONTH=2"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1500-02-24T09:00:00Z",
+          "1500-02-25T09:00:00Z",
+          "1500-02-26T09:00:00Z",
+          "1500-02-27T09:00:00Z",
+          "1500-02-28T09:00:00Z",
+          "1500-03-01T09:00:00Z",
+          "1501-02-01T09:00:00Z",
+          "1501-02-02T09:00:00Z",
+          "1501-02-03T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "daily-month-day-across-reform",
+      "input": {
+        "start": "1582-10-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=6;BYMONTHDAY=1,4,8,15,18,31"
+        ],
+        "window": {
+          "start": "1582-10-01T00:00:00Z",
+          "end": "1582-12-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=6;BYMONTHDAY=1,4,8,15,18,31"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-10-01T09:00:00Z",
+          "1582-10-04T09:00:00Z",
+          "1582-10-15T09:00:00Z",
+          "1582-10-18T09:00:00Z",
+          "1582-10-31T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "weekly-ordinal-first-monday",
+      "input": {
+        "start": "1450-01-07T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;COUNT=5;BYDAY=1MO"
+        ],
+        "window": {
+          "start": "1450-01-07T00:00:00Z",
+          "end": "1450-07-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=WEEKLY;COUNT=5;BYDAY=1MO"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1450-01-07T09:00:00Z",
+          "1450-02-02T09:00:00Z",
+          "1450-03-02T09:00:00Z",
+          "1450-04-06T09:00:00Z",
+          "1450-05-04T09:00:00Z",
+          "1450-06-01T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "weekly-ordinal-last-monday-reform",
+      "input": {
+        "start": "1582-09-20T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;COUNT=5;BYDAY=-1MO"
+        ],
+        "window": {
+          "start": "1582-09-20T00:00:00Z",
+          "end": "1583-04-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=WEEKLY;COUNT=5;BYDAY=-1MO"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-09-20T09:00:00Z",
+          "1582-09-24T09:00:00Z",
+          "1582-10-25T09:00:00Z",
+          "1582-11-29T09:00:00Z",
+          "1582-12-27T09:00:00Z",
+          "1583-01-31T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "weekly-month-and-weekday",
+      "input": {
+        "start": "1582-09-20T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;COUNT=5;BYMONTH=10,11;BYDAY=MO"
+        ],
+        "window": {
+          "start": "1582-09-20T00:00:00Z",
+          "end": "1582-12-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=WEEKLY;COUNT=5;BYMONTH=10,11;BYDAY=MO"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-09-20T09:00:00Z",
+          "1582-10-01T09:00:00Z",
+          "1582-10-18T09:00:00Z",
+          "1582-10-25T09:00:00Z",
+          "1582-11-01T09:00:00Z",
+          "1582-11-08T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "weekly-monthday-implicit-weekday",
+      "input": {
+        "start": "1582-10-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;COUNT=4;BYMONTHDAY=1,4,8,15,18,31"
+        ],
+        "window": {
+          "start": "1582-10-01T00:00:00Z",
+          "end": "1583-03-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=WEEKLY;COUNT=4;BYMONTHDAY=1,4,8,15,18,31"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-10-01T09:00:00Z",
+          "1582-10-18T09:00:00Z",
+          "1582-11-01T09:00:00Z",
+          "1582-11-08T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "weekly-ordinal-and-positive-position",
+      "input": {
+        "start": "1450-01-07T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;COUNT=4;BYDAY=1MO,-1FR;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "1450-01-07T00:00:00Z",
+          "end": "1450-07-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=WEEKLY;COUNT=4;BYDAY=1MO,-1FR;BYSETPOS=1"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1450-01-07T09:00:00Z",
+          "1450-01-30T09:00:00Z",
+          "1450-02-02T09:00:00Z",
+          "1450-02-27T09:00:00Z",
+          "1450-03-02T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "monthly-implicit-day-in-reform-gap",
+      "input": {
+        "start": "1582-08-08T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;COUNT=5"
+        ],
+        "window": {
+          "start": "1582-08-08T00:00:00Z",
+          "end": "1583-03-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=MONTHLY;COUNT=5"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-08-08T09:00:00Z",
+          "1582-09-08T09:00:00Z",
+          "1582-10-18T09:00:00Z",
+          "1582-11-08T09:00:00Z",
+          "1582-12-08T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "monthly-first-monday-reform",
+      "input": {
+        "start": "1582-08-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;COUNT=6;BYDAY=1MO"
+        ],
+        "window": {
+          "start": "1582-08-01T00:00:00Z",
+          "end": "1583-03-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=MONTHLY;COUNT=6;BYDAY=1MO"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-08-01T09:00:00Z",
+          "1582-08-06T09:00:00Z",
+          "1582-09-03T09:00:00Z",
+          "1582-10-01T09:00:00Z",
+          "1582-11-01T09:00:00Z",
+          "1582-12-06T09:00:00Z",
+          "1583-01-03T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "monthly-last-day-julian-leap",
+      "input": {
+        "start": "1500-01-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;COUNT=5;BYMONTHDAY=-1"
+        ],
+        "window": {
+          "start": "1500-01-01T00:00:00Z",
+          "end": "1500-07-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=MONTHLY;COUNT=5;BYMONTHDAY=-1"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1500-01-01T09:00:00Z",
+          "1500-01-31T09:00:00Z",
+          "1500-03-01T09:00:00Z",
+          "1500-03-31T09:00:00Z",
+          "1500-04-30T09:00:00Z",
+          "1500-05-31T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "yearly-last-monday-julian-leap",
+      "input": {
+        "start": "1498-02-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;COUNT=5;BYMONTH=2;BYDAY=-1MO"
+        ],
+        "window": {
+          "start": "1498-02-01T00:00:00Z",
+          "end": "1504-03-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=5;BYMONTH=2;BYDAY=-1MO"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1498-02-01T09:00:00Z",
+          "1498-02-26T09:00:00Z",
+          "1499-02-25T09:00:00Z",
+          "1500-02-24T09:00:00Z",
+          "1501-02-22T09:00:00Z",
+          "1502-02-28T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "yearly-reform-gap",
+      "input": {
+        "start": "1580-10-08T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;COUNT=5"
+        ],
+        "window": {
+          "start": "1580-10-08T00:00:00Z",
+          "end": "1586-01-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=5"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1580-10-08T09:00:00Z",
+          "1581-10-08T09:00:00Z",
+          "1582-10-18T09:00:00Z",
+          "1583-10-08T09:00:00Z",
+          "1584-10-08T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "daily-gap-count-1",
+      "input": {
+        "start": "1582-10-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=1;BYMONTHDAY=8,15,16,18"
+        ],
+        "window": {
+          "start": "1582-10-01T00:00:00Z",
+          "end": "1582-12-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=1;BYMONTHDAY=8,15,16,18"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-10-01T09:00:00Z",
+          "1582-10-18T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "daily-gap-count-2",
+      "input": {
+        "start": "1582-10-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2;BYMONTHDAY=8,15,16,18"
+        ],
+        "window": {
+          "start": "1582-10-01T00:00:00Z",
+          "end": "1582-12-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=2;BYMONTHDAY=8,15,16,18"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-10-01T09:00:00Z",
+          "1582-10-15T09:00:00Z",
+          "1582-10-18T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "daily-gap-count-3",
+      "input": {
+        "start": "1582-10-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYMONTHDAY=8,15,16,18"
+        ],
+        "window": {
+          "start": "1582-10-01T00:00:00Z",
+          "end": "1582-12-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYMONTHDAY=8,15,16,18"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-10-01T09:00:00Z",
+          "1582-10-15T09:00:00Z",
+          "1582-10-16T09:00:00Z",
+          "1582-10-18T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "daily-gap-count-4",
+      "input": {
+        "start": "1582-10-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=4;BYMONTHDAY=8,15,16,18"
+        ],
+        "window": {
+          "start": "1582-10-01T00:00:00Z",
+          "end": "1582-12-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=4;BYMONTHDAY=8,15,16,18"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-10-01T09:00:00Z",
+          "1582-10-15T09:00:00Z",
+          "1582-10-16T09:00:00Z",
+          "1582-10-18T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "daily-reform-month",
+      "input": {
+        "start": "1582-10-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=12;BYMONTH=10"
+        ],
+        "window": {
+          "start": "1582-10-01T00:00:00Z",
+          "end": "1582-11-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=12;BYMONTH=10"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-10-01T09:00:00Z",
+          "1582-10-02T09:00:00Z",
+          "1582-10-03T09:00:00Z",
+          "1582-10-04T09:00:00Z",
+          "1582-10-15T09:00:00Z",
+          "1582-10-16T09:00:00Z",
+          "1582-10-17T09:00:00Z",
+          "1582-10-18T09:00:00Z",
+          "1582-10-19T09:00:00Z",
+          "1582-10-20T09:00:00Z",
+          "1582-10-21T09:00:00Z",
+          "1582-10-22T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "daily-ordinal-year",
+      "input": {
+        "start": "1450-01-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYDAY=1MO"
+        ],
+        "window": {
+          "start": "1450-01-01T00:00:00Z",
+          "end": "1453-03-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYDAY=1MO"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1450-01-01T09:00:00Z",
+          "1450-01-05T09:00:00Z",
+          "1451-01-04T09:00:00Z",
+          "1452-01-03T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "weekly-julian-ordinal-leap",
+      "input": {
+        "start": "1500-02-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;BYDAY=-1SA;COUNT=3"
+        ],
+        "window": {
+          "start": "1500-02-01T00:00:00Z",
+          "end": "1500-05-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=WEEKLY;COUNT=3;BYDAY=-1SA"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1500-02-01T09:00:00Z",
+          "1500-03-01T09:00:00Z",
+          "1500-03-28T09:00:00Z",
+          "1500-04-25T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "weekly-post-reform-month-boundary",
+      "input": {
+        "start": "2027-01-25T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;BYMONTH=2;BYDAY=MO,SU;COUNT=4"
+        ],
+        "window": {
+          "start": "2027-01-25T00:00:00Z",
+          "end": "2027-03-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=WEEKLY;COUNT=4;BYMONTH=2;BYDAY=MO,SU"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-25T09:00:00Z",
+          "2027-02-01T09:00:00Z",
+          "2027-02-07T09:00:00Z",
+          "2027-02-08T09:00:00Z",
+          "2027-02-14T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "monthly-third-monday-reform",
+      "input": {
+        "start": "1582-09-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;COUNT=3;BYDAY=3MO"
+        ],
+        "window": {
+          "start": "1582-09-01T00:00:00Z",
+          "end": "1582-12-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=MONTHLY;COUNT=3;BYDAY=3MO"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-09-01T09:00:00Z",
+          "1582-09-17T09:00:00Z",
+          "1582-10-18T09:00:00Z",
+          "1582-11-15T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "yearly-first-monday-several-months",
+      "input": {
+        "start": "1582-01-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;COUNT=6;BYMONTH=9,10,11;BYDAY=1MO"
+        ],
+        "window": {
+          "start": "1582-01-01T00:00:00Z",
+          "end": "1584-01-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=6;BYMONTH=9,10,11;BYDAY=1MO"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-01-01T09:00:00Z",
+          "1582-09-03T09:00:00Z",
+          "1582-10-01T09:00:00Z",
+          "1582-11-01T09:00:00Z",
+          "1583-09-05T09:00:00Z",
+          "1583-10-03T09:00:00Z",
+          "1583-11-07T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "daily-julian-monthday-only-last",
+      "input": {
+        "start": "1500-02-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYMONTHDAY=-1"
+        ],
+        "window": {
+          "start": "1500-02-01T00:00:00Z",
+          "end": "1500-06-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYMONTHDAY=-1"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1500-02-01T09:00:00Z",
+          "1500-03-01T09:00:00Z",
+          "1500-03-31T09:00:00Z",
+          "1500-04-30T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "weekly-monthday-numbering",
+      "input": {
+        "start": "1582-10-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;COUNT=3;BYMONTHDAY=8"
+        ],
+        "window": {
+          "start": "1582-10-01T00:00:00Z",
+          "end": "1583-06-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=WEEKLY;COUNT=3;BYMONTHDAY=8"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-10-01T09:00:00Z",
+          "1582-11-08T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "monthly-gap-count-one",
+      "input": {
+        "start": "1582-10-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;BYMONTHDAY=8,15,18;COUNT=1"
+        ],
+        "window": {
+          "start": "1582-10-01T00:00:00Z",
+          "end": "1583-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=MONTHLY;COUNT=1;BYMONTHDAY=8,15,18"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-10-01T09:00:00Z",
+          "1582-10-18T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "monthly-gap-count-two",
+      "input": {
+        "start": "1582-10-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;BYMONTHDAY=8,15,18;COUNT=2"
+        ],
+        "window": {
+          "start": "1582-10-01T00:00:00Z",
+          "end": "1583-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=MONTHLY;COUNT=2;BYMONTHDAY=8,15,18"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-10-01T09:00:00Z",
+          "1582-10-15T09:00:00Z",
+          "1582-10-18T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "monthly-gap-rank-first",
+      "input": {
+        "start": "1582-10-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;BYMONTHDAY=8,15,18;COUNT=1;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "1582-10-01T00:00:00Z",
+          "end": "1583-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=MONTHLY;COUNT=1;BYMONTHDAY=8,15,18;BYSETPOS=1"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-10-01T09:00:00Z",
+          "1582-10-18T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "monthly-gap-rank-last",
+      "input": {
+        "start": "1582-10-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;BYMONTHDAY=8,15,18;COUNT=1;BYSETPOS=-1"
+        ],
+        "window": {
+          "start": "1582-10-01T00:00:00Z",
+          "end": "1583-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=MONTHLY;COUNT=1;BYMONTHDAY=8,15,18;BYSETPOS=-1"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-10-01T09:00:00Z",
+          "1582-10-18T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "monthly-gap-until-mid",
+      "input": {
+        "start": "1582-10-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;BYMONTHDAY=8,15,18;UNTIL=15821016T235959Z"
+        ],
+        "window": {
+          "start": "1582-10-01T00:00:00Z",
+          "end": "1583-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=MONTHLY;UNTIL=15821016T235959Z;BYMONTHDAY=8,15,18"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-10-01T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "yearly-gap-count-one",
+      "input": {
+        "start": "1582-10-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;BYMONTHDAY=8,15,18;BYMONTH=10;COUNT=1"
+        ],
+        "window": {
+          "start": "1582-10-01T00:00:00Z",
+          "end": "1583-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=1;BYMONTH=10;BYMONTHDAY=8,15,18"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-10-01T09:00:00Z",
+          "1582-10-18T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "yearly-gap-count-two",
+      "input": {
+        "start": "1582-10-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;BYMONTHDAY=8,15,18;BYMONTH=10;COUNT=2"
+        ],
+        "window": {
+          "start": "1582-10-01T00:00:00Z",
+          "end": "1583-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=2;BYMONTH=10;BYMONTHDAY=8,15,18"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-10-01T09:00:00Z",
+          "1582-10-15T09:00:00Z",
+          "1582-10-18T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "yearly-gap-rank-first",
+      "input": {
+        "start": "1582-10-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;BYMONTHDAY=8,15,18;BYMONTH=10;COUNT=1;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "1582-10-01T00:00:00Z",
+          "end": "1583-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=1;BYMONTH=10;BYMONTHDAY=8,15,18;BYSETPOS=1"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-10-01T09:00:00Z",
+          "1582-10-18T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "yearly-gap-rank-last",
+      "input": {
+        "start": "1582-10-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;BYMONTHDAY=8,15,18;BYMONTH=10;COUNT=1;BYSETPOS=-1"
+        ],
+        "window": {
+          "start": "1582-10-01T00:00:00Z",
+          "end": "1583-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=1;BYMONTH=10;BYMONTHDAY=8,15,18;BYSETPOS=-1"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-10-01T09:00:00Z",
+          "1582-10-18T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "yearly-gap-until-mid",
+      "input": {
+        "start": "1582-10-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;BYMONTHDAY=8,15,18;BYMONTH=10;UNTIL=15821016T235959Z"
+        ],
+        "window": {
+          "start": "1582-10-01T00:00:00Z",
+          "end": "1583-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;UNTIL=15821016T235959Z;BYMONTH=10;BYMONTHDAY=8,15,18"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-10-01T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "daily-nominal-interval-2",
+      "input": {
+        "start": "1582-10-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;INTERVAL=2;BYMONTHDAY=8,14,15,16,18,19,20,31;COUNT=5"
+        ],
+        "window": {
+          "start": "1582-10-01T00:00:00Z",
+          "end": "1583-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=5;INTERVAL=2;BYMONTHDAY=8,14,15,16,18,19,20,31"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-10-01T09:00:00Z",
+          "1582-10-15T09:00:00Z",
+          "1582-10-16T09:00:00Z",
+          "1582-10-18T09:00:00Z",
+          "1582-10-24T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "daily-nominal-interval-3",
+      "input": {
+        "start": "1582-10-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;INTERVAL=3;BYMONTHDAY=8,14,15,16,18,19,20,31;COUNT=5"
+        ],
+        "window": {
+          "start": "1582-10-01T00:00:00Z",
+          "end": "1583-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=5;INTERVAL=3;BYMONTHDAY=8,14,15,16,18,19,20,31"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-10-01T09:00:00Z",
+          "1582-10-15T09:00:00Z",
+          "1582-10-16T09:00:00Z",
+          "1582-10-18T09:00:00Z",
+          "1582-10-24T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "daily-nominal-until-mid",
+      "input": {
+        "start": "1582-10-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;BYMONTHDAY=8,15,18;UNTIL=15821016T235959Z"
+        ],
+        "window": {
+          "start": "1582-10-01T00:00:00Z",
+          "end": "1583-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;UNTIL=15821016T235959Z;BYMONTHDAY=8,15,18"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-10-01T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "daily-nominal-with-weekday",
+      "input": {
+        "start": "1582-10-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;BYMONTHDAY=8,15,18,22;BYDAY=MO,FR;COUNT=4"
+        ],
+        "window": {
+          "start": "1582-10-01T00:00:00Z",
+          "end": "1583-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=4;BYMONTHDAY=8,15,18,22;BYDAY=MO,FR"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-10-01T09:00:00Z",
+          "1582-10-15T09:00:00Z",
+          "1582-10-18T09:00:00Z",
+          "1582-10-22T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "weekly-october-monday-2",
+      "input": {
+        "start": "1582-09-28T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;BYDAY=2MO"
+        ],
+        "window": {
+          "start": "1582-09-28T00:00:00Z",
+          "end": "1582-11-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=WEEKLY;BYDAY=2MO"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-09-28T09:00:00Z",
+          "1582-10-18T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "weekly-october-monday-3",
+      "input": {
+        "start": "1582-09-28T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;BYDAY=3MO"
+        ],
+        "window": {
+          "start": "1582-09-28T00:00:00Z",
+          "end": "1582-11-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=WEEKLY;BYDAY=3MO"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-09-28T09:00:00Z",
+          "1582-10-18T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "weekly-october-monday-4",
+      "input": {
+        "start": "1582-09-28T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;BYDAY=4MO"
+        ],
+        "window": {
+          "start": "1582-09-28T00:00:00Z",
+          "end": "1582-11-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=WEEKLY;BYDAY=4MO"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-09-28T09:00:00Z",
+          "1582-10-25T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "weekly-october-monday-5",
+      "input": {
+        "start": "1582-09-28T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;BYDAY=5MO"
+        ],
+        "window": {
+          "start": "1582-09-28T00:00:00Z",
+          "end": "1582-11-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=WEEKLY;BYDAY=5MO"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-09-28T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "weekly-october-monday--3",
+      "input": {
+        "start": "1582-09-28T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;BYDAY=-3MO"
+        ],
+        "window": {
+          "start": "1582-09-28T00:00:00Z",
+          "end": "1582-11-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=WEEKLY;BYDAY=-3MO"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-09-28T09:00:00Z",
+          "1582-10-25T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "weekly-october-monday--4",
+      "input": {
+        "start": "1582-09-28T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;BYDAY=-4MO"
+        ],
+        "window": {
+          "start": "1582-09-28T00:00:00Z",
+          "end": "1582-11-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=WEEKLY;BYDAY=-4MO"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-09-28T09:00:00Z",
+          "1582-10-18T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "monthly-october-monday-2",
+      "input": {
+        "start": "1582-09-28T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;BYDAY=2MO"
+        ],
+        "window": {
+          "start": "1582-09-28T00:00:00Z",
+          "end": "1582-11-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=MONTHLY;BYDAY=2MO"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-09-28T09:00:00Z",
+          "1582-10-18T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "monthly-october-monday-3",
+      "input": {
+        "start": "1582-09-28T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;BYDAY=3MO"
+        ],
+        "window": {
+          "start": "1582-09-28T00:00:00Z",
+          "end": "1582-11-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=MONTHLY;BYDAY=3MO"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-09-28T09:00:00Z",
+          "1582-10-18T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "monthly-october-monday-4",
+      "input": {
+        "start": "1582-09-28T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;BYDAY=4MO"
+        ],
+        "window": {
+          "start": "1582-09-28T00:00:00Z",
+          "end": "1582-11-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=MONTHLY;BYDAY=4MO"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-09-28T09:00:00Z",
+          "1582-10-25T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "monthly-october-monday-5",
+      "input": {
+        "start": "1582-09-28T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;BYDAY=5MO"
+        ],
+        "window": {
+          "start": "1582-09-28T00:00:00Z",
+          "end": "1582-11-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=MONTHLY;BYDAY=5MO"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-09-28T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "monthly-october-monday--3",
+      "input": {
+        "start": "1582-09-28T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;BYDAY=-3MO"
+        ],
+        "window": {
+          "start": "1582-09-28T00:00:00Z",
+          "end": "1582-11-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=MONTHLY;BYDAY=-3MO"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-09-28T09:00:00Z",
+          "1582-10-25T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "monthly-october-monday--4",
+      "input": {
+        "start": "1582-09-28T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;BYDAY=-4MO"
+        ],
+        "window": {
+          "start": "1582-09-28T00:00:00Z",
+          "end": "1582-11-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=MONTHLY;BYDAY=-4MO"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-09-28T09:00:00Z",
+          "1582-10-18T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "modern-daily-monthday-interval-2",
+      "input": {
+        "start": "2027-01-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;INTERVAL=2;COUNT=5;BYMONTHDAY=1,4,8,15"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-03-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=5;INTERVAL=2;BYMONTHDAY=1,4,8,15"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-01T09:00:00Z",
+          "2027-01-04T09:00:00Z",
+          "2027-01-08T09:00:00Z",
+          "2027-01-15T09:00:00Z",
+          "2027-02-01T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "modern-daily-monthday-interval-3",
+      "input": {
+        "start": "2027-01-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;INTERVAL=3;COUNT=5;BYMONTHDAY=1,4,8,15"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-03-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=5;INTERVAL=3;BYMONTHDAY=1,4,8,15"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-01T09:00:00Z",
+          "2027-01-04T09:00:00Z",
+          "2027-01-08T09:00:00Z",
+          "2027-01-15T09:00:00Z",
+          "2027-02-01T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "daily-monthday-weekday-interval-2",
+      "input": {
+        "start": "2027-01-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;INTERVAL=2;COUNT=5;BYMONTHDAY=1,4,8,15;BYDAY=MO,FR"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-05-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=5;INTERVAL=2;BYMONTHDAY=1,4,8,15;BYDAY=MO,FR"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-01T09:00:00Z",
+          "2027-01-04T09:00:00Z",
+          "2027-01-08T09:00:00Z",
+          "2027-01-15T09:00:00Z",
+          "2027-02-01T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "daily-month-filter-interval-2",
+      "input": {
+        "start": "2027-01-28T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;INTERVAL=2;COUNT=5;BYMONTH=2"
+        ],
+        "window": {
+          "start": "2027-01-28T00:00:00Z",
+          "end": "2027-03-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=5;INTERVAL=2;BYMONTH=2"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-28T09:00:00Z",
+          "2027-02-01T09:00:00Z",
+          "2027-02-03T09:00:00Z",
+          "2027-02-05T09:00:00Z",
+          "2027-02-07T09:00:00Z",
+          "2027-02-09T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "daily-exrule-monthday-interval-2",
+      "input": {
+        "start": "2027-01-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=12",
+          "EXRULE:FREQ=DAILY;COUNT=3;INTERVAL=2;BYMONTHDAY=1,4,8,15"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "EXRULE:FREQ=DAILY;COUNT=3;INTERVAL=2;BYMONTHDAY=1,4,8,15",
+          "RRULE:FREQ=DAILY;COUNT=12"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-02T09:00:00Z",
+          "2027-01-03T09:00:00Z",
+          "2027-01-05T09:00:00Z",
+          "2027-01-06T09:00:00Z",
+          "2027-01-07T09:00:00Z",
+          "2027-01-09T09:00:00Z",
+          "2027-01-10T09:00:00Z",
+          "2027-01-11T09:00:00Z",
+          "2027-01-12T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "daily-monthday-weekday-interval-3",
+      "input": {
+        "start": "2027-01-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;INTERVAL=3;COUNT=5;BYMONTHDAY=1,4,8,15;BYDAY=MO,FR"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-05-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=5;INTERVAL=3;BYMONTHDAY=1,4,8,15;BYDAY=MO,FR"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-01T09:00:00Z",
+          "2027-01-04T09:00:00Z",
+          "2027-01-08T09:00:00Z",
+          "2027-01-15T09:00:00Z",
+          "2027-02-01T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "daily-month-filter-interval-3",
+      "input": {
+        "start": "2027-01-28T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;INTERVAL=3;COUNT=5;BYMONTH=2"
+        ],
+        "window": {
+          "start": "2027-01-28T00:00:00Z",
+          "end": "2027-03-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=5;INTERVAL=3;BYMONTH=2"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-28T09:00:00Z",
+          "2027-02-03T09:00:00Z",
+          "2027-02-06T09:00:00Z",
+          "2027-02-09T09:00:00Z",
+          "2027-02-12T09:00:00Z",
+          "2027-02-15T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "daily-exrule-monthday-interval-3",
+      "input": {
+        "start": "2027-01-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=12",
+          "EXRULE:FREQ=DAILY;COUNT=3;INTERVAL=3;BYMONTHDAY=1,4,8,15"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "EXRULE:FREQ=DAILY;COUNT=3;INTERVAL=3;BYMONTHDAY=1,4,8,15",
+          "RRULE:FREQ=DAILY;COUNT=12"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-02T09:00:00Z",
+          "2027-01-03T09:00:00Z",
+          "2027-01-05T09:00:00Z",
+          "2027-01-06T09:00:00Z",
+          "2027-01-07T09:00:00Z",
+          "2027-01-09T09:00:00Z",
+          "2027-01-10T09:00:00Z",
+          "2027-01-11T09:00:00Z",
+          "2027-01-12T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "weekly-month-boundary",
+      "input": {
+        "start": "2027-03-29T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;COUNT=8;BYMONTH=4;BYDAY=MO,TH,SU"
+        ],
+        "window": {
+          "start": "2027-03-29T00:00:00Z",
+          "end": "2027-05-18T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=WEEKLY;COUNT=8;BYMONTH=4;BYDAY=MO,TH,SU"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-03-29T09:00:00Z",
+          "2027-04-01T09:00:00Z",
+          "2027-04-04T09:00:00Z",
+          "2027-04-05T09:00:00Z",
+          "2027-04-08T09:00:00Z",
+          "2027-04-11T09:00:00Z",
+          "2027-04-12T09:00:00Z",
+          "2027-04-15T09:00:00Z",
+          "2027-04-18T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "weekly-month-boundary;BYSETPOS=1",
+      "input": {
+        "start": "2027-03-29T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;COUNT=8;BYMONTH=4;BYDAY=MO,TH,SU;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "2027-03-29T00:00:00Z",
+          "end": "2027-05-18T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=WEEKLY;COUNT=8;BYMONTH=4;BYDAY=MO,TH,SU;BYSETPOS=1"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-03-29T09:00:00Z",
+          "2027-04-01T09:00:00Z",
+          "2027-04-05T09:00:00Z",
+          "2027-04-12T09:00:00Z",
+          "2027-04-19T09:00:00Z",
+          "2027-04-26T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "weekly-month-boundary;BYSETPOS=-1",
+      "input": {
+        "start": "2027-03-29T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;COUNT=8;BYMONTH=4;BYDAY=MO,TH,SU;BYSETPOS=-1"
+        ],
+        "window": {
+          "start": "2027-03-29T00:00:00Z",
+          "end": "2027-05-18T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=WEEKLY;COUNT=8;BYMONTH=4;BYDAY=MO,TH,SU;BYSETPOS=-1"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-03-29T09:00:00Z",
+          "2027-04-04T09:00:00Z",
+          "2027-04-11T09:00:00Z",
+          "2027-04-18T09:00:00Z",
+          "2027-04-25T09:00:00Z",
+          "2027-04-29T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "weekly-monthday-boundary",
+      "input": {
+        "start": "2027-03-29T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;COUNT=8;BYMONTH=4;BYMONTHDAY=1,4,5,25,26,29;BYDAY=MO,TH,SU"
+        ],
+        "window": {
+          "start": "2027-03-29T00:00:00Z",
+          "end": "2027-05-18T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=WEEKLY;COUNT=8;BYMONTH=4;BYMONTHDAY=1,4,5,25,26,29;BYDAY=MO,TH,SU"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-03-29T09:00:00Z",
+          "2027-04-01T09:00:00Z",
+          "2027-04-04T09:00:00Z",
+          "2027-04-05T09:00:00Z",
+          "2027-04-25T09:00:00Z",
+          "2027-04-26T09:00:00Z",
+          "2027-04-29T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "allday-monthly-julian-leap",
+      "input": {
+        "start": "1500-01-01",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;COUNT=4;BYMONTHDAY=-1"
+        ],
+        "window": {
+          "start": "1500-01-01T00:00:00Z",
+          "end": "1500-07-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=MONTHLY;COUNT=4;BYMONTHDAY=-1"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1500-01-01",
+          "1500-01-31",
+          "1500-03-01",
+          "1500-03-31",
+          "1500-04-30"
+        ]
+      }
+    },
+    {
+      "name": "allday-daily-reform-order",
+      "input": {
+        "start": "1582-10-01",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYMONTHDAY=8,15,18"
+        ],
+        "window": {
+          "start": "1582-10-01T00:00:00Z",
+          "end": "1582-11-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYMONTHDAY=8,15,18"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-10-01",
+          "1582-10-15",
+          "1582-10-18"
+        ]
+      }
+    },
+    {
+      "name": "monthly-gap-explicit-dates",
+      "input": {
+        "start": "1582-10-01T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;COUNT=3;BYMONTHDAY=8,15,18",
+          "RDATE:15821016T090000Z",
+          "EXDATE:15821018T090000Z"
+        ],
+        "window": {
+          "start": "1582-10-01T00:00:00Z",
+          "end": "1582-12-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "EXDATE;VALUE=DATE-TIME:15821018T090000Z",
+          "RDATE;VALUE=DATE-TIME:15821016T090000Z",
+          "RRULE:FREQ=MONTHLY;COUNT=3;BYMONTHDAY=8,15,18"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-10-01T09:00:00Z",
+          "1582-10-15T09:00:00Z",
+          "1582-10-16T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "weekly-overlapping-ordinals-count",
+      "input": {
+        "start": "1582-09-28T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;COUNT=3;BYDAY=2MO,3MO"
+        ],
+        "window": {
+          "start": "1582-09-28T00:00:00Z",
+          "end": "1583-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=WEEKLY;COUNT=3;BYDAY=2MO,3MO"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-09-28T09:00:00Z",
+          "1582-10-18T09:00:00Z",
+          "1582-11-08T09:00:00Z",
+          "1582-11-15T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "monthly-overlapping-ordinals-count",
+      "input": {
+        "start": "1582-09-28T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;COUNT=3;BYDAY=2MO,3MO"
+        ],
+        "window": {
+          "start": "1582-09-28T00:00:00Z",
+          "end": "1583-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=MONTHLY;COUNT=3;BYDAY=2MO,3MO"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1582-09-28T09:00:00Z",
+          "1582-10-18T09:00:00Z",
+          "1582-11-08T09:00:00Z",
+          "1582-11-15T09:00:00Z"
+        ]
+      }
+    }
+  ]
+}

@@ -1349,7 +1349,7 @@
         "through": "2026-12-31"
       },
       "expected": {
-        "error": "can't compare offset-naive and offset-aware datetimes"
+        "expansionError": "can't compare offset-naive and offset-aware datetimes"
       }
     },
     {
@@ -1364,7 +1364,7 @@
         "through": "2026-12-31"
       },
       "expected": {
-        "error": "can't compare offset-naive and offset-aware datetimes"
+        "expansionError": "can't compare offset-naive and offset-aware datetimes"
       }
     },
     {
@@ -1379,7 +1379,7 @@
         "through": "2026-12-31"
       },
       "expected": {
-        "error": "can't compare offset-naive and offset-aware datetimes"
+        "expansionError": "can't compare offset-naive and offset-aware datetimes"
       }
     },
     {
@@ -1456,7 +1456,7 @@
         "through": "2026-01-07"
       },
       "expected": {
-        "error": "can't compare offset-naive and offset-aware datetimes"
+        "expansionError": "can't compare offset-naive and offset-aware datetimes"
       }
     },
     {
@@ -1471,7 +1471,7 @@
         "through": "2026-01-07"
       },
       "expected": {
-        "error": "can't compare offset-naive and offset-aware datetimes"
+        "expansionError": "can't compare offset-naive and offset-aware datetimes"
       }
     },
     {
@@ -1486,7 +1486,7 @@
         "through": "2026-01-07"
       },
       "expected": {
-        "error": "can't compare offset-naive and offset-aware datetimes"
+        "expansionError": "can't compare offset-naive and offset-aware datetimes"
       }
     },
     {
@@ -1501,7 +1501,7 @@
         "through": "2026-01-07"
       },
       "expected": {
-        "error": "can't compare offset-naive and offset-aware datetimes"
+        "expansionError": "can't compare offset-naive and offset-aware datetimes"
       }
     },
     {
@@ -1515,7 +1515,7 @@
         "through": "2026-01-07"
       },
       "expected": {
-        "error": "can't compare offset-naive and offset-aware datetimes"
+        "expansionError": "can't compare offset-naive and offset-aware datetimes"
       }
     },
     {
@@ -1529,8 +1529,1286 @@
         "through": "2026-01-07"
       },
       "expected": {
-        "error": "can't compare offset-naive and offset-aware datetimes"
+        "expansionError": "can't compare offset-naive and offset-aware datetimes"
       }
+    },
+    {
+      "name": "bare-rdate-on-timed-series",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=1",
+          "RDATE:20260102"
+        ],
+        "profile": "dateutil",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-02T00:00:00"
+      ]
+    },
+    {
+      "name": "bare-exdate-on-timed-series",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE:20260102"
+        ],
+        "profile": "dateutil",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-02T09:00:00",
+        "2026-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "bare-exdate-exact-midnight",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE:20260102"
+        ],
+        "profile": "dateutil",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-01-01T00:00:00",
+        "2026-01-03T00:00:00"
+      ]
+    },
+    {
+      "name": "mixed-bare-and-timed-rdates",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=1",
+          "RDATE:20260102,20260103T113000"
+        ],
+        "profile": "dateutil",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-02T00:00:00",
+        "2026-01-03T11:30:00"
+      ]
+    },
+    {
+      "name": "bare-rdate-exdate-on-civil-series",
+      "input": {
+        "lines": [
+          "DTSTART:20260101",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20260105",
+          "EXDATE:20260102"
+        ],
+        "profile": "dateutil",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-01-01",
+        "2026-01-03",
+        "2026-01-05"
+      ]
+    },
+    {
+      "name": "fold-exdate-utc-before-wall-with-rdate",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261101T013000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:20261101T053000Z",
+          "EXDATE:20261101T053000Z",
+          "EXDATE;TZID=America/New_York:20261101T013000"
+        ],
+        "profile": "dateutil",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-11-01T05:30:00Z",
+        "2026-11-02T06:30:00Z"
+      ]
+    },
+    {
+      "name": "fold-exdate-wall-before-utc-with-rdate",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261101T013000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:20261101T053000Z",
+          "EXDATE;TZID=America/New_York:20261101T013000",
+          "EXDATE:20261101T053000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-11-01T05:30:00Z",
+        "2026-11-02T06:30:00Z"
+      ]
+    },
+    {
+      "name": "fold-exdate-utc-before-wall-rule-only",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261101T013000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE:20261101T053000Z",
+          "EXDATE;TZID=America/New_York:20261101T013000"
+        ],
+        "profile": "dateutil",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-11-01T05:30:00Z",
+        "2026-11-02T06:30:00Z"
+      ]
+    },
+    {
+      "name": "fold-exdate-wall-before-utc-rule-only",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261101T013000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE;TZID=America/New_York:20261101T013000",
+          "EXDATE:20261101T053000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-11-02T06:30:00Z"
+      ]
+    },
+    {
+      "name": "fold-exdate-first-competing-value-on-later-occurrence",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261031T013000",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20261101T053000Z",
+          "EXDATE:20261102T063000Z,20261101T053000Z",
+          "EXDATE;TZID=America/New_York:20261101T013000"
+        ],
+        "profile": "dateutil",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-10-31T05:30:00Z",
+        "2026-11-01T05:30:00Z"
+      ]
+    },
+    {
+      "name": "gap-exrule-excludes-utc-rdate-without-rrule",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T003000",
+          "RDATE:20260308T063000Z",
+          "EXRULE:FREQ=DAILY;BYHOUR=2;COUNT=1"
+        ],
+        "profile": "dateutil",
+        "through": "2026-12-31"
+      },
+      "expected": []
+    },
+    {
+      "name": "gap-exrule-excludes-utc-rdate-with-rrule",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T003000",
+          "RRULE:FREQ=HOURLY;COUNT=4",
+          "RDATE:20260308T063000Z",
+          "EXRULE:FREQ=DAILY;BYHOUR=2;COUNT=1"
+        ],
+        "profile": "dateutil",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-03-08T05:30:00Z",
+        "2026-03-08T07:30:00Z"
+      ]
+    },
+    {
+      "name": "gap-exrule-keeps-other-wall-occurrence",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T003000",
+          "RRULE:FREQ=HOURLY;COUNT=4",
+          "EXRULE:FREQ=DAILY;BYHOUR=2;COUNT=1"
+        ],
+        "profile": "dateutil",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-03-08T05:30:00Z",
+        "2026-03-08T06:30:00Z",
+        "2026-03-08T07:30:00Z"
+      ]
+    },
+    {
+      "name": "gap-utc-rdate-tie-after-an-earlier-rdate-removes-wall-real",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T003000",
+          "RRULE:FREQ=HOURLY;COUNT=5",
+          "RDATE:20260308T060000Z,20260308T063000Z",
+          "EXRULE:FREQ=DAILY;BYHOUR=1;COUNT=1"
+        ],
+        "profile": "dateutil",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-03-08T05:30:00Z",
+        "2026-03-08T06:00:00Z",
+        "2026-03-08T06:30:00Z",
+        "2026-03-08T07:30:00Z",
+        "2026-03-08T08:30:00Z"
+      ]
+    },
+    {
+      "name": "gap-utc-rdate-tie-after-an-earlier-rdate-removes-wall-gap",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T003000",
+          "RRULE:FREQ=HOURLY;COUNT=5",
+          "RDATE:20260308T060000Z,20260308T063000Z",
+          "EXRULE:FREQ=DAILY;BYHOUR=2;COUNT=1"
+        ],
+        "profile": "dateutil",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-03-08T05:30:00Z",
+        "2026-03-08T06:00:00Z",
+        "2026-03-08T06:30:00Z",
+        "2026-03-08T07:30:00Z",
+        "2026-03-08T08:30:00Z"
+      ]
+    },
+    {
+      "name": "gap-rdate-and-exrule-match-multiple-instants",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T003000",
+          "RRULE:FREQ=HOURLY;COUNT=5",
+          "RDATE:20260308T060000Z,20260308T063000Z",
+          "EXRULE:FREQ=DAILY;BYHOUR=2;BYMINUTE=0,30;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-03-08T05:30:00Z",
+        "2026-03-08T06:30:00Z",
+        "2026-03-08T07:30:00Z",
+        "2026-03-08T08:30:00Z"
+      ]
+    },
+    {
+      "name": "gap-subdaily-rdate-tie-retains-another-wall-occurrence",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T003000",
+          "RRULE:FREQ=MINUTELY;INTERVAL=30;COUNT=9",
+          "RDATE:20260308T062000Z,20260308T063000Z",
+          "EXRULE:FREQ=DAILY;BYHOUR=2;COUNT=1"
+        ],
+        "profile": "dateutil",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-03-08T05:30:00Z",
+        "2026-03-08T06:00:00Z",
+        "2026-03-08T06:00:00Z",
+        "2026-03-08T06:20:00Z",
+        "2026-03-08T06:30:00Z",
+        "2026-03-08T07:00:00Z",
+        "2026-03-08T07:30:00Z",
+        "2026-03-08T08:00:00Z",
+        "2026-03-08T08:30:00Z"
+      ]
+    },
+    {
+      "name": "gap-excluded-dtstart-still-advances-rule-before-merge",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T003000",
+          "RRULE:FREQ=HOURLY;COUNT=5",
+          "RDATE:20260308T063000Z",
+          "EXDATE;TZID=America/New_York:20260308T003000",
+          "EXRULE:FREQ=DAILY;BYHOUR=2;COUNT=1"
+        ],
+        "profile": "dateutil",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-03-08T07:30:00Z",
+        "2026-03-08T08:30:00Z"
+      ]
+    },
+    {
+      "name": "gap-excluded-rdate-still-advances-date-stream",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T003000",
+          "RRULE:FREQ=HOURLY;COUNT=5",
+          "RDATE:20260308T060000Z,20260308T063000Z",
+          "EXDATE:20260308T060000Z",
+          "EXRULE:FREQ=DAILY;BYHOUR=2;COUNT=1"
+        ],
+        "profile": "dateutil",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-03-08T05:30:00Z",
+        "2026-03-08T06:30:00Z",
+        "2026-03-08T07:30:00Z",
+        "2026-03-08T08:30:00Z"
+      ]
+    },
+    {
+      "name": "gap-excluded-earlier-rdate-leaves-two-wall-values",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T003000",
+          "RRULE:FREQ=HOURLY;COUNT=5",
+          "RDATE:20260308T060000Z,20260308T063000Z",
+          "EXDATE:20260308T060000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-03-08T05:30:00Z",
+        "2026-03-08T06:30:00Z",
+        "2026-03-08T06:30:00Z",
+        "2026-03-08T07:30:00Z",
+        "2026-03-08T08:30:00Z"
+      ]
+    },
+    {
+      "name": "gap-exdate-applies-after-adjacent-rdate",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T003000",
+          "RRULE:FREQ=HOURLY;COUNT=5",
+          "RDATE:20260308T063000Z",
+          "EXDATE;TZID=America/New_York:20260308T013000"
+        ],
+        "profile": "dateutil",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-03-08T05:30:00Z",
+        "2026-03-08T07:30:00Z",
+        "2026-03-08T08:30:00Z"
+      ]
+    },
+    {
+      "name": "gap-two-rules-rdate",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T003000",
+          "RRULE:FREQ=HOURLY;COUNT=5",
+          "RRULE:FREQ=DAILY;BYHOUR=2;BYMINUTE=30;COUNT=1",
+          "RDATE:20260308T063000Z",
+          "EXRULE:FREQ=DAILY;BYHOUR=2;COUNT=1"
+        ],
+        "profile": "dateutil",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-03-08T05:30:00Z",
+        "2026-03-08T06:30:00Z",
+        "2026-03-08T07:30:00Z",
+        "2026-03-08T08:30:00Z"
+      ]
+    },
+    {
+      "name": "gap-excluded-dtstart-still-advances-rule-without-exrule",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T003000",
+          "RRULE:FREQ=HOURLY;COUNT=5",
+          "RDATE:20260308T063000Z",
+          "EXDATE;TZID=America/New_York:20260308T003000"
+        ],
+        "profile": "dateutil",
+        "through": "2026-12-31"
+      },
+      "expected": [
+        "2026-03-08T06:30:00Z",
+        "2026-03-08T07:30:00Z",
+        "2026-03-08T08:30:00Z"
+      ]
+    },
+    {
+      "name": "gap-multiple-rrules-and-rdate-merge-once",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T003000",
+          "RRULE:FREQ=DAILY;BYHOUR=0;BYMINUTE=45;COUNT=1",
+          "RRULE:FREQ=DAILY;BYHOUR=2;BYMINUTE=30;COUNT=1",
+          "RDATE:20260308T063000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-10"
+      },
+      "expected": [
+        "2026-03-08T05:45:00Z",
+        "2026-03-08T06:30:00Z"
+      ]
+    },
+    {
+      "name": "gap-multiple-rrules-later-candidate-and-rdate",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T003000",
+          "RRULE:FREQ=DAILY;BYHOUR=3;BYMINUTE=30;COUNT=1",
+          "RRULE:FREQ=DAILY;BYHOUR=2;BYMINUTE=30;COUNT=1",
+          "RDATE:20260308T063000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-10"
+      },
+      "expected": [
+        "2026-03-08T06:30:00Z",
+        "2026-03-08T07:30:00Z"
+      ]
+    },
+    {
+      "name": "fold-utc-exdate-and-wall-exrule",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261101T013000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:20261101T053000Z",
+          "EXDATE:20261101T053000Z",
+          "EXRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "profile": "dateutil",
+        "through": "2026-11-03"
+      },
+      "expected": [
+        "2026-11-01T05:30:00Z",
+        "2026-11-02T06:30:00Z"
+      ]
+    },
+    {
+      "name": "fold-wall-exdate-and-wall-exrule",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261101T013000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:20261101T053000Z",
+          "EXDATE;TZID=America/New_York:20261101T013000",
+          "EXRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "profile": "dateutil",
+        "through": "2026-11-03"
+      },
+      "expected": [
+        "2026-11-01T05:30:00Z",
+        "2026-11-02T06:30:00Z"
+      ]
+    },
+    {
+      "name": "gap-exrule-reverses-order-of-utc-candidates",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T003000",
+          "RRULE:FREQ=MINUTELY;INTERVAL=30;COUNT=9",
+          "RDATE:20260308T062000Z,20260308T063000Z",
+          "EXRULE:FREQ=DAILY;BYHOUR=2;BYMINUTE=0,30;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-10"
+      },
+      "expected": [
+        "2026-03-08T05:30:00Z",
+        "2026-03-08T06:00:00Z",
+        "2026-03-08T06:00:00Z",
+        "2026-03-08T06:20:00Z",
+        "2026-03-08T06:30:00Z",
+        "2026-03-08T07:00:00Z",
+        "2026-03-08T07:30:00Z",
+        "2026-03-08T08:00:00Z",
+        "2026-03-08T08:30:00Z"
+      ]
+    },
+    {
+      "name": "gap-utc-exdate-can-retain-later-wall-candidate",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T003000",
+          "RRULE:FREQ=MINUTELY;INTERVAL=30;COUNT=9",
+          "RDATE:20260308T063000Z",
+          "EXDATE:20260308T060000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-10"
+      },
+      "expected": [
+        "2026-03-08T05:30:00Z",
+        "2026-03-08T06:00:00Z",
+        "2026-03-08T06:30:00Z",
+        "2026-03-08T06:30:00Z",
+        "2026-03-08T07:00:00Z",
+        "2026-03-08T07:30:00Z",
+        "2026-03-08T08:00:00Z",
+        "2026-03-08T08:30:00Z"
+      ]
+    },
+    {
+      "name": "apia-skipped-date-tzif-wall-cutoff",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Apia:20111230T223000",
+          "RRULE:FREQ=MINUTELY;INTERVAL=30;COUNT=5"
+        ],
+        "profile": "dateutil",
+        "through": "2011-12-31"
+      },
+      "expected": [
+        "2011-12-30T09:00:00Z",
+        "2011-12-30T09:30:00Z",
+        "2011-12-30T10:00:00Z",
+        "2011-12-30T10:30:00Z",
+        "2011-12-31T08:30:00Z"
+      ]
+    },
+    {
+      "name": "apia-skipped-date-spans-utc-read-windows",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Apia:20111229T003000",
+          "RRULE:FREQ=HOURLY;INTERVAL=2;COUNT=23",
+          "RDATE:20111229T203000Z",
+          "EXDATE;TZID=Pacific/Apia:20111230T123000",
+          "EXRULE:FREQ=DAILY;BYHOUR=0;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2012-01-02"
+      },
+      "expected": [
+        "2011-12-29T12:30:00Z",
+        "2011-12-29T14:30:00Z",
+        "2011-12-29T16:30:00Z",
+        "2011-12-29T18:30:00Z",
+        "2011-12-29T20:30:00Z",
+        "2011-12-29T22:30:00Z",
+        "2011-12-30T00:30:00Z",
+        "2011-12-30T02:30:00Z",
+        "2011-12-30T04:30:00Z",
+        "2011-12-30T06:30:00Z",
+        "2011-12-30T08:30:00Z",
+        "2011-12-30T12:30:00Z",
+        "2011-12-30T14:30:00Z",
+        "2011-12-30T16:30:00Z",
+        "2011-12-30T18:30:00Z",
+        "2011-12-30T20:30:00Z",
+        "2011-12-31T00:30:00Z",
+        "2011-12-31T02:30:00Z",
+        "2011-12-31T04:30:00Z",
+        "2011-12-31T06:30:00Z"
+      ]
+    },
+    {
+      "name": "mixed-byday-disjoint-masks",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=MONTHLY;BYDAY=MO,1TU;UNTIL=20260630T235959Z"
+        ],
+        "through": "2027-12-31",
+        "profile": "dateutil"
+      },
+      "expected": []
+    },
+    {
+      "name": "mixed-byday-overlapping-monthly-masks",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=MONTHLY;BYDAY=MO,1MO;COUNT=3"
+        ],
+        "through": "2027-12-31",
+        "profile": "dateutil"
+      },
+      "expected": [
+        "2026-01-05T09:00:00Z",
+        "2026-02-02T09:00:00Z",
+        "2026-03-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "mixed-byday-overlapping-yearly-masks-with-months",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=YEARLY;BYMONTH=1,2;BYDAY=MO,-1MO;COUNT=3"
+        ],
+        "through": "2027-12-31",
+        "profile": "dateutil"
+      },
+      "expected": [
+        "2026-01-26T09:00:00Z",
+        "2026-02-23T09:00:00Z",
+        "2027-01-25T09:00:00Z"
+      ]
+    },
+    {
+      "name": "mixed-byday-exrule-uses-intersection",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=WEEKLY;BYDAY=MO;COUNT=6",
+          "EXRULE:FREQ=MONTHLY;BYDAY=MO,1MO;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "profile": "dateutil"
+      },
+      "expected": [
+        "2026-01-12T09:00:00Z",
+        "2026-01-19T09:00:00Z",
+        "2026-01-26T09:00:00Z",
+        "2026-02-09T09:00:00Z"
+      ]
+    },
+    {
+      "name": "week-53-sunday-previous-year-mask",
+      "input": {
+        "lines": [
+          "DTSTART:20230428T090000Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=2;BYMONTH=1,5;BYWEEKNO=53;BYDAY=WE,TU,FR;BYHOUR=7,9,11;WKST=SU"
+        ],
+        "profile": "dateutil",
+        "through": "2028-12-31"
+      },
+      "expected": [
+        "2027-01-01T07:00:00Z",
+        "2027-01-01T09:00:00Z",
+        "2027-01-01T11:00:00Z"
+      ]
+    },
+    {
+      "name": "last-week-sunday-crosses-new-year",
+      "input": {
+        "lines": [
+          "DTSTART:20251229T090000Z",
+          "RRULE:FREQ=YEARLY;BYWEEKNO=-1;WKST=SU;COUNT=10"
+        ],
+        "profile": "dateutil",
+        "through": "2027-12-31"
+      },
+      "expected": [
+        "2025-12-29T09:00:00Z",
+        "2025-12-30T09:00:00Z",
+        "2025-12-31T09:00:00Z",
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z",
+        "2026-12-27T09:00:00Z",
+        "2026-12-28T09:00:00Z",
+        "2026-12-29T09:00:00Z",
+        "2026-12-30T09:00:00Z"
+      ]
+    },
+    {
+      "name": "week-one-calendar-year-boundary",
+      "input": {
+        "lines": [
+          "DTSTART:20241223T090000Z",
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1;WKST=TH;BYSETPOS=-1;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2028-12-31"
+      },
+      "expected": [
+        "2025-01-08T09:00:00Z",
+        "2026-12-31T09:00:00Z",
+        "2027-12-31T09:00:00Z",
+        "2028-01-05T09:00:00Z"
+      ]
+    },
+    {
+      "name": "monthly-week-53-uses-calendar-year-mask",
+      "input": {
+        "lines": [
+          "DTSTART:20261226T090000Z",
+          "RRULE:FREQ=MONTHLY;BYWEEKNO=53;WKST=SU;UNTIL=20270110T235959Z;BYHOUR=9"
+        ],
+        "profile": "dateutil",
+        "through": "2027-01-10"
+      },
+      "expected": [
+        "2027-01-01T09:00:00Z",
+        "2027-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "daily-week-53-uses-calendar-year-mask",
+      "input": {
+        "lines": [
+          "DTSTART:20261226T090000Z",
+          "RRULE:FREQ=DAILY;BYWEEKNO=53;WKST=SU;UNTIL=20270110T235959Z;BYHOUR=9"
+        ],
+        "profile": "dateutil",
+        "through": "2027-01-10"
+      },
+      "expected": [
+        "2027-01-01T09:00:00Z",
+        "2027-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "hourly-week-53-uses-calendar-year-mask",
+      "input": {
+        "lines": [
+          "DTSTART:20261226T090000Z",
+          "RRULE:FREQ=HOURLY;BYWEEKNO=53;WKST=SU;UNTIL=20270110T235959Z;BYHOUR=9"
+        ],
+        "profile": "dateutil",
+        "through": "2027-01-10"
+      },
+      "expected": [
+        "2027-01-01T09:00:00Z",
+        "2027-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "weekly-week-53-retains-first-period-mask",
+      "input": {
+        "lines": [
+          "DTSTART:20261231T090000Z",
+          "RRULE:FREQ=WEEKLY;BYWEEKNO=53;WKST=SU;UNTIL=20270110T235959Z"
+        ],
+        "profile": "dateutil",
+        "through": "2027-01-10"
+      },
+      "expected": []
+    },
+    {
+      "name": "byeaster-count-lookahead-invalid-offset",
+      "input": {
+        "lines": [
+          "DTSTART:20260408T090000",
+          "RRULE:FREQ=MONTHLY;BYEASTER=23,267;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2029-12-31"
+      },
+      "expected": {
+        "expansionError": "list assignment index out of range"
+      }
+    },
+    {
+      "name": "byeaster-count-stops-before-invalid-offset",
+      "input": {
+        "lines": [
+          "DTSTART:20260408T090000",
+          "RRULE:FREQ=MONTHLY;BYEASTER=23,267;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2029-12-31"
+      },
+      "expected": [
+        "2026-04-28T09:00:00",
+        "2026-12-28T09:00:00",
+        "2027-04-20T09:00:00"
+      ]
+    },
+    {
+      "name": "byeaster-exrule-count-lookahead-invalid-offset",
+      "input": {
+        "lines": [
+          "DTSTART:20260408T090000",
+          "RRULE:FREQ=YEARLY;COUNT=4",
+          "EXRULE:FREQ=MONTHLY;BYEASTER=23,267;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2029-12-31"
+      },
+      "expected": {
+        "expansionError": "list assignment index out of range"
+      }
+    },
+    {
+      "name": "byeaster-until-lookahead-invalid-offset",
+      "input": {
+        "lines": [
+          "DTSTART:20260408T090000",
+          "RRULE:FREQ=MONTHLY;BYEASTER=23,267;COUNT=4;UNTIL=20271231T235959"
+        ],
+        "profile": "dateutil",
+        "through": "2029-12-31"
+      },
+      "expected": {
+        "expansionError": "list assignment index out of range"
+      }
+    },
+    {
+      "name": "byeaster-mask-checked-before-other-selectors",
+      "input": {
+        "lines": [
+          "DTSTART:20281201T090000",
+          "RRULE:FREQ=YEARLY;BYMONTH=12;BYDAY=5MO;BYEASTER=274;COUNT=0"
+        ],
+        "profile": "dateutil",
+        "through": "2030-12-31"
+      },
+      "expected": {
+        "expansionError": "list assignment index out of range"
+      }
+    },
+    {
+      "name": "parenthesized-weekday-ordinal",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=MONTHLY;BYWEEKDAY=MO(+1);COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2028-12-31"
+      },
+      "expected": [
+        "2026-01-05T09:00:00Z",
+        "2026-02-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "byweekday-alias",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=WEEKLY;BYWEEKDAY=MO;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2028-12-31"
+      },
+      "expected": [
+        "2026-01-05T09:00:00Z",
+        "2026-01-12T09:00:00Z"
+      ]
+    },
+    {
+      "name": "byweekday-alias-overrides-byday",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=WEEKLY;BYDAY=FR;BYWEEKDAY=MO;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2028-12-31"
+      },
+      "expected": [
+        "2026-01-05T09:00:00Z",
+        "2026-01-12T09:00:00Z"
+      ]
+    },
+    {
+      "name": "byday-overrides-byweekday-alias",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=WEEKLY;BYWEEKDAY=MO;BYDAY=FR;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2028-12-31"
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-09T09:00:00Z"
+      ]
+    },
+    {
+      "name": "unknown-rule-selector",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=MONTHLY;BYMONTHDAYS=13;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2028-12-31"
+      },
+      "expected": {
+        "error": "unknown parameter 'BYMONTHDAYS'"
+      }
+    },
+    {
+      "name": "unknown-exrule-selector",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXRULE:FREQ=DAILY;BYMONTHDAYS=13"
+        ],
+        "profile": "dateutil",
+        "through": "2028-12-31"
+      },
+      "expected": {
+        "error": "unknown parameter 'BYMONTHDAYS'"
+      }
+    },
+    {
+      "name": "unknown-recurrence-property",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "X-FOO:bar"
+        ],
+        "profile": "dateutil",
+        "through": "2028-12-31"
+      },
+      "expected": {
+        "error": "unsupported property: X-FOO"
+      }
+    },
+    {
+      "name": "rule-property-parameters-unsupported",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE;VALUE=RECUR:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2028-12-31"
+      },
+      "expected": {
+        "error": "unsupported RRULE parm: VALUE=RECUR"
+      }
+    },
+    {
+      "name": "inline-start-with-explicit-start",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2;DTSTART=20260105T090000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2028-12-31"
+      },
+      "expected": {
+        "error": "unknown parameter 'DTSTART'"
+      }
+    },
+    {
+      "name": "invalid-weekday-rejected",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=MONTHLY;COUNT=2;BYDAY=FUNDAY"
+        ],
+        "profile": "dateutil",
+        "through": "2028-12-31"
+      },
+      "expected": {
+        "error": "invalid 'BYDAY': FUNDAY"
+      }
+    },
+    {
+      "name": "zero-weekday-ordinal-rejected",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=MONTHLY;COUNT=2;BYDAY=0MO"
+        ],
+        "profile": "dateutil",
+        "through": "2028-12-31"
+      },
+      "expected": {
+        "error": "invalid 'BYDAY': 0MO"
+      }
+    },
+    {
+      "name": "zero-set-position-rejected",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=MONTHLY;COUNT=2;BYDAY=MO;BYSETPOS=0"
+        ],
+        "profile": "dateutil",
+        "through": "2028-12-31"
+      },
+      "expected": {
+        "error": "bysetpos must be between 1 and 366, or between -366 and -1"
+      }
+    },
+    {
+      "name": "out-of-range-set-position-rejected",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=MONTHLY;COUNT=2;BYDAY=MO;BYSETPOS=367"
+        ],
+        "profile": "dateutil",
+        "through": "2028-12-31"
+      },
+      "expected": {
+        "error": "bysetpos must be between 1 and 366, or between -366 and -1"
+      }
+    },
+    {
+      "name": "malformed-scalar-monthday",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=MONTHLY;COUNT=2;BYMONTHDAY=12X"
+        ],
+        "profile": "dateutil",
+        "through": "2028-12-31"
+      },
+      "expected": {
+        "error": "invalid 'BYMONTHDAY': 12X"
+      }
+    },
+    {
+      "name": "malformed-count",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=MONTHLY;COUNT=ABC"
+        ],
+        "profile": "dateutil",
+        "through": "2028-12-31"
+      },
+      "expected": {
+        "error": "invalid 'COUNT': ABC"
+      }
+    },
+    {
+      "name": "integer-digit-separator",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;INTERVAL=1_0;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2028-12-31"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-11T09:00:00Z"
+      ]
+    },
+    {
+      "name": "set-position-last-valid-value-wins",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=MONTHLY;COUNT=2;BYDAY=MO;BYSETPOS=0;BYSETPOS=1"
+        ],
+        "profile": "dateutil",
+        "through": "2028-12-31"
+      },
+      "expected": [
+        "2026-01-05T09:00:00Z",
+        "2026-02-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "set-position-last-invalid-value-rejects",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=MONTHLY;COUNT=2;BYDAY=MO;BYSETPOS=1;BYSETPOS=0"
+        ],
+        "profile": "dateutil",
+        "through": "2028-12-31"
+      },
+      "expected": {
+        "error": "bysetpos must be between 1 and 366, or between -366 and -1"
+      }
+    },
+    {
+      "name": "repeated-start-precedence",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "DTSTART:20260105T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2028-12-31"
+      },
+      "expected": [
+        "2026-01-05T09:00:00Z",
+        "2026-01-06T09:00:00Z"
+      ]
+    },
+    {
+      "name": "dtstart-rejects-unknown-parameter",
+      "input": {
+        "lines": [
+          "DTSTART;X-FOO=BAR:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2028-12-31"
+      },
+      "expected": {
+        "error": "unsupported parm: X-FOO=BAR"
+      }
+    },
+    {
+      "name": "overwritten-dtstart-rejects-unknown-parameter",
+      "input": {
+        "lines": [
+          "DTSTART;X-FOO=BAR:20260101T090000Z",
+          "DTSTART:20260105T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2028-12-31"
+      },
+      "expected": {
+        "error": "unsupported parm: X-FOO=BAR"
+      }
+    },
+    {
+      "name": "exdate-rejects-unknown-parameter",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE;X-FOO=BAR:20260102T090000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2028-12-31"
+      },
+      "expected": {
+        "error": "unsupported parm: X-FOO=BAR"
+      }
+    },
+    {
+      "name": "dtstart-rejects-duplicate-value-parameter",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE-TIME;VALUE=DATE-TIME:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2028-12-31"
+      },
+      "expected": {
+        "error": "Duplicate value parameter found in: VALUE=DATE-TIME"
+      }
+    },
+    {
+      "name": "external-milliseconds-daily",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "dtstart": {
+          "dateTime": "2026-01-01T09:00:59.125Z"
+        },
+        "through": "2026-01-04"
+      },
+      "expected": [
+        "2026-01-01T09:00:59Z",
+        "2026-01-02T09:00:59Z",
+        "2026-01-03T09:00:59Z"
+      ]
+    },
+    {
+      "name": "external-milliseconds-hourly",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=HOURLY;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "dtstart": {
+          "dateTime": "2026-01-01T09:00:59.125Z"
+        },
+        "through": "2026-01-04"
+      },
+      "expected": [
+        "2026-01-01T09:00:59Z",
+        "2026-01-01T10:00:59Z",
+        "2026-01-01T11:00:59Z"
+      ]
+    },
+    {
+      "name": "external-milliseconds-minutely",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=MINUTELY;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "dtstart": {
+          "dateTime": "2026-01-01T09:00:59.125Z"
+        },
+        "through": "2026-01-04"
+      },
+      "expected": [
+        "2026-01-01T09:00:59Z",
+        "2026-01-01T09:01:59Z",
+        "2026-01-01T09:02:59Z"
+      ]
+    },
+    {
+      "name": "external-milliseconds-secondly",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=SECONDLY;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "dtstart": {
+          "dateTime": "2026-01-01T09:00:59.125Z"
+        },
+        "through": "2026-01-04"
+      },
+      "expected": [
+        "2026-01-01T09:00:59Z",
+        "2026-01-01T09:01:00Z",
+        "2026-01-01T09:01:01Z"
+      ]
+    },
+    {
+      "name": "external-milliseconds-exrule-and-rdate",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=SECONDLY;COUNT=4",
+          "EXRULE:FREQ=SECONDLY;INTERVAL=2;COUNT=2",
+          "RDATE:20260101T090105Z"
+        ],
+        "profile": "dateutil",
+        "dtstart": {
+          "dateTime": "2026-01-01T09:00:59.125Z"
+        },
+        "through": "2026-01-04"
+      },
+      "expected": [
+        "2026-01-01T09:01:00Z",
+        "2026-01-01T09:01:02Z",
+        "2026-01-01T09:01:05Z"
+      ]
+    },
+    {
+      "name": "overwidth-padded-hour",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=009;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-01-02",
+        "checkpoints": [
+          "2026-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
     }
   ]
 }

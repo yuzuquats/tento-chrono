@@ -1,0 +1,161 @@
+{
+  "type": "test_graph_master",
+  "name": "Graph master timezone overrides",
+  "cases": [
+    {
+      "name": "override beats a fixed Windows offset",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-01-05T09:00:00",
+            "timeZone": "India Standard Time"
+          },
+          "recurrence": {
+            "pattern": {
+              "type": "daily",
+              "interval": 1
+            },
+            "range": {
+              "type": "numbered",
+              "startDate": "2026-01-05",
+              "numberOfOccurrences": 2,
+              "recurrenceTimeZone": "India Standard Time"
+            }
+          }
+        },
+        "resolveTimeZone": {
+          "India Standard Time": "UTC"
+        },
+        "through": "2026-01-06"
+      },
+      "expected": [
+        "2026-01-05T09:00:00Z",
+        "2026-01-06T09:00:00Z"
+      ]
+    },
+    {
+      "name": "undefined uses the Windows offset",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-01-05T09:00:00",
+            "timeZone": "India Standard Time"
+          },
+          "recurrence": {
+            "pattern": {
+              "type": "daily",
+              "interval": 1
+            },
+            "range": {
+              "type": "numbered",
+              "startDate": "2026-01-05",
+              "numberOfOccurrences": 2,
+              "recurrenceTimeZone": "India Standard Time"
+            }
+          }
+        },
+        "resolveTimeZone": {
+          "Eastern Standard Time": "UTC"
+        },
+        "through": "2026-01-06"
+      },
+      "expected": [
+        "2026-01-05T03:30:00Z",
+        "2026-01-06T03:30:00Z"
+      ]
+    },
+    {
+      "name": "override bypasses historical Windows wall-clock adjustment",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2013-08-10T09:00:00",
+            "timeZone": "UTC"
+          },
+          "recurrence": {
+            "pattern": {
+              "type": "daily",
+              "interval": 1
+            },
+            "range": {
+              "type": "numbered",
+              "startDate": "2013-08-10",
+              "numberOfOccurrences": 2,
+              "recurrenceTimeZone": "North Korea Standard Time"
+            }
+          }
+        },
+        "resolveTimeZone": {
+          "North Korea Standard Time": "UTC"
+        },
+        "through": "2013-08-11"
+      },
+      "expected": [
+        "2013-08-10T09:00:00Z",
+        "2013-08-11T09:00:00Z"
+      ]
+    },
+    {
+      "name": "explicit mapping uses summer rules beyond the served timezone table",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-07-04T09:00:00",
+            "timeZone": "Eastern Standard Time"
+          },
+          "recurrence": {
+            "pattern": {
+              "type": "daily",
+              "interval": 1
+            },
+            "range": {
+              "type": "numbered",
+              "startDate": "2075-07-04",
+              "numberOfOccurrences": 2,
+              "recurrenceTimeZone": "Eastern Standard Time"
+            }
+          }
+        },
+        "resolveTimeZone": {
+          "Eastern Standard Time": "America/New_York"
+        },
+        "through": "2075-07-05"
+      },
+      "expected": [
+        "2075-07-04T13:00:00Z",
+        "2075-07-05T13:00:00Z"
+      ]
+    },
+    {
+      "name": "explicit mapping uses winter rules beyond the served timezone table",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-01-04T09:00:00",
+            "timeZone": "Eastern Standard Time"
+          },
+          "recurrence": {
+            "pattern": {
+              "type": "daily",
+              "interval": 1
+            },
+            "range": {
+              "type": "numbered",
+              "startDate": "2075-01-04",
+              "numberOfOccurrences": 2,
+              "recurrenceTimeZone": "Eastern Standard Time"
+            }
+          }
+        },
+        "resolveTimeZone": {
+          "Eastern Standard Time": "America/New_York"
+        },
+        "through": "2075-01-05"
+      },
+      "expected": [
+        "2075-01-04T14:00:00Z",
+        "2075-01-05T14:00:00Z"
+      ]
+    }
+  ]
+}

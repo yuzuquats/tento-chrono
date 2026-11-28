@@ -1,0 +1,732 @@
+{
+  "type": "recurrence-profile",
+  "name": "rrule.js explicit text modes",
+  "source": "rrule.js 2.8.1 rrulestr with forceset and explicit unfold",
+  "cases": [
+    {
+      "name": "packed properties/unfold=false",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": false,
+        "lines": [
+          "DTSTART:20260102T090000Z RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "packed properties/unfold=true",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": true,
+        "lines": [
+          "DTSTART:20260102T090000Z RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "split rule key/unfold=false",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": false,
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;CO",
+          " UNT=2"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "Unknown RRULE property 'CO'"
+      }
+    },
+    {
+      "name": "split rule key/unfold=true",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": true,
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;CO",
+          " UNT=2"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "tab-indented property/unfold=false",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": false,
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "\tRRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "tab-indented property/unfold=true",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": true,
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "\tRRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "unsupported property: \tRRULE"
+      }
+    },
+    {
+      "name": "space-indented property/unfold=false",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": false,
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          " RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "space-indented property/unfold=true",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": true,
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          " RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "whitespace on line before continuation/unfold=false",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": false,
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;CO ",
+          " UNT=2"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "Unknown RRULE property 'CO'"
+      }
+    },
+    {
+      "name": "whitespace on line before continuation/unfold=true",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": true,
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;CO ",
+          " UNT=2"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "blank fold/unfold=false",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": false,
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "\t ",
+          "  "
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "blank fold/unfold=true",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": true,
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "\t ",
+          "  "
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "Unicode separator/unfold=false",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": false,
+        "lines": [
+          "DTSTART:20260102T090000Z RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "Unicode separator/unfold=true",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": true,
+        "lines": [
+          "DTSTART:20260102T090000Z RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "bare carriage return/unfold=false",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": false,
+        "lines": [
+          "DTSTART:20260102T090000Z\rRRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "bare carriage return/unfold=true",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": true,
+        "lines": [
+          "DTSTART:20260102T090000Z\rRRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "folded explicit date list with zoned DTSTART/unfold=false",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": false,
+        "lines": [
+          "DTSTART;TZID=Asia/Kolkata:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:20260102T090000Z,",
+          " 20260104T090000Z"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "Invalid UNTIL value: "
+      }
+    },
+    {
+      "name": "folded explicit date list with zoned DTSTART/unfold=true",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": true,
+        "lines": [
+          "DTSTART;TZID=Asia/Kolkata:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:20260102T090000Z,",
+          " 20260104T090000Z"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T03:30:00Z",
+        "2026-01-03T03:30:00Z",
+        "2026-01-04T03:30:00Z"
+      ]
+    },
+    {
+      "name": "tab-indented bare rule with zoned DTSTART/unfold=false",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": false,
+        "lines": [
+          "DTSTART;TZID=Asia/Kolkata:20260102T090000",
+          "\tFREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T03:30:00Z",
+        "2026-01-03T03:30:00Z"
+      ]
+    },
+    {
+      "name": "tab-indented bare rule with zoned DTSTART/unfold=true",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": true,
+        "lines": [
+          "DTSTART;TZID=Asia/Kolkata:20260102T090000",
+          "\tFREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T03:30:00Z",
+        "2026-01-03T03:30:00Z"
+      ]
+    },
+    {
+      "name": "EXRULE trims its own value/unfold=false",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": false,
+        "lines": [
+          "DTSTART;TZID=Asia/Kolkata:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXRULE: FREQ=DAILY;COUNT=1"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-03T03:30:00Z"
+      ]
+    },
+    {
+      "name": "EXRULE trims its own value/unfold=true",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": true,
+        "lines": [
+          "DTSTART;TZID=Asia/Kolkata:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXRULE: FREQ=DAILY;COUNT=1"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-03T03:30:00Z"
+      ]
+    },
+    {
+      "name": "empty EXRULE uses the reference defaults/unfold=false",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": false,
+        "lines": [
+          "DTSTART;TZID=Asia/Kolkata:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXRULE:"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-03T03:30:00Z"
+      ]
+    },
+    {
+      "name": "empty EXRULE uses the reference defaults/unfold=true",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": true,
+        "lines": [
+          "DTSTART;TZID=Asia/Kolkata:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXRULE:"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-03T03:30:00Z"
+      ]
+    },
+    {
+      "name": "EXRULE can contain a separately parsed rule header/unfold=false",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": false,
+        "lines": [
+          "DTSTART;TZID=Asia/Kolkata:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXRULE:RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-03T03:30:00Z"
+      ]
+    },
+    {
+      "name": "EXRULE can contain a separately parsed rule header/unfold=true",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": true,
+        "lines": [
+          "DTSTART;TZID=Asia/Kolkata:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXRULE:RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-03T03:30:00Z"
+      ]
+    },
+    {
+      "name": "EXRULE accepts a separately parsed DTSTART/unfold=false",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": false,
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXRULE:DTSTART:20260102T090000Z"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "EXRULE accepts a separately parsed DTSTART/unfold=true",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": true,
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXRULE:DTSTART:20260102T090000Z"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "EXRULE uses the set anchor after parsing a different embedded DTSTART/unfold=false",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": false,
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXRULE:DTSTART:20260103T120000Z"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "EXRULE uses the set anchor after parsing a different embedded DTSTART/unfold=true",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": true,
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXRULE:DTSTART:20260103T120000Z"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "EXRULE rejects a malformed embedded DTSTART/unfold=false",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": false,
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXRULE:DTSTART:BROKEN"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "Invalid UNTIL value: BROKEN"
+      }
+    },
+    {
+      "name": "EXRULE rejects a malformed embedded DTSTART/unfold=true",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": true,
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXRULE:DTSTART:BROKEN"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "Invalid UNTIL value: BROKEN"
+      }
+    },
+    {
+      "name": "EXRULE reports an unsupported nested property/unfold=false",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": false,
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXRULE:RDATE:20260102T090000Z"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "Unsupported RFC prop RDATE in RDATE:20260102T090000Z"
+      }
+    },
+    {
+      "name": "EXRULE reports an unsupported nested property/unfold=true",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsUnfold": true,
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXRULE:RDATE:20260102T090000Z"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "Unsupported RFC prop RDATE in RDATE:20260102T090000Z"
+      }
+    },
+    {
+      "name": "RFC accepts its own continuation with the rrule.js flag present",
+      "input": {
+        "profile": "rfc5545",
+        "rruleJsUnfold": false,
+        "lines": [
+          "DTSTART:20260102T09",
+          " 0000Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    }
+  ]
+}

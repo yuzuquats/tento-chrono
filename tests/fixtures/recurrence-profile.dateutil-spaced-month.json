@@ -1,0 +1,227 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil folded named months",
+  "source": "python-dateutil 2.8.2 rrulestr with forceset and unfold",
+  "cases": [
+    {
+      "name": "day month and year retain a colon clock",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2\r\n  January 2026 09:00",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-02T09:00:00",
+        "2026-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "year first and a day ordinal retain a UTC clock",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026\r\n  January 2nd 09:00Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "month last retain a numeric offset",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:2026\r\n  2 JAN 09:00 +02:00"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T07:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "weekday and abbreviated month exclude a floating occurrence",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE:Fri\r\n  2 JAN 2026 09:00"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-01T09:00:00"
+      ]
+    },
+    {
+      "name": "named-month UNTIL with AM PM and UTC",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;UNTIL=January\r\n  2 2026 09:00 AM UTC"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": {
+        "error": "unknown parameter name"
+      }
+    },
+    {
+      "name": "invalid named-month day reports the unfolded spelling",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:January\r\n  32 2026 09:00",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": {
+        "error": "day is out of range for month: JANUARY 32 2026 09:00"
+      }
+    },
+    {
+      "name": "missing day clips to February at the frozen local date",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:FEB\r\n  2026 09:00",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-02-28T09:00:00",
+        "2026-03-01T09:00:00"
+      ]
+    },
+    {
+      "name": "weekday advances beyond the inherited clipped day",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:FRI\r\n  FEB 2026 09:00",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-03-06T09:00:00",
+        "2026-03-07T09:00:00"
+      ]
+    },
+    {
+      "name": "ordinal separated from a day by a space is skipped",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:JAN\r\n  2 ND 2026 09:00"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "unknown month reports the unfolded spelling",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2\r\n  Janu 2026 09:00",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": {
+        "error": "Unknown string format: 2 JANU 2026 09:00"
+      }
+    }
+  ]
+}

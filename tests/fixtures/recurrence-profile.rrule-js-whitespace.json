@@ -1,0 +1,232 @@
+{
+  "type": "recurrence-profile",
+  "name": "rrule.js recurrence whitespace and folds",
+  "source": "rrule.js 2.8.1 rrulestr with forceset and a frozen clock, plus unfold for physical folds",
+  "cases": [
+    {
+      "name": "a same-line unknown property is still parsed",
+      "input": {
+        "lines": [
+          "DTSTART:20260306T090000Z X-CALENDAR:20260307",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "rruleJsNow": "2026-03-08T12:34:56.000Z",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2027-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2027-03-06"
+        ]
+      },
+      "expected": {
+        "error": "unsupported property: X-CALENDAR"
+      }
+    },
+    {
+      "name": "a same-line bare token is parsed as a rule",
+      "input": {
+        "lines": [
+          "DTSTART:20260306T090000Z OOPS",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "rruleJsNow": "2026-03-08T12:34:56.000Z",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2027-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2027-03-06"
+        ]
+      },
+      "expected": {
+        "error": "Unknown RRULE property 'OOPS'"
+      }
+    },
+    {
+      "name": "a byte-order mark separates tokens in JavaScript",
+      "input": {
+        "lines": [
+          "DTSTART:20260306T090000Z\ufeffRRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "rruleJsNow": "2026-03-08T12:34:56.000Z",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2027-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2027-03-06"
+        ]
+      },
+      "expected": [
+        "2026-03-06T09:00:00Z",
+        "2026-03-07T09:00:00Z",
+        "2026-03-08T09:00:00Z"
+      ]
+    },
+    {
+      "name": "a Python information separator remains inside a JavaScript token",
+      "input": {
+        "lines": [
+          "DTSTART:20260306T090000Z\u001fRRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "rruleJsNow": "2026-03-08T12:34:56.000Z",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2027-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2027-03-06"
+        ]
+      },
+      "expected": {
+        "error": "Invalid UNTIL value: 20260306T090000Z\u001fRRULE:FREQ=DAILY"
+      }
+    },
+    {
+      "name": "a space leaves the following start value as a bare token",
+      "input": {
+        "lines": [
+          "DTSTART:\u200320260306T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "rruleJsNow": "2026-03-08T12:34:56.000Z",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2027-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2027-03-06"
+        ]
+      },
+      "expected": {
+        "error": "Unknown RRULE property '20260306T090000Z'"
+      }
+    },
+    {
+      "name": "a same-line space does not continue an explicit-date list",
+      "input": {
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20260309T090000Z, 20260310T090000Z"
+        ],
+        "profile": "rrule-js",
+        "rruleJsNow": "2026-03-08T12:34:56.000Z",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2027-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2027-03-06"
+        ]
+      },
+      "expected": {
+        "error": "Invalid UNTIL value: "
+      }
+    },
+    {
+      "name": "the raw DTSTART scan rejects a partial folded clock",
+      "input": {
+        "lines": [
+          "DTSTART:20260306T09",
+          " 0000Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "rruleJsNow": "2026-03-08T12:34:56.000Z",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2027-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2027-03-06"
+        ]
+      },
+      "expected": {
+        "error": "Invalid UNTIL value: 20260306T09"
+      }
+    },
+    {
+      "name": "a physical rule fold is unfolded after the DTSTART scan",
+      "input": {
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=DAILY;CO",
+          " UNT=3"
+        ],
+        "profile": "rrule-js",
+        "rruleJsNow": "2026-03-08T12:34:56.000Z",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2027-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2027-03-06"
+        ]
+      },
+      "expected": [
+        "2026-03-06T09:00:00Z",
+        "2026-03-07T09:00:00Z",
+        "2026-03-08T09:00:00Z"
+      ]
+    },
+    {
+      "name": "an unsupported property can fail without an implicit start",
+      "input": {
+        "lines": [
+          "X-CALENDAR:20260307"
+        ],
+        "profile": "rrule-js",
+        "rruleJsNow": "2026-03-08T12:34:56.000Z",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2027-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2027-03-06"
+        ]
+      },
+      "expected": {
+        "error": "unsupported property: X-CALENDAR"
+      }
+    },
+    {
+      "name": "the raw DTSTART error can precede a written property error",
+      "input": {
+        "lines": [
+          "X-CALENDAR:20260307",
+          "DTSTART:INVALID",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "rruleJsNow": "2026-03-08T12:34:56.000Z",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2027-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2027-03-06"
+        ]
+      },
+      "expected": {
+        "error": "Invalid UNTIL value: INVALID"
+      }
+    }
+  ]
+}

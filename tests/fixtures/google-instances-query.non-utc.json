@@ -1,0 +1,119 @@
+{
+  "type": "google-instances-query",
+  "name": "Google Calendar instances overlap with non-UTC calendar zones",
+  "source": "Google Calendar API timezone contract and independent Python zoneinfo at civil midnights",
+  "cases": [
+    {
+      "name": "America/Los_Angeles",
+      "input": {
+        "master": {
+          "start": {
+            "date": "2026-03-07"
+          },
+          "end": {
+            "date": "2026-03-09"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;INTERVAL=3;COUNT=4"
+          ]
+        },
+        "durationMs": 172800000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "end-at-start": {
+            "start": "2026-03-07T07:59:59Z",
+            "end": "2026-03-07T08:00:00Z"
+          },
+          "first-second": {
+            "start": "2026-03-07T08:00:00Z",
+            "end": "2026-03-07T08:00:01Z"
+          },
+          "last-second": {
+            "start": "2026-03-09T06:59:59Z",
+            "end": "2026-03-09T07:00:00Z"
+          },
+          "start-at-end": {
+            "start": "2026-03-09T07:00:00Z",
+            "end": "2026-03-09T07:00:01Z"
+          },
+          "wide": {
+            "start": "2026-03-05T08:00:00Z",
+            "end": "2026-03-19T07:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "end-at-start": [],
+        "first-second": [
+          "2026-03-07"
+        ],
+        "last-second": [
+          "2026-03-07"
+        ],
+        "start-at-end": [],
+        "wide": [
+          "2026-03-07",
+          "2026-03-10",
+          "2026-03-13",
+          "2026-03-16"
+        ]
+      }
+    },
+    {
+      "name": "Pacific/Kiritimati",
+      "input": {
+        "master": {
+          "start": {
+            "date": "2026-03-06"
+          },
+          "end": {
+            "date": "2026-03-07"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;INTERVAL=2;COUNT=4"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "Pacific/Kiritimati",
+        "windows": {
+          "end-at-start": {
+            "start": "2026-03-05T09:59:59Z",
+            "end": "2026-03-05T10:00:00Z"
+          },
+          "first-second": {
+            "start": "2026-03-05T10:00:00Z",
+            "end": "2026-03-05T10:00:01Z"
+          },
+          "last-second": {
+            "start": "2026-03-06T09:59:59Z",
+            "end": "2026-03-06T10:00:00Z"
+          },
+          "start-at-end": {
+            "start": "2026-03-06T10:00:00Z",
+            "end": "2026-03-06T10:00:01Z"
+          },
+          "wide": {
+            "start": "2026-03-03T10:00:00Z",
+            "end": "2026-03-13T10:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "end-at-start": [],
+        "first-second": [
+          "2026-03-06"
+        ],
+        "last-second": [
+          "2026-03-06"
+        ],
+        "start-at-end": [],
+        "wide": [
+          "2026-03-06",
+          "2026-03-08",
+          "2026-03-10",
+          "2026-03-12"
+        ]
+      }
+    }
+  ]
+}

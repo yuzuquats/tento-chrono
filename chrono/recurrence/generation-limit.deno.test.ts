@@ -55,3 +55,34 @@ Deno.test("bounded timed searches refuse both empty-period and sparse-step exhau
     assertThrows(() => generator.generateUpToDate(end), RecurrenceExpansionLimitError);
   }
 });
+
+Deno.test("timed cursor defers work beyond the requested window", async () => {
+  const series = (await Recurrence.fromICalendar([
+    "DTSTART:20240101T000000Z",
+    "RRULE:FREQ=SECONDLY;INTERVAL=86401;BYHOUR=0;BYMINUTE=0;BYSECOND=0;BYMONTH=1;COUNT=2",
+  ])).exp();
+  const cursor = series.generator(32);
+  assertEquals(cursor.generateUpToDate(NaiveDate.parse("2024-01-01")).map(String), [
+    "2024-01-01T00:00:00Z",
+  ]);
+  assertEquals(cursor.generateUpToDate(NaiveDate.parse("2024-01-15")), []);
+  assertThrows(() => cursor.generateUpToDate(NaiveDate.parse("2024-04-01")), RecurrenceExpansionLimitError);
+  assertThrows(() => cursor.generateUpToDate(NaiveDate.parse("2024-04-01")), RecurrenceExpansionLimitError);
+});
+
+Deno.test("date cursor defers work beyond the requested window", async () => {
+  for (const [start, expected] of [
+    ["DTSTART;VALUE=DATE:20240101", "2024-01-01"],
+    ["DTSTART:20240101T090000Z", "2024-01-01T09:00:00Z"],
+  ]) {
+    const series = (await Recurrence.fromICalendar([
+      start, "RRULE:FREQ=DAILY;BYMONTH=1;BYMONTHDAY=1;COUNT=2",
+    ])).exp();
+    const cursor = series.generator(32);
+    assertEquals(cursor.generateUpToDate(NaiveDate.parse("2024-01-01")).map(String), [expected]);
+    assertEquals(cursor.generateUpToDate(NaiveDate.parse("2024-01-15")), []);
+    assertEquals(cursor.generateUpToDate(NaiveDate.parse("2024-01-01")), []);
+    assertThrows(() => cursor.generateUpToDate(NaiveDate.parse("2024-03-01")), RecurrenceExpansionLimitError);
+    assertThrows(() => cursor.generateUpToDate(NaiveDate.parse("2024-03-01")), RecurrenceExpansionLimitError);
+  }
+});

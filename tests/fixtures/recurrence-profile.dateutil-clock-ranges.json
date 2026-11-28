@@ -1,0 +1,555 @@
+{
+  "type": "recurrence-profile",
+  "name": "dateutil clock validation",
+  "source": "python-dateutil 2.8.2 rrulestr(forceset=True), bounded between reads",
+  "cases": [
+    {
+      "name": "yearly constructor rejects hour 24",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=1;BYHOUR=24;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "hour must be in 0..23"
+      }
+    },
+    {
+      "name": "monthly constructor rejects negative minute",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=MONTHLY;INTERVAL=1;BYMINUTE=-1;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "minute must be in 0..59"
+      }
+    },
+    {
+      "name": "weekly constructor rejects negative second",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=1;BYSECOND=-1;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "second must be in 0..59"
+      }
+    },
+    {
+      "name": "first hour is invalid before minute and second",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=DAILY;INTERVAL=1;BYHOUR=24;BYMINUTE=-1;BYSECOND=60;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "hour must be in 0..23"
+      }
+    },
+    {
+      "name": "first valid hour and minute expose invalid second",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=DAILY;INTERVAL=1;BYHOUR=9,24;BYMINUTE=17,60;BYSECOND=15,60;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "second must be in 0..59"
+      }
+    },
+    {
+      "name": "valid first hour does not mask later invalid hour",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=DAILY;INTERVAL=1;BYHOUR=9,24;BYMINUTE=17;BYSECOND=15;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "hour must be in 0..23"
+      }
+    },
+    {
+      "name": "first valid hour exposes later invalid minute",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=DAILY;INTERVAL=1;BYHOUR=9,24;BYMINUTE=17,60;BYSECOND=15;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "minute must be in 0..59"
+      }
+    },
+    {
+      "name": "negative hour wins over negative minute and second",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=DAILY;INTERVAL=1;BYHOUR=-1,9;BYMINUTE=-1,17;BYSECOND=-1,15;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "hour must be in 0..23"
+      }
+    },
+    {
+      "name": "first invalid minute wins over invalid second",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=DAILY;INTERVAL=1;BYHOUR=9;BYMINUTE=99;BYSECOND=60;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "minute must be in 0..59"
+      }
+    },
+    {
+      "name": "invalid hourly selector exhausts modular search",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=1;BYHOUR=24;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "expansionError": "cannot unpack non-iterable NoneType object"
+      }
+    },
+    {
+      "name": "hourly stride rejects selector during construction",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=2;BYHOUR=24;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "Invalid rrule byxxx generates an empty set."
+      }
+    },
+    {
+      "name": "hourly expansion rejects minute 60",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=1;BYMINUTE=60;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "expansionError": "minute must be in 0..59"
+      }
+    },
+    {
+      "name": "negative hourly selector exhausts modular search",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=1;BYHOUR=-1;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "expansionError": "cannot unpack non-iterable NoneType object"
+      }
+    },
+    {
+      "name": "hourly grid encounters second 60 before minute 60",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=1;BYHOUR=9;BYMINUTE=17,60;BYSECOND=15,60;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "expansionError": "second must be in 0..59"
+      }
+    },
+    {
+      "name": "hourly grid rejects minute 60 with a reachable hour",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=1;BYHOUR=9,24;BYMINUTE=17,60;BYSECOND=15;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "expansionError": "minute must be in 0..59"
+      }
+    },
+    {
+      "name": "hourly reachable selector expands its minute and second",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=1;BYHOUR=10;BYMINUTE=18;BYSECOND=16;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-05"
+        ]
+      },
+      "expected": [
+        "2026-01-01T10:18:16Z",
+        "2026-01-02T10:18:16Z",
+        "2026-01-03T10:18:16Z",
+        "2026-01-04T10:18:16Z"
+      ]
+    },
+    {
+      "name": "minutely expansion cannot reach hour 24",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=1;BYHOUR=24;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "expansionError": "Invalid combination of interval and byhour resulting in empty rule."
+      }
+    },
+    {
+      "name": "invalid minutely selector exhausts modular search",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=1;BYMINUTE=60;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "expansionError": "cannot unpack non-iterable NoneType object"
+      }
+    },
+    {
+      "name": "minutely stride rejects selector during construction",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=2;BYMINUTE=60;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "Invalid rrule byxxx generates an empty set."
+      }
+    },
+    {
+      "name": "minutely expansion rejects negative second",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=1;BYSECOND=-1;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "expansionError": "second must be in 0..59"
+      }
+    },
+    {
+      "name": "minutely reachable selector expands its second",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=1;BYHOUR=10;BYMINUTE=18;BYSECOND=16;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-05"
+        ]
+      },
+      "expected": [
+        "2026-01-01T10:18:16Z",
+        "2026-01-02T10:18:16Z",
+        "2026-01-03T10:18:16Z",
+        "2026-01-04T10:18:16Z"
+      ]
+    },
+    {
+      "name": "secondly expansion cannot reach hour 24",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=1;BYHOUR=24;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "expansionError": "Invalid combination of interval, byhour and byminute resulting in empty rule."
+      }
+    },
+    {
+      "name": "secondly expansion cannot reach minute 60",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=1;BYMINUTE=60;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "expansionError": "Invalid combination of interval, byhour and byminute resulting in empty rule."
+      }
+    },
+    {
+      "name": "negative secondly selector exhausts modular search",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=1;BYSECOND=-1;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "expansionError": "cannot unpack non-iterable NoneType object"
+      }
+    },
+    {
+      "name": "reachable secondly selectors survive out-of-range entries",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=1;BYHOUR=9,24;BYMINUTE=17,60;BYSECOND=15,60;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-05"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:17:15Z",
+        "2026-01-02T09:17:15Z",
+        "2026-01-03T09:17:15Z",
+        "2026-01-04T09:17:15Z"
+      ]
+    },
+    {
+      "name": "secondly stride reaches selected hour minute and second",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=13;BYHOUR=10;BYMINUTE=18;BYSECOND=16;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-05"
+        ]
+      },
+      "expected": [
+        "2026-01-10T10:18:16Z",
+        "2026-01-23T10:18:16Z"
+      ]
+    },
+    {
+      "name": "mask fails before hourly clock",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=HOURLY;BYEASTER=1000;BYMINUTE=60;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "expansionError": "list assignment index out of range"
+      }
+    },
+    {
+      "name": "mask fails before minutely search",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=MINUTELY;BYEASTER=1000;BYMINUTE=60;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "expansionError": "list assignment index out of range"
+      }
+    },
+    {
+      "name": "mask fails before secondly search",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=SECONDLY;BYEASTER=1000;BYSECOND=60;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "expansionError": "list assignment index out of range"
+      }
+    },
+    {
+      "name": "constructor fails before initial mask",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=HOURLY;BYEASTER=1000;BYHOUR=24;INTERVAL=2;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "Invalid rrule byxxx generates an empty set."
+      }
+    },
+    {
+      "name": "zero count still builds minute grid",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=HOURLY;BYMINUTE=60;COUNT=0"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "expansionError": "minute must be in 0..59"
+      }
+    },
+    {
+      "name": "zero count still advances invalid clock",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=MINUTELY;BYMINUTE=-1;COUNT=0"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "expansionError": "cannot unpack non-iterable NoneType object"
+      }
+    },
+    {
+      "name": "including minute can exhaust count zero",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=MINUTELY;BYMINUTE=17,60;COUNT=0"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-05"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "reachable minute but unreachable hour",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=60;BYHOUR=24;BYMINUTE=17;BYSECOND=60;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "expansionError": "Invalid combination of interval and byhour resulting in empty rule."
+      }
+    },
+    {
+      "name": "unreachable minute precedes unreachable hour",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=60;BYHOUR=24;BYMINUTE=77;BYSECOND=60;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "expansionError": "cannot unpack non-iterable NoneType object"
+      }
+    },
+    {
+      "name": "exrule constructor clock",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXRULE:FREQ=DAILY;BYHOUR=24;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "hour must be in 0..23"
+      }
+    },
+    {
+      "name": "exrule iteration clock",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T091715Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXRULE:FREQ=HOURLY;BYMINUTE=60;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "expansionError": "minute must be in 0..59"
+      }
+    }
+  ]
+}

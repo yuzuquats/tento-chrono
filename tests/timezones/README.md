@@ -18,51 +18,257 @@ name, newer than 2024b; or served empty, which `getOpt` does not load);
 the live zone service, also listing the zones `getOpt` rebuilt from the
 platform's offsets because the service's disagreed).
 
-`Pacific~Honolulu.json`, `America~Regina.json`, `Pacific~Port_Moresby.json`
-and `Atlantic~South_Georgia.json` were added 2026-10-07 exactly as the zone
-service answers them (judge r13 C-N10): the first two drop the zone's last
-offset change (Honolulu ends at -10:30, Regina at -07:00), the last two are
-`[]`. `../test_tz_offsets.deno.test.ts` loads them against the platform.
+The `legacy-2024b/` files preserve the four broken service responses
+used by `../test_tz_offsets.deno.test.ts`. Honolulu and Regina omit
+their last offset changes. Port Moresby and South Georgia are empty.
+The equivalent files in `2024b/` now match the live service.
 
 The Pacific/Apia recurrence fixture uses the
 [production 2024b Pacific/Apia transition file](https://static.lona.so/timezones/2024b/1900_2050/Pacific~Apia.json).
 It includes the December 2011 change that skipped a civil date.
 
+The Graph profile captures also load the served 2024b files for
+Africa/Casablanca, Europe/Istanbul, Europe/Moscow and Pacific/Kiritimati.
+Their bytes match the served 2025a files. Pacific/Kiritimati replaces an
+older copy that repeated transitions from adjacent years and gave the
+wrong offset before the 1994 date-line change.
+
+The Graph Greenland and Paraguay captures use the served 2024b files for
+America/Nuuk and America/Asuncion. Their bytes match the served 2025a files.
+The Asuncion file keeps UTC−03 after the October 2024 clock change.
+
+The Graph Central and West Asia, Yukon and Iran captures use served files for
+America/Whitehorse, Asia/Bishkek, Asia/Qyzylorda, Asia/Tashkent and Asia/Tehran.
+The RFC Almaty control uses the served Asia/Almaty file.
+
+The Graph offset-reform captures use the served 2024b files for
+Africa/Juba, Africa/Khartoum, Asia/Amman, Asia/Damascus and Europe/Volgograd.
+
+The Graph Israel and West Bank captures use the served 2024b files
+for Asia/Jerusalem and Asia/Hebron.
+The Siberian Graph captures use the served 2024b files for Asia/Barnaul,
+Asia/Irkutsk, Asia/Krasnoyarsk, Asia/Novosibirsk and Asia/Tomsk.
+The neighboring Windows zone captures also use the served files for
+Europe/Kaliningrad, Europe/Moscow, Asia/Yekaterinburg, Asia/Omsk,
+Asia/Yakutsk, Asia/Vladivostok and Asia/Magadan.
+The Graph minute-offset captures use the served Colombo, Kabul and
+Yangon files alongside the existing Kathmandu and Kolkata fixtures.
+
+Graph Australian captures use the served Brisbane, Darwin, Eucla, Hobart and Perth files.
+
+The Chatham file matches the served 2024b and 2025a bytes. It has a
+single January 1946 transition from UTC+12:15 to UTC+12:45. The older
+checked-in file repeated the transition in adjacent years.
+
+The remaining fixtures were compared byte for byte with the live 2024b
+service. The refresh replaced 29 earlier copies, including 19 whose
+successive entries disagreed on the offset between transitions.
+The format test checks that each current file has ordered, continuous
+transitions with matching before and after instants.
+
+The North American Graph captures add the identical served 2024b and
+2025a files for Denver, Halifax and Phoenix.
+
+The European Graph captures add the identical served 2024b and 2025a
+files for Paris, Warsaw, Budapest and Bucharest.
+
+The eastern European and Atlantic Graph captures add the identical
+served 2024b and 2025a files for Kyiv, Chisinau, the Azores and
+Reykjavik. The Reykjavik files carry the Africa/Abidjan link.
+
+The Saint Pierre Graph captures use the identical served 2024b and
+2025a Miquelon files.
+
+The East Asian Graph captures use identical served 2024b and 2025a
+files for Shanghai and Pyongyang.
+
+The Asia-Pacific Graph captures also use identical served 2024b and
+2025a files for Ulaanbaatar and Guam.
+
+South American Graph and RFC historical cases use the identical
+served 2024b and 2025a files for Araguaína, Buenos Aires, Bahia,
+Bogotá, Cuiabá and Montevideo.
+
+African Graph and RFC cases use the identical served 2024b and
+2025a files for Johannesburg, Lagos, Nairobi, Tripoli and Windhoek.
+
+Asian and Atlantic Graph captures and their RFC controls use the
+identical served 2024b and 2025a files for Baghdad, Dhaka, Dubai,
+Karachi, Riyadh, Cape Verde, Minsk and Mauritius.
+
+The island and northern South American cases also use the
+identical served 2024b and 2025a histories for Caracas, La Paz,
+Cayenne, São Tomé, Bougainville, Norfolk, Tonga, Marquesas and Guadalcanal.
+
+The Russian and Caucasus Graph captures and their RFC controls
+use the identical served 2024b and 2025a histories for Baku,
+Yerevan, Tbilisi, Astrakhan, Saratov, Samara, Srednekolymsk,
+Kamchatka, Chita, Sakhalin and Hovd.
+
+The North American Graph captures use the identical served 2024b
+and 2025a histories for Anchorage, Adak, Guatemala, Honolulu,
+Cancún, Tijuana, Grand Turk and Indianapolis, plus seven fixed
+`Etc/GMT` zones.
+
+The Cuba, Haiti, Easter Island and Lebanon captures use the identical
+served 2024b and 2025a files for Havana, Port-au-Prince, Easter and Beirut.
+
+The Google transition captures use the served Dublin table. The 2024b and
+2025a versions are byte-identical.
+
 SHA-256 provenance, captured during fleet validation:
 
 ```json
 {
-  "Africa~Cairo.json": "551443f36a4ffdaf2f806e57112668aa7ced45a50b6c0e695515e087781795ea",
-  "Africa~Monrovia.json": "ff34430f1e59ebe1a6665cb35239ced190d9caede8dee38ea72a929c962e0fa5",
-  "America~Chicago.json": "92693949a2ea6f1d73e3ce2e7b52fb7047e7d776df336ce37a2d58447ae7d1cb",
-  "America~Los_Angeles.json": "31ba1aa5a3fdf699ccf91d699960fded4a5c596261c43436082efe1fc6cb5de0",
-  "America~New_York.json": "f307cd049358b2cec56257523f863d78c64d03d64e212d7161170d7857c84745",
-  "Asia~Bangkok.json": "b5a9396559d3f3607eeae8e5654d38eb56c70e53cc143f47a11d115223ce9410",
-  "Asia~Dhaka.json": "cec3e6589c2f8d08893a76ec268e4f4334350c836d08b51ff9a18baa0bc69435",
-  "Asia~Hong_Kong.json": "18996324ea9150af00ac44c6619cd85da5736bdc61122758cf2d8b5a39e12a22",
-  "Asia~Kathmandu.json": "e255ff187ef5fe645fe5eae66c8c405ce41dec2b32d591d7d2e7d345ea5d3bcf",
-  "Asia~Kolkata.json": "08061b252de187e41257a2a5e50d546b275143a1e666a4d0d4ba32cc78fce61d",
-  "Asia~Makassar.json": "6274a8f75eb039eea22d3b2e7a2ddf7a4e09e9c2c6f2f3a57dffdf580335d691",
-  "Asia~Qatar.json": "49c967dc2c7eeaff90f548b8257c74a2e2331c5e760b24264c9c9f2dd7cac773",
-  "Asia~Seoul.json": "c54ccaf25b62cf2a00059726c9693a8443e923f2965eac5c6b6dfb5c2c37a309",
-  "Asia~Singapore.json": "6a5890b6f8bac43e61a4b9892ec8392a21c35ee6c739a979b9ef2ebc5d92dc5f",
-  "Asia~Taipei.json": "dd7fc4e4f996201c3779ddeee62a1f0d9f76be17514f1e90dccbc30368cb58eb",
-  "Asia~Tehran.json": "2e3024f4a1d6d41d910c46522b364693151b1ea58b67de86ddb1c573e014dc49",
-  "Asia~Tokyo.json": "67c28df9fc18cc6369783d1b64b52516ead07a16afb65fce59967a81ff2b70d6",
-  "Australia~Adelaide.json": "884dd7d682df85e958bf2e38662288d95c19a726b62cc151789194fb4d700377",
-  "Australia~Lord_Howe.json": "19253a4e9c7c6c74f1f02f036b4090374f454e38c5098455b702b90238f4325c",
-  "Australia~Sydney.json": "de8233f1d3d77926933ae18e722b0c30cf277034eccb5274f25dcf00b89f5b69",
-  "Europe~Berlin.json": "0d74b5f0641312135296ee00a4c0a8897e58d08a49a173c06254e7702ce8a7e2",
-  "Europe~Brussels.json": "6387568fa8f970bced0abf140b93795ae6a5f71f3618e516d3e478f1b20e19b6",
-  "Europe~London.json": "b7e5e7b8129f1a26a0b36c424122d1ab98202066202d69087f725bea1b51772a",
-  "Pacific~Auckland.json": "a91f1ea26a462779fd32c630861a1f598b77189d65e5c82eb26c572957291efc",
+  "Africa~Casablanca.json": "0510d74553fd7d70f59156fb56d9a76fe9ca0955f260fb56868f559265fb502d",
+  "Africa~Khartoum.json": "ca47db9bd633ca085705781865c33d1d62a13ff6a489be3d7b6efcb13d4bf184",
+  "Africa~Juba.json": "8ca385007d8769a0b84117a3b7c613f64ca7d8ef55c4efd07f0ec860e26fcd3c",
+  "Africa~Cairo.json": "718603957ac7fdfc977363fc4de00e74f6363dae455f29d9c278fc01b3e7b8d9",
+  "Africa~Monrovia.json": "5a9eab9a384767e28b92b5b07ad5c08b170cc641a2ff9e01523bcbeb2f3d1da0",
+  "America~Asuncion.json": "7c406573202d95b1b1a21ad5b0e1dfe9a8fa94fc419dd94f306763a006b70ab8",
+  "America~Chicago.json": "270467a48f884c28b090613c2db609b041481d326e4b7115c4cebe53ff2e0db8",
+  "America~Los_Angeles.json": "4d695cfa882b8368c05901c82a1c80c6ba2ec8ab41c86406eeb37c6c95cfc625",
+  "America~Mazatlan.json": "a485bc0171dcea1fd94cdb60574cc68e1bbda5bed64d7b6651c56e78f3dc042a",
+  "America~Mexico_City.json": "be7fdfdb89f8d16add3eb06b12cfe9b0445c0b0a80fea730216c3a6ffc8c522c",
+  "America~Nuuk.json": "09c7f1535ef9def683916383eb21321fd433036a27fb7274014db7a5a8d5ad30",
+  "America~New_York.json": "871d5aa88a0ce83b18f952a496456cfb9eed66fc2900dab7935de42fd7498225",
+  "Antarctica~Casey.json": "82768f3d135d6279e432a0046b19e6234db23007775c388903028e44fdb2d6fa",
+  "America~Whitehorse.json": "fdddb5da3ccb9d41c6efda1e954bbc2a714c0b2417dfedbb3dc9efa6b3e8db4c",
+  "Asia~Almaty.json": "75fb984c24cc20245a45c835605957ee806d1f94afcb13961f587c4e80af910b",
+  "Asia~Amman.json": "94d5556c2e7b70eab1d00610c00ef988702354ca393ffa24a643bca4f7a6c007",
+  "Asia~Bangkok.json": "5805a1a22ada5efaf882d9bf695e2f925c8dc997aba8363b49e4b4716d589350",
+  "Asia~Barnaul.json": "411a874c4f5e94377db8d6dab9bb8858beabb61e6928f61893fda37a65ae67d9",
+  "Asia~Bishkek.json": "ec8e3f32a7c9a3cf46b2b484614a34148857c0d0e15cf234fcf29220f2fe6f26",
+  "Asia~Colombo.json": "b87d667fb58cedab6f150085b140340e08068711a66e9928323d178f893b37d6",
+  "Asia~Damascus.json": "8524d21a6664be9fefa33b8b2110b00fbe58c43df8b0aab888e599141dcb2358",
+  "Asia~Dhaka.json": "8d3287fbe1ffed7a6c78c46772319b3306b203264bde3fc5b288fd1a2fbf2eaf",
+  "Asia~Hebron.json": "07947e0f49923f7ff85abbfac3fa699a55a996c0129ecd967b0414f4e44a07c3",
+  "Asia~Hong_Kong.json": "09ffec2202a13bcbb122c99cc6b195b1d5c7a91edfa2489f4a971515a247cccd",
+  "Asia~Irkutsk.json": "978b2daa4a61ffe702720e86a2d3596c7e193d251d8154362a77c6fbaeb671b7",
+  "Asia~Jerusalem.json": "cfa1ecceb273d69e75f4e9fd55daf761bded049d5f5ba3b14249b2957abc4994",
+  "Asia~Kabul.json": "2b3d6acc539598372e709c591d922b0039ffbf9fea31275885d2677a0adb7e5f",
+  "Asia~Kathmandu.json": "4278c755e1c66e8aa1faeffa8d4aa13bb081323d9d80aa808169a81c464411cc",
+  "Asia~Kolkata.json": "a301e4493d617f18a62ecf17015b0ef3d68307e698ff0d56db22974bf02c6ef2",
+  "Asia~Krasnoyarsk.json": "8e5f03709f4da0c75b722e1d72dbded0b3ba5bb32a6ec9adf9afd4e7dc3fa8c1",
+  "Asia~Magadan.json": "8fc1690c7a53a2552ced667b177165d18920649d1d8dc95bfbca51adb70a1cc2",
+  "Asia~Makassar.json": "44f1402a54e3fd6629e822121c3418cd14ff834be96f591b3da18392fb326edd",
+  "Asia~Novosibirsk.json": "3bde06a271ba70bb60dad50e5efc433a77e39ff08eb3f3f1258f575dc7adef23",
+  "Asia~Omsk.json": "e89964870d1a94eccc9b123c9517a7b2a5d2fef3efe966204acf6940e77b959a",
+  "Asia~Qatar.json": "ad3bb630a6585b2113eb33c5401ceae77b24ffaae1a90ea6c9bcf039cc781102",
+  "Asia~Qyzylorda.json": "8ecc051024ada72e3f044ede3e000a5175bc0d7d3ea58fa74dc80131d1674d6e",
+  "Asia~Seoul.json": "1abc1f17ec8d9b56f2077f9c52b4802a143ac281e9117285f02ed3490d54b239",
+  "Asia~Singapore.json": "5bb9c4b27e10120e86b3d8bdfb562980830588ce337adfcad6414c4aa8acce1d",
+  "Asia~Taipei.json": "ef04777271e7e462d33680af44fc67183138a639114817e07b692c5b7ec83569",
+  "Asia~Tashkent.json": "c09476ccb4096bf544e2ac9c601263ac1fd0943dca57d01d07994edc94a1996f",
+  "Asia~Tehran.json": "b544ac64d7f5136edf3638688221157c0544522d8cab112effce279f5b501bb7",
+  "Asia~Tokyo.json": "cb630c71592c976d8e1dbdead4014b2d8e04502093bcac9edfa1e7b15c021114",
+  "Asia~Tomsk.json": "467c9511581b9004eaa4ed5f76623e9f749cdd7d1f923ab677800d8f644a7c56",
+  "Asia~Vladivostok.json": "d33c3290d8d4951f3af2abd6db193dca586674815128366dbc08c13de0db9207",
+  "Asia~Yakutsk.json": "6807774696c30ab07a9e8cec50e5326d8f1e6aa8a2c46f81dcb5809fe040c4f2",
+  "Asia~Yangon.json": "d60b26cf4ca957e192be0044f0b70279955ac086bdc26b394df7a8b23aeece85",
+  "Asia~Yekaterinburg.json": "239c56ef490e2ff65b7353b455fd96019a87ba765b7eb9d6d74277b04bee2936",
+  "Australia~Adelaide.json": "e794d5e97ec0bfcbbf86452ef0b9f2c4b7134eb5bed4b49b64cda1359d55ecf4",
+  "Australia~Brisbane.json": "de8924f907e081c47738ce8f3ded07d4aca433cd4c018ad7ec39308a9dea5433",
+  "Australia~Darwin.json": "3a6fa1e97449293b2b488497e351705cd23b4d390db3d2072966e88967c57b7d",
+  "Australia~Eucla.json": "9149bc34f3ba1412e401458d6df3e360d91937e890c694a8ca2f9147a86ed5bb",
+  "Australia~Hobart.json": "e411f134ba6229e420c54c0843a7081e24513717a071d74c6ec7470fc4cf0abe",
+  "Australia~Lord_Howe.json": "b95d2bddeb4622014bb0a9688c7afa409612146378346090416bd488bba5dfac",
+  "Australia~Perth.json": "b6128c2facfd0710371cf3b11d9e0107cf21ee0ce4b7d9945758a40ddaffbc5c",
+  "Australia~Sydney.json": "d3272fd1819daab895e6b9ed54c936f76e3daa333833d979ca56295ef4644ce9",
+  "Europe~Dublin.json": "9c99620f54a93decc5df29bd12b24764350a6f6d3327a43ab157bd55687f36a3",
+  "Europe~Berlin.json": "184880bda02fd7f4ba651cb750aee93dc7807b8521b5adcbb1088f5f924ea521",
+  "Europe~Brussels.json": "a20fc73bc446d731c58f993ae38270b7b68d98c071e72f494b89cd7b055441ad",
+  "Europe~Kaliningrad.json": "dbe86a67308ba9c69481549fe42d750dbac4f69c1c668cabbd7d5ee2e1de02ab",
+  "Europe~London.json": "a0376a723c847da8b44134fc4c190210af6ab9160a11b705ae276195d1ca5a63",
+  "Europe~Volgograd.json": "6c5d9d79191047ae56ca92e891c5941c21128c44e1af9ff7984c52dea836fd0d",
+  "Pacific~Auckland.json": "373050993f93ed2cd54aff92eead7e356dedeab75a776ced44ba1f274411c3e2",
   "Pacific~Apia.json": "a20db177be3e1dff96fb84ba7530e1c0cc616c291338b8651622383590a19170",
-  "Pacific~Chatham.json": "48dc22c3fce8ed98be3ef3629c0b153f935388bef5ba225a46f08ed42ad79573",
-  "Pacific~Kiritimati.json": "ebba558aad0be64cbc137af5f4d9e4386096f1144717bb7b2d6a90acbd51ab84",
-  "Pacific~Niue.json": "eb99e58c3d2c8ad137c4e8249559c56dea8c7fdb7b9eb6fe685a577eeaf27fdc",
-  "Pacific~Honolulu.json": "f57607664a19f8bbfaa418b9d953bdb615ddf52af728fce238e7003c07a237cd",
-  "America~Regina.json": "0dbfd7356ce9b7069a8577f91eef2ec1166b785a3714f906b6de61a729838676",
-  "Pacific~Port_Moresby.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
-  "Atlantic~South_Georgia.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  "Pacific~Chatham.json": "e85b7e0a898be2436f309dcde9f3d884505dd2f600d65c9547dcbcdd163f73b6",
+  "Pacific~Fiji.json": "c2c44e8a2db390b13d0374ae3730b579494f0bb41c1e9d7388fd7048d336c1f4",
+  "Pacific~Kiritimati.json": "36da38e9a7c896d1a0b42bae1bbde16382f19a0ca9c11868657a5c7008be4362",
+  "Pacific~Kwajalein.json": "b6806668cbf9e3dd2352cc6e707dbfc0bbbfec77bf57c5fc896883c8e3b85768",
+  "Pacific~Niue.json": "b997564e9ddd4bc55e5fb246f45a6f73abaecc8572528827f23454985b398236",
+  "Pacific~Honolulu.json": "de5d6f8592ad4db039b02bdbafb89a4b029302fa5eb6f90dca3b16ef67db5a44",
+  "America~Punta_Arenas.json": "23f4f40f0c0703a69302964daeaab0c185680de5385459bd3edfd492aa5e9df4",
+  "America~Regina.json": "40604ab6b03cf12a4dd23cd1d8d88491e789bc6a44d4caef3f2c450d65d69a47",
+  "America~Sao_Paulo.json": "d9fb448fa11f5b2a54db6d9d3cc1035ceac1f0f5d7466bb0e3b58c0108d1dd7a",
+  "America~Santiago.json": "982661fd3166ab5213f48e32256ce25dade551d41a4118359f7abc9072c8b94a",
+  "America~St_Johns.json": "388d0af63fab0c311f53af1687cc02139ba5c086ede3b6591f9b94cbf8c0bdcb",
+  "Pacific~Port_Moresby.json": "b540f66e765b027e42c080627aaa86edba102cf3384aec62558cc3bbaedf7a36",
+  "Atlantic~South_Georgia.json": "ca6210457ddc1f39db0c7b6de67255d0f738ed4777736dbaf52528e0b5d34098",
+  "Europe~Istanbul.json": "5b19491e2932dea42c7845ad585391b2d50d0b865a67143879b0d25852dde300",
+  "Europe~Moscow.json": "c164a03a72e5ec34bb4975fdf31db4e60ad8daac58eba52f7e3f42b3dbeddd74",
+  "America~Denver.json": "69723927bef968ddbd155cb6c97c7a31d33aa6eadc6db02d786a8bd3eb184010",
+  "America~Halifax.json": "99aa519420edf24cce731bce54528ff2d5608ed9c79f60455d4a37af356398df",
+  "America~Phoenix.json": "890af20e92fb0b2d0aa5dc7966537ae5e9a77257fd7242f404dc86e86e6e2ff6",
+  "Europe~Paris.json": "a207f18981a3dc6e6e57abf998f765be82c3038ce095058b0aaa0457d23069fa",
+  "Europe~Warsaw.json": "c2aae75ff414a92cd373894da2f6ddac4ffcbb647d1ee0e50ec3b9d65f306dc8",
+  "Europe~Budapest.json": "28cc8fba71f16d616816e943d0cd4297ce706bf83e46eebd0b32b52d2a6305fd",
+  "Europe~Bucharest.json": "f2bb22adbc39f0fce1d9f508b04fef88c5ffff7f89a213da302892a694ce60bb",
+  "Europe~Kyiv.json": "a9a2f878209116353e437eca357a6c5e2a163d1a25ada39f12d074a1a99f40c6",
+  "Europe~Chisinau.json": "08f1c4d4676f582717f6c6e4bdbef79c9af95d6d797224a035462ba604948b4f",
+  "Atlantic~Azores.json": "d676dacbb4b58f9a222a605496c228a93aa828de4a829f0f30ed43c27e7bd10c",
+  "Atlantic~Reykjavik.json": "244a5ce704ad286daf0fb36dcd78cad5448d8921a9418018c805cd6dbf90ee7f",
+  "America~Miquelon.json": "175649dfd142c6c413dce2abba628beef6fc3da6fb74497d9df6f1df23acedf5",
+  "Asia~Shanghai.json": "00190f92574228e88d6f17ffe9cc6f8ab5c086eb358cf7d31edbe2080cbf90f4",
+  "Asia~Pyongyang.json": "0d598204a55317311058747e8e2889da3efd20b77ac2f13da391a78085e43b39",
+  "Asia~Ulaanbaatar.json": "e200036fc81d0f3c21ce788d41bdf4639e59134a13ed8981f147b0b4947084b8",
+  "Pacific~Guam.json": "e6481aa730a970959092bd122fdedaf548d4bc17f1a573cbb20730fef9b3354f",
+  "America~Araguaina.json": "36f828cf8535c33d6ad5218a766ab0d0d99b8ac67cbe95cade3ac6b9e6f0c766",
+  "America~Argentina~Buenos_Aires.json": "081a0fd9e164fff506294045c3fa705431a39fa6ce3e7d024fe0e707e5dd9bb3",
+  "America~Bahia.json": "289a72e8e50c9fa766e20030048b78248b4aeea43842b5fd36ae44e8ea5329d2",
+  "America~Bogota.json": "db69268279acf44630f8a7bf4226c9b5a40a1bfdc4a26f0fb226bba091509079",
+  "America~Cuiaba.json": "1d002d4853d62bbfaa4e591c9fc64e79d759876fc235ec687fe5f441e3ed9216",
+  "America~Montevideo.json": "40afeb76ae36209d1c404b90616f3927a36a3bdd6c989cb1bc2f4a3756f372dc",
+  "Africa~Johannesburg.json": "7e1feecb6fed08f1171d20804edd7989a30b7c2777f06c93932cc517ef2af90e",
+  "Africa~Lagos.json": "8c7724e5bed99d3d42a4043a682a587929c0ca2c88431392fa5a162d321e1e7f",
+  "Africa~Nairobi.json": "dc276cda6d6892c4731722cb70eee96a56889bc24ff8f4f89d84c69344023933",
+  "Africa~Tripoli.json": "6a5f9a17412f299deba85b00505389107862653b554846ba452bb5398b2ea5f2",
+  "Africa~Windhoek.json": "6a8c674bbceb4a81d9c5b657b643f321fb9bb6782057de08db9d53388d3a46b3",
+  "Asia~Baghdad.json": "e757f06e77a70ac85afed715f77c0fea15b9a12a4d6292f1ffd31d660f7fa02c",
+  "Asia~Dubai.json": "054cf15ccf7a1447f2ef23496010a8d942f71ff4f81bdc1bb5493005637c4c7f",
+  "Asia~Karachi.json": "e08ddd110d471d894e04729142c00d13da5189e67e0c3cf568e8ce3a554e384c",
+  "Asia~Riyadh.json": "87b85c2f78a3a7859469d42f65f93185489efd77c4cc72c6e5ac3de9fe4cb13f",
+  "Atlantic~Cape_Verde.json": "bd86c9cf7d8dd89a2c1de6254ddd31d8dc692d090acaee651523a03be889e222",
+  "Europe~Minsk.json": "5a69f94d80abdf768b8d39315b07e9d291bda40e25380129163e5d9bd43d2e84",
+  "Indian~Mauritius.json": "5e177edb38e7bffe0cc5383c9ecf12c7a2146c43c2c717d0d35fed5dc65321e4",
+  "America~Caracas.json": "9c46b8075daa7c65827d41b9578e9a3b4f95b307e6df8dce97d45e892715863a",
+  "America~La_Paz.json": "4ce5c4a34eafb3dbb096403eb5b2d2b732b68f158b2b4cdfce6ca3b998976256",
+  "America~Cayenne.json": "b9ba073e21898d5ecba017d14cc69eb37bbdbea1d87d77c88452edbbe47b68d2",
+  "Africa~Sao_Tome.json": "ecb08d4e15d897bcaba84a67a85640c588de6a84b4ab1cebe1da9cee90f51515",
+  "Pacific~Bougainville.json": "405de7620f725c0fa82a63064dd47d5d57071c162aeecf61fc982299eeb29fab",
+  "Pacific~Norfolk.json": "2234976434c1cd0ebb8008bacd966ba9ead1240cf4075884367602790d139b9b",
+  "Pacific~Tongatapu.json": "6d9451f15cb6eacdff720ed342ecb33af0c8acc41bf62a06b0e1764790e70e27",
+  "Pacific~Marquesas.json": "b1af45f4cd897ac1d4f8e65ecee72508dac7bff10e14ea6bbca864979462e5ef",
+  "Pacific~Guadalcanal.json": "cac600a8e801ce5f83607a1cec98b1278442c59c2e07d8def71024ac06c93039",
+  "Asia~Baku.json": "40f76542185107e3e994d9a3f0187a5ff039b95a5eaf929f806289e78eab6010",
+  "Asia~Chita.json": "972f6587aaaef7903254b9bd954c8bf3beafa35c27b97ac3e5a32ea2c505af66",
+  "Asia~Hovd.json": "84ec87bc06547da38a4fe5e800091b15395cca47c63c626d646d0cdd515df6cc",
+  "Asia~Kamchatka.json": "ac4c3269b823f34a40d100e486fda55a284e9c85f8e761db33ef2e5e4d5c56e8",
+  "Asia~Sakhalin.json": "79bc56f7512e3a0ae10cf035a8d5aea005fb86c19b3df79f02a726b34cf88bf8",
+  "Asia~Srednekolymsk.json": "7fa533a09c1cead2f7c663ec2023ef46bed73e40b279c47a53da8af8aceb3cae",
+  "Asia~Tbilisi.json": "d8468877c4c87cf7dff568f02016976d14d015ed6e995704f176c665a09c6334",
+  "Asia~Yerevan.json": "617ca7d8cc2d8794b0ae0b6f4ca2cb21ddc09a882de2d4fef16885f5c17ff15c",
+  "Europe~Astrakhan.json": "43afa17a6d5e4567a3cc2d93e1448d66f0aa386b7d26179cf900a675825fafa0",
+  "Europe~Samara.json": "af3a3b467c0a69847f71094ac1c9b68f8abab0818ed3be543e2c4be3b52b430a",
+  "Europe~Saratov.json": "0a7b81ddd98285f2ef92879959a1f416b49c46167dae935dce78dc3bc58c9be0",
+  "America~Adak.json": "3789e3791563e0e2dc9675ec55f9aca0a6f4baaacab9ec01974c91d7536ea614",
+  "America~Anchorage.json": "6950f8ce8d3660eeecd698bb2a134bf02557ed96cd3ff6ef43154b9c882c53c7",
+  "America~Cancun.json": "9a3915036da9dfd06486a550acc76048dfebc9d865691a6fdd1fae2b6c713540",
+  "America~Grand_Turk.json": "97973f3a481c813040f57a591ee62f640c081bfd00041c121458d1dd46bf2da2",
+  "America~Guatemala.json": "67157619e8be5e8d3f5a0419623fca1f30705f6426c7b9d0390b746f8d5ab1ac",
+  "America~Indiana~Indianapolis.json": "7ad4f9fc67f29f56fd97b8c9f9f41ed675eab9ff6ce644fff49cfb1756daac6c",
+  "America~Tijuana.json": "b41f89812f85658941931cfa03aabf191fcf8645c5d78852ac87a73fd33d628c",
+  "Etc~GMT+11.json": "345391fcd8eea280ff2f133e058ada0a7978a808428e263d5addcb05e681a92c",
+  "Etc~GMT+12.json": "03e0bf80b069b96c89ff58458e21a1a1eea7a49aa79bb1229d589fb7df24860b",
+  "Etc~GMT+2.json": "ca6210457ddc1f39db0c7b6de67255d0f738ed4777736dbaf52528e0b5d34098",
+  "Etc~GMT+8.json": "e207f7030047bb8fca6d34f62ec6dbb8144109aaff8a71096983e90727f0ee31",
+  "Etc~GMT+9.json": "6c37464290ee13aaed8b509f56ecbadfdc0b28831a6818753322de02f0092a98",
+  "Etc~GMT-12.json": "fef97f521c85818994b3724c2e75e49a7dfd140cb3e8c0ce7250b36a925056fc",
+  "Etc~GMT-13.json": "b7ffe29edd906aa1d49a3df974847884e17e72849b85442c17e24539d69acfb2",
+  "America~Havana.json": "fb63f71ab7e158bfa40ed485ffa56dacff34ebfa12db057144ef08761e324433",
+  "America~Port-au-Prince.json": "fc28d27f3557aa6d9d314b5b959cbda7713267e9e38d91342e01d779cacd5294",
+  "Asia~Beirut.json": "975143c4df03495480a7130cc6fbf789b11aadf2072b888a954a953fb23da5fd",
+  "Pacific~Easter.json": "ce0ff41356fa3c3229c8f78b675f81df1d2f20650d3546453028a7d3d26d825b"
 }
 ```

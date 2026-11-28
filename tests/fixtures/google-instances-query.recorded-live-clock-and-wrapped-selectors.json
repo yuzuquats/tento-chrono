@@ -1,0 +1,6936 @@
+{
+  "type": "google-instances-query",
+  "name": "Google clock and wrapped yearly selectors google-instances-query",
+  "source": "Google Calendar API events.instances",
+  "cases": [
+    {
+      "name": "yearly-position-1639174492-1--1-60",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1580-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1580-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=60;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1580-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1580-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=60;INTERVAL=1639174492;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1580-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1580-01-05T09:00:00Z",
+          "1746-01-05T09:00:00Z",
+          "1892-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "yearly-position-1784829639-1--1-60",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1784829639;COUNT=60;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=60;INTERVAL=1784829639;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1730-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1730-01-05T09:00:00Z",
+          "1779-01-05T09:00:00Z",
+          "1828-01-05T09:00:00Z",
+          "1865-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "yearly-position-1784829639-1-1-2",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1784829639;COUNT=2;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=2;INTERVAL=1784829639;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1730-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1730-01-05T09:00:00Z",
+          "1865-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "yearly-position-1784829639-1-1x-1-60",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1784829639;COUNT=60;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1,-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=60;INTERVAL=1784829639;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1,-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1730-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1730-01-05T09:00:00Z",
+          "1779-01-05T09:00:00Z",
+          "1828-01-05T09:00:00Z",
+          "1865-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "yearly-position-1784829639-1-2-60",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1784829639;COUNT=60;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=2"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=60;INTERVAL=1784829639;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=2"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1730-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1730-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "yearly-position-1784829639-1x7--1-60",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1784829639;COUNT=60;BYMONTH=1,7;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=60;INTERVAL=1784829639;BYMONTH=1,7;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1730-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1730-01-05T09:00:00Z",
+          "1730-07-05T09:00:00Z",
+          "1779-07-05T09:00:00Z",
+          "1828-07-05T09:00:00Z",
+          "1865-07-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "yearly-position-1784829640-1-1-60",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1784829640;COUNT=60;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=60;INTERVAL=1784829640;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1730-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1730-01-05T09:00:00Z",
+          "2025-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "yearly-position-phase-1730-1-1x7-1-5",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1;COUNT=5;BYMONTH=1,7;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=1;BYMONTH=1,7;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1730-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1730-01-05T09:00:00Z",
+          "1731-01-05T09:00:00Z",
+          "1732-01-05T09:00:00Z",
+          "1733-01-05T09:00:00Z",
+          "1734-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "yearly-position-phase-1730-1-1x7-1x-1-5",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1;COUNT=5;BYMONTH=1,7;BYMONTHDAY=5;BYSETPOS=1,-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=1;BYMONTH=1,7;BYMONTHDAY=5;BYSETPOS=1,-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1730-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1730-01-05T09:00:00Z",
+          "1730-07-05T09:00:00Z",
+          "1731-01-05T09:00:00Z",
+          "1731-07-05T09:00:00Z",
+          "1732-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "yearly-position-phase-1730-1-1x7-2-5",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1;COUNT=5;BYMONTH=1,7;BYMONTHDAY=5;BYSETPOS=2"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=1;BYMONTH=1,7;BYMONTHDAY=5;BYSETPOS=2"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1730-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1730-01-05T09:00:00Z",
+          "1730-07-05T09:00:00Z",
+          "1731-07-05T09:00:00Z",
+          "1732-07-05T09:00:00Z",
+          "1733-07-05T09:00:00Z",
+          "1734-07-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-budget-1784829639-160-1730-01-05-1x-2",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1784829639;COUNT=5;BYMONTH=1,7;BYMONTHDAY=5;BYSETPOS=1,-2"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=1784829639;BYMONTH=1,7;BYMONTHDAY=5;BYSETPOS=1,-2"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1730-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1730-01-05T09:00:00Z",
+          "1779-01-05T09:00:00Z",
+          "1828-01-05T09:00:00Z",
+          "1865-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-budget-1784829639-160-1730-07-05-1x-2",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1730-07-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-07-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1784829639;COUNT=5;BYMONTH=1,7;BYMONTHDAY=5;BYSETPOS=1,-2"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1730-07-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-07-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=1784829639;BYMONTH=1,7;BYMONTHDAY=5;BYSETPOS=1,-2"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1730-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1730-07-05T09:00:00Z",
+          "1779-01-05T09:00:00Z",
+          "1828-01-05T09:00:00Z",
+          "1865-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-budget-311385129-400-2027-01-05--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2027-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=311385129;COUNT=5;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2027-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=311385129;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "2027-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2027-01-05T09:00:00Z",
+          "2043-01-05T09:00:00Z",
+          "2059-01-05T09:00:00Z",
+          "2075-01-05T09:00:00Z",
+          "2091-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-budget-311385129-400-2027-01-05-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2027-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=311385129;COUNT=5;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2027-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=311385129;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "2027-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2027-01-05T09:00:00Z",
+          "2043-01-05T09:00:00Z",
+          "2059-01-05T09:00:00Z",
+          "2075-01-05T09:00:00Z",
+          "2091-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-budget-9544372-450-1800-01-05--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1800-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=9544372;COUNT=5;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1800-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=9544372;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1800-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1800-01-05T09:00:00Z",
+          "1904-01-05T09:00:00Z",
+          "2008-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-budget-9544372-450-1800-01-05-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1800-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=9544372;COUNT=5;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1800-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=9544372;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1800-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1800-01-05T09:00:00Z",
+          "1904-01-05T09:00:00Z",
+          "2008-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-budget-9042037-475-1700-01-05--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=9042037;COUNT=5;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=9042037;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1979-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-budget-9042037-475-1700-01-05-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=9042037;COUNT=5;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=9042037;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1979-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-budget-520334847-487-1700-01-05--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=520334847;COUNT=5;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=520334847;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1701-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-budget-78887155-490-1800-01-05--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1800-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=78887155;COUNT=5;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1800-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=78887155;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1800-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1800-01-05T09:00:00Z",
+          "2086-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-budget-78887155-490-1800-01-05-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1800-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=78887155;COUNT=5;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1800-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=78887155;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1800-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1800-01-05T09:00:00Z",
+          "2086-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-budget-8676702-495-1800-01-05--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1800-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=8676702;COUNT=5;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1800-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=8676702;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1800-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1800-01-05T09:00:00Z",
+          "1994-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-budget-8676702-495-1800-01-05-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1800-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=8676702;COUNT=5;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1800-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=8676702;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1800-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1800-01-05T09:00:00Z",
+          "1994-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-budget-43122162-498-1800-01-05--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1800-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=43122162;COUNT=5;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1800-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=43122162;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1800-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1800-01-05T09:00:00Z",
+          "1996-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-budget-43122162-498-1800-01-05-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1800-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=43122162;COUNT=5;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1800-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=43122162;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1800-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1800-01-05T09:00:00Z",
+          "1996-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "bc-selector-1140510015-december",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1140510015;COUNT=12;BYMONTH=12;BYMONTHDAY=31"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1140510015;BYMONTH=12;BYMONTHDAY=31"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1700-12-31T09:00:00Z",
+          "2099-12-31T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "bc-selector-1184955457-leap",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1184955457;COUNT=12;BYMONTH=2;BYMONTHDAY=29"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1184955457;BYMONTH=2;BYMONTHDAY=29"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1801-03-01T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "bc-selector-1184955457-ordinal",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1184955457;COUNT=12;BYMONTH=1;BYDAY=1MO"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1184955457;BYMONTH=1;BYDAY=1MO"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1801-01-01T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "bc-selector-1248235464-leap",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1248235464;COUNT=12;BYMONTH=2;BYMONTHDAY=29"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1248235464;BYMONTH=2;BYMONTHDAY=29"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1701-03-01T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "bc-selector-1248235464-weekday",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1248235464;COUNT=12;BYMONTH=1;BYDAY=MO;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1248235464;BYMONTH=1;BYDAY=MO;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1700-01-25T09:00:00Z",
+          "1701-01-30T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "bc-selector-1634181520-clock",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1634181520;COUNT=12;BYHOUR=11;BYMINUTE=30"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1634181520;BYHOUR=11;BYMINUTE=30"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1700-01-05T11:30:00Z",
+          "1901-01-05T11:30:00Z",
+          "2051-01-05T11:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "bc-selector-1634181520-ordinal",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1634181520;COUNT=12;BYMONTH=7;BYDAY=-1FR"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1634181520;BYMONTH=7;BYDAY=-1FR"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1700-07-30T09:00:00Z",
+          "1901-07-25T09:00:00Z",
+          "2051-07-28T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "bc-selector-1634181520-position",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1634181520;COUNT=12;BYMONTH=1,7;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1634181520;BYMONTH=1,7;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1700-07-05T09:00:00Z",
+          "1901-07-05T09:00:00Z",
+          "2051-07-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "bc-calendar-holdout-clock-1730-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1;COUNT=5;BYHOUR=11;BYMINUTE=30"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=1;BYHOUR=11;BYMINUTE=30"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1730-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1730-01-05T09:00:00Z",
+          "1730-01-05T11:30:00Z",
+          "1731-01-05T11:30:00Z",
+          "1732-01-05T11:30:00Z",
+          "1733-01-05T11:30:00Z",
+          "1734-01-05T11:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "bc-calendar-holdout-clock-2027-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2027-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1;COUNT=5;BYHOUR=11;BYMINUTE=30"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2027-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=1;BYHOUR=11;BYMINUTE=30"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "2027-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2027-01-05T09:00:00Z",
+          "2027-01-05T11:30:00Z",
+          "2028-01-05T11:30:00Z",
+          "2029-01-05T11:30:00Z",
+          "2030-01-05T11:30:00Z",
+          "2031-01-05T11:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "bc-calendar-holdout-clock-earlier-2027-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2027-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1;COUNT=5;BYHOUR=7;BYSECOND=45"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2027-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=1;BYHOUR=7;BYSECOND=45"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "2027-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2027-01-05T09:00:00Z",
+          "2028-01-05T07:00:45Z",
+          "2029-01-05T07:00:45Z",
+          "2030-01-05T07:00:45Z",
+          "2031-01-05T07:00:45Z",
+          "2032-01-05T07:00:45Z"
+        ]
+      }
+    },
+    {
+      "name": "bc-calendar-holdout-clock-list-1700-1634181520",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:30:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1634181520;COUNT=5;BYHOUR=9,11;BYMINUTE=30"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:30:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=1634181520;BYHOUR=9,11;BYMINUTE=30"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:15:00Z",
+          "1700-01-05T09:30:00Z",
+          "1901-01-05T09:30:00Z",
+          "2051-01-05T09:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "bc-calendar-holdout-clock-list-2027-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2027-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-05T09:30:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1;COUNT=5;BYHOUR=9,11;BYMINUTE=30"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2027-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-05T09:30:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=1;BYHOUR=9,11;BYMINUTE=30"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "2027-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2027-01-05T09:15:00Z",
+          "2027-01-05T09:30:00Z",
+          "2028-01-05T09:30:00Z",
+          "2029-01-05T09:30:00Z",
+          "2030-01-05T09:30:00Z",
+          "2031-01-05T09:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "bc-calendar-holdout-leap-clock-1700-1184955457",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1184955457;COUNT=5;BYMONTH=2;BYMONTHDAY=29;BYHOUR=11"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=1184955457;BYMONTH=2;BYMONTHDAY=29;BYHOUR=11"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1801-03-01T11:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "bc-calendar-holdout-leap-ranking-1700-1184955457",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1184955457;COUNT=5;BYMONTH=2,3;BYMONTHDAY=29,1;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=1184955457;BYMONTH=2,3;BYMONTHDAY=29,1;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1700-03-29T09:00:00Z",
+          "1801-03-29T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "bc-calendar-holdout-leap-ranking-1700-1634181520",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1634181520;COUNT=5;BYMONTH=2;BYMONTHDAY=28,29;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=1634181520;BYMONTH=2;BYMONTHDAY=28,29;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1700-02-28T09:00:00Z",
+          "1901-03-01T09:00:00Z",
+          "2051-02-28T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "bc-calendar-holdout-reform-leap-1500-1184955457",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1500-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1500-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1184955457;COUNT=5;BYMONTH=2;BYMONTHDAY=29"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1500-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1500-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=1184955457;BYMONTH=2;BYMONTHDAY=29"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1500-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1500-01-05T09:00:00Z",
+          "1500-03-01T09:00:00Z",
+          "2001-03-01T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "bc-calendar-holdout-reform-ordinal-1500-1184955457",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1500-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1500-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1184955457;COUNT=5;BYMONTH=1;BYDAY=1MO"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1500-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1500-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=1184955457;BYMONTH=1;BYDAY=1MO"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1500-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1500-01-05T09:00:00Z",
+          "1500-01-06T09:00:00Z",
+          "2001-01-06T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "inclusive-clock-daily-mixed",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2027-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-05T09:30:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=3;BYHOUR=9,11;BYMINUTE=30"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2027-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-05T09:30:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=3;BYHOUR=9,11;BYMINUTE=30"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "2027-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2027-01-05T09:15:00Z",
+          "2027-01-05T09:30:00Z",
+          "2027-01-06T09:30:00Z",
+          "2027-01-07T09:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "inclusive-clock-daily-scalar",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2027-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-05T09:30:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=3;BYHOUR=11;BYMINUTE=30"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2027-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-05T09:30:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=3;BYHOUR=11;BYMINUTE=30"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "2027-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2027-01-05T09:15:00Z",
+          "2027-01-05T11:30:00Z",
+          "2027-01-06T11:30:00Z",
+          "2027-01-07T11:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "inclusive-clock-monthly-mixed",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2027-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-05T09:30:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=MONTHLY;COUNT=3;BYHOUR=9,11;BYMINUTE=30"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2027-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-05T09:30:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=MONTHLY;COUNT=3;BYHOUR=9,11;BYMINUTE=30"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "2027-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2027-01-05T09:15:00Z",
+          "2027-01-05T09:30:00Z",
+          "2027-02-05T09:30:00Z",
+          "2027-03-05T09:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "inclusive-clock-monthly-scalar",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2027-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-05T09:30:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=MONTHLY;COUNT=3;BYHOUR=11;BYMINUTE=30"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2027-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-05T09:30:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=MONTHLY;COUNT=3;BYHOUR=11;BYMINUTE=30"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "2027-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2027-01-05T09:15:00Z",
+          "2027-01-05T11:30:00Z",
+          "2027-02-05T11:30:00Z",
+          "2027-03-05T11:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "inclusive-clock-weekly-mixed",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2027-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-05T09:30:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=WEEKLY;COUNT=3;BYHOUR=9,11;BYMINUTE=30"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2027-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-05T09:30:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=WEEKLY;COUNT=3;BYHOUR=9,11;BYMINUTE=30"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "2027-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2027-01-05T09:15:00Z",
+          "2027-01-05T09:30:00Z",
+          "2027-01-12T09:30:00Z",
+          "2027-01-19T09:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "inclusive-clock-weekly-scalar",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2027-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-05T09:30:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=WEEKLY;COUNT=3;BYHOUR=11;BYMINUTE=30"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2027-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-05T09:30:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=WEEKLY;COUNT=3;BYHOUR=11;BYMINUTE=30"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "2027-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2027-01-05T09:15:00Z",
+          "2027-01-05T11:30:00Z",
+          "2027-01-12T11:30:00Z",
+          "2027-01-19T11:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-raw-route-158746225-1700-1--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=158746225;COUNT=6;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=6;INTERVAL=158746225;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1701-01-05T09:00:00Z",
+          "1702-01-05T09:00:00Z",
+          "1703-01-05T09:00:00Z",
+          "1704-01-05T09:00:00Z",
+          "1705-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-raw-route-158746225-2080-1--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2080-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2080-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=158746225;COUNT=6;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2080-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2080-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=6;INTERVAL=158746225;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "2080-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2080-01-05T09:00:00Z",
+          "2081-01-05T09:00:00Z",
+          "2082-01-05T09:00:00Z",
+          "2083-01-05T09:00:00Z",
+          "2084-01-05T09:00:00Z",
+          "2085-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-raw-route-520334847-1700-1x7-1x-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=520334847;COUNT=6;BYMONTH=1,7;BYMONTHDAY=5;BYSETPOS=1,-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=6;INTERVAL=520334847;BYMONTH=1,7;BYMONTHDAY=5;BYSETPOS=1,-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1700-07-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-raw-route-520334847-2080-1--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2080-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2080-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=520334847;COUNT=6;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2080-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2080-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=6;INTERVAL=520334847;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "2080-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2080-01-05T09:00:00Z",
+          "2081-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-day-only-350-678014428--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=678014428;COUNT=6;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=6;INTERVAL=678014428;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1806-01-05T09:00:00Z",
+          "1882-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-day-only-350-678014428-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=678014428;COUNT=6;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=6;INTERVAL=678014428;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1806-01-05T09:00:00Z",
+          "1882-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-day-only-365-2132797066-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=2132797066;COUNT=6;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=6;INTERVAL=2132797066;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1876-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-day-only-390-2040130252--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=2040130252;COUNT=6;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=6;INTERVAL=2040130252;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-day-only-390-2040130252-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=2040130252;COUNT=6;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=6;INTERVAL=2040130252;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-day-only-475-137908122--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=137908122;COUNT=6;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=6;INTERVAL=137908122;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1872-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-day-only-475-137908122-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=137908122;COUNT=6;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=6;INTERVAL=137908122;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1872-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-day-only-490-46034051--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=46034051;COUNT=6;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=6;INTERVAL=46034051;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1872-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-day-only-495-1563991842--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1563991842;COUNT=6;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=6;INTERVAL=1563991842;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-day-only-495-1563991842-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1563991842;COUNT=6;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=6;INTERVAL=1563991842;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-day-only-496-62795604--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=62795604;COUNT=6;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=6;INTERVAL=62795604;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1874-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-day-only-496-62795604-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=62795604;COUNT=6;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=6;INTERVAL=62795604;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1874-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-day-only-498-1839176471--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1839176471;COUNT=6;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=6;INTERVAL=1839176471;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-day-only-498-1839176471-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1839176471;COUNT=6;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=6;INTERVAL=1839176471;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-equivalent-1784829639-5",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1784829639;COUNT=6;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1,366"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=6;INTERVAL=1784829639;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1,366"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1730-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1730-01-05T09:00:00Z",
+          "1779-01-05T09:00:00Z",
+          "1828-01-05T09:00:00Z",
+          "1865-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-equivalent-1784829639-6",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1784829639;COUNT=6;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1,-366"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=6;INTERVAL=1784829639;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1,-366"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1730-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1730-01-05T09:00:00Z",
+          "1779-01-05T09:00:00Z",
+          "1828-01-05T09:00:00Z",
+          "1865-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-equivalent-520334847-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=520334847;COUNT=6;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1,366"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=6;INTERVAL=520334847;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1,366"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1701-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-equivalent-520334847-2",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=520334847;COUNT=6;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1,-366"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=6;INTERVAL=520334847;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1,-366"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1701-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-rank-grid-11",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1784829639;COUNT=24;BYMONTH=1,3,5,7,9,11;BYMONTHDAY=5;BYSETPOS=3,-366"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=24;INTERVAL=1784829639;BYMONTH=1,3,5,7,9,11;BYMONTHDAY=5;BYSETPOS=3,-366"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1730-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1730-01-05T09:00:00Z",
+          "1730-05-05T09:00:00Z",
+          "1779-05-05T09:00:00Z",
+          "1828-05-05T09:00:00Z",
+          "1865-05-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-capacity-1784829639-1-1x2",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1784829639;COUNT=6;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1,2"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=6;INTERVAL=1784829639;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1,2"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1730-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1730-01-05T09:00:00Z",
+          "1779-01-05T09:00:00Z",
+          "1828-01-05T09:00:00Z",
+          "1865-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-capacity-1784829639-3-1x3",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1784829639;COUNT=6;BYMONTH=1,7;BYMONTHDAY=5;BYSETPOS=1,3"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=6;INTERVAL=1784829639;BYMONTH=1,7;BYMONTHDAY=5;BYSETPOS=1,3"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1730-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1730-01-05T09:00:00Z",
+          "1779-01-05T09:00:00Z",
+          "1828-01-05T09:00:00Z",
+          "1865-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-capacity-520334847-1-1x2",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=520334847;COUNT=6;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1,2"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=6;INTERVAL=520334847;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1,2"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1701-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "position-capacity-520334847-3-1x3",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=520334847;COUNT=6;BYMONTH=1,7;BYMONTHDAY=5;BYSETPOS=1,3"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=6;INTERVAL=520334847;BYMONTH=1,7;BYMONTHDAY=5;BYSETPOS=1,3"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1701-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-transition-1784829639-count-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1784829639;COUNT=1;BYMONTH=1,3,5,7,9,11;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=1;INTERVAL=1784829639;BYMONTH=1,3,5,7,9,11;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1730-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1730-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-transition-1784829639-upper-0-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1784829639;COUNT=24;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=24;INTERVAL=1784829639;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1730-01-01T00:00:00Z",
+            "end": "1865-01-05T08:59:59Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1730-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-transition-1784829639-upper-3-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1784829639;COUNT=24;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=24;INTERVAL=1784829639;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1730-01-01T00:00:00Z",
+            "end": "1800-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1730-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-holdout-1140510015-01-05-1x7",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1140510015;COUNT=12;BYMONTH=1,3,5,7,9,11;BYMONTHDAY=5;BYSETPOS=1,7"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1140510015;BYMONTH=1,3,5,7,9,11;BYMONTHDAY=5;BYSETPOS=1,7"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "2099-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-holdout-62795604-01-05-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=62795604;COUNT=12;BYMONTH=1,3,5,7,9,11;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=62795604;BYMONTH=1,3,5,7,9,11;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1874-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-holdout-62795604-03-06-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-03-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-03-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=62795604;COUNT=12;BYMONTH=1,3,5,7,9,11;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-03-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-03-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=62795604;BYMONTH=1,3,5,7,9,11;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-03-06T09:00:00Z",
+          "1874-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-holdout-696719541-01-05-1x7",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=696719541;COUNT=12;BYMONTH=1,3,5,7,9,11;BYMONTHDAY=5;BYSETPOS=1,7"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=696719541;BYMONTH=1,3,5,7,9,11;BYMONTHDAY=5;BYSETPOS=1,7"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1701-01-05T09:00:00Z",
+          "1702-01-05T09:00:00Z",
+          "1703-01-05T09:00:00Z",
+          "1705-01-05T09:00:00Z",
+          "1706-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-phase-holdout-1784829639-12-1x-366",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1784829639;COUNT=24;BYMONTH=1,3,5,7,9,11;BYMONTHDAY=5;BYSETPOS=1,-366"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=24;INTERVAL=1784829639;BYMONTH=1,3,5,7,9,11;BYMONTHDAY=5;BYSETPOS=1,-366"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1730-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1730-01-05T09:00:00Z",
+          "1779-01-05T09:00:00Z",
+          "1828-01-05T09:00:00Z",
+          "1865-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-throttle-20648882-01-05",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1600-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1600-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=20648882;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1600-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1600-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=20648882;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1600-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1600-01-05T09:00:00Z",
+          "1760-01-05T09:00:00Z",
+          "1920-01-05T09:00:00Z",
+          "2080-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-throttle-20648882-01-06",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1600-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1600-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=20648882;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1600-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1600-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=20648882;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1600-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1600-01-06T09:00:00Z",
+          "1760-01-05T09:00:00Z",
+          "1920-01-05T09:00:00Z",
+          "2080-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-throttle-311385129-01-05",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2027-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=311385129;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2027-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=311385129;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "2027-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2027-01-05T09:00:00Z",
+          "2043-01-05T09:00:00Z",
+          "2059-01-05T09:00:00Z",
+          "2075-01-05T09:00:00Z",
+          "2091-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-throttle-311385129-01-06",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2027-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=311385129;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2027-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=311385129;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "2027-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2027-01-06T09:00:00Z",
+          "2043-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-throttle-9544372-01-05",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1800-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=9544372;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1800-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=9544372;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1800-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1800-01-05T09:00:00Z",
+          "1904-01-05T09:00:00Z",
+          "2008-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-throttle-9544372-01-06",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1800-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=9544372;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1800-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=9544372;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1800-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1800-01-06T09:00:00Z",
+          "1904-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-rewind-holdout-1280966794--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1400-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1400-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1280966794;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1400-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1400-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1280966794;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1400-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1400-01-05T09:00:00Z",
+          "1614-01-05T09:00:00Z",
+          "1658-01-05T09:00:00Z",
+          "1917-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-rewind-holdout-1455916587--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1455916587;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1455916587;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1730-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1730-01-05T09:00:00Z",
+          "1933-01-05T09:00:00Z",
+          "2044-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-rewind-holdout-1455916587-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1455916587;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1455916587;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1730-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1730-01-05T09:00:00Z",
+          "1933-01-05T09:00:00Z",
+          "2044-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-rewind-holdout-1490214324--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1400-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1400-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1490214324;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1400-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1400-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1490214324;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1400-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1400-01-05T09:00:00Z",
+          "1676-01-05T09:00:00Z",
+          "1694-01-05T09:00:00Z",
+          "1952-01-05T09:00:00Z",
+          "1970-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-rewind-holdout-175555346--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1400-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1400-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=175555346;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1400-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1400-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=175555346;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1400-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1400-01-05T09:00:00Z",
+          "1719-01-05T09:00:00Z",
+          "2006-01-05T09:00:00Z",
+          "2039-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-rewind-holdout-2130500073--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=2130500073;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=2130500073;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1730-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1730-01-05T09:00:00Z",
+          "1924-01-05T09:00:00Z",
+          "2022-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-rewind-holdout-952865008--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1400-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1400-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=952865008;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1400-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1400-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=952865008;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1400-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1400-01-05T09:00:00Z",
+          "1616-01-05T09:00:00Z",
+          "1795-01-05T09:00:00Z",
+          "1832-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-pending-control-311385129--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2027-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=311385129;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2027-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=311385129;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "2027-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2027-01-06T09:00:00Z",
+          "2043-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-pending-control-311385129-1x2",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2027-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=311385129;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1,2"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2027-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=311385129;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1,2"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "2027-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2027-01-06T09:00:00Z",
+          "2043-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-pending-control-311385129-unranked",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2027-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=311385129;COUNT=12;BYMONTH=1;BYMONTHDAY=5"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2027-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=311385129;BYMONTH=1;BYMONTHDAY=5"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "2027-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2027-01-06T09:00:00Z",
+          "2043-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-pending-control-9544372--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1800-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=9544372;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1800-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=9544372;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1800-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1800-01-06T09:00:00Z",
+          "1904-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-pending-control-9544372-1x2",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1800-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=9544372;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1,2"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1800-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=9544372;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1,2"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1800-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1800-01-06T09:00:00Z",
+          "1904-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-pending-control-9544372-unranked",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1800-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=9544372;COUNT=12;BYMONTH=1;BYMONTHDAY=5"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1800-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=9544372;BYMONTH=1;BYMONTHDAY=5"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1800-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1800-01-06T09:00:00Z",
+          "1904-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-budget-boundary-248-positive",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1800-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=17318417;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1800-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=17318417;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1800-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1800-01-06T09:00:00Z",
+          "1920-01-05T09:00:00Z",
+          "2040-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-budget-boundary-248-unranked",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1800-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=17318417;COUNT=12;BYMONTH=1;BYMONTHDAY=5"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1800-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=17318417;BYMONTH=1;BYMONTHDAY=5"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1800-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1800-01-06T09:00:00Z",
+          "1920-01-05T09:00:00Z",
+          "2040-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-budget-boundary-249-positive",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1800-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=17248865;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1800-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=17248865;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1800-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1800-01-06T09:00:00Z",
+          "1889-01-05T09:00:00Z",
+          "1978-01-05T09:00:00Z",
+          "2067-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-budget-boundary-249-unranked",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1800-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=17248865;COUNT=12;BYMONTH=1;BYMONTHDAY=5"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1800-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=17248865;BYMONTH=1;BYMONTHDAY=5"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1800-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1800-01-06T09:00:00Z",
+          "1889-01-05T09:00:00Z",
+          "1978-01-05T09:00:00Z",
+          "2067-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-budget-boundary-250-positive",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1800-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=51539608;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1800-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=51539608;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1800-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1800-01-06T09:00:00Z",
+          "1912-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-budget-boundary-250-unranked",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1800-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=51539608;COUNT=12;BYMONTH=1;BYMONTHDAY=5"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1800-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=51539608;BYMONTH=1;BYMONTHDAY=5"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1800-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1800-01-06T09:00:00Z",
+          "1912-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-budget-boundary-251-positive",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1800-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=17111424;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1800-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=17111424;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1800-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1800-01-06T09:00:00Z",
+          "1928-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-budget-boundary-251-unranked",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1800-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=17111424;COUNT=12;BYMONTH=1;BYMONTHDAY=5"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1800-01-06T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-06T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=17111424;BYMONTH=1;BYMONTHDAY=5"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1800-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1800-01-06T09:00:00Z",
+          "1928-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-two-before-reset-311385129-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2027-01-08T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-08T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=311385129;COUNT=12;BYMONTH=1;BYMONTHDAY=5,7;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2027-01-08T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-08T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=311385129;BYMONTH=1;BYMONTHDAY=5,7;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "2027-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2027-01-08T09:00:00Z",
+          "2043-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-two-before-reset-311385129-1x2",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2027-01-08T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-08T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=311385129;COUNT=12;BYMONTH=1;BYMONTHDAY=5,7;BYSETPOS=1,2"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2027-01-08T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-08T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=311385129;BYMONTH=1;BYMONTHDAY=5,7;BYSETPOS=1,2"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "2027-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2027-01-08T09:00:00Z",
+          "2043-01-05T09:00:00Z",
+          "2043-01-07T09:00:00Z",
+          "2059-01-05T09:00:00Z",
+          "2059-01-07T09:00:00Z",
+          "2075-01-05T09:00:00Z",
+          "2075-01-07T09:00:00Z",
+          "2091-01-05T09:00:00Z",
+          "2091-01-07T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-two-before-reset-311385129-unranked",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2027-01-08T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-08T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=311385129;COUNT=12;BYMONTH=1;BYMONTHDAY=5,7"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2027-01-08T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-08T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=311385129;BYMONTH=1;BYMONTHDAY=5,7"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "2027-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2027-01-08T09:00:00Z",
+          "2043-01-05T09:00:00Z",
+          "2043-01-07T09:00:00Z",
+          "2059-01-05T09:00:00Z",
+          "2059-01-07T09:00:00Z",
+          "2075-01-05T09:00:00Z",
+          "2075-01-07T09:00:00Z",
+          "2091-01-05T09:00:00Z",
+          "2091-01-07T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-two-before-reset-9544372-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1800-01-08T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-08T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=9544372;COUNT=12;BYMONTH=1;BYMONTHDAY=5,7;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1800-01-08T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-08T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=9544372;BYMONTH=1;BYMONTHDAY=5,7;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1800-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1800-01-08T09:00:00Z",
+          "1904-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-two-before-reset-9544372-1x2",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1800-01-08T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-08T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=9544372;COUNT=12;BYMONTH=1;BYMONTHDAY=5,7;BYSETPOS=1,2"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1800-01-08T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-08T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=9544372;BYMONTH=1;BYMONTHDAY=5,7;BYSETPOS=1,2"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1800-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1800-01-08T09:00:00Z",
+          "1904-01-05T09:00:00Z",
+          "1904-01-07T09:00:00Z",
+          "2008-01-05T09:00:00Z",
+          "2008-01-07T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-two-before-reset-9544372-unranked",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1800-01-08T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-08T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=9544372;COUNT=12;BYMONTH=1;BYMONTHDAY=5,7"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1800-01-08T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1800-01-08T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=9544372;BYMONTH=1;BYMONTHDAY=5,7"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1800-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1800-01-08T09:00:00Z",
+          "1904-01-05T09:00:00Z",
+          "1904-01-07T09:00:00Z",
+          "2008-01-05T09:00:00Z",
+          "2008-01-07T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-month-cursor-1784829639-5-1x-366",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1784829639;COUNT=24;BYMONTH=1,3,5;BYMONTHDAY=5,15,25;BYSETPOS=1,-366"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1730-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1730-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=24;INTERVAL=1784829639;BYMONTH=1,3,5;BYMONTHDAY=5,15,25;BYSETPOS=1,-366"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1730-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1730-01-05T09:00:00Z",
+          "1779-01-05T09:00:00Z",
+          "1828-01-05T09:00:00Z",
+          "1865-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-traversal-1101588445--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1101588445;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1101588445;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1801-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-traversal-1101588445-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1101588445;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1101588445;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "2060-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-traversal-1184955457--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1184955457;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1184955457;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1801-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-traversal-1184955457-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1184955457;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1184955457;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "2017-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-traversal-1244458173-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1244458173;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1244458173;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1755-01-05T09:00:00Z",
+          "1811-01-05T09:00:00Z",
+          "1867-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-traversal-1248235464--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1248235464;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1248235464;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1701-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-traversal-1248235464-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1248235464;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1248235464;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1701-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-traversal-1634181520--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1634181520;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1634181520;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1901-01-05T09:00:00Z",
+          "2051-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-traversal-1634181520-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1634181520;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1634181520;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1901-01-05T09:00:00Z",
+          "2051-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-traversal-1794115677--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1794115677;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1794115677;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1746-01-05T09:00:00Z",
+          "1792-01-05T09:00:00Z",
+          "1901-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-traversal-1794115677-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1794115677;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1794115677;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1746-01-05T09:00:00Z",
+          "1792-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-traversal-569464516--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=569464516;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=569464516;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1701-01-05T09:00:00Z",
+          "1898-01-05T09:00:00Z",
+          "2096-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-traversal-569464516-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=569464516;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=569464516;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1898-01-05T09:00:00Z",
+          "2096-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-traversal-992418066-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=992418066;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=992418066;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1778-01-05T09:00:00Z",
+          "1857-01-05T09:00:00Z",
+          "1936-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-ad-1101588445-1x2",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1101588445;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1,2"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1101588445;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1,2"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1801-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-ad-1184955457-1x2",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1184955457;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1,2"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1184955457;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1,2"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1801-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-ad-1794115677-1x2",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1794115677;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1,2"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1794115677;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1,2"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1746-01-05T09:00:00Z",
+          "1792-01-05T09:00:00Z",
+          "1901-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-ad-569464516-1x2",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=569464516;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1,2"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=569464516;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1,2"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1701-01-05T09:00:00Z",
+          "1898-01-05T09:00:00Z",
+          "2096-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-ad-276715341-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=276715341;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=276715341;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-ad-553810008--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=553810008;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=553810008;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1985-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-ad-553810008-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=553810008;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=553810008;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-ad-830904675-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=830904675;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=830904675;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-ad-969452006--1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=969452006;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=969452006;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=-1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "2035-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-ad-969452006-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=969452006;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=969452006;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-ad-1301148913-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1301148913;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1301148913;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-ad-259588380-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=259588380;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=259588380;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-ad-910341000-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=910341000;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=910341000;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-grid-1184955457-clock",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1184955457;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1;BYHOUR=11"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1184955457;BYMONTH=1;BYMONTHDAY=5;BYHOUR=11;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1700-01-05T11:00:00Z",
+          "2017-01-05T11:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-grid-1184955457-empty-max",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1184955457;COUNT=12;BYMONTH=1;BYMONTHDAY=5,7;BYSETPOS=1,3"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1184955457;BYMONTH=1;BYMONTHDAY=5,7;BYSETPOS=1,3"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1801-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-grid-1184955457-two-day",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1184955457;COUNT=12;BYMONTH=1;BYMONTHDAY=5,7;BYSETPOS=1,2"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1184955457;BYMONTH=1;BYMONTHDAY=5,7;BYSETPOS=1,2"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1700-01-07T09:00:00Z",
+          "2017-01-05T09:00:00Z",
+          "2017-01-07T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-grid-1248235464-clock",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1248235464;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1;BYHOUR=11"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1248235464;BYMONTH=1;BYMONTHDAY=5;BYHOUR=11;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1700-01-05T11:00:00Z",
+          "1701-01-05T11:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-grid-1248235464-two-day",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1248235464;COUNT=12;BYMONTH=1;BYMONTHDAY=5,7;BYSETPOS=1,2"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1248235464;BYMONTH=1;BYMONTHDAY=5,7;BYSETPOS=1,2"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1700-01-07T09:00:00Z",
+          "1701-01-05T09:00:00Z",
+          "1701-01-07T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-grid-553810008-clock",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=553810008;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1;BYHOUR=11"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=553810008;BYMONTH=1;BYMONTHDAY=5;BYHOUR=11;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1700-01-05T11:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-grid-553810008-empty-max",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=553810008;COUNT=12;BYMONTH=1;BYMONTHDAY=5,7;BYSETPOS=1,3"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=553810008;BYMONTH=1;BYMONTHDAY=5,7;BYSETPOS=1,3"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1985-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-era-grid-553810008-two-day",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=553810008;COUNT=12;BYMONTH=1;BYMONTHDAY=5,7;BYSETPOS=1,2"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=553810008;BYMONTH=1;BYMONTHDAY=5,7;BYSETPOS=1,2"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1700-01-07T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "bc-selector-1140510015-position",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1140510015;COUNT=12;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1700-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1700-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1140510015;BYMONTH=1;BYMONTHDAY=5;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 900000,
+        "windows": {
+          "captured": {
+            "start": "1700-01-01T00:00:00Z",
+            "end": "2100-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1700-01-05T09:00:00Z",
+          "1850-01-05T09:00:00Z"
+        ]
+      }
+    }
+  ]
+}

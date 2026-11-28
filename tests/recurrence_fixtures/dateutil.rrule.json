@@ -6219,6 +6219,21 @@
         "1997-09-09T09:00:00",
         "1997-09-16T09:00:00"
       ]
+    },
+    {
+      "name": "RRuleTest.testStrKeywords",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=YEARLY;COUNT=3;INTERVAL=3;BYMONTH=3;BYWEEKDAY=TH;BYMONTHDAY=3;BYHOUR=3;BYMINUTE=3;BYSECOND=3"
+        ],
+        "through": "2072-03-03"
+      },
+      "expected": [
+        "2033-03-03T03:03:03",
+        "2039-03-03T03:03:03",
+        "2072-03-03T03:03:03"
+      ]
     }
   ]
 }

@@ -1,0 +1,147 @@
+{
+  "type": "recurrence-profile",
+  "name": "Outlook Windows timezone resolution",
+  "source": "Synthetic Graph masters and IANA March 2026 transition rules",
+  "cases": [
+    {
+      "name": "native-Windows-range",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-03-07T14:00:00",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Eastern Standard Time",
+          "recurrence": {
+            "pattern": {
+              "type": "daily",
+              "interval": 1
+            },
+            "range": {
+              "type": "numbered",
+              "startDate": "2026-03-07",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "Eastern Standard Time"
+            }
+          }
+        },
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-07T14:00:00Z",
+        "2026-03-08T13:00:00Z",
+        "2026-03-09T13:00:00Z"
+      ]
+    },
+    {
+      "name": "default-Windows-mapping-is-used-with-a-partial-resolver",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-03-07T14:00:00",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Europe Standard Time",
+          "recurrence": {
+            "pattern": {
+              "type": "daily",
+              "interval": 1
+            },
+            "range": {
+              "type": "numbered",
+              "startDate": "2026-03-07",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "W. Europe Standard Time"
+            }
+          }
+        },
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08"
+        ],
+        "resolveTimeZone": {
+          "Eastern Standard Time": "America/New_York"
+        }
+      },
+      "expected": [
+        "2026-03-07T14:00:00Z",
+        "2026-03-08T14:00:00Z",
+        "2026-03-09T14:00:00Z"
+      ]
+    },
+    {
+      "name": "explicit-resolver-takes-precedence",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-03-07T14:00:00",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Europe Standard Time",
+          "recurrence": {
+            "pattern": {
+              "type": "daily",
+              "interval": 1
+            },
+            "range": {
+              "type": "numbered",
+              "startDate": "2026-03-07",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "W. Europe Standard Time"
+            }
+          }
+        },
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08"
+        ],
+        "resolveTimeZone": {
+          "W. Europe Standard Time": "America/New_York"
+        }
+      },
+      "expected": [
+        "2026-03-07T14:00:00Z",
+        "2026-03-08T13:00:00Z",
+        "2026-03-09T13:00:00Z"
+      ]
+    },
+    {
+      "name": "unknown-timezone-still-fails",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-03-07T14:00:00",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Example Standard Time",
+          "recurrence": {
+            "pattern": {
+              "type": "daily",
+              "interval": 1
+            },
+            "range": {
+              "type": "numbered",
+              "startDate": "2026-03-07",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "Example Standard Time"
+            }
+          }
+        },
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08"
+        ]
+      },
+      "expected": {
+        "error": "Unmapped Graph recurrence timezone: Example Standard Time"
+      }
+    }
+  ]
+}

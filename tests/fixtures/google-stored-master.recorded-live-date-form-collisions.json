@@ -1,0 +1,1215 @@
+{
+  "type": "google-stored-master",
+  "name": "Google Calendar stored masters with distinct expansions",
+  "source": "Google Calendar API events.instances",
+  "cases": [
+    {
+      "name": "all-day-mixed-rdate-date-first vs all-day-mixed-rdate-date-only-control",
+      "input": {
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-14T00:00:00Z"
+        },
+        "master": {
+          "start": "2027-01-04",
+          "rules": [
+            "RDATE;VALUE=DATE:20270108,20270108",
+            "RRULE:FREQ=DAILY;COUNT=3"
+          ]
+        },
+        "submissions": [
+          {
+            "start": "2027-01-04",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=3",
+              "RDATE:20270108,20270108T090000Z"
+            ]
+          },
+          {
+            "start": "2027-01-04",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=3",
+              "RDATE:20270108,20270108"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "submitted": [
+          [
+            "2027-01-04",
+            "2027-01-05",
+            "2027-01-06",
+            "2027-01-08",
+            "2027-01-08"
+          ],
+          [
+            "2027-01-04",
+            "2027-01-05",
+            "2027-01-06",
+            "2027-01-08"
+          ]
+        ],
+        "stored": [
+          "2027-01-04",
+          "2027-01-05",
+          "2027-01-06",
+          "2027-01-08"
+        ]
+      },
+      "captures": [
+        "google-all-day-mixed-date-controls-20261123.json/all-day-mixed-rdate-date-first",
+        "google-all-day-mixed-date-controls-20261123.json/all-day-mixed-rdate-date-only-control"
+      ]
+    },
+    {
+      "name": "all-day-mixed-exdate-date-first vs all-day-mixed-exdate-date-only-control",
+      "input": {
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-14T00:00:00Z"
+        },
+        "master": {
+          "start": "2027-01-04",
+          "rules": [
+            "EXDATE;VALUE=DATE:20270105,20270105",
+            "RDATE;VALUE=DATE-TIME:20270105T090000Z,20270105T100000Z",
+            "RRULE:FREQ=DAILY;COUNT=3"
+          ]
+        },
+        "submissions": [
+          {
+            "start": "2027-01-04",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=3",
+              "RDATE:20270105T090000Z,20270105T100000Z",
+              "EXDATE:20270105,20270105T090000Z"
+            ]
+          },
+          {
+            "start": "2027-01-04",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=3",
+              "RDATE:20270105T090000Z,20270105T100000Z",
+              "EXDATE:20270105,20270105"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "submitted": [
+          [
+            "2027-01-04",
+            "2027-01-05",
+            "2027-01-06"
+          ],
+          [
+            "2027-01-04",
+            "2027-01-05",
+            "2027-01-05",
+            "2027-01-06"
+          ]
+        ],
+        "stored": [
+          "2027-01-04",
+          "2027-01-05",
+          "2027-01-05",
+          "2027-01-06"
+        ]
+      },
+      "captures": [
+        "google-all-day-mixed-date-controls-20261123.json/all-day-mixed-exdate-date-first",
+        "google-all-day-mixed-date-controls-20261123.json/all-day-mixed-exdate-date-only-control"
+      ]
+    },
+    {
+      "name": "boundary-zone-08 vs fixed-zone-11",
+      "input": {
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-13T00:00:00Z"
+        },
+        "master": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York",
+          "rules": [
+            "RDATE;VALUE=DATE-TIME:20270108T090000Z",
+            "RRULE:FREQ=DAILY;COUNT=3"
+          ]
+        },
+        "submissions": [
+          {
+            "start": "2027-01-04T09:00:00-05:00",
+            "timezone": "America/New_York",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=3",
+              "RDATE;TZID=\"+18:01\":20270108T090000"
+            ]
+          },
+          {
+            "start": "2027-01-04T09:00:00-05:00",
+            "timezone": "America/New_York",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=3",
+              "RDATE;TZID=Utc:20270108T090000"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "submitted": [
+          [
+            "2027-01-04T14:00:00Z",
+            "2027-01-05T14:00:00Z",
+            "2027-01-06T14:00:00Z",
+            "2027-01-08T14:00:00Z"
+          ],
+          [
+            "2027-01-04T14:00:00Z",
+            "2027-01-05T14:00:00Z",
+            "2027-01-06T14:00:00Z",
+            "2027-01-08T09:00:00Z"
+          ]
+        ],
+        "stored": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-06T14:00:00Z",
+          "2027-01-08T09:00:00Z"
+        ]
+      },
+      "captures": [
+        "google-date-fixed-boundaries-20261123.json/boundary-zone-08",
+        "google-date-fixed-offsets-20261123.json/fixed-zone-11"
+      ]
+    },
+    {
+      "name": "timed-floating-rdate-explicit-utc-control vs timed-floating-rdate",
+      "input": {
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-12T00:00:00Z"
+        },
+        "master": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York",
+          "rules": [
+            "RDATE;VALUE=DATE-TIME:20270108T090000Z",
+            "RRULE:FREQ=DAILY;COUNT=3"
+          ]
+        },
+        "submissions": [
+          {
+            "start": "2027-01-04T09:00:00",
+            "timezone": "America/New_York",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=3",
+              "RDATE:20270108T090000Z"
+            ]
+          },
+          {
+            "start": "2027-01-04T09:00:00",
+            "timezone": "America/New_York",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=3",
+              "RDATE:20270108T090000"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "submitted": [
+          [
+            "2027-01-04T14:00:00Z",
+            "2027-01-05T14:00:00Z",
+            "2027-01-06T14:00:00Z",
+            "2027-01-08T09:00:00Z"
+          ],
+          [
+            "2027-01-04T14:00:00Z",
+            "2027-01-05T14:00:00Z",
+            "2027-01-06T14:00:00Z",
+            "2027-01-08T14:00:00Z"
+          ]
+        ],
+        "stored": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-06T14:00:00Z",
+          "2027-01-08T09:00:00Z"
+        ]
+      },
+      "captures": [
+        "google-date-form-controls-20261123.json/timed-floating-rdate-explicit-utc-control",
+        "google-date-forms-20261123.json/timed-floating-rdate"
+      ]
+    },
+    {
+      "name": "timed-floating-exdate-explicit-utc-control vs timed-floating-exdate",
+      "input": {
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-12T00:00:00Z"
+        },
+        "master": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York",
+          "rules": [
+            "EXDATE;VALUE=DATE-TIME:20270105T090000Z",
+            "RRULE:FREQ=DAILY;COUNT=3"
+          ]
+        },
+        "submissions": [
+          {
+            "start": "2027-01-04T09:00:00",
+            "timezone": "America/New_York",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=3",
+              "EXDATE:20270105T090000Z"
+            ]
+          },
+          {
+            "start": "2027-01-04T09:00:00",
+            "timezone": "America/New_York",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=3",
+              "EXDATE:20270105T090000"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "submitted": [
+          [
+            "2027-01-04T14:00:00Z",
+            "2027-01-05T14:00:00Z",
+            "2027-01-06T14:00:00Z"
+          ],
+          [
+            "2027-01-04T14:00:00Z",
+            "2027-01-06T14:00:00Z"
+          ]
+        ],
+        "stored": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-06T14:00:00Z"
+        ]
+      },
+      "captures": [
+        "google-date-form-controls-20261123.json/timed-floating-exdate-explicit-utc-control",
+        "google-date-forms-20261123.json/timed-floating-exdate"
+      ]
+    },
+    {
+      "name": "timed-rdate-mixed-utc-and-floating-explicit-utc-control vs timed-rdate-mixed-utc-and-floating",
+      "input": {
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-12T00:00:00Z"
+        },
+        "master": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York",
+          "rules": [
+            "RDATE;VALUE=DATE-TIME:20270108T140000Z,20270109T090000Z",
+            "RRULE:FREQ=DAILY;COUNT=3"
+          ]
+        },
+        "submissions": [
+          {
+            "start": "2027-01-04T09:00:00",
+            "timezone": "America/New_York",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=3",
+              "RDATE:20270108T140000Z,20270109T090000Z"
+            ]
+          },
+          {
+            "start": "2027-01-04T09:00:00",
+            "timezone": "America/New_York",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=3",
+              "RDATE:20270108T140000Z,20270109T090000"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "submitted": [
+          [
+            "2027-01-04T14:00:00Z",
+            "2027-01-05T14:00:00Z",
+            "2027-01-06T14:00:00Z",
+            "2027-01-08T14:00:00Z",
+            "2027-01-09T09:00:00Z"
+          ],
+          [
+            "2027-01-04T14:00:00Z",
+            "2027-01-05T14:00:00Z",
+            "2027-01-06T14:00:00Z",
+            "2027-01-08T14:00:00Z",
+            "2027-01-09T14:00:00Z"
+          ]
+        ],
+        "stored": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-06T14:00:00Z",
+          "2027-01-08T14:00:00Z",
+          "2027-01-09T09:00:00Z"
+        ]
+      },
+      "captures": [
+        "google-date-form-controls-20261123.json/timed-rdate-mixed-utc-and-floating-explicit-utc-control",
+        "google-date-forms-20261123.json/timed-rdate-mixed-utc-and-floating"
+      ]
+    },
+    {
+      "name": "timed-mixed-exdate-date-first-date-only-control vs timed-mixed-exdate-date-first",
+      "input": {
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-12T00:00:00Z"
+        },
+        "master": {
+          "start": "2027-01-04T00:00:00Z",
+          "timezone": "UTC",
+          "rules": [
+            "EXDATE;VALUE=DATE:20270105,20270106",
+            "RRULE:FREQ=DAILY;COUNT=3"
+          ]
+        },
+        "submissions": [
+          {
+            "start": "2027-01-04T00:00:00",
+            "timezone": "UTC",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=3",
+              "EXDATE:20270105,20270106"
+            ]
+          },
+          {
+            "start": "2027-01-04T00:00:00",
+            "timezone": "UTC",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=3",
+              "EXDATE:20270105,20270106T000000Z"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "submitted": [
+          [
+            "2027-01-04T00:00:00Z",
+            "2027-01-05T00:00:00Z",
+            "2027-01-06T00:00:00Z"
+          ],
+          [
+            "2027-01-04T00:00:00Z",
+            "2027-01-05T00:00:00Z"
+          ]
+        ],
+        "stored": [
+          "2027-01-04T00:00:00Z",
+          "2027-01-05T00:00:00Z",
+          "2027-01-06T00:00:00Z"
+        ]
+      },
+      "captures": [
+        "google-date-only-list-controls-20261123.json/timed-mixed-exdate-date-first-date-only-control",
+        "google-mixed-date-values-20261123.json/timed-mixed-exdate-date-first"
+      ]
+    },
+    {
+      "name": "timed-mixed-rdate-date-first-date-only-control vs timed-mixed-rdate-date-first",
+      "input": {
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-12T00:00:00Z"
+        },
+        "master": {
+          "start": "2027-01-04T00:00:00Z",
+          "timezone": "UTC",
+          "rules": [
+            "RDATE;VALUE=DATE:20270108,20270109",
+            "RRULE:FREQ=DAILY;COUNT=3"
+          ]
+        },
+        "submissions": [
+          {
+            "start": "2027-01-04T00:00:00",
+            "timezone": "UTC",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=3",
+              "RDATE:20270108,20270109"
+            ]
+          },
+          {
+            "start": "2027-01-04T00:00:00",
+            "timezone": "UTC",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=3",
+              "RDATE:20270108,20270109T110000Z"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "submitted": [
+          [
+            "2027-01-04T00:00:00Z",
+            "2027-01-05T00:00:00Z",
+            "2027-01-06T00:00:00Z",
+            "2027-01-08T00:00:00Z",
+            "2027-01-09T00:00:00Z"
+          ],
+          [
+            "2027-01-04T00:00:00Z",
+            "2027-01-05T00:00:00Z",
+            "2027-01-06T00:00:00Z",
+            "2027-01-08T00:00:00Z",
+            "2027-01-09T11:00:00Z"
+          ]
+        ],
+        "stored": [
+          "2027-01-04T00:00:00Z",
+          "2027-01-05T00:00:00Z",
+          "2027-01-06T00:00:00Z",
+          "2027-01-08T00:00:00Z",
+          "2027-01-09T00:00:00Z"
+        ]
+      },
+      "captures": [
+        "google-date-only-list-controls-20261123.json/timed-mixed-rdate-date-first-date-only-control",
+        "google-mixed-date-values-20261123.json/timed-mixed-rdate-date-first"
+      ]
+    },
+    {
+      "name": "timed-explicit-utc-exdates vs timed-mixed-unknown-exdate",
+      "input": {
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-13T00:00:00Z"
+        },
+        "master": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York",
+          "rules": [
+            "EXDATE;VALUE=DATE-TIME:20270105T090000Z,20270106T140000Z",
+            "RRULE:FREQ=DAILY;COUNT=3"
+          ]
+        },
+        "submissions": [
+          {
+            "start": "2027-01-04T09:00:00-05:00",
+            "timezone": "America/New_York",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=3",
+              "EXDATE:20270105T090000Z,20270106T140000Z"
+            ]
+          },
+          {
+            "start": "2027-01-04T09:00:00-05:00",
+            "timezone": "America/New_York",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=3",
+              "EXDATE;TZID=Not/AZone:20270105T090000,20270106T140000Z"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "submitted": [
+          [
+            "2027-01-04T14:00:00Z",
+            "2027-01-05T14:00:00Z"
+          ],
+          [
+            "2027-01-04T14:00:00Z"
+          ]
+        ],
+        "stored": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z"
+        ]
+      },
+      "captures": [
+        "google-date-zone-aliases-20261123.json/timed-explicit-utc-exdates",
+        "google-date-zone-controls-20261123.json/timed-mixed-unknown-exdate"
+      ]
+    },
+    {
+      "name": "timed-extension-explicit-utc vs timed-other-parameter",
+      "input": {
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-13T00:00:00Z"
+        },
+        "master": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York",
+          "rules": [
+            "RDATE;VALUE=DATE-TIME;X-NOTE=\"A:B;C\":20270108T090000Z",
+            "RRULE:FREQ=DAILY;COUNT=3"
+          ]
+        },
+        "submissions": [
+          {
+            "start": "2027-01-04T09:00:00-05:00",
+            "timezone": "America/New_York",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=3",
+              "RDATE;X-NOTE=\"A:B;C\":20270108T090000Z"
+            ]
+          },
+          {
+            "start": "2027-01-04T09:00:00-05:00",
+            "timezone": "America/New_York",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=3",
+              "RDATE;X-NOTE=\"A:B;C\":20270108T090000"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "submitted": [
+          [
+            "2027-01-04T14:00:00Z",
+            "2027-01-05T14:00:00Z",
+            "2027-01-06T14:00:00Z",
+            "2027-01-08T09:00:00Z"
+          ],
+          [
+            "2027-01-04T14:00:00Z",
+            "2027-01-05T14:00:00Z",
+            "2027-01-06T14:00:00Z",
+            "2027-01-08T14:00:00Z"
+          ]
+        ],
+        "stored": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-06T14:00:00Z",
+          "2027-01-08T09:00:00Z"
+        ]
+      },
+      "captures": [
+        "google-date-zone-controls-20261123.json/timed-extension-explicit-utc",
+        "google-date-zone-parameters-20261123.json/timed-other-parameter"
+      ]
+    },
+    {
+      "name": "timed-date-and-offset vs timed-plain-dates-control",
+      "input": {
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-13T00:00:00Z"
+        },
+        "master": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York",
+          "rules": [
+            "EXDATE;VALUE=DATE:20270108",
+            "RDATE;VALUE=DATE:20270108,20270108",
+            "RRULE:FREQ=DAILY;COUNT=3"
+          ]
+        },
+        "submissions": [
+          {
+            "start": "2027-01-04T09:00:00-05:00",
+            "timezone": "America/New_York",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=3",
+              "RDATE;TZID=\"GMT+02:30\":20270108,20270109T000000",
+              "EXDATE:20270108"
+            ]
+          },
+          {
+            "start": "2027-01-04T09:00:00-05:00",
+            "timezone": "America/New_York",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=3",
+              "RDATE:20270108,20270108",
+              "EXDATE:20270108"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "submitted": [
+          [
+            "2027-01-04T14:00:00Z",
+            "2027-01-05T14:00:00Z",
+            "2027-01-06T14:00:00Z",
+            "2027-01-08T21:30:00Z"
+          ],
+          [
+            "2027-01-04T14:00:00Z",
+            "2027-01-05T14:00:00Z",
+            "2027-01-06T14:00:00Z"
+          ]
+        ],
+        "stored": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-06T14:00:00Z"
+        ]
+      },
+      "captures": [
+        "google-fixed-zone-exclusions-20261123.json/timed-date-and-offset",
+        "google-timed-civil-date-exclusions-20261123.json/timed-plain-dates-control"
+      ]
+    },
+    {
+      "name": "all-day-date-and-offset vs all-day-plain-dates-control",
+      "input": {
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-13T00:00:00Z"
+        },
+        "master": {
+          "start": "2027-01-04",
+          "rules": [
+            "EXDATE;VALUE=DATE:20270108",
+            "RDATE;VALUE=DATE:20270108,20270108",
+            "RRULE:FREQ=DAILY;COUNT=3"
+          ]
+        },
+        "submissions": [
+          {
+            "start": "2027-01-04",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=3",
+              "RDATE;TZID=\"GMT+02:30\":20270108,20270109T000000",
+              "EXDATE:20270108"
+            ]
+          },
+          {
+            "start": "2027-01-04",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=3",
+              "RDATE:20270108,20270108",
+              "EXDATE:20270108"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "submitted": [
+          [
+            "2027-01-04",
+            "2027-01-05",
+            "2027-01-06",
+            "2027-01-08"
+          ],
+          [
+            "2027-01-04",
+            "2027-01-05",
+            "2027-01-06"
+          ]
+        ],
+        "stored": [
+          "2027-01-04",
+          "2027-01-05",
+          "2027-01-06"
+        ]
+      },
+      "captures": [
+        "google-fixed-zone-exclusions-20261123.json/all-day-date-and-offset",
+        "google-timed-civil-date-exclusions-20261123.json/all-day-plain-dates-control"
+      ]
+    },
+    {
+      "name": "timed-date-only-no-exdate-control vs timed-date-without-exclusion",
+      "input": {
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-13T00:00:00Z"
+        },
+        "master": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/New_York",
+          "rules": [
+            "RDATE;VALUE=DATE:20270108,20270108",
+            "RRULE:FREQ=DAILY;COUNT=3"
+          ]
+        },
+        "submissions": [
+          {
+            "start": "2027-01-04T09:00:00-05:00",
+            "timezone": "America/New_York",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=3",
+              "RDATE:20270108,20270108"
+            ]
+          },
+          {
+            "start": "2027-01-04T09:00:00-05:00",
+            "timezone": "America/New_York",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=3",
+              "RDATE;TZID=\"GMT+02:30\":20270108,20270109T000000"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "submitted": [
+          [
+            "2027-01-04T14:00:00Z",
+            "2027-01-05T14:00:00Z",
+            "2027-01-06T14:00:00Z",
+            "2027-01-08T00:00:00Z"
+          ],
+          [
+            "2027-01-04T14:00:00Z",
+            "2027-01-05T14:00:00Z",
+            "2027-01-06T14:00:00Z",
+            "2027-01-08T00:00:00Z",
+            "2027-01-08T21:30:00Z"
+          ]
+        ],
+        "stored": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-06T14:00:00Z",
+          "2027-01-08T00:00:00Z"
+        ]
+      },
+      "captures": [
+        "google-fixed-zone-store-control-20261123.json/timed-date-only-no-exdate-control",
+        "google-timed-civil-date-exclusions-20261123.json/timed-date-without-exclusion"
+      ]
+    },
+    {
+      "name": "master-zone-00-utc-rdates vs master-zone-00",
+      "input": {
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "master": {
+          "start": "2027-01-03T22:00:00Z",
+          "timezone": "Australia/Sydney",
+          "rules": [
+            "RDATE;VALUE=DATE-TIME:20270108T090000Z,20270708T090000Z",
+            "RRULE:FREQ=MONTHLY;COUNT=2;INTERVAL=6"
+          ]
+        },
+        "submissions": [
+          {
+            "start": "2027-01-04T09:00:00+11:00",
+            "timezone": "AET",
+            "rules": [
+              "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+              "RDATE:20270108T090000Z,20270708T090000Z"
+            ]
+          },
+          {
+            "start": "2027-01-04T09:00:00+11:00",
+            "timezone": "AET",
+            "rules": [
+              "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+              "RDATE:20270108T090000,20270708T090000"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "submitted": [
+          [
+            "2027-01-03T22:00:00Z",
+            "2027-01-08T09:00:00Z",
+            "2027-07-03T23:00:00Z",
+            "2027-07-08T09:00:00Z"
+          ],
+          [
+            "2027-01-03T22:00:00Z",
+            "2027-01-07T22:00:00Z",
+            "2027-07-03T23:00:00Z",
+            "2027-07-07T23:00:00Z"
+          ]
+        ],
+        "stored": [
+          "2027-01-03T22:00:00Z",
+          "2027-01-08T09:00:00Z",
+          "2027-07-03T23:00:00Z",
+          "2027-07-08T09:00:00Z"
+        ]
+      },
+      "captures": [
+        "google-master-zone-utc-controls-20261123.json/master-zone-00-utc-rdates",
+        "google-recurrence-master-zone-aliases-20261123.json/master-zone-00"
+      ]
+    },
+    {
+      "name": "master-zone-02-utc-rdates vs master-zone-02",
+      "input": {
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "master": {
+          "start": "2027-01-04T15:00:00Z",
+          "timezone": "America/Chicago",
+          "rules": [
+            "RDATE;VALUE=DATE-TIME:20270108T090000Z,20270708T090000Z",
+            "RRULE:FREQ=MONTHLY;COUNT=2;INTERVAL=6"
+          ]
+        },
+        "submissions": [
+          {
+            "start": "2027-01-04T09:00:00-06:00",
+            "timezone": "CST",
+            "rules": [
+              "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+              "RDATE:20270108T090000Z,20270708T090000Z"
+            ]
+          },
+          {
+            "start": "2027-01-04T09:00:00-06:00",
+            "timezone": "CST",
+            "rules": [
+              "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+              "RDATE:20270108T090000,20270708T090000"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "submitted": [
+          [
+            "2027-01-04T15:00:00Z",
+            "2027-01-08T09:00:00Z",
+            "2027-07-04T14:00:00Z",
+            "2027-07-08T09:00:00Z"
+          ],
+          [
+            "2027-01-04T15:00:00Z",
+            "2027-01-08T15:00:00Z",
+            "2027-07-04T14:00:00Z",
+            "2027-07-08T14:00:00Z"
+          ]
+        ],
+        "stored": [
+          "2027-01-04T15:00:00Z",
+          "2027-01-08T09:00:00Z",
+          "2027-07-04T14:00:00Z",
+          "2027-07-08T09:00:00Z"
+        ]
+      },
+      "captures": [
+        "google-master-zone-utc-controls-20261123.json/master-zone-02-utc-rdates",
+        "google-recurrence-master-zone-aliases-20261123.json/master-zone-02"
+      ]
+    },
+    {
+      "name": "master-zone-03-utc-rdates vs master-zone-03",
+      "input": {
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "master": {
+          "start": "2027-01-04T17:00:00Z",
+          "timezone": "America/Los_Angeles",
+          "rules": [
+            "RDATE;VALUE=DATE-TIME:20270108T090000Z,20270708T090000Z",
+            "RRULE:FREQ=MONTHLY;COUNT=2;INTERVAL=6"
+          ]
+        },
+        "submissions": [
+          {
+            "start": "2027-01-04T09:00:00-08:00",
+            "timezone": "PST",
+            "rules": [
+              "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+              "RDATE:20270108T090000Z,20270708T090000Z"
+            ]
+          },
+          {
+            "start": "2027-01-04T09:00:00-08:00",
+            "timezone": "PST",
+            "rules": [
+              "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+              "RDATE:20270108T090000,20270708T090000"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "submitted": [
+          [
+            "2027-01-04T17:00:00Z",
+            "2027-01-08T09:00:00Z",
+            "2027-07-04T16:00:00Z",
+            "2027-07-08T09:00:00Z"
+          ],
+          [
+            "2027-01-04T17:00:00Z",
+            "2027-01-08T17:00:00Z",
+            "2027-07-04T16:00:00Z",
+            "2027-07-08T16:00:00Z"
+          ]
+        ],
+        "stored": [
+          "2027-01-04T17:00:00Z",
+          "2027-01-08T09:00:00Z",
+          "2027-07-04T16:00:00Z",
+          "2027-07-08T09:00:00Z"
+        ]
+      },
+      "captures": [
+        "google-master-zone-utc-controls-20261123.json/master-zone-03-utc-rdates",
+        "google-recurrence-master-zone-aliases-20261123.json/master-zone-03"
+      ]
+    },
+    {
+      "name": "master-zone-04-utc-rdates vs master-zone-04",
+      "input": {
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "master": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/Panama",
+          "rules": [
+            "RDATE;VALUE=DATE-TIME:20270108T090000Z,20270708T090000Z",
+            "RRULE:FREQ=MONTHLY;COUNT=2;INTERVAL=6"
+          ]
+        },
+        "submissions": [
+          {
+            "start": "2027-01-04T09:00:00-05:00",
+            "timezone": "EST",
+            "rules": [
+              "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+              "RDATE:20270108T090000Z,20270708T090000Z"
+            ]
+          },
+          {
+            "start": "2027-01-04T09:00:00-05:00",
+            "timezone": "EST",
+            "rules": [
+              "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+              "RDATE:20270108T090000,20270708T090000"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "submitted": [
+          [
+            "2027-01-04T14:00:00Z",
+            "2027-01-08T09:00:00Z",
+            "2027-07-04T14:00:00Z",
+            "2027-07-08T09:00:00Z"
+          ],
+          [
+            "2027-01-04T14:00:00Z",
+            "2027-01-08T14:00:00Z",
+            "2027-07-04T14:00:00Z",
+            "2027-07-08T14:00:00Z"
+          ]
+        ],
+        "stored": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-08T09:00:00Z",
+          "2027-07-04T14:00:00Z",
+          "2027-07-08T09:00:00Z"
+        ]
+      },
+      "captures": [
+        "google-master-zone-utc-controls-20261123.json/master-zone-04-utc-rdates",
+        "google-recurrence-master-zone-aliases-20261123.json/master-zone-04"
+      ]
+    },
+    {
+      "name": "master-zone-07-utc-rdates vs master-zone-07",
+      "input": {
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "master": {
+          "start": "2027-01-04T07:00:00Z",
+          "timezone": "UTC+02:00",
+          "rules": [
+            "RDATE;VALUE=DATE-TIME:20270108T090000Z,20270708T090000Z",
+            "RRULE:FREQ=MONTHLY;COUNT=2;INTERVAL=6"
+          ]
+        },
+        "submissions": [
+          {
+            "start": "2027-01-04T09:00:00+02:00",
+            "timezone": "UTC+02:00",
+            "rules": [
+              "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+              "RDATE:20270108T090000Z,20270708T090000Z"
+            ]
+          },
+          {
+            "start": "2027-01-04T09:00:00+02:00",
+            "timezone": "UTC+02:00",
+            "rules": [
+              "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+              "RDATE:20270108T090000,20270708T090000"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "submitted": [
+          [
+            "2027-01-04T07:00:00Z",
+            "2027-01-08T09:00:00Z",
+            "2027-07-04T07:00:00Z",
+            "2027-07-08T09:00:00Z"
+          ],
+          [
+            "2027-01-04T07:00:00Z",
+            "2027-01-08T07:00:00Z",
+            "2027-07-04T07:00:00Z",
+            "2027-07-08T07:00:00Z"
+          ]
+        ],
+        "stored": [
+          "2027-01-04T07:00:00Z",
+          "2027-01-08T09:00:00Z",
+          "2027-07-04T07:00:00Z",
+          "2027-07-08T09:00:00Z"
+        ]
+      },
+      "captures": [
+        "google-master-zone-utc-controls-20261123.json/master-zone-07-utc-rdates",
+        "google-recurrence-master-zone-aliases-20261123.json/master-zone-07"
+      ]
+    },
+    {
+      "name": "master-zone-08-utc-rdates vs master-zone-08",
+      "input": {
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "master": {
+          "start": "2027-01-04T06:30:00Z",
+          "timezone": "GMT+02:30",
+          "rules": [
+            "RDATE;VALUE=DATE-TIME:20270108T090000Z,20270708T090000Z",
+            "RRULE:FREQ=MONTHLY;COUNT=2;INTERVAL=6"
+          ]
+        },
+        "submissions": [
+          {
+            "start": "2027-01-04T09:00:00+02:30",
+            "timezone": "GMT+02:30",
+            "rules": [
+              "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+              "RDATE:20270108T090000Z,20270708T090000Z"
+            ]
+          },
+          {
+            "start": "2027-01-04T09:00:00+02:30",
+            "timezone": "GMT+02:30",
+            "rules": [
+              "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+              "RDATE:20270108T090000,20270708T090000"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "submitted": [
+          [
+            "2027-01-04T06:30:00Z",
+            "2027-01-08T09:00:00Z",
+            "2027-07-04T06:30:00Z",
+            "2027-07-08T09:00:00Z"
+          ],
+          [
+            "2027-01-04T06:30:00Z",
+            "2027-01-08T06:30:00Z",
+            "2027-07-04T06:30:00Z",
+            "2027-07-08T06:30:00Z"
+          ]
+        ],
+        "stored": [
+          "2027-01-04T06:30:00Z",
+          "2027-01-08T09:00:00Z",
+          "2027-07-04T06:30:00Z",
+          "2027-07-08T09:00:00Z"
+        ]
+      },
+      "captures": [
+        "google-master-zone-utc-controls-20261123.json/master-zone-08-utc-rdates",
+        "google-recurrence-master-zone-aliases-20261123.json/master-zone-08"
+      ]
+    },
+    {
+      "name": "master-zone-09-utc-rdates vs master-zone-09",
+      "input": {
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "master": {
+          "start": "2027-01-04T07:00:00Z",
+          "timezone": "GMT+02:00",
+          "rules": [
+            "RDATE;VALUE=DATE-TIME:20270108T090000Z,20270708T090000Z",
+            "RRULE:FREQ=MONTHLY;COUNT=2;INTERVAL=6"
+          ]
+        },
+        "submissions": [
+          {
+            "start": "2027-01-04T09:00:00+02:00",
+            "timezone": "+0200",
+            "rules": [
+              "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+              "RDATE:20270108T090000Z,20270708T090000Z"
+            ]
+          },
+          {
+            "start": "2027-01-04T09:00:00+02:00",
+            "timezone": "+0200",
+            "rules": [
+              "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+              "RDATE:20270108T090000,20270708T090000"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "submitted": [
+          [
+            "2027-01-04T07:00:00Z",
+            "2027-01-08T09:00:00Z",
+            "2027-07-04T07:00:00Z",
+            "2027-07-08T09:00:00Z"
+          ],
+          [
+            "2027-01-04T07:00:00Z",
+            "2027-01-08T07:00:00Z",
+            "2027-07-04T07:00:00Z",
+            "2027-07-08T07:00:00Z"
+          ]
+        ],
+        "stored": [
+          "2027-01-04T07:00:00Z",
+          "2027-01-08T09:00:00Z",
+          "2027-07-04T07:00:00Z",
+          "2027-07-08T09:00:00Z"
+        ]
+      },
+      "captures": [
+        "google-master-zone-utc-controls-20261123.json/master-zone-09-utc-rdates",
+        "google-recurrence-master-zone-aliases-20261123.json/master-zone-09"
+      ]
+    }
+  ]
+}

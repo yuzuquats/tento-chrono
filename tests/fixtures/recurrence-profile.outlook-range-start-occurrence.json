@@ -1,0 +1,1840 @@
+{
+  "type": "recurrence-profile",
+  "name": "Outlook Graph range-start occurrence",
+  "source": "Microsoft Graph v1.0 calendarView first occurrence and subsequent holdout starts, with API validation controls",
+  "cases": [
+    {
+      "name": "pyongyang-clock-2014-12-26-00",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-12-26T14:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 15,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-12-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2015-01-13",
+        "checkpoints": [
+          "2014-12-26",
+          "2014-12-27",
+          "2014-12-28",
+          "2014-12-29",
+          "2014-12-30",
+          "2014-12-31",
+          "2015-01-01",
+          "2015-01-02",
+          "2015-01-03",
+          "2015-01-04",
+          "2015-01-05",
+          "2015-01-06",
+          "2015-01-07",
+          "2015-01-08",
+          "2015-01-09"
+        ],
+        "rangeStartOccurrence": "2014-12-26T14:45:00Z"
+      },
+      "expected": [
+        "2014-12-26T14:45:00Z",
+        "2014-12-27T14:45:00Z",
+        "2014-12-28T14:45:00Z",
+        "2014-12-29T14:45:00Z",
+        "2014-12-30T14:45:00Z",
+        "2014-12-31T14:45:00Z",
+        "2015-01-01T14:45:00Z",
+        "2015-01-02T14:45:00Z",
+        "2015-01-03T14:45:00Z",
+        "2015-01-04T14:45:00Z",
+        "2015-01-05T14:45:00Z",
+        "2015-01-06T14:45:00Z",
+        "2015-01-07T14:45:00Z",
+        "2015-01-08T14:45:00Z",
+        "2015-01-09T14:45:00Z"
+      ]
+    },
+    {
+      "name": "pyongyang-clock-2014-08-10-start-00",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-08-10T14:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 4,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-08-10",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-08-17",
+        "checkpoints": [
+          "2014-08-10",
+          "2014-08-11",
+          "2014-08-12",
+          "2014-08-13"
+        ],
+        "rangeStartOccurrence": "2014-08-10T14:45:00Z"
+      },
+      "expected": [
+        "2014-08-10T14:45:00Z",
+        "2014-08-11T14:45:00Z",
+        "2014-08-12T14:45:00Z",
+        "2014-08-13T14:45:00Z"
+      ]
+    },
+    {
+      "name": "pyongyang-clock-2014-08-11-start-00",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-08-11T14:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 4,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-08-11",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-08-18",
+        "checkpoints": [
+          "2014-08-11",
+          "2014-08-12",
+          "2014-08-13",
+          "2014-08-14"
+        ],
+        "rangeStartOccurrence": "2014-08-11T14:45:00Z"
+      },
+      "expected": [
+        "2014-08-11T14:45:00Z",
+        "2014-08-12T14:45:00Z",
+        "2014-08-13T14:45:00Z",
+        "2014-08-14T14:45:00Z"
+      ]
+    },
+    {
+      "name": "pyongyang-clock-2014-08-12-start-00",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-08-12T14:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 4,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-08-12",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-08-19",
+        "checkpoints": [
+          "2014-08-12",
+          "2014-08-13",
+          "2014-08-14",
+          "2014-08-15"
+        ],
+        "rangeStartOccurrence": "2014-08-12T14:45:00Z"
+      },
+      "expected": [
+        "2014-08-12T14:45:00Z",
+        "2014-08-13T14:45:00Z",
+        "2014-08-14T14:45:00Z",
+        "2014-08-15T14:45:00Z"
+      ]
+    },
+    {
+      "name": "pyongyang-clock-2014-08-14-start-00",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-08-14T14:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 4,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-08-14",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-08-21",
+        "checkpoints": [
+          "2014-08-14",
+          "2014-08-15",
+          "2014-08-16",
+          "2014-08-17"
+        ],
+        "rangeStartOccurrence": "2014-08-14T14:45:00Z"
+      },
+      "expected": [
+        "2014-08-14T14:45:00Z",
+        "2014-08-15T14:45:00Z",
+        "2014-08-16T14:45:00Z",
+        "2014-08-17T14:45:00Z"
+      ]
+    },
+    {
+      "name": "pyongyang-clock-2014-08-15-start-00",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-08-15T14:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 4,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-08-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-08-22",
+        "checkpoints": [
+          "2014-08-15",
+          "2014-08-16",
+          "2014-08-17",
+          "2014-08-18"
+        ],
+        "rangeStartOccurrence": "2014-08-15T14:45:00Z"
+      },
+      "expected": [
+        "2014-08-15T14:45:00Z",
+        "2014-08-16T14:45:00Z",
+        "2014-08-17T14:45:00Z",
+        "2014-08-18T14:45:00Z"
+      ]
+    },
+    {
+      "name": "pyongyang-clock-2014-09-15-start-00",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-09-15T14:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 4,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-09-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-09-22",
+        "checkpoints": [
+          "2014-09-15",
+          "2014-09-16",
+          "2014-09-17",
+          "2014-09-18"
+        ],
+        "rangeStartOccurrence": "2014-09-15T14:45:00Z"
+      },
+      "expected": [
+        "2014-09-15T14:45:00Z",
+        "2014-09-16T14:45:00Z",
+        "2014-09-17T14:45:00Z",
+        "2014-09-18T14:45:00Z"
+      ]
+    },
+    {
+      "name": "pyongyang-clock-2014-12-31-start-00",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-12-31T14:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 4,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-12-31",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2015-01-07",
+        "checkpoints": [
+          "2014-12-31",
+          "2015-01-01",
+          "2015-01-02",
+          "2015-01-03"
+        ],
+        "rangeStartOccurrence": "2014-12-31T14:45:00Z"
+      },
+      "expected": [
+        "2014-12-31T14:45:00Z",
+        "2015-01-01T14:45:00Z",
+        "2015-01-02T14:45:00Z",
+        "2015-01-03T14:45:00Z"
+      ]
+    },
+    {
+      "name": "pyongyang-offset-2014-01-01",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-01-01T14:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-01-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-01-13",
+        "checkpoints": [
+          "2014-01-01",
+          "2014-01-02",
+          "2014-01-03",
+          "2014-01-04",
+          "2014-01-05"
+        ],
+        "rangeStartOccurrence": "2014-01-01T14:45:00Z"
+      },
+      "expected": [
+        "2014-01-01T14:45:00Z",
+        "2014-01-02T14:45:00Z",
+        "2014-01-03T14:45:00Z",
+        "2014-01-04T14:45:00Z",
+        "2014-01-05T14:45:00Z"
+      ]
+    },
+    {
+      "name": "pyongyang-offset-2014-08-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-08-15T14:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-08-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-08-27",
+        "checkpoints": [
+          "2014-08-15",
+          "2014-08-16",
+          "2014-08-17",
+          "2014-08-18",
+          "2014-08-19"
+        ],
+        "rangeStartOccurrence": "2014-08-15T14:45:00Z"
+      },
+      "expected": [
+        "2014-08-15T14:45:00Z",
+        "2014-08-16T14:45:00Z",
+        "2014-08-17T14:45:00Z",
+        "2014-08-18T14:45:00Z",
+        "2014-08-19T14:45:00Z"
+      ]
+    },
+    {
+      "name": "pyongyang-offset-2014-10-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-10-15T14:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-10-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-10-27",
+        "checkpoints": [
+          "2014-10-15",
+          "2014-10-16",
+          "2014-10-17",
+          "2014-10-18",
+          "2014-10-19"
+        ],
+        "rangeStartOccurrence": "2014-10-15T14:45:00Z"
+      },
+      "expected": [
+        "2014-10-15T14:45:00Z",
+        "2014-10-16T14:45:00Z",
+        "2014-10-17T14:45:00Z",
+        "2014-10-18T14:45:00Z",
+        "2014-10-19T14:45:00Z"
+      ]
+    },
+    {
+      "name": "pyongyang-offset-2014-12-27",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-12-27T14:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-12-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2015-01-08",
+        "checkpoints": [
+          "2014-12-27",
+          "2014-12-28",
+          "2014-12-29",
+          "2014-12-30",
+          "2014-12-31"
+        ],
+        "rangeStartOccurrence": "2014-12-27T14:45:00Z"
+      },
+      "expected": [
+        "2014-12-27T14:45:00Z",
+        "2014-12-28T14:45:00Z",
+        "2014-12-29T14:45:00Z",
+        "2014-12-30T14:45:00Z",
+        "2014-12-31T14:45:00Z"
+      ]
+    },
+    {
+      "name": "pyongyang-monthly-history-2014-12-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-12-15T14:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 15,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "absoluteMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 20,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-12-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2015-12-31",
+        "checkpoints": [
+          "2014-12-15",
+          "2015-01-15",
+          "2015-02-15",
+          "2015-03-15",
+          "2015-04-15",
+          "2015-05-15",
+          "2015-06-15",
+          "2015-07-15",
+          "2015-08-15",
+          "2015-09-15",
+          "2015-10-15",
+          "2015-11-15",
+          "2015-12-15"
+        ],
+        "rangeStartOccurrence": "2014-12-15T14:45:00Z"
+      },
+      "expected": [
+        "2014-12-15T14:45:00Z",
+        "2015-01-15T14:45:00Z",
+        "2015-02-15T14:45:00Z",
+        "2015-03-15T14:45:00Z",
+        "2015-04-15T14:45:00Z",
+        "2015-05-15T14:45:00Z",
+        "2015-06-15T14:45:00Z",
+        "2015-07-15T14:45:00Z",
+        "2015-08-15T15:15:00Z",
+        "2015-09-15T15:15:00Z",
+        "2015-10-15T15:15:00Z",
+        "2015-11-15T15:15:00Z",
+        "2015-12-15T15:15:00Z"
+      ]
+    },
+    {
+      "name": "pyongyang-iana-2014-09-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-09-15T14:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Asia/Pyongyang",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-09-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-09-27",
+        "checkpoints": [
+          "2014-09-15",
+          "2014-09-16",
+          "2014-09-17",
+          "2014-09-18",
+          "2014-09-19"
+        ],
+        "rangeStartOccurrence": "2014-09-15T14:45:00Z"
+      },
+      "expected": [
+        "2014-09-15T14:45:00Z",
+        "2014-09-16T14:45:00Z",
+        "2014-09-17T14:45:00Z",
+        "2014-09-18T14:45:00Z",
+        "2014-09-19T14:45:00Z"
+      ]
+    },
+    {
+      "name": "pyongyang-first-yearly-2014",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-09-15T14:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 15,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 9,
+              "type": "absoluteYearly"
+            },
+            "range": {
+              "endDate": "2020-09-15",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-09-15",
+              "type": "endDate"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-09-27",
+        "checkpoints": [
+          "2014-09-15"
+        ],
+        "rangeStartOccurrence": "2014-09-15T14:45:00Z"
+      },
+      "expected": [
+        "2014-09-15T14:45:00Z"
+      ]
+    },
+    {
+      "name": "pyongyang-range-2014-08-10-0000",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-08-10T14:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-08-10",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-08-22",
+        "checkpoints": [
+          "2014-08-10",
+          "2014-08-11",
+          "2014-08-12",
+          "2014-08-13",
+          "2014-08-14"
+        ],
+        "rangeStartOccurrence": "2014-08-10T14:30:00Z"
+      },
+      "expected": [
+        "2014-08-10T14:30:00Z",
+        "2014-08-11T14:30:00Z",
+        "2014-08-12T14:30:00Z",
+        "2014-08-13T14:30:00Z",
+        "2014-08-14T14:30:00Z"
+      ]
+    },
+    {
+      "name": "pyongyang-transition-2014-08-09-0015",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-08-09T14:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-08-09",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-08-17",
+        "checkpoints": [
+          "2014-08-09",
+          "2014-08-10",
+          "2014-08-11",
+          "2014-08-12",
+          "2014-08-13"
+        ],
+        "rangeStartOccurrence": "2014-08-09T14:45:00Z"
+      },
+      "expected": [
+        "2014-08-09T14:45:00Z",
+        "2014-08-10T14:45:00Z",
+        "2014-08-11T14:45:00Z",
+        "2014-08-12T14:45:00Z",
+        "2014-08-13T14:45:00Z"
+      ]
+    },
+    {
+      "name": "pyongyang-transition-2014-08-10-0000",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-08-10T14:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-08-10",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-08-18",
+        "checkpoints": [
+          "2014-08-10",
+          "2014-08-11",
+          "2014-08-12",
+          "2014-08-13",
+          "2014-08-14"
+        ],
+        "rangeStartOccurrence": "2014-08-10T14:30:00Z"
+      },
+      "expected": [
+        "2014-08-10T14:30:00Z",
+        "2014-08-11T14:30:00Z",
+        "2014-08-12T14:30:00Z",
+        "2014-08-13T14:30:00Z",
+        "2014-08-14T14:30:00Z"
+      ]
+    },
+    {
+      "name": "pyongyang-transition-2014-08-10-0029",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-08-10T14:29:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-08-10",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-08-18",
+        "checkpoints": [
+          "2014-08-10",
+          "2014-08-11",
+          "2014-08-12",
+          "2014-08-13",
+          "2014-08-14"
+        ],
+        "rangeStartOccurrence": "2014-08-10T14:59:00Z"
+      },
+      "expected": [
+        "2014-08-10T14:59:00Z",
+        "2014-08-11T14:59:00Z",
+        "2014-08-12T14:59:00Z",
+        "2014-08-13T14:59:00Z",
+        "2014-08-14T14:59:00Z"
+      ]
+    },
+    {
+      "name": "pyongyang-range-2014-08-10-2330",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-08-10T14:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-08-10",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-08-22",
+        "checkpoints": [
+          "2014-08-10",
+          "2014-08-11",
+          "2014-08-12",
+          "2014-08-13",
+          "2014-08-14"
+        ],
+        "rangeStartOccurrence": "2014-08-10T14:00:00Z"
+      },
+      "expected": [
+        "2014-08-10T14:00:00Z",
+        "2014-08-11T14:00:00Z",
+        "2014-08-12T14:00:00Z",
+        "2014-08-13T14:00:00Z",
+        "2014-08-14T14:00:00Z"
+      ]
+    },
+    {
+      "name": "pyongyang-transition-2014-08-10-2330",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-08-10T14:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-08-10",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-08-18",
+        "checkpoints": [
+          "2014-08-10",
+          "2014-08-11",
+          "2014-08-12",
+          "2014-08-13",
+          "2014-08-14"
+        ],
+        "rangeStartOccurrence": "2014-08-10T14:00:00Z"
+      },
+      "expected": [
+        "2014-08-10T14:00:00Z",
+        "2014-08-11T14:00:00Z",
+        "2014-08-12T14:00:00Z",
+        "2014-08-13T14:00:00Z",
+        "2014-08-14T14:00:00Z"
+      ]
+    },
+    {
+      "name": "pyongyang-observed-yearly-midnight",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-08-10T14:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 10,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 8,
+              "type": "absoluteYearly"
+            },
+            "range": {
+              "endDate": "2018-08-10",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-08-10",
+              "type": "endDate"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2018-08-11",
+        "checkpoints": [
+          "2014-08-10",
+          "2015-08-10",
+          "2016-08-10",
+          "2017-08-10",
+          "2018-08-10"
+        ],
+        "rangeStartOccurrence": "2014-08-10T14:30:00Z"
+      },
+      "expected": [
+        "2014-08-10T14:30:00Z",
+        "2015-08-10T14:30:00Z",
+        "2016-08-10T15:00:00Z",
+        "2017-08-10T15:00:00Z",
+        "2018-08-10T14:30:00Z"
+      ]
+    },
+    {
+      "name": "pyongyang-observed-yearly-late-evening",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-08-10T14:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 10,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 8,
+              "type": "absoluteYearly"
+            },
+            "range": {
+              "endDate": "2018-08-10",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-08-10",
+              "type": "endDate"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2018-08-11",
+        "checkpoints": [
+          "2014-08-10",
+          "2015-08-10",
+          "2016-08-10",
+          "2017-08-10",
+          "2018-08-10"
+        ],
+        "rangeStartOccurrence": "2014-08-10T14:00:00Z"
+      },
+      "expected": [
+        "2014-08-10T14:00:00Z",
+        "2015-08-10T14:00:00Z",
+        "2016-08-10T14:30:00Z",
+        "2017-08-10T14:30:00Z",
+        "2018-08-10T14:00:00Z"
+      ]
+    },
+    {
+      "name": "pyongyang-observed-monthly-midnight",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-08-10T14:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 10,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "absoluteMonthly"
+            },
+            "range": {
+              "endDate": "2018-08-10",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-08-10",
+              "type": "endDate"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2018-08-11",
+        "checkpoints": [
+          "2014-08-10",
+          "2014-09-10",
+          "2014-10-10",
+          "2014-11-10",
+          "2014-12-10",
+          "2015-01-10",
+          "2015-02-10",
+          "2015-03-10",
+          "2015-04-10",
+          "2015-05-10",
+          "2015-06-10",
+          "2015-07-10",
+          "2015-08-10",
+          "2015-09-10",
+          "2015-10-10",
+          "2015-11-10",
+          "2015-12-10",
+          "2016-01-10",
+          "2016-02-10",
+          "2016-03-10",
+          "2016-04-10",
+          "2016-05-10",
+          "2016-06-10",
+          "2016-07-10",
+          "2016-08-10",
+          "2016-09-10",
+          "2016-10-10",
+          "2016-11-10",
+          "2016-12-10",
+          "2017-01-10",
+          "2017-02-10",
+          "2017-03-10",
+          "2017-04-10",
+          "2017-05-10",
+          "2017-06-10",
+          "2017-07-10",
+          "2017-08-10",
+          "2017-09-10",
+          "2017-10-10",
+          "2017-11-10",
+          "2017-12-10",
+          "2018-01-10",
+          "2018-02-10",
+          "2018-03-10",
+          "2018-04-10",
+          "2018-05-10",
+          "2018-06-10",
+          "2018-07-10",
+          "2018-08-10"
+        ],
+        "rangeStartOccurrence": "2014-08-10T14:30:00Z"
+      },
+      "expected": [
+        "2014-08-10T14:30:00Z",
+        "2014-09-10T14:30:00Z",
+        "2014-10-10T14:30:00Z",
+        "2014-11-10T14:30:00Z",
+        "2014-12-10T14:30:00Z",
+        "2015-01-10T14:30:00Z",
+        "2015-02-10T14:30:00Z",
+        "2015-03-10T14:30:00Z",
+        "2015-04-10T14:30:00Z",
+        "2015-05-10T14:30:00Z",
+        "2015-06-10T14:30:00Z",
+        "2015-07-10T14:30:00Z",
+        "2015-08-10T14:30:00Z",
+        "2015-09-10T15:00:00Z",
+        "2015-10-10T15:00:00Z",
+        "2015-11-10T15:00:00Z",
+        "2015-12-10T15:00:00Z",
+        "2016-01-10T15:00:00Z",
+        "2016-02-10T15:00:00Z",
+        "2016-03-10T15:00:00Z",
+        "2016-04-10T15:00:00Z",
+        "2016-05-10T15:00:00Z",
+        "2016-06-10T15:00:00Z",
+        "2016-07-10T15:00:00Z",
+        "2016-08-10T15:00:00Z",
+        "2016-09-10T15:00:00Z",
+        "2016-10-10T15:00:00Z",
+        "2016-11-10T15:00:00Z",
+        "2016-12-10T15:00:00Z",
+        "2017-01-10T15:00:00Z",
+        "2017-02-10T15:00:00Z",
+        "2017-03-10T15:00:00Z",
+        "2017-04-10T15:00:00Z",
+        "2017-05-10T15:00:00Z",
+        "2017-06-10T15:00:00Z",
+        "2017-07-10T15:00:00Z",
+        "2017-08-10T15:00:00Z",
+        "2017-09-10T15:00:00Z",
+        "2017-10-10T15:00:00Z",
+        "2017-11-10T15:00:00Z",
+        "2017-12-10T15:00:00Z",
+        "2018-01-10T15:00:00Z",
+        "2018-02-10T15:00:00Z",
+        "2018-03-10T15:00:00Z",
+        "2018-04-10T15:00:00Z",
+        "2018-05-10T14:30:00Z",
+        "2018-06-10T14:30:00Z",
+        "2018-07-10T14:30:00Z",
+        "2018-08-10T14:30:00Z"
+      ]
+    },
+    {
+      "name": "pyongyang-observed-monthly-late-evening",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-08-10T14:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 10,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "absoluteMonthly"
+            },
+            "range": {
+              "endDate": "2018-08-10",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-08-10",
+              "type": "endDate"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2018-08-11",
+        "checkpoints": [
+          "2014-08-10",
+          "2014-09-10",
+          "2014-10-10",
+          "2014-11-10",
+          "2014-12-10",
+          "2015-01-10",
+          "2015-02-10",
+          "2015-03-10",
+          "2015-04-10",
+          "2015-05-10",
+          "2015-06-10",
+          "2015-07-10",
+          "2015-08-10",
+          "2015-09-10",
+          "2015-10-10",
+          "2015-11-10",
+          "2015-12-10",
+          "2016-01-10",
+          "2016-02-10",
+          "2016-03-10",
+          "2016-04-10",
+          "2016-05-10",
+          "2016-06-10",
+          "2016-07-10",
+          "2016-08-10",
+          "2016-09-10",
+          "2016-10-10",
+          "2016-11-10",
+          "2016-12-10",
+          "2017-01-10",
+          "2017-02-10",
+          "2017-03-10",
+          "2017-04-10",
+          "2017-05-10",
+          "2017-06-10",
+          "2017-07-10",
+          "2017-08-10",
+          "2017-09-10",
+          "2017-10-10",
+          "2017-11-10",
+          "2017-12-10",
+          "2018-01-10",
+          "2018-02-10",
+          "2018-03-10",
+          "2018-04-10",
+          "2018-05-10",
+          "2018-06-10",
+          "2018-07-10",
+          "2018-08-10"
+        ],
+        "rangeStartOccurrence": "2014-08-10T14:00:00Z"
+      },
+      "expected": [
+        "2014-08-10T14:00:00Z",
+        "2014-09-10T14:00:00Z",
+        "2014-10-10T14:00:00Z",
+        "2014-11-10T14:00:00Z",
+        "2014-12-10T14:00:00Z",
+        "2015-01-10T14:00:00Z",
+        "2015-02-10T14:00:00Z",
+        "2015-03-10T14:00:00Z",
+        "2015-04-10T14:00:00Z",
+        "2015-05-10T14:00:00Z",
+        "2015-06-10T14:00:00Z",
+        "2015-07-10T14:00:00Z",
+        "2015-08-10T14:00:00Z",
+        "2015-09-10T14:30:00Z",
+        "2015-10-10T14:30:00Z",
+        "2015-11-10T14:30:00Z",
+        "2015-12-10T14:30:00Z",
+        "2016-01-10T14:30:00Z",
+        "2016-02-10T14:30:00Z",
+        "2016-03-10T14:30:00Z",
+        "2016-04-10T14:30:00Z",
+        "2016-05-10T14:30:00Z",
+        "2016-06-10T14:30:00Z",
+        "2016-07-10T14:30:00Z",
+        "2016-08-10T14:30:00Z",
+        "2016-09-10T14:30:00Z",
+        "2016-10-10T14:30:00Z",
+        "2016-11-10T14:30:00Z",
+        "2016-12-10T14:30:00Z",
+        "2017-01-10T14:30:00Z",
+        "2017-02-10T14:30:00Z",
+        "2017-03-10T14:30:00Z",
+        "2017-04-10T14:30:00Z",
+        "2017-05-10T14:30:00Z",
+        "2017-06-10T14:30:00Z",
+        "2017-07-10T14:30:00Z",
+        "2017-08-10T14:30:00Z",
+        "2017-09-10T14:30:00Z",
+        "2017-10-10T14:30:00Z",
+        "2017-11-10T14:30:00Z",
+        "2017-12-10T14:30:00Z",
+        "2018-01-10T14:30:00Z",
+        "2018-02-10T14:30:00Z",
+        "2018-03-10T14:30:00Z",
+        "2018-04-10T14:30:00Z",
+        "2018-05-10T14:00:00Z",
+        "2018-06-10T14:00:00Z",
+        "2018-07-10T14:00:00Z",
+        "2018-08-10T14:00:00Z"
+      ]
+    },
+    {
+      "name": "pyongyang-observed-monthly-final-midnight-minute",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-08-10T14:29:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 10,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "absoluteMonthly"
+            },
+            "range": {
+              "endDate": "2018-08-10",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-08-10",
+              "type": "endDate"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2018-08-11",
+        "checkpoints": [
+          "2014-08-10",
+          "2014-09-10",
+          "2014-10-10",
+          "2014-11-10",
+          "2014-12-10",
+          "2015-01-10",
+          "2015-02-10",
+          "2015-03-10",
+          "2015-04-10",
+          "2015-05-10",
+          "2015-06-10",
+          "2015-07-10",
+          "2015-08-10",
+          "2015-09-10",
+          "2015-10-10",
+          "2015-11-10",
+          "2015-12-10",
+          "2016-01-10",
+          "2016-02-10",
+          "2016-03-10",
+          "2016-04-10",
+          "2016-05-10",
+          "2016-06-10",
+          "2016-07-10",
+          "2016-08-10",
+          "2016-09-10",
+          "2016-10-10",
+          "2016-11-10",
+          "2016-12-10",
+          "2017-01-10",
+          "2017-02-10",
+          "2017-03-10",
+          "2017-04-10",
+          "2017-05-10",
+          "2017-06-10",
+          "2017-07-10",
+          "2017-08-10",
+          "2017-09-10",
+          "2017-10-10",
+          "2017-11-10",
+          "2017-12-10",
+          "2018-01-10",
+          "2018-02-10",
+          "2018-03-10",
+          "2018-04-10",
+          "2018-05-10",
+          "2018-06-10",
+          "2018-07-10",
+          "2018-08-10"
+        ],
+        "rangeStartOccurrence": "2014-08-10T14:59:00Z"
+      },
+      "expected": [
+        "2014-08-10T14:59:00Z",
+        "2014-09-10T14:59:00Z",
+        "2014-10-10T14:59:00Z",
+        "2014-11-10T14:59:00Z",
+        "2014-12-10T14:59:00Z",
+        "2015-01-10T14:59:00Z",
+        "2015-02-10T14:59:00Z",
+        "2015-03-10T14:59:00Z",
+        "2015-04-10T14:59:00Z",
+        "2015-05-10T14:59:00Z",
+        "2015-06-10T14:59:00Z",
+        "2015-07-10T14:59:00Z",
+        "2015-08-10T14:59:00Z",
+        "2015-09-10T15:29:00Z",
+        "2015-10-10T15:29:00Z",
+        "2015-11-10T15:29:00Z",
+        "2015-12-10T15:29:00Z",
+        "2016-01-10T15:29:00Z",
+        "2016-02-10T15:29:00Z",
+        "2016-03-10T15:29:00Z",
+        "2016-04-10T15:29:00Z",
+        "2016-05-10T15:29:00Z",
+        "2016-06-10T15:29:00Z",
+        "2016-07-10T15:29:00Z",
+        "2016-08-10T15:29:00Z",
+        "2016-09-10T15:29:00Z",
+        "2016-10-10T15:29:00Z",
+        "2016-11-10T15:29:00Z",
+        "2016-12-10T15:29:00Z",
+        "2017-01-10T15:29:00Z",
+        "2017-02-10T15:29:00Z",
+        "2017-03-10T15:29:00Z",
+        "2017-04-10T15:29:00Z",
+        "2017-05-10T15:29:00Z",
+        "2017-06-10T15:29:00Z",
+        "2017-07-10T15:29:00Z",
+        "2017-08-10T15:29:00Z",
+        "2017-09-10T15:29:00Z",
+        "2017-10-10T15:29:00Z",
+        "2017-11-10T15:29:00Z",
+        "2017-12-10T15:29:00Z",
+        "2018-01-10T15:29:00Z",
+        "2018-02-10T15:29:00Z",
+        "2018-03-10T15:29:00Z",
+        "2018-04-10T15:29:00Z",
+        "2018-05-10T14:59:00Z",
+        "2018-06-10T14:59:00Z",
+        "2018-07-10T14:59:00Z",
+        "2018-08-10T14:59:00Z"
+      ]
+    },
+    {
+      "name": "observed-wall-date-not-utc-date",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2015-09-14T15:45:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 15,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 9,
+              "type": "absoluteYearly"
+            },
+            "range": {
+              "endDate": "2020-09-15",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "2015-09-15",
+              "type": "endDate"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2015-09-27",
+        "checkpoints": [
+          "2015-09-14"
+        ],
+        "rangeStartOccurrence": "2015-09-14T15:45:00Z"
+      },
+      "expected": [
+        "2015-09-14T15:45:00Z"
+      ]
+    },
+    {
+      "name": "observed-same-instant-expressed-with-offset",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-08-10T14:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-08-10",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-08-22",
+        "checkpoints": [
+          "2014-08-10",
+          "2014-08-11",
+          "2014-08-12",
+          "2014-08-13",
+          "2014-08-14"
+        ],
+        "rangeStartOccurrence": "2014-08-10T23:00:00+09:00"
+      },
+      "expected": [
+        "2014-08-10T14:00:00Z",
+        "2014-08-11T14:00:00Z",
+        "2014-08-12T14:00:00Z",
+        "2014-08-13T14:00:00Z",
+        "2014-08-14T14:00:00Z"
+      ]
+    },
+    {
+      "name": "missing-offset",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-12-26T14:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 15,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-12-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2015-01-13",
+        "checkpoints": [
+          "2014-12-26",
+          "2014-12-27",
+          "2014-12-28",
+          "2014-12-29",
+          "2014-12-30",
+          "2014-12-31",
+          "2015-01-01",
+          "2015-01-02",
+          "2015-01-03",
+          "2015-01-04",
+          "2015-01-05",
+          "2015-01-06",
+          "2015-01-07",
+          "2015-01-08",
+          "2015-01-09"
+        ],
+        "rangeStartOccurrence": "2014-12-26T14:45:00"
+      },
+      "expected": {
+        "error": "Graph rangeStartOccurrence must be an RFC 3339 instant"
+      }
+    },
+    {
+      "name": "mismatched-date",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-12-26T14:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 15,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-12-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2015-01-13",
+        "checkpoints": [
+          "2014-12-26",
+          "2014-12-27",
+          "2014-12-28",
+          "2014-12-29",
+          "2014-12-30",
+          "2014-12-31",
+          "2015-01-01",
+          "2015-01-02",
+          "2015-01-03",
+          "2015-01-04",
+          "2015-01-05",
+          "2015-01-06",
+          "2015-01-07",
+          "2015-01-08",
+          "2015-01-09"
+        ],
+        "rangeStartOccurrence": "2014-12-27T14:45:00Z"
+      },
+      "expected": {
+        "error": "Graph rangeStartOccurrence must fall on startDate"
+      }
+    },
+    {
+      "name": "non-minute-clock",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-12-26T14:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 15,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-12-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2015-01-13",
+        "checkpoints": [
+          "2014-12-26",
+          "2014-12-27",
+          "2014-12-28",
+          "2014-12-29",
+          "2014-12-30",
+          "2014-12-31",
+          "2015-01-01",
+          "2015-01-02",
+          "2015-01-03",
+          "2015-01-04",
+          "2015-01-05",
+          "2015-01-06",
+          "2015-01-07",
+          "2015-01-08",
+          "2015-01-09"
+        ],
+        "rangeStartOccurrence": "2014-12-26T14:45:25Z"
+      },
+      "expected": {
+        "error": "Graph rangeStartOccurrence cannot determine the recurrence clock"
+      }
+    },
+    {
+      "name": "all-day-occurrence-hint",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-12-26T14:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "North Korea Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 15,
+              "recurrenceTimeZone": "North Korea Standard Time",
+              "startDate": "2014-12-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": true
+        },
+        "through": "2015-01-13",
+        "checkpoints": [
+          "2014-12-26",
+          "2014-12-27",
+          "2014-12-28",
+          "2014-12-29",
+          "2014-12-30",
+          "2014-12-31",
+          "2015-01-01",
+          "2015-01-02",
+          "2015-01-03",
+          "2015-01-04",
+          "2015-01-05",
+          "2015-01-06",
+          "2015-01-07",
+          "2015-01-08",
+          "2015-01-09"
+        ],
+        "rangeStartOccurrence": "2014-12-26T14:45:00Z"
+      },
+      "expected": {
+        "error": "Graph rangeStartOccurrence requires a timed series"
+      }
+    },
+    {
+      "name": "observed-date-selects-original-zone-for-blank-range",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-11-01T02:30:00",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Eastern Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "type": "daily",
+              "interval": 1
+            },
+            "range": {
+              "type": "numbered",
+              "startDate": "2026-11-01",
+              "numberOfOccurrences": 2
+            }
+          }
+        },
+        "through": "2026-11-02",
+        "checkpoints": [
+          "2026-11-01",
+          "2026-11-02"
+        ],
+        "rangeStartOccurrence": "2026-11-01T05:30:00Z"
+      },
+      "expected": [
+        "2026-11-01T05:30:00Z",
+        "2026-11-02T06:30:00Z"
+      ]
+    },
+    {
+      "name": "later-side-of-fold-cannot-define-the-rule-clock",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-11-01T06:30:00",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Eastern Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "type": "daily",
+              "interval": 1
+            },
+            "range": {
+              "type": "numbered",
+              "startDate": "2026-11-01",
+              "numberOfOccurrences": 2
+            }
+          }
+        },
+        "through": "2026-11-02",
+        "checkpoints": [
+          "2026-11-01",
+          "2026-11-02"
+        ],
+        "rangeStartOccurrence": "2026-11-01T06:30:00Z"
+      },
+      "expected": {
+        "error": "Graph rangeStartOccurrence cannot determine the recurrence clock"
+      }
+    }
+  ]
+}

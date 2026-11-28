@@ -1,0 +1,970 @@
+{
+  "type": "google-instances-query",
+  "name": "Google Calendar all-day instances on a Pacific calendar",
+  "source": "Google Calendar API events.instances via tento-google on the maintainer's capture host",
+  "cases": [
+    {
+      "name": "spring-47-hours",
+      "input": {
+        "master": {
+          "start": {
+            "date": "2026-03-07"
+          },
+          "end": {
+            "date": "2026-03-09"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=4;INTERVAL=3"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "date": "2026-03-07"
+          },
+          "end": {
+            "date": "2026-03-09"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;INTERVAL=3;COUNT=4"
+          ]
+        },
+        "durationMs": 172800000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "wide": {
+            "start": "2026-03-05T08:00:00Z",
+            "end": "2026-03-21T08:00:00Z"
+          },
+          "calendar-ends-at-start": {
+            "start": "2026-03-07T07:59:59Z",
+            "end": "2026-03-07T08:00:00Z"
+          },
+          "calendar-ends-half-after-start": {
+            "start": "2026-03-07T07:59:59Z",
+            "end": "2026-03-07T08:00:00.500000Z"
+          },
+          "calendar-first-second": {
+            "start": "2026-03-07T08:00:00Z",
+            "end": "2026-03-07T08:00:01Z"
+          },
+          "calendar-last-second": {
+            "start": "2026-03-09T06:59:59Z",
+            "end": "2026-03-09T07:00:00Z"
+          },
+          "calendar-starts-half-before-end": {
+            "start": "2026-03-09T06:59:59.500000Z",
+            "end": "2026-03-09T07:00:01Z"
+          },
+          "calendar-starts-at-end": {
+            "start": "2026-03-09T07:00:00Z",
+            "end": "2026-03-09T07:00:01Z"
+          },
+          "calendar-starts-half-after-end": {
+            "start": "2026-03-09T07:00:00.500000Z",
+            "end": "2026-03-09T07:00:01Z"
+          },
+          "utc-ends-at-start": {
+            "start": "2026-03-06T23:59:59Z",
+            "end": "2026-03-07T00:00:00Z"
+          },
+          "utc-ends-half-after-start": {
+            "start": "2026-03-06T23:59:59Z",
+            "end": "2026-03-07T00:00:00.500000Z"
+          },
+          "utc-first-second": {
+            "start": "2026-03-07T00:00:00Z",
+            "end": "2026-03-07T00:00:01Z"
+          },
+          "utc-last-second": {
+            "start": "2026-03-08T23:59:59Z",
+            "end": "2026-03-09T00:00:00Z"
+          },
+          "utc-starts-half-before-end": {
+            "start": "2026-03-08T23:59:59.500000Z",
+            "end": "2026-03-09T00:00:01Z"
+          },
+          "utc-starts-at-end": {
+            "start": "2026-03-09T00:00:00Z",
+            "end": "2026-03-09T00:00:01Z"
+          },
+          "utc-starts-half-after-end": {
+            "start": "2026-03-09T00:00:00.500000Z",
+            "end": "2026-03-09T00:00:01Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2026-03-07",
+          "2026-03-10",
+          "2026-03-13",
+          "2026-03-16"
+        ],
+        "calendar-ends-at-start": [],
+        "calendar-ends-half-after-start": [],
+        "calendar-first-second": [
+          "2026-03-07"
+        ],
+        "calendar-last-second": [
+          "2026-03-07"
+        ],
+        "calendar-starts-half-before-end": [
+          "2026-03-07"
+        ],
+        "calendar-starts-at-end": [],
+        "calendar-starts-half-after-end": [],
+        "utc-ends-at-start": [],
+        "utc-ends-half-after-start": [],
+        "utc-first-second": [],
+        "utc-last-second": [
+          "2026-03-07"
+        ],
+        "utc-starts-half-before-end": [
+          "2026-03-07"
+        ],
+        "utc-starts-at-end": [
+          "2026-03-07"
+        ],
+        "utc-starts-half-after-end": [
+          "2026-03-07"
+        ]
+      }
+    },
+    {
+      "name": "fall-49-hours-new-york-event-zone",
+      "input": {
+        "master": {
+          "start": {
+            "date": "2026-10-31"
+          },
+          "end": {
+            "date": "2026-11-02"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=4;INTERVAL=3"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "date": "2026-10-31",
+            "timeZone": "America/New_York"
+          },
+          "end": {
+            "date": "2026-11-02",
+            "timeZone": "America/New_York"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;INTERVAL=3;COUNT=4"
+          ]
+        },
+        "durationMs": 172800000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "wide": {
+            "start": "2026-10-29T07:00:00Z",
+            "end": "2026-11-14T07:00:00Z"
+          },
+          "calendar-ends-at-start": {
+            "start": "2026-10-31T06:59:59Z",
+            "end": "2026-10-31T07:00:00Z"
+          },
+          "calendar-ends-half-after-start": {
+            "start": "2026-10-31T06:59:59Z",
+            "end": "2026-10-31T07:00:00.500000Z"
+          },
+          "calendar-first-second": {
+            "start": "2026-10-31T07:00:00Z",
+            "end": "2026-10-31T07:00:01Z"
+          },
+          "calendar-last-second": {
+            "start": "2026-11-02T07:59:59Z",
+            "end": "2026-11-02T08:00:00Z"
+          },
+          "calendar-starts-half-before-end": {
+            "start": "2026-11-02T07:59:59.500000Z",
+            "end": "2026-11-02T08:00:01Z"
+          },
+          "calendar-starts-at-end": {
+            "start": "2026-11-02T08:00:00Z",
+            "end": "2026-11-02T08:00:01Z"
+          },
+          "calendar-starts-half-after-end": {
+            "start": "2026-11-02T08:00:00.500000Z",
+            "end": "2026-11-02T08:00:01Z"
+          },
+          "utc-ends-at-start": {
+            "start": "2026-10-30T23:59:59Z",
+            "end": "2026-10-31T00:00:00Z"
+          },
+          "utc-ends-half-after-start": {
+            "start": "2026-10-30T23:59:59Z",
+            "end": "2026-10-31T00:00:00.500000Z"
+          },
+          "utc-first-second": {
+            "start": "2026-10-31T00:00:00Z",
+            "end": "2026-10-31T00:00:01Z"
+          },
+          "utc-last-second": {
+            "start": "2026-11-01T23:59:59Z",
+            "end": "2026-11-02T00:00:00Z"
+          },
+          "utc-starts-half-before-end": {
+            "start": "2026-11-01T23:59:59.500000Z",
+            "end": "2026-11-02T00:00:01Z"
+          },
+          "utc-starts-at-end": {
+            "start": "2026-11-02T00:00:00Z",
+            "end": "2026-11-02T00:00:01Z"
+          },
+          "utc-starts-half-after-end": {
+            "start": "2026-11-02T00:00:00.500000Z",
+            "end": "2026-11-02T00:00:01Z"
+          },
+          "event-ends-at-start": {
+            "start": "2026-10-31T03:59:59Z",
+            "end": "2026-10-31T04:00:00Z"
+          },
+          "event-ends-half-after-start": {
+            "start": "2026-10-31T03:59:59Z",
+            "end": "2026-10-31T04:00:00.500000Z"
+          },
+          "event-first-second": {
+            "start": "2026-10-31T04:00:00Z",
+            "end": "2026-10-31T04:00:01Z"
+          },
+          "event-last-second": {
+            "start": "2026-11-02T04:59:59Z",
+            "end": "2026-11-02T05:00:00Z"
+          },
+          "event-starts-half-before-end": {
+            "start": "2026-11-02T04:59:59.500000Z",
+            "end": "2026-11-02T05:00:01Z"
+          },
+          "event-starts-at-end": {
+            "start": "2026-11-02T05:00:00Z",
+            "end": "2026-11-02T05:00:01Z"
+          },
+          "event-starts-half-after-end": {
+            "start": "2026-11-02T05:00:00.500000Z",
+            "end": "2026-11-02T05:00:01Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2026-10-31",
+          "2026-11-03",
+          "2026-11-06",
+          "2026-11-09"
+        ],
+        "calendar-ends-at-start": [],
+        "calendar-ends-half-after-start": [],
+        "calendar-first-second": [
+          "2026-10-31"
+        ],
+        "calendar-last-second": [],
+        "calendar-starts-half-before-end": [],
+        "calendar-starts-at-end": [],
+        "calendar-starts-half-after-end": [],
+        "utc-ends-at-start": [],
+        "utc-ends-half-after-start": [],
+        "utc-first-second": [],
+        "utc-last-second": [
+          "2026-10-31"
+        ],
+        "utc-starts-half-before-end": [
+          "2026-10-31"
+        ],
+        "utc-starts-at-end": [
+          "2026-10-31"
+        ],
+        "utc-starts-half-after-end": [
+          "2026-10-31"
+        ],
+        "event-ends-at-start": [],
+        "event-ends-half-after-start": [],
+        "event-first-second": [],
+        "event-last-second": [
+          "2026-10-31"
+        ],
+        "event-starts-half-before-end": [
+          "2026-10-31"
+        ],
+        "event-starts-at-end": [
+          "2026-10-31"
+        ],
+        "event-starts-half-after-end": [
+          "2026-10-31"
+        ]
+      }
+    },
+    {
+      "name": "summer-start-line-islands-event-zone",
+      "input": {
+        "master": {
+          "start": {
+            "date": "2026-07-10"
+          },
+          "end": {
+            "date": "2026-07-11"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=4;INTERVAL=2"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "date": "2026-07-10",
+            "timeZone": "Pacific/Kiritimati"
+          },
+          "end": {
+            "date": "2026-07-11",
+            "timeZone": "Pacific/Kiritimati"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;INTERVAL=2;COUNT=4"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "wide": {
+            "start": "2026-07-08T07:00:00Z",
+            "end": "2026-07-24T07:00:00Z"
+          },
+          "calendar-ends-at-start": {
+            "start": "2026-07-10T06:59:59Z",
+            "end": "2026-07-10T07:00:00Z"
+          },
+          "calendar-ends-half-after-start": {
+            "start": "2026-07-10T06:59:59Z",
+            "end": "2026-07-10T07:00:00.500000Z"
+          },
+          "calendar-first-second": {
+            "start": "2026-07-10T07:00:00Z",
+            "end": "2026-07-10T07:00:01Z"
+          },
+          "calendar-last-second": {
+            "start": "2026-07-11T06:59:59Z",
+            "end": "2026-07-11T07:00:00Z"
+          },
+          "calendar-starts-half-before-end": {
+            "start": "2026-07-11T06:59:59.500000Z",
+            "end": "2026-07-11T07:00:01Z"
+          },
+          "calendar-starts-at-end": {
+            "start": "2026-07-11T07:00:00Z",
+            "end": "2026-07-11T07:00:01Z"
+          },
+          "calendar-starts-half-after-end": {
+            "start": "2026-07-11T07:00:00.500000Z",
+            "end": "2026-07-11T07:00:01Z"
+          },
+          "utc-ends-at-start": {
+            "start": "2026-07-09T23:59:59Z",
+            "end": "2026-07-10T00:00:00Z"
+          },
+          "utc-ends-half-after-start": {
+            "start": "2026-07-09T23:59:59Z",
+            "end": "2026-07-10T00:00:00.500000Z"
+          },
+          "utc-first-second": {
+            "start": "2026-07-10T00:00:00Z",
+            "end": "2026-07-10T00:00:01Z"
+          },
+          "utc-last-second": {
+            "start": "2026-07-10T23:59:59Z",
+            "end": "2026-07-11T00:00:00Z"
+          },
+          "utc-starts-half-before-end": {
+            "start": "2026-07-10T23:59:59.500000Z",
+            "end": "2026-07-11T00:00:01Z"
+          },
+          "utc-starts-at-end": {
+            "start": "2026-07-11T00:00:00Z",
+            "end": "2026-07-11T00:00:01Z"
+          },
+          "utc-starts-half-after-end": {
+            "start": "2026-07-11T00:00:00.500000Z",
+            "end": "2026-07-11T00:00:01Z"
+          },
+          "event-ends-at-start": {
+            "start": "2026-07-09T09:59:59Z",
+            "end": "2026-07-09T10:00:00Z"
+          },
+          "event-ends-half-after-start": {
+            "start": "2026-07-09T09:59:59Z",
+            "end": "2026-07-09T10:00:00.500000Z"
+          },
+          "event-first-second": {
+            "start": "2026-07-09T10:00:00Z",
+            "end": "2026-07-09T10:00:01Z"
+          },
+          "event-last-second": {
+            "start": "2026-07-10T09:59:59Z",
+            "end": "2026-07-10T10:00:00Z"
+          },
+          "event-starts-half-before-end": {
+            "start": "2026-07-10T09:59:59.500000Z",
+            "end": "2026-07-10T10:00:01Z"
+          },
+          "event-starts-at-end": {
+            "start": "2026-07-10T10:00:00Z",
+            "end": "2026-07-10T10:00:01Z"
+          },
+          "event-starts-half-after-end": {
+            "start": "2026-07-10T10:00:00.500000Z",
+            "end": "2026-07-10T10:00:01Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2026-07-10",
+          "2026-07-12",
+          "2026-07-14",
+          "2026-07-16"
+        ],
+        "calendar-ends-at-start": [],
+        "calendar-ends-half-after-start": [],
+        "calendar-first-second": [
+          "2026-07-10"
+        ],
+        "calendar-last-second": [
+          "2026-07-10"
+        ],
+        "calendar-starts-half-before-end": [
+          "2026-07-10"
+        ],
+        "calendar-starts-at-end": [],
+        "calendar-starts-half-after-end": [],
+        "utc-ends-at-start": [],
+        "utc-ends-half-after-start": [],
+        "utc-first-second": [],
+        "utc-last-second": [
+          "2026-07-10"
+        ],
+        "utc-starts-half-before-end": [
+          "2026-07-10"
+        ],
+        "utc-starts-at-end": [
+          "2026-07-10"
+        ],
+        "utc-starts-half-after-end": [
+          "2026-07-10"
+        ],
+        "event-ends-at-start": [],
+        "event-ends-half-after-start": [],
+        "event-first-second": [],
+        "event-last-second": [
+          "2026-07-10"
+        ],
+        "event-starts-half-before-end": [
+          "2026-07-10"
+        ],
+        "event-starts-at-end": [
+          "2026-07-10"
+        ],
+        "event-starts-half-after-end": [
+          "2026-07-10"
+        ]
+      }
+    },
+    {
+      "name": "fall-transition-one-civil-day",
+      "input": {
+        "master": {
+          "start": {
+            "date": "2026-11-01"
+          },
+          "end": {
+            "date": "2026-11-02"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=4;INTERVAL=2"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "date": "2026-11-01"
+          },
+          "end": {
+            "date": "2026-11-02"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;INTERVAL=2;COUNT=4"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "wide": {
+            "start": "2026-10-30T07:00:00Z",
+            "end": "2026-11-26T07:00:00Z"
+          },
+          "civil-before": {
+            "start": "2026-11-02T07:59:59Z",
+            "end": "2026-11-02T08:00:00Z"
+          },
+          "civil-after": {
+            "start": "2026-11-02T08:00:00Z",
+            "end": "2026-11-02T08:00:01Z"
+          },
+          "elapsed-before": {
+            "start": "2026-11-02T06:59:59Z",
+            "end": "2026-11-02T07:00:00Z"
+          },
+          "elapsed-after": {
+            "start": "2026-11-02T07:00:00Z",
+            "end": "2026-11-02T07:00:01Z"
+          },
+          "true-start-before": {
+            "start": "2026-11-01T06:59:59Z",
+            "end": "2026-11-01T07:00:00Z"
+          },
+          "true-start-after": {
+            "start": "2026-11-01T07:00:00Z",
+            "end": "2026-11-01T07:00:01Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2026-11-01",
+          "2026-11-03",
+          "2026-11-05",
+          "2026-11-07"
+        ],
+        "civil-before": [],
+        "civil-after": [],
+        "elapsed-before": [
+          "2026-11-01"
+        ],
+        "elapsed-after": [],
+        "true-start-before": [],
+        "true-start-after": [
+          "2026-11-01"
+        ]
+      }
+    },
+    {
+      "name": "spring-transition-one-civil-day",
+      "input": {
+        "master": {
+          "start": {
+            "date": "2026-03-08"
+          },
+          "end": {
+            "date": "2026-03-09"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=4;INTERVAL=2"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "date": "2026-03-08"
+          },
+          "end": {
+            "date": "2026-03-09"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;INTERVAL=2;COUNT=4"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "wide": {
+            "start": "2026-03-06T08:00:00Z",
+            "end": "2026-04-02T08:00:00Z"
+          },
+          "civil-before": {
+            "start": "2026-03-09T06:59:59Z",
+            "end": "2026-03-09T07:00:00Z"
+          },
+          "civil-after": {
+            "start": "2026-03-09T07:00:00Z",
+            "end": "2026-03-09T07:00:01Z"
+          },
+          "elapsed-before": {
+            "start": "2026-03-09T07:59:59Z",
+            "end": "2026-03-09T08:00:00Z"
+          },
+          "elapsed-after": {
+            "start": "2026-03-09T08:00:00Z",
+            "end": "2026-03-09T08:00:01Z"
+          },
+          "true-start-before": {
+            "start": "2026-03-08T07:59:59Z",
+            "end": "2026-03-08T08:00:00Z"
+          },
+          "true-start-after": {
+            "start": "2026-03-08T08:00:00Z",
+            "end": "2026-03-08T08:00:01Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2026-03-08",
+          "2026-03-10",
+          "2026-03-12",
+          "2026-03-14"
+        ],
+        "civil-before": [
+          "2026-03-08"
+        ],
+        "civil-after": [],
+        "elapsed-before": [],
+        "elapsed-after": [],
+        "true-start-before": [],
+        "true-start-after": [
+          "2026-03-08"
+        ]
+      }
+    },
+    {
+      "name": "fall-transition-on-second-instance",
+      "input": {
+        "master": {
+          "start": {
+            "date": "2026-10-25"
+          },
+          "end": {
+            "date": "2026-10-27"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=4;INTERVAL=7"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "date": "2026-10-25"
+          },
+          "end": {
+            "date": "2026-10-27"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;INTERVAL=7;COUNT=4"
+          ]
+        },
+        "durationMs": 172800000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "wide": {
+            "start": "2026-10-23T07:00:00Z",
+            "end": "2026-11-19T07:00:00Z"
+          },
+          "civil-before": {
+            "start": "2026-11-03T07:59:59Z",
+            "end": "2026-11-03T08:00:00Z"
+          },
+          "civil-after": {
+            "start": "2026-11-03T08:00:00Z",
+            "end": "2026-11-03T08:00:01Z"
+          },
+          "elapsed-before": {
+            "start": "2026-11-03T06:59:59Z",
+            "end": "2026-11-03T07:00:00Z"
+          },
+          "elapsed-after": {
+            "start": "2026-11-03T07:00:00Z",
+            "end": "2026-11-03T07:00:01Z"
+          },
+          "true-start-before": {
+            "start": "2026-11-01T06:59:59Z",
+            "end": "2026-11-01T07:00:00Z"
+          },
+          "true-start-after": {
+            "start": "2026-11-01T07:00:00Z",
+            "end": "2026-11-01T07:00:01Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2026-10-25",
+          "2026-11-01",
+          "2026-11-08",
+          "2026-11-15"
+        ],
+        "civil-before": [],
+        "civil-after": [],
+        "elapsed-before": [
+          "2026-11-01"
+        ],
+        "elapsed-after": [],
+        "true-start-before": [],
+        "true-start-after": [
+          "2026-11-01"
+        ]
+      }
+    },
+    {
+      "name": "spring-transition-on-second-instance",
+      "input": {
+        "master": {
+          "start": {
+            "date": "2026-03-01"
+          },
+          "end": {
+            "date": "2026-03-02"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=4;INTERVAL=7"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "date": "2026-03-01"
+          },
+          "end": {
+            "date": "2026-03-02"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;INTERVAL=7;COUNT=4"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "wide": {
+            "start": "2026-02-27T08:00:00Z",
+            "end": "2026-03-26T08:00:00Z"
+          },
+          "civil-before": {
+            "start": "2026-03-09T06:59:59Z",
+            "end": "2026-03-09T07:00:00Z"
+          },
+          "civil-after": {
+            "start": "2026-03-09T07:00:00Z",
+            "end": "2026-03-09T07:00:01Z"
+          },
+          "elapsed-before": {
+            "start": "2026-03-09T07:59:59Z",
+            "end": "2026-03-09T08:00:00Z"
+          },
+          "elapsed-after": {
+            "start": "2026-03-09T08:00:00Z",
+            "end": "2026-03-09T08:00:01Z"
+          },
+          "true-start-before": {
+            "start": "2026-03-08T07:59:59Z",
+            "end": "2026-03-08T08:00:00Z"
+          },
+          "true-start-after": {
+            "start": "2026-03-08T08:00:00Z",
+            "end": "2026-03-08T08:00:01Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2026-03-01",
+          "2026-03-08",
+          "2026-03-15",
+          "2026-03-22"
+        ],
+        "civil-before": [
+          "2026-03-08"
+        ],
+        "civil-after": [],
+        "elapsed-before": [],
+        "elapsed-after": [],
+        "true-start-before": [],
+        "true-start-after": [
+          "2026-03-08"
+        ]
+      }
+    },
+    {
+      "name": "fall-moved-onto-transition",
+      "input": {
+        "master": {
+          "start": {
+            "date": "2026-10-28"
+          },
+          "end": {
+            "date": "2026-10-29"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=4;INTERVAL=5"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "date": "2026-10-28"
+          },
+          "end": {
+            "date": "2026-10-29"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;INTERVAL=5;COUNT=4"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "edits": [
+          {
+            "start": {
+              "date": "2026-11-01"
+            },
+            "end": {
+              "date": "2026-11-02"
+            },
+            "originalStartTime": {
+              "date": "2026-10-28"
+            },
+            "status": "confirmed"
+          }
+        ],
+        "windows": {
+          "wide": {
+            "start": "2026-10-26T07:00:00Z",
+            "end": "2026-11-22T07:00:00Z"
+          },
+          "civil-before": {
+            "start": "2026-11-02T07:59:59Z",
+            "end": "2026-11-02T08:00:00Z"
+          },
+          "civil-after": {
+            "start": "2026-11-02T08:00:00Z",
+            "end": "2026-11-02T08:00:01Z"
+          },
+          "elapsed-before": {
+            "start": "2026-11-02T06:59:59Z",
+            "end": "2026-11-02T07:00:00Z"
+          },
+          "elapsed-after": {
+            "start": "2026-11-02T07:00:00Z",
+            "end": "2026-11-02T07:00:01Z"
+          },
+          "true-start-before": {
+            "start": "2026-11-01T06:59:59Z",
+            "end": "2026-11-01T07:00:00Z"
+          },
+          "true-start-after": {
+            "start": "2026-11-01T07:00:00Z",
+            "end": "2026-11-01T07:00:01Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2026-11-02",
+          "2026-11-07",
+          "2026-11-12",
+          "2026-11-01"
+        ],
+        "civil-before": [
+          "2026-11-01"
+        ],
+        "civil-after": [
+          "2026-11-02"
+        ],
+        "elapsed-before": [
+          "2026-11-01"
+        ],
+        "elapsed-after": [
+          "2026-11-01"
+        ],
+        "true-start-before": [],
+        "true-start-after": [
+          "2026-11-01"
+        ]
+      }
+    },
+    {
+      "name": "spring-moved-onto-transition",
+      "input": {
+        "master": {
+          "start": {
+            "date": "2026-03-05"
+          },
+          "end": {
+            "date": "2026-03-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=4;INTERVAL=5"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "date": "2026-03-05"
+          },
+          "end": {
+            "date": "2026-03-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;INTERVAL=5;COUNT=4"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "edits": [
+          {
+            "start": {
+              "date": "2026-03-08"
+            },
+            "end": {
+              "date": "2026-03-09"
+            },
+            "originalStartTime": {
+              "date": "2026-03-05"
+            },
+            "status": "confirmed"
+          }
+        ],
+        "windows": {
+          "wide": {
+            "start": "2026-03-03T08:00:00Z",
+            "end": "2026-03-30T08:00:00Z"
+          },
+          "civil-before": {
+            "start": "2026-03-09T06:59:59Z",
+            "end": "2026-03-09T07:00:00Z"
+          },
+          "civil-after": {
+            "start": "2026-03-09T07:00:00Z",
+            "end": "2026-03-09T07:00:01Z"
+          },
+          "elapsed-before": {
+            "start": "2026-03-09T07:59:59Z",
+            "end": "2026-03-09T08:00:00Z"
+          },
+          "elapsed-after": {
+            "start": "2026-03-09T08:00:00Z",
+            "end": "2026-03-09T08:00:01Z"
+          },
+          "true-start-before": {
+            "start": "2026-03-08T07:59:59Z",
+            "end": "2026-03-08T08:00:00Z"
+          },
+          "true-start-after": {
+            "start": "2026-03-08T08:00:00Z",
+            "end": "2026-03-08T08:00:01Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2026-03-10",
+          "2026-03-15",
+          "2026-03-20",
+          "2026-03-08"
+        ],
+        "civil-before": [
+          "2026-03-08"
+        ],
+        "civil-after": [],
+        "elapsed-before": [],
+        "elapsed-after": [],
+        "true-start-before": [],
+        "true-start-after": [
+          "2026-03-08"
+        ]
+      }
+    }
+  ]
+}

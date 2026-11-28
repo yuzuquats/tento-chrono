@@ -179,14 +179,14 @@ export function createExcludedDatesSet(inner: ICalendar.Raw): Set<number> {
  * Processes all events from a raw generator with COUNT logic and deduplication
  */
 export function* processAllEvents(
-  rawEvents: Generator<YearMonthDay>,
+  rawEvents: Generator<YearMonthDay | null>,
   pattern: CountPattern,
   countLimit?: number,
   startDate?: YearMonthDay,
   excl?: Set<number>,
   inner?: ICalendar.Raw,
   useGoogleCalendarBehavior: boolean = true,
-): Generator<YearMonthDay> {
+): Generator<YearMonthDay | null> {
   if (countLimit != null && countLimit <= 0) return;
   let emittedCount = 0;
   const seenEvents = new Set<string>();
@@ -219,6 +219,10 @@ export function* processAllEvents(
   
   // Process all events from raw generator
   for (const event of rawEvents) {
+    if (event == null) {
+      yield null;
+      continue;
+    }
     if (excl?.has(event.dse)) continue;
     
     // Deduplicate events

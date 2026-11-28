@@ -1,0 +1,200 @@
+{
+  "type": "recurrence-profile",
+  "name": "dateutil UTC projection at calendar bounds",
+  "source": "python-dateutil 2.8.2 rrulestr, forceset=True, TZ=UTC",
+  "cases": [
+    {
+      "name": "selected local year one DTSTART cannot project into UTC year zero",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:00010101T010000+0200",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "0001-01-03",
+        "checkpoints": []
+      },
+      "expected": {
+        "expansionError": "date value out of range"
+      }
+    },
+    {
+      "name": "excluded year-one start is removed before UTC projection",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:00010101T010000+0200",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE:00010101T020000+0300"
+        ],
+        "through": "0001-01-03",
+        "checkpoints": [
+          "0001-01-01"
+        ]
+      },
+      "expected": [
+        "0001-01-01T23:00:00Z"
+      ]
+    },
+    {
+      "name": "standalone RDATE underflows only during projection",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:00010101T010000+0200"
+        ],
+        "through": "0001-01-03",
+        "checkpoints": []
+      },
+      "expected": {
+        "expansionError": "date value out of range"
+      }
+    },
+    {
+      "name": "RDATE and EXDATE compare equivalent pre-year-one instants",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:00010101T010000+0200",
+          "EXDATE:00010101T020000+0300"
+        ],
+        "through": "0001-01-03",
+        "checkpoints": []
+      },
+      "expected": []
+    },
+    {
+      "name": "named zone can underflow projected UTC while its wall date is valid",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=Asia/Tokyo:00010101T010000",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "through": "0001-01-03",
+        "checkpoints": []
+      },
+      "expected": {
+        "expansionError": "date value out of range"
+      }
+    },
+    {
+      "name": "final-year RDATE can bind before its UTC query day",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:99991231T230000-0200"
+        ],
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-30"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "final-year RDATE returns overflow when queried into its UTC year",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:99991231T230000-0200"
+        ],
+        "through": "10000-01-01",
+        "checkpoints": []
+      },
+      "expected": {
+        "expansionError": "date value out of range"
+      }
+    },
+    {
+      "name": "final-year rule candidate can overflow UTC without overflowing its local calendar",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:99991231T230000-0200",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "through": "10000-01-01",
+        "checkpoints": []
+      },
+      "expected": {
+        "expansionError": "date value out of range"
+      }
+    },
+    {
+      "name": "later offset RDATE and EXDATE match beyond Python UTC maximum",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:99991231T230000-0200",
+          "EXDATE:99991231T220000-0300"
+        ],
+        "through": "10000-01-01",
+        "checkpoints": [
+          "9999-12-31"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "UTC UNTIL comparison survives a local cutoff whose UTC date is year 10000",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:99991230T230000Z",
+          "RRULE:FREQ=DAILY;UNTIL=99991231T230000-0200"
+        ],
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-30"
+        ]
+      },
+      "expected": [
+        "9999-12-30T23:00:00Z",
+        "9999-12-31T23:00:00Z"
+      ]
+    },
+    {
+      "name": "outside UTC range UNTIL is inclusive at the same fixed offset",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:99991231T220000-0200",
+          "RRULE:FREQ=HOURLY;UNTIL=99991231T220000-0200",
+          "EXDATE:99991231T210000-0300"
+        ],
+        "through": "10000-01-01",
+        "checkpoints": [
+          "9999-12-31"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "year-zero UTC equivalent cutoff excludes all later UTC starts",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:00010101T000000Z",
+          "RRULE:FREQ=DAILY;UNTIL=00010101T010000+0200"
+        ],
+        "through": "0001-01-03",
+        "checkpoints": []
+      },
+      "expected": []
+    },
+    {
+      "name": "same offset cutoff compares local year-one values before conversion",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:00010101T020000+0200",
+          "RRULE:FREQ=DAILY;UNTIL=00010101T010000+0200"
+        ],
+        "through": "0001-01-03",
+        "checkpoints": []
+      },
+      "expected": []
+    }
+  ]
+}

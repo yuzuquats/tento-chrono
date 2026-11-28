@@ -1,0 +1,213 @@
+{
+  "type": "recurrence-profile",
+  "rfcDateMode": "written",
+  "name": "RFC 5545 mixed EXDATE value types",
+  "source": "RFC 5545 \u00a7\u00a73.3.4\u20135, 3.8.5.1\u20132 with Python Gregorian date and zoneinfo oracle",
+  "cases": [
+    {
+      "name": "timed EXDATE removes a timed RDATE from a DATE series",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20260307",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20260308T073000Z",
+          "EXDATE:20260308T073000Z"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": [
+        "2026-03-07",
+        "2026-03-08",
+        "2026-03-09"
+      ]
+    },
+    {
+      "name": "UTC EXDATE removes the same instant as a zoned gap RDATE",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20260307",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE;TZID=America/New_York:20260308T023000",
+          "EXDATE:20260308T073000Z",
+          "EXDATE;VALUE=DATE:20260307"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": [
+        "2026-03-08",
+        "2026-03-09"
+      ]
+    },
+    {
+      "name": "zoned gap EXDATE removes its UTC RDATE",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20260307",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20260308T073000Z",
+          "EXDATE;TZID=America/New_York:20260308T023000"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": [
+        "2026-03-07",
+        "2026-03-08",
+        "2026-03-09"
+      ]
+    },
+    {
+      "name": "alternate-zone EXDATE finds the same instant across dates",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20260307",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20260308T073000Z",
+          "EXDATE;TZID=America/Los_Angeles:20260307T233000"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": [
+        "2026-03-07",
+        "2026-03-08",
+        "2026-03-09"
+      ]
+    },
+    {
+      "name": "civil EXDATE removes a civil RDATE from a timed UTC series",
+      "input": {
+        "lines": [
+          "DTSTART:20260307T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE;VALUE=DATE:20260308",
+          "EXDATE;VALUE=DATE:20260308",
+          "EXDATE:20260307T090000Z"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": [
+        "2026-03-08T09:00:00Z",
+        "2026-03-09T09:00:00Z"
+      ]
+    },
+    {
+      "name": "civil EXDATE removes a civil RDATE from a floating series",
+      "input": {
+        "lines": [
+          "DTSTART:20260307T090000",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE;VALUE=DATE:20260308",
+          "EXDATE;VALUE=DATE:20260308"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": [
+        "2026-03-07T09:00:00",
+        "2026-03-08T09:00:00",
+        "2026-03-09T09:00:00"
+      ]
+    },
+    {
+      "name": "UTC EXDATE preserves a floating RDATE at a different identity",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20260307",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20260308T023000",
+          "EXDATE:20260308T073000Z"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": [
+        "2026-03-07",
+        "2026-03-08",
+        "2026-03-08T02:30:00",
+        "2026-03-09"
+      ]
+    },
+    {
+      "name": "civil EXDATE preserves zoned rule occurrences",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260307T090000",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE;VALUE=DATE:20260308",
+          "EXDATE;VALUE=DATE:20260308"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": [
+        "2026-03-07T14:00:00Z",
+        "2026-03-08T13:00:00Z",
+        "2026-03-09T13:00:00Z"
+      ]
+    },
+    {
+      "name": "EXDATE declared DATE still rejects a time",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20260307",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE;VALUE=DATE:20260308T023000Z"
+        ],
+        "through": "2026-03-10"
+      },
+      "expected": {
+        "error": "EXDATE type does not match VALUE"
+      }
+    },
+    {
+      "name": "EXDATE does not support PERIOD values",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20260307",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE;VALUE=PERIOD:20260308T023000Z/PT1H"
+        ],
+        "through": "2026-03-10"
+      },
+      "expected": {
+        "error": "Invalid EXDATE VALUE type"
+      }
+    }
+  ]
+}

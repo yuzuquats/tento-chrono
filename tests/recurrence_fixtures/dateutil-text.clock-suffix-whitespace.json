@@ -1,0 +1,177 @@
+{
+  "type": "dateutil-text",
+  "name": "dateutil clock suffix whitespace",
+  "referenceVersion": "2.8.2",
+  "referenceCommand": "python3 -m venv /tmp/chrono-dateutil-reference && /tmp/chrono-dateutil-reference/bin/python -m pip install python-dateutil==2.8.2 && TZ=UTC /tmp/chrono-dateutil-reference/bin/python -c 'import json; from datetime import timezone; from dateutil.rrule import rrulestr; fixture = json.load(open(\"tests/recurrence_fixtures/dateutil-text.clock-suffix-whitespace.json\")); print(json.dumps({case[\"name\"]: [dt.astimezone(timezone.utc).strftime(\"%Y-%m-%dT%H:%M:%SZ\") for dt in rrulestr(\"\\n\".join(case[\"input\"][\"lines\"]), unfold=True)] for case in fixture[\"cases\"]}, indent=2))'",
+  "cases": [
+    {
+      "name": "month-first numeric offset",
+      "input": {
+        "lines": [
+          "DTSTART:11/06/1994T08:49:37 +05:30",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "through": "1994-11-15"
+      },
+      "expected": [
+        "1994-11-06T03:19:37Z"
+      ]
+    },
+    {
+      "name": "month-first GMT",
+      "input": {
+        "lines": [
+          "DTSTART:11/06/1994T08:49:37 GMT",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "through": "1994-11-15"
+      },
+      "expected": [
+        "1994-11-06T08:49:37Z"
+      ]
+    },
+    {
+      "name": "month-first tab before UTC",
+      "input": {
+        "lines": [
+          "DTSTART:11/06/1994T08:49:37\tUTC",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "through": "1994-11-15"
+      },
+      "expected": [
+        "1994-11-06T08:49:37Z"
+      ]
+    },
+    {
+      "name": "month-first GMT with attached offset",
+      "input": {
+        "lines": [
+          "DTSTART:11/06/1994T08:49:37 GMT+05:30",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "through": "1994-11-15"
+      },
+      "expected": [
+        "1994-11-06T14:19:37Z"
+      ]
+    },
+    {
+      "name": "month-first space after T",
+      "input": {
+        "lines": [
+          "DTSTART:11/06/1994T 08:49:37 GMT",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "through": "1994-11-15"
+      },
+      "expected": [
+        "1994-11-06T08:49:37Z"
+      ]
+    },
+    {
+      "name": "day-first numeric offset",
+      "input": {
+        "lines": [
+          "DTSTART:13/11/1994T08:49:37 -04:00",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "through": "1994-11-15"
+      },
+      "expected": [
+        "1994-11-13T12:49:37Z"
+      ]
+    },
+    {
+      "name": "day-first GMT",
+      "input": {
+        "lines": [
+          "DTSTART:13/11/1994T08:49:37 GMT",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "through": "1994-11-15"
+      },
+      "expected": [
+        "1994-11-13T08:49:37Z"
+      ]
+    },
+    {
+      "name": "day-first nonbreaking space before UTC",
+      "input": {
+        "lines": [
+          "DTSTART:13/11/1994T08:49:37\u00a0UTC",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "through": "1994-11-15"
+      },
+      "expected": [
+        "1994-11-13T08:49:37Z"
+      ]
+    },
+    {
+      "name": "day-first dots and UTC",
+      "input": {
+        "lines": [
+          "DTSTART:13.11.1994T08:49:37 UTC",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "through": "1994-11-15"
+      },
+      "expected": [
+        "1994-11-13T08:49:37Z"
+      ]
+    },
+    {
+      "name": "named month and numeric offset",
+      "input": {
+        "lines": [
+          "DTSTART:06-Nov-1994T08:49:37 +05:30",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "through": "1994-11-15"
+      },
+      "expected": [
+        "1994-11-06T03:19:37Z"
+      ]
+    },
+    {
+      "name": "named month and GMT",
+      "input": {
+        "lines": [
+          "DTSTART:06-Nov-1994T08:49:37 GMT",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "through": "1994-11-15"
+      },
+      "expected": [
+        "1994-11-06T08:49:37Z"
+      ]
+    },
+    {
+      "name": "leading named month and UTC",
+      "input": {
+        "lines": [
+          "DTSTART:Nov-06-1994T08:49:37 UTC",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "through": "1994-11-15"
+      },
+      "expected": [
+        "1994-11-06T08:49:37Z"
+      ]
+    },
+    {
+      "name": "leading named month and space after T",
+      "input": {
+        "lines": [
+          "DTSTART:Nov-06-1994T 08:49:37 GMT",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "through": "1994-11-15"
+      },
+      "expected": [
+        "1994-11-06T08:49:37Z"
+      ]
+    }
+  ]
+}

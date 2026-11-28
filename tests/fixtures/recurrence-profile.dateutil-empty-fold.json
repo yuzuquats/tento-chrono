@@ -1,0 +1,191 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil empty physical continuations",
+  "source": "python-dateutil 2.8.2 rrulestr with forceset, and unfold for continuation lines",
+  "cases": [
+    {
+      "name": "empty continuation preserves the unit separator on COUNT",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=2\u001f",
+          " "
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ]
+      },
+      "expected": {
+        "error": "invalid 'COUNT': 2\u001f"
+      }
+    },
+    {
+      "name": "empty continuation preserves the unit separator on INTERVAL",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=2;INTERVAL=2\u001f",
+          " \t"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ]
+      },
+      "expected": {
+        "error": "invalid 'INTERVAL': 2\u001f"
+      }
+    },
+    {
+      "name": "empty continuation preserves the unit separator on BYHOUR",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=2;BYHOUR=9,10\u001f",
+          "  "
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ]
+      },
+      "expected": {
+        "error": "invalid 'BYHOUR': 9,10\u001f"
+      }
+    },
+    {
+      "name": "space still trims as part of Python integer conversion",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=2 ",
+          " "
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00",
+        "2026-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "a space remains significant on a folded frequency",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000",
+          "RRULE:COUNT=2;FREQ=DAILY ",
+          " "
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ]
+      },
+      "expected": {
+        "error": "invalid 'FREQ': DAILY "
+      }
+    },
+    {
+      "name": "no continuation keeps the unit separator as a token boundary",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=2\u001f"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00",
+        "2026-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "tab-only line does not signal a continuation",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=2\u001f",
+          "\t"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00",
+        "2026-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "leading blank continuation leaves the first property intact",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          " ",
+          "DTSTART:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00",
+        "2026-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "two empty continuations preserve the same original line",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=2\u001f",
+          " ",
+          " \t"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ]
+      },
+      "expected": {
+        "error": "invalid 'COUNT': 2\u001f"
+      }
+    }
+  ]
+}

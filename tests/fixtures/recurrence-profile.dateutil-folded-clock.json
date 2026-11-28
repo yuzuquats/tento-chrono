@@ -1,0 +1,136 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil folded date and clock fields",
+  "source": "python-dateutil 2.8.2 rrulestr with forceset and unfold",
+  "cases": [
+    {
+      "name": "folded clock after the T in DTSTART",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T",
+          "  090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-06",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "folded colon clock after a hyphenated date",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026-01-01",
+          "  09:30",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-06",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:30:00",
+        "2026-01-02T09:30:00"
+      ]
+    },
+    {
+      "name": "fold before T retains a space in a UTC DTSTART",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026/1/1",
+          "  T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-06",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "folded RDATE clock preserves the numeric offset",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:20260103T",
+          " \t09:00+02:30"
+        ],
+        "through": "2026-01-06",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T06:30:00Z"
+      ]
+    },
+    {
+      "name": "folded EXDATE excludes a floating occurrence",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE:2026.01.02",
+          "  09"
+        ],
+        "through": "2026-01-06",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00"
+      ]
+    },
+    {
+      "name": "folded UNTIL clock applies the UTC cutoff",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;UNTIL=20260103T",
+          "  090000Z"
+        ],
+        "through": "2026-01-06",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    }
+  ]
+}

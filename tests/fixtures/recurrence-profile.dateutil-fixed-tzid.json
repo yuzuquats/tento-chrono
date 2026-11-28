@@ -1,0 +1,348 @@
+{
+  "type": "recurrence-profile",
+  "name": "dateutil fixed TZID fallback",
+  "source": "python-dateutil 2.8.2 rrulestr and tz.gettz, TZ=UTC",
+  "cases": [
+    {
+      "name": "UTC prefix uses east-positive sign",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=UTC+3:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-01-06",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T06:00:00Z",
+        "2026-01-03T06:00:00Z",
+        "2026-01-04T06:00:00Z"
+      ]
+    },
+    {
+      "name": "lowercase GMT prefix uses POSIX sign",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=gmt+3:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-01-06",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T12:00:00Z",
+        "2026-01-03T12:00:00Z",
+        "2026-01-04T12:00:00Z"
+      ]
+    },
+    {
+      "name": "compact GMT offset keeps nonzero minutes",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=GMT+0230:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-01-06",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T06:30:00Z",
+        "2026-01-03T06:30:00Z",
+        "2026-01-04T06:30:00Z"
+      ]
+    },
+    {
+      "name": "ordinary fixed abbreviations reverse the written sign",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=CET-1:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-01-06",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T08:00:00Z",
+        "2026-01-03T08:00:00Z",
+        "2026-01-04T08:00:00Z"
+      ]
+    },
+    {
+      "name": "unsigned fixed abbreviation uses POSIX offset",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=EST5:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-01-06",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T14:00:00Z",
+        "2026-01-03T14:00:00Z",
+        "2026-01-04T14:00:00Z"
+      ]
+    },
+    {
+      "name": "named fixed zero offset remains aware",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=UTC0:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-01-06",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z",
+        "2026-01-04T09:00:00Z"
+      ]
+    },
+    {
+      "name": "named fixed offset can resolve an EXDATE on a UTC rule",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE;TZID=UTC+3:20260103T120000"
+        ],
+        "through": "2026-01-06",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-04T09:00:00Z"
+      ]
+    },
+    {
+      "name": "named fixed DTSTART and UTC EXDATE compare by instant",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=UTC+3:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE:20260103T060000Z"
+        ],
+        "through": "2026-01-06",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T06:00:00Z",
+        "2026-01-04T06:00:00Z"
+      ]
+    },
+    {
+      "name": "named fixed offset rule uses local time before UTC UNTIL",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=GMT+0230:20260102T090000",
+          "RRULE:FREQ=DAILY;UNTIL=20260103T063000Z"
+        ],
+        "through": "2026-01-06",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T06:30:00Z",
+        "2026-01-03T06:30:00Z"
+      ]
+    },
+    {
+      "name": "fixed offset beyond 24 hours still allows an empty rule",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=UTC+25:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=0"
+        ],
+        "through": "2026-01-06",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "fixed offset beyond 24 hours fails only on output",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=UTC+25:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "through": "2026-01-06",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "expansionError": "offset must be a timedelta strictly between -timedelta(hours=24) and timedelta(hours=24)."
+      }
+    },
+    {
+      "name": "external named offset accepts colon minutes",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-01-06",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ],
+        "dtstart": {
+          "dateTime": "2026-01-02T09:00:00",
+          "timeZone": "GMT+03:30"
+        }
+      },
+      "expected": [
+        "2026-01-02T05:30:00Z",
+        "2026-01-03T05:30:00Z",
+        "2026-01-04T05:30:00Z"
+      ]
+    },
+    {
+      "name": "external encoded instant sets the named fixed zone's rule clock",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-01-06",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ],
+        "dtstart": {
+          "dateTime": "2026-01-02T09:00:00Z",
+          "timeZone": "IST-5:30"
+        }
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z",
+        "2026-01-04T09:00:00Z"
+      ]
+    },
+    {
+      "name": "explicit callback null leaves a fixed name unresolved",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=UTC+3:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-01-06",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ],
+        "dateutilTzif": {
+          "UTC+3": null
+        }
+      },
+      "expected": [
+        "2026-01-02T09:00:00",
+        "2026-01-03T09:00:00",
+        "2026-01-04T09:00:00"
+      ]
+    },
+    {
+      "name": "supplied TZif takes precedence over a fixed offset name",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=UTC+3:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-01-06",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ],
+        "dateutilTzif": {
+          "UTC+3": "America/New_York"
+        }
+      },
+      "expected": [
+        "2026-01-02T14:00:00Z",
+        "2026-01-03T14:00:00Z",
+        "2026-01-04T14:00:00Z"
+      ]
+    },
+    {
+      "name": "unsupported three-digit fixed suffix remains floating",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=UTC+003:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-01-06",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00",
+        "2026-01-03T09:00:00",
+        "2026-01-04T09:00:00"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,270 @@
+{
+  "type": "recurrence-profile",
+  "name": "rrule.js negative subdaily intervals",
+  "source": "rrule.js 2.8.1 under TZ=UTC",
+  "cases": [
+    {
+      "name": "hourly-negative-count-one",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260306T000100Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=-1;COUNT=1"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-06T00:01:00Z"
+      ]
+    },
+    {
+      "name": "minutely-negative-until-before-first-clock",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260306T000100Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=-1;UNTIL=20260306T000059Z"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "secondly-negative-unsafe-step-count-one",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260306T000100Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=-9007199254740993;COUNT=1"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-06T00:01:00Z"
+      ]
+    },
+    {
+      "name": "secondly-negative-zoned-inclusion-and-rdate",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260306T000100",
+          "RRULE:FREQ=SECONDLY;INTERVAL=-1;COUNT=1",
+          "RDATE:20260308T120000Z"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-06T05:01:00Z",
+        "2026-03-08T16:00:00Z"
+      ]
+    },
+    {
+      "name": "hourly-spill-rewinds-across-midnight",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260306T235959Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=-1;BYMINUTE=120,180;COUNT=4"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-07T00:00:59Z",
+        "2026-03-07T01:00:59Z",
+        "2026-03-07T02:00:59Z"
+      ]
+    },
+    {
+      "name": "hourly-identical-overflow-offsets-rewind",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260306T235959Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=-1;BYMINUTE=180,180;COUNT=3"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-07T01:00:59Z",
+        "2026-03-07T02:00:59Z"
+      ]
+    },
+    {
+      "name": "minutely-carry-higher-hour-filter",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260306T000000Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=-1;BYHOUR=0,12;BYSECOND=86400;COUNT=3"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-06T12:58:00Z",
+        "2026-03-06T12:59:00Z",
+        "2026-03-07T00:00:00Z"
+      ]
+    },
+    {
+      "name": "hourly-rewind-across-year-boundary",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260101T003000Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=-1;BYMINUTE=60,180;COUNT=4"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-01-01T01:00:00Z",
+        "2026-01-01T02:00:00Z",
+        "2026-01-01T03:00:00Z"
+      ]
+    },
+    {
+      "name": "hourly-raw-year-mask-before-year-start",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260101T003000Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=-24;BYMINUTE=1560,1680;BYYEARDAY=1,-366;COUNT=3"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-01-01T02:00:00Z",
+        "2026-01-02T02:00:00Z",
+        "2026-01-02T04:00:00Z"
+      ]
+    },
+    {
+      "name": "hourly-zero-yearday-raw-mask",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260101T003000Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=-24;BYMINUTE=1560,1680;BYYEARDAY=1,0;COUNT=3"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-01-01T02:00:00Z",
+        "2026-01-02T02:00:00Z",
+        "2026-01-02T04:00:00Z"
+      ]
+    },
+    {
+      "name": "minute-earlier-grid-can-end-until",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260306T000015Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=-1;BYSECOND=0,60;UNTIL=20260306T000052Z"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "minute-overflow-count-clips-before-later-periods",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260306T235959Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=-2;BYSECOND=125,241,290;BYSETPOS=-1,1;COUNT=3"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-07T00:01:05Z",
+        "2026-03-07T00:01:50Z",
+        "2026-03-07T00:03:50Z"
+      ]
+    },
+    {
+      "name": "hourly-negative-position-at-empty-first-clock",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260306T000000Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=-1;BYHOUR=23;BYSETPOS=-1;COUNT=1"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-06T00:00:00Z"
+      ]
+    },
+    {
+      "name": "hourly-non-array-minute-error",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260306T000000Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=-1;BYMINUTE=TEXT;COUNT=1"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": {
+        "expansionError": "this.options.byminute.forEach is not a function"
+      }
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "type": "recurrence-profile",
+  "name": "RFC 5545 physical line framing and unfolding",
+  "source": "RFC 5545 \u00a73.1 and \u00a73.3.10",
+  "cases": [
+    {
+      "name": "whole-component-text",
+      "input": {
+        "lines": [
+          "DTSTART:20270104T090000Z\r\nRRULE:FREQ=DAILY;\r\n COUNT=3\r\nEXDATE:20270105T09\r\n\t0000Z\r\nRDATE:20270108T090000Z\r\n"
+        ],
+        "through": "2027-01-10",
+        "checkpoints": [
+          "2027-01-05",
+          "2027-01-07"
+        ]
+      },
+      "expected": [
+        "2027-01-04T09:00:00Z",
+        "2027-01-06T09:00:00Z",
+        "2027-01-08T09:00:00Z"
+      ]
+    },
+    {
+      "name": "physical-lines-after-lf-split",
+      "input": {
+        "lines": [
+          "DTSTART:20270104T090000Z\r",
+          "RRULE:FREQ=DAILY;\r",
+          " COUNT=3\r",
+          "EXDATE:20270105T09\r",
+          "\t0000Z\r",
+          "RDATE:20270108T090000Z\r",
+          ""
+        ],
+        "through": "2027-01-10",
+        "checkpoints": [
+          "2027-01-05",
+          "2027-01-07"
+        ]
+      },
+      "expected": [
+        "2027-01-04T09:00:00Z",
+        "2027-01-06T09:00:00Z",
+        "2027-01-08T09:00:00Z"
+      ]
+    },
+    {
+      "name": "physical-lines-with-terminators",
+      "input": {
+        "lines": [
+          "DTSTART:20270104T090000Z\r\n",
+          "RRULE:FREQ=DAILY;\r\n",
+          " COUNT=3\r\n",
+          "EXDATE:20270105T09\r\n",
+          "\t0000Z\r\n",
+          "RDATE:20270108T090000Z\r\n"
+        ],
+        "through": "2027-01-10",
+        "checkpoints": [
+          "2027-01-05",
+          "2027-01-07"
+        ]
+      },
+      "expected": [
+        "2027-01-04T09:00:00Z",
+        "2027-01-06T09:00:00Z",
+        "2027-01-08T09:00:00Z"
+      ]
+    },
+    {
+      "name": "physical-lines-with-mixed-terminators",
+      "input": {
+        "lines": [
+          "DTSTART:20270104T090000Z",
+          "RRULE:FREQ=DAILY;\r",
+          " COUNT=3\n",
+          "EXDATE:20270105T09\r\n",
+          "\t0000Z",
+          "RDATE:20270108T090000Z\r"
+        ],
+        "through": "2027-01-10",
+        "checkpoints": [
+          "2027-01-05",
+          "2027-01-07"
+        ]
+      },
+      "expected": [
+        "2027-01-04T09:00:00Z",
+        "2027-01-06T09:00:00Z",
+        "2027-01-08T09:00:00Z"
+      ]
+    },
+    {
+      "name": "physical-lines-without-terminators",
+      "input": {
+        "lines": [
+          "DTSTART:20270104T090000Z",
+          "RRULE:FREQ=DAILY;",
+          " COUNT=3",
+          "EXDATE:20270105T09",
+          "\t0000Z",
+          "RDATE:20270108T090000Z"
+        ],
+        "through": "2027-01-10",
+        "checkpoints": [
+          "2027-01-05",
+          "2027-01-07"
+        ]
+      },
+      "expected": [
+        "2027-01-04T09:00:00Z",
+        "2027-01-06T09:00:00Z",
+        "2027-01-08T09:00:00Z"
+      ]
+    },
+    {
+      "name": "interior-carriage-return-is-invalid",
+      "input": {
+        "lines": [
+          "DTSTART:20270104T09\r0000Z",
+          "RRULE:FREQ=DAILY;COUNT=3\r"
+        ],
+        "through": "2027-01-10"
+      },
+      "expected": {
+        "error": "Invalid DTSTART content value"
+      }
+    }
+  ]
+}

@@ -1,0 +1,203 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil changes inside a calendar separator group",
+  "source": "python-dateutil 2.8.2 rrulestr with forceset and unfold",
+  "cases": [
+    {
+      "name": "changing separators keeps the written short year in the parser window",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:JAN-2/0026\r\n  09:30",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-02T09:30:00",
+        "2026-01-03T09:30:00"
+      ]
+    },
+    {
+      "name": "a dot after a named month keeps the following numeric year width",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:APR.3-0026\r\n  09:30",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "0026-04-03",
+          "0026-04-04"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "0026-04-03T09:30:00",
+        "0026-04-04T09:30:00"
+      ]
+    },
+    {
+      "name": "a slash group followed by a dotted day retains a UTC start",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026/JAN.2\r\n  090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "multiple numeric delimiters retain a short year",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:1/2-0026\r\n  09:30",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-02T09:30:00",
+        "2026-01-03T09:30:00"
+      ]
+    },
+    {
+      "name": "weekday and changed delimiter work in an explicit inclusion",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:FRI\r\n  JAN-2/2026 09:30 +0200 (CET)"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T07:30:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "a dotted group followed by slash retains an explicit exclusion",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE:02.JAN/2026\r\n  09:00"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-01T09:00:00"
+      ]
+    },
+    {
+      "name": "a changed-delimiter cutoff remains inclusive",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;UNTIL=2026/JAN-2\r\n  09:00Z"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": {
+        "error": "unknown parameter name"
+      }
+    },
+    {
+      "name": "a single numeric dot makes the grouped field invalid",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:JAN/2.2026\r\n  09:30",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": {
+        "error": "Unknown string format: JAN/2.2026 09:30"
+      }
+    },
+    {
+      "name": "a repeated delimiter requires its third field without whitespace",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2-JAN-\r\n  2026 09:30",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": {
+        "error": "Unknown string format: 2-JAN- 2026 09:30"
+      }
+    }
+  ]
+}

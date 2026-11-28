@@ -1,0 +1,211 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil Unicode decimal recurrence dates",
+  "source": "python-dateutil 2.8.2 rrulestr and Python Unicode 15.0",
+  "cases": [
+    {
+      "name": "Arabic-Indic compact DTSTART keeps UTC",
+      "input": {
+        "lines": [
+          "DTSTART:٢٠٢٦٠٣٠١T٠٩١٥٣٠Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:15:30Z",
+        "2026-03-02T09:15:30Z",
+        "2026-03-03T09:15:30Z"
+      ]
+    },
+    {
+      "name": "fullwidth extended DTSTART retains numeric offset",
+      "input": {
+        "lines": [
+          "DTSTART:２０２６-０３-０１T０９:１５:３０+０２３０",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T06:45:30Z",
+        "2026-03-02T06:45:30Z",
+        "2026-03-03T06:45:30Z"
+      ]
+    },
+    {
+      "name": "mathematical decimal digits support UTC UNTIL",
+      "input": {
+        "lines": [
+          "DTSTART:20260228T091530Z",
+          "RRULE:FREQ=DAILY;UNTIL=𝟚𝟘𝟚𝟞/𝟘𝟛/𝟘𝟙T𝟘𝟡:𝟙𝟝:𝟛𝟘Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-06"
+      },
+      "expected": {
+        "error": "too many values to unpack (expected 2)"
+      }
+    },
+    {
+      "name": "Devanagari slash EXDATE matches a local start",
+      "input": {
+        "lines": [
+          "DTSTART:20260228T091530",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE:२०२६/०३/०१T०९:१५:३०"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-02-28",
+          "2026-03-02"
+        ]
+      },
+      "expected": [
+        "2026-02-28T09:15:30",
+        "2026-03-02T09:15:30"
+      ]
+    },
+    {
+      "name": "Unicode fractional seconds retain microsecond date identity",
+      "input": {
+        "lines": [
+          "DTSTART:20260228T091530Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:٢٠٢٦٠٣٠١T٠٩١٥٣٠.١٢٣٤٥٦Z",
+          "EXDATE:２０２６０３０１T０９１５３０.１２３４５５Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-02-28",
+          "2026-03-01",
+          "2026-03-02"
+        ]
+      },
+      "expected": [
+        "2026-02-28T09:15:30Z",
+        "2026-03-01T09:15:30Z",
+        "2026-03-01T09:15:30.123Z",
+        "2026-03-02T09:15:30Z"
+      ]
+    },
+    {
+      "name": "mixed decimal alphabets within one date",
+      "input": {
+        "lines": [
+          "DTSTART:２０2٦-０३-0١T٠９:15:၃၀Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:15:30Z",
+        "2026-03-02T09:15:30Z",
+        "2026-03-03T09:15:30Z"
+      ]
+    },
+    {
+      "name": "nondecimal superscripts remain invalid",
+      "input": {
+        "lines": [
+          "DTSTART:²026-03-01T09:15:30",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-06"
+      },
+      "expected": {
+        "error": "Unknown string format: ²026-03-01T09:15:30"
+      }
+    },
+    {
+      "name": "calendar diagnostics preserve the written Unicode date",
+      "input": {
+        "lines": [
+          "DTSTART:２０２６.０２.２９T０９:１５:３０UTC",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-06"
+      },
+      "expected": {
+        "error": "day is out of range for month: ２０２６.０２.２９T０９:１５:３０UTC"
+      }
+    },
+    {
+      "name": "Unicode date times can use an unknown timezone abbreviation",
+      "input": {
+        "lines": [
+          "DTSTART:٢٠٢٦٠٣٠١T٠٩١٥٣٠JUNK",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:15:30",
+        "2026-03-02T09:15:30",
+        "2026-03-03T09:15:30"
+      ]
+    },
+    {
+      "name": "Unicode exact offset with dotted AM/PM clock",
+      "input": {
+        "lines": [
+          "DTSTART:२०२६.०३.०१T०९:१५P.M.+०५",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T16:15:00Z",
+        "2026-03-02T16:15:00Z",
+        "2026-03-03T16:15:00Z"
+      ]
+    },
+    {
+      "name": "RFC recurrence dates retain ASCII syntax",
+      "input": {
+        "lines": [
+          "DTSTART:٢٠٢٦٠٣٠١T٠٩١٥٣٠Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06"
+      },
+      "expected": {
+        "error": "Expected an iCalendar DATE or DATE-TIME"
+      }
+    }
+  ]
+}

@@ -1,0 +1,5056 @@
+{
+  "type": "recurrence-profile",
+  "name": "Outlook Graph Island and South American reforms",
+  "source": "Microsoft Graph v1.0 calendarView on a dedicated test calendar",
+  "cases": [
+    {
+      "name": "tonga-season-1899-10-25",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-10-24T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 24,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "1899-10-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-11-21",
+        "checkpoints": [
+          "1899-10-24",
+          "1899-10-25",
+          "1899-10-26",
+          "1899-10-27",
+          "1899-10-28",
+          "1899-10-29",
+          "1899-10-30",
+          "1899-10-31",
+          "1899-11-01",
+          "1899-11-02",
+          "1899-11-03",
+          "1899-11-05",
+          "1899-11-06",
+          "1899-11-07",
+          "1899-11-08",
+          "1899-11-09",
+          "1899-11-10",
+          "1899-11-11",
+          "1899-11-12",
+          "1899-11-13",
+          "1899-11-14",
+          "1899-11-15",
+          "1899-11-16",
+          "1899-11-17"
+        ]
+      },
+      "expected": [
+        "1899-10-24T23:00:00Z",
+        "1899-10-25T23:00:00Z",
+        "1899-10-26T23:00:00Z",
+        "1899-10-27T23:00:00Z",
+        "1899-10-28T23:00:00Z",
+        "1899-10-29T23:00:00Z",
+        "1899-10-30T23:00:00Z",
+        "1899-10-31T23:00:00Z",
+        "1899-11-01T23:00:00Z",
+        "1899-11-02T23:00:00Z",
+        "1899-11-03T23:00:00Z",
+        "1899-11-05T00:00:00Z",
+        "1899-11-06T00:00:00Z",
+        "1899-11-07T00:00:00Z",
+        "1899-11-08T00:00:00Z",
+        "1899-11-09T00:00:00Z",
+        "1899-11-10T00:00:00Z",
+        "1899-11-11T00:00:00Z",
+        "1899-11-12T00:00:00Z",
+        "1899-11-13T00:00:00Z",
+        "1899-11-14T00:00:00Z",
+        "1899-11-15T00:00:00Z",
+        "1899-11-16T00:00:00Z",
+        "1899-11-17T00:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-season-1899-12-26",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-12-25T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 20,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "1899-12-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1900-01-18",
+        "checkpoints": [
+          "1899-12-26",
+          "1899-12-27",
+          "1899-12-28",
+          "1899-12-29",
+          "1899-12-30",
+          "1899-12-31",
+          "1900-01-01",
+          "1900-01-02",
+          "1900-01-03",
+          "1900-01-04",
+          "1900-01-05",
+          "1900-01-06",
+          "1900-01-07",
+          "1900-01-08",
+          "1900-01-09",
+          "1900-01-10",
+          "1900-01-11",
+          "1900-01-12",
+          "1900-01-13"
+        ]
+      },
+      "expected": [
+        "1899-12-26T00:00:00Z",
+        "1899-12-27T00:00:00Z",
+        "1899-12-28T00:00:00Z",
+        "1899-12-29T00:00:00Z",
+        "1899-12-30T00:00:00Z",
+        "1899-12-31T00:00:00Z",
+        "1900-01-01T00:00:00Z",
+        "1900-01-02T00:00:00Z",
+        "1900-01-03T00:00:00Z",
+        "1900-01-04T00:00:00Z",
+        "1900-01-04T23:00:00Z",
+        "1900-01-05T23:00:00Z",
+        "1900-01-06T23:00:00Z",
+        "1900-01-07T23:00:00Z",
+        "1900-01-08T23:00:00Z",
+        "1900-01-09T23:00:00Z",
+        "1900-01-10T23:00:00Z",
+        "1900-01-11T23:00:00Z",
+        "1900-01-12T23:00:00Z",
+        "1900-01-13T23:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-season-1960-10-25",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1960-10-24T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 24,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "1960-10-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1960-11-21",
+        "checkpoints": [
+          "1960-10-24",
+          "1960-10-25",
+          "1960-10-26",
+          "1960-10-27",
+          "1960-10-28",
+          "1960-10-29",
+          "1960-10-30",
+          "1960-10-31",
+          "1960-11-01",
+          "1960-11-02",
+          "1960-11-03",
+          "1960-11-04",
+          "1960-11-06",
+          "1960-11-07",
+          "1960-11-08",
+          "1960-11-09",
+          "1960-11-10",
+          "1960-11-11",
+          "1960-11-12",
+          "1960-11-13",
+          "1960-11-14",
+          "1960-11-15",
+          "1960-11-16",
+          "1960-11-17"
+        ]
+      },
+      "expected": [
+        "1960-10-24T23:00:00Z",
+        "1960-10-25T23:00:00Z",
+        "1960-10-26T23:00:00Z",
+        "1960-10-27T23:00:00Z",
+        "1960-10-28T23:00:00Z",
+        "1960-10-29T23:00:00Z",
+        "1960-10-30T23:00:00Z",
+        "1960-10-31T23:00:00Z",
+        "1960-11-01T23:00:00Z",
+        "1960-11-02T23:00:00Z",
+        "1960-11-03T23:00:00Z",
+        "1960-11-04T23:00:00Z",
+        "1960-11-06T00:00:00Z",
+        "1960-11-07T00:00:00Z",
+        "1960-11-08T00:00:00Z",
+        "1960-11-09T00:00:00Z",
+        "1960-11-10T00:00:00Z",
+        "1960-11-11T00:00:00Z",
+        "1960-11-12T00:00:00Z",
+        "1960-11-13T00:00:00Z",
+        "1960-11-14T00:00:00Z",
+        "1960-11-15T00:00:00Z",
+        "1960-11-16T00:00:00Z",
+        "1960-11-17T00:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-season-1999-10-25",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1999-10-24T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 24,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "1999-10-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1999-11-21",
+        "checkpoints": [
+          "1999-10-24",
+          "1999-10-25",
+          "1999-10-26",
+          "1999-10-27",
+          "1999-10-28",
+          "1999-10-29",
+          "1999-10-30",
+          "1999-10-31",
+          "1999-11-01",
+          "1999-11-02",
+          "1999-11-03",
+          "1999-11-04",
+          "1999-11-05",
+          "1999-11-07",
+          "1999-11-08",
+          "1999-11-09",
+          "1999-11-10",
+          "1999-11-11",
+          "1999-11-12",
+          "1999-11-13",
+          "1999-11-14",
+          "1999-11-15",
+          "1999-11-16",
+          "1999-11-17"
+        ]
+      },
+      "expected": [
+        "1999-10-24T23:00:00Z",
+        "1999-10-25T23:00:00Z",
+        "1999-10-26T23:00:00Z",
+        "1999-10-27T23:00:00Z",
+        "1999-10-28T23:00:00Z",
+        "1999-10-29T23:00:00Z",
+        "1999-10-30T23:00:00Z",
+        "1999-10-31T23:00:00Z",
+        "1999-11-01T23:00:00Z",
+        "1999-11-02T23:00:00Z",
+        "1999-11-03T23:00:00Z",
+        "1999-11-04T23:00:00Z",
+        "1999-11-05T23:00:00Z",
+        "1999-11-07T00:00:00Z",
+        "1999-11-08T00:00:00Z",
+        "1999-11-09T00:00:00Z",
+        "1999-11-10T00:00:00Z",
+        "1999-11-11T00:00:00Z",
+        "1999-11-12T00:00:00Z",
+        "1999-11-13T00:00:00Z",
+        "1999-11-14T00:00:00Z",
+        "1999-11-15T00:00:00Z",
+        "1999-11-16T00:00:00Z",
+        "1999-11-17T00:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-season-1999-12-26",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1999-12-25T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 20,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "1999-12-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2000-01-18",
+        "checkpoints": [
+          "1999-12-26",
+          "1999-12-27",
+          "1999-12-28",
+          "1999-12-29",
+          "1999-12-30",
+          "1999-12-31",
+          "2000-01-01",
+          "2000-01-02",
+          "2000-01-03",
+          "2000-01-04",
+          "2000-01-05",
+          "2000-01-06",
+          "2000-01-07",
+          "2000-01-08",
+          "2000-01-09",
+          "2000-01-10",
+          "2000-01-11",
+          "2000-01-12",
+          "2000-01-13"
+        ]
+      },
+      "expected": [
+        "1999-12-26T00:00:00Z",
+        "1999-12-27T00:00:00Z",
+        "1999-12-28T00:00:00Z",
+        "1999-12-29T00:00:00Z",
+        "1999-12-30T00:00:00Z",
+        "1999-12-31T00:00:00Z",
+        "2000-01-01T00:00:00Z",
+        "2000-01-02T00:00:00Z",
+        "2000-01-03T00:00:00Z",
+        "2000-01-04T00:00:00Z",
+        "2000-01-05T00:00:00Z",
+        "2000-01-06T00:00:00Z",
+        "2000-01-06T23:00:00Z",
+        "2000-01-07T23:00:00Z",
+        "2000-01-08T23:00:00Z",
+        "2000-01-09T23:00:00Z",
+        "2000-01-10T23:00:00Z",
+        "2000-01-11T23:00:00Z",
+        "2000-01-12T23:00:00Z",
+        "2000-01-13T23:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-season-2000-12-26",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2000-12-25T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 20,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2000-12-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2001-01-18",
+        "checkpoints": [
+          "2000-12-26",
+          "2000-12-27",
+          "2000-12-28",
+          "2000-12-29",
+          "2000-12-30",
+          "2000-12-31",
+          "2001-01-01",
+          "2001-01-02",
+          "2001-01-03",
+          "2001-01-04",
+          "2001-01-05",
+          "2001-01-06",
+          "2001-01-07",
+          "2001-01-08",
+          "2001-01-09",
+          "2001-01-10",
+          "2001-01-11",
+          "2001-01-12",
+          "2001-01-13"
+        ]
+      },
+      "expected": [
+        "2000-12-26T00:00:00Z",
+        "2000-12-27T00:00:00Z",
+        "2000-12-28T00:00:00Z",
+        "2000-12-29T00:00:00Z",
+        "2000-12-30T00:00:00Z",
+        "2000-12-31T00:00:00Z",
+        "2001-01-01T00:00:00Z",
+        "2001-01-02T00:00:00Z",
+        "2001-01-03T00:00:00Z",
+        "2001-01-04T00:00:00Z",
+        "2001-01-04T23:00:00Z",
+        "2001-01-05T23:00:00Z",
+        "2001-01-06T23:00:00Z",
+        "2001-01-07T23:00:00Z",
+        "2001-01-08T23:00:00Z",
+        "2001-01-09T23:00:00Z",
+        "2001-01-10T23:00:00Z",
+        "2001-01-11T23:00:00Z",
+        "2001-01-12T23:00:00Z",
+        "2001-01-13T23:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-season-2001-10-25",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2001-10-24T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 24,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2001-10-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2001-11-21",
+        "checkpoints": [
+          "2001-10-24",
+          "2001-10-25",
+          "2001-10-26",
+          "2001-10-27",
+          "2001-10-28",
+          "2001-10-29",
+          "2001-10-30",
+          "2001-10-31",
+          "2001-11-01",
+          "2001-11-02",
+          "2001-11-04",
+          "2001-11-05",
+          "2001-11-06",
+          "2001-11-07",
+          "2001-11-08",
+          "2001-11-09",
+          "2001-11-10",
+          "2001-11-11",
+          "2001-11-12",
+          "2001-11-13",
+          "2001-11-14",
+          "2001-11-15",
+          "2001-11-16",
+          "2001-11-17"
+        ]
+      },
+      "expected": [
+        "2001-10-24T23:00:00Z",
+        "2001-10-25T23:00:00Z",
+        "2001-10-26T23:00:00Z",
+        "2001-10-27T23:00:00Z",
+        "2001-10-28T23:00:00Z",
+        "2001-10-29T23:00:00Z",
+        "2001-10-30T23:00:00Z",
+        "2001-10-31T23:00:00Z",
+        "2001-11-01T23:00:00Z",
+        "2001-11-02T23:00:00Z",
+        "2001-11-04T00:00:00Z",
+        "2001-11-05T00:00:00Z",
+        "2001-11-06T00:00:00Z",
+        "2001-11-07T00:00:00Z",
+        "2001-11-08T00:00:00Z",
+        "2001-11-09T00:00:00Z",
+        "2001-11-10T00:00:00Z",
+        "2001-11-11T00:00:00Z",
+        "2001-11-12T00:00:00Z",
+        "2001-11-13T00:00:00Z",
+        "2001-11-14T00:00:00Z",
+        "2001-11-15T00:00:00Z",
+        "2001-11-16T00:00:00Z",
+        "2001-11-17T00:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-season-2001-12-26",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2001-12-25T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 20,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2001-12-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2002-01-18",
+        "checkpoints": [
+          "2001-12-26",
+          "2001-12-27",
+          "2001-12-28",
+          "2001-12-29",
+          "2001-12-30",
+          "2001-12-31",
+          "2002-01-01",
+          "2002-01-02",
+          "2002-01-03",
+          "2002-01-04",
+          "2002-01-05",
+          "2002-01-06",
+          "2002-01-07",
+          "2002-01-08",
+          "2002-01-09",
+          "2002-01-10",
+          "2002-01-11",
+          "2002-01-12",
+          "2002-01-13"
+        ]
+      },
+      "expected": [
+        "2001-12-26T00:00:00Z",
+        "2001-12-27T00:00:00Z",
+        "2001-12-28T00:00:00Z",
+        "2001-12-29T00:00:00Z",
+        "2001-12-30T00:00:00Z",
+        "2001-12-31T00:00:00Z",
+        "2002-01-01T00:00:00Z",
+        "2002-01-02T00:00:00Z",
+        "2002-01-03T00:00:00Z",
+        "2002-01-03T23:00:00Z",
+        "2002-01-04T23:00:00Z",
+        "2002-01-05T23:00:00Z",
+        "2002-01-06T23:00:00Z",
+        "2002-01-07T23:00:00Z",
+        "2002-01-08T23:00:00Z",
+        "2002-01-09T23:00:00Z",
+        "2002-01-10T23:00:00Z",
+        "2002-01-11T23:00:00Z",
+        "2002-01-12T23:00:00Z",
+        "2002-01-13T23:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-season-2003-10-25",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2003-10-24T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 24,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2003-10-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2003-11-21",
+        "checkpoints": [
+          "2003-10-24",
+          "2003-10-25",
+          "2003-10-26",
+          "2003-10-27",
+          "2003-10-28",
+          "2003-10-29",
+          "2003-10-30",
+          "2003-10-31",
+          "2003-11-02",
+          "2003-11-03",
+          "2003-11-04",
+          "2003-11-05",
+          "2003-11-06",
+          "2003-11-07",
+          "2003-11-08",
+          "2003-11-09",
+          "2003-11-10",
+          "2003-11-11",
+          "2003-11-12",
+          "2003-11-13",
+          "2003-11-14",
+          "2003-11-15",
+          "2003-11-16",
+          "2003-11-17"
+        ]
+      },
+      "expected": [
+        "2003-10-24T23:00:00Z",
+        "2003-10-25T23:00:00Z",
+        "2003-10-26T23:00:00Z",
+        "2003-10-27T23:00:00Z",
+        "2003-10-28T23:00:00Z",
+        "2003-10-29T23:00:00Z",
+        "2003-10-30T23:00:00Z",
+        "2003-10-31T23:00:00Z",
+        "2003-11-02T00:00:00Z",
+        "2003-11-03T00:00:00Z",
+        "2003-11-04T00:00:00Z",
+        "2003-11-05T00:00:00Z",
+        "2003-11-06T00:00:00Z",
+        "2003-11-07T00:00:00Z",
+        "2003-11-08T00:00:00Z",
+        "2003-11-09T00:00:00Z",
+        "2003-11-10T00:00:00Z",
+        "2003-11-11T00:00:00Z",
+        "2003-11-12T00:00:00Z",
+        "2003-11-13T00:00:00Z",
+        "2003-11-14T00:00:00Z",
+        "2003-11-15T00:00:00Z",
+        "2003-11-16T00:00:00Z",
+        "2003-11-17T00:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-season-2015-10-25",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2015-10-24T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 24,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2015-10-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2015-11-21",
+        "checkpoints": [
+          "2015-10-24",
+          "2015-10-25",
+          "2015-10-26",
+          "2015-10-27",
+          "2015-10-28",
+          "2015-10-29",
+          "2015-10-30",
+          "2015-10-31",
+          "2015-11-01",
+          "2015-11-02",
+          "2015-11-03",
+          "2015-11-04",
+          "2015-11-05",
+          "2015-11-06",
+          "2015-11-07",
+          "2015-11-08",
+          "2015-11-09",
+          "2015-11-10",
+          "2015-11-11",
+          "2015-11-12",
+          "2015-11-13",
+          "2015-11-14",
+          "2015-11-15",
+          "2015-11-16"
+        ]
+      },
+      "expected": [
+        "2015-10-24T23:00:00Z",
+        "2015-10-25T23:00:00Z",
+        "2015-10-26T23:00:00Z",
+        "2015-10-27T23:00:00Z",
+        "2015-10-28T23:00:00Z",
+        "2015-10-29T23:00:00Z",
+        "2015-10-30T23:00:00Z",
+        "2015-10-31T23:00:00Z",
+        "2015-11-01T23:00:00Z",
+        "2015-11-02T23:00:00Z",
+        "2015-11-03T23:00:00Z",
+        "2015-11-04T23:00:00Z",
+        "2015-11-05T23:00:00Z",
+        "2015-11-06T23:00:00Z",
+        "2015-11-07T23:00:00Z",
+        "2015-11-08T23:00:00Z",
+        "2015-11-09T23:00:00Z",
+        "2015-11-10T23:00:00Z",
+        "2015-11-11T23:00:00Z",
+        "2015-11-12T23:00:00Z",
+        "2015-11-13T23:00:00Z",
+        "2015-11-14T23:00:00Z",
+        "2015-11-15T23:00:00Z",
+        "2015-11-16T23:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-season-2015-12-26",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2015-12-25T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 20,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2015-12-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2016-01-18",
+        "checkpoints": [
+          "2015-12-25",
+          "2015-12-26",
+          "2015-12-27",
+          "2015-12-28",
+          "2015-12-29",
+          "2015-12-30",
+          "2015-12-31",
+          "2016-01-01",
+          "2016-01-02",
+          "2016-01-03",
+          "2016-01-04",
+          "2016-01-05",
+          "2016-01-06",
+          "2016-01-07",
+          "2016-01-08",
+          "2016-01-09",
+          "2016-01-10",
+          "2016-01-11",
+          "2016-01-12",
+          "2016-01-13"
+        ]
+      },
+      "expected": [
+        "2015-12-25T23:00:00Z",
+        "2015-12-26T23:00:00Z",
+        "2015-12-27T23:00:00Z",
+        "2015-12-28T23:00:00Z",
+        "2015-12-29T23:00:00Z",
+        "2015-12-30T23:00:00Z",
+        "2015-12-31T23:00:00Z",
+        "2016-01-01T23:00:00Z",
+        "2016-01-02T23:00:00Z",
+        "2016-01-03T23:00:00Z",
+        "2016-01-04T23:00:00Z",
+        "2016-01-05T23:00:00Z",
+        "2016-01-06T23:00:00Z",
+        "2016-01-07T23:00:00Z",
+        "2016-01-08T23:00:00Z",
+        "2016-01-09T23:00:00Z",
+        "2016-01-10T23:00:00Z",
+        "2016-01-11T23:00:00Z",
+        "2016-01-12T23:00:00Z",
+        "2016-01-13T23:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-clock-2000-11-03-0000",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2000-11-02T11:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2000-11-03",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2000-11-11",
+        "checkpoints": [
+          "2000-11-02",
+          "2000-11-03",
+          "2000-11-04",
+          "2000-11-05",
+          "2000-11-06"
+        ]
+      },
+      "expected": [
+        "2000-11-02T11:00:00Z",
+        "2000-11-03T11:00:00Z",
+        "2000-11-04T11:00:00Z",
+        "2000-11-05T12:00:00Z",
+        "2000-11-06T12:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-clock-2000-11-03-0129",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2000-11-02T12:29:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2000-11-03",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2000-11-11",
+        "checkpoints": [
+          "2000-11-02",
+          "2000-11-03",
+          "2000-11-04",
+          "2000-11-05",
+          "2000-11-06"
+        ]
+      },
+      "expected": [
+        "2000-11-02T12:29:00Z",
+        "2000-11-03T12:29:00Z",
+        "2000-11-04T12:29:00Z",
+        "2000-11-05T13:29:00Z",
+        "2000-11-06T13:29:00Z"
+      ]
+    },
+    {
+      "name": "tonga-clock-2000-11-03-0200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2000-11-02T13:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2000-11-03",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2000-11-11",
+        "checkpoints": [
+          "2000-11-02",
+          "2000-11-03",
+          "2000-11-04",
+          "2000-11-05",
+          "2000-11-06"
+        ]
+      },
+      "expected": [
+        "2000-11-02T13:00:00Z",
+        "2000-11-03T13:00:00Z",
+        "2000-11-04T14:00:00Z",
+        "2000-11-05T14:00:00Z",
+        "2000-11-06T14:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-clock-2000-11-03-0300",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2000-11-02T14:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2000-11-03",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2000-11-11",
+        "checkpoints": [
+          "2000-11-02",
+          "2000-11-03",
+          "2000-11-04",
+          "2000-11-05",
+          "2000-11-06"
+        ]
+      },
+      "expected": [
+        "2000-11-02T14:00:00Z",
+        "2000-11-03T14:00:00Z",
+        "2000-11-04T15:00:00Z",
+        "2000-11-05T15:00:00Z",
+        "2000-11-06T15:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-clock-2016-11-04-0159",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2016-11-03T12:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2016-11-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2016-11-12",
+        "checkpoints": [
+          "2016-11-03",
+          "2016-11-04",
+          "2016-11-05",
+          "2016-11-06",
+          "2016-11-07"
+        ]
+      },
+      "expected": [
+        "2016-11-03T12:59:00Z",
+        "2016-11-04T12:59:00Z",
+        "2016-11-05T12:59:00Z",
+        "2016-11-06T11:59:00Z",
+        "2016-11-07T11:59:00Z"
+      ]
+    },
+    {
+      "name": "tonga-clock-2016-11-04-0200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2016-11-03T13:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2016-11-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2016-11-12",
+        "checkpoints": [
+          "2016-11-03",
+          "2016-11-04",
+          "2016-11-05",
+          "2016-11-06",
+          "2016-11-07"
+        ]
+      },
+      "expected": [
+        "2016-11-03T13:00:00Z",
+        "2016-11-04T13:00:00Z",
+        "2016-11-05T13:00:00Z",
+        "2016-11-06T12:00:00Z",
+        "2016-11-07T12:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-clock-2016-11-04-0259",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2016-11-03T13:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2016-11-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2016-11-12",
+        "checkpoints": [
+          "2016-11-03",
+          "2016-11-04",
+          "2016-11-05",
+          "2016-11-06",
+          "2016-11-07"
+        ]
+      },
+      "expected": [
+        "2016-11-03T13:59:00Z",
+        "2016-11-04T13:59:00Z",
+        "2016-11-05T13:59:00Z",
+        "2016-11-06T12:59:00Z",
+        "2016-11-07T12:59:00Z"
+      ]
+    },
+    {
+      "name": "tonga-clock-2016-11-04-0300",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2016-11-03T14:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2016-11-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2016-11-12",
+        "checkpoints": [
+          "2016-11-03",
+          "2016-11-04",
+          "2016-11-05",
+          "2016-11-06",
+          "2016-11-07"
+        ]
+      },
+      "expected": [
+        "2016-11-03T14:00:00Z",
+        "2016-11-04T14:00:00Z",
+        "2016-11-05T13:00:00Z",
+        "2016-11-06T13:00:00Z",
+        "2016-11-07T13:00:00Z"
+      ]
+    },
+    {
+      "name": "caracas-clock-2016-04-29-0229",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2016-04-29T06:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Venezuela Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2016-04-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2016-05-07",
+        "checkpoints": [
+          "2016-04-29",
+          "2016-04-30",
+          "2016-05-01",
+          "2016-05-02",
+          "2016-05-03"
+        ]
+      },
+      "expected": [
+        "2016-04-29T06:59:00Z",
+        "2016-04-30T06:59:00Z",
+        "2016-05-01T06:59:00Z",
+        "2016-05-02T06:29:00Z",
+        "2016-05-03T06:29:00Z"
+      ]
+    },
+    {
+      "name": "caracas-clock-2016-04-29-0230",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2016-04-29T07:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Venezuela Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2016-04-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2016-05-07",
+        "checkpoints": [
+          "2016-04-29",
+          "2016-04-30",
+          "2016-05-01",
+          "2016-05-02",
+          "2016-05-03"
+        ]
+      },
+      "expected": [
+        "2016-04-29T07:00:00Z",
+        "2016-04-30T07:00:00Z",
+        "2016-05-01T07:30:00Z",
+        "2016-05-02T06:30:00Z",
+        "2016-05-03T06:30:00Z"
+      ]
+    },
+    {
+      "name": "caracas-clock-2016-04-29-0259",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2016-04-29T07:29:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Venezuela Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2016-04-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2016-05-07",
+        "checkpoints": [
+          "2016-04-29",
+          "2016-04-30",
+          "2016-05-01",
+          "2016-05-02",
+          "2016-05-03"
+        ]
+      },
+      "expected": [
+        "2016-04-29T07:29:00Z",
+        "2016-04-30T07:29:00Z",
+        "2016-05-01T07:59:00Z",
+        "2016-05-02T06:59:00Z",
+        "2016-05-03T06:59:00Z"
+      ]
+    },
+    {
+      "name": "caracas-clock-2016-04-29-0300",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2016-04-29T07:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Venezuela Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2016-04-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2016-05-07",
+        "checkpoints": [
+          "2016-04-29",
+          "2016-04-30",
+          "2016-05-01",
+          "2016-05-02",
+          "2016-05-03"
+        ]
+      },
+      "expected": [
+        "2016-04-29T07:30:00Z",
+        "2016-04-30T07:30:00Z",
+        "2016-05-01T07:00:00Z",
+        "2016-05-02T07:00:00Z",
+        "2016-05-03T07:00:00Z"
+      ]
+    },
+    {
+      "name": "norfolk-clock-2015-10-02-0129",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2015-10-01T13:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Norfolk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2015-10-02",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2015-10-10",
+        "checkpoints": [
+          "2015-10-01",
+          "2015-10-02",
+          "2015-10-03",
+          "2015-10-04",
+          "2015-10-05"
+        ]
+      },
+      "expected": [
+        "2015-10-01T13:59:00Z",
+        "2015-10-02T13:59:00Z",
+        "2015-10-03T13:59:00Z",
+        "2015-10-04T14:29:00Z",
+        "2015-10-05T14:29:00Z"
+      ]
+    },
+    {
+      "name": "norfolk-clock-2015-10-02-0130",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2015-10-01T14:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Norfolk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2015-10-02",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2015-10-10",
+        "checkpoints": [
+          "2015-10-01",
+          "2015-10-02",
+          "2015-10-03",
+          "2015-10-04",
+          "2015-10-05"
+        ]
+      },
+      "expected": [
+        "2015-10-01T14:00:00Z",
+        "2015-10-02T14:00:00Z",
+        "2015-10-03T14:00:00Z",
+        "2015-10-04T14:30:00Z",
+        "2015-10-05T14:30:00Z"
+      ]
+    },
+    {
+      "name": "norfolk-clock-2015-10-02-0159",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2015-10-01T14:29:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Norfolk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2015-10-02",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2015-10-10",
+        "checkpoints": [
+          "2015-10-01",
+          "2015-10-02",
+          "2015-10-03",
+          "2015-10-04",
+          "2015-10-05"
+        ]
+      },
+      "expected": [
+        "2015-10-01T14:29:00Z",
+        "2015-10-02T14:29:00Z",
+        "2015-10-03T14:29:00Z",
+        "2015-10-04T14:59:00Z",
+        "2015-10-05T14:59:00Z"
+      ]
+    },
+    {
+      "name": "norfolk-clock-2015-10-02-0200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2015-10-01T14:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Norfolk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2015-10-02",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2015-10-10",
+        "checkpoints": [
+          "2015-10-01",
+          "2015-10-02",
+          "2015-10-03",
+          "2015-10-04",
+          "2015-10-05"
+        ]
+      },
+      "expected": [
+        "2015-10-01T14:30:00Z",
+        "2015-10-02T14:30:00Z",
+        "2015-10-03T15:00:00Z",
+        "2015-10-04T15:00:00Z",
+        "2015-10-05T15:00:00Z"
+      ]
+    },
+    {
+      "name": "norfolk-clock-2075-10-04-0159",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-10-03T14:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Norfolk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Norfolk Standard Time",
+              "startDate": "2075-10-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-10-12",
+        "checkpoints": [
+          "2075-10-03",
+          "2075-10-04",
+          "2075-10-05",
+          "2075-10-06",
+          "2075-10-07"
+        ]
+      },
+      "expected": [
+        "2075-10-03T14:59:00Z",
+        "2075-10-04T14:59:00Z",
+        "2075-10-05T14:59:00Z",
+        "2075-10-06T13:59:00Z",
+        "2075-10-07T13:59:00Z"
+      ]
+    },
+    {
+      "name": "norfolk-clock-2075-10-04-0200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-10-03T15:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Norfolk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Norfolk Standard Time",
+              "startDate": "2075-10-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-10-12",
+        "checkpoints": [
+          "2075-10-03",
+          "2075-10-04",
+          "2075-10-05",
+          "2075-10-06",
+          "2075-10-07"
+        ]
+      },
+      "expected": [
+        "2075-10-03T15:00:00Z",
+        "2075-10-04T15:00:00Z",
+        "2075-10-05T15:00:00Z",
+        "2075-10-06T14:00:00Z",
+        "2075-10-07T14:00:00Z"
+      ]
+    },
+    {
+      "name": "norfolk-clock-2075-10-04-0259",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-10-03T15:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Norfolk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Norfolk Standard Time",
+              "startDate": "2075-10-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-10-12",
+        "checkpoints": [
+          "2075-10-03",
+          "2075-10-04",
+          "2075-10-05",
+          "2075-10-06",
+          "2075-10-07"
+        ]
+      },
+      "expected": [
+        "2075-10-03T15:59:00Z",
+        "2075-10-04T15:59:00Z",
+        "2075-10-05T15:59:00Z",
+        "2075-10-06T14:59:00Z",
+        "2075-10-07T14:59:00Z"
+      ]
+    },
+    {
+      "name": "norfolk-clock-2075-10-04-0300",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-10-03T16:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Norfolk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Norfolk Standard Time",
+              "startDate": "2075-10-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-10-12",
+        "checkpoints": [
+          "2075-10-03",
+          "2075-10-04",
+          "2075-10-05",
+          "2075-10-06",
+          "2075-10-07"
+        ]
+      },
+      "expected": [
+        "2075-10-03T16:00:00Z",
+        "2075-10-04T16:00:00Z",
+        "2075-10-05T15:00:00Z",
+        "2075-10-06T15:00:00Z",
+        "2075-10-07T15:00:00Z"
+      ]
+    },
+    {
+      "name": "bougainville-clock-2014-12-26-0159",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-12-25T15:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Bougainville Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-12-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2015-01-03",
+        "checkpoints": [
+          "2014-12-25",
+          "2014-12-26",
+          "2014-12-27",
+          "2014-12-28",
+          "2014-12-29"
+        ]
+      },
+      "expected": [
+        "2014-12-25T15:59:00Z",
+        "2014-12-26T15:59:00Z",
+        "2014-12-27T15:59:00Z",
+        "2014-12-28T14:59:00Z",
+        "2014-12-29T14:59:00Z"
+      ]
+    },
+    {
+      "name": "bougainville-clock-2014-12-26-0200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-12-25T16:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Bougainville Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-12-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2015-01-03",
+        "checkpoints": [
+          "2014-12-25",
+          "2014-12-26",
+          "2014-12-27",
+          "2014-12-28",
+          "2014-12-29"
+        ]
+      },
+      "expected": [
+        "2014-12-25T16:00:00Z",
+        "2014-12-26T16:00:00Z",
+        "2014-12-27T16:00:00Z",
+        "2014-12-28T15:00:00Z",
+        "2014-12-29T15:00:00Z"
+      ]
+    },
+    {
+      "name": "caracas-windows-history-1899-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-15T16:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Venezuela Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Venezuela Standard Time",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T16:00:00Z",
+        "1899-01-16T16:00:00Z",
+        "1899-01-17T16:00:00Z",
+        "1899-01-18T16:00:00Z",
+        "1899-01-19T16:00:00Z"
+      ]
+    },
+    {
+      "name": "caracas-windows-history-1912-02-10",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1912-02-10T16:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Venezuela Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Venezuela Standard Time",
+              "startDate": "1912-02-10",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1912-02-22",
+        "checkpoints": [
+          "1912-02-10",
+          "1912-02-11",
+          "1912-02-12",
+          "1912-02-13",
+          "1912-02-14"
+        ]
+      },
+      "expected": [
+        "1912-02-10T16:00:00Z",
+        "1912-02-11T16:00:00Z",
+        "1912-02-12T16:00:00Z",
+        "1912-02-13T16:00:00Z",
+        "1912-02-14T16:00:00Z"
+      ]
+    },
+    {
+      "name": "caracas-windows-history-1964-12-30",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1964-12-30T16:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Venezuela Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Venezuela Standard Time",
+              "startDate": "1964-12-30",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1965-01-11",
+        "checkpoints": [
+          "1964-12-30",
+          "1964-12-31",
+          "1965-01-01",
+          "1965-01-02",
+          "1965-01-03"
+        ]
+      },
+      "expected": [
+        "1964-12-30T16:00:00Z",
+        "1964-12-31T16:00:00Z",
+        "1965-01-01T16:00:00Z",
+        "1965-01-02T16:00:00Z",
+        "1965-01-03T16:00:00Z"
+      ]
+    },
+    {
+      "name": "caracas-windows-history-2007-12-07",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2007-12-07T16:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Venezuela Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2007-12-07",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2007-12-19",
+        "checkpoints": [
+          "2007-12-07",
+          "2007-12-08",
+          "2007-12-09",
+          "2007-12-10",
+          "2007-12-11"
+        ]
+      },
+      "expected": [
+        "2007-12-07T16:00:00Z",
+        "2007-12-08T16:00:00Z",
+        "2007-12-09T16:30:00Z",
+        "2007-12-10T16:30:00Z",
+        "2007-12-11T16:30:00Z"
+      ]
+    },
+    {
+      "name": "caracas-windows-history-2016-04-29",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2016-04-29T16:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Venezuela Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2016-04-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2016-05-11",
+        "checkpoints": [
+          "2016-04-29",
+          "2016-04-30",
+          "2016-05-01",
+          "2016-05-02",
+          "2016-05-03"
+        ]
+      },
+      "expected": [
+        "2016-04-29T16:30:00Z",
+        "2016-04-30T16:30:00Z",
+        "2016-05-01T16:00:00Z",
+        "2016-05-02T16:00:00Z",
+        "2016-05-03T16:00:00Z"
+      ]
+    },
+    {
+      "name": "caracas-windows-history-2075-07-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-07-15T16:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Venezuela Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Venezuela Standard Time",
+              "startDate": "2075-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-07-27",
+        "checkpoints": [
+          "2075-07-15",
+          "2075-07-16",
+          "2075-07-17",
+          "2075-07-18",
+          "2075-07-19"
+        ]
+      },
+      "expected": [
+        "2075-07-15T16:00:00Z",
+        "2075-07-16T16:00:00Z",
+        "2075-07-17T16:00:00Z",
+        "2075-07-18T16:00:00Z",
+        "2075-07-19T16:00:00Z"
+      ]
+    },
+    {
+      "name": "la-paz-windows-history-1899-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-15T16:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "SA Western Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "SA Western Standard Time",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T16:00:00Z",
+        "1899-01-16T16:00:00Z",
+        "1899-01-17T16:00:00Z",
+        "1899-01-18T16:00:00Z",
+        "1899-01-19T16:00:00Z"
+      ]
+    },
+    {
+      "name": "la-paz-windows-history-1931-10-13",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1931-10-13T16:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "SA Western Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "SA Western Standard Time",
+              "startDate": "1931-10-13",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1931-10-25",
+        "checkpoints": [
+          "1931-10-13",
+          "1931-10-14",
+          "1931-10-15",
+          "1931-10-16",
+          "1931-10-17"
+        ]
+      },
+      "expected": [
+        "1931-10-13T16:00:00Z",
+        "1931-10-14T16:00:00Z",
+        "1931-10-15T16:00:00Z",
+        "1931-10-16T16:00:00Z",
+        "1931-10-17T16:00:00Z"
+      ]
+    },
+    {
+      "name": "la-paz-windows-history-1932-03-19",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1932-03-19T16:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "SA Western Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "SA Western Standard Time",
+              "startDate": "1932-03-19",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1932-03-31",
+        "checkpoints": [
+          "1932-03-19",
+          "1932-03-20",
+          "1932-03-21",
+          "1932-03-22",
+          "1932-03-23"
+        ]
+      },
+      "expected": [
+        "1932-03-19T16:00:00Z",
+        "1932-03-20T16:00:00Z",
+        "1932-03-21T16:00:00Z",
+        "1932-03-22T16:00:00Z",
+        "1932-03-23T16:00:00Z"
+      ]
+    },
+    {
+      "name": "la-paz-windows-history-2075-07-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-07-15T16:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "SA Western Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "SA Western Standard Time",
+              "startDate": "2075-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-07-27",
+        "checkpoints": [
+          "2075-07-15",
+          "2075-07-16",
+          "2075-07-17",
+          "2075-07-18",
+          "2075-07-19"
+        ]
+      },
+      "expected": [
+        "2075-07-15T16:00:00Z",
+        "2075-07-16T16:00:00Z",
+        "2075-07-17T16:00:00Z",
+        "2075-07-18T16:00:00Z",
+        "2075-07-19T16:00:00Z"
+      ]
+    },
+    {
+      "name": "cayenne-windows-history-1899-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-15T15:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "SA Eastern Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "SA Eastern Standard Time",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T15:00:00Z",
+        "1899-01-16T15:00:00Z",
+        "1899-01-17T15:00:00Z",
+        "1899-01-18T15:00:00Z",
+        "1899-01-19T15:00:00Z"
+      ]
+    },
+    {
+      "name": "cayenne-windows-history-1911-06-29",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1911-06-29T15:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "SA Eastern Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "SA Eastern Standard Time",
+              "startDate": "1911-06-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1911-07-11",
+        "checkpoints": [
+          "1911-06-29",
+          "1911-06-30",
+          "1911-07-01",
+          "1911-07-02",
+          "1911-07-03"
+        ]
+      },
+      "expected": [
+        "1911-06-29T15:00:00Z",
+        "1911-06-30T15:00:00Z",
+        "1911-07-01T15:00:00Z",
+        "1911-07-02T15:00:00Z",
+        "1911-07-03T15:00:00Z"
+      ]
+    },
+    {
+      "name": "cayenne-windows-history-1967-09-29",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-09-29T15:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "SA Eastern Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "SA Eastern Standard Time",
+              "startDate": "1967-09-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-10-11",
+        "checkpoints": [
+          "1967-09-29",
+          "1967-09-30",
+          "1967-10-01",
+          "1967-10-02",
+          "1967-10-03"
+        ]
+      },
+      "expected": [
+        "1967-09-29T15:00:00Z",
+        "1967-09-30T15:00:00Z",
+        "1967-10-01T15:00:00Z",
+        "1967-10-02T15:00:00Z",
+        "1967-10-03T15:00:00Z"
+      ]
+    },
+    {
+      "name": "cayenne-windows-history-2075-07-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-07-15T15:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "SA Eastern Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "SA Eastern Standard Time",
+              "startDate": "2075-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-07-27",
+        "checkpoints": [
+          "2075-07-15",
+          "2075-07-16",
+          "2075-07-17",
+          "2075-07-18",
+          "2075-07-19"
+        ]
+      },
+      "expected": [
+        "2075-07-15T15:00:00Z",
+        "2075-07-16T15:00:00Z",
+        "2075-07-17T15:00:00Z",
+        "2075-07-18T15:00:00Z",
+        "2075-07-19T15:00:00Z"
+      ]
+    },
+    {
+      "name": "bougainville-windows-history-1899-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-15T02:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Bougainville Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T02:00:00Z",
+        "1899-01-16T02:00:00Z",
+        "1899-01-17T02:00:00Z",
+        "1899-01-18T02:00:00Z",
+        "1899-01-19T02:00:00Z"
+      ]
+    },
+    {
+      "name": "bougainville-windows-history-1942-06-29",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1942-06-29T02:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Bougainville Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1942-06-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1942-07-11",
+        "checkpoints": [
+          "1942-06-29",
+          "1942-06-30",
+          "1942-07-01",
+          "1942-07-02",
+          "1942-07-03"
+        ]
+      },
+      "expected": [
+        "1942-06-29T02:00:00Z",
+        "1942-06-30T02:00:00Z",
+        "1942-07-01T02:00:00Z",
+        "1942-07-02T02:00:00Z",
+        "1942-07-03T02:00:00Z"
+      ]
+    },
+    {
+      "name": "bougainville-windows-history-1945-08-19",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1945-08-19T02:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Bougainville Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1945-08-19",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1945-08-31",
+        "checkpoints": [
+          "1945-08-19",
+          "1945-08-20",
+          "1945-08-21",
+          "1945-08-22",
+          "1945-08-23"
+        ]
+      },
+      "expected": [
+        "1945-08-19T02:00:00Z",
+        "1945-08-20T02:00:00Z",
+        "1945-08-21T02:00:00Z",
+        "1945-08-22T02:00:00Z",
+        "1945-08-23T02:00:00Z"
+      ]
+    },
+    {
+      "name": "bougainville-windows-history-2014-12-26",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-12-26T02:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Bougainville Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-12-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2015-01-07",
+        "checkpoints": [
+          "2014-12-26",
+          "2014-12-27",
+          "2014-12-28",
+          "2014-12-29",
+          "2014-12-30"
+        ]
+      },
+      "expected": [
+        "2014-12-26T02:00:00Z",
+        "2014-12-27T02:00:00Z",
+        "2014-12-28T01:00:00Z",
+        "2014-12-29T01:00:00Z",
+        "2014-12-30T01:00:00Z"
+      ]
+    },
+    {
+      "name": "bougainville-windows-history-2075-07-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-07-15T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Bougainville Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Bougainville Standard Time",
+              "startDate": "2075-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-07-27",
+        "checkpoints": [
+          "2075-07-15",
+          "2075-07-16",
+          "2075-07-17",
+          "2075-07-18",
+          "2075-07-19"
+        ]
+      },
+      "expected": [
+        "2075-07-15T01:00:00Z",
+        "2075-07-16T01:00:00Z",
+        "2075-07-17T01:00:00Z",
+        "2075-07-18T01:00:00Z",
+        "2075-07-19T01:00:00Z"
+      ]
+    },
+    {
+      "name": "norfolk-windows-history-1899-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-15T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Norfolk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T00:30:00Z",
+        "1899-01-16T00:30:00Z",
+        "1899-01-17T00:30:00Z",
+        "1899-01-18T00:30:00Z",
+        "1899-01-19T00:30:00Z"
+      ]
+    },
+    {
+      "name": "norfolk-windows-history-1950-12-30",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1950-12-30T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Norfolk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1950-12-30",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1951-01-11",
+        "checkpoints": [
+          "1950-12-30",
+          "1950-12-31",
+          "1951-01-01",
+          "1951-01-02",
+          "1951-01-03"
+        ]
+      },
+      "expected": [
+        "1950-12-30T00:30:00Z",
+        "1950-12-31T00:30:00Z",
+        "1951-01-01T00:30:00Z",
+        "1951-01-02T00:30:00Z",
+        "1951-01-03T00:30:00Z"
+      ]
+    },
+    {
+      "name": "norfolk-windows-history-1974-10-25",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1974-10-25T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Norfolk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1974-10-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1974-11-06",
+        "checkpoints": [
+          "1974-10-25",
+          "1974-10-26",
+          "1974-10-27",
+          "1974-10-28",
+          "1974-10-29"
+        ]
+      },
+      "expected": [
+        "1974-10-25T00:30:00Z",
+        "1974-10-26T00:30:00Z",
+        "1974-10-27T00:30:00Z",
+        "1974-10-28T00:30:00Z",
+        "1974-10-29T00:30:00Z"
+      ]
+    },
+    {
+      "name": "norfolk-windows-history-1975-02-28",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1975-02-28T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Norfolk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1975-02-28",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1975-03-12",
+        "checkpoints": [
+          "1975-02-28",
+          "1975-03-01",
+          "1975-03-02",
+          "1975-03-03",
+          "1975-03-04"
+        ]
+      },
+      "expected": [
+        "1975-02-28T00:30:00Z",
+        "1975-03-01T00:30:00Z",
+        "1975-03-02T00:30:00Z",
+        "1975-03-03T00:30:00Z",
+        "1975-03-04T00:30:00Z"
+      ]
+    },
+    {
+      "name": "norfolk-windows-history-2015-10-02",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2015-10-02T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Norfolk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2015-10-02",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2015-10-14",
+        "checkpoints": [
+          "2015-10-02",
+          "2015-10-03",
+          "2015-10-04",
+          "2015-10-05",
+          "2015-10-06"
+        ]
+      },
+      "expected": [
+        "2015-10-02T00:30:00Z",
+        "2015-10-03T00:30:00Z",
+        "2015-10-04T01:00:00Z",
+        "2015-10-05T01:00:00Z",
+        "2015-10-06T01:00:00Z"
+      ]
+    },
+    {
+      "name": "norfolk-windows-history-2019-10-04",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2019-10-04T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Norfolk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2019-10-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2019-10-16",
+        "checkpoints": [
+          "2019-10-04",
+          "2019-10-05",
+          "2019-10-06",
+          "2019-10-07",
+          "2019-10-08"
+        ]
+      },
+      "expected": [
+        "2019-10-04T01:00:00Z",
+        "2019-10-05T01:00:00Z",
+        "2019-10-06T00:00:00Z",
+        "2019-10-07T00:00:00Z",
+        "2019-10-08T00:00:00Z"
+      ]
+    },
+    {
+      "name": "norfolk-windows-history-2020-04-03",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2020-04-03T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Norfolk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Norfolk Standard Time",
+              "startDate": "2020-04-03",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2020-04-15",
+        "checkpoints": [
+          "2020-04-03",
+          "2020-04-04",
+          "2020-04-05",
+          "2020-04-06",
+          "2020-04-07"
+        ]
+      },
+      "expected": [
+        "2020-04-03T00:00:00Z",
+        "2020-04-04T00:00:00Z",
+        "2020-04-05T01:00:00Z",
+        "2020-04-06T01:00:00Z",
+        "2020-04-07T01:00:00Z"
+      ]
+    },
+    {
+      "name": "norfolk-windows-history-2075-04-05",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-04-05T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Norfolk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Norfolk Standard Time",
+              "startDate": "2075-04-05",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-04-17",
+        "checkpoints": [
+          "2075-04-05",
+          "2075-04-06",
+          "2075-04-07",
+          "2075-04-08",
+          "2075-04-09"
+        ]
+      },
+      "expected": [
+        "2075-04-05T00:00:00Z",
+        "2075-04-06T00:00:00Z",
+        "2075-04-07T01:00:00Z",
+        "2075-04-08T01:00:00Z",
+        "2075-04-09T01:00:00Z"
+      ]
+    },
+    {
+      "name": "norfolk-windows-history-2075-10-04",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-10-04T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Norfolk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Norfolk Standard Time",
+              "startDate": "2075-10-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-10-16",
+        "checkpoints": [
+          "2075-10-04",
+          "2075-10-05",
+          "2075-10-06",
+          "2075-10-07",
+          "2075-10-08"
+        ]
+      },
+      "expected": [
+        "2075-10-04T01:00:00Z",
+        "2075-10-05T01:00:00Z",
+        "2075-10-06T00:00:00Z",
+        "2075-10-07T00:00:00Z",
+        "2075-10-08T00:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-windows-history-1899-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-14T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-14",
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18"
+        ]
+      },
+      "expected": [
+        "1899-01-14T23:00:00Z",
+        "1899-01-15T23:00:00Z",
+        "1899-01-16T23:00:00Z",
+        "1899-01-17T23:00:00Z",
+        "1899-01-18T23:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-windows-history-1960-12-30",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1960-12-29T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "1960-12-30",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1961-01-11",
+        "checkpoints": [
+          "1960-12-30",
+          "1960-12-31",
+          "1961-01-01",
+          "1961-01-02",
+          "1961-01-03"
+        ]
+      },
+      "expected": [
+        "1960-12-30T00:00:00Z",
+        "1960-12-31T00:00:00Z",
+        "1961-01-01T00:00:00Z",
+        "1961-01-02T00:00:00Z",
+        "1961-01-03T00:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-windows-history-1999-10-05",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1999-10-04T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "1999-10-05",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1999-10-17",
+        "checkpoints": [
+          "1999-10-04",
+          "1999-10-05",
+          "1999-10-06",
+          "1999-10-07",
+          "1999-10-08"
+        ]
+      },
+      "expected": [
+        "1999-10-04T23:00:00Z",
+        "1999-10-05T23:00:00Z",
+        "1999-10-06T23:00:00Z",
+        "1999-10-07T23:00:00Z",
+        "1999-10-08T23:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-windows-history-2000-11-03",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2000-11-02T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2000-11-03",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2000-11-15",
+        "checkpoints": [
+          "2000-11-02",
+          "2000-11-03",
+          "2000-11-05",
+          "2000-11-06",
+          "2000-11-07"
+        ]
+      },
+      "expected": [
+        "2000-11-02T23:00:00Z",
+        "2000-11-03T23:00:00Z",
+        "2000-11-05T00:00:00Z",
+        "2000-11-06T00:00:00Z",
+        "2000-11-07T00:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-windows-history-2001-01-26",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2001-01-25T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2001-01-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2001-02-07",
+        "checkpoints": [
+          "2001-01-25",
+          "2001-01-26",
+          "2001-01-27",
+          "2001-01-28",
+          "2001-01-29"
+        ]
+      },
+      "expected": [
+        "2001-01-25T23:00:00Z",
+        "2001-01-26T23:00:00Z",
+        "2001-01-27T23:00:00Z",
+        "2001-01-28T23:00:00Z",
+        "2001-01-29T23:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-windows-history-2016-11-04",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2016-11-03T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2016-11-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2016-11-16",
+        "checkpoints": [
+          "2016-11-03",
+          "2016-11-04",
+          "2016-11-05",
+          "2016-11-06",
+          "2016-11-07"
+        ]
+      },
+      "expected": [
+        "2016-11-03T23:00:00Z",
+        "2016-11-04T23:00:00Z",
+        "2016-11-05T22:00:00Z",
+        "2016-11-06T22:00:00Z",
+        "2016-11-07T22:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-windows-history-2017-01-13",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2017-01-12T22:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2017-01-13",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2017-01-25",
+        "checkpoints": [
+          "2017-01-12",
+          "2017-01-13",
+          "2017-01-14",
+          "2017-01-15",
+          "2017-01-16"
+        ]
+      },
+      "expected": [
+        "2017-01-12T22:00:00Z",
+        "2017-01-13T22:00:00Z",
+        "2017-01-14T23:00:00Z",
+        "2017-01-15T23:00:00Z",
+        "2017-01-16T23:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-windows-history-2075-07-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-07-14T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2075-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-07-27",
+        "checkpoints": [
+          "2075-07-14",
+          "2075-07-15",
+          "2075-07-16",
+          "2075-07-17",
+          "2075-07-18"
+        ]
+      },
+      "expected": [
+        "2075-07-14T23:00:00Z",
+        "2075-07-15T23:00:00Z",
+        "2075-07-16T23:00:00Z",
+        "2075-07-17T23:00:00Z",
+        "2075-07-18T23:00:00Z"
+      ]
+    },
+    {
+      "name": "marquesas-windows-history-1899-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-15T21:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Marquesas Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Marquesas Standard Time",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T21:30:00Z",
+        "1899-01-16T21:30:00Z",
+        "1899-01-17T21:30:00Z",
+        "1899-01-18T21:30:00Z",
+        "1899-01-19T21:30:00Z"
+      ]
+    },
+    {
+      "name": "marquesas-windows-history-1912-09-29",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1912-09-29T21:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Marquesas Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Marquesas Standard Time",
+              "startDate": "1912-09-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1912-10-11",
+        "checkpoints": [
+          "1912-09-29",
+          "1912-09-30",
+          "1912-10-01",
+          "1912-10-02",
+          "1912-10-03"
+        ]
+      },
+      "expected": [
+        "1912-09-29T21:30:00Z",
+        "1912-09-30T21:30:00Z",
+        "1912-10-01T21:30:00Z",
+        "1912-10-02T21:30:00Z",
+        "1912-10-03T21:30:00Z"
+      ]
+    },
+    {
+      "name": "marquesas-windows-history-2075-07-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-07-15T21:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Marquesas Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Marquesas Standard Time",
+              "startDate": "2075-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-07-27",
+        "checkpoints": [
+          "2075-07-15",
+          "2075-07-16",
+          "2075-07-17",
+          "2075-07-18",
+          "2075-07-19"
+        ]
+      },
+      "expected": [
+        "2075-07-15T21:30:00Z",
+        "2075-07-16T21:30:00Z",
+        "2075-07-17T21:30:00Z",
+        "2075-07-18T21:30:00Z",
+        "2075-07-19T21:30:00Z"
+      ]
+    },
+    {
+      "name": "guadalcanal-windows-history-1899-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-15T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Pacific Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central Pacific Standard Time",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T01:00:00Z",
+        "1899-01-16T01:00:00Z",
+        "1899-01-17T01:00:00Z",
+        "1899-01-18T01:00:00Z",
+        "1899-01-19T01:00:00Z"
+      ]
+    },
+    {
+      "name": "guadalcanal-windows-history-1912-09-29",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1912-09-29T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Pacific Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central Pacific Standard Time",
+              "startDate": "1912-09-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1912-10-11",
+        "checkpoints": [
+          "1912-09-29",
+          "1912-09-30",
+          "1912-10-01",
+          "1912-10-02",
+          "1912-10-03"
+        ]
+      },
+      "expected": [
+        "1912-09-29T01:00:00Z",
+        "1912-09-30T01:00:00Z",
+        "1912-10-01T01:00:00Z",
+        "1912-10-02T01:00:00Z",
+        "1912-10-03T01:00:00Z"
+      ]
+    },
+    {
+      "name": "guadalcanal-windows-history-2075-07-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-07-15T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Pacific Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central Pacific Standard Time",
+              "startDate": "2075-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-07-27",
+        "checkpoints": [
+          "2075-07-15",
+          "2075-07-16",
+          "2075-07-17",
+          "2075-07-18",
+          "2075-07-19"
+        ]
+      },
+      "expected": [
+        "2075-07-15T01:00:00Z",
+        "2075-07-16T01:00:00Z",
+        "2075-07-17T01:00:00Z",
+        "2075-07-18T01:00:00Z",
+        "2075-07-19T01:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-holdout-2003-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2003-01-14T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 15,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "absoluteMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 37,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2003-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2006-02-12",
+        "checkpoints": [
+          "2003-01-14",
+          "2003-02-14",
+          "2003-03-14",
+          "2003-04-14",
+          "2003-05-14",
+          "2003-06-14",
+          "2003-07-14",
+          "2003-08-14",
+          "2003-09-14",
+          "2003-10-14",
+          "2003-11-15",
+          "2003-12-15",
+          "2004-01-14",
+          "2004-02-14",
+          "2004-03-14",
+          "2004-04-14",
+          "2004-05-14",
+          "2004-06-14",
+          "2004-07-14",
+          "2004-08-14",
+          "2004-09-14",
+          "2004-10-14",
+          "2004-11-15",
+          "2004-12-15",
+          "2005-01-14",
+          "2005-02-14",
+          "2005-03-14",
+          "2005-04-14",
+          "2005-05-14",
+          "2005-06-14",
+          "2005-07-14",
+          "2005-08-14",
+          "2005-09-14",
+          "2005-10-14",
+          "2005-11-15",
+          "2005-12-15",
+          "2006-01-14"
+        ]
+      },
+      "expected": [
+        "2003-01-14T23:00:00Z",
+        "2003-02-14T23:00:00Z",
+        "2003-03-14T23:00:00Z",
+        "2003-04-14T23:00:00Z",
+        "2003-05-14T23:00:00Z",
+        "2003-06-14T23:00:00Z",
+        "2003-07-14T23:00:00Z",
+        "2003-08-14T23:00:00Z",
+        "2003-09-14T23:00:00Z",
+        "2003-10-14T23:00:00Z",
+        "2003-11-15T00:00:00Z",
+        "2003-12-15T00:00:00Z",
+        "2004-01-14T23:00:00Z",
+        "2004-02-14T23:00:00Z",
+        "2004-03-14T23:00:00Z",
+        "2004-04-14T23:00:00Z",
+        "2004-05-14T23:00:00Z",
+        "2004-06-14T23:00:00Z",
+        "2004-07-14T23:00:00Z",
+        "2004-08-14T23:00:00Z",
+        "2004-09-14T23:00:00Z",
+        "2004-10-14T23:00:00Z",
+        "2004-11-15T00:00:00Z",
+        "2004-12-15T00:00:00Z",
+        "2005-01-14T23:00:00Z",
+        "2005-02-14T23:00:00Z",
+        "2005-03-14T23:00:00Z",
+        "2005-04-14T23:00:00Z",
+        "2005-05-14T23:00:00Z",
+        "2005-06-14T23:00:00Z",
+        "2005-07-14T23:00:00Z",
+        "2005-08-14T23:00:00Z",
+        "2005-09-14T23:00:00Z",
+        "2005-10-14T23:00:00Z",
+        "2005-11-15T00:00:00Z",
+        "2005-12-15T00:00:00Z",
+        "2006-01-14T23:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-holdout-2006-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2006-01-14T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 15,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "absoluteMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 37,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2006-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2009-02-12",
+        "checkpoints": [
+          "2006-01-14",
+          "2006-02-14",
+          "2006-03-14",
+          "2006-04-14",
+          "2006-05-14",
+          "2006-06-14",
+          "2006-07-14",
+          "2006-08-14",
+          "2006-09-14",
+          "2006-10-14",
+          "2006-11-15",
+          "2006-12-15",
+          "2007-01-14",
+          "2007-02-14",
+          "2007-03-14",
+          "2007-04-14",
+          "2007-05-14",
+          "2007-06-14",
+          "2007-07-14",
+          "2007-08-14",
+          "2007-09-14",
+          "2007-10-14",
+          "2007-11-15",
+          "2007-12-15",
+          "2008-01-14",
+          "2008-02-14",
+          "2008-03-14",
+          "2008-04-14",
+          "2008-05-14",
+          "2008-06-14",
+          "2008-07-14",
+          "2008-08-14",
+          "2008-09-14",
+          "2008-10-14",
+          "2008-11-15",
+          "2008-12-15",
+          "2009-01-14"
+        ]
+      },
+      "expected": [
+        "2006-01-14T23:00:00Z",
+        "2006-02-14T23:00:00Z",
+        "2006-03-14T23:00:00Z",
+        "2006-04-14T23:00:00Z",
+        "2006-05-14T23:00:00Z",
+        "2006-06-14T23:00:00Z",
+        "2006-07-14T23:00:00Z",
+        "2006-08-14T23:00:00Z",
+        "2006-09-14T23:00:00Z",
+        "2006-10-14T23:00:00Z",
+        "2006-11-15T00:00:00Z",
+        "2006-12-15T00:00:00Z",
+        "2007-01-14T23:00:00Z",
+        "2007-02-14T23:00:00Z",
+        "2007-03-14T23:00:00Z",
+        "2007-04-14T23:00:00Z",
+        "2007-05-14T23:00:00Z",
+        "2007-06-14T23:00:00Z",
+        "2007-07-14T23:00:00Z",
+        "2007-08-14T23:00:00Z",
+        "2007-09-14T23:00:00Z",
+        "2007-10-14T23:00:00Z",
+        "2007-11-15T00:00:00Z",
+        "2007-12-15T00:00:00Z",
+        "2008-01-14T23:00:00Z",
+        "2008-02-14T23:00:00Z",
+        "2008-03-14T23:00:00Z",
+        "2008-04-14T23:00:00Z",
+        "2008-05-14T23:00:00Z",
+        "2008-06-14T23:00:00Z",
+        "2008-07-14T23:00:00Z",
+        "2008-08-14T23:00:00Z",
+        "2008-09-14T23:00:00Z",
+        "2008-10-14T23:00:00Z",
+        "2008-11-15T00:00:00Z",
+        "2008-12-15T00:00:00Z",
+        "2009-01-14T23:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-holdout-2009-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2009-01-14T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 15,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "absoluteMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 37,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2009-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2012-02-13",
+        "checkpoints": [
+          "2009-01-14",
+          "2009-02-14",
+          "2009-03-14",
+          "2009-04-14",
+          "2009-05-14",
+          "2009-06-14",
+          "2009-07-14",
+          "2009-08-14",
+          "2009-09-14",
+          "2009-10-14",
+          "2009-11-15",
+          "2009-12-15",
+          "2010-01-14",
+          "2010-02-14",
+          "2010-03-14",
+          "2010-04-14",
+          "2010-05-14",
+          "2010-06-14",
+          "2010-07-14",
+          "2010-08-14",
+          "2010-09-14",
+          "2010-10-14",
+          "2010-11-15",
+          "2010-12-15",
+          "2011-01-14",
+          "2011-02-14",
+          "2011-03-14",
+          "2011-04-14",
+          "2011-05-14",
+          "2011-06-14",
+          "2011-07-14",
+          "2011-08-14",
+          "2011-09-14",
+          "2011-10-14",
+          "2011-11-15",
+          "2011-12-15",
+          "2012-01-14"
+        ]
+      },
+      "expected": [
+        "2009-01-14T23:00:00Z",
+        "2009-02-14T23:00:00Z",
+        "2009-03-14T23:00:00Z",
+        "2009-04-14T23:00:00Z",
+        "2009-05-14T23:00:00Z",
+        "2009-06-14T23:00:00Z",
+        "2009-07-14T23:00:00Z",
+        "2009-08-14T23:00:00Z",
+        "2009-09-14T23:00:00Z",
+        "2009-10-14T23:00:00Z",
+        "2009-11-15T00:00:00Z",
+        "2009-12-15T00:00:00Z",
+        "2010-01-14T23:00:00Z",
+        "2010-02-14T23:00:00Z",
+        "2010-03-14T23:00:00Z",
+        "2010-04-14T23:00:00Z",
+        "2010-05-14T23:00:00Z",
+        "2010-06-14T23:00:00Z",
+        "2010-07-14T23:00:00Z",
+        "2010-08-14T23:00:00Z",
+        "2010-09-14T23:00:00Z",
+        "2010-10-14T23:00:00Z",
+        "2010-11-15T00:00:00Z",
+        "2010-12-15T00:00:00Z",
+        "2011-01-14T23:00:00Z",
+        "2011-02-14T23:00:00Z",
+        "2011-03-14T23:00:00Z",
+        "2011-04-14T23:00:00Z",
+        "2011-05-14T23:00:00Z",
+        "2011-06-14T23:00:00Z",
+        "2011-07-14T23:00:00Z",
+        "2011-08-14T23:00:00Z",
+        "2011-09-14T23:00:00Z",
+        "2011-10-14T23:00:00Z",
+        "2011-11-15T00:00:00Z",
+        "2011-12-15T00:00:00Z",
+        "2012-01-14T23:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-holdout-2012-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2012-01-14T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 15,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "absoluteMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 37,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2012-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2015-02-12",
+        "checkpoints": [
+          "2012-01-14",
+          "2012-02-14",
+          "2012-03-14",
+          "2012-04-14",
+          "2012-05-14",
+          "2012-06-14",
+          "2012-07-14",
+          "2012-08-14",
+          "2012-09-14",
+          "2012-10-14",
+          "2012-11-15",
+          "2012-12-15",
+          "2013-01-14",
+          "2013-02-14",
+          "2013-03-14",
+          "2013-04-14",
+          "2013-05-14",
+          "2013-06-14",
+          "2013-07-14",
+          "2013-08-14",
+          "2013-09-14",
+          "2013-10-14",
+          "2013-11-15",
+          "2013-12-15",
+          "2014-01-14",
+          "2014-02-14",
+          "2014-03-14",
+          "2014-04-14",
+          "2014-05-14",
+          "2014-06-14",
+          "2014-07-14",
+          "2014-08-14",
+          "2014-09-14",
+          "2014-10-14",
+          "2014-11-15",
+          "2014-12-15",
+          "2015-01-14"
+        ]
+      },
+      "expected": [
+        "2012-01-14T23:00:00Z",
+        "2012-02-14T23:00:00Z",
+        "2012-03-14T23:00:00Z",
+        "2012-04-14T23:00:00Z",
+        "2012-05-14T23:00:00Z",
+        "2012-06-14T23:00:00Z",
+        "2012-07-14T23:00:00Z",
+        "2012-08-14T23:00:00Z",
+        "2012-09-14T23:00:00Z",
+        "2012-10-14T23:00:00Z",
+        "2012-11-15T00:00:00Z",
+        "2012-12-15T00:00:00Z",
+        "2013-01-14T23:00:00Z",
+        "2013-02-14T23:00:00Z",
+        "2013-03-14T23:00:00Z",
+        "2013-04-14T23:00:00Z",
+        "2013-05-14T23:00:00Z",
+        "2013-06-14T23:00:00Z",
+        "2013-07-14T23:00:00Z",
+        "2013-08-14T23:00:00Z",
+        "2013-09-14T23:00:00Z",
+        "2013-10-14T23:00:00Z",
+        "2013-11-15T00:00:00Z",
+        "2013-12-15T00:00:00Z",
+        "2014-01-14T23:00:00Z",
+        "2014-02-14T23:00:00Z",
+        "2014-03-14T23:00:00Z",
+        "2014-04-14T23:00:00Z",
+        "2014-05-14T23:00:00Z",
+        "2014-06-14T23:00:00Z",
+        "2014-07-14T23:00:00Z",
+        "2014-08-14T23:00:00Z",
+        "2014-09-14T23:00:00Z",
+        "2014-10-14T23:00:00Z",
+        "2014-11-15T00:00:00Z",
+        "2014-12-15T00:00:00Z",
+        "2015-01-14T23:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-holdout-2013-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2013-01-14T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 15,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "absoluteMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 37,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2013-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2016-02-13",
+        "checkpoints": [
+          "2013-01-14",
+          "2013-02-14",
+          "2013-03-14",
+          "2013-04-14",
+          "2013-05-14",
+          "2013-06-14",
+          "2013-07-14",
+          "2013-08-14",
+          "2013-09-14",
+          "2013-10-14",
+          "2013-11-15",
+          "2013-12-15",
+          "2014-01-14",
+          "2014-02-14",
+          "2014-03-14",
+          "2014-04-14",
+          "2014-05-14",
+          "2014-06-14",
+          "2014-07-14",
+          "2014-08-14",
+          "2014-09-14",
+          "2014-10-14",
+          "2014-11-15",
+          "2014-12-15",
+          "2015-01-14",
+          "2015-02-14",
+          "2015-03-14",
+          "2015-04-14",
+          "2015-05-14",
+          "2015-06-14",
+          "2015-07-14",
+          "2015-08-14",
+          "2015-09-14",
+          "2015-10-14",
+          "2015-11-14",
+          "2015-12-14",
+          "2016-01-14"
+        ]
+      },
+      "expected": [
+        "2013-01-14T23:00:00Z",
+        "2013-02-14T23:00:00Z",
+        "2013-03-14T23:00:00Z",
+        "2013-04-14T23:00:00Z",
+        "2013-05-14T23:00:00Z",
+        "2013-06-14T23:00:00Z",
+        "2013-07-14T23:00:00Z",
+        "2013-08-14T23:00:00Z",
+        "2013-09-14T23:00:00Z",
+        "2013-10-14T23:00:00Z",
+        "2013-11-15T00:00:00Z",
+        "2013-12-15T00:00:00Z",
+        "2014-01-14T23:00:00Z",
+        "2014-02-14T23:00:00Z",
+        "2014-03-14T23:00:00Z",
+        "2014-04-14T23:00:00Z",
+        "2014-05-14T23:00:00Z",
+        "2014-06-14T23:00:00Z",
+        "2014-07-14T23:00:00Z",
+        "2014-08-14T23:00:00Z",
+        "2014-09-14T23:00:00Z",
+        "2014-10-14T23:00:00Z",
+        "2014-11-15T00:00:00Z",
+        "2014-12-15T00:00:00Z",
+        "2015-01-14T23:00:00Z",
+        "2015-02-14T23:00:00Z",
+        "2015-03-14T23:00:00Z",
+        "2015-04-14T23:00:00Z",
+        "2015-05-14T23:00:00Z",
+        "2015-06-14T23:00:00Z",
+        "2015-07-14T23:00:00Z",
+        "2015-08-14T23:00:00Z",
+        "2015-09-14T23:00:00Z",
+        "2015-10-14T23:00:00Z",
+        "2015-11-14T23:00:00Z",
+        "2015-12-14T23:00:00Z",
+        "2016-01-14T23:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-edge-2001-01-03-0000",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2001-01-02T11:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2001-01-03",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2001-01-15",
+        "checkpoints": [
+          "2001-01-02",
+          "2001-01-03",
+          "2001-01-04",
+          "2001-01-05",
+          "2001-01-06"
+        ]
+      },
+      "expected": [
+        "2001-01-02T12:00:00Z",
+        "2001-01-03T12:00:00Z",
+        "2001-01-04T11:00:00Z",
+        "2001-01-05T11:00:00Z",
+        "2001-01-06T11:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-edge-2001-01-03-0159",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2001-01-02T12:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2001-01-03",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2001-01-15",
+        "checkpoints": [
+          "2001-01-02",
+          "2001-01-03",
+          "2001-01-04",
+          "2001-01-05",
+          "2001-01-06"
+        ]
+      },
+      "expected": [
+        "2001-01-02T13:59:00Z",
+        "2001-01-03T13:59:00Z",
+        "2001-01-04T12:59:00Z",
+        "2001-01-05T12:59:00Z",
+        "2001-01-06T12:59:00Z"
+      ]
+    },
+    {
+      "name": "tonga-edge-2001-01-03-0200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2001-01-02T13:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2001-01-03",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2001-01-15",
+        "checkpoints": [
+          "2001-01-02",
+          "2001-01-03",
+          "2001-01-04",
+          "2001-01-05",
+          "2001-01-06"
+        ]
+      },
+      "expected": [
+        "2001-01-02T14:00:00Z",
+        "2001-01-03T14:00:00Z",
+        "2001-01-04T13:00:00Z",
+        "2001-01-05T13:00:00Z",
+        "2001-01-06T13:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-edge-2001-01-03-0259",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2001-01-02T13:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2001-01-03",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2001-01-15",
+        "checkpoints": [
+          "2001-01-02",
+          "2001-01-03",
+          "2001-01-04",
+          "2001-01-05",
+          "2001-01-06"
+        ]
+      },
+      "expected": [
+        "2001-01-02T14:59:00Z",
+        "2001-01-03T14:59:00Z",
+        "2001-01-04T13:59:00Z",
+        "2001-01-05T13:59:00Z",
+        "2001-01-06T13:59:00Z"
+      ]
+    },
+    {
+      "name": "tonga-edge-2001-01-03-0300",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2001-01-02T14:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2001-01-03",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2001-01-15",
+        "checkpoints": [
+          "2001-01-02",
+          "2001-01-03",
+          "2001-01-04",
+          "2001-01-05",
+          "2001-01-06"
+        ]
+      },
+      "expected": [
+        "2001-01-02T15:00:00Z",
+        "2001-01-03T15:00:00Z",
+        "2001-01-04T14:00:00Z",
+        "2001-01-05T14:00:00Z",
+        "2001-01-06T14:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-edge-2013-10-31-1200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2013-10-30T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2013-10-31",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2013-11-12",
+        "checkpoints": [
+          "2013-10-30",
+          "2013-10-31",
+          "2013-11-01",
+          "2013-11-03",
+          "2013-11-04"
+        ]
+      },
+      "expected": [
+        "2013-10-30T23:00:00Z",
+        "2013-10-31T23:00:00Z",
+        "2013-11-01T23:00:00Z",
+        "2013-11-03T00:00:00Z",
+        "2013-11-04T00:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-edge-2014-10-31-1200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-10-30T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2014-10-31",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-11-12",
+        "checkpoints": [
+          "2014-10-30",
+          "2014-10-31",
+          "2014-11-02",
+          "2014-11-03",
+          "2014-11-04"
+        ]
+      },
+      "expected": [
+        "2014-10-30T23:00:00Z",
+        "2014-10-31T23:00:00Z",
+        "2014-11-02T00:00:00Z",
+        "2014-11-03T00:00:00Z",
+        "2014-11-04T00:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-edge-2014-12-30-0159",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-12-29T12:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2014-12-30",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2015-01-11",
+        "checkpoints": [
+          "2014-12-29",
+          "2014-12-30",
+          "2014-12-31",
+          "2015-01-01",
+          "2015-01-02"
+        ]
+      },
+      "expected": [
+        "2014-12-29T13:59:00Z",
+        "2014-12-30T13:59:00Z",
+        "2014-12-31T12:59:00Z",
+        "2015-01-01T12:59:00Z",
+        "2015-01-02T12:59:00Z"
+      ]
+    },
+    {
+      "name": "tonga-edge-2014-12-30-0200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-12-29T13:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2014-12-30",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2015-01-11",
+        "checkpoints": [
+          "2014-12-29",
+          "2014-12-30",
+          "2014-12-31",
+          "2015-01-01",
+          "2015-01-02"
+        ]
+      },
+      "expected": [
+        "2014-12-29T14:00:00Z",
+        "2014-12-30T14:00:00Z",
+        "2014-12-31T13:00:00Z",
+        "2015-01-01T13:00:00Z",
+        "2015-01-02T13:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-edge-2014-12-30-0259",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-12-29T13:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2014-12-30",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2015-01-11",
+        "checkpoints": [
+          "2014-12-29",
+          "2014-12-30",
+          "2014-12-31",
+          "2015-01-01",
+          "2015-01-02"
+        ]
+      },
+      "expected": [
+        "2014-12-29T14:59:00Z",
+        "2014-12-30T14:59:00Z",
+        "2014-12-31T13:59:00Z",
+        "2015-01-01T13:59:00Z",
+        "2015-01-02T13:59:00Z"
+      ]
+    },
+    {
+      "name": "tonga-edge-2014-12-30-0300",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-12-29T14:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2014-12-30",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2015-01-11",
+        "checkpoints": [
+          "2014-12-29",
+          "2014-12-30",
+          "2014-12-31",
+          "2015-01-01",
+          "2015-01-02"
+        ]
+      },
+      "expected": [
+        "2014-12-29T15:00:00Z",
+        "2014-12-30T15:00:00Z",
+        "2014-12-31T14:00:00Z",
+        "2015-01-01T14:00:00Z",
+        "2015-01-02T14:00:00Z"
+      ]
+    },
+    {
+      "name": "tonga-edge-2014-12-30-1200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-12-29T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tonga Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Tonga Standard Time",
+              "startDate": "2014-12-30",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2015-01-11",
+        "checkpoints": [
+          "2014-12-30",
+          "2014-12-31",
+          "2015-01-01",
+          "2015-01-02"
+        ]
+      },
+      "expected": [
+        "2014-12-30T00:00:00Z",
+        "2014-12-31T00:00:00Z",
+        "2014-12-31T23:00:00Z",
+        "2015-01-01T23:00:00Z",
+        "2015-01-02T23:00:00Z"
+      ]
+    },
+    {
+      "name": "rfc-caracas-retains-iana-offset-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/Caracas:19120210T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1912-02-14",
+        "checkpoints": [
+          "1912-02-10",
+          "1912-02-11",
+          "1912-02-12",
+          "1912-02-13",
+          "1912-02-14"
+        ]
+      },
+      "expected": [
+        "1912-02-10T16:27:40Z",
+        "1912-02-11T16:27:40Z",
+        "1912-02-12T16:30:00Z",
+        "1912-02-13T16:30:00Z",
+        "1912-02-14T16:30:00Z"
+      ]
+    },
+    {
+      "name": "rfc-la-paz-retains-iana-offset-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/La_Paz:19311013T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1931-10-17",
+        "checkpoints": [
+          "1931-10-13",
+          "1931-10-14",
+          "1931-10-15",
+          "1931-10-16",
+          "1931-10-17"
+        ]
+      },
+      "expected": [
+        "1931-10-13T16:32:36Z",
+        "1931-10-14T16:32:36Z",
+        "1931-10-15T15:32:36Z",
+        "1931-10-16T15:32:36Z",
+        "1931-10-17T15:32:36Z"
+      ]
+    },
+    {
+      "name": "rfc-cayenne-retains-iana-offset-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/Cayenne:19670929T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1967-10-03",
+        "checkpoints": [
+          "1967-09-29",
+          "1967-09-30",
+          "1967-10-01",
+          "1967-10-02",
+          "1967-10-03"
+        ]
+      },
+      "expected": [
+        "1967-09-29T16:00:00Z",
+        "1967-09-30T16:00:00Z",
+        "1967-10-01T15:00:00Z",
+        "1967-10-02T15:00:00Z",
+        "1967-10-03T15:00:00Z"
+      ]
+    },
+    {
+      "name": "rfc-sao-tome-retains-iana-offset-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Africa/Sao_Tome:20171230T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "2018-01-03",
+        "checkpoints": [
+          "2017-12-30",
+          "2017-12-31",
+          "2018-01-01",
+          "2018-01-02",
+          "2018-01-03"
+        ]
+      },
+      "expected": [
+        "2017-12-30T12:00:00Z",
+        "2017-12-31T12:00:00Z",
+        "2018-01-01T11:00:00Z",
+        "2018-01-02T11:00:00Z",
+        "2018-01-03T11:00:00Z"
+      ]
+    },
+    {
+      "name": "rfc-bougainville-retains-iana-offset-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Bougainville:19420629T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1942-07-03",
+        "checkpoints": [
+          "1942-06-29",
+          "1942-06-30",
+          "1942-07-01",
+          "1942-07-02",
+          "1942-07-03"
+        ]
+      },
+      "expected": [
+        "1942-06-29T02:00:00Z",
+        "1942-06-30T02:00:00Z",
+        "1942-07-01T03:00:00Z",
+        "1942-07-02T03:00:00Z",
+        "1942-07-03T03:00:00Z"
+      ]
+    },
+    {
+      "name": "rfc-norfolk-retains-iana-offset-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Norfolk:19741025T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1974-10-28",
+        "checkpoints": [
+          "1974-10-25",
+          "1974-10-26",
+          "1974-10-26",
+          "1974-10-27",
+          "1974-10-28"
+        ]
+      },
+      "expected": [
+        "1974-10-25T00:30:00Z",
+        "1974-10-26T00:30:00Z",
+        "1974-10-26T23:30:00Z",
+        "1974-10-27T23:30:00Z",
+        "1974-10-28T23:30:00Z"
+      ]
+    },
+    {
+      "name": "rfc-tonga-retains-iana-offset-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Tongatapu:20001103T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "2000-11-06",
+        "checkpoints": [
+          "2000-11-02",
+          "2000-11-03",
+          "2000-11-04",
+          "2000-11-05",
+          "2000-11-06"
+        ]
+      },
+      "expected": [
+        "2000-11-02T23:00:00Z",
+        "2000-11-03T23:00:00Z",
+        "2000-11-04T22:00:00Z",
+        "2000-11-05T22:00:00Z",
+        "2000-11-06T22:00:00Z"
+      ]
+    },
+    {
+      "name": "rfc-marquesas-retains-iana-offset-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Marquesas:19120929T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1912-10-03",
+        "checkpoints": [
+          "1912-09-29",
+          "1912-09-30",
+          "1912-10-01",
+          "1912-10-02",
+          "1912-10-03"
+        ]
+      },
+      "expected": [
+        "1912-09-29T21:18:00Z",
+        "1912-09-30T21:18:00Z",
+        "1912-10-01T21:30:00Z",
+        "1912-10-02T21:30:00Z",
+        "1912-10-03T21:30:00Z"
+      ]
+    },
+    {
+      "name": "rfc-guadalcanal-retains-iana-offset-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Guadalcanal:19120929T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1912-10-03",
+        "checkpoints": [
+          "1912-09-29",
+          "1912-09-30",
+          "1912-10-01",
+          "1912-10-02",
+          "1912-10-03"
+        ]
+      },
+      "expected": [
+        "1912-09-29T01:20:12Z",
+        "1912-09-30T01:20:12Z",
+        "1912-10-01T01:00:00Z",
+        "1912-10-02T01:00:00Z",
+        "1912-10-03T01:00:00Z"
+      ]
+    }
+  ]
+}

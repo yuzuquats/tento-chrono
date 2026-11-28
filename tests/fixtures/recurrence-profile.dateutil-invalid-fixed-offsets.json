@@ -1,0 +1,229 @@
+{
+  "type": "recurrence-profile",
+  "name": "dateutil delayed validation of invalid fixed offsets",
+  "source": "python-dateutil 2.8.2 rrulestr, forceset=True, TZ=UTC",
+  "cases": [
+    {
+      "name": "invalid DTSTART can produce an empty set",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000+2400",
+          "RRULE:FREQ=DAILY;COUNT=0"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "invalid DTSTART with no rule is unused",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000-2500"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "selected invalid DTSTART fails on UTC projection",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000+2400",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": []
+      },
+      "expected": {
+        "expansionError": "offset must be a timedelta strictly between -timedelta(hours=24) and timedelta(hours=24)."
+      }
+    },
+    {
+      "name": "same invalid offset EXDATE can exclude without UTC conversion",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000+2400",
+          "RRULE:FREQ=DAILY;COUNT=1",
+          "EXDATE:20260102T090000+2400"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "same invalid offset EXRULE suppresses candidate",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000-2400",
+          "RRULE:FREQ=DAILY;COUNT=1",
+          "EXRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "two invalid offsets require a cross-zone comparison",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:20260102T090000+2400",
+          "EXDATE:20260102T090000+2500"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": []
+      },
+      "expected": {
+        "expansionError": "offset must be a timedelta strictly between -timedelta(hours=24) and timedelta(hours=24)."
+      }
+    },
+    {
+      "name": "invalid offset EXDATE on an empty set is unused",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=0",
+          "EXDATE:20260102T090000+2400"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "invalid RDATE fails only when it projects to UTC",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:20260102T090000+2400"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": []
+      },
+      "expected": {
+        "expansionError": "offset must be a timedelta strictly between -timedelta(hours=24) and timedelta(hours=24)."
+      }
+    },
+    {
+      "name": "invalid RDATE can match invalid EXDATE",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:20260102T090000+2400",
+          "EXDATE:20260102T090000+2400"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "one invalid member in a mixed RDATE list",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:20260102T090000+2400,20260103T090000Z"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": []
+      },
+      "expected": {
+        "expansionError": "offset must be a timedelta strictly between -timedelta(hours=24) and timedelta(hours=24)."
+      }
+    },
+    {
+      "name": "invalid numeric offset still conflicts with TZID at read time",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=Etc/UTC:20260102T090000+2400",
+          "RRULE:FREQ=DAILY;COUNT=0"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "DTSTART/EXDATE specifies multiple timezone"
+      }
+    },
+    {
+      "name": "invalid offset validation precedes mixed-awareness order error",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:20260102T090000+2400",
+          "EXDATE:20260102T090000"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": []
+      },
+      "expected": {
+        "expansionError": "offset must be a timedelta strictly between -timedelta(hours=24) and timedelta(hours=24)."
+      }
+    },
+    {
+      "name": "valid cutoff checks the invalid start offset before zero count",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000-2400",
+          "RRULE:FREQ=DAILY;COUNT=0;UNTIL=20260104T090000Z"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": []
+      },
+      "expected": {
+        "expansionError": "offset must be a timedelta strictly between -timedelta(hours=24) and timedelta(hours=24)."
+      }
+    },
+    {
+      "name": "cutoff requires the invalid start offset before comparison",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000+2400",
+          "RRULE:FREQ=DAILY;UNTIL=20260104T090000Z"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": []
+      },
+      "expected": {
+        "expansionError": "offset must be a timedelta strictly between -timedelta(hours=24) and timedelta(hours=24)."
+      }
+    }
+  ]
+}

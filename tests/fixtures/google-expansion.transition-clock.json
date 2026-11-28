@@ -1,0 +1,560 @@
+{
+  "type": "google-expansion",
+  "name": "Google Calendar API clock selectors across timezone transitions",
+  "source": "Google Calendar API events.instances",
+  "captureCliCommit": "77f899aac5",
+  "capturedAt": "2026-11-23T18:19:24.332911+00:00",
+  "cases": [
+    {
+      "name": "transition-clock-lord-howe-gap-hour-limits",
+      "input": {
+        "start": "2026-10-01T02:15:05+10:30",
+        "timezone": "Australia/Lord_Howe",
+        "end": "2026-10-01T02:25:05+10:30",
+        "rules": [
+          "RRULE:FREQ=DAILY;BYHOUR=2,3;BYMINUTE=15,45;BYSECOND=5,35;BYSETPOS=1,-1;COUNT=7"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=7;BYHOUR=2,3;BYMINUTE=15,45;BYSECOND=5,35;BYSETPOS=1,-1"
+        ],
+        "storedStart": {
+          "start": "2026-09-30T15:45:05Z",
+          "timezone": "Australia/Lord_Howe",
+          "end": "2026-09-30T15:55:05Z"
+        },
+        "window": {
+          "start": "2026-09-29T00:00:00Z",
+          "end": "2026-10-18T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2026-09-30T15:45:05Z",
+          "2026-10-01T15:45:05Z",
+          "2026-10-02T15:45:05Z",
+          "2026-10-03T15:45:05Z",
+          "2026-10-04T15:15:05Z",
+          "2026-10-05T15:15:05Z",
+          "2026-10-06T15:15:05Z"
+        ]
+      }
+    },
+    {
+      "name": "transition-clock-lord-howe-gap-gap-rank",
+      "input": {
+        "start": "2026-10-01T02:15:05+10:30",
+        "timezone": "Australia/Lord_Howe",
+        "end": "2026-10-01T02:25:05+10:30",
+        "rules": [
+          "RRULE:FREQ=DAILY;BYHOUR=2,3;BYMINUTE=15,45;BYSECOND=5;BYSETPOS=2,-2;COUNT=8"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=8;BYHOUR=2,3;BYMINUTE=15,45;BYSECOND=5;BYSETPOS=2,-2"
+        ],
+        "storedStart": {
+          "start": "2026-09-30T15:45:05Z",
+          "timezone": "Australia/Lord_Howe",
+          "end": "2026-09-30T15:55:05Z"
+        },
+        "window": {
+          "start": "2026-09-29T00:00:00Z",
+          "end": "2026-10-18T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2026-09-30T15:45:05Z",
+          "2026-10-01T15:45:05Z",
+          "2026-10-02T15:45:05Z",
+          "2026-10-03T15:45:05Z",
+          "2026-10-04T15:15:05Z",
+          "2026-10-05T15:15:05Z",
+          "2026-10-06T15:15:05Z",
+          "2026-10-07T15:15:05Z"
+        ]
+      }
+    },
+    {
+      "name": "transition-clock-lord-howe-gap-utc-cutoff",
+      "input": {
+        "start": "2026-10-01T02:15:05+10:30",
+        "timezone": "Australia/Lord_Howe",
+        "end": "2026-10-01T02:25:05+10:30",
+        "rules": [
+          "RRULE:FREQ=DAILY;BYHOUR=2,3;BYMINUTE=15,45;BYSETPOS=1,-1;UNTIL=20261003T155005Z"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;UNTIL=20261003T155005Z;BYHOUR=2,3;BYMINUTE=15,45;BYSETPOS=1,-1"
+        ],
+        "storedStart": {
+          "start": "2026-09-30T15:45:05Z",
+          "timezone": "Australia/Lord_Howe",
+          "end": "2026-09-30T15:55:05Z"
+        },
+        "window": {
+          "start": "2026-09-29T00:00:00Z",
+          "end": "2026-10-18T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2026-09-30T15:45:05Z",
+          "2026-10-01T15:45:05Z",
+          "2026-10-02T15:45:05Z",
+          "2026-10-03T15:45:05Z"
+        ]
+      }
+    },
+    {
+      "name": "transition-clock-lord-howe-gap-weekly",
+      "input": {
+        "start": "2026-09-27T02:15:05+10:30",
+        "timezone": "Australia/Lord_Howe",
+        "end": "2026-09-27T02:25:05+10:30",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;BYDAY=SU,MO;BYHOUR=2,3;BYMINUTE=15,45;BYSETPOS=1,2,-1;COUNT=10"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=WEEKLY;COUNT=10;BYDAY=SU,MO;BYHOUR=2,3;BYMINUTE=15,45;BYSETPOS=1,2,-1"
+        ],
+        "storedStart": {
+          "start": "2026-09-26T15:45:05Z",
+          "timezone": "Australia/Lord_Howe",
+          "end": "2026-09-26T15:55:05Z"
+        },
+        "window": {
+          "start": "2026-09-25T00:00:00Z",
+          "end": "2026-10-14T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2026-09-26T15:45:05Z",
+          "2026-09-27T15:45:05Z",
+          "2026-10-03T15:45:05Z",
+          "2026-10-04T15:15:05Z",
+          "2026-10-10T15:15:05Z",
+          "2026-10-11T15:15:05Z"
+        ]
+      }
+    },
+    {
+      "name": "transition-clock-lord-howe-fold-setpos",
+      "input": {
+        "start": "2026-04-03T01:35:05+11:00",
+        "timezone": "Australia/Lord_Howe",
+        "end": "2026-04-03T01:45:05+11:00",
+        "rules": [
+          "RRULE:FREQ=DAILY;BYHOUR=1,2;BYMINUTE=5,35;BYSETPOS=2,-1;COUNT=9"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=9;BYHOUR=1,2;BYMINUTE=5,35;BYSETPOS=2,-1"
+        ],
+        "storedStart": {
+          "start": "2026-04-02T14:35:05Z",
+          "timezone": "Australia/Lord_Howe",
+          "end": "2026-04-02T14:45:05Z"
+        },
+        "window": {
+          "start": "2026-04-01T00:00:00Z",
+          "end": "2026-04-20T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2026-04-02T14:35:05Z",
+          "2026-04-03T14:35:05Z",
+          "2026-04-04T14:35:05Z",
+          "2026-04-05T15:05:05Z",
+          "2026-04-06T15:05:05Z",
+          "2026-04-07T15:05:05Z",
+          "2026-04-08T15:05:05Z",
+          "2026-04-09T15:05:05Z",
+          "2026-04-10T15:05:05Z"
+        ]
+      }
+    },
+    {
+      "name": "transition-clock-lord-howe-fold-explicit",
+      "input": {
+        "start": "2026-04-03T01:35:05+11:00",
+        "timezone": "Australia/Lord_Howe",
+        "end": "2026-04-03T01:45:05+11:00",
+        "rules": [
+          "RRULE:FREQ=DAILY;BYHOUR=1,2;BYMINUTE=5,35;BYSETPOS=2,-1;COUNT=9",
+          "RDATE:20260404T150505Z",
+          "EXDATE:20260404T143505Z"
+        ],
+        "storedRecurrence": [
+          "EXDATE;VALUE=DATE-TIME:20260404T143505Z",
+          "RDATE;VALUE=DATE-TIME:20260404T150505Z",
+          "RRULE:FREQ=DAILY;COUNT=9;BYHOUR=1,2;BYMINUTE=5,35;BYSETPOS=2,-1"
+        ],
+        "storedStart": {
+          "start": "2026-04-02T14:35:05Z",
+          "timezone": "Australia/Lord_Howe",
+          "end": "2026-04-02T14:45:05Z"
+        },
+        "window": {
+          "start": "2026-04-01T00:00:00Z",
+          "end": "2026-04-20T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2026-04-02T14:35:05Z",
+          "2026-04-03T14:35:05Z",
+          "2026-04-04T15:05:05Z",
+          "2026-04-05T15:05:05Z",
+          "2026-04-06T15:05:05Z",
+          "2026-04-07T15:05:05Z",
+          "2026-04-08T15:05:05Z",
+          "2026-04-09T15:05:05Z",
+          "2026-04-10T15:05:05Z"
+        ]
+      }
+    },
+    {
+      "name": "transition-clock-dublin-negative-dst-count",
+      "input": {
+        "start": "2026-10-23T01:15:05+01:00",
+        "timezone": "Europe/Dublin",
+        "end": "2026-10-23T01:25:05+01:00",
+        "rules": [
+          "RRULE:FREQ=DAILY;BYHOUR=1,2;BYMINUTE=15,45;BYSECOND=5,35;BYSETPOS=1,-1;COUNT=10"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=10;BYHOUR=1,2;BYMINUTE=15,45;BYSECOND=5,35;BYSETPOS=1,-1"
+        ],
+        "storedStart": {
+          "start": "2026-10-23T00:15:05Z",
+          "timezone": "Europe/Dublin",
+          "end": "2026-10-23T00:25:05Z"
+        },
+        "window": {
+          "start": "2026-10-22T00:00:00Z",
+          "end": "2026-11-10T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2026-10-23T00:15:05Z",
+          "2026-10-24T00:15:05Z",
+          "2026-10-25T00:15:05Z",
+          "2026-10-26T01:15:05Z",
+          "2026-10-27T01:15:05Z",
+          "2026-10-28T01:15:05Z",
+          "2026-10-29T01:15:05Z",
+          "2026-10-30T01:15:05Z",
+          "2026-10-31T01:15:05Z",
+          "2026-11-01T01:15:05Z"
+        ]
+      }
+    },
+    {
+      "name": "transition-clock-dublin-negative-dst-until",
+      "input": {
+        "start": "2026-10-23T01:15:05+01:00",
+        "timezone": "Europe/Dublin",
+        "end": "2026-10-23T01:25:05+01:00",
+        "rules": [
+          "RRULE:FREQ=DAILY;BYHOUR=1,2;BYMINUTE=15,45;BYSECOND=5,35;BYSETPOS=1,-1;UNTIL=20261025T011505Z"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;UNTIL=20261025T011505Z;BYHOUR=1,2;BYMINUTE=15,45;BYSECOND=5,35;BYSETPOS=1,-1"
+        ],
+        "storedStart": {
+          "start": "2026-10-23T00:15:05Z",
+          "timezone": "Europe/Dublin",
+          "end": "2026-10-23T00:25:05Z"
+        },
+        "window": {
+          "start": "2026-10-22T00:00:00Z",
+          "end": "2026-11-10T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2026-10-23T00:15:05Z",
+          "2026-10-24T00:15:05Z",
+          "2026-10-25T00:15:05Z"
+        ]
+      }
+    },
+    {
+      "name": "transition-clock-dublin-forward-monthly-rank",
+      "input": {
+        "start": "2026-03-28T01:15:05+00:00",
+        "timezone": "Europe/Dublin",
+        "end": "2026-03-28T01:25:05+00:00",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;BYMONTHDAY=28,29,30;BYHOUR=1,2;BYMINUTE=15,45;BYSETPOS=1,5,-1;COUNT=8"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=MONTHLY;COUNT=8;BYMONTHDAY=28,29,30;BYHOUR=1,2;BYMINUTE=15,45;BYSETPOS=1,5,-1"
+        ],
+        "storedStart": {
+          "start": "2026-03-28T01:15:05Z",
+          "timezone": "Europe/Dublin",
+          "end": "2026-03-28T01:25:05Z"
+        },
+        "window": {
+          "start": "2026-03-27T00:00:00Z",
+          "end": "2026-04-15T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2026-03-28T01:15:05Z",
+          "2026-03-30T00:15:05Z"
+        ]
+      }
+    },
+    {
+      "name": "transition-clock-casey-three-hour-gap",
+      "input": {
+        "start": "2009-10-16T02:15:05+08:00",
+        "timezone": "Antarctica/Casey",
+        "end": "2009-10-16T02:25:05+08:00",
+        "rules": [
+          "RRULE:FREQ=DAILY;BYHOUR=2,3,5;BYMINUTE=15,45;BYSETPOS=1,-1;COUNT=7"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=7;BYHOUR=2,3,5;BYMINUTE=15,45;BYSETPOS=1,-1"
+        ],
+        "storedStart": {
+          "start": "2009-10-15T18:15:05Z",
+          "timezone": "Antarctica/Casey",
+          "end": "2009-10-15T18:25:05Z"
+        },
+        "window": {
+          "start": "2009-10-14T00:00:00Z",
+          "end": "2009-11-02T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2009-10-15T18:15:05Z",
+          "2009-10-16T18:15:05Z",
+          "2009-10-17T18:15:05Z",
+          "2009-10-18T15:15:05Z",
+          "2009-10-19T15:15:05Z",
+          "2009-10-20T15:15:05Z",
+          "2009-10-21T15:15:05Z"
+        ]
+      }
+    },
+    {
+      "name": "transition-clock-monrovia-second-offset-gap",
+      "input": {
+        "start": "1972-01-05T00:15:05-00:44:30",
+        "timezone": "Africa/Monrovia",
+        "end": "1972-01-05T00:25:05-00:44:30",
+        "rules": [
+          "RRULE:FREQ=DAILY;BYHOUR=0,1;BYMINUTE=15,45;BYSECOND=5,35;BYSETPOS=1,2,-1;COUNT=10"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=10;BYHOUR=0,1;BYMINUTE=15,45;BYSECOND=5,35;BYSETPOS=1,2,-1"
+        ],
+        "storedStart": {
+          "start": "1972-01-05T00:59:35Z",
+          "timezone": "Africa/Monrovia",
+          "end": "1972-01-05T01:09:35Z"
+        },
+        "window": {
+          "start": "1972-01-04T00:00:00Z",
+          "end": "1972-01-23T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1972-01-05T00:59:35Z",
+          "1972-01-06T00:59:35Z",
+          "1972-01-07T00:59:35Z",
+          "1972-01-08T00:15:05Z",
+          "1972-01-09T00:15:05Z",
+          "1972-01-10T00:15:05Z",
+          "1972-01-11T00:15:05Z",
+          "1972-01-12T00:15:05Z",
+          "1972-01-13T00:15:05Z",
+          "1972-01-14T00:15:05Z"
+        ]
+      }
+    },
+    {
+      "name": "transition-clock-kathmandu-new-year-quarter-hour",
+      "input": {
+        "start": "1985-12-30T00:05:05+05:30",
+        "timezone": "Asia/Kathmandu",
+        "end": "1985-12-30T00:15:05+05:30",
+        "rules": [
+          "RRULE:FREQ=DAILY;BYHOUR=0,1;BYMINUTE=5,25;BYSETPOS=1,-1;COUNT=8"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=8;BYHOUR=0,1;BYMINUTE=5,25;BYSETPOS=1,-1"
+        ],
+        "storedStart": {
+          "start": "1985-12-29T18:35:05Z",
+          "timezone": "Asia/Kathmandu",
+          "end": "1985-12-29T18:45:05Z"
+        },
+        "window": {
+          "start": "1985-12-28T00:00:00Z",
+          "end": "1986-01-16T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1985-12-29T18:35:05Z",
+          "1985-12-30T18:35:05Z",
+          "1985-12-31T18:35:05Z",
+          "1986-01-01T18:20:05Z",
+          "1986-01-02T18:20:05Z",
+          "1986-01-03T18:20:05Z",
+          "1986-01-04T18:20:05Z",
+          "1986-01-05T18:20:05Z"
+        ]
+      }
+    },
+    {
+      "name": "transition-clock-kwajalein-date-line-gap-cutoff",
+      "input": {
+        "start": "1993-08-19T09:15:05-12:00",
+        "timezone": "Pacific/Kwajalein",
+        "end": "1993-08-19T09:25:05-12:00",
+        "rules": [
+          "RRULE:FREQ=DAILY;BYHOUR=9,13;BYMINUTE=15,45;BYSETPOS=1,-1;UNTIL=19930822T020000Z"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;UNTIL=19930822T020000Z;BYHOUR=9,13;BYMINUTE=15,45;BYSETPOS=1,-1"
+        ],
+        "storedStart": {
+          "start": "1993-08-19T21:15:05Z",
+          "timezone": "Pacific/Kwajalein",
+          "end": "1993-08-19T21:25:05Z"
+        },
+        "window": {
+          "start": "1993-08-18T00:00:00Z",
+          "end": "1993-09-06T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1993-08-19T21:15:05Z",
+          "1993-08-20T21:15:05Z",
+          "1993-08-21T21:15:05Z"
+        ]
+      }
+    },
+    {
+      "name": "transition-clock-kwajalein-long-fold-count",
+      "input": {
+        "start": "1969-09-28T09:15:05+11:00",
+        "timezone": "Pacific/Kwajalein",
+        "end": "1969-09-28T09:25:05+11:00",
+        "rules": [
+          "RRULE:FREQ=DAILY;BYHOUR=9,13;BYMINUTE=15,45;BYSETPOS=1,-1;COUNT=9"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=9;BYHOUR=9,13;BYMINUTE=15,45;BYSETPOS=1,-1"
+        ],
+        "storedStart": {
+          "start": "1969-09-27T22:15:05Z",
+          "timezone": "Pacific/Kwajalein",
+          "end": "1969-09-27T22:25:05Z"
+        },
+        "window": {
+          "start": "1969-09-26T00:00:00Z",
+          "end": "1969-10-15T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1969-09-27T22:15:05Z",
+          "1969-09-28T22:15:05Z",
+          "1969-09-29T22:15:05Z",
+          "1969-10-01T21:15:05Z",
+          "1969-10-02T21:15:05Z",
+          "1969-10-03T21:15:05Z",
+          "1969-10-04T21:15:05Z",
+          "1969-10-05T21:15:05Z",
+          "1969-10-06T21:15:05Z"
+        ]
+      }
+    },
+    {
+      "name": "transition-clock-lord-howe-gap-unranked",
+      "input": {
+        "start": "2026-10-01T02:15:05+10:30",
+        "timezone": "Australia/Lord_Howe",
+        "end": "2026-10-01T02:25:05+10:30",
+        "rules": [
+          "RRULE:FREQ=DAILY;BYHOUR=2,3;BYMINUTE=15,45;COUNT=12"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=12;BYHOUR=2,3;BYMINUTE=15,45"
+        ],
+        "storedStart": {
+          "start": "2026-09-30T15:45:05Z",
+          "timezone": "Australia/Lord_Howe",
+          "end": "2026-09-30T15:55:05Z"
+        },
+        "window": {
+          "start": "2026-09-29T00:00:00Z",
+          "end": "2026-10-18T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2026-09-30T15:45:05Z",
+          "2026-10-01T15:45:05Z",
+          "2026-10-02T15:45:05Z",
+          "2026-10-03T15:45:05Z",
+          "2026-10-04T15:15:05Z",
+          "2026-10-05T15:15:05Z",
+          "2026-10-06T15:15:05Z",
+          "2026-10-07T15:15:05Z",
+          "2026-10-08T15:15:05Z",
+          "2026-10-09T15:15:05Z",
+          "2026-10-10T15:15:05Z",
+          "2026-10-11T15:15:05Z"
+        ]
+      }
+    },
+    {
+      "name": "transition-clock-lord-howe-gap-only-seconds",
+      "input": {
+        "start": "2026-10-01T02:15:05+10:30",
+        "timezone": "Australia/Lord_Howe",
+        "end": "2026-10-01T02:25:05+10:30",
+        "rules": [
+          "RRULE:FREQ=DAILY;BYSECOND=5,35;COUNT=8"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=8;BYSECOND=5,35"
+        ],
+        "storedStart": {
+          "start": "2026-09-30T15:45:05Z",
+          "timezone": "Australia/Lord_Howe",
+          "end": "2026-09-30T15:55:05Z"
+        },
+        "window": {
+          "start": "2026-09-29T00:00:00Z",
+          "end": "2026-10-18T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2026-09-30T15:45:05Z",
+          "2026-10-01T15:45:05Z",
+          "2026-10-02T15:45:05Z",
+          "2026-10-03T15:45:05Z",
+          "2026-10-04T15:15:05Z",
+          "2026-10-05T15:15:05Z",
+          "2026-10-06T15:15:05Z",
+          "2026-10-07T15:15:05Z"
+        ]
+      }
+    }
+  ]
+}

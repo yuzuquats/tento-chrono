@@ -1,0 +1,293 @@
+{
+  "type": "recurrence-profile",
+  "name": "RFC 5545 long interval arithmetic",
+  "source": "RFC 5545 section 3.3.10 and independent Python Gregorian calendar arithmetic",
+  "cases": [
+    {
+      "name": "yearly elapsed or calendar stride",
+      "input": {
+        "lines": [
+          "DTSTART:19700101T000000Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=1000;COUNT=3;BYMONTH=1,7;BYMONTHDAY=1;BYSETPOS=1,-1",
+          "RDATE:19700103T000017Z",
+          "EXDATE:19700701T000000Z"
+        ],
+        "through": "2970-07-02",
+        "checkpoints": [
+          "1970-01-01",
+          "1970-01-03",
+          "1970-07-01",
+          "2970-01-01"
+        ]
+      },
+      "expected": [
+        "1970-01-01T00:00:00Z",
+        "1970-01-03T00:00:17Z",
+        "2970-01-01T00:00:00Z"
+      ]
+    },
+    {
+      "name": "yearly first period with oversized stride",
+      "input": {
+        "lines": [
+          "DTSTART:19700101T000000Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=9007199254740993;COUNT=4;BYMONTH=1,7;BYMONTHDAY=1;BYSETPOS=1,-1"
+        ],
+        "through": "1971-01-04",
+        "checkpoints": [
+          "1970-01-01",
+          "1970-01-03",
+          "1970-07-01"
+        ]
+      },
+      "expected": [
+        "1970-01-01T00:00:00Z",
+        "1970-07-01T00:00:00Z"
+      ]
+    },
+    {
+      "name": "monthly elapsed or calendar stride",
+      "input": {
+        "lines": [
+          "DTSTART:19700101T000000Z",
+          "RRULE:FREQ=MONTHLY;INTERVAL=2000;COUNT=3;BYMONTHDAY=1,-1;BYSETPOS=1,-1",
+          "RDATE:19700103T000017Z",
+          "EXDATE:19700131T000000Z"
+        ],
+        "through": "2136-10-01",
+        "checkpoints": [
+          "1970-01-01",
+          "1970-01-03",
+          "1970-01-31",
+          "2136-09-01"
+        ]
+      },
+      "expected": [
+        "1970-01-01T00:00:00Z",
+        "1970-01-03T00:00:17Z",
+        "2136-09-01T00:00:00Z"
+      ]
+    },
+    {
+      "name": "monthly first period with oversized stride",
+      "input": {
+        "lines": [
+          "DTSTART:19700101T000000Z",
+          "RRULE:FREQ=MONTHLY;INTERVAL=9007199254740993;COUNT=4;BYMONTHDAY=1,-1;BYSETPOS=1,-1"
+        ],
+        "through": "1971-01-04",
+        "checkpoints": [
+          "1970-01-01",
+          "1970-01-03",
+          "1970-01-31"
+        ]
+      },
+      "expected": [
+        "1970-01-01T00:00:00Z",
+        "1970-01-31T00:00:00Z"
+      ]
+    },
+    {
+      "name": "weekly elapsed or calendar stride",
+      "input": {
+        "lines": [
+          "DTSTART:19700101T000000Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=10000;COUNT=3;WKST=TH;BYDAY=TH,SU;BYSETPOS=1,-1",
+          "RDATE:19700103T000017Z",
+          "EXDATE:19700104T000000Z"
+        ],
+        "through": "2161-08-31",
+        "checkpoints": [
+          "1970-01-01",
+          "1970-01-03",
+          "1970-01-04",
+          "2161-08-27"
+        ]
+      },
+      "expected": [
+        "1970-01-01T00:00:00Z",
+        "1970-01-03T00:00:17Z",
+        "2161-08-27T00:00:00Z"
+      ]
+    },
+    {
+      "name": "weekly first period with oversized stride",
+      "input": {
+        "lines": [
+          "DTSTART:19700101T000000Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=9007199254740993;COUNT=4;WKST=TH;BYDAY=TH,SU;BYSETPOS=1,-1"
+        ],
+        "through": "1971-01-04",
+        "checkpoints": [
+          "1970-01-01",
+          "1970-01-03",
+          "1970-01-04"
+        ]
+      },
+      "expected": [
+        "1970-01-01T00:00:00Z",
+        "1970-01-04T00:00:00Z"
+      ]
+    },
+    {
+      "name": "daily elapsed or calendar stride",
+      "input": {
+        "lines": [
+          "DTSTART:19700101T000000Z",
+          "RRULE:FREQ=DAILY;INTERVAL=50000;COUNT=3;BYHOUR=0,23;BYSETPOS=1,-1",
+          "RDATE:19700103T000017Z",
+          "EXDATE:19700101T230000Z"
+        ],
+        "through": "2106-11-25",
+        "checkpoints": [
+          "1970-01-01",
+          "1970-01-03",
+          "2106-11-24"
+        ]
+      },
+      "expected": [
+        "1970-01-01T00:00:00Z",
+        "1970-01-03T00:00:17Z",
+        "2106-11-24T00:00:00Z"
+      ]
+    },
+    {
+      "name": "daily first period with oversized stride",
+      "input": {
+        "lines": [
+          "DTSTART:19700101T000000Z",
+          "RRULE:FREQ=DAILY;INTERVAL=9007199254740993;COUNT=4;BYHOUR=0,23;BYSETPOS=1,-1"
+        ],
+        "through": "1971-01-04",
+        "checkpoints": [
+          "1970-01-01",
+          "1970-01-03"
+        ]
+      },
+      "expected": [
+        "1970-01-01T00:00:00Z",
+        "1970-01-01T23:00:00Z"
+      ]
+    },
+    {
+      "name": "hourly elapsed or calendar stride",
+      "input": {
+        "lines": [
+          "DTSTART:19700101T000000Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=1000001;COUNT=3;BYMINUTE=0,59;BYSETPOS=1,-1",
+          "RDATE:19700103T000017Z",
+          "EXDATE:19700101T005900Z"
+        ],
+        "through": "2084-01-30",
+        "checkpoints": [
+          "1970-01-01",
+          "1970-01-03",
+          "2084-01-29"
+        ]
+      },
+      "expected": [
+        "1970-01-01T00:00:00Z",
+        "1970-01-03T00:00:17Z",
+        "2084-01-29T17:00:00Z"
+      ]
+    },
+    {
+      "name": "hourly first period with oversized stride",
+      "input": {
+        "lines": [
+          "DTSTART:19700101T000000Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=9007199254740993;COUNT=4;BYMINUTE=0,59;BYSETPOS=1,-1"
+        ],
+        "through": "1971-01-04",
+        "checkpoints": [
+          "1970-01-01",
+          "1970-01-03"
+        ]
+      },
+      "expected": [
+        "1970-01-01T00:00:00Z",
+        "1970-01-01T00:59:00Z"
+      ]
+    },
+    {
+      "name": "minutely elapsed or calendar stride",
+      "input": {
+        "lines": [
+          "DTSTART:19700101T000000Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=16777217;COUNT=3;BYSECOND=0,59;BYSETPOS=1,-1",
+          "RDATE:19700103T000017Z",
+          "EXDATE:19700101T000059Z"
+        ],
+        "through": "2001-11-25",
+        "checkpoints": [
+          "1970-01-01",
+          "1970-01-03",
+          "2001-11-24"
+        ]
+      },
+      "expected": [
+        "1970-01-01T00:00:00Z",
+        "1970-01-03T00:00:17Z",
+        "2001-11-24T20:17:00Z"
+      ]
+    },
+    {
+      "name": "minutely first period with oversized stride",
+      "input": {
+        "lines": [
+          "DTSTART:19700101T000000Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=9007199254740993;COUNT=4;BYSECOND=0,59;BYSETPOS=1,-1"
+        ],
+        "through": "1971-01-04",
+        "checkpoints": [
+          "1970-01-01",
+          "1970-01-03"
+        ]
+      },
+      "expected": [
+        "1970-01-01T00:00:00Z",
+        "1970-01-01T00:00:59Z"
+      ]
+    },
+    {
+      "name": "secondly elapsed or calendar stride",
+      "input": {
+        "lines": [
+          "DTSTART:19700101T000000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=4294967297;COUNT=3",
+          "RDATE:19700103T000017Z",
+          "EXDATE:19700101T000000Z"
+        ],
+        "through": "2378-04-23",
+        "checkpoints": [
+          "1970-01-01",
+          "1970-01-03",
+          "2106-02-07",
+          "2242-03-16"
+        ]
+      },
+      "expected": [
+        "1970-01-03T00:00:17Z",
+        "2106-02-07T06:28:17Z",
+        "2242-03-16T12:56:34Z"
+      ]
+    },
+    {
+      "name": "secondly first period with oversized stride",
+      "input": {
+        "lines": [
+          "DTSTART:19700101T000000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=9007199254740993;COUNT=4"
+        ],
+        "through": "1971-01-04",
+        "checkpoints": [
+          "1970-01-01",
+          "1970-01-03"
+        ]
+      },
+      "expected": [
+        "1970-01-01T00:00:00Z"
+      ]
+    }
+  ]
+}

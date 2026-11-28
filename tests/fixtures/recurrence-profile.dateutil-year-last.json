@@ -1,0 +1,270 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil numeric dates with a trailing year",
+  "source": "python-dateutil 2.8.2 rrulestr with TZ=UTC",
+  "cases": [
+    {
+      "name": "ambiguous numeric year-last date defaults to month first",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:03/01/2026T09:15:30Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:15:30Z",
+        "2026-03-02T09:15:30Z",
+        "2026-03-03T09:15:30Z"
+      ]
+    },
+    {
+      "name": "first numeric field above twelve is the day",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:31-03-2026T09:15:30",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-31",
+          "2026-04-01",
+          "2026-04-02"
+        ]
+      },
+      "expected": [
+        "2026-03-31T09:15:30",
+        "2026-04-01T09:15:30",
+        "2026-04-02T09:15:30"
+      ]
+    },
+    {
+      "name": "all-dot numeric dates accept a single-digit day",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:03.1.2026",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01",
+        "2026-03-02",
+        "2026-03-03"
+      ]
+    },
+    {
+      "name": "year-last dates accept mixed slashes and hyphens",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:03/01-2026T09:15:30+0230",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T06:45:30Z",
+        "2026-03-02T06:45:30Z",
+        "2026-03-03T06:45:30Z"
+      ]
+    },
+    {
+      "name": "Unicode year-last values use the same day-first rule",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:३१/０３/٢٠٢٦T09:15:30",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-31",
+          "2026-04-01",
+          "2026-04-02"
+        ]
+      },
+      "expected": [
+        "2026-03-31T09:15:30",
+        "2026-04-01T09:15:30",
+        "2026-04-02T09:15:30"
+      ]
+    },
+    {
+      "name": "year-last RDATE fractions retain set precision",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T091530Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:03/01/2026T09:15:30.123456Z,03/01/2026T09:15:30.123457Z",
+          "EXDATE:03/01/2026T09:15:30.123456Z"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:15:30Z",
+        "2026-03-01T09:15:30.123Z",
+        "2026-03-02T09:15:30Z",
+        "2026-03-03T09:15:30Z"
+      ]
+    },
+    {
+      "name": "year-last UNTIL with a fixed offset keeps its UTC bound",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260228T091530Z",
+          "RRULE:FREQ=DAILY;UNTIL=03/01/2026T11:15:30+0200"
+        ],
+        "through": "2026-04-03"
+      },
+      "expected": {
+        "error": "too many values to unpack (expected 2)"
+      }
+    },
+    {
+      "name": "year-last EXDATE accepts the series timezone",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260228T091530",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE;TZID=America/New_York:03/01/2026T09:15:30"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-02-28",
+          "2026-03-02"
+        ]
+      },
+      "expected": [
+        "2026-02-28T14:15:30Z",
+        "2026-03-02T14:15:30Z"
+      ]
+    },
+    {
+      "name": "mixed dot and slash is not a numeric date",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:03.01/2026T09:15:30",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03"
+      },
+      "expected": {
+        "error": "Unknown string format: 03.01/2026T09:15:30"
+      }
+    },
+    {
+      "name": "year-last invalid calendar day",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:29/02/2026T09:15:30",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03"
+      },
+      "expected": {
+        "error": "day is out of range for month: 29/02/2026T09:15:30"
+      }
+    },
+    {
+      "name": "a leading value above 31 can override the trailing year token",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:32/03/0001T09:15:30Z",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "through": "0032-03-01",
+        "checkpoints": [
+          "0032-03-01"
+        ]
+      },
+      "expected": [
+        "0032-03-01T09:15:30Z"
+      ]
+    },
+    {
+      "name": "a leading value above 31 makes a modern trailing year an invalid day",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:32/03/2026T09:15:30Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03"
+      },
+      "expected": {
+        "error": "day is out of range for month: 32/03/2026T09:15:30Z"
+      }
+    },
+    {
+      "name": "year-last zero year is invalid",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:03/01/0000T09:15:30",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03"
+      },
+      "expected": {
+        "error": "year 0 is out of range: 03/01/0000T09:15:30"
+      }
+    },
+    {
+      "name": "explicit year first keeps the month in the second field",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026-31-03T09:15:30Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03"
+      },
+      "expected": {
+        "error": "month must be in 1..12: 2026-31-03T09:15:30Z"
+      }
+    },
+    {
+      "name": "RFC profile rejects year-last dates",
+      "input": {
+        "lines": [
+          "DTSTART:03/01/2026T09:15:30Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03"
+      },
+      "expected": {
+        "error": "Expected an iCalendar DATE or DATE-TIME"
+      }
+    }
+  ]
+}

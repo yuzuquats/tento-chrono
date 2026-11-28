@@ -1,0 +1,854 @@
+{
+  "type": "google-expansion",
+  "name": "Google yearly retained month cursor google-expansion",
+  "source": "Google Calendar API events.instances",
+  "cases": [
+    {
+      "name": "rank-prefix-1140510015-2",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=1140510015;COUNT=24;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=24;INTERVAL=1140510015;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1700-02-05T09:00:00Z",
+          "1850-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-prefix-1090300347-3",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=1090300347;COUNT=24;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=24;INTERVAL=1090300347;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1700-02-05T09:00:00Z",
+          "1700-03-05T09:00:00Z",
+          "1879-01-05T09:00:00Z",
+          "1879-02-05T09:00:00Z",
+          "1879-03-05T09:00:00Z",
+          "2059-01-05T09:00:00Z",
+          "2059-02-05T09:00:00Z",
+          "2059-03-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-prefix-1455916587-3",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=1455916587;COUNT=24;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=24;INTERVAL=1455916587;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1700-02-05T09:00:00Z",
+          "1700-03-05T09:00:00Z",
+          "1903-01-05T09:00:00Z",
+          "2014-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-prefix-1914073483-3",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=1914073483;COUNT=24;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=24;INTERVAL=1914073483;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1700-02-05T09:00:00Z",
+          "1700-03-05T09:00:00Z",
+          "1809-01-05T09:00:00Z",
+          "1918-01-05T09:00:00Z",
+          "2027-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-prefix-1115214740-4",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=1115214740;COUNT=24;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=24;INTERVAL=1115214740;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1700-02-05T09:00:00Z",
+          "1700-03-05T09:00:00Z",
+          "1700-04-05T09:00:00Z",
+          "2095-01-05T09:00:00Z",
+          "2095-02-05T09:00:00Z",
+          "2095-03-05T09:00:00Z",
+          "2095-04-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-prefix-751400692-6",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=751400692;COUNT=24;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=24;INTERVAL=751400692;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1700-02-05T09:00:00Z",
+          "1700-03-05T09:00:00Z",
+          "1700-04-05T09:00:00Z",
+          "1700-05-05T09:00:00Z",
+          "1700-06-05T09:00:00Z",
+          "1856-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-prefix-1078942110-7",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=1078942110;COUNT=24;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=24;INTERVAL=1078942110;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1700-02-05T09:00:00Z",
+          "1700-03-05T09:00:00Z",
+          "1700-04-05T09:00:00Z",
+          "1700-05-05T09:00:00Z",
+          "1700-06-05T09:00:00Z",
+          "1700-07-05T09:00:00Z",
+          "1779-01-05T09:00:00Z",
+          "1779-02-05T09:00:00Z",
+          "1779-03-05T09:00:00Z",
+          "1779-04-05T09:00:00Z",
+          "1779-05-05T09:00:00Z",
+          "1779-06-05T09:00:00Z",
+          "1779-07-05T09:00:00Z",
+          "1859-01-05T09:00:00Z",
+          "1859-02-05T09:00:00Z",
+          "1859-03-05T09:00:00Z",
+          "1859-04-05T09:00:00Z",
+          "1859-05-05T09:00:00Z",
+          "1859-06-05T09:00:00Z",
+          "1859-07-05T09:00:00Z",
+          "1939-01-05T09:00:00Z",
+          "1939-02-05T09:00:00Z",
+          "1939-03-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-prefix-1184955457-7",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=1184955457;COUNT=24;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=24;INTERVAL=1184955457;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1700-02-05T09:00:00Z",
+          "1700-03-05T09:00:00Z",
+          "1700-04-05T09:00:00Z",
+          "1700-05-05T09:00:00Z",
+          "1700-06-05T09:00:00Z",
+          "1700-07-05T09:00:00Z",
+          "2017-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-prefix-2007225268-7",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=2007225268;COUNT=24;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=24;INTERVAL=2007225268;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1700-02-05T09:00:00Z",
+          "1700-03-05T09:00:00Z",
+          "1700-04-05T09:00:00Z",
+          "1700-05-05T09:00:00Z",
+          "1700-06-05T09:00:00Z",
+          "1700-07-05T09:00:00Z",
+          "1932-01-05T09:00:00Z",
+          "1932-02-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-prefix-early-11759222-1-1700",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=11759222;COUNT=20;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=20;INTERVAL=11759222;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1700-02-05T09:00:00Z",
+          "1701-01-05T09:00:00Z",
+          "1702-01-05T09:00:00Z",
+          "1703-01-05T09:00:00Z",
+          "1704-01-05T09:00:00Z",
+          "1705-01-05T09:00:00Z",
+          "1706-01-05T09:00:00Z",
+          "1707-01-05T09:00:00Z",
+          "1708-01-05T09:00:00Z",
+          "1709-01-05T09:00:00Z",
+          "1710-01-05T09:00:00Z",
+          "1711-01-05T09:00:00Z",
+          "1712-01-05T09:00:00Z",
+          "1713-01-05T09:00:00Z",
+          "1714-01-05T09:00:00Z",
+          "1715-01-05T09:00:00Z",
+          "1716-01-05T09:00:00Z",
+          "1717-01-05T09:00:00Z",
+          "1717-02-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-prefix-early-11759272-1-1750",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=11759272;COUNT=20;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=20;INTERVAL=11759272;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1750-01-05T09:00:00Z",
+          "1801-01-05T09:00:00Z",
+          "1852-01-05T09:00:00Z",
+          "1903-01-05T09:00:00Z",
+          "1954-01-05T09:00:00Z",
+          "2005-01-05T09:00:00Z",
+          "2056-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-prefix-early-11759372-1-1850",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=11759372;COUNT=20;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=20;INTERVAL=11759372;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1850-01-05T09:00:00Z",
+          "2001-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-prefix-near-11759221-1-1699",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=11759221;COUNT=20;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=20;INTERVAL=11759221;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-prefix-near-11759223-1-1701",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=11759223;COUNT=20;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=20;INTERVAL=11759223;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1701-01-05T09:00:00Z",
+          "1703-01-05T09:00:00Z",
+          "1705-01-05T09:00:00Z",
+          "1707-01-05T09:00:00Z",
+          "1709-01-05T09:00:00Z",
+          "1711-01-05T09:00:00Z",
+          "1713-01-05T09:00:00Z",
+          "1715-01-05T09:00:00Z",
+          "1717-01-05T09:00:00Z",
+          "1719-01-05T09:00:00Z",
+          "1721-01-05T09:00:00Z",
+          "1723-01-05T09:00:00Z",
+          "1725-01-05T09:00:00Z",
+          "1727-01-05T09:00:00Z",
+          "1729-01-05T09:00:00Z",
+          "1731-01-05T09:00:00Z",
+          "1733-01-05T09:00:00Z",
+          "1735-01-05T09:00:00Z",
+          "1736-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-prefix-near-11759224-1-1702",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=11759224;COUNT=20;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=20;INTERVAL=11759224;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1702-01-05T09:00:00Z",
+          "1705-01-05T09:00:00Z",
+          "1708-01-05T09:00:00Z",
+          "1711-01-05T09:00:00Z",
+          "1714-01-05T09:00:00Z",
+          "1717-01-05T09:00:00Z",
+          "1720-01-05T09:00:00Z",
+          "1723-01-05T09:00:00Z",
+          "1726-01-05T09:00:00Z",
+          "1729-01-05T09:00:00Z",
+          "1732-01-05T09:00:00Z",
+          "1735-01-05T09:00:00Z",
+          "1738-01-05T09:00:00Z",
+          "1741-01-05T09:00:00Z",
+          "1744-01-05T09:00:00Z",
+          "1747-01-05T09:00:00Z",
+          "1750-01-05T09:00:00Z",
+          "1753-01-05T09:00:00Z",
+          "1755-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-prefix-early-5879611-2-1700",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=5879611;COUNT=20;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=20;INTERVAL=5879611;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1700-02-05T09:00:00Z",
+          "1700-03-05T09:00:00Z",
+          "1700-04-05T09:00:00Z",
+          "1701-01-05T09:00:00Z",
+          "1701-02-05T09:00:00Z",
+          "1702-01-05T09:00:00Z",
+          "1702-02-05T09:00:00Z",
+          "1703-01-05T09:00:00Z",
+          "1703-02-05T09:00:00Z",
+          "1704-01-05T09:00:00Z",
+          "1704-02-05T09:00:00Z",
+          "1705-01-05T09:00:00Z",
+          "1705-02-05T09:00:00Z",
+          "1706-01-05T09:00:00Z",
+          "1706-02-05T09:00:00Z",
+          "1707-01-05T09:00:00Z",
+          "1707-02-05T09:00:00Z",
+          "1708-01-05T09:00:00Z",
+          "1708-02-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-prefix-early-5879636-2-1750",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=5879636;COUNT=20;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=20;INTERVAL=5879636;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1700-02-05T09:00:00Z",
+          "1750-01-05T09:00:00Z",
+          "1750-02-05T09:00:00Z",
+          "1801-01-05T09:00:00Z",
+          "1801-02-05T09:00:00Z",
+          "1852-01-05T09:00:00Z",
+          "1852-02-05T09:00:00Z",
+          "1903-01-05T09:00:00Z",
+          "1903-02-05T09:00:00Z",
+          "1954-01-05T09:00:00Z",
+          "1954-02-05T09:00:00Z",
+          "2005-01-05T09:00:00Z",
+          "2005-02-05T09:00:00Z",
+          "2056-01-05T09:00:00Z",
+          "2056-02-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-prefix-early-5879686-2-1850",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=5879686;COUNT=20;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=20;INTERVAL=5879686;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1700-02-05T09:00:00Z",
+          "1850-01-05T09:00:00Z",
+          "1850-02-05T09:00:00Z",
+          "2001-01-05T09:00:00Z",
+          "2001-02-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-prefix-near-111712601-2-1701",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=111712601;COUNT=20;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=20;INTERVAL=111712601;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1700-02-05T09:00:00Z",
+          "1701-01-05T09:00:00Z",
+          "1701-02-05T09:00:00Z",
+          "1703-01-05T09:00:00Z",
+          "1703-02-05T09:00:00Z",
+          "1705-01-05T09:00:00Z",
+          "1705-02-05T09:00:00Z",
+          "1707-01-05T09:00:00Z",
+          "1707-02-05T09:00:00Z",
+          "1709-01-05T09:00:00Z",
+          "1709-02-05T09:00:00Z",
+          "1711-01-05T09:00:00Z",
+          "1711-02-05T09:00:00Z",
+          "1713-01-05T09:00:00Z",
+          "1713-02-05T09:00:00Z",
+          "1715-01-05T09:00:00Z",
+          "1715-02-05T09:00:00Z",
+          "1717-01-05T09:00:00Z",
+          "1717-02-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-prefix-near-5879612-2-1702",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=5879612;COUNT=20;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=20;INTERVAL=5879612;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1700-02-05T09:00:00Z",
+          "1702-01-05T09:00:00Z",
+          "1702-02-05T09:00:00Z",
+          "1705-01-05T09:00:00Z",
+          "1705-02-05T09:00:00Z",
+          "1708-01-05T09:00:00Z",
+          "1708-02-05T09:00:00Z",
+          "1711-01-05T09:00:00Z",
+          "1711-02-05T09:00:00Z",
+          "1714-01-05T09:00:00Z",
+          "1714-02-05T09:00:00Z",
+          "1717-01-05T09:00:00Z",
+          "1717-02-05T09:00:00Z",
+          "1720-01-05T09:00:00Z",
+          "1720-02-05T09:00:00Z",
+          "1723-01-05T09:00:00Z",
+          "1723-02-05T09:00:00Z",
+          "1726-01-05T09:00:00Z",
+          "1726-02-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-prefix-early-1513970313-3-1700",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=1513970313;COUNT=20;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=20;INTERVAL=1513970313;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1700-02-05T09:00:00Z",
+          "1700-03-05T09:00:00Z",
+          "1700-04-05T09:00:00Z",
+          "1700-05-05T09:00:00Z",
+          "1700-06-05T09:00:00Z",
+          "1701-01-05T09:00:00Z",
+          "1701-02-05T09:00:00Z",
+          "1701-03-05T09:00:00Z",
+          "1702-01-05T09:00:00Z",
+          "1703-01-05T09:00:00Z",
+          "1704-01-05T09:00:00Z",
+          "1705-01-05T09:00:00Z",
+          "1706-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-prefix-early-1513970363-3-1850",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=1513970363;COUNT=20;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=20;INTERVAL=1513970363;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1700-02-05T09:00:00Z",
+          "1700-03-05T09:00:00Z",
+          "1850-01-05T09:00:00Z",
+          "1850-02-05T09:00:00Z",
+          "1850-03-05T09:00:00Z",
+          "2001-01-05T09:00:00Z",
+          "2001-02-05T09:00:00Z",
+          "2001-03-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-prefix-early-1584525656-3-1750",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=1584525656;COUNT=20;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=20;INTERVAL=1584525656;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1700-02-05T09:00:00Z",
+          "1700-03-05T09:00:00Z",
+          "1750-01-05T09:00:00Z",
+          "1750-02-05T09:00:00Z",
+          "1750-03-05T09:00:00Z",
+          "1801-01-05T09:00:00Z",
+          "1852-01-05T09:00:00Z",
+          "1903-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-prefix-early-1138417540-4-1700",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=1138417540;COUNT=20;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=20;INTERVAL=1138417540;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1700-02-05T09:00:00Z",
+          "1700-03-05T09:00:00Z",
+          "1700-04-05T09:00:00Z",
+          "1700-05-05T09:00:00Z",
+          "1700-06-05T09:00:00Z",
+          "1700-07-05T09:00:00Z",
+          "1700-08-05T09:00:00Z",
+          "1701-01-05T09:00:00Z",
+          "1701-02-05T09:00:00Z",
+          "1701-03-05T09:00:00Z",
+          "1701-04-05T09:00:00Z",
+          "1702-01-05T09:00:00Z",
+          "1702-02-05T09:00:00Z",
+          "1702-03-05T09:00:00Z",
+          "1702-04-05T09:00:00Z",
+          "1703-01-05T09:00:00Z",
+          "1704-01-05T09:00:00Z",
+          "1705-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-prefix-early-1244250542-4-1750",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=1244250542;COUNT=20;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=20;INTERVAL=1244250542;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1700-02-05T09:00:00Z",
+          "1700-03-05T09:00:00Z",
+          "1700-04-05T09:00:00Z",
+          "1750-01-05T09:00:00Z",
+          "1750-02-05T09:00:00Z",
+          "1750-03-05T09:00:00Z",
+          "1801-01-05T09:00:00Z",
+          "1852-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rank-prefix-early-1244250567-4-1850",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=1244250567;COUNT=20;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=20;INTERVAL=1244250567;BYMONTH=1,2,3,4,5,6,7,8,9,10,11,12;BYMONTHDAY=5;BYSETPOS=1"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1700-02-05T09:00:00Z",
+          "1700-03-05T09:00:00Z",
+          "1700-04-05T09:00:00Z",
+          "1850-01-05T09:00:00Z",
+          "1850-02-05T09:00:00Z",
+          "1850-03-05T09:00:00Z",
+          "2001-01-05T09:00:00Z"
+        ]
+      }
+    }
+  ]
+}

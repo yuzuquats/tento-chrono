@@ -1,0 +1,824 @@
+{
+  "type": "google-instances-query",
+  "name": "Google Calendar API edited instances overlap",
+  "source": "Google Calendar API events.instances (live entries)",
+  "cases": [
+    {
+      "name": "utc-forward",
+      "input": {
+        "master": {
+          "start": {
+            "dateTime": "2026-03-02T09:17:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2026-03-02T09:37:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=5"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "dateTime": "2026-03-02T09:17:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2026-03-02T09:37:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=5"
+          ]
+        },
+        "durationMs": 1200000,
+        "calendarTimeZone": "UTC",
+        "edits": [
+          {
+            "start": {
+              "dateTime": "2026-03-05T12:17:00Z",
+              "timeZone": "UTC"
+            },
+            "end": {
+              "dateTime": "2026-03-05T12:52:00Z",
+              "timeZone": "UTC"
+            },
+            "originalStartTime": {
+              "dateTime": "2026-03-03T09:17:00Z",
+              "timeZone": "UTC"
+            },
+            "status": "confirmed"
+          },
+          {
+            "originalStartTime": {
+              "dateTime": "2026-03-05T09:17:00Z",
+              "timeZone": "UTC"
+            },
+            "status": "cancelled"
+          }
+        ],
+        "windows": {
+          "wide": {
+            "start": "2026-02-28T09:17:00Z",
+            "end": "2026-04-11T09:17:00Z"
+          },
+          "original-slot": {
+            "start": "2026-03-03T00:00:00Z",
+            "end": "2026-03-04T00:00:00Z"
+          },
+          "cancelled-slot": {
+            "start": "2026-03-05T00:00:00Z",
+            "end": "2026-03-06T00:00:00Z"
+          },
+          "moved-slot": {
+            "start": "2026-03-05T00:00:00Z",
+            "end": "2026-03-06T00:00:00Z"
+          },
+          "end-at-moved-start": {
+            "start": "2026-03-05T12:16:59Z",
+            "end": "2026-03-05T12:17:00Z"
+          },
+          "begin-at-moved-start": {
+            "start": "2026-03-05T12:17:00Z",
+            "end": "2026-03-05T12:17:01Z"
+          },
+          "inside-moved": {
+            "start": "2026-03-05T12:17:01Z",
+            "end": "2026-03-05T12:51:59Z"
+          },
+          "begin-at-moved-end": {
+            "start": "2026-03-05T12:52:00Z",
+            "end": "2026-03-05T12:52:01Z"
+          },
+          "fraction-before-moved-end": {
+            "start": "2026-03-05T12:51:59.500000Z",
+            "end": "2026-03-05T12:52:01Z"
+          },
+          "after-moved-end": {
+            "start": "2026-03-05T12:52:01Z",
+            "end": "2026-03-05T12:52:02Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2026-03-02T09:17:00Z",
+          "2026-03-04T09:17:00Z",
+          "2026-03-06T09:17:00Z",
+          "2026-03-05T12:17:00Z"
+        ],
+        "original-slot": [],
+        "cancelled-slot": [
+          "2026-03-05T12:17:00Z"
+        ],
+        "moved-slot": [
+          "2026-03-05T12:17:00Z"
+        ],
+        "end-at-moved-start": [],
+        "begin-at-moved-start": [
+          "2026-03-05T12:17:00Z"
+        ],
+        "inside-moved": [
+          "2026-03-05T12:17:00Z"
+        ],
+        "begin-at-moved-end": [],
+        "fraction-before-moved-end": [
+          "2026-03-05T12:17:00Z"
+        ],
+        "after-moved-end": []
+      }
+    },
+    {
+      "name": "ny-backward",
+      "input": {
+        "master": {
+          "start": {
+            "dateTime": "2026-03-07T06:30:00Z",
+            "timeZone": "America/New_York"
+          },
+          "end": {
+            "dateTime": "2026-03-07T08:30:00Z",
+            "timeZone": "America/New_York"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=5"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "dateTime": "2026-03-07T01:30:00-05:00",
+            "timeZone": "America/New_York"
+          },
+          "end": {
+            "dateTime": "2026-03-07T03:30:00-05:00",
+            "timeZone": "America/New_York"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=5"
+          ]
+        },
+        "durationMs": 7200000,
+        "calendarTimeZone": "UTC",
+        "edits": [
+          {
+            "start": {
+              "dateTime": "2026-03-08T06:30:00Z",
+              "timeZone": "UTC"
+            },
+            "end": {
+              "dateTime": "2026-03-08T07:05:00Z",
+              "timeZone": "UTC"
+            },
+            "originalStartTime": {
+              "dateTime": "2026-03-10T05:30:00Z",
+              "timeZone": "UTC"
+            },
+            "status": "confirmed"
+          },
+          {
+            "originalStartTime": {
+              "dateTime": "2026-03-08T06:30:00Z",
+              "timeZone": "America/New_York"
+            },
+            "status": "cancelled"
+          }
+        ],
+        "windows": {
+          "wide": {
+            "start": "2026-03-05T01:30:00-05:00",
+            "end": "2026-04-16T01:30:00-04:00"
+          },
+          "original-slot": {
+            "start": "2026-03-10T00:00:00Z",
+            "end": "2026-03-11T00:00:00Z"
+          },
+          "cancelled-slot": {
+            "start": "2026-03-08T00:00:00Z",
+            "end": "2026-03-09T00:00:00Z"
+          },
+          "moved-slot": {
+            "start": "2026-03-08T00:00:00Z",
+            "end": "2026-03-09T00:00:00Z"
+          },
+          "end-at-moved-start": {
+            "start": "2026-03-08T06:29:59Z",
+            "end": "2026-03-08T06:30:00Z"
+          },
+          "begin-at-moved-start": {
+            "start": "2026-03-08T06:30:00Z",
+            "end": "2026-03-08T06:30:01Z"
+          },
+          "inside-moved": {
+            "start": "2026-03-08T06:30:01Z",
+            "end": "2026-03-08T07:04:59Z"
+          },
+          "begin-at-moved-end": {
+            "start": "2026-03-08T07:05:00Z",
+            "end": "2026-03-08T07:05:01Z"
+          },
+          "fraction-before-moved-end": {
+            "start": "2026-03-08T07:04:59.500000Z",
+            "end": "2026-03-08T07:05:01Z"
+          },
+          "after-moved-end": {
+            "start": "2026-03-08T07:05:01Z",
+            "end": "2026-03-08T07:05:02Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2026-03-07T06:30:00Z",
+          "2026-03-09T05:30:00Z",
+          "2026-03-11T05:30:00Z",
+          "2026-03-08T06:30:00Z"
+        ],
+        "original-slot": [],
+        "cancelled-slot": [
+          "2026-03-08T06:30:00Z"
+        ],
+        "moved-slot": [
+          "2026-03-08T06:30:00Z"
+        ],
+        "end-at-moved-start": [],
+        "begin-at-moved-start": [
+          "2026-03-08T06:30:00Z"
+        ],
+        "inside-moved": [
+          "2026-03-08T06:30:00Z"
+        ],
+        "begin-at-moved-end": [],
+        "fraction-before-moved-end": [
+          "2026-03-08T06:30:00Z"
+        ],
+        "after-moved-end": []
+      }
+    },
+    {
+      "name": "utc-all-day",
+      "input": {
+        "master": {
+          "start": {
+            "date": "2026-03-02"
+          },
+          "end": {
+            "date": "2026-03-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=WEEKLY;COUNT=5"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "date": "2026-03-02",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "date": "2026-03-04",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=WEEKLY;COUNT=5"
+          ]
+        },
+        "durationMs": 172800000,
+        "calendarTimeZone": "UTC",
+        "edits": [
+          {
+            "start": {
+              "date": "2026-03-22"
+            },
+            "end": {
+              "date": "2026-03-23"
+            },
+            "originalStartTime": {
+              "date": "2026-03-09"
+            },
+            "status": "confirmed"
+          },
+          {
+            "originalStartTime": {
+              "date": "2026-03-23"
+            },
+            "status": "cancelled"
+          }
+        ],
+        "windows": {
+          "wide": {
+            "start": "2026-02-28T00:00:00Z",
+            "end": "2026-04-11T00:00:00Z"
+          },
+          "original-slot": {
+            "start": "2026-03-09T00:00:00Z",
+            "end": "2026-03-10T00:00:00Z"
+          },
+          "cancelled-slot": {
+            "start": "2026-03-23T00:00:00Z",
+            "end": "2026-03-24T00:00:00Z"
+          },
+          "moved-slot": {
+            "start": "2026-03-22T00:00:00Z",
+            "end": "2026-03-23T00:00:00Z"
+          },
+          "end-at-moved-start": {
+            "start": "2026-03-21T23:59:59Z",
+            "end": "2026-03-22T00:00:00Z"
+          },
+          "begin-at-moved-start": {
+            "start": "2026-03-22T00:00:00Z",
+            "end": "2026-03-22T00:00:01Z"
+          },
+          "inside-moved": {
+            "start": "2026-03-22T00:00:01Z",
+            "end": "2026-03-22T23:59:59Z"
+          },
+          "begin-at-moved-end": {
+            "start": "2026-03-23T00:00:00Z",
+            "end": "2026-03-23T00:00:01Z"
+          },
+          "fraction-before-moved-end": {
+            "start": "2026-03-22T23:59:59.500000Z",
+            "end": "2026-03-23T00:00:01Z"
+          },
+          "after-moved-end": {
+            "start": "2026-03-23T00:00:01Z",
+            "end": "2026-03-23T00:00:02Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2026-03-02",
+          "2026-03-16",
+          "2026-03-30",
+          "2026-03-22"
+        ],
+        "original-slot": [],
+        "cancelled-slot": [],
+        "moved-slot": [
+          "2026-03-22"
+        ],
+        "end-at-moved-start": [],
+        "begin-at-moved-start": [
+          "2026-03-22"
+        ],
+        "inside-moved": [
+          "2026-03-22"
+        ],
+        "begin-at-moved-end": [],
+        "fraction-before-moved-end": [
+          "2026-03-22"
+        ],
+        "after-moved-end": []
+      }
+    },
+    {
+      "name": "early-slot-patched-first",
+      "input": {
+        "master": {
+          "start": {
+            "dateTime": "2026-03-02T09:17:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2026-03-02T09:37:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=5"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "dateTime": "2026-03-02T09:17:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2026-03-02T09:37:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=5"
+          ]
+        },
+        "durationMs": 1200000,
+        "calendarTimeZone": "UTC",
+        "edits": [
+          {
+            "start": {
+              "dateTime": "2026-03-09T09:17:00Z",
+              "timeZone": "UTC"
+            },
+            "end": {
+              "dateTime": "2026-03-09T10:02:00Z",
+              "timeZone": "UTC"
+            },
+            "originalStartTime": {
+              "dateTime": "2026-03-03T09:17:00Z",
+              "timeZone": "UTC"
+            },
+            "status": "confirmed"
+          },
+          {
+            "start": {
+              "dateTime": "2026-03-07T09:17:00Z",
+              "timeZone": "UTC"
+            },
+            "end": {
+              "dateTime": "2026-03-07T09:27:00Z",
+              "timeZone": "UTC"
+            },
+            "originalStartTime": {
+              "dateTime": "2026-03-05T09:17:00Z",
+              "timeZone": "UTC"
+            },
+            "status": "confirmed"
+          }
+        ],
+        "windows": {
+          "wide": {
+            "start": "2026-02-28T09:17:00Z",
+            "end": "2026-04-11T09:17:00Z"
+          },
+          "at-start-1": {
+            "start": "2026-03-09T09:17:00Z",
+            "end": "2026-03-09T09:17:01Z"
+          },
+          "at-end-1": {
+            "start": "2026-03-09T10:02:00Z",
+            "end": "2026-03-09T10:02:01Z"
+          },
+          "at-start-3": {
+            "start": "2026-03-07T09:17:00Z",
+            "end": "2026-03-07T09:17:01Z"
+          },
+          "at-end-3": {
+            "start": "2026-03-07T09:27:00Z",
+            "end": "2026-03-07T09:27:01Z"
+          },
+          "both": {
+            "start": "2026-03-07T09:17:00Z",
+            "end": "2026-03-09T09:17:01Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2026-03-02T09:17:00Z",
+          "2026-03-04T09:17:00Z",
+          "2026-03-06T09:17:00Z",
+          "2026-03-09T09:17:00Z",
+          "2026-03-07T09:17:00Z"
+        ],
+        "at-start-1": [
+          "2026-03-09T09:17:00Z"
+        ],
+        "at-end-1": [],
+        "at-start-3": [
+          "2026-03-07T09:17:00Z"
+        ],
+        "at-end-3": [],
+        "both": [
+          "2026-03-09T09:17:00Z",
+          "2026-03-07T09:17:00Z"
+        ]
+      }
+    },
+    {
+      "name": "late-slot-patched-first",
+      "input": {
+        "master": {
+          "start": {
+            "dateTime": "2026-03-02T09:17:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2026-03-02T09:37:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=5"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "dateTime": "2026-03-02T09:17:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2026-03-02T09:37:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=5"
+          ]
+        },
+        "durationMs": 1200000,
+        "calendarTimeZone": "UTC",
+        "edits": [
+          {
+            "start": {
+              "dateTime": "2026-03-07T09:17:00Z",
+              "timeZone": "UTC"
+            },
+            "end": {
+              "dateTime": "2026-03-07T09:27:00Z",
+              "timeZone": "UTC"
+            },
+            "originalStartTime": {
+              "dateTime": "2026-03-05T09:17:00Z",
+              "timeZone": "UTC"
+            },
+            "status": "confirmed"
+          },
+          {
+            "start": {
+              "dateTime": "2026-03-09T09:17:00Z",
+              "timeZone": "UTC"
+            },
+            "end": {
+              "dateTime": "2026-03-09T10:02:00Z",
+              "timeZone": "UTC"
+            },
+            "originalStartTime": {
+              "dateTime": "2026-03-03T09:17:00Z",
+              "timeZone": "UTC"
+            },
+            "status": "confirmed"
+          }
+        ],
+        "windows": {
+          "wide": {
+            "start": "2026-02-28T09:17:00Z",
+            "end": "2026-04-11T09:17:00Z"
+          },
+          "at-start-3": {
+            "start": "2026-03-07T09:17:00Z",
+            "end": "2026-03-07T09:17:01Z"
+          },
+          "at-end-3": {
+            "start": "2026-03-07T09:27:00Z",
+            "end": "2026-03-07T09:27:01Z"
+          },
+          "at-start-1": {
+            "start": "2026-03-09T09:17:00Z",
+            "end": "2026-03-09T09:17:01Z"
+          },
+          "at-end-1": {
+            "start": "2026-03-09T10:02:00Z",
+            "end": "2026-03-09T10:02:01Z"
+          },
+          "both": {
+            "start": "2026-03-07T09:17:00Z",
+            "end": "2026-03-09T09:17:01Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2026-03-02T09:17:00Z",
+          "2026-03-04T09:17:00Z",
+          "2026-03-06T09:17:00Z",
+          "2026-03-09T09:17:00Z",
+          "2026-03-07T09:17:00Z"
+        ],
+        "at-start-3": [
+          "2026-03-07T09:17:00Z"
+        ],
+        "at-end-3": [],
+        "at-start-1": [
+          "2026-03-09T09:17:00Z"
+        ],
+        "at-end-1": [],
+        "both": [
+          "2026-03-09T09:17:00Z",
+          "2026-03-07T09:17:00Z"
+        ]
+      }
+    },
+    {
+      "name": "two-moves-coincide-with-base",
+      "input": {
+        "master": {
+          "start": {
+            "dateTime": "2026-03-02T09:17:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2026-03-02T09:37:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=5"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "dateTime": "2026-03-02T09:17:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2026-03-02T09:37:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=5"
+          ]
+        },
+        "durationMs": 1200000,
+        "calendarTimeZone": "UTC",
+        "edits": [
+          {
+            "start": {
+              "dateTime": "2026-03-04T09:17:00Z",
+              "timeZone": "UTC"
+            },
+            "end": {
+              "dateTime": "2026-03-04T09:27:00Z",
+              "timeZone": "UTC"
+            },
+            "originalStartTime": {
+              "dateTime": "2026-03-05T09:17:00Z",
+              "timeZone": "UTC"
+            },
+            "status": "confirmed"
+          },
+          {
+            "start": {
+              "dateTime": "2026-03-04T09:17:00Z",
+              "timeZone": "UTC"
+            },
+            "end": {
+              "dateTime": "2026-03-04T10:02:00Z",
+              "timeZone": "UTC"
+            },
+            "originalStartTime": {
+              "dateTime": "2026-03-03T09:17:00Z",
+              "timeZone": "UTC"
+            },
+            "status": "confirmed"
+          }
+        ],
+        "windows": {
+          "wide": {
+            "start": "2026-02-28T09:17:00Z",
+            "end": "2026-04-11T09:17:00Z"
+          },
+          "at-start-3": {
+            "start": "2026-03-04T09:17:00Z",
+            "end": "2026-03-04T09:17:01Z"
+          },
+          "at-end-3": {
+            "start": "2026-03-04T09:27:00Z",
+            "end": "2026-03-04T09:27:01Z"
+          },
+          "at-start-1": {
+            "start": "2026-03-04T09:17:00Z",
+            "end": "2026-03-04T09:17:01Z"
+          },
+          "at-end-1": {
+            "start": "2026-03-04T10:02:00Z",
+            "end": "2026-03-04T10:02:01Z"
+          },
+          "both": {
+            "start": "2026-03-04T09:17:00Z",
+            "end": "2026-03-04T09:17:01Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2026-03-02T09:17:00Z",
+          "2026-03-04T09:17:00Z",
+          "2026-03-06T09:17:00Z",
+          "2026-03-04T09:17:00Z",
+          "2026-03-04T09:17:00Z"
+        ],
+        "at-start-3": [
+          "2026-03-04T09:17:00Z",
+          "2026-03-04T09:17:00Z",
+          "2026-03-04T09:17:00Z"
+        ],
+        "at-end-3": [
+          "2026-03-04T09:17:00Z",
+          "2026-03-04T09:17:00Z"
+        ],
+        "at-start-1": [
+          "2026-03-04T09:17:00Z",
+          "2026-03-04T09:17:00Z",
+          "2026-03-04T09:17:00Z"
+        ],
+        "at-end-1": [],
+        "both": [
+          "2026-03-04T09:17:00Z",
+          "2026-03-04T09:17:00Z",
+          "2026-03-04T09:17:00Z"
+        ]
+      }
+    },
+    {
+      "name": "two-all-day-moves",
+      "input": {
+        "master": {
+          "start": {
+            "date": "2026-03-02"
+          },
+          "end": {
+            "date": "2026-03-03"
+          },
+          "recurrence": [
+            "RRULE:FREQ=WEEKLY;COUNT=5"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "date": "2026-03-02"
+          },
+          "end": {
+            "date": "2026-03-03"
+          },
+          "recurrence": [
+            "RRULE:FREQ=WEEKLY;COUNT=5"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "edits": [
+          {
+            "start": {
+              "date": "2026-03-11"
+            },
+            "end": {
+              "date": "2026-03-12"
+            },
+            "originalStartTime": {
+              "date": "2026-03-23"
+            },
+            "status": "confirmed"
+          },
+          {
+            "start": {
+              "date": "2026-03-22"
+            },
+            "end": {
+              "date": "2026-03-24"
+            },
+            "originalStartTime": {
+              "date": "2026-03-09"
+            },
+            "status": "confirmed"
+          }
+        ],
+        "windows": {
+          "wide": {
+            "start": "2026-02-28T00:00:00Z",
+            "end": "2026-04-11T00:00:00Z"
+          },
+          "at-start-3": {
+            "start": "2026-03-11T00:00:00Z",
+            "end": "2026-03-11T00:00:01Z"
+          },
+          "at-end-3": {
+            "start": "2026-03-12T00:00:00Z",
+            "end": "2026-03-12T00:00:01Z"
+          },
+          "at-start-1": {
+            "start": "2026-03-22T00:00:00Z",
+            "end": "2026-03-22T00:00:01Z"
+          },
+          "at-end-1": {
+            "start": "2026-03-24T00:00:00Z",
+            "end": "2026-03-24T00:00:01Z"
+          },
+          "both": {
+            "start": "2026-03-11T00:00:00Z",
+            "end": "2026-03-22T00:00:01Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2026-03-02",
+          "2026-03-16",
+          "2026-03-30",
+          "2026-03-22",
+          "2026-03-11"
+        ],
+        "at-start-3": [
+          "2026-03-11"
+        ],
+        "at-end-3": [],
+        "at-start-1": [
+          "2026-03-22"
+        ],
+        "at-end-1": [],
+        "both": [
+          "2026-03-16",
+          "2026-03-22",
+          "2026-03-11"
+        ]
+      }
+    }
+  ]
+}

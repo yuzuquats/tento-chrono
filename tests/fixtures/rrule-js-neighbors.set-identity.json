@@ -1,0 +1,163 @@
+{
+  "type": "rrule-js-neighbors",
+  "name": "rrule.js set rule identity and query order",
+  "source": "rrule.js 2.8.1 RRuleSet before(), after(), between() and rrules()",
+  "cases": [
+    {
+      "name": "rrulejs-set-identity-utc-empty-minute-omitted-0-morning",
+      "input": {
+        "lines": [
+          "DTSTART:99991101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=18,9;COUNT=6;UNTIL=99991104T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=18,9;COUNT=6;UNTIL=99991104T000000Z;BYMINUTE="
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsForceSet": true,
+        "after": "9999-11-01T00:00:00Z",
+        "before": "9999-11-01T12:00:00Z",
+        "inclusive": true
+      },
+      "expected": {
+        "after": "9999-11-01T18:00:00Z",
+        "before": null
+      }
+    },
+    {
+      "name": "rrulejs-set-identity-utc-empty-minute-omitted-1-morning",
+      "input": {
+        "lines": [
+          "DTSTART:99991101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=18,9;COUNT=6;UNTIL=99991104T000000Z;BYMINUTE=",
+          "RRULE:FREQ=DAILY;BYHOUR=18,9;COUNT=6;UNTIL=99991104T000000Z"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsForceSet": true,
+        "after": "9999-11-01T00:00:00Z",
+        "before": "9999-11-01T12:00:00Z",
+        "inclusive": true
+      },
+      "expected": {
+        "after": {
+          "error": "RangeError: opts.byminute.forEach is not a function"
+        },
+        "before": {
+          "error": "RangeError: opts.byminute.forEach is not a function"
+        }
+      }
+    },
+    {
+      "name": "rrulejs-set-identity-utc-empty-monthday-omitted-0-whole",
+      "input": {
+        "lines": [
+          "DTSTART:99991101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=18,9;COUNT=6;UNTIL=99991104T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=18,9;COUNT=6;UNTIL=99991104T000000Z;BYMONTHDAY="
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsForceSet": true,
+        "after": "9999-10-29T00:00:00Z",
+        "before": "9999-11-10T00:00:00Z",
+        "inclusive": false
+      },
+      "expected": {
+        "after": "9999-11-01T18:00:00Z",
+        "before": "9999-11-03T18:00:00Z"
+      }
+    },
+    {
+      "name": "rrulejs-set-identity-utc-empty-monthday-omitted-1-whole",
+      "input": {
+        "lines": [
+          "DTSTART:99991101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=18,9;COUNT=6;UNTIL=99991104T000000Z;BYMONTHDAY=",
+          "RRULE:FREQ=DAILY;BYHOUR=18,9;COUNT=6;UNTIL=99991104T000000Z"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsForceSet": true,
+        "after": "9999-10-29T00:00:00Z",
+        "before": "9999-11-10T00:00:00Z",
+        "inclusive": false
+      },
+      "expected": {
+        "after": null,
+        "before": null
+      }
+    },
+    {
+      "name": "rrulejs-set-identity-utc-hour-duplicate-last-1-morning",
+      "input": {
+        "lines": [
+          "DTSTART:20241101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=19,8;BYHOUR=18,9;COUNT=6;UNTIL=20241104T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=18,9;COUNT=6;UNTIL=20241104T000000Z"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsForceSet": true,
+        "after": "2024-11-01T00:00:00Z",
+        "before": "2024-11-01T12:00:00Z",
+        "inclusive": true
+      },
+      "expected": {
+        "after": "2024-11-01T18:00:00Z",
+        "before": null
+      }
+    },
+    {
+      "name": "rrulejs-set-identity-eastern-count-duplicate-last-1-cross-fold",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20241101T000000",
+          "RRULE:FREQ=DAILY;BYHOUR=18,9;COUNT=7;COUNT=6;UNTIL=20241104T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=18,9;COUNT=6;UNTIL=20241104T000000Z"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsForceSet": true,
+        "after": "2024-11-03T05:00:00Z",
+        "before": "2024-11-03T18:00:00Z",
+        "inclusive": true
+      },
+      "expected": {
+        "after": "2024-11-03T23:00:00Z",
+        "before": "2024-11-02T22:00:00Z"
+      }
+    },
+    {
+      "name": "rrulejs-set-identity-eastern-host-wkst-unknown-omitted-0-morning",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Europe/Dublin:20241101T000000",
+          "RRULE:FREQ=DAILY;BYHOUR=18,9;COUNT=6;UNTIL=20241104T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=18,9;COUNT=6;UNTIL=20241104T000000Z;WKST=XY"
+        ],
+        "rruleJsHostTimeZone": "America/New_York",
+        "rruleJsForceSet": true,
+        "after": "2024-11-01T00:00:00Z",
+        "before": "2024-11-01T12:00:00Z",
+        "inclusive": true
+      },
+      "expected": {
+        "after": "2024-11-01T14:00:00Z",
+        "before": null
+      }
+    },
+    {
+      "name": "rrulejs-set-identity-eastern-host-until-overflow-1-cross-fold",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Europe/Dublin:20241101T000000",
+          "RRULE:FREQ=DAILY;BYHOUR=18,9;COUNT=6;UNTIL=20241103T240000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=18,9;COUNT=6;UNTIL=20241104T000000Z"
+        ],
+        "rruleJsHostTimeZone": "America/New_York",
+        "rruleJsForceSet": true,
+        "after": "2024-11-03T05:00:00Z",
+        "before": "2024-11-03T18:00:00Z",
+        "inclusive": true
+      },
+      "expected": {
+        "after": "2024-11-03T13:00:00Z",
+        "before": "2024-11-03T13:00:00Z"
+      }
+    }
+  ]
+}

@@ -1,0 +1,297 @@
+{
+  "type": "recurrence-profile",
+  "rfcDateMode": "written",
+  "name": "RFC 5545 PERIOD endpoint ordering",
+  "source": "RFC 5545 \u00a7\u00a73.3.5, 3.3.9 and 3.3.14; Python timezone ordering oracle",
+  "cases": [
+    {
+      "name": "UTC start, reversed by more than a day",
+      "input": {
+        "lines": [
+          "DTSTART:20250101T090000Z",
+          "RDATE;VALUE=PERIOD:20260103T120000Z/20260101T120000"
+        ],
+        "through": "2029-01-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "RDATE period end must follow its start"
+      }
+    },
+    {
+      "name": "UTC start, nonincreasing even at maximum offset",
+      "input": {
+        "lines": [
+          "DTSTART:20250101T090000Z",
+          "RDATE;VALUE=PERIOD:20260103T120000Z/20260102T120001"
+        ],
+        "through": "2029-01-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "RDATE period end must follow its start"
+      }
+    },
+    {
+      "name": "UTC start, one second can make a reversed clock pair valid",
+      "input": {
+        "lines": [
+          "DTSTART:20250101T090000Z",
+          "RDATE;VALUE=PERIOD:20260103T120000Z/20260102T120002"
+        ],
+        "through": "2029-01-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "RDATE period endpoint ordering depends on the floating timezone"
+      }
+    },
+    {
+      "name": "UTC start, equal written clocks depend on the viewer timezone",
+      "input": {
+        "lines": [
+          "DTSTART:20250101T090000Z",
+          "RDATE;VALUE=PERIOD:20260103T120000Z/20260103T120000"
+        ],
+        "through": "2029-01-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "RDATE period endpoint ordering depends on the floating timezone"
+      }
+    },
+    {
+      "name": "UTC start, equality is possible at maximum offset",
+      "input": {
+        "lines": [
+          "DTSTART:20250101T090000Z",
+          "RDATE;VALUE=PERIOD:20260103T120000Z/20260104T115959"
+        ],
+        "through": "2029-01-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "RDATE period endpoint ordering depends on the floating timezone"
+      }
+    },
+    {
+      "name": "UTC start, exactly a day always increases",
+      "input": {
+        "lines": [
+          "DTSTART:20250101T090000Z",
+          "RDATE;VALUE=PERIOD:20260103T120000Z/20260104T120000"
+        ],
+        "through": "2029-01-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2025-01-01T09:00:00Z",
+        "2026-01-03T12:00:00Z"
+      ]
+    },
+    {
+      "name": "floating start, reversed by more than a day",
+      "input": {
+        "lines": [
+          "DTSTART:20250101T090000Z",
+          "RDATE;VALUE=PERIOD:20260103T120000/20260101T120000Z"
+        ],
+        "through": "2029-01-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "RDATE period end must follow its start"
+      }
+    },
+    {
+      "name": "floating start, nonincreasing even at maximum offset",
+      "input": {
+        "lines": [
+          "DTSTART:20250101T090000Z",
+          "RDATE;VALUE=PERIOD:20260103T120000/20260102T120001Z"
+        ],
+        "through": "2029-01-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "RDATE period end must follow its start"
+      }
+    },
+    {
+      "name": "floating start, one second can make a reversed clock pair valid",
+      "input": {
+        "lines": [
+          "DTSTART:20250101T090000Z",
+          "RDATE;VALUE=PERIOD:20260103T120000/20260102T120002Z"
+        ],
+        "through": "2029-01-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "RDATE period endpoint ordering depends on the floating timezone"
+      }
+    },
+    {
+      "name": "floating start, equal written clocks depend on the viewer timezone",
+      "input": {
+        "lines": [
+          "DTSTART:20250101T090000Z",
+          "RDATE;VALUE=PERIOD:20260103T120000/20260103T120000Z"
+        ],
+        "through": "2029-01-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "RDATE period endpoint ordering depends on the floating timezone"
+      }
+    },
+    {
+      "name": "floating start, equality is possible at maximum offset",
+      "input": {
+        "lines": [
+          "DTSTART:20250101T090000Z",
+          "RDATE;VALUE=PERIOD:20260103T120000/20260104T115959Z"
+        ],
+        "through": "2029-01-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "RDATE period endpoint ordering depends on the floating timezone"
+      }
+    },
+    {
+      "name": "floating start, exactly a day always increases",
+      "input": {
+        "lines": [
+          "DTSTART:20250101T090000Z",
+          "RDATE;VALUE=PERIOD:20260103T120000/20260104T120000Z"
+        ],
+        "through": "2029-01-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2025-01-01T09:00:00Z",
+        "2026-01-03T12:00:00"
+      ]
+    },
+    {
+      "name": "floating paired endpoints use their wall fields",
+      "input": {
+        "lines": [
+          "DTSTART:20250101T090000Z",
+          "RDATE;VALUE=PERIOD:20260103T120000/20260103T120001"
+        ],
+        "through": "2029-01-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2025-01-01T09:00:00Z",
+        "2026-01-03T12:00:00"
+      ]
+    },
+    {
+      "name": "UTC paired endpoints must be strictly ordered",
+      "input": {
+        "lines": [
+          "DTSTART:20250101T090000Z",
+          "RDATE;VALUE=PERIOD:20260103T120000Z/20260103T120000Z"
+        ],
+        "through": "2029-01-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "RDATE period end must follow its start"
+      }
+    },
+    {
+      "name": "named zone uses resolved spring gap endpoints",
+      "input": {
+        "lines": [
+          "DTSTART:20250101T090000Z",
+          "RDATE;VALUE=PERIOD;TZID=America/New_York:20260308T023000/20260308T031500"
+        ],
+        "through": "2029-01-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "RDATE period end must follow its start"
+      }
+    },
+    {
+      "name": "positive duration needs no endpoint timezone comparison",
+      "input": {
+        "lines": [
+          "DTSTART:20250101T090000Z",
+          "RDATE;VALUE=PERIOD:20260103T120000/PT1S"
+        ],
+        "through": "2029-01-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2025-01-01T09:00:00Z",
+        "2026-01-03T12:00:00"
+      ]
+    },
+    {
+      "name": "one uncertain endpoint pair rejects a list of periods",
+      "input": {
+        "lines": [
+          "DTSTART:20250101T090000Z",
+          "RDATE;VALUE=PERIOD:20260101T120000Z/20260102T120000,20260103T130000/20260103T130000Z"
+        ],
+        "through": "2029-01-01"
+      },
+      "expected": {
+        "error": "RDATE period endpoint ordering depends on the floating timezone"
+      }
+    }
+  ]
+}

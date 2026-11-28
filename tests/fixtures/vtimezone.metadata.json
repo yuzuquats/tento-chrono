@@ -1,0 +1,438 @@
+{
+  "type": "vtimezone",
+  "name": "RFC 5545 VTIMEZONE metadata",
+  "source": "RFC 5545 \u00a7\u00a73.6.5, 3.8.3.5 and 3.8.7.3; RFC 3986 \u00a73",
+  "cases": [
+    {
+      "name": "UTC revision and folded timezone URI",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED;X-NOTE=\"revision:zone\":20251101T010060z",
+          "TZURL:https://timezones.example.org/tz/",
+          " Pacific.ics?edition=2025%2F2#latest",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02",
+        "event": [
+          "DTSTART;TZID=X-Metadata:20260101T030000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ]
+      },
+      "expected": {
+        "name": "X-Metadata",
+        "transitions": [
+          [
+            "2025-12-31T23:00:00Z",
+            3600,
+            7200,
+            "NEW"
+          ]
+        ],
+        "eventStarts": [
+          "2026-01-01T01:00:00Z",
+          "2026-01-02T01:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "IPv6 authority with user information and port",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "TZURL:https://reader@[2001:db8::1]:443/tz.ics?version=2",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "name": "X-Metadata",
+        "transitions": [
+          [
+            "2025-12-31T23:00:00Z",
+            3600,
+            7200,
+            "NEW"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "IPvFuture authority with extension scheme",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "TZURL:x-tz://[vA.region-1]/tz.ics?a=b/c?d#page",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "name": "X-Metadata",
+        "transitions": [
+          [
+            "2025-12-31T23:00:00Z",
+            3600,
+            7200,
+            "NEW"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "opaque absolute URI",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "TZURL:urn:example:timezone",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "name": "X-Metadata",
+        "transitions": [
+          [
+            "2025-12-31T23:00:00Z",
+            3600,
+            7200,
+            "NEW"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "unknown metadata stays extensible",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "X-REVISION:preview",
+          "X-REVISION:current",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "name": "X-Metadata",
+        "transitions": [
+          [
+            "2025-12-31T23:00:00Z",
+            3600,
+            7200,
+            "NEW"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "floating revision",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED:20260101T010000",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "VTIMEZONE LAST-MODIFIED requires UTC DATE-TIME"
+      }
+    },
+    {
+      "name": "DATE revision",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED:20260101",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "VTIMEZONE LAST-MODIFIED requires UTC DATE-TIME"
+      }
+    },
+    {
+      "name": "impossible revision date",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED:20260230T010000Z",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "Invalid iCalendar date or time"
+      }
+    },
+    {
+      "name": "numeric-offset revision",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED:20260101T010000+0000",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "Expected an iCalendar DATE or DATE-TIME"
+      }
+    },
+    {
+      "name": "TZID on UTC revision",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED;TZID=X-Elsewhere:20260101T010000Z",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "TZID is invalid on UTC DATE-TIME"
+      }
+    },
+    {
+      "name": "duplicate revision",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED:20260101T010000Z",
+          "last-modified:20260102T010000Z",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "Duplicate VTIMEZONE LAST-MODIFIED"
+      }
+    },
+    {
+      "name": "duplicate timezone URI",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "TZURL:https://example.org/a",
+          "tzurl:https://example.org/b",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "Duplicate VTIMEZONE TZURL"
+      }
+    },
+    {
+      "name": "relative timezone URI",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "TZURL:../timezone.ics",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "Invalid VTIMEZONE TZURL"
+      }
+    },
+    {
+      "name": "whitespace in timezone URI",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "TZURL:https://exa mple.org/tz",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "Invalid VTIMEZONE TZURL"
+      }
+    },
+    {
+      "name": "malformed percent escape",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "TZURL:https://example.org/tz%2X",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "Invalid VTIMEZONE TZURL"
+      }
+    },
+    {
+      "name": "invalid IP literal",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "TZURL:https://[::::]/zone",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "Invalid VTIMEZONE TZURL"
+      }
+    },
+    {
+      "name": "extra fragment delimiter",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "TZURL:https://example.org/tz#one#two",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "Invalid VTIMEZONE TZURL"
+      }
+    },
+    {
+      "name": "tab inside IPv6 address",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "TZURL:https://[2001:db8:\t:1]/zone",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "Invalid VTIMEZONE TZURL"
+      }
+    }
+  ]
+}

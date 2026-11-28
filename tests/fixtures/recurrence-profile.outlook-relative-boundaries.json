@@ -1,0 +1,805 @@
+{
+  "type": "recurrence-profile",
+  "name": "Outlook Graph relative selectors and non-hour transitions",
+  "source": "Microsoft Graph v1.0 calendarView",
+  "capturedAt": "2026-11-22T11:33:39.244162+00:00",
+  "cases": [
+    {
+      "name": "relative-monthly-first-reversed-weekdays",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-01-01T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday",
+                "friday"
+              ],
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "relativeMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 6,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-01-01",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-07-31"
+      },
+      "expected": [
+        "2027-01-01T09:00:00Z",
+        "2027-02-01T09:00:00Z",
+        "2027-03-01T09:00:00Z",
+        "2027-04-02T09:00:00Z",
+        "2027-05-03T09:00:00Z",
+        "2027-06-04T09:00:00Z"
+      ]
+    },
+    {
+      "name": "relative-monthly-second-nonadjacent-weekdays",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-02-06T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday",
+                "saturday",
+                "sunday"
+              ],
+              "firstDayOfWeek": "sunday",
+              "index": "second",
+              "interval": 1,
+              "month": 0,
+              "type": "relativeMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 6,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-02-06",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-07-31"
+      },
+      "expected": [
+        "2027-02-06T09:00:00Z",
+        "2027-03-06T09:00:00Z",
+        "2027-04-04T09:00:00Z",
+        "2027-05-02T09:00:00Z",
+        "2027-06-06T09:00:00Z",
+        "2027-07-04T09:00:00Z"
+      ]
+    },
+    {
+      "name": "relative-monthly-third-alternate-months",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-03-07T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday",
+                "wednesday",
+                "sunday"
+              ],
+              "firstDayOfWeek": "sunday",
+              "index": "third",
+              "interval": 2,
+              "month": 0,
+              "type": "relativeMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 6,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-03-07",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2028-02-29"
+      },
+      "expected": [
+        "2027-03-07T09:00:00Z",
+        "2027-05-05T09:00:00Z",
+        "2027-07-07T09:00:00Z",
+        "2027-09-06T09:00:00Z",
+        "2027-11-07T09:00:00Z",
+        "2028-01-05T09:00:00Z"
+      ]
+    },
+    {
+      "name": "relative-monthly-last-reordered-weekdays",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-01-31T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday",
+                "friday",
+                "sunday"
+              ],
+              "firstDayOfWeek": "sunday",
+              "index": "last",
+              "interval": 1,
+              "month": 0,
+              "type": "relativeMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 6,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-01-31",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-07-31"
+      },
+      "expected": [
+        "2027-01-31T09:00:00Z",
+        "2027-02-28T09:00:00Z",
+        "2027-03-29T09:00:00Z",
+        "2027-04-30T09:00:00Z",
+        "2027-05-31T09:00:00Z",
+        "2027-06-28T09:00:00Z"
+      ]
+    },
+    {
+      "name": "relative-yearly-last-mixed-weekdays",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-02-26T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday",
+                "friday"
+              ],
+              "firstDayOfWeek": "sunday",
+              "index": "last",
+              "interval": 1,
+              "month": 2,
+              "type": "relativeYearly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-02-26",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2029-03-31"
+      },
+      "expected": [
+        "2027-02-26T09:00:00Z",
+        "2028-02-28T09:00:00Z",
+        "2029-02-26T09:00:00Z"
+      ]
+    },
+    {
+      "name": "relative-monthly-fourth-all-day",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-01-14T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "thursday",
+                "sunday"
+              ],
+              "firstDayOfWeek": "sunday",
+              "index": "fourth",
+              "interval": 1,
+              "month": 0,
+              "type": "relativeMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 6,
+              "recurrenceTimeZone": "Pacific Standard Time",
+              "startDate": "2027-01-14",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-07-31"
+      },
+      "expected": [
+        "2027-01-14",
+        "2027-02-14",
+        "2027-03-14",
+        "2027-04-11",
+        "2027-05-13",
+        "2027-06-13"
+      ]
+    },
+    {
+      "name": "lord-howe-gap-wall-0215",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-09-30T15:45:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Lord Howe Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 6,
+              "recurrenceTimeZone": "Lord Howe Standard Time",
+              "startDate": "2027-10-01",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-10-09"
+      },
+      "expected": [
+        "2027-09-30T15:45:00Z",
+        "2027-10-01T15:45:00Z",
+        "2027-10-02T16:15:00Z",
+        "2027-10-03T15:15:00Z",
+        "2027-10-04T15:15:00Z",
+        "2027-10-05T15:15:00Z"
+      ]
+    },
+    {
+      "name": "lord-howe-gap-wall-0245",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-09-30T16:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Lord Howe Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 6,
+              "recurrenceTimeZone": "Lord Howe Standard Time",
+              "startDate": "2027-10-01",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-10-09"
+      },
+      "expected": [
+        "2027-09-30T16:15:00Z",
+        "2027-10-01T16:15:00Z",
+        "2027-10-02T15:45:00Z",
+        "2027-10-03T15:45:00Z",
+        "2027-10-04T15:45:00Z",
+        "2027-10-05T15:45:00Z"
+      ]
+    },
+    {
+      "name": "lord-howe-fold-wall-0145",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-04-01T14:45:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Lord Howe Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 6,
+              "recurrenceTimeZone": "Lord Howe Standard Time",
+              "startDate": "2027-04-02",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-04-11"
+      },
+      "expected": [
+        "2027-04-01T14:45:00Z",
+        "2027-04-02T14:45:00Z",
+        "2027-04-03T14:45:00Z",
+        "2027-04-04T15:15:00Z",
+        "2027-04-05T15:15:00Z",
+        "2027-04-06T15:15:00Z"
+      ]
+    },
+    {
+      "name": "line-islands-weekly-cutoff",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-01-03T10:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Line Islands Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday",
+                "friday"
+              ],
+              "firstDayOfWeek": "monday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "weekly"
+            },
+            "range": {
+              "endDate": "2027-01-15",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Line Islands Standard Time",
+              "startDate": "2027-01-04",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2027-01-27"
+      },
+      "expected": [
+        "2027-01-03T10:15:00Z",
+        "2027-01-07T10:15:00Z",
+        "2027-01-10T10:15:00Z",
+        "2027-01-14T10:15:00Z"
+      ]
+    },
+    {
+      "name": "line-islands-all-day-cutoff",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-01-04T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday",
+                "friday"
+              ],
+              "firstDayOfWeek": "monday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "weekly"
+            },
+            "range": {
+              "endDate": "2027-01-15",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Line Islands Standard Time",
+              "startDate": "2027-01-04",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2027-01-27"
+      },
+      "expected": [
+        "2027-01-04",
+        "2027-01-08",
+        "2027-01-11",
+        "2027-01-15"
+      ]
+    },
+    {
+      "name": "lord-howe-gap-edge-0159",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-09-30T15:29:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Lord Howe Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Lord Howe Standard Time",
+              "startDate": "2027-10-01",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-10-07"
+      },
+      "expected": [
+        "2027-09-30T15:29:00Z",
+        "2027-10-01T15:29:00Z",
+        "2027-10-02T15:29:00Z",
+        "2027-10-03T14:59:00Z",
+        "2027-10-04T14:59:00Z"
+      ]
+    },
+    {
+      "name": "lord-howe-gap-edge-0200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-09-30T15:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Lord Howe Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Lord Howe Standard Time",
+              "startDate": "2027-10-01",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-10-07"
+      },
+      "expected": [
+        "2027-09-30T15:30:00Z",
+        "2027-10-01T15:30:00Z",
+        "2027-10-02T16:00:00Z",
+        "2027-10-03T15:00:00Z",
+        "2027-10-04T15:00:00Z"
+      ]
+    },
+    {
+      "name": "lord-howe-gap-edge-0229",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-09-30T15:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Lord Howe Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Lord Howe Standard Time",
+              "startDate": "2027-10-01",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-10-07"
+      },
+      "expected": [
+        "2027-09-30T15:59:00Z",
+        "2027-10-01T15:59:00Z",
+        "2027-10-02T16:29:00Z",
+        "2027-10-03T15:29:00Z",
+        "2027-10-04T15:29:00Z"
+      ]
+    },
+    {
+      "name": "lord-howe-gap-edge-0230",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-09-30T16:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Lord Howe Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Lord Howe Standard Time",
+              "startDate": "2027-10-01",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-10-07"
+      },
+      "expected": [
+        "2027-09-30T16:00:00Z",
+        "2027-10-01T16:00:00Z",
+        "2027-10-02T15:30:00Z",
+        "2027-10-03T15:30:00Z",
+        "2027-10-04T15:30:00Z"
+      ]
+    },
+    {
+      "name": "lord-howe-gap-master-start",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-10-02T16:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Lord Howe Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 4,
+              "recurrenceTimeZone": "Lord Howe Standard Time",
+              "startDate": "2027-10-03",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-10-09"
+      },
+      "expected": [
+        "2027-10-02T16:15:00Z",
+        "2027-10-03T16:15:00Z",
+        "2027-10-04T16:15:00Z",
+        "2027-10-05T16:15:00Z"
+      ]
+    },
+    {
+      "name": "apia-historic-count-4",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 4,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-11"
+      },
+      "expected": [
+        "2011-12-28T19:00:00Z",
+        "2011-12-29T19:00:00Z",
+        "2011-12-30T19:00:00Z",
+        "2011-12-31T19:00:00Z"
+      ]
+    },
+    {
+      "name": "apia-before-date-line-shift",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-11-23T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-11-23",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2011-12-03"
+      },
+      "expected": [
+        "2011-11-23T19:00:00Z",
+        "2011-11-24T19:00:00Z",
+        "2011-11-25T19:00:00Z",
+        "2011-11-26T19:00:00Z",
+        "2011-11-27T19:00:00Z"
+      ]
+    },
+    {
+      "name": "apia-after-date-line-shift",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2012-01-02T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2012-01-03",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-14"
+      },
+      "expected": [
+        "2012-01-02T19:00:00Z",
+        "2012-01-03T19:00:00Z",
+        "2012-01-04T19:00:00Z",
+        "2012-01-05T19:00:00Z",
+        "2012-01-06T19:00:00Z"
+      ]
+    },
+    {
+      "name": "apia-modern-control",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-01-02T20:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Samoa Standard Time",
+              "startDate": "2027-01-03",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-01-14"
+      },
+      "expected": [
+        "2027-01-02T20:00:00Z",
+        "2027-01-03T20:00:00Z",
+        "2027-01-04T20:00:00Z",
+        "2027-01-05T20:00:00Z",
+        "2027-01-06T20:00:00Z"
+      ]
+    }
+  ]
+}

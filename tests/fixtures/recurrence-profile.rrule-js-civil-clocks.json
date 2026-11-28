@@ -1,0 +1,309 @@
+{
+  "type": "recurrence-profile",
+  "name": "rrule.js 2.8.1 clocks on DATE-start sets",
+  "source": "rrule.js 2.8.1 rrulestr(forceset: true), with civil projection for date-only sets",
+  "cases": [
+    {
+      "name": "civil daily rule retains midnight and morning",
+      "input": {
+        "lines": [
+          "DTSTART:20260308",
+          "RRULE:FREQ=DAILY;COUNT=6;BYHOUR=0,9"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-13",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": [
+        "2026-03-08T00:00:00",
+        "2026-03-08T09:00:00",
+        "2026-03-09T00:00:00",
+        "2026-03-09T09:00:00",
+        "2026-03-10T00:00:00",
+        "2026-03-10T09:00:00"
+      ]
+    },
+    {
+      "name": "civil EXDATE matches midnight without excluding later starts",
+      "input": {
+        "lines": [
+          "DTSTART:20260308",
+          "RRULE:FREQ=DAILY;COUNT=6;BYHOUR=0,9",
+          "EXDATE;VALUE=DATE:20260308",
+          "RDATE;VALUE=DATE:20260312"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-13",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": [
+        "2026-03-08T09:00:00",
+        "2026-03-09T00:00:00",
+        "2026-03-09T09:00:00",
+        "2026-03-10T00:00:00",
+        "2026-03-10T09:00:00",
+        "2026-03-12T00:00:00"
+      ]
+    },
+    {
+      "name": "timed EXDATE matches one clock of a civil-start rule",
+      "input": {
+        "lines": [
+          "DTSTART:20260308",
+          "RRULE:FREQ=DAILY;COUNT=6;BYHOUR=0,9",
+          "EXDATE:20260308T090000"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-13",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": [
+        "2026-03-08T00:00:00",
+        "2026-03-09T00:00:00",
+        "2026-03-09T09:00:00",
+        "2026-03-10T00:00:00",
+        "2026-03-10T09:00:00"
+      ]
+    },
+    {
+      "name": "civil hourly rule retains starts across midnight",
+      "input": {
+        "lines": [
+          "DTSTART:20260308",
+          "RRULE:FREQ=HOURLY;COUNT=5;INTERVAL=13"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-13",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": [
+        "2026-03-08T00:00:00",
+        "2026-03-08T13:00:00",
+        "2026-03-09T02:00:00",
+        "2026-03-09T15:00:00",
+        "2026-03-10T04:00:00"
+      ]
+    },
+    {
+      "name": "civil minutely rule retains generated times",
+      "input": {
+        "lines": [
+          "DTSTART:20260308",
+          "RRULE:FREQ=MINUTELY;COUNT=3;INTERVAL=37"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-13",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": [
+        "2026-03-08T00:00:00",
+        "2026-03-08T00:37:00",
+        "2026-03-08T01:14:00"
+      ]
+    },
+    {
+      "name": "civil secondly rule retains generated times",
+      "input": {
+        "lines": [
+          "DTSTART:20260308",
+          "RRULE:FREQ=SECONDLY;COUNT=3;INTERVAL=31"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-13",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": [
+        "2026-03-08T00:00:00",
+        "2026-03-08T00:00:31",
+        "2026-03-08T00:01:02"
+      ]
+    },
+    {
+      "name": "civil daily rule without clocks returns dates",
+      "input": {
+        "lines": [
+          "DTSTART:20260308",
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-13",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": [
+        "2026-03-08",
+        "2026-03-09",
+        "2026-03-10",
+        "2026-03-11"
+      ]
+    },
+    {
+      "name": "timed RDATE keeps clock data alongside ordinary daily starts",
+      "input": {
+        "lines": [
+          "DTSTART:20260308",
+          "RRULE:FREQ=DAILY;COUNT=4",
+          "EXDATE:20260308T000000",
+          "RDATE:20260310T233000"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-13",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": [
+        "2026-03-09T00:00:00",
+        "2026-03-10T00:00:00",
+        "2026-03-10T23:30:00",
+        "2026-03-11T00:00:00"
+      ]
+    },
+    {
+      "name": "New York civil weekly expansion from a Los Angeles reference process",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308",
+          "RRULE:FREQ=WEEKLY;COUNT=4;BYDAY=SU,MO;BYHOUR=0,2;BYMINUTE=30"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "America/Los_Angeles",
+        "through": "2026-03-13",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": [
+        "2026-03-07T21:30:00Z",
+        "2026-03-07T23:30:00Z",
+        "2026-03-08T21:30:00Z",
+        "2026-03-08T23:30:00Z"
+      ]
+    },
+    {
+      "name": "Tokyo civil BYSETPOS retains the selected time",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Asia/Tokyo:20260308",
+          "RRULE:FREQ=DAILY;COUNT=4;BYHOUR=0,9;BYSETPOS=-1"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "Asia/Tokyo",
+        "through": "2026-03-13",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": [
+        "2026-03-08T09:00:00Z",
+        "2026-03-09T09:00:00Z",
+        "2026-03-10T09:00:00Z",
+        "2026-03-11T09:00:00Z"
+      ]
+    },
+    {
+      "name": "multiple civil rules with clocks merge and exclude by instant",
+      "input": {
+        "lines": [
+          "DTSTART:20260308",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RRULE:FREQ=DAILY;BYHOUR=9;COUNT=2",
+          "EXDATE:20260308"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-13",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": [
+        "2026-03-08T09:00:00",
+        "2026-03-09T00:00:00",
+        "2026-03-09T09:00:00",
+        "2026-03-10T00:00:00"
+      ]
+    },
+    {
+      "name": "external civil start with a timed RDATE supplying the timezone",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE;TZID=America/New_York:20260310T090000"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-13",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ],
+        "dtstart": {
+          "date": "2026-03-08"
+        }
+      },
+      "expected": [
+        "2026-03-08T05:00:00Z",
+        "2026-03-09T04:00:00Z",
+        "2026-03-10T04:00:00Z",
+        "2026-03-10T13:00:00Z"
+      ]
+    }
+  ]
+}

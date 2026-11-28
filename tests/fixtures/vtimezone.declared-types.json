@@ -1,0 +1,626 @@
+{
+  "type": "vtimezone",
+  "name": "RFC 5545 VTIMEZONE declared types",
+  "source": "RFC 5545 sections 3.2.20, 3.3.11, 3.6.5, 3.8.3 and 3.8.7.3; RFC 5646 section 2.1",
+  "cases": [
+    {
+      "name": "explicit default values preserve the offset and first localized name",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID;X-VALUE=IGNORED;VaLuE=text:X-Metadata",
+          "LAST-MODIFIED;X-VALUE=IGNORED;VaLuE=date-time:20260101T000000Z",
+          "TZURL;X-VALUE=IGNORED;VaLuE=uri:https://example.org/tz.ics",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM;X-VALUE=IGNORED;VaLuE=utc-offset:+0100",
+          "TZOFFSETTO;X-VALUE=IGNORED;VaLuE=utc-offset:+0200",
+          "TZNAME;X-VALUE=IGNORED;VaLuE=text:NEW",
+          "TZNAME;LANGUAGE=fr:Heure du nouveau fuseau",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "name": "X-Metadata",
+        "transitions": [
+          [
+            "2025-12-31T23:00:00Z",
+            3600,
+            7200,
+            "NEW"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "wrong value type on TZID",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID;VALUE=URI:X-Metadata",
+          "LAST-MODIFIED:20260101T000000Z",
+          "TZURL:https://example.org/tz.ics",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "requires VALUE=TEXT"
+      }
+    },
+    {
+      "name": "wrong value type on LAST-MODIFIED",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED;VALUE=DATE:20260101T000000Z",
+          "TZURL:https://example.org/tz.ics",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "requires VALUE=DATE-TIME"
+      }
+    },
+    {
+      "name": "wrong value type on TZURL",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED:20260101T000000Z",
+          "TZURL;VALUE=TEXT:https://example.org/tz.ics",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "requires VALUE=URI"
+      }
+    },
+    {
+      "name": "wrong value type on TZOFFSETFROM",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED:20260101T000000Z",
+          "TZURL:https://example.org/tz.ics",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM;VALUE=TEXT:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "requires VALUE=UTC-OFFSET"
+      }
+    },
+    {
+      "name": "wrong value type on TZOFFSETTO",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED:20260101T000000Z",
+          "TZURL:https://example.org/tz.ics",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO;VALUE=TEXT:+0200",
+          "TZNAME:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "requires VALUE=UTC-OFFSET"
+      }
+    },
+    {
+      "name": "wrong value type on TZNAME",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED:20260101T000000Z",
+          "TZURL:https://example.org/tz.ics",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME;VALUE=INTEGER:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "requires VALUE=TEXT"
+      }
+    },
+    {
+      "name": "duplicate TZURL value parameter",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED:20260101T000000Z",
+          "TZURL;VALUE=URI;VALUE=URI:https://example.org/tz.ics",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "TZURL requires VALUE=URI"
+      }
+    },
+    {
+      "name": "quoted TZURL value parameter",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED:20260101T000000Z",
+          "TZURL;VALUE=\"URI\":https://example.org/tz.ics",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "TZURL requires VALUE=URI"
+      }
+    },
+    {
+      "name": "empty TZURL value parameter",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED:20260101T000000Z",
+          "TZURL;VALUE=:https://example.org/tz.ics",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "TZURL requires VALUE=URI"
+      }
+    },
+    {
+      "name": "invalid text in a later TZNAME",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED:20260101T000000Z",
+          "TZURL:https://example.org/tz.ics",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME:NEW",
+          "TZNAME;LANGUAGE=fr:broken\\q",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "Invalid VTIMEZONE TZNAME"
+      }
+    },
+    {
+      "name": "duplicate language on a single TZNAME",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED:20260101T000000Z",
+          "TZURL:https://example.org/tz.ics",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME;LANGUAGE=en;language=fr:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "Duplicate TZNAME LANGUAGE parameter"
+      }
+    },
+    {
+      "name": "invalid TZNAME beyond the expansion horizon",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED:20260101T000000Z",
+          "TZURL:https://example.org/tz.ics",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME:NEW",
+          "END:STANDARD",
+          "BEGIN:DAYLIGHT",
+          "DTSTART:20300101T000000",
+          "TZOFFSETFROM:+0200",
+          "TZOFFSETTO:+0300",
+          "TZNAME:bad,separator",
+          "END:DAYLIGHT",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "Invalid VTIMEZONE TZNAME"
+      }
+    },
+    {
+      "name": "valid empty short name uses the component fallback",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED:20260101T000000Z",
+          "TZURL:https://example.org/tz.ics",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME:",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "name": "X-Metadata",
+        "transitions": [
+          [
+            "2025-12-31T23:00:00Z",
+            3600,
+            7200,
+            "STANDARD"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "escaped text is decoded exactly once",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED:20260101T000000Z",
+          "TZURL:https://example.org/tz.ics",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME:One\\, two\\; slash\\\\ and \\nNext",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "name": "X-Metadata",
+        "transitions": [
+          [
+            "2025-12-31T23:00:00Z",
+            3600,
+            7200,
+            "One, two; slash\\ and \nNext"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "malformed LANGUAGE 'en,fr'",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED:20260101T000000Z",
+          "TZURL:https://example.org/tz.ics",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME;LANGUAGE=en,fr:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "Invalid TZNAME LANGUAGE"
+      }
+    },
+    {
+      "name": "malformed LANGUAGE ''",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED:20260101T000000Z",
+          "TZURL:https://example.org/tz.ics",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME;LANGUAGE=:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "Invalid TZNAME LANGUAGE"
+      }
+    },
+    {
+      "name": "malformed LANGUAGE '123'",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED:20260101T000000Z",
+          "TZURL:https://example.org/tz.ics",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME;LANGUAGE=123:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "Invalid TZNAME LANGUAGE"
+      }
+    },
+    {
+      "name": "malformed LANGUAGE '\"en\"'",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED:20260101T000000Z",
+          "TZURL:https://example.org/tz.ics",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME;LANGUAGE=\"en\":NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "Invalid TZNAME LANGUAGE"
+      }
+    },
+    {
+      "name": "malformed LANGUAGE 'en-a'",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED:20260101T000000Z",
+          "TZURL:https://example.org/tz.ics",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME;LANGUAGE=en-a:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "Invalid TZNAME LANGUAGE"
+      }
+    },
+    {
+      "name": "malformed LANGUAGE 'de-DE-1901-1901'",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED:20260101T000000Z",
+          "TZURL:https://example.org/tz.ics",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME;LANGUAGE=de-DE-1901-1901:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "Invalid TZNAME LANGUAGE"
+      }
+    },
+    {
+      "name": "malformed LANGUAGE 'en-u-ca-gregory-U-nu-latn'",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED:20260101T000000Z",
+          "TZURL:https://example.org/tz.ics",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME;LANGUAGE=en-u-ca-gregory-U-nu-latn:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "Invalid TZNAME LANGUAGE"
+      }
+    },
+    {
+      "name": "malformed LANGUAGE 'en-abcdefghi'",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED:20260101T000000Z",
+          "TZURL:https://example.org/tz.ics",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME;LANGUAGE=en-abcdefghi:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "Invalid TZNAME LANGUAGE"
+      }
+    },
+    {
+      "name": "RFC 5646 syntax accepts extlangs variants extensions private use and grandfathered tags",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED:20260101T000000Z",
+          "TZURL:https://example.org/tz.ics",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME;LANGUAGE=zh-cmn-Hans-CN:NEW",
+          "TZNAME;LANGUAGE=es-419:NEW",
+          "TZNAME;LANGUAGE=de-DE-1901:NEW",
+          "TZNAME;LANGUAGE=en-Latn-US-u-nu-latn-x-local:NEW",
+          "TZNAME;LANGUAGE=x-u:NEW",
+          "TZNAME;LANGUAGE=i-klingon:NEW",
+          "TZNAME;LANGUAGE=sgn-CH-DE:NEW",
+          "TZNAME;LANGUAGE=en-a-abc-z-xyz:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "name": "X-Metadata",
+        "transitions": [
+          [
+            "2025-12-31T23:00:00Z",
+            3600,
+            7200,
+            "NEW"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "malformed LANGUAGE 'x'",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED:20260101T000000Z",
+          "TZURL:https://example.org/tz.ics",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME;LANGUAGE=x:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "Invalid TZNAME LANGUAGE"
+      }
+    },
+    {
+      "name": "malformed LANGUAGE 'en-\u212aore'",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Metadata",
+          "LAST-MODIFIED:20260101T000000Z",
+          "TZURL:https://example.org/tz.ics",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0100",
+          "TZOFFSETTO:+0200",
+          "TZNAME;LANGUAGE=en-\u212aore:NEW",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-02"
+      },
+      "expected": {
+        "error": "Invalid TZNAME LANGUAGE"
+      }
+    }
+  ]
+}

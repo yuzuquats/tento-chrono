@@ -1,0 +1,5871 @@
+{
+  "type": "recurrence-profile",
+  "name": "Outlook Graph Russian and Caucasus offset reforms",
+  "source": "Microsoft Graph v1.0 calendarView on a dedicated test calendar",
+  "cases": [
+    {
+      "name": "baku-clock-1899-03-24-0159",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-03-23T21:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Azerbaijan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-03-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-04-05",
+        "checkpoints": [
+          "1899-03-23",
+          "1899-03-24",
+          "1899-03-25",
+          "1899-03-26",
+          "1899-03-27"
+        ]
+      },
+      "expected": [
+        "1899-03-23T21:59:00Z",
+        "1899-03-24T21:59:00Z",
+        "1899-03-25T21:59:00Z",
+        "1899-03-26T20:59:00Z",
+        "1899-03-27T20:59:00Z"
+      ]
+    },
+    {
+      "name": "baku-clock-1899-03-24-0200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-03-23T22:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Azerbaijan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-03-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-04-05",
+        "checkpoints": [
+          "1899-03-23",
+          "1899-03-24",
+          "1899-03-25",
+          "1899-03-26",
+          "1899-03-27"
+        ]
+      },
+      "expected": [
+        "1899-03-23T22:00:00Z",
+        "1899-03-24T22:00:00Z",
+        "1899-03-25T22:00:00Z",
+        "1899-03-26T21:00:00Z",
+        "1899-03-27T21:00:00Z"
+      ]
+    },
+    {
+      "name": "baku-clock-1899-03-24-0459",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-03-24T00:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Azerbaijan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-03-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-04-05",
+        "checkpoints": [
+          "1899-03-24",
+          "1899-03-25",
+          "1899-03-26",
+          "1899-03-27"
+        ]
+      },
+      "expected": [
+        "1899-03-24T00:59:00Z",
+        "1899-03-25T00:59:00Z",
+        "1899-03-26T00:59:00Z",
+        "1899-03-26T23:59:00Z",
+        "1899-03-27T23:59:00Z"
+      ]
+    },
+    {
+      "name": "baku-clock-1899-03-24-0500",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-03-24T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Azerbaijan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-03-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-04-05",
+        "checkpoints": [
+          "1899-03-24",
+          "1899-03-25",
+          "1899-03-26",
+          "1899-03-27",
+          "1899-03-28"
+        ]
+      },
+      "expected": [
+        "1899-03-24T01:00:00Z",
+        "1899-03-25T01:00:00Z",
+        "1899-03-26T00:00:00Z",
+        "1899-03-27T00:00:00Z",
+        "1899-03-28T00:00:00Z"
+      ]
+    },
+    {
+      "name": "baku-clock-1899-10-27-0459",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-10-26T23:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Azerbaijan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-10-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-11-08",
+        "checkpoints": [
+          "1899-10-26",
+          "1899-10-27",
+          "1899-10-28",
+          "1899-10-30",
+          "1899-10-31"
+        ]
+      },
+      "expected": [
+        "1899-10-26T23:59:00Z",
+        "1899-10-27T23:59:00Z",
+        "1899-10-28T23:59:00Z",
+        "1899-10-30T00:59:00Z",
+        "1899-10-31T00:59:00Z"
+      ]
+    },
+    {
+      "name": "baku-clock-1899-10-27-0500",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-10-27T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Azerbaijan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-10-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-11-08",
+        "checkpoints": [
+          "1899-10-27",
+          "1899-10-28",
+          "1899-10-29",
+          "1899-10-30",
+          "1899-10-31"
+        ]
+      },
+      "expected": [
+        "1899-10-27T00:00:00Z",
+        "1899-10-28T00:00:00Z",
+        "1899-10-29T01:00:00Z",
+        "1899-10-30T01:00:00Z",
+        "1899-10-31T01:00:00Z"
+      ]
+    },
+    {
+      "name": "baku-clock-1996-03-29-0459",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1996-03-29T00:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Azerbaijan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1996-03-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1996-04-10",
+        "checkpoints": [
+          "1996-03-29",
+          "1996-03-30",
+          "1996-03-31",
+          "1996-04-01"
+        ]
+      },
+      "expected": [
+        "1996-03-29T00:59:00Z",
+        "1996-03-30T00:59:00Z",
+        "1996-03-31T00:59:00Z",
+        "1996-03-31T23:59:00Z",
+        "1996-04-01T23:59:00Z"
+      ]
+    },
+    {
+      "name": "baku-clock-1996-03-29-0500",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1996-03-29T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Azerbaijan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1996-03-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1996-04-10",
+        "checkpoints": [
+          "1996-03-29",
+          "1996-03-30",
+          "1996-03-31",
+          "1996-04-01",
+          "1996-04-02"
+        ]
+      },
+      "expected": [
+        "1996-03-29T01:00:00Z",
+        "1996-03-30T01:00:00Z",
+        "1996-03-31T00:00:00Z",
+        "1996-04-01T00:00:00Z",
+        "1996-04-02T00:00:00Z"
+      ]
+    },
+    {
+      "name": "baku-clock-1996-03-29-0559",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1996-03-29T01:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Azerbaijan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1996-03-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1996-04-10",
+        "checkpoints": [
+          "1996-03-29",
+          "1996-03-30",
+          "1996-03-31",
+          "1996-04-01",
+          "1996-04-02"
+        ]
+      },
+      "expected": [
+        "1996-03-29T01:59:00Z",
+        "1996-03-30T01:59:00Z",
+        "1996-03-31T00:59:00Z",
+        "1996-04-01T00:59:00Z",
+        "1996-04-02T00:59:00Z"
+      ]
+    },
+    {
+      "name": "baku-clock-1996-03-29-0600",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1996-03-29T02:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Azerbaijan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1996-03-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1996-04-10",
+        "checkpoints": [
+          "1996-03-29",
+          "1996-03-30",
+          "1996-03-31",
+          "1996-04-01",
+          "1996-04-02"
+        ]
+      },
+      "expected": [
+        "1996-03-29T02:00:00Z",
+        "1996-03-30T02:00:00Z",
+        "1996-03-31T01:00:00Z",
+        "1996-04-01T01:00:00Z",
+        "1996-04-02T01:00:00Z"
+      ]
+    },
+    {
+      "name": "baku-clock-1997-03-28-0459",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1997-03-28T00:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Azerbaijan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1997-03-28",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1997-04-09",
+        "checkpoints": [
+          "1997-03-28",
+          "1997-03-29",
+          "1997-03-30",
+          "1997-03-31"
+        ]
+      },
+      "expected": [
+        "1997-03-28T00:59:00Z",
+        "1997-03-29T00:59:00Z",
+        "1997-03-30T00:59:00Z",
+        "1997-03-30T23:59:00Z",
+        "1997-03-31T23:59:00Z"
+      ]
+    },
+    {
+      "name": "baku-clock-1997-03-28-0500",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1997-03-28T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Azerbaijan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1997-03-28",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1997-04-09",
+        "checkpoints": [
+          "1997-03-28",
+          "1997-03-29",
+          "1997-03-30",
+          "1997-03-31",
+          "1997-04-01"
+        ]
+      },
+      "expected": [
+        "1997-03-28T01:00:00Z",
+        "1997-03-29T01:00:00Z",
+        "1997-03-30T00:00:00Z",
+        "1997-03-31T00:00:00Z",
+        "1997-04-01T00:00:00Z"
+      ]
+    },
+    {
+      "name": "yerevan-clock-1899-03-24-0159",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-03-23T21:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Caucasus Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-03-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-04-05",
+        "checkpoints": [
+          "1899-03-23",
+          "1899-03-24",
+          "1899-03-25",
+          "1899-03-26",
+          "1899-03-27"
+        ]
+      },
+      "expected": [
+        "1899-03-23T21:59:00Z",
+        "1899-03-24T21:59:00Z",
+        "1899-03-25T21:59:00Z",
+        "1899-03-26T20:59:00Z",
+        "1899-03-27T20:59:00Z"
+      ]
+    },
+    {
+      "name": "yerevan-clock-1899-03-24-0200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-03-23T22:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Caucasus Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-03-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-04-05",
+        "checkpoints": [
+          "1899-03-23",
+          "1899-03-24",
+          "1899-03-25",
+          "1899-03-26",
+          "1899-03-27"
+        ]
+      },
+      "expected": [
+        "1899-03-23T22:00:00Z",
+        "1899-03-24T22:00:00Z",
+        "1899-03-25T22:00:00Z",
+        "1899-03-26T21:00:00Z",
+        "1899-03-27T21:00:00Z"
+      ]
+    },
+    {
+      "name": "yerevan-clock-1899-03-24-0259",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-03-23T22:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Caucasus Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-03-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-04-05",
+        "checkpoints": [
+          "1899-03-23",
+          "1899-03-24",
+          "1899-03-25",
+          "1899-03-26",
+          "1899-03-27"
+        ]
+      },
+      "expected": [
+        "1899-03-23T22:59:00Z",
+        "1899-03-24T22:59:00Z",
+        "1899-03-25T22:59:00Z",
+        "1899-03-26T21:59:00Z",
+        "1899-03-27T21:59:00Z"
+      ]
+    },
+    {
+      "name": "yerevan-clock-1899-03-24-0300",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-03-23T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Caucasus Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-03-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-04-05",
+        "checkpoints": [
+          "1899-03-23",
+          "1899-03-24",
+          "1899-03-25",
+          "1899-03-26",
+          "1899-03-27"
+        ]
+      },
+      "expected": [
+        "1899-03-23T23:00:00Z",
+        "1899-03-24T23:00:00Z",
+        "1899-03-25T22:00:00Z",
+        "1899-03-26T22:00:00Z",
+        "1899-03-27T22:00:00Z"
+      ]
+    },
+    {
+      "name": "yerevan-clock-1899-10-27-0259",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-10-26T21:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Caucasus Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-10-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-11-08",
+        "checkpoints": [
+          "1899-10-26",
+          "1899-10-27",
+          "1899-10-28",
+          "1899-10-29",
+          "1899-10-30"
+        ]
+      },
+      "expected": [
+        "1899-10-26T21:59:00Z",
+        "1899-10-27T21:59:00Z",
+        "1899-10-28T21:59:00Z",
+        "1899-10-29T22:59:00Z",
+        "1899-10-30T22:59:00Z"
+      ]
+    },
+    {
+      "name": "yerevan-clock-1899-10-27-0300",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-10-26T22:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Caucasus Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-10-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-11-08",
+        "checkpoints": [
+          "1899-10-26",
+          "1899-10-27",
+          "1899-10-28",
+          "1899-10-29",
+          "1899-10-30"
+        ]
+      },
+      "expected": [
+        "1899-10-26T22:00:00Z",
+        "1899-10-27T22:00:00Z",
+        "1899-10-28T23:00:00Z",
+        "1899-10-29T23:00:00Z",
+        "1899-10-30T23:00:00Z"
+      ]
+    },
+    {
+      "name": "yerevan-clock-1996-03-29-0259",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1996-03-28T22:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Caucasus Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1996-03-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1996-04-10",
+        "checkpoints": [
+          "1996-03-28",
+          "1996-03-29",
+          "1996-03-30",
+          "1996-03-31",
+          "1996-04-01"
+        ]
+      },
+      "expected": [
+        "1996-03-28T22:59:00Z",
+        "1996-03-29T22:59:00Z",
+        "1996-03-30T22:59:00Z",
+        "1996-03-31T21:59:00Z",
+        "1996-04-01T21:59:00Z"
+      ]
+    },
+    {
+      "name": "yerevan-clock-1996-03-29-0300",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1996-03-28T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Caucasus Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1996-03-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1996-04-10",
+        "checkpoints": [
+          "1996-03-28",
+          "1996-03-29",
+          "1996-03-30",
+          "1996-03-31",
+          "1996-04-01"
+        ]
+      },
+      "expected": [
+        "1996-03-28T23:00:00Z",
+        "1996-03-29T23:00:00Z",
+        "1996-03-30T22:00:00Z",
+        "1996-03-31T22:00:00Z",
+        "1996-04-01T22:00:00Z"
+      ]
+    },
+    {
+      "name": "yerevan-clock-1997-03-28-0259",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1997-03-27T22:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Caucasus Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1997-03-28",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1997-04-09",
+        "checkpoints": [
+          "1997-03-27",
+          "1997-03-28",
+          "1997-03-29",
+          "1997-03-30",
+          "1997-03-31"
+        ]
+      },
+      "expected": [
+        "1997-03-27T22:59:00Z",
+        "1997-03-28T22:59:00Z",
+        "1997-03-29T22:59:00Z",
+        "1997-03-30T21:59:00Z",
+        "1997-03-31T21:59:00Z"
+      ]
+    },
+    {
+      "name": "yerevan-clock-1997-03-28-0300",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1997-03-27T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Caucasus Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1997-03-28",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1997-04-09",
+        "checkpoints": [
+          "1997-03-27",
+          "1997-03-28",
+          "1997-03-29",
+          "1997-03-30",
+          "1997-03-31"
+        ]
+      },
+      "expected": [
+        "1997-03-27T23:00:00Z",
+        "1997-03-28T23:00:00Z",
+        "1997-03-29T22:00:00Z",
+        "1997-03-30T22:00:00Z",
+        "1997-03-31T22:00:00Z"
+      ]
+    },
+    {
+      "name": "chita-clock-2014-10-24-0059",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-10-23T14:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Transbaikal Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-10-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-11-05",
+        "checkpoints": [
+          "2014-10-23",
+          "2014-10-24",
+          "2014-10-25",
+          "2014-10-26",
+          "2014-10-27"
+        ]
+      },
+      "expected": [
+        "2014-10-23T14:59:00Z",
+        "2014-10-24T14:59:00Z",
+        "2014-10-25T14:59:00Z",
+        "2014-10-26T16:59:00Z",
+        "2014-10-27T16:59:00Z"
+      ]
+    },
+    {
+      "name": "chita-clock-2014-10-24-0159",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-10-23T15:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Transbaikal Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-10-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-11-05",
+        "checkpoints": [
+          "2014-10-23",
+          "2014-10-24",
+          "2014-10-25",
+          "2014-10-26",
+          "2014-10-27"
+        ]
+      },
+      "expected": [
+        "2014-10-23T15:59:00Z",
+        "2014-10-24T15:59:00Z",
+        "2014-10-25T15:59:00Z",
+        "2014-10-26T17:59:00Z",
+        "2014-10-27T17:59:00Z"
+      ]
+    },
+    {
+      "name": "chita-clock-2014-10-24-0200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-10-23T16:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Transbaikal Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-10-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-11-05",
+        "checkpoints": [
+          "2014-10-23",
+          "2014-10-24",
+          "2014-10-25",
+          "2014-10-26",
+          "2014-10-27"
+        ]
+      },
+      "expected": [
+        "2014-10-23T16:00:00Z",
+        "2014-10-24T16:00:00Z",
+        "2014-10-25T18:00:00Z",
+        "2014-10-26T18:00:00Z",
+        "2014-10-27T18:00:00Z"
+      ]
+    },
+    {
+      "name": "srednekolymsk-clock-2014-10-24-0159",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-10-23T13:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russia Time Zone 10",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-10-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-11-05",
+        "checkpoints": [
+          "2014-10-23",
+          "2014-10-24",
+          "2014-10-25",
+          "2014-10-26",
+          "2014-10-27"
+        ]
+      },
+      "expected": [
+        "2014-10-23T13:59:00Z",
+        "2014-10-24T13:59:00Z",
+        "2014-10-25T13:59:00Z",
+        "2014-10-26T14:59:00Z",
+        "2014-10-27T14:59:00Z"
+      ]
+    },
+    {
+      "name": "srednekolymsk-clock-2014-10-24-0200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-10-23T14:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russia Time Zone 10",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-10-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-11-05",
+        "checkpoints": [
+          "2014-10-23",
+          "2014-10-24",
+          "2014-10-25",
+          "2014-10-26",
+          "2014-10-27"
+        ]
+      },
+      "expected": [
+        "2014-10-23T14:00:00Z",
+        "2014-10-24T14:00:00Z",
+        "2014-10-25T15:00:00Z",
+        "2014-10-26T15:00:00Z",
+        "2014-10-27T15:00:00Z"
+      ]
+    },
+    {
+      "name": "samara-clock-2010-10-29-0259",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2010-10-28T22:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russia Time Zone 3",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2010-10-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2010-11-10",
+        "checkpoints": [
+          "2010-10-28",
+          "2010-10-29",
+          "2010-10-30",
+          "2010-10-31",
+          "2010-11-01"
+        ]
+      },
+      "expected": [
+        "2010-10-28T22:59:00Z",
+        "2010-10-29T22:59:00Z",
+        "2010-10-30T22:59:00Z",
+        "2010-10-31T23:59:00Z",
+        "2010-11-01T23:59:00Z"
+      ]
+    },
+    {
+      "name": "samara-clock-2010-10-29-0300",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2010-10-28T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russia Time Zone 3",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2010-10-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2010-11-10",
+        "checkpoints": [
+          "2010-10-28",
+          "2010-10-29",
+          "2010-10-31",
+          "2010-11-01",
+          "2010-11-02"
+        ]
+      },
+      "expected": [
+        "2010-10-28T23:00:00Z",
+        "2010-10-29T23:00:00Z",
+        "2010-10-31T00:00:00Z",
+        "2010-11-01T00:00:00Z",
+        "2010-11-02T00:00:00Z"
+      ]
+    },
+    {
+      "name": "kamchatka-clock-2011-03-25-0259",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-03-24T15:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russia Time Zone 11",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-03-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2011-04-06",
+        "checkpoints": [
+          "2011-03-24",
+          "2011-03-25",
+          "2011-03-26",
+          "2011-03-27",
+          "2011-03-28"
+        ]
+      },
+      "expected": [
+        "2011-03-24T15:59:00Z",
+        "2011-03-25T15:59:00Z",
+        "2011-03-26T15:59:00Z",
+        "2011-03-27T14:59:00Z",
+        "2011-03-28T14:59:00Z"
+      ]
+    },
+    {
+      "name": "kamchatka-clock-2011-03-25-0300",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-03-24T16:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russia Time Zone 11",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-03-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2011-04-06",
+        "checkpoints": [
+          "2011-03-24",
+          "2011-03-25",
+          "2011-03-26",
+          "2011-03-27",
+          "2011-03-28"
+        ]
+      },
+      "expected": [
+        "2011-03-24T16:00:00Z",
+        "2011-03-25T16:00:00Z",
+        "2011-03-26T15:00:00Z",
+        "2011-03-27T15:00:00Z",
+        "2011-03-28T15:00:00Z"
+      ]
+    },
+    {
+      "name": "baku-monthly-holdout-1995-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1995-01-15T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Azerbaijan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 15,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "absoluteMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 37,
+              "recurrenceTimeZone": "",
+              "startDate": "1995-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1998-02-12",
+        "checkpoints": [
+          "1995-01-15",
+          "1995-02-15",
+          "1995-03-15",
+          "1995-04-15",
+          "1995-05-15",
+          "1995-06-15",
+          "1995-07-15",
+          "1995-08-15",
+          "1995-09-15",
+          "1995-10-15",
+          "1995-11-15",
+          "1995-12-15",
+          "1996-01-15",
+          "1996-02-15",
+          "1996-03-15",
+          "1996-04-15",
+          "1996-05-15",
+          "1996-06-15",
+          "1996-07-15",
+          "1996-08-15",
+          "1996-09-15",
+          "1996-10-15",
+          "1996-11-15",
+          "1996-12-15",
+          "1997-01-15",
+          "1997-02-15",
+          "1997-03-15",
+          "1997-04-15",
+          "1997-05-15",
+          "1997-06-15",
+          "1997-07-15",
+          "1997-08-15",
+          "1997-09-15",
+          "1997-10-15",
+          "1997-11-15",
+          "1997-12-15",
+          "1998-01-15"
+        ]
+      },
+      "expected": [
+        "1995-01-15T08:00:00Z",
+        "1995-02-15T08:00:00Z",
+        "1995-03-15T08:00:00Z",
+        "1995-04-15T07:00:00Z",
+        "1995-05-15T07:00:00Z",
+        "1995-06-15T07:00:00Z",
+        "1995-07-15T07:00:00Z",
+        "1995-08-15T07:00:00Z",
+        "1995-09-15T07:00:00Z",
+        "1995-10-15T07:00:00Z",
+        "1995-11-15T08:00:00Z",
+        "1995-12-15T08:00:00Z",
+        "1996-01-15T08:00:00Z",
+        "1996-02-15T08:00:00Z",
+        "1996-03-15T08:00:00Z",
+        "1996-04-15T07:00:00Z",
+        "1996-05-15T07:00:00Z",
+        "1996-06-15T07:00:00Z",
+        "1996-07-15T07:00:00Z",
+        "1996-08-15T07:00:00Z",
+        "1996-09-15T07:00:00Z",
+        "1996-10-15T07:00:00Z",
+        "1996-11-15T08:00:00Z",
+        "1996-12-15T08:00:00Z",
+        "1997-01-15T08:00:00Z",
+        "1997-02-15T08:00:00Z",
+        "1997-03-15T08:00:00Z",
+        "1997-04-15T07:00:00Z",
+        "1997-05-15T07:00:00Z",
+        "1997-06-15T07:00:00Z",
+        "1997-07-15T07:00:00Z",
+        "1997-08-15T07:00:00Z",
+        "1997-09-15T07:00:00Z",
+        "1997-10-15T07:00:00Z",
+        "1997-11-15T08:00:00Z",
+        "1997-12-15T08:00:00Z",
+        "1998-01-15T08:00:00Z"
+      ]
+    },
+    {
+      "name": "yerevan-monthly-holdout-1995-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1995-01-15T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Caucasus Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 15,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "absoluteMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 37,
+              "recurrenceTimeZone": "",
+              "startDate": "1995-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1998-02-12",
+        "checkpoints": [
+          "1995-01-15",
+          "1995-02-15",
+          "1995-03-15",
+          "1995-04-15",
+          "1995-05-15",
+          "1995-06-15",
+          "1995-07-15",
+          "1995-08-15",
+          "1995-09-15",
+          "1995-10-15",
+          "1995-11-15",
+          "1995-12-15",
+          "1996-01-15",
+          "1996-02-15",
+          "1996-03-15",
+          "1996-04-15",
+          "1996-05-15",
+          "1996-06-15",
+          "1996-07-15",
+          "1996-08-15",
+          "1996-09-15",
+          "1996-10-15",
+          "1996-11-15",
+          "1996-12-15",
+          "1997-01-15",
+          "1997-02-15",
+          "1997-03-15",
+          "1997-04-15",
+          "1997-05-15",
+          "1997-06-15",
+          "1997-07-15",
+          "1997-08-15",
+          "1997-09-15",
+          "1997-10-15",
+          "1997-11-15",
+          "1997-12-15",
+          "1998-01-15"
+        ]
+      },
+      "expected": [
+        "1995-01-15T08:00:00Z",
+        "1995-02-15T08:00:00Z",
+        "1995-03-15T08:00:00Z",
+        "1995-04-15T07:00:00Z",
+        "1995-05-15T07:00:00Z",
+        "1995-06-15T07:00:00Z",
+        "1995-07-15T07:00:00Z",
+        "1995-08-15T07:00:00Z",
+        "1995-09-15T07:00:00Z",
+        "1995-10-15T07:00:00Z",
+        "1995-11-15T08:00:00Z",
+        "1995-12-15T08:00:00Z",
+        "1996-01-15T08:00:00Z",
+        "1996-02-15T08:00:00Z",
+        "1996-03-15T08:00:00Z",
+        "1996-04-15T07:00:00Z",
+        "1996-05-15T07:00:00Z",
+        "1996-06-15T07:00:00Z",
+        "1996-07-15T07:00:00Z",
+        "1996-08-15T07:00:00Z",
+        "1996-09-15T07:00:00Z",
+        "1996-10-15T07:00:00Z",
+        "1996-11-15T08:00:00Z",
+        "1996-12-15T08:00:00Z",
+        "1997-01-15T08:00:00Z",
+        "1997-02-15T08:00:00Z",
+        "1997-03-15T08:00:00Z",
+        "1997-04-15T07:00:00Z",
+        "1997-05-15T07:00:00Z",
+        "1997-06-15T07:00:00Z",
+        "1997-07-15T07:00:00Z",
+        "1997-08-15T07:00:00Z",
+        "1997-09-15T07:00:00Z",
+        "1997-10-15T07:00:00Z",
+        "1997-11-15T08:00:00Z",
+        "1997-12-15T08:00:00Z",
+        "1998-01-15T08:00:00Z"
+      ]
+    },
+    {
+      "name": "samara-monthly-holdout-2009-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2009-01-15T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russia Time Zone 3",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 15,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "absoluteMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 37,
+              "recurrenceTimeZone": "",
+              "startDate": "2009-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2012-02-13",
+        "checkpoints": [
+          "2009-01-15",
+          "2009-02-15",
+          "2009-03-15",
+          "2009-04-15",
+          "2009-05-15",
+          "2009-06-15",
+          "2009-07-15",
+          "2009-08-15",
+          "2009-09-15",
+          "2009-10-15",
+          "2009-11-15",
+          "2009-12-15",
+          "2010-01-15",
+          "2010-02-15",
+          "2010-03-15",
+          "2010-04-15",
+          "2010-05-15",
+          "2010-06-15",
+          "2010-07-15",
+          "2010-08-15",
+          "2010-09-15",
+          "2010-10-15",
+          "2010-11-15",
+          "2010-12-15",
+          "2011-01-15",
+          "2011-02-15",
+          "2011-03-15",
+          "2011-04-15",
+          "2011-05-15",
+          "2011-06-15",
+          "2011-07-15",
+          "2011-08-15",
+          "2011-09-15",
+          "2011-10-15",
+          "2011-11-15",
+          "2011-12-15",
+          "2012-01-15"
+        ]
+      },
+      "expected": [
+        "2009-01-15T08:00:00Z",
+        "2009-02-15T08:00:00Z",
+        "2009-03-15T08:00:00Z",
+        "2009-04-15T07:00:00Z",
+        "2009-05-15T07:00:00Z",
+        "2009-06-15T07:00:00Z",
+        "2009-07-15T07:00:00Z",
+        "2009-08-15T07:00:00Z",
+        "2009-09-15T07:00:00Z",
+        "2009-10-15T07:00:00Z",
+        "2009-11-15T08:00:00Z",
+        "2009-12-15T08:00:00Z",
+        "2010-01-15T08:00:00Z",
+        "2010-02-15T08:00:00Z",
+        "2010-03-15T08:00:00Z",
+        "2010-04-15T08:00:00Z",
+        "2010-05-15T08:00:00Z",
+        "2010-06-15T08:00:00Z",
+        "2010-07-15T08:00:00Z",
+        "2010-08-15T08:00:00Z",
+        "2010-09-15T08:00:00Z",
+        "2010-10-15T08:00:00Z",
+        "2010-11-15T09:00:00Z",
+        "2010-12-15T09:00:00Z",
+        "2011-01-15T09:00:00Z",
+        "2011-02-15T09:00:00Z",
+        "2011-03-15T09:00:00Z",
+        "2011-04-15T08:00:00Z",
+        "2011-05-15T08:00:00Z",
+        "2011-06-15T08:00:00Z",
+        "2011-07-15T08:00:00Z",
+        "2011-08-15T08:00:00Z",
+        "2011-09-15T08:00:00Z",
+        "2011-10-15T08:00:00Z",
+        "2011-11-15T08:00:00Z",
+        "2011-12-15T08:00:00Z",
+        "2012-01-15T08:00:00Z"
+      ]
+    },
+    {
+      "name": "hovd-monthly-holdout-2014-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-01-15T05:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Mongolia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 15,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "absoluteMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 37,
+              "recurrenceTimeZone": "W. Mongolia Standard Time",
+              "startDate": "2014-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2017-02-12",
+        "checkpoints": [
+          "2014-01-15",
+          "2014-02-15",
+          "2014-03-15",
+          "2014-04-15",
+          "2014-05-15",
+          "2014-06-15",
+          "2014-07-15",
+          "2014-08-15",
+          "2014-09-15",
+          "2014-10-15",
+          "2014-11-15",
+          "2014-12-15",
+          "2015-01-15",
+          "2015-02-15",
+          "2015-03-15",
+          "2015-04-15",
+          "2015-05-15",
+          "2015-06-15",
+          "2015-07-15",
+          "2015-08-15",
+          "2015-09-15",
+          "2015-10-15",
+          "2015-11-15",
+          "2015-12-15",
+          "2016-01-15",
+          "2016-02-15",
+          "2016-03-15",
+          "2016-04-15",
+          "2016-05-15",
+          "2016-06-15",
+          "2016-07-15",
+          "2016-08-15",
+          "2016-09-15",
+          "2016-10-15",
+          "2016-11-15",
+          "2016-12-15",
+          "2017-01-15"
+        ]
+      },
+      "expected": [
+        "2014-01-15T05:00:00Z",
+        "2014-02-15T05:00:00Z",
+        "2014-03-15T05:00:00Z",
+        "2014-04-15T05:00:00Z",
+        "2014-05-15T05:00:00Z",
+        "2014-06-15T05:00:00Z",
+        "2014-07-15T05:00:00Z",
+        "2014-08-15T05:00:00Z",
+        "2014-09-15T05:00:00Z",
+        "2014-10-15T05:00:00Z",
+        "2014-11-15T05:00:00Z",
+        "2014-12-15T05:00:00Z",
+        "2015-01-15T05:00:00Z",
+        "2015-02-15T05:00:00Z",
+        "2015-03-15T05:00:00Z",
+        "2015-04-15T04:00:00Z",
+        "2015-05-15T04:00:00Z",
+        "2015-06-15T04:00:00Z",
+        "2015-07-15T04:00:00Z",
+        "2015-08-15T04:00:00Z",
+        "2015-09-15T04:00:00Z",
+        "2015-10-15T05:00:00Z",
+        "2015-11-15T05:00:00Z",
+        "2015-12-15T05:00:00Z",
+        "2016-01-15T05:00:00Z",
+        "2016-02-15T05:00:00Z",
+        "2016-03-15T05:00:00Z",
+        "2016-04-15T04:00:00Z",
+        "2016-05-15T04:00:00Z",
+        "2016-06-15T04:00:00Z",
+        "2016-07-15T04:00:00Z",
+        "2016-08-15T04:00:00Z",
+        "2016-09-15T04:00:00Z",
+        "2016-10-15T05:00:00Z",
+        "2016-11-15T05:00:00Z",
+        "2016-12-15T05:00:00Z",
+        "2017-01-15T05:00:00Z"
+      ]
+    },
+    {
+      "name": "hovd-clock-1899-03-23-0159",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-03-22T18:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Mongolia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-03-23",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-04-04",
+        "checkpoints": [
+          "1899-03-22",
+          "1899-03-23",
+          "1899-03-24",
+          "1899-03-25",
+          "1899-03-26"
+        ]
+      },
+      "expected": [
+        "1899-03-22T18:59:00Z",
+        "1899-03-23T18:59:00Z",
+        "1899-03-24T18:59:00Z",
+        "1899-03-25T17:59:00Z",
+        "1899-03-26T17:59:00Z"
+      ]
+    },
+    {
+      "name": "hovd-clock-1899-03-23-0200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-03-22T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Mongolia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-03-23",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-04-04",
+        "checkpoints": [
+          "1899-03-22",
+          "1899-03-23",
+          "1899-03-24",
+          "1899-03-25",
+          "1899-03-26"
+        ]
+      },
+      "expected": [
+        "1899-03-22T19:00:00Z",
+        "1899-03-23T19:00:00Z",
+        "1899-03-24T19:00:00Z",
+        "1899-03-25T18:00:00Z",
+        "1899-03-26T18:00:00Z"
+      ]
+    },
+    {
+      "name": "hovd-clock-1899-03-23-0259",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-03-22T19:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Mongolia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-03-23",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-04-04",
+        "checkpoints": [
+          "1899-03-22",
+          "1899-03-23",
+          "1899-03-24",
+          "1899-03-25",
+          "1899-03-26"
+        ]
+      },
+      "expected": [
+        "1899-03-22T19:59:00Z",
+        "1899-03-23T19:59:00Z",
+        "1899-03-24T19:59:00Z",
+        "1899-03-25T18:59:00Z",
+        "1899-03-26T18:59:00Z"
+      ]
+    },
+    {
+      "name": "hovd-clock-1899-03-23-0300",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-03-22T20:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Mongolia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-03-23",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-04-04",
+        "checkpoints": [
+          "1899-03-22",
+          "1899-03-23",
+          "1899-03-24",
+          "1899-03-25",
+          "1899-03-26"
+        ]
+      },
+      "expected": [
+        "1899-03-22T20:00:00Z",
+        "1899-03-23T20:00:00Z",
+        "1899-03-24T19:00:00Z",
+        "1899-03-25T19:00:00Z",
+        "1899-03-26T19:00:00Z"
+      ]
+    },
+    {
+      "name": "hovd-clock-1899-03-23-1200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-03-23T05:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Mongolia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-03-23",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-04-04",
+        "checkpoints": [
+          "1899-03-23",
+          "1899-03-24",
+          "1899-03-25",
+          "1899-03-26",
+          "1899-03-27"
+        ]
+      },
+      "expected": [
+        "1899-03-23T05:00:00Z",
+        "1899-03-24T05:00:00Z",
+        "1899-03-25T04:00:00Z",
+        "1899-03-26T04:00:00Z",
+        "1899-03-27T04:00:00Z"
+      ]
+    },
+    {
+      "name": "hovd-clock-1899-09-28-0159",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-09-27T17:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Mongolia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-09-28",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-10-10",
+        "checkpoints": [
+          "1899-09-27",
+          "1899-09-28",
+          "1899-09-29",
+          "1899-09-30",
+          "1899-10-01"
+        ]
+      },
+      "expected": [
+        "1899-09-27T17:59:00Z",
+        "1899-09-28T17:59:00Z",
+        "1899-09-29T17:59:00Z",
+        "1899-09-30T18:59:00Z",
+        "1899-10-01T18:59:00Z"
+      ]
+    },
+    {
+      "name": "hovd-clock-1899-09-28-0200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-09-27T18:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Mongolia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-09-28",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-10-10",
+        "checkpoints": [
+          "1899-09-27",
+          "1899-09-28",
+          "1899-09-29",
+          "1899-09-30",
+          "1899-10-01"
+        ]
+      },
+      "expected": [
+        "1899-09-27T18:00:00Z",
+        "1899-09-28T18:00:00Z",
+        "1899-09-29T19:00:00Z",
+        "1899-09-30T19:00:00Z",
+        "1899-10-01T19:00:00Z"
+      ]
+    },
+    {
+      "name": "hovd-clock-1899-09-28-0259",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-09-27T18:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Mongolia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-09-28",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-10-10",
+        "checkpoints": [
+          "1899-09-27",
+          "1899-09-28",
+          "1899-09-29",
+          "1899-09-30",
+          "1899-10-01"
+        ]
+      },
+      "expected": [
+        "1899-09-27T18:59:00Z",
+        "1899-09-28T18:59:00Z",
+        "1899-09-29T19:59:00Z",
+        "1899-09-30T19:59:00Z",
+        "1899-10-01T19:59:00Z"
+      ]
+    },
+    {
+      "name": "hovd-clock-1899-09-28-0300",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-09-27T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Mongolia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-09-28",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-10-10",
+        "checkpoints": [
+          "1899-09-27",
+          "1899-09-28",
+          "1899-09-29",
+          "1899-09-30",
+          "1899-10-01"
+        ]
+      },
+      "expected": [
+        "1899-09-27T19:00:00Z",
+        "1899-09-28T19:00:00Z",
+        "1899-09-29T20:00:00Z",
+        "1899-09-30T20:00:00Z",
+        "1899-10-01T20:00:00Z"
+      ]
+    },
+    {
+      "name": "hovd-clock-1899-09-28-1200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-09-28T04:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Mongolia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-09-28",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-10-10",
+        "checkpoints": [
+          "1899-09-28",
+          "1899-09-29",
+          "1899-09-30",
+          "1899-10-01",
+          "1899-10-02"
+        ]
+      },
+      "expected": [
+        "1899-09-28T04:00:00Z",
+        "1899-09-29T04:00:00Z",
+        "1899-09-30T05:00:00Z",
+        "1899-10-01T05:00:00Z",
+        "1899-10-02T05:00:00Z"
+      ]
+    },
+    {
+      "name": "hovd-clock-1977-12-29-1200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1977-12-29T05:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Mongolia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1977-12-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1978-01-10",
+        "checkpoints": [
+          "1977-12-29",
+          "1977-12-30",
+          "1977-12-31",
+          "1978-01-01",
+          "1978-01-02"
+        ]
+      },
+      "expected": [
+        "1977-12-29T05:00:00Z",
+        "1977-12-30T05:00:00Z",
+        "1977-12-31T05:00:00Z",
+        "1978-01-01T05:00:00Z",
+        "1978-01-02T05:00:00Z"
+      ]
+    },
+    {
+      "name": "hovd-clock-1998-03-26-1200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1998-03-26T05:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Mongolia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1998-03-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1998-04-07",
+        "checkpoints": [
+          "1998-03-26",
+          "1998-03-27",
+          "1998-03-28",
+          "1998-03-29",
+          "1998-03-30"
+        ]
+      },
+      "expected": [
+        "1998-03-26T05:00:00Z",
+        "1998-03-27T05:00:00Z",
+        "1998-03-28T04:00:00Z",
+        "1998-03-29T04:00:00Z",
+        "1998-03-30T04:00:00Z"
+      ]
+    },
+    {
+      "name": "hovd-clock-1999-03-25-1200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1999-03-25T05:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Mongolia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1999-03-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1999-04-06",
+        "checkpoints": [
+          "1999-03-25",
+          "1999-03-26",
+          "1999-03-27",
+          "1999-03-28",
+          "1999-03-29"
+        ]
+      },
+      "expected": [
+        "1999-03-25T05:00:00Z",
+        "1999-03-26T05:00:00Z",
+        "1999-03-27T04:00:00Z",
+        "1999-03-28T04:00:00Z",
+        "1999-03-29T04:00:00Z"
+      ]
+    },
+    {
+      "name": "hovd-clock-2000-03-23-1200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2000-03-23T05:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Mongolia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2000-03-23",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2000-04-04",
+        "checkpoints": [
+          "2000-03-23",
+          "2000-03-24",
+          "2000-03-25",
+          "2000-03-26",
+          "2000-03-27"
+        ]
+      },
+      "expected": [
+        "2000-03-23T05:00:00Z",
+        "2000-03-24T05:00:00Z",
+        "2000-03-25T04:00:00Z",
+        "2000-03-26T04:00:00Z",
+        "2000-03-27T04:00:00Z"
+      ]
+    },
+    {
+      "name": "hovd-clock-2001-04-26-1200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2001-04-26T04:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Mongolia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2001-04-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2001-05-08",
+        "checkpoints": [
+          "2001-04-26",
+          "2001-04-27",
+          "2001-04-28",
+          "2001-04-29",
+          "2001-04-30"
+        ]
+      },
+      "expected": [
+        "2001-04-26T04:00:00Z",
+        "2001-04-27T04:00:00Z",
+        "2001-04-28T04:00:00Z",
+        "2001-04-29T04:00:00Z",
+        "2001-04-30T04:00:00Z"
+      ]
+    },
+    {
+      "name": "hovd-clock-2006-09-28-1200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2006-09-28T04:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Mongolia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2006-09-28",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2006-10-10",
+        "checkpoints": [
+          "2006-09-28",
+          "2006-09-29",
+          "2006-09-30",
+          "2006-10-01",
+          "2006-10-02"
+        ]
+      },
+      "expected": [
+        "2006-09-28T04:00:00Z",
+        "2006-09-29T04:00:00Z",
+        "2006-09-30T05:00:00Z",
+        "2006-10-01T05:00:00Z",
+        "2006-10-02T05:00:00Z"
+      ]
+    },
+    {
+      "name": "hovd-clock-2007-03-22-1200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2007-03-22T05:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Mongolia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "W. Mongolia Standard Time",
+              "startDate": "2007-03-22",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2007-04-03",
+        "checkpoints": [
+          "2007-03-22",
+          "2007-03-23",
+          "2007-03-24",
+          "2007-03-25",
+          "2007-03-26"
+        ]
+      },
+      "expected": [
+        "2007-03-22T05:00:00Z",
+        "2007-03-23T05:00:00Z",
+        "2007-03-24T05:00:00Z",
+        "2007-03-25T05:00:00Z",
+        "2007-03-26T05:00:00Z"
+      ]
+    },
+    {
+      "name": "hovd-clock-2014-03-27-1200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-03-27T05:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Mongolia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "W. Mongolia Standard Time",
+              "startDate": "2014-03-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-04-08",
+        "checkpoints": [
+          "2014-03-27",
+          "2014-03-28",
+          "2014-03-29",
+          "2014-03-30",
+          "2014-03-31"
+        ]
+      },
+      "expected": [
+        "2014-03-27T05:00:00Z",
+        "2014-03-28T05:00:00Z",
+        "2014-03-29T05:00:00Z",
+        "2014-03-30T05:00:00Z",
+        "2014-03-31T05:00:00Z"
+      ]
+    },
+    {
+      "name": "hovd-monthly-holdout-1998-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1998-01-15T05:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Mongolia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 15,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "absoluteMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 37,
+              "recurrenceTimeZone": "",
+              "startDate": "1998-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2001-02-12",
+        "checkpoints": [
+          "1998-01-15",
+          "1998-02-15",
+          "1998-03-15",
+          "1998-04-15",
+          "1998-05-15",
+          "1998-06-15",
+          "1998-07-15",
+          "1998-08-15",
+          "1998-09-15",
+          "1998-10-15",
+          "1998-11-15",
+          "1998-12-15",
+          "1999-01-15",
+          "1999-02-15",
+          "1999-03-15",
+          "1999-04-15",
+          "1999-05-15",
+          "1999-06-15",
+          "1999-07-15",
+          "1999-08-15",
+          "1999-09-15",
+          "1999-10-15",
+          "1999-11-15",
+          "1999-12-15",
+          "2000-01-15",
+          "2000-02-15",
+          "2000-03-15",
+          "2000-04-15",
+          "2000-05-15",
+          "2000-06-15",
+          "2000-07-15",
+          "2000-08-15",
+          "2000-09-15",
+          "2000-10-15",
+          "2000-11-15",
+          "2000-12-15",
+          "2001-01-15"
+        ]
+      },
+      "expected": [
+        "1998-01-15T05:00:00Z",
+        "1998-02-15T05:00:00Z",
+        "1998-03-15T05:00:00Z",
+        "1998-04-15T04:00:00Z",
+        "1998-05-15T04:00:00Z",
+        "1998-06-15T04:00:00Z",
+        "1998-07-15T04:00:00Z",
+        "1998-08-15T04:00:00Z",
+        "1998-09-15T04:00:00Z",
+        "1998-10-15T05:00:00Z",
+        "1998-11-15T05:00:00Z",
+        "1998-12-15T05:00:00Z",
+        "1999-01-15T05:00:00Z",
+        "1999-02-15T05:00:00Z",
+        "1999-03-15T05:00:00Z",
+        "1999-04-15T04:00:00Z",
+        "1999-05-15T04:00:00Z",
+        "1999-06-15T04:00:00Z",
+        "1999-07-15T04:00:00Z",
+        "1999-08-15T04:00:00Z",
+        "1999-09-15T04:00:00Z",
+        "1999-10-15T05:00:00Z",
+        "1999-11-15T05:00:00Z",
+        "1999-12-15T05:00:00Z",
+        "2000-01-15T05:00:00Z",
+        "2000-02-15T05:00:00Z",
+        "2000-03-15T05:00:00Z",
+        "2000-04-15T04:00:00Z",
+        "2000-05-15T04:00:00Z",
+        "2000-06-15T04:00:00Z",
+        "2000-07-15T04:00:00Z",
+        "2000-08-15T04:00:00Z",
+        "2000-09-15T04:00:00Z",
+        "2000-10-15T05:00:00Z",
+        "2000-11-15T05:00:00Z",
+        "2000-12-15T05:00:00Z",
+        "2001-01-15T05:00:00Z"
+      ]
+    },
+    {
+      "name": "hovd-monthly-holdout-2005-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2005-01-15T05:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Mongolia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 15,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "absoluteMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 37,
+              "recurrenceTimeZone": "",
+              "startDate": "2005-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2008-02-13",
+        "checkpoints": [
+          "2005-01-15",
+          "2005-02-15",
+          "2005-03-15",
+          "2005-04-15",
+          "2005-05-15",
+          "2005-06-15",
+          "2005-07-15",
+          "2005-08-15",
+          "2005-09-15",
+          "2005-10-15",
+          "2005-11-15",
+          "2005-12-15",
+          "2006-01-15",
+          "2006-02-15",
+          "2006-03-15",
+          "2006-04-15",
+          "2006-05-15",
+          "2006-06-15",
+          "2006-07-15",
+          "2006-08-15",
+          "2006-09-15",
+          "2006-10-15",
+          "2006-11-15",
+          "2006-12-15",
+          "2007-01-15",
+          "2007-02-15",
+          "2007-03-15",
+          "2007-04-15",
+          "2007-05-15",
+          "2007-06-15",
+          "2007-07-15",
+          "2007-08-15",
+          "2007-09-15",
+          "2007-10-15",
+          "2007-11-15",
+          "2007-12-15",
+          "2008-01-15"
+        ]
+      },
+      "expected": [
+        "2005-01-15T05:00:00Z",
+        "2005-02-15T05:00:00Z",
+        "2005-03-15T05:00:00Z",
+        "2005-04-15T04:00:00Z",
+        "2005-05-15T04:00:00Z",
+        "2005-06-15T04:00:00Z",
+        "2005-07-15T04:00:00Z",
+        "2005-08-15T04:00:00Z",
+        "2005-09-15T04:00:00Z",
+        "2005-10-15T05:00:00Z",
+        "2005-11-15T05:00:00Z",
+        "2005-12-15T05:00:00Z",
+        "2006-01-15T05:00:00Z",
+        "2006-02-15T05:00:00Z",
+        "2006-03-15T05:00:00Z",
+        "2006-04-15T04:00:00Z",
+        "2006-05-15T04:00:00Z",
+        "2006-06-15T04:00:00Z",
+        "2006-07-15T04:00:00Z",
+        "2006-08-15T04:00:00Z",
+        "2006-09-15T04:00:00Z",
+        "2006-10-15T05:00:00Z",
+        "2006-11-15T05:00:00Z",
+        "2006-12-15T05:00:00Z",
+        "2007-01-15T05:00:00Z",
+        "2007-02-15T05:00:00Z",
+        "2007-03-15T05:00:00Z",
+        "2007-04-15T05:00:00Z",
+        "2007-05-15T05:00:00Z",
+        "2007-06-15T05:00:00Z",
+        "2007-07-15T05:00:00Z",
+        "2007-08-15T05:00:00Z",
+        "2007-09-15T05:00:00Z",
+        "2007-10-15T05:00:00Z",
+        "2007-11-15T05:00:00Z",
+        "2007-12-15T05:00:00Z",
+        "2008-01-15T05:00:00Z"
+      ]
+    },
+    {
+      "name": "baku-windows-history-1899-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-15T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Azerbaijan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T08:00:00Z",
+        "1899-01-16T08:00:00Z",
+        "1899-01-17T08:00:00Z",
+        "1899-01-18T08:00:00Z",
+        "1899-01-19T08:00:00Z"
+      ]
+    },
+    {
+      "name": "baku-windows-history-1995-03-24",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1995-03-24T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Azerbaijan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1995-03-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1995-04-05",
+        "checkpoints": [
+          "1995-03-24",
+          "1995-03-25",
+          "1995-03-26",
+          "1995-03-27",
+          "1995-03-28"
+        ]
+      },
+      "expected": [
+        "1995-03-24T08:00:00Z",
+        "1995-03-25T08:00:00Z",
+        "1995-03-26T07:00:00Z",
+        "1995-03-27T07:00:00Z",
+        "1995-03-28T07:00:00Z"
+      ]
+    },
+    {
+      "name": "baku-windows-history-2004-03-26",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2004-03-26T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Azerbaijan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2004-03-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2004-04-07",
+        "checkpoints": [
+          "2004-03-26",
+          "2004-03-27",
+          "2004-03-28",
+          "2004-03-29",
+          "2004-03-30"
+        ]
+      },
+      "expected": [
+        "2004-03-26T08:00:00Z",
+        "2004-03-27T08:00:00Z",
+        "2004-03-28T07:00:00Z",
+        "2004-03-29T07:00:00Z",
+        "2004-03-30T07:00:00Z"
+      ]
+    },
+    {
+      "name": "baku-windows-history-2015-03-27",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2015-03-27T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Azerbaijan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2015-03-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2015-04-08",
+        "checkpoints": [
+          "2015-03-27",
+          "2015-03-28",
+          "2015-03-29",
+          "2015-03-30",
+          "2015-03-31"
+        ]
+      },
+      "expected": [
+        "2015-03-27T08:00:00Z",
+        "2015-03-28T08:00:00Z",
+        "2015-03-29T07:00:00Z",
+        "2015-03-30T07:00:00Z",
+        "2015-03-31T07:00:00Z"
+      ]
+    },
+    {
+      "name": "baku-windows-history-2015-10-23",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2015-10-23T07:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Azerbaijan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2015-10-23",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2015-11-04",
+        "checkpoints": [
+          "2015-10-23",
+          "2015-10-24",
+          "2015-10-25",
+          "2015-10-26",
+          "2015-10-27"
+        ]
+      },
+      "expected": [
+        "2015-10-23T07:00:00Z",
+        "2015-10-24T07:00:00Z",
+        "2015-10-25T08:00:00Z",
+        "2015-10-26T08:00:00Z",
+        "2015-10-27T08:00:00Z"
+      ]
+    },
+    {
+      "name": "baku-windows-history-2016-03-25",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2016-03-25T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Azerbaijan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Azerbaijan Standard Time",
+              "startDate": "2016-03-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2016-04-06",
+        "checkpoints": [
+          "2016-03-25",
+          "2016-03-26",
+          "2016-03-27",
+          "2016-03-28",
+          "2016-03-29"
+        ]
+      },
+      "expected": [
+        "2016-03-25T08:00:00Z",
+        "2016-03-26T08:00:00Z",
+        "2016-03-27T08:00:00Z",
+        "2016-03-28T08:00:00Z",
+        "2016-03-29T08:00:00Z"
+      ]
+    },
+    {
+      "name": "baku-windows-history-2075-07-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-07-15T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Azerbaijan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Azerbaijan Standard Time",
+              "startDate": "2075-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-07-27",
+        "checkpoints": [
+          "2075-07-15",
+          "2075-07-16",
+          "2075-07-17",
+          "2075-07-18",
+          "2075-07-19"
+        ]
+      },
+      "expected": [
+        "2075-07-15T08:00:00Z",
+        "2075-07-16T08:00:00Z",
+        "2075-07-17T08:00:00Z",
+        "2075-07-18T08:00:00Z",
+        "2075-07-19T08:00:00Z"
+      ]
+    },
+    {
+      "name": "yerevan-windows-history-1899-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-15T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Caucasus Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T08:00:00Z",
+        "1899-01-16T08:00:00Z",
+        "1899-01-17T08:00:00Z",
+        "1899-01-18T08:00:00Z",
+        "1899-01-19T08:00:00Z"
+      ]
+    },
+    {
+      "name": "yerevan-windows-history-1995-03-24",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1995-03-24T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Caucasus Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1995-03-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1995-04-05",
+        "checkpoints": [
+          "1995-03-24",
+          "1995-03-25",
+          "1995-03-26",
+          "1995-03-27",
+          "1995-03-28"
+        ]
+      },
+      "expected": [
+        "1995-03-24T08:00:00Z",
+        "1995-03-25T08:00:00Z",
+        "1995-03-26T07:00:00Z",
+        "1995-03-27T07:00:00Z",
+        "1995-03-28T07:00:00Z"
+      ]
+    },
+    {
+      "name": "yerevan-windows-history-2004-03-26",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2004-03-26T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Caucasus Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2004-03-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2004-04-07",
+        "checkpoints": [
+          "2004-03-26",
+          "2004-03-27",
+          "2004-03-28",
+          "2004-03-29",
+          "2004-03-30"
+        ]
+      },
+      "expected": [
+        "2004-03-26T08:00:00Z",
+        "2004-03-27T08:00:00Z",
+        "2004-03-28T07:00:00Z",
+        "2004-03-29T07:00:00Z",
+        "2004-03-30T07:00:00Z"
+      ]
+    },
+    {
+      "name": "yerevan-windows-history-2011-10-28",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-10-28T07:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Caucasus Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-10-28",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2011-11-09",
+        "checkpoints": [
+          "2011-10-28",
+          "2011-10-29",
+          "2011-10-30",
+          "2011-10-31",
+          "2011-11-01"
+        ]
+      },
+      "expected": [
+        "2011-10-28T07:00:00Z",
+        "2011-10-29T07:00:00Z",
+        "2011-10-30T08:00:00Z",
+        "2011-10-31T08:00:00Z",
+        "2011-11-01T08:00:00Z"
+      ]
+    },
+    {
+      "name": "yerevan-windows-history-2012-03-23",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2012-03-23T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Caucasus Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Caucasus Standard Time",
+              "startDate": "2012-03-23",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2012-04-04",
+        "checkpoints": [
+          "2012-03-23",
+          "2012-03-24",
+          "2012-03-25",
+          "2012-03-26",
+          "2012-03-27"
+        ]
+      },
+      "expected": [
+        "2012-03-23T08:00:00Z",
+        "2012-03-24T08:00:00Z",
+        "2012-03-25T08:00:00Z",
+        "2012-03-26T08:00:00Z",
+        "2012-03-27T08:00:00Z"
+      ]
+    },
+    {
+      "name": "yerevan-windows-history-2075-07-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-07-15T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Caucasus Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Caucasus Standard Time",
+              "startDate": "2075-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-07-27",
+        "checkpoints": [
+          "2075-07-15",
+          "2075-07-16",
+          "2075-07-17",
+          "2075-07-18",
+          "2075-07-19"
+        ]
+      },
+      "expected": [
+        "2075-07-15T08:00:00Z",
+        "2075-07-16T08:00:00Z",
+        "2075-07-17T08:00:00Z",
+        "2075-07-18T08:00:00Z",
+        "2075-07-19T08:00:00Z"
+      ]
+    },
+    {
+      "name": "tbilisi-windows-history-1899-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-15T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Georgian Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Georgian Standard Time",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T08:00:00Z",
+        "1899-01-16T08:00:00Z",
+        "1899-01-17T08:00:00Z",
+        "1899-01-18T08:00:00Z",
+        "1899-01-19T08:00:00Z"
+      ]
+    },
+    {
+      "name": "tbilisi-windows-history-1995-03-24",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1995-03-24T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Georgian Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Georgian Standard Time",
+              "startDate": "1995-03-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1995-04-05",
+        "checkpoints": [
+          "1995-03-24",
+          "1995-03-25",
+          "1995-03-26",
+          "1995-03-27",
+          "1995-03-28"
+        ]
+      },
+      "expected": [
+        "1995-03-24T08:00:00Z",
+        "1995-03-25T08:00:00Z",
+        "1995-03-26T08:00:00Z",
+        "1995-03-27T08:00:00Z",
+        "1995-03-28T08:00:00Z"
+      ]
+    },
+    {
+      "name": "tbilisi-windows-history-2004-03-26",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2004-03-26T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Georgian Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Georgian Standard Time",
+              "startDate": "2004-03-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2004-04-07",
+        "checkpoints": [
+          "2004-03-26",
+          "2004-03-27",
+          "2004-03-28",
+          "2004-03-29",
+          "2004-03-30"
+        ]
+      },
+      "expected": [
+        "2004-03-26T08:00:00Z",
+        "2004-03-27T08:00:00Z",
+        "2004-03-28T08:00:00Z",
+        "2004-03-29T08:00:00Z",
+        "2004-03-30T08:00:00Z"
+      ]
+    },
+    {
+      "name": "tbilisi-windows-history-2004-06-25",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2004-06-25T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Georgian Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Georgian Standard Time",
+              "startDate": "2004-06-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2004-07-07",
+        "checkpoints": [
+          "2004-06-25",
+          "2004-06-26",
+          "2004-06-27",
+          "2004-06-28",
+          "2004-06-29"
+        ]
+      },
+      "expected": [
+        "2004-06-25T08:00:00Z",
+        "2004-06-26T08:00:00Z",
+        "2004-06-27T08:00:00Z",
+        "2004-06-28T08:00:00Z",
+        "2004-06-29T08:00:00Z"
+      ]
+    },
+    {
+      "name": "tbilisi-windows-history-2004-10-29",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2004-10-29T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Georgian Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Georgian Standard Time",
+              "startDate": "2004-10-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2004-11-10",
+        "checkpoints": [
+          "2004-10-29",
+          "2004-10-30",
+          "2004-10-31",
+          "2004-11-01",
+          "2004-11-02"
+        ]
+      },
+      "expected": [
+        "2004-10-29T08:00:00Z",
+        "2004-10-30T08:00:00Z",
+        "2004-10-31T08:00:00Z",
+        "2004-11-01T08:00:00Z",
+        "2004-11-02T08:00:00Z"
+      ]
+    },
+    {
+      "name": "tbilisi-windows-history-2005-03-25",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2005-03-25T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Georgian Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Georgian Standard Time",
+              "startDate": "2005-03-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2005-04-06",
+        "checkpoints": [
+          "2005-03-25",
+          "2005-03-26",
+          "2005-03-27",
+          "2005-03-28",
+          "2005-03-29"
+        ]
+      },
+      "expected": [
+        "2005-03-25T08:00:00Z",
+        "2005-03-26T08:00:00Z",
+        "2005-03-27T08:00:00Z",
+        "2005-03-28T08:00:00Z",
+        "2005-03-29T08:00:00Z"
+      ]
+    },
+    {
+      "name": "tbilisi-windows-history-2075-07-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-07-15T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Georgian Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Georgian Standard Time",
+              "startDate": "2075-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-07-27",
+        "checkpoints": [
+          "2075-07-15",
+          "2075-07-16",
+          "2075-07-17",
+          "2075-07-18",
+          "2075-07-19"
+        ]
+      },
+      "expected": [
+        "2075-07-15T08:00:00Z",
+        "2075-07-16T08:00:00Z",
+        "2075-07-17T08:00:00Z",
+        "2075-07-18T08:00:00Z",
+        "2075-07-19T08:00:00Z"
+      ]
+    },
+    {
+      "name": "astrakhan-windows-history-1899-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-15T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Astrakhan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T09:00:00Z",
+        "1899-01-16T09:00:00Z",
+        "1899-01-17T09:00:00Z",
+        "1899-01-18T09:00:00Z",
+        "1899-01-19T09:00:00Z"
+      ]
+    },
+    {
+      "name": "astrakhan-windows-history-2003-03-28",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2003-03-28T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Astrakhan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2003-03-28",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2003-04-09",
+        "checkpoints": [
+          "2003-03-28",
+          "2003-03-29",
+          "2003-03-30",
+          "2003-03-31",
+          "2003-04-01"
+        ]
+      },
+      "expected": [
+        "2003-03-28T09:00:00Z",
+        "2003-03-29T09:00:00Z",
+        "2003-03-30T08:00:00Z",
+        "2003-03-31T08:00:00Z",
+        "2003-04-01T08:00:00Z"
+      ]
+    },
+    {
+      "name": "astrakhan-windows-history-2014-10-24",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-10-24T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Astrakhan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-10-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-11-05",
+        "checkpoints": [
+          "2014-10-24",
+          "2014-10-25",
+          "2014-10-26",
+          "2014-10-27",
+          "2014-10-28"
+        ]
+      },
+      "expected": [
+        "2014-10-24T08:00:00Z",
+        "2014-10-25T08:00:00Z",
+        "2014-10-26T09:00:00Z",
+        "2014-10-27T09:00:00Z",
+        "2014-10-28T09:00:00Z"
+      ]
+    },
+    {
+      "name": "astrakhan-windows-history-2016-03-25",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2016-03-25T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Astrakhan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2016-03-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2016-04-06",
+        "checkpoints": [
+          "2016-03-25",
+          "2016-03-26",
+          "2016-03-27",
+          "2016-03-28",
+          "2016-03-29"
+        ]
+      },
+      "expected": [
+        "2016-03-25T09:00:00Z",
+        "2016-03-26T09:00:00Z",
+        "2016-03-27T08:00:00Z",
+        "2016-03-28T08:00:00Z",
+        "2016-03-29T08:00:00Z"
+      ]
+    },
+    {
+      "name": "astrakhan-windows-history-2075-07-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-07-15T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Astrakhan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Astrakhan Standard Time",
+              "startDate": "2075-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-07-27",
+        "checkpoints": [
+          "2075-07-15",
+          "2075-07-16",
+          "2075-07-17",
+          "2075-07-18",
+          "2075-07-19"
+        ]
+      },
+      "expected": [
+        "2075-07-15T08:00:00Z",
+        "2075-07-16T08:00:00Z",
+        "2075-07-17T08:00:00Z",
+        "2075-07-18T08:00:00Z",
+        "2075-07-19T08:00:00Z"
+      ]
+    },
+    {
+      "name": "saratov-windows-history-1899-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-15T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Saratov Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T09:00:00Z",
+        "1899-01-16T09:00:00Z",
+        "1899-01-17T09:00:00Z",
+        "1899-01-18T09:00:00Z",
+        "1899-01-19T09:00:00Z"
+      ]
+    },
+    {
+      "name": "saratov-windows-history-2003-03-28",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2003-03-28T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Saratov Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2003-03-28",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2003-04-09",
+        "checkpoints": [
+          "2003-03-28",
+          "2003-03-29",
+          "2003-03-30",
+          "2003-03-31",
+          "2003-04-01"
+        ]
+      },
+      "expected": [
+        "2003-03-28T09:00:00Z",
+        "2003-03-29T09:00:00Z",
+        "2003-03-30T08:00:00Z",
+        "2003-03-31T08:00:00Z",
+        "2003-04-01T08:00:00Z"
+      ]
+    },
+    {
+      "name": "saratov-windows-history-2014-10-24",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-10-24T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Saratov Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-10-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-11-05",
+        "checkpoints": [
+          "2014-10-24",
+          "2014-10-25",
+          "2014-10-26",
+          "2014-10-27",
+          "2014-10-28"
+        ]
+      },
+      "expected": [
+        "2014-10-24T08:00:00Z",
+        "2014-10-25T08:00:00Z",
+        "2014-10-26T09:00:00Z",
+        "2014-10-27T09:00:00Z",
+        "2014-10-28T09:00:00Z"
+      ]
+    },
+    {
+      "name": "saratov-windows-history-2016-12-02",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2016-12-02T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Saratov Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2016-12-02",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2016-12-14",
+        "checkpoints": [
+          "2016-12-02",
+          "2016-12-03",
+          "2016-12-04",
+          "2016-12-05",
+          "2016-12-06"
+        ]
+      },
+      "expected": [
+        "2016-12-02T09:00:00Z",
+        "2016-12-03T09:00:00Z",
+        "2016-12-04T08:00:00Z",
+        "2016-12-05T08:00:00Z",
+        "2016-12-06T08:00:00Z"
+      ]
+    },
+    {
+      "name": "saratov-windows-history-2075-07-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-07-15T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Saratov Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Saratov Standard Time",
+              "startDate": "2075-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-07-27",
+        "checkpoints": [
+          "2075-07-15",
+          "2075-07-16",
+          "2075-07-17",
+          "2075-07-18",
+          "2075-07-19"
+        ]
+      },
+      "expected": [
+        "2075-07-15T08:00:00Z",
+        "2075-07-16T08:00:00Z",
+        "2075-07-17T08:00:00Z",
+        "2075-07-18T08:00:00Z",
+        "2075-07-19T08:00:00Z"
+      ]
+    },
+    {
+      "name": "samara-windows-history-1899-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-15T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russia Time Zone 3",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T08:00:00Z",
+        "1899-01-16T08:00:00Z",
+        "1899-01-17T08:00:00Z",
+        "1899-01-18T08:00:00Z",
+        "1899-01-19T08:00:00Z"
+      ]
+    },
+    {
+      "name": "samara-windows-history-2003-03-28",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2003-03-28T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russia Time Zone 3",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2003-03-28",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2003-04-09",
+        "checkpoints": [
+          "2003-03-28",
+          "2003-03-29",
+          "2003-03-30",
+          "2003-03-31",
+          "2003-04-01"
+        ]
+      },
+      "expected": [
+        "2003-03-28T08:00:00Z",
+        "2003-03-29T08:00:00Z",
+        "2003-03-30T07:00:00Z",
+        "2003-03-31T07:00:00Z",
+        "2003-04-01T07:00:00Z"
+      ]
+    },
+    {
+      "name": "samara-windows-history-2010-03-26",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2010-03-26T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russia Time Zone 3",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2010-03-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2010-04-07",
+        "checkpoints": [
+          "2010-03-26",
+          "2010-03-27",
+          "2010-03-28",
+          "2010-03-29",
+          "2010-03-30"
+        ]
+      },
+      "expected": [
+        "2010-03-26T08:00:00Z",
+        "2010-03-27T08:00:00Z",
+        "2010-03-28T08:00:00Z",
+        "2010-03-29T08:00:00Z",
+        "2010-03-30T08:00:00Z"
+      ]
+    },
+    {
+      "name": "samara-windows-history-2010-10-29",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2010-10-29T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russia Time Zone 3",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2010-10-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2010-11-10",
+        "checkpoints": [
+          "2010-10-29",
+          "2010-10-30",
+          "2010-10-31",
+          "2010-11-01",
+          "2010-11-02"
+        ]
+      },
+      "expected": [
+        "2010-10-29T08:00:00Z",
+        "2010-10-30T08:00:00Z",
+        "2010-10-31T09:00:00Z",
+        "2010-11-01T09:00:00Z",
+        "2010-11-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "samara-windows-history-2011-03-25",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-03-25T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russia Time Zone 3",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-03-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2011-04-06",
+        "checkpoints": [
+          "2011-03-25",
+          "2011-03-26",
+          "2011-03-27",
+          "2011-03-28",
+          "2011-03-29"
+        ]
+      },
+      "expected": [
+        "2011-03-25T09:00:00Z",
+        "2011-03-26T09:00:00Z",
+        "2011-03-27T08:00:00Z",
+        "2011-03-28T08:00:00Z",
+        "2011-03-29T08:00:00Z"
+      ]
+    },
+    {
+      "name": "samara-windows-history-2075-07-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-07-15T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russia Time Zone 3",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Russia Time Zone 3",
+              "startDate": "2075-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-07-27",
+        "checkpoints": [
+          "2075-07-15",
+          "2075-07-16",
+          "2075-07-17",
+          "2075-07-18",
+          "2075-07-19"
+        ]
+      },
+      "expected": [
+        "2075-07-15T08:00:00Z",
+        "2075-07-16T08:00:00Z",
+        "2075-07-17T08:00:00Z",
+        "2075-07-18T08:00:00Z",
+        "2075-07-19T08:00:00Z"
+      ]
+    },
+    {
+      "name": "srednekolymsk-windows-history-1899-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-15T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russia Time Zone 10",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T01:00:00Z",
+        "1899-01-16T01:00:00Z",
+        "1899-01-17T01:00:00Z",
+        "1899-01-18T01:00:00Z",
+        "1899-01-19T01:00:00Z"
+      ]
+    },
+    {
+      "name": "srednekolymsk-windows-history-2003-03-28",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2003-03-28T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russia Time Zone 10",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2003-03-28",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2003-04-09",
+        "checkpoints": [
+          "2003-03-28",
+          "2003-03-29",
+          "2003-03-30",
+          "2003-03-31",
+          "2003-04-01"
+        ]
+      },
+      "expected": [
+        "2003-03-28T01:00:00Z",
+        "2003-03-29T01:00:00Z",
+        "2003-03-30T00:00:00Z",
+        "2003-03-31T00:00:00Z",
+        "2003-04-01T00:00:00Z"
+      ]
+    },
+    {
+      "name": "srednekolymsk-windows-history-2014-10-24",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-10-24T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russia Time Zone 10",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-10-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-11-05",
+        "checkpoints": [
+          "2014-10-24",
+          "2014-10-25",
+          "2014-10-26",
+          "2014-10-27",
+          "2014-10-28"
+        ]
+      },
+      "expected": [
+        "2014-10-24T00:00:00Z",
+        "2014-10-25T00:00:00Z",
+        "2014-10-26T01:00:00Z",
+        "2014-10-27T01:00:00Z",
+        "2014-10-28T01:00:00Z"
+      ]
+    },
+    {
+      "name": "srednekolymsk-windows-history-2075-07-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-07-15T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russia Time Zone 10",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Russia Time Zone 10",
+              "startDate": "2075-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-07-27",
+        "checkpoints": [
+          "2075-07-15",
+          "2075-07-16",
+          "2075-07-17",
+          "2075-07-18",
+          "2075-07-19"
+        ]
+      },
+      "expected": [
+        "2075-07-15T01:00:00Z",
+        "2075-07-16T01:00:00Z",
+        "2075-07-17T01:00:00Z",
+        "2075-07-18T01:00:00Z",
+        "2075-07-19T01:00:00Z"
+      ]
+    },
+    {
+      "name": "kamchatka-windows-history-1899-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-15T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russia Time Zone 11",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T00:00:00Z",
+        "1899-01-16T00:00:00Z",
+        "1899-01-17T00:00:00Z",
+        "1899-01-18T00:00:00Z",
+        "1899-01-19T00:00:00Z"
+      ]
+    },
+    {
+      "name": "kamchatka-windows-history-2003-03-28",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2003-03-28T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russia Time Zone 11",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2003-03-28",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2003-04-09",
+        "checkpoints": [
+          "2003-03-28",
+          "2003-03-29",
+          "2003-03-30",
+          "2003-03-31"
+        ]
+      },
+      "expected": [
+        "2003-03-28T00:00:00Z",
+        "2003-03-29T00:00:00Z",
+        "2003-03-29T23:00:00Z",
+        "2003-03-30T23:00:00Z",
+        "2003-03-31T23:00:00Z"
+      ]
+    },
+    {
+      "name": "kamchatka-windows-history-2010-03-26",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2010-03-26T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russia Time Zone 11",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2010-03-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2010-04-07",
+        "checkpoints": [
+          "2010-03-26",
+          "2010-03-27",
+          "2010-03-28",
+          "2010-03-29",
+          "2010-03-30"
+        ]
+      },
+      "expected": [
+        "2010-03-26T00:00:00Z",
+        "2010-03-27T00:00:00Z",
+        "2010-03-28T00:00:00Z",
+        "2010-03-29T00:00:00Z",
+        "2010-03-30T00:00:00Z"
+      ]
+    },
+    {
+      "name": "kamchatka-windows-history-2010-10-29",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2010-10-29T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russia Time Zone 11",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2010-10-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2010-11-10",
+        "checkpoints": [
+          "2010-10-29",
+          "2010-10-30",
+          "2010-10-31",
+          "2010-11-01",
+          "2010-11-02"
+        ]
+      },
+      "expected": [
+        "2010-10-29T00:00:00Z",
+        "2010-10-30T00:00:00Z",
+        "2010-10-31T01:00:00Z",
+        "2010-11-01T01:00:00Z",
+        "2010-11-02T01:00:00Z"
+      ]
+    },
+    {
+      "name": "kamchatka-windows-history-2011-03-25",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-03-25T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russia Time Zone 11",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-03-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2011-04-06",
+        "checkpoints": [
+          "2011-03-25",
+          "2011-03-26",
+          "2011-03-27",
+          "2011-03-28",
+          "2011-03-29"
+        ]
+      },
+      "expected": [
+        "2011-03-25T01:00:00Z",
+        "2011-03-26T01:00:00Z",
+        "2011-03-27T00:00:00Z",
+        "2011-03-28T00:00:00Z",
+        "2011-03-29T00:00:00Z"
+      ]
+    },
+    {
+      "name": "kamchatka-windows-history-2075-07-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-07-15T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russia Time Zone 11",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Russia Time Zone 11",
+              "startDate": "2075-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-07-27",
+        "checkpoints": [
+          "2075-07-15",
+          "2075-07-16",
+          "2075-07-17",
+          "2075-07-18",
+          "2075-07-19"
+        ]
+      },
+      "expected": [
+        "2075-07-15T00:00:00Z",
+        "2075-07-16T00:00:00Z",
+        "2075-07-17T00:00:00Z",
+        "2075-07-18T00:00:00Z",
+        "2075-07-19T00:00:00Z"
+      ]
+    },
+    {
+      "name": "chita-windows-history-1899-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-15T03:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Transbaikal Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T03:00:00Z",
+        "1899-01-16T03:00:00Z",
+        "1899-01-17T03:00:00Z",
+        "1899-01-18T03:00:00Z",
+        "1899-01-19T03:00:00Z"
+      ]
+    },
+    {
+      "name": "chita-windows-history-2003-03-28",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2003-03-28T03:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Transbaikal Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2003-03-28",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2003-04-09",
+        "checkpoints": [
+          "2003-03-28",
+          "2003-03-29",
+          "2003-03-30",
+          "2003-03-31",
+          "2003-04-01"
+        ]
+      },
+      "expected": [
+        "2003-03-28T03:00:00Z",
+        "2003-03-29T03:00:00Z",
+        "2003-03-30T02:00:00Z",
+        "2003-03-31T02:00:00Z",
+        "2003-04-01T02:00:00Z"
+      ]
+    },
+    {
+      "name": "chita-windows-history-2014-10-24",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-10-24T02:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Transbaikal Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-10-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-11-05",
+        "checkpoints": [
+          "2014-10-24",
+          "2014-10-25",
+          "2014-10-26",
+          "2014-10-27",
+          "2014-10-28"
+        ]
+      },
+      "expected": [
+        "2014-10-24T02:00:00Z",
+        "2014-10-25T02:00:00Z",
+        "2014-10-26T04:00:00Z",
+        "2014-10-27T04:00:00Z",
+        "2014-10-28T04:00:00Z"
+      ]
+    },
+    {
+      "name": "chita-windows-history-2016-03-25",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2016-03-25T04:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Transbaikal Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2016-03-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2016-04-06",
+        "checkpoints": [
+          "2016-03-25",
+          "2016-03-26",
+          "2016-03-27",
+          "2016-03-28",
+          "2016-03-29"
+        ]
+      },
+      "expected": [
+        "2016-03-25T04:00:00Z",
+        "2016-03-26T04:00:00Z",
+        "2016-03-27T03:00:00Z",
+        "2016-03-28T03:00:00Z",
+        "2016-03-29T03:00:00Z"
+      ]
+    },
+    {
+      "name": "chita-windows-history-2075-07-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-07-15T03:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Transbaikal Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Transbaikal Standard Time",
+              "startDate": "2075-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-07-27",
+        "checkpoints": [
+          "2075-07-15",
+          "2075-07-16",
+          "2075-07-17",
+          "2075-07-18",
+          "2075-07-19"
+        ]
+      },
+      "expected": [
+        "2075-07-15T03:00:00Z",
+        "2075-07-16T03:00:00Z",
+        "2075-07-17T03:00:00Z",
+        "2075-07-18T03:00:00Z",
+        "2075-07-19T03:00:00Z"
+      ]
+    },
+    {
+      "name": "sakhalin-windows-history-1899-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-15T02:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Sakhalin Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T02:00:00Z",
+        "1899-01-16T02:00:00Z",
+        "1899-01-17T02:00:00Z",
+        "1899-01-18T02:00:00Z",
+        "1899-01-19T02:00:00Z"
+      ]
+    },
+    {
+      "name": "sakhalin-windows-history-2003-03-28",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2003-03-28T02:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Sakhalin Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2003-03-28",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2003-04-09",
+        "checkpoints": [
+          "2003-03-28",
+          "2003-03-29",
+          "2003-03-30",
+          "2003-03-31",
+          "2003-04-01"
+        ]
+      },
+      "expected": [
+        "2003-03-28T02:00:00Z",
+        "2003-03-29T02:00:00Z",
+        "2003-03-30T01:00:00Z",
+        "2003-03-31T01:00:00Z",
+        "2003-04-01T01:00:00Z"
+      ]
+    },
+    {
+      "name": "sakhalin-windows-history-2014-10-24",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-10-24T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Sakhalin Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-10-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-11-05",
+        "checkpoints": [
+          "2014-10-24",
+          "2014-10-25",
+          "2014-10-26",
+          "2014-10-27",
+          "2014-10-28"
+        ]
+      },
+      "expected": [
+        "2014-10-24T01:00:00Z",
+        "2014-10-25T01:00:00Z",
+        "2014-10-26T02:00:00Z",
+        "2014-10-27T02:00:00Z",
+        "2014-10-28T02:00:00Z"
+      ]
+    },
+    {
+      "name": "sakhalin-windows-history-2016-03-25",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2016-03-25T02:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Sakhalin Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2016-03-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2016-04-06",
+        "checkpoints": [
+          "2016-03-25",
+          "2016-03-26",
+          "2016-03-27",
+          "2016-03-28",
+          "2016-03-29"
+        ]
+      },
+      "expected": [
+        "2016-03-25T02:00:00Z",
+        "2016-03-26T02:00:00Z",
+        "2016-03-27T01:00:00Z",
+        "2016-03-28T01:00:00Z",
+        "2016-03-29T01:00:00Z"
+      ]
+    },
+    {
+      "name": "sakhalin-windows-history-2075-07-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-07-15T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Sakhalin Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Sakhalin Standard Time",
+              "startDate": "2075-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-07-27",
+        "checkpoints": [
+          "2075-07-15",
+          "2075-07-16",
+          "2075-07-17",
+          "2075-07-18",
+          "2075-07-19"
+        ]
+      },
+      "expected": [
+        "2075-07-15T01:00:00Z",
+        "2075-07-16T01:00:00Z",
+        "2075-07-17T01:00:00Z",
+        "2075-07-18T01:00:00Z",
+        "2075-07-19T01:00:00Z"
+      ]
+    },
+    {
+      "name": "hovd-windows-history-1899-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-15T05:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Mongolia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T05:00:00Z",
+        "1899-01-16T05:00:00Z",
+        "1899-01-17T05:00:00Z",
+        "1899-01-18T05:00:00Z",
+        "1899-01-19T05:00:00Z"
+      ]
+    },
+    {
+      "name": "hovd-windows-history-2004-03-25",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2004-03-25T05:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Mongolia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2004-03-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2004-04-06",
+        "checkpoints": [
+          "2004-03-25",
+          "2004-03-26",
+          "2004-03-27",
+          "2004-03-28",
+          "2004-03-29"
+        ]
+      },
+      "expected": [
+        "2004-03-25T05:00:00Z",
+        "2004-03-26T05:00:00Z",
+        "2004-03-27T04:00:00Z",
+        "2004-03-28T04:00:00Z",
+        "2004-03-29T04:00:00Z"
+      ]
+    },
+    {
+      "name": "hovd-windows-history-2015-03-26",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2015-03-26T05:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Mongolia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2015-03-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2015-04-07",
+        "checkpoints": [
+          "2015-03-26",
+          "2015-03-27",
+          "2015-03-28",
+          "2015-03-29",
+          "2015-03-30"
+        ]
+      },
+      "expected": [
+        "2015-03-26T05:00:00Z",
+        "2015-03-27T05:00:00Z",
+        "2015-03-28T04:00:00Z",
+        "2015-03-29T04:00:00Z",
+        "2015-03-30T04:00:00Z"
+      ]
+    },
+    {
+      "name": "hovd-windows-history-2016-09-22",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2016-09-22T04:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Mongolia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2016-09-22",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2016-10-04",
+        "checkpoints": [
+          "2016-09-22",
+          "2016-09-23",
+          "2016-09-24",
+          "2016-09-25",
+          "2016-09-26"
+        ]
+      },
+      "expected": [
+        "2016-09-22T04:00:00Z",
+        "2016-09-23T04:00:00Z",
+        "2016-09-24T05:00:00Z",
+        "2016-09-25T05:00:00Z",
+        "2016-09-26T05:00:00Z"
+      ]
+    },
+    {
+      "name": "hovd-windows-history-2075-07-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-07-15T05:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Mongolia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "W. Mongolia Standard Time",
+              "startDate": "2075-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-07-27",
+        "checkpoints": [
+          "2075-07-15",
+          "2075-07-16",
+          "2075-07-17",
+          "2075-07-18",
+          "2075-07-19"
+        ]
+      },
+      "expected": [
+        "2075-07-15T05:00:00Z",
+        "2075-07-16T05:00:00Z",
+        "2075-07-17T05:00:00Z",
+        "2075-07-18T05:00:00Z",
+        "2075-07-19T05:00:00Z"
+      ]
+    },
+    {
+      "name": "rfc-baku-retains-iana-offset-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Asia/Baku:19960329T053000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1996-04-02",
+        "checkpoints": [
+          "1996-03-29",
+          "1996-03-30",
+          "1996-03-31",
+          "1996-04-01",
+          "1996-04-02"
+        ]
+      },
+      "expected": [
+        "1996-03-29T01:30:00Z",
+        "1996-03-30T01:30:00Z",
+        "1996-03-31T01:30:00Z",
+        "1996-04-01T00:30:00Z",
+        "1996-04-02T00:30:00Z"
+      ]
+    },
+    {
+      "name": "rfc-yerevan-retains-iana-offset-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Asia/Yerevan:19960329T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1996-04-02",
+        "checkpoints": [
+          "1996-03-29",
+          "1996-03-30",
+          "1996-03-31",
+          "1996-04-01",
+          "1996-04-02"
+        ]
+      },
+      "expected": [
+        "1996-03-29T08:00:00Z",
+        "1996-03-30T08:00:00Z",
+        "1996-03-31T08:00:00Z",
+        "1996-04-01T08:00:00Z",
+        "1996-04-02T08:00:00Z"
+      ]
+    },
+    {
+      "name": "rfc-tbilisi-retains-iana-offset-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Asia/Tbilisi:20040625T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "2004-06-29",
+        "checkpoints": [
+          "2004-06-25",
+          "2004-06-26",
+          "2004-06-27",
+          "2004-06-28",
+          "2004-06-29"
+        ]
+      },
+      "expected": [
+        "2004-06-25T07:00:00Z",
+        "2004-06-26T07:00:00Z",
+        "2004-06-27T08:00:00Z",
+        "2004-06-28T08:00:00Z",
+        "2004-06-29T08:00:00Z"
+      ]
+    },
+    {
+      "name": "rfc-astrakhan-retains-iana-offset-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Europe/Astrakhan:18990115T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1899-01-19",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T08:47:48Z",
+        "1899-01-16T08:47:48Z",
+        "1899-01-17T08:47:48Z",
+        "1899-01-18T08:47:48Z",
+        "1899-01-19T08:47:48Z"
+      ]
+    },
+    {
+      "name": "rfc-saratov-retains-iana-offset-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Europe/Saratov:18990115T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1899-01-19",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T08:55:42Z",
+        "1899-01-16T08:55:42Z",
+        "1899-01-17T08:55:42Z",
+        "1899-01-18T08:55:42Z",
+        "1899-01-19T08:55:42Z"
+      ]
+    },
+    {
+      "name": "rfc-samara-retains-iana-offset-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Europe/Samara:18990115T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1899-01-19",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T08:39:40Z",
+        "1899-01-16T08:39:40Z",
+        "1899-01-17T08:39:40Z",
+        "1899-01-18T08:39:40Z",
+        "1899-01-19T08:39:40Z"
+      ]
+    },
+    {
+      "name": "rfc-srednekolymsk-retains-iana-offset-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Asia/Srednekolymsk:18990115T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1899-01-19",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T01:45:08Z",
+        "1899-01-16T01:45:08Z",
+        "1899-01-17T01:45:08Z",
+        "1899-01-18T01:45:08Z",
+        "1899-01-19T01:45:08Z"
+      ]
+    },
+    {
+      "name": "rfc-kamchatka-retains-iana-offset-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Asia/Kamchatka:18990115T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1899-01-19",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T01:25:24Z",
+        "1899-01-16T01:25:24Z",
+        "1899-01-17T01:25:24Z",
+        "1899-01-18T01:25:24Z",
+        "1899-01-19T01:25:24Z"
+      ]
+    },
+    {
+      "name": "rfc-chita-retains-iana-offset-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Asia/Chita:18990115T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1899-01-19",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T04:26:08Z",
+        "1899-01-16T04:26:08Z",
+        "1899-01-17T04:26:08Z",
+        "1899-01-18T04:26:08Z",
+        "1899-01-19T04:26:08Z"
+      ]
+    },
+    {
+      "name": "rfc-sakhalin-retains-iana-offset-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Asia/Sakhalin:18990115T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1899-01-19",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T02:29:12Z",
+        "1899-01-16T02:29:12Z",
+        "1899-01-17T02:29:12Z",
+        "1899-01-18T02:29:12Z",
+        "1899-01-19T02:29:12Z"
+      ]
+    },
+    {
+      "name": "rfc-hovd-retains-iana-offset-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Asia/Hovd:20000323T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "2000-03-27",
+        "checkpoints": [
+          "2000-03-23",
+          "2000-03-24",
+          "2000-03-25",
+          "2000-03-26",
+          "2000-03-27"
+        ]
+      },
+      "expected": [
+        "2000-03-23T05:00:00Z",
+        "2000-03-24T05:00:00Z",
+        "2000-03-25T05:00:00Z",
+        "2000-03-26T05:00:00Z",
+        "2000-03-27T05:00:00Z"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,847 @@
+{
+  "type": "recurrence-profile",
+  "name": "dateutil 2.8.2 date imports",
+  "source": "python-dateutil 2.8.2 rrulestr",
+  "cases": [
+    {
+      "name": "unknown-tzid-is-floating",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=Unknown/Somewhere:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-02T09:00:00",
+        "2026-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "unresolved-tzid-allows-explicit-utc",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=Unknown/Somewhere:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "unresolved-tzid-allows-explicit-offset",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=Unknown/Somewhere:20260101T090000+0200",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-01T07:00:00Z",
+        "2026-01-02T07:00:00Z",
+        "2026-01-03T07:00:00Z"
+      ]
+    },
+    {
+      "name": "quoted-tzid-is-unresolved",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=\"America/New_York\":20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-02T09:00:00",
+        "2026-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "lowercase-tzid-key-absent-from-lookup",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;tzid=America/New_York:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-02T09:00:00",
+        "2026-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "tzid-before-value-absent-from-lookup",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_York;VALUE=DATE-TIME:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-02T09:00:00",
+        "2026-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "value-before-tzid-resolves",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;VALUE=DATE-TIME;TZID=America/New_York:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-01T14:00:00Z",
+        "2026-01-02T14:00:00Z",
+        "2026-01-03T14:00:00Z"
+      ]
+    },
+    {
+      "name": "resolved-tzid-and-utc-rejected",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": {
+        "error": "DTSTART/EXDATE specifies multiple timezone"
+      }
+    },
+    {
+      "name": "resolved-tzid-and-offset-rejected",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260101T090000-0500",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": {
+        "error": "DTSTART/EXDATE specifies multiple timezone"
+      }
+    },
+    {
+      "name": "resolved-exdate-tzid-and-utc-rejected",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE;TZID=America/New_York:20260102T140000Z"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": {
+        "error": "DTSTART/EXDATE specifies multiple timezone"
+      }
+    },
+    {
+      "name": "resolved-exdate-tzid-and-offset-rejected",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE;TZID=America/New_York:20260102T090000-0500"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": {
+        "error": "DTSTART/EXDATE specifies multiple timezone"
+      }
+    },
+    {
+      "name": "private-tzid-with-reference-file",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=Private/Office:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-02",
+        "dateutilTzif": {
+          "Private/Office": "America/New_York"
+        }
+      },
+      "expected": [
+        "2026-01-01T14:00:00Z",
+        "2026-01-02T14:00:00Z",
+        "2026-01-03T14:00:00Z"
+      ]
+    },
+    {
+      "name": "caller-treats-known-tzid-as-unresolved",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-02",
+        "dateutilTzif": {
+          "America/New_York": null
+        }
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-02T09:00:00",
+        "2026-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "positive-offset-start-crosses-utc-date",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T003000+1400",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20260106T091000-0330",
+          "EXDATE:20260102T003000+1400"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2025-12-31T10:30:00Z",
+        "2026-01-02T10:30:00Z",
+        "2026-01-06T12:40:00Z"
+      ]
+    },
+    {
+      "name": "negative-offset-with-colon",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T234500-03:30",
+          "RRULE:FREQ=DAILY;UNTIL=20260103T234500-0330",
+          "EXDATE:20260102T234500-0330"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-02T03:15:00Z",
+        "2026-01-04T03:15:00Z"
+      ]
+    },
+    {
+      "name": "short-offset-hour",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T091000+1",
+          "RRULE:FREQ=DAILY;UNTIL=20260103T091000+01"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-01T08:10:00Z",
+        "2026-01-02T08:10:00Z",
+        "2026-01-03T08:10:00Z"
+      ]
+    },
+    {
+      "name": "zero-offset-normalizes-to-utc",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T091000-0000",
+          "RRULE:FREQ=DAILY;UNTIL=20260103T091000+00"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-01T09:10:00Z",
+        "2026-01-02T09:10:00Z",
+        "2026-01-03T09:10:00Z"
+      ]
+    },
+    {
+      "name": "negative-start-with-offset-exrule-and-rdate",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T093000-0500",
+          "RRULE:FREQ=DAILY;COUNT=4",
+          "EXRULE:FREQ=DAILY;INTERVAL=2;UNTIL=20260103T093000-0500",
+          "RDATE:20260110T020000+1000"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-02T14:30:00Z",
+        "2026-01-04T14:30:00Z",
+        "2026-01-09T16:00:00Z"
+      ]
+    },
+    {
+      "name": "offset-exdate-on-named-zone-series",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260307T090000",
+          "RRULE:FREQ=DAILY;COUNT=4",
+          "EXDATE:20260308T090000-0400"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-03-07T14:00:00Z",
+        "2026-03-09T13:00:00Z",
+        "2026-03-10T13:00:00Z"
+      ]
+    },
+    {
+      "name": "reject-colons-in-until",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026-01-01T09:10:00-05:30",
+          "RRULE:FREQ=DAILY;UNTIL=2026-01-04T09:10:00-05:30",
+          "RDATE:2026-01-05T09:10:00-05:30",
+          "EXDATE:2026-01-02T09:10:00-05:30"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": {
+        "error": "too many values to unpack (expected 2)"
+      }
+    },
+    {
+      "name": "extended-date-only-until",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026-01-01T00:00:00",
+          "RRULE:FREQ=DAILY;UNTIL=2026-01-03"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-01T00:00:00",
+        "2026-01-02T00:00:00",
+        "2026-01-03T00:00:00"
+      ]
+    },
+    {
+      "name": "fractional-start-truncated",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T091000.999999+0100",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-01T08:10:00Z",
+        "2026-01-02T08:10:00Z",
+        "2026-01-03T08:10:00Z"
+      ]
+    },
+    {
+      "name": "fractional-until-includes-preceding-second",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T091000Z",
+          "RRULE:FREQ=DAILY;UNTIL=20260102T091000.999999Z"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-01T09:10:00Z",
+        "2026-01-02T09:10:00Z"
+      ]
+    },
+    {
+      "name": "leap-second-start-rejected",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T091060Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": {
+        "error": "second must be in 0..59: 20260101T091060Z"
+      }
+    },
+    {
+      "name": "period-rdate-rejected",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T091000Z",
+          "RDATE:20260102T091000Z/20260102T101000Z"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": {
+        "error": "Unknown string format: 20260102T091000Z/20260102T101000Z"
+      }
+    },
+    {
+      "name": "external-fixed-offset-keeps-selector-date",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RRULE:FREQ=DAILY;BYMONTHDAY=1;COUNT=3"
+        ],
+        "through": "2026-04-02",
+        "dtstart": {
+          "dateTime": "2026-01-01T00:30:00+14:00"
+        }
+      },
+      "expected": [
+        "2025-12-31T10:30:00Z",
+        "2026-01-31T10:30:00Z",
+        "2026-02-28T10:30:00Z"
+      ]
+    },
+    {
+      "name": "external-fractional-fixed-start-truncated",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-02",
+        "dtstart": {
+          "dateTime": "2026-01-01T00:30:00.999999+14:00"
+        }
+      },
+      "expected": [
+        "2025-12-31T10:30:00Z",
+        "2026-01-01T10:30:00Z",
+        "2026-01-02T10:30:00Z"
+      ]
+    },
+    {
+      "name": "maximum-valid-fixed-offset",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T091000+2359",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2025-12-31T09:11:00Z",
+        "2026-01-01T09:11:00Z",
+        "2026-01-02T09:11:00Z"
+      ]
+    },
+    {
+      "name": "extended-start-dates-and-until",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026-01-01T09:10:00-05:30",
+          "RRULE:FREQ=DAILY;UNTIL=2026-01-04T091000-0530",
+          "RDATE:2026-01-05T09:10:00-05:30",
+          "EXDATE:2026-01-02T09:10:00-05:30"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-01T14:40:00Z",
+        "2026-01-03T14:40:00Z",
+        "2026-01-04T14:40:00Z",
+        "2026-01-05T14:40:00Z"
+      ]
+    },
+    {
+      "name": "dates-only-floating-start-aware-rdate",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RDATE:20260102T090000Z"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "dates-only-aware-start-floating-rdate",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RDATE:20260102T090000"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "dates-only-all-day-start-aware-rdate",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;VALUE=DATE:20260101",
+          "RDATE:20260102T090000Z"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "dates-only-bare-rdate",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:20260102,20260103T100000"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-02T00:00:00",
+        "2026-01-03T10:00:00"
+      ]
+    },
+    {
+      "name": "dates-only-aware-rdates-without-start",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:20260102T090000Z,20260103T100000+0200",
+          "EXDATE:20260102T090000Z"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-03T08:00:00Z"
+      ]
+    },
+    {
+      "name": "dates-only-matching-bare-exdate-without-start",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:20260102T000000,20260103T123000",
+          "EXDATE:20260102"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-03T12:30:00"
+      ]
+    },
+    {
+      "name": "dates-only-exdate-without-start",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "EXDATE;TZID=America/New_York:20260102T090000"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": []
+    },
+    {
+      "name": "explicit-gmt-start",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000GMT",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "explicit-utc-until",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;UNTIL=20260102T090000UTC"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "gmt-plus-reverses-offset",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000GMT+0100",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-01T10:00:00Z",
+        "2026-01-02T10:00:00Z"
+      ]
+    },
+    {
+      "name": "utc-minus-reverses-offset",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000UTC-2",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-01T07:00:00Z",
+        "2026-01-02T07:00:00Z"
+      ]
+    },
+    {
+      "name": "z-plus-reverses-offset-on-rdate",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:20260101T090000Z+0530"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-01T14:30:00Z"
+      ]
+    },
+    {
+      "name": "timezone-suffix-conflicts-with-known-tzid",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260101T090000GMT",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": {
+        "error": "DTSTART/EXDATE specifies multiple timezone"
+      }
+    },
+    {
+      "name": "un-padded-iso-date-and-clock",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026-1-1T9:1:2Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-01T09:01:02Z",
+        "2026-01-02T09:01:02Z"
+      ]
+    },
+    {
+      "name": "extended-fractional-minute",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:2026-01-01T09:10.9999999Z,2026-01-01T09:10.5Z"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-01T09:10:30Z",
+        "2026-01-01T09:10:59Z"
+      ]
+    },
+    {
+      "name": "reject-bare-date-with-z",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:20260101Z"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": {
+        "error": "Unknown string format: 20260101Z"
+      }
+    },
+    {
+      "name": "reject-extended-bare-date-with-z",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:2026-01-01Z"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": {
+        "error": "Unknown string format: 2026-01-01Z"
+      }
+    },
+    {
+      "name": "text-start-overrides-external-utc-start",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T100000 RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01",
+        "dtstart": {
+          "dateTime": "2026-01-03T08:00:00Z"
+        }
+      },
+      "expected": [
+        "2026-01-01T10:00:00",
+        "2026-01-02T10:00:00"
+      ]
+    },
+    {
+      "name": "last-text-start-overrides-external",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "DTSTART:20260102T100000Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01",
+        "dtstart": {
+          "dateTime": "2026-01-03T08:00:00"
+        }
+      },
+      "expected": [
+        "2026-01-02T10:00:00Z",
+        "2026-01-03T10:00:00Z"
+      ]
+    },
+    {
+      "name": "folded-property-after-colon",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:\r\n FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "explicit-property-and-folded-value",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;\r\n BYHOUR=9,17;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-01T17:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "bare-rule-after-whitespace-separated-start",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "external-early-year-stays-literal",
+      "input": {
+        "profile": "dateutil",
+        "dtstart": {
+          "dateTime": "0004-02-28T09:00:00"
+        },
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "0101-01-01"
+      },
+      "expected": [
+        "0004-02-28T09:00:00",
+        "0004-02-29T09:00:00"
+      ]
+    },
+    {
+      "name": "external-early-fixed-offset-stays-local",
+      "input": {
+        "profile": "dateutil",
+        "dtstart": {
+          "dateTime": "0100-03-01T00:30:00+04:00"
+        },
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "0101-01-01"
+      },
+      "expected": [
+        "0100-02-28T20:30:00Z",
+        "0100-03-01T20:30:00Z"
+      ]
+    },
+    {
+      "name": "repeated-clock-selector-is-deduplicated",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=9,9;COUNT=4"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z",
+        "2026-01-04T09:00:00Z"
+      ]
+    }
+  ]
+}

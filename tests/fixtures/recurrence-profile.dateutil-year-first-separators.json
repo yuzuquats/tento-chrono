@@ -1,0 +1,219 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil year-first date separators",
+  "source": "python-dateutil 2.8.2 rrulestr",
+  "cases": [
+    {
+      "name": "DTSTART accepts slash-separated date fields",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026/03/01T09:15:30",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:15:30",
+        "2026-03-02T09:15:30",
+        "2026-03-03T09:15:30"
+      ]
+    },
+    {
+      "name": "DTSTART accepts dotted date fields with a numeric UTC offset",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026.03.01T09:15:30+0230",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T06:45:30Z",
+        "2026-03-02T06:45:30Z",
+        "2026-03-03T06:45:30Z"
+      ]
+    },
+    {
+      "name": "mixed hyphen and slash work with unpadded fields",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026-3/1T9:15:30",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:15:30",
+        "2026-03-02T09:15:30",
+        "2026-03-03T09:15:30"
+      ]
+    },
+    {
+      "name": "bare slash date retains a civil DTSTART",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026/03/01",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01",
+        "2026-03-02",
+        "2026-03-03"
+      ]
+    },
+    {
+      "name": "EXDATE accepts the dotted form after a named-zone DTSTART",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_York:2026.02.28T09:15:30",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE;TZID=America/New_York:2026.03.01T09:15:30"
+        ],
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-02-28",
+          "2026-03-02"
+        ]
+      },
+      "expected": [
+        "2026-02-28T14:15:30Z",
+        "2026-03-02T14:15:30Z"
+      ]
+    },
+    {
+      "name": "UNTIL can use a slash date with a UTC time",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260228T091530Z",
+          "RRULE:FREQ=DAILY;UNTIL=2026/03/01T09:15:30Z"
+        ],
+        "through": "2026-03-06"
+      },
+      "expected": {
+        "error": "too many values to unpack (expected 2)"
+      }
+    },
+    {
+      "name": "bare dotted RDATE is a midnight with a timed rule",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260228T091530",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:2026.03.01"
+        ],
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-02-28",
+          "2026-03-01",
+          "2026-03-02"
+        ]
+      },
+      "expected": [
+        "2026-02-28T09:15:30",
+        "2026-03-01T00:00:00",
+        "2026-03-01T09:15:30",
+        "2026-03-02T09:15:30"
+      ]
+    },
+    {
+      "name": "mixed dotted and slash delimiters remain invalid",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026.03/01T09:15:30",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06"
+      },
+      "expected": {
+        "error": "Unknown string format: 2026.03/01T09:15:30"
+      }
+    },
+    {
+      "name": "RDATE period slash remains invalid",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260228T091530",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20260301T091530/20260301T101530"
+        ],
+        "through": "2026-03-06"
+      },
+      "expected": {
+        "error": "Unknown string format: 20260301T091530/20260301T101530"
+      }
+    },
+    {
+      "name": "February 29 reports a date error in a non-leap year",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026/02/29T09:15:30",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06"
+      },
+      "expected": {
+        "error": "day is out of range for month: 2026/02/29T09:15:30"
+      }
+    },
+    {
+      "name": "invalid clock syntax is rejected before validating the date",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026.02.29TXX",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06"
+      },
+      "expected": {
+        "error": "Unknown string format: 2026.02.29TXX"
+      }
+    },
+    {
+      "name": "invalid clock range retains the reference diagnostic",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026/03/01T23:70:00",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06"
+      },
+      "expected": {
+        "error": "minute must be in 0..59: 2026/03/01T23:70:00"
+      }
+    }
+  ]
+}

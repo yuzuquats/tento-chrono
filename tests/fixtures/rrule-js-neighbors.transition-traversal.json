@@ -1,0 +1,358 @@
+{
+  "type": "rrule-js-neighbors",
+  "name": "rrule.js 2.8.1 timezone transition traversal",
+  "source": "Pinned rrule.js 2.8.1",
+  "cases": [
+    {
+      "name": "rrulejs-transition-neighbor-0-0-0-hourly-4",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20240309T120000",
+          "RRULE:FREQ=HOURLY;COUNT=96;BYMINUTE=0,17,31,59;BYSECOND=0,59;BYSETPOS=1,4,-1"
+        ],
+        "rruleJsHostTimeZone": "Pacific/Chatham",
+        "rruleJsForceSet": false,
+        "after": "2024-03-10T06:45:00Z",
+        "before": "2024-03-11T10:45:00Z",
+        "inclusive": true
+      },
+      "expected": {
+        "after": "2024-03-10T06:45:00Z",
+        "before": "2024-03-11T10:45:00Z"
+      }
+    },
+    {
+      "name": "rrulejs-transition-neighbor-0-0-2-hourly-0",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20240310T064100",
+          "RRULE:FREQ=HOURLY;COUNT=96;BYMINUTE=0,17,31,59;BYSECOND=0,59;BYSETPOS=1,4,-1",
+          "RRULE:FREQ=HOURLY;COUNT=22;BYMINUTE=0,15",
+          "EXRULE:FREQ=HOURLY;COUNT=78;BYMINUTE=0,15",
+          "EXRULE:FREQ=MINUTELY;INTERVAL=29;COUNT=39;BYSECOND=0,31"
+        ],
+        "rruleJsHostTimeZone": "Pacific/Chatham",
+        "rruleJsForceSet": true,
+        "after": "2024-03-10T07:00:00Z",
+        "before": "2024-03-10T07:37:00Z",
+        "inclusive": true
+      },
+      "expected": {
+        "after": "2024-03-11T01:44:59Z",
+        "before": null
+      }
+    },
+    {
+      "name": "rrulejs-transition-neighbor-0-0-2-hourly-4",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20240310T064100",
+          "RRULE:FREQ=HOURLY;COUNT=96;BYMINUTE=0,17,31,59;BYSECOND=0,59;BYSETPOS=1,4,-1",
+          "RRULE:FREQ=HOURLY;COUNT=22;BYMINUTE=0,15",
+          "EXRULE:FREQ=HOURLY;COUNT=78;BYMINUTE=0,15",
+          "EXRULE:FREQ=MINUTELY;INTERVAL=29;COUNT=39;BYSECOND=0,31"
+        ],
+        "rruleJsHostTimeZone": "Pacific/Chatham",
+        "rruleJsForceSet": true,
+        "after": "2024-03-11T01:02:58.999Z",
+        "before": "2024-03-11T01:03:58.999Z",
+        "inclusive": true
+      },
+      "expected": {
+        "after": "2024-03-11T01:44:59Z",
+        "before": null
+      }
+    },
+    {
+      "name": "rrulejs-transition-neighbor-1-1-0-hourly-4",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Honolulu:20241102T110000",
+          "RRULE:FREQ=HOURLY;COUNT=96;BYMINUTE=0,17,31,59;BYSECOND=0,59;BYSETPOS=1,4,-1"
+        ],
+        "rruleJsHostTimeZone": "America/New_York",
+        "rruleJsForceSet": false,
+        "after": "2024-11-02T17:00:00Z",
+        "before": "2024-11-03T21:00:00Z",
+        "inclusive": false
+      },
+      "expected": {
+        "after": "2024-11-02T17:17:59Z",
+        "before": "2024-11-03T20:59:59Z"
+      }
+    },
+    {
+      "name": "rrulejs-transition-neighbor-1-1-2-hourly-0",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Honolulu:20241103T054100",
+          "RRULE:FREQ=HOURLY;COUNT=96;BYMINUTE=0,17,31,59;BYSECOND=0,59;BYSETPOS=1,4,-1",
+          "RRULE:FREQ=HOURLY;COUNT=22;BYMINUTE=0,15",
+          "EXRULE:FREQ=HOURLY;COUNT=78;BYMINUTE=0,15",
+          "EXRULE:FREQ=MINUTELY;INTERVAL=29;COUNT=39;BYSECOND=0,31"
+        ],
+        "rruleJsHostTimeZone": "America/New_York",
+        "rruleJsForceSet": true,
+        "after": "2024-11-03T06:00:00Z",
+        "before": "2024-11-03T06:37:00Z",
+        "inclusive": false
+      },
+      "expected": {
+        "after": "2024-11-03T11:59:59Z",
+        "before": null
+      }
+    },
+    {
+      "name": "rrulejs-transition-neighbor-1-1-2-hourly-4",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Honolulu:20241103T054100",
+          "RRULE:FREQ=HOURLY;COUNT=96;BYMINUTE=0,17,31,59;BYSECOND=0,59;BYSETPOS=1,4,-1",
+          "RRULE:FREQ=HOURLY;COUNT=22;BYMINUTE=0,15",
+          "EXRULE:FREQ=HOURLY;COUNT=78;BYMINUTE=0,15",
+          "EXRULE:FREQ=MINUTELY;INTERVAL=29;COUNT=39;BYSECOND=0,31"
+        ],
+        "rruleJsHostTimeZone": "America/New_York",
+        "rruleJsForceSet": true,
+        "after": "2024-11-03T11:17:58.999Z",
+        "before": "2024-11-03T11:18:58.999Z",
+        "inclusive": false
+      },
+      "expected": {
+        "after": "2024-11-03T11:59:59Z",
+        "before": null
+      }
+    },
+    {
+      "name": "rrulejs-transition-neighbor-2-0-2-minutely-4",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Australia/Lord_Howe:20241005T151100",
+          "RRULE:FREQ=MINUTELY;INTERVAL=21;COUNT=200;BYSECOND=0,31;BYSETPOS=1,-1",
+          "RRULE:FREQ=HOURLY;COUNT=22;BYMINUTE=0,15",
+          "EXRULE:FREQ=HOURLY;COUNT=78;BYMINUTE=0,15",
+          "EXRULE:FREQ=MINUTELY;INTERVAL=29;COUNT=39;BYSECOND=0,31"
+        ],
+        "rruleJsHostTimeZone": "Pacific/Kwajalein",
+        "rruleJsForceSet": true,
+        "after": "2024-10-05T16:31:59.999Z",
+        "before": "2024-10-05T16:32:59.999Z",
+        "inclusive": true
+      },
+      "expected": {
+        "after": "2024-10-05T16:32:00Z",
+        "before": "2024-10-05T16:32:31Z"
+      }
+    },
+    {
+      "name": "rrulejs-transition-neighbor-4-1-0-hourly-4",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Honolulu:20241026T060000",
+          "RRULE:FREQ=HOURLY;COUNT=96;BYMINUTE=0,17,31,59;BYSECOND=0,59;BYSETPOS=1,4,-1"
+        ],
+        "rruleJsHostTimeZone": "Europe/Dublin",
+        "rruleJsForceSet": false,
+        "after": "2024-10-26T17:00:00Z",
+        "before": "2024-10-27T21:00:00Z",
+        "inclusive": true
+      },
+      "expected": {
+        "after": "2024-10-26T17:00:00Z",
+        "before": "2024-10-27T21:00:00Z"
+      }
+    },
+    {
+      "name": "rrulejs-transition-neighbor-4-1-2-hourly-0",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Honolulu:20241027T004100",
+          "RRULE:FREQ=HOURLY;COUNT=96;BYMINUTE=0,17,31,59;BYSECOND=0,59;BYSETPOS=1,4,-1",
+          "RRULE:FREQ=HOURLY;COUNT=22;BYMINUTE=0,15",
+          "EXRULE:FREQ=HOURLY;COUNT=78;BYMINUTE=0,15",
+          "EXRULE:FREQ=MINUTELY;INTERVAL=29;COUNT=39;BYSECOND=0,31"
+        ],
+        "rruleJsHostTimeZone": "Europe/Dublin",
+        "rruleJsForceSet": true,
+        "after": "2024-10-27T01:00:00Z",
+        "before": "2024-10-27T01:37:00Z",
+        "inclusive": true
+      },
+      "expected": {
+        "after": "2024-10-27T11:59:59Z",
+        "before": null
+      }
+    },
+    {
+      "name": "rrulejs-transition-neighbor-4-1-2-hourly-4",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Honolulu:20241027T004100",
+          "RRULE:FREQ=HOURLY;COUNT=96;BYMINUTE=0,17,31,59;BYSECOND=0,59;BYSETPOS=1,4,-1",
+          "RRULE:FREQ=HOURLY;COUNT=22;BYMINUTE=0,15",
+          "EXRULE:FREQ=HOURLY;COUNT=78;BYMINUTE=0,15",
+          "EXRULE:FREQ=MINUTELY;INTERVAL=29;COUNT=39;BYSECOND=0,31"
+        ],
+        "rruleJsHostTimeZone": "Europe/Dublin",
+        "rruleJsForceSet": true,
+        "after": "2024-10-27T11:17:58.999Z",
+        "before": "2024-10-27T11:18:58.999Z",
+        "inclusive": true
+      },
+      "expected": {
+        "after": "2024-10-27T11:59:59Z",
+        "before": null
+      }
+    },
+    {
+      "name": "rrulejs-transition-neighbor-5-0-2-hourly-4",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Chatham:20240928T134100",
+          "RRULE:FREQ=HOURLY;COUNT=96;BYMINUTE=0,17,31,59;BYSECOND=0,59;BYSETPOS=1,4,-1",
+          "RRULE:FREQ=HOURLY;COUNT=22;BYMINUTE=0,15",
+          "EXRULE:FREQ=HOURLY;COUNT=78;BYMINUTE=0,15",
+          "EXRULE:FREQ=MINUTELY;INTERVAL=29;COUNT=39;BYSECOND=0,31"
+        ],
+        "rruleJsHostTimeZone": "Africa/Monrovia",
+        "rruleJsForceSet": true,
+        "after": "2024-09-28T00:32:58.999Z",
+        "before": "2024-09-28T00:33:58.999Z",
+        "inclusive": false
+      },
+      "expected": {
+        "after": "2024-09-28T01:14:59Z",
+        "before": null
+      }
+    },
+    {
+      "name": "rrulejs-transition-neighbor-6-0-0-hourly-3",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Apia:20111229T150000",
+          "RRULE:FREQ=HOURLY;COUNT=96;BYMINUTE=0,17,31,59;BYSECOND=0,59;BYSETPOS=1,4,-1"
+        ],
+        "rruleJsHostTimeZone": "Africa/Sao_Tome",
+        "rruleJsForceSet": false,
+        "after": "2011-12-30T21:59:59.999Z",
+        "before": "2011-12-31T00:59:59.999Z",
+        "inclusive": false
+      },
+      "expected": {
+        "after": null,
+        "before": "2011-12-30T08:59:59Z"
+      }
+    },
+    {
+      "name": "rrulejs-transition-neighbor-6-0-0-hourly-6",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Apia:20111229T150000",
+          "RRULE:FREQ=HOURLY;COUNT=96;BYMINUTE=0,17,31,59;BYSECOND=0,59;BYSETPOS=1,4,-1"
+        ],
+        "rruleJsHostTimeZone": "Africa/Sao_Tome",
+        "rruleJsForceSet": false,
+        "after": "2011-12-29T22:17:58.999Z",
+        "before": "2011-12-29T22:18:58.999Z",
+        "inclusive": true
+      },
+      "expected": {
+        "after": "2011-12-30T01:00:00Z",
+        "before": null
+      }
+    },
+    {
+      "name": "rrulejs-transition-neighbor-6-0-1-hourly-0",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Apia:20111230T085300",
+          "RRULE:FREQ=HOURLY;COUNT=96;BYMINUTE=0,17,31,59;BYSECOND=0,59;BYSETPOS=1,4,-1",
+          "EXRULE:FREQ=HOURLY;INTERVAL=3;COUNT=60;BYMINUTE=0,31"
+        ],
+        "rruleJsHostTimeZone": "Africa/Sao_Tome",
+        "rruleJsForceSet": true,
+        "after": "2011-12-30T09:59:59.999Z",
+        "before": "2011-12-30T10:00:59.999Z",
+        "inclusive": false
+      },
+      "expected": {
+        "after": "2011-12-30T18:59:59Z",
+        "before": null
+      }
+    },
+    {
+      "name": "rrulejs-transition-neighbor-7-1-0-hourly-0",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Honolulu:19690929T180000",
+          "RRULE:FREQ=HOURLY;COUNT=96;BYMINUTE=0,17,31,59;BYSECOND=0,59;BYSETPOS=1,4,-1"
+        ],
+        "rruleJsHostTimeZone": "Pacific/Kwajalein",
+        "rruleJsForceSet": false,
+        "after": "1969-09-30T12:59:59.998Z",
+        "before": "1969-09-30T12:59:59.998Z",
+        "inclusive": false
+      },
+      "expected": {
+        "after": "1969-09-30T15:00:00Z",
+        "before": null
+      }
+    },
+    {
+      "name": "rrulejs-transition-neighbor-7-1-1-hourly-0",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Honolulu:19690930T115300",
+          "RRULE:FREQ=HOURLY;COUNT=96;BYMINUTE=0,17,31,59;BYSECOND=0,59;BYSETPOS=1,4,-1",
+          "EXRULE:FREQ=HOURLY;INTERVAL=3;COUNT=60;BYMINUTE=0,31"
+        ],
+        "rruleJsHostTimeZone": "Pacific/Kwajalein",
+        "rruleJsForceSet": true,
+        "after": "1969-09-30T12:59:59.999Z",
+        "before": "1969-09-30T13:00:59.999Z",
+        "inclusive": true
+      },
+      "expected": {
+        "after": "1969-10-01T08:59:59Z",
+        "before": null
+      }
+    },
+    {
+      "name": "rrulejs-transition-neighbor-8-0-0-hourly-3",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Kwajalein:19930820T170000",
+          "RRULE:FREQ=HOURLY;COUNT=96;BYMINUTE=0,17,31,59;BYSECOND=0,59;BYSETPOS=1,4,-1"
+        ],
+        "rruleJsHostTimeZone": "Africa/Sao_Tome",
+        "rruleJsForceSet": false,
+        "after": "1993-08-21T23:59:59.999Z",
+        "before": "1993-08-22T02:59:59.999Z",
+        "inclusive": false
+      },
+      "expected": {
+        "after": null,
+        "before": "1993-08-21T12:59:59Z"
+      }
+    },
+    {
+      "name": "rrulejs-transition-neighbor-8-0-1-hourly-0",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Kwajalein:19930821T105300",
+          "RRULE:FREQ=HOURLY;COUNT=96;BYMINUTE=0,17,31,59;BYSECOND=0,59;BYSETPOS=1,4,-1",
+          "EXRULE:FREQ=HOURLY;INTERVAL=3;COUNT=60;BYMINUTE=0,31"
+        ],
+        "rruleJsHostTimeZone": "Africa/Sao_Tome",
+        "rruleJsForceSet": true,
+        "after": "1993-08-21T11:59:59.999Z",
+        "before": "1993-08-21T12:00:59.999Z",
+        "inclusive": false
+      },
+      "expected": {
+        "after": "1993-08-21T22:59:59Z",
+        "before": null
+      }
+    }
+  ]
+}

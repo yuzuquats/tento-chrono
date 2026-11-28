@@ -1,0 +1,177 @@
+{
+  "type": "vtimezone",
+  "name": "RFC 5545 physical VTIMEZONE lines",
+  "source": "RFC 5545 \u00a73.1 and \u00a73.6.5",
+  "cases": [
+    {
+      "name": "physical-lines-after-lf-split",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE\r",
+          "TZID:Calendar/\r",
+          " PhysicalLines\r",
+          "BEGIN:STANDARD\r",
+          "DTSTART:20270101T000000\r",
+          "TZOFFSETFROM:+0200\r",
+          "TZOFFSETTO:+0200\r",
+          "TZNAME:Winter\r",
+          "END:STANDARD\r",
+          "BEGIN:DAYLIGHT\r",
+          "DTSTART:20270105T020000\r",
+          "TZOFFSETFROM:+0200\r",
+          "TZOFFSETTO:+0230\r",
+          "TZNAME:Sum\r",
+          "\tmer\r",
+          "END:DAYLIGHT\r",
+          "END:VTIMEZONE\r",
+          ""
+        ],
+        "event": [
+          "DTSTART;TZID=Calendar/PhysicalLines:20270104T090000\r",
+          "RRULE:FREQ=DAILY;\r",
+          " COUNT=3\r",
+          ""
+        ],
+        "through": "2027-01-07",
+        "checkpoints": [
+          "2027-01-04",
+          "2027-01-05"
+        ]
+      },
+      "expected": {
+        "name": "Calendar/PhysicalLines",
+        "transitions": [
+          [
+            "2026-12-31T22:00:00Z",
+            7200,
+            7200,
+            "Winter"
+          ],
+          [
+            "2027-01-05T00:00:00Z",
+            7200,
+            9000,
+            "Summer"
+          ]
+        ],
+        "eventStarts": [
+          "2027-01-04T07:00:00Z",
+          "2027-01-05T06:30:00Z",
+          "2027-01-06T06:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "physical-lines-with-terminators",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE\r\n",
+          "TZID:Calendar/\r\n",
+          " PhysicalLines\r\n",
+          "BEGIN:STANDARD\r\n",
+          "DTSTART:20270101T000000\r\n",
+          "TZOFFSETFROM:+0200\r\n",
+          "TZOFFSETTO:+0200\r\n",
+          "TZNAME:Winter\r\n",
+          "END:STANDARD\r\n",
+          "BEGIN:DAYLIGHT\r\n",
+          "DTSTART:20270105T020000\r\n",
+          "TZOFFSETFROM:+0200\r\n",
+          "TZOFFSETTO:+0230\r\n",
+          "TZNAME:Sum\r\n",
+          "\tmer\r\n",
+          "END:DAYLIGHT\r\n",
+          "END:VTIMEZONE\r\n"
+        ],
+        "event": [
+          "DTSTART;TZID=Calendar/PhysicalLines:20270104T090000\r\n",
+          "RRULE:FREQ=DAILY;\r\n",
+          " COUNT=3\r\n"
+        ],
+        "through": "2027-01-07",
+        "checkpoints": [
+          "2027-01-04",
+          "2027-01-05"
+        ]
+      },
+      "expected": {
+        "name": "Calendar/PhysicalLines",
+        "transitions": [
+          [
+            "2026-12-31T22:00:00Z",
+            7200,
+            7200,
+            "Winter"
+          ],
+          [
+            "2027-01-05T00:00:00Z",
+            7200,
+            9000,
+            "Summer"
+          ]
+        ],
+        "eventStarts": [
+          "2027-01-04T07:00:00Z",
+          "2027-01-05T06:30:00Z",
+          "2027-01-06T06:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "physical-lines-with-mixed-terminators",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:Calendar/\r",
+          " PhysicalLines\n",
+          "BEGIN:STANDARD\r\n",
+          "DTSTART:20270101T000000",
+          "TZOFFSETFROM:+0200\r",
+          "TZOFFSETTO:+0200\n",
+          "TZNAME:Winter\r\n",
+          "END:STANDARD",
+          "BEGIN:DAYLIGHT\r",
+          "DTSTART:20270105T020000\n",
+          "TZOFFSETFROM:+0200\r\n",
+          "TZOFFSETTO:+0230",
+          "TZNAME:Sum\r",
+          "\tmer\n",
+          "END:DAYLIGHT\r\n",
+          "END:VTIMEZONE"
+        ],
+        "event": [
+          "DTSTART;TZID=Calendar/PhysicalLines:20270104T090000",
+          "RRULE:FREQ=DAILY;\r",
+          " COUNT=3\n"
+        ],
+        "through": "2027-01-07",
+        "checkpoints": [
+          "2027-01-04",
+          "2027-01-05"
+        ]
+      },
+      "expected": {
+        "name": "Calendar/PhysicalLines",
+        "transitions": [
+          [
+            "2026-12-31T22:00:00Z",
+            7200,
+            7200,
+            "Winter"
+          ],
+          [
+            "2027-01-05T00:00:00Z",
+            7200,
+            9000,
+            "Summer"
+          ]
+        ],
+        "eventStarts": [
+          "2027-01-04T07:00:00Z",
+          "2027-01-05T06:30:00Z",
+          "2027-01-06T06:30:00Z"
+        ]
+      }
+    }
+  ]
+}

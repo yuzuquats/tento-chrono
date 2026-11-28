@@ -1,0 +1,206 @@
+{
+  "type": "recurrence-profile",
+  "name": "dateutil 2.8.2 TZif expansion",
+  "source": "python-dateutil 2.8.2 rrulestr, tzdata 2026e rearguard",
+  "cases": [
+    {
+      "name": "new-york-spring-2038",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20380312T090000",
+          "RRULE:FREQ=DAILY;COUNT=6"
+        ],
+        "through": "2038-03-20",
+        "dateutilTzif": true
+      },
+      "expected": [
+        "2038-03-12T14:00:00Z",
+        "2038-03-13T14:00:00Z",
+        "2038-03-14T14:00:00Z",
+        "2038-03-15T14:00:00Z",
+        "2038-03-16T14:00:00Z",
+        "2038-03-17T14:00:00Z"
+      ]
+    },
+    {
+      "name": "lord-howe-spring-2038",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=Australia/Lord_Howe:20381001T090000",
+          "RRULE:FREQ=DAILY;COUNT=6"
+        ],
+        "through": "2038-10-08",
+        "dateutilTzif": true
+      },
+      "expected": [
+        "2038-09-30T22:30:00Z",
+        "2038-10-01T22:30:00Z",
+        "2038-10-02T22:30:00Z",
+        "2038-10-03T22:30:00Z",
+        "2038-10-04T22:30:00Z",
+        "2038-10-05T22:30:00Z"
+      ]
+    },
+    {
+      "name": "dublin-spring-2038",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=Europe/Dublin:20380326T090000",
+          "RRULE:FREQ=DAILY;COUNT=6"
+        ],
+        "through": "2038-04-05",
+        "dateutilTzif": true
+      },
+      "expected": [
+        "2038-03-26T09:00:00Z",
+        "2038-03-27T09:00:00Z",
+        "2038-03-28T09:00:00Z",
+        "2038-03-29T09:00:00Z",
+        "2038-03-30T09:00:00Z",
+        "2038-03-31T09:00:00Z"
+      ]
+    },
+    {
+      "name": "auckland-spring-2038",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=Pacific/Auckland:20380924T090000",
+          "RRULE:FREQ=DAILY;COUNT=6"
+        ],
+        "through": "2038-10-05",
+        "dateutilTzif": true
+      },
+      "expected": [
+        "2038-09-23T21:00:00Z",
+        "2038-09-24T21:00:00Z",
+        "2038-09-25T21:00:00Z",
+        "2038-09-26T21:00:00Z",
+        "2038-09-27T21:00:00Z",
+        "2038-09-28T21:00:00Z"
+      ]
+    },
+    {
+      "name": "lord-howe-last-tzif-transition",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=Australia/Lord_Howe:20380119T134405",
+          "RRULE:FREQ=SECONDLY;COUNT=6"
+        ],
+        "through": "2038-01-20",
+        "dateutilTzif": true
+      },
+      "expected": [
+        "2038-01-19T02:44:05Z",
+        "2038-01-19T02:44:06Z",
+        "2038-01-19T02:44:07Z",
+        "2038-01-19T02:44:08Z",
+        "2038-01-19T02:44:09Z",
+        "2038-01-19T02:44:10Z"
+      ]
+    },
+    {
+      "name": "auckland-last-tzif-transition-in-2037",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=Pacific/Auckland:20370926T090000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "2037-09-30",
+        "dateutilTzif": true
+      },
+      "expected": [
+        "2037-09-25T21:00:00Z",
+        "2037-09-26T21:00:00Z",
+        "2037-09-27T21:00:00Z",
+        "2037-09-28T21:00:00Z",
+        "2037-09-29T21:00:00Z"
+      ]
+    },
+    {
+      "name": "new-york-before-horizon-spring-gap",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20370307T023000",
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "through": "2037-03-11",
+        "dateutilTzif": true
+      },
+      "expected": [
+        "2037-03-07T07:30:00Z",
+        "2037-03-08T06:30:00Z",
+        "2037-03-09T06:30:00Z",
+        "2037-03-10T06:30:00Z"
+      ]
+    },
+    {
+      "name": "new-york-rdate-exdate-and-until",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20380312T090000",
+          "RRULE:FREQ=DAILY;UNTIL=20380315T140000Z",
+          "RDATE:20380317T210000Z,20380317T140000Z",
+          "EXDATE;TZID=Pacific/Auckland:20380318T090000",
+          "EXDATE:20380313T140000Z",
+          "EXDATE;TZID=America/New_York:20380315T090000"
+        ],
+        "through": "2038-03-21",
+        "dateutilTzif": true
+      },
+      "expected": [
+        "2038-03-12T14:00:00Z",
+        "2038-03-14T14:00:00Z",
+        "2038-03-17T14:00:00Z"
+      ]
+    },
+    {
+      "name": "new-york-external-utc-start",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RRULE:FREQ=DAILY;BYHOUR=9,15;COUNT=4"
+        ],
+        "through": "2038-07-10",
+        "dateutilTzif": true,
+        "dtstart": {
+          "dateTime": "2038-07-01T14:00:00Z",
+          "timeZone": "America/New_York"
+        }
+      },
+      "expected": [
+        "2038-07-01T14:00:00Z",
+        "2038-07-01T20:00:00Z",
+        "2038-07-02T14:00:00Z",
+        "2038-07-02T20:00:00Z"
+      ]
+    },
+    {
+      "name": "new-york-fold-exdates-before-horizon",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20371101T013000",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE:20371101T053000Z",
+          "RDATE:20371106T140000Z"
+        ],
+        "through": "2037-11-08",
+        "dateutilTzif": true
+      },
+      "expected": [
+        "2037-11-01T05:30:00Z",
+        "2037-11-02T06:30:00Z",
+        "2037-11-03T06:30:00Z",
+        "2037-11-06T14:00:00Z"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "type": "google-expansion",
+  "name": "Google yearly timed rewind in named zones google-expansion",
+  "source": "Google Calendar API events.instances",
+  "cases": [
+    {
+      "name": "yearly-zone-exclusion-fixed-west-tzid-rewind",
+      "input": {
+        "start": "1580-01-05T17:00:00Z",
+        "timezone": "Etc/GMT+8",
+        "end": "1580-01-05T17:15:00Z",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12",
+          "EXDATE;TZID=Etc/GMT+8:17460105T090000"
+        ],
+        "storedRecurrence": [
+          "EXDATE;TZID=Etc/GMT+8:17460105T090000",
+          "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+        ],
+        "window": {
+          "start": "1746-01-01T00:00:00Z",
+          "end": "2099-12-31T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1746-01-05T17:00:00Z",
+          "1892-01-05T17:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "yearly-zone-exclusion-fixed-west-utc-rewind",
+      "input": {
+        "start": "1580-01-05T17:00:00Z",
+        "timezone": "Etc/GMT+8",
+        "end": "1580-01-05T17:15:00Z",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12",
+          "EXDATE:17460105T170000Z"
+        ],
+        "storedRecurrence": [
+          "EXDATE;VALUE=DATE-TIME:17460105T170000Z",
+          "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+        ],
+        "window": {
+          "start": "1746-01-01T00:00:00Z",
+          "end": "2099-12-31T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1746-01-05T17:00:00Z",
+          "1892-01-05T17:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "yearly-zone-exclusion-new-york-tzid-rewind",
+      "input": {
+        "start": "1580-01-05T13:56:02Z",
+        "timezone": "America/New_York",
+        "end": "1580-01-05T14:11:02Z",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12",
+          "EXDATE;TZID=America/New_York:17460105T090000"
+        ],
+        "storedRecurrence": [
+          "EXDATE;TZID=America/New_York:17460105T090000",
+          "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+        ],
+        "window": {
+          "start": "1746-01-01T00:00:00Z",
+          "end": "2099-12-31T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1746-01-05T13:56:02Z",
+          "1892-01-05T14:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "yearly-zone-exclusion-new-york-utc-rewind",
+      "input": {
+        "start": "1580-01-05T13:56:02Z",
+        "timezone": "America/New_York",
+        "end": "1580-01-05T14:11:02Z",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12",
+          "EXDATE:17460105T135602Z"
+        ],
+        "storedRecurrence": [
+          "EXDATE;VALUE=DATE-TIME:17460105T135602Z",
+          "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+        ],
+        "window": {
+          "start": "1746-01-01T00:00:00Z",
+          "end": "2099-12-31T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1746-01-05T13:56:02Z",
+          "1892-01-05T14:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "yearly-zone-exclusion-tokyo-tzid-rewind",
+      "input": {
+        "start": "1580-01-04T23:41:01Z",
+        "timezone": "Asia/Tokyo",
+        "end": "1580-01-04T23:56:01Z",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12",
+          "EXDATE;TZID=Asia/Tokyo:17460105T090000"
+        ],
+        "storedRecurrence": [
+          "EXDATE;TZID=Asia/Tokyo:17460105T090000",
+          "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+        ],
+        "window": {
+          "start": "1746-01-01T00:00:00Z",
+          "end": "2099-12-31T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1746-01-04T23:41:01Z",
+          "1892-01-05T00:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "yearly-zone-exclusion-tokyo-utc-rewind",
+      "input": {
+        "start": "1580-01-04T23:41:01Z",
+        "timezone": "Asia/Tokyo",
+        "end": "1580-01-04T23:56:01Z",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12",
+          "EXDATE:17460104T234101Z"
+        ],
+        "storedRecurrence": [
+          "EXDATE;VALUE=DATE-TIME:17460104T234101Z",
+          "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+        ],
+        "window": {
+          "start": "1746-01-01T00:00:00Z",
+          "end": "2099-12-31T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1746-01-04T23:41:01Z",
+          "1892-01-05T00:00:00Z"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "type": "recurrence-profile",
+  "name": "dateutil 2.8.2 timezone identity",
+  "source": "python-dateutil 2.8.2 rrulestr with tz.gettz",
+  "cases": [
+    {
+      "name": "alias-exdate-preserves-canonical-fold",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261101T013000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE;TZID=EST5EDT:20261101T013000"
+        ],
+        "profile": "dateutil",
+        "through": "2026-11-05"
+      },
+      "expected": [
+        "2026-11-01T05:30:00Z",
+        "2026-11-02T06:30:00Z"
+      ]
+    },
+    {
+      "name": "canonical-exdate-preserves-alias-fold",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=EST5EDT:20261101T013000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE;TZID=America/New_York:20261101T013000"
+        ],
+        "profile": "dateutil",
+        "through": "2026-11-05"
+      },
+      "expected": [
+        "2026-11-01T05:30:00Z",
+        "2026-11-02T06:30:00Z"
+      ]
+    },
+    {
+      "name": "same-alias-exdate-removes-fold",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=EST5EDT:20261101T013000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE;TZID=EST5EDT:20261101T013000"
+        ],
+        "profile": "dateutil",
+        "through": "2026-11-05"
+      },
+      "expected": [
+        "2026-11-02T06:30:00Z"
+      ]
+    },
+    {
+      "name": "cross-alias-exdate-matches-outside-fold",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261102T013000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE;TZID=EST5EDT:20261102T013000"
+        ],
+        "profile": "dateutil",
+        "through": "2026-11-05"
+      },
+      "expected": [
+        "2026-11-03T06:30:00Z"
+      ]
+    },
+    {
+      "name": "cross-alias-exdate-matches-later-wall-time",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261101T033000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE;TZID=EST5EDT:20261101T033000"
+        ],
+        "profile": "dateutil",
+        "through": "2026-11-05"
+      },
+      "expected": [
+        "2026-11-02T08:30:00Z"
+      ]
+    }
+  ]
+}

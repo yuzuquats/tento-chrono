@@ -1,0 +1,169 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil recurrence validation order",
+  "source": "python-dateutil 2.8.2 rrulestr with forceset",
+  "cases": [
+    {
+      "name": "an invalid first DTSTART fails during the property scan",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "DTSTART:20260230T090000Z",
+          "X-CALENDAR:20260306",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "error": "day is out of range for month: 20260230T090000Z"
+      }
+    },
+    {
+      "name": "a malformed RRULE header fails before a later EXDATE",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE;X-VALUE=RECUR:FREQ=DAILY;COUNT=1",
+          "EXDATE:20260230T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "error": "unsupported RRULE parm: X-VALUE=RECUR"
+      }
+    },
+    {
+      "name": "EXDATE values are checked before inclusion rule values",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=DAILY;X=1",
+          "EXDATE:20260230T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "error": "day is out of range for month: 20260230T090000Z"
+      }
+    },
+    {
+      "name": "an inclusion rule fails before deferred RDATE values",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RDATE:20260230T090000Z",
+          "RRULE:FREQ=DAILY;X=1",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "error": "unknown parameter 'X'"
+      }
+    },
+    {
+      "name": "RDATE values are checked before exclusion rule values",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "EXRULE:FREQ=DAILY;UNTIL=20260308T090000",
+          "RDATE:20260307T240000Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "error": "hour must be in 0..23: 20260307T240000Z"
+      }
+    },
+    {
+      "name": "the first inclusion rule completes validation before the next",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=DAILY;UNTIL=20260308T090000",
+          "RRULE:FREQ=DAILY;INTERVAL=oops",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "error": "RRULE UNTIL values must be specified in UTC when DTSTART is timezone-aware"
+      }
+    },
+    {
+      "name": "the first exclusion rule completes validation before the next",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "EXRULE:FREQ=DAILY;UNTIL=20260308T090000",
+          "EXRULE:FREQ=MONTHLY;BYSETPOS=0;COUNT=1",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "error": "RRULE UNTIL values must be specified in UTC when DTSTART is timezone-aware"
+      }
+    },
+    {
+      "name": "a deferred RDATE and the final DTSTART survive successful validation",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RDATE:20260308T100000Z",
+          "DTSTART:20260306T100000Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": [
+        "2026-03-06T10:00:00Z",
+        "2026-03-07T10:00:00Z",
+        "2026-03-08T10:00:00Z"
+      ]
+    }
+  ]
+}

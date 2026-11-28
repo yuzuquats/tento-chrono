@@ -1,0 +1,228 @@
+{
+  "type": "recurrence-profile",
+  "name": "rrule.js 2.8.1 bounded cross-selector holdouts",
+  "source": "Pinned rrulestr 2.8.1 all() for timezone transitions. Instrumented reference clock loops and UTC period bounds for the positive subdaily termination cases.",
+  "cases": [
+    {
+      "name": "positive hourly stride cannot reach BYHOUR",
+      "input": {
+        "lines": [
+          "DTSTART:20041030T120000Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=3;WKST=FR;BYSETPOS=1,2;BYHOUR=23;UNTIL=20041104T235959Z"
+        ],
+        "profile": "rrule-js",
+        "through": "2004-11-04",
+        "checkpoints": [
+          "2004-10-30",
+          "2004-11-01"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "positive minutely stride cannot reach BYMINUTE",
+      "input": {
+        "lines": [
+          "DTSTART:20260831T231559Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=2;WKST=SA;BYMINUTE=30,0;BYSETPOS=4,-7;UNTIL=20260901T235959Z"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-09-01",
+        "checkpoints": [
+          "2026-08-31"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "ordinal weekday and zero month-day leave a bounded minutely window empty",
+      "input": {
+        "lines": [
+          "DTSTART:20311228T123029Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=1;WKST=TH;BYDAY=-1FR,2MO,SA;BYMONTHDAY=0;BYSECOND=31,1,30;BYMINUTE=1,29,15;COUNT=21;UNTIL=20311229T235959Z"
+        ],
+        "profile": "rrule-js",
+        "through": "2031-12-29",
+        "checkpoints": [
+          "2031-12-28"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "zero month-day leaves a cross-year minutely window empty",
+      "input": {
+        "lines": [
+          "DTSTART:19991231T001501Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=2;WKST=SA;BYMINUTE=59,58,31;BYMONTHDAY=0;COUNT=11;UNTIL=20000101T235959Z"
+        ],
+        "profile": "rrule-js",
+        "through": "2000-01-01",
+        "checkpoints": [
+          "1999-12-31"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "zero month-day and first-year filters leave a bounded hourly window empty",
+      "input": {
+        "lines": [
+          "DTSTART:20251228T010059Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=27;WKST=TU;BYMONTHDAY=0;BYSECOND=30,29;BYYEARDAY=2,1;BYDAY=-2WE,-1FR;COUNT=8;UNTIL=20260102T235959Z"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-01-02",
+        "checkpoints": [
+          "2025-12-28",
+          "2025-12-30"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "zero month-day leaves a bounded secondly window empty",
+      "input": {
+        "lines": [
+          "DTSTART:20260103T005929Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=4;WKST=SU;BYMINUTE=0,31;BYMONTHDAY=0;COUNT=11;UNTIL=20260103T235959Z"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-03"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "secondly stride cannot reach BYSECOND",
+      "input": {
+        "lines": [
+          "DTSTART:20241228T120059Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=4;WKST=SA;BYHOUR=12,2;BYSECOND=29;UNTIL=20241228T235959Z"
+        ],
+        "profile": "rrule-js",
+        "through": "2024-12-28",
+        "checkpoints": [
+          "2024-12-28"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "Kwajalein fold uses all expansion across query cutoff",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Kwajalein:19690929T100100",
+          "RRULE:FREQ=DAILY;BYHOUR=21,4,12;BYMINUTE=31;COUNT=16;UNTIL=19691003T235959Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=5;BYMINUTE=15;UNTIL=19691003T235959Z",
+          "EXRULE:FREQ=HOURLY;INTERVAL=3;BYMINUTE=30;COUNT=24;UNTIL=19691003T235959Z",
+          "EXRULE:FREQ=HOURLY;INTERVAL=5;BYMINUTE=59;COUNT=18;UNTIL=19691003T235959Z",
+          "EXDATE:19690930T033000Z",
+          "RDATE:19691001T201500Z"
+        ],
+        "profile": "rrule-js",
+        "through": "1969-10-03",
+        "checkpoints": [
+          "1969-09-29",
+          "1969-09-30",
+          "1969-10-01"
+        ]
+      },
+      "expected": [
+        "1969-09-28T23:15:00Z",
+        "1969-09-29T01:31:00Z",
+        "1969-09-29T04:15:00Z",
+        "1969-09-29T09:15:00Z",
+        "1969-09-29T10:31:00Z",
+        "1969-09-29T14:15:00Z",
+        "1969-09-29T17:31:00Z",
+        "1969-09-29T19:15:00Z",
+        "1969-09-30T00:15:00Z",
+        "1969-09-30T01:31:00Z",
+        "1969-10-01T04:15:00Z",
+        "1969-10-01T09:15:00Z",
+        "1969-10-01T09:31:00Z",
+        "1969-10-01T14:15:00Z",
+        "1969-10-01T16:31:00Z",
+        "1969-10-01T19:15:00Z",
+        "1969-10-02T00:15:00Z",
+        "1969-10-02T00:31:00Z",
+        "1969-10-02T05:15:00Z",
+        "1969-10-02T08:15:00Z",
+        "1969-10-02T09:31:00Z",
+        "1969-10-02T10:15:00Z",
+        "1969-10-02T15:15:00Z",
+        "1969-10-02T16:31:00Z",
+        "1969-10-02T20:15:00Z",
+        "1969-10-03T00:31:00Z",
+        "1969-10-03T01:15:00Z",
+        "1969-10-03T06:15:00Z",
+        "1969-10-03T09:31:00Z",
+        "1969-10-03T11:15:00Z",
+        "1969-10-03T16:15:00Z",
+        "1969-10-03T16:31:00Z",
+        "1969-10-03T21:15:00Z"
+      ]
+    },
+    {
+      "name": "Lord Howe host uses all expansion for Kathmandu exclusions",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Asia/Kathmandu:19860101T015900",
+          "RRULE:FREQ=HOURLY;INTERVAL=2;BYMINUTE=0;UNTIL=19860103T235959Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=11;BYMINUTE=0;COUNT=29;UNTIL=19860103T235959Z",
+          "RRULE:FREQ=DAILY;BYHOUR=4,14,20,7;BYMINUTE=31;UNTIL=19860103T235959Z",
+          "EXRULE:FREQ=HOURLY;INTERVAL=2;BYMINUTE=15;UNTIL=19860103T235959Z",
+          "EXRULE:FREQ=HOURLY;INTERVAL=3;BYMINUTE=0;UNTIL=19860103T235959Z"
+        ],
+        "profile": "rrule-js",
+        "through": "1986-01-03",
+        "checkpoints": [
+          "1985-12-30",
+          "1985-12-31",
+          "1986-01-01"
+        ],
+        "rruleJsHostTimeZone": "Australia/Lord_Howe"
+      },
+      "expected": [
+        "1986-01-01T08:15:00Z",
+        "1986-01-01T09:46:00Z",
+        "1986-01-01T10:15:00Z",
+        "1986-01-01T12:46:00Z",
+        "1986-01-01T14:15:00Z",
+        "1986-01-01T16:15:00Z",
+        "1986-01-01T17:15:00Z",
+        "1986-01-01T19:46:00Z",
+        "1986-01-01T20:15:00Z",
+        "1986-01-01T22:15:00Z",
+        "1986-01-02T01:46:00Z",
+        "1986-01-02T02:15:00Z",
+        "1986-01-02T04:15:00Z",
+        "1986-01-02T08:15:00Z",
+        "1986-01-02T09:46:00Z",
+        "1986-01-02T10:15:00Z",
+        "1986-01-02T12:46:00Z",
+        "1986-01-02T14:15:00Z",
+        "1986-01-02T16:15:00Z",
+        "1986-01-02T19:46:00Z",
+        "1986-01-02T20:15:00Z",
+        "1986-01-02T22:15:00Z",
+        "1986-01-03T01:46:00Z",
+        "1986-01-03T02:15:00Z",
+        "1986-01-03T04:15:00Z",
+        "1986-01-03T08:15:00Z",
+        "1986-01-03T09:46:00Z",
+        "1986-01-03T10:15:00Z",
+        "1986-01-03T12:46:00Z",
+        "1986-01-03T13:15:00Z",
+        "1986-01-03T14:15:00Z",
+        "1986-01-03T16:15:00Z",
+        "1986-01-03T19:46:00Z",
+        "1986-01-03T20:15:00Z",
+        "1986-01-03T22:15:00Z"
+      ]
+    }
+  ]
+}

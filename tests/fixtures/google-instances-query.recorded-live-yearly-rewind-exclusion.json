@@ -1,0 +1,549 @@
+{
+  "type": "google-instances-query",
+  "name": "Google yearly rewind exclusions google-instances-query",
+  "source": "Google Calendar API events.instances",
+  "cases": [
+    {
+      "name": "yearly-rewind-exclusion-date-both",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12",
+            "EXDATE;VALUE=DATE:17460105,18920105"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE:17460105,18920105",
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "1746-01-01T00:00:00Z",
+            "end": "2099-12-31T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1746-01-05"
+        ]
+      }
+    },
+    {
+      "name": "yearly-rewind-exclusion-date-forward",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12",
+            "EXDATE;VALUE=DATE:18920105"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE:18920105",
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "1746-01-01T00:00:00Z",
+            "end": "2099-12-31T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1746-01-05"
+        ]
+      }
+    },
+    {
+      "name": "yearly-rewind-exclusion-date-narrow-forward-excluded",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12",
+            "EXDATE;VALUE=DATE:18920105"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE:18920105",
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "1746-01-01T00:00:00Z",
+            "end": "1746-01-10T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1746-01-05"
+        ]
+      }
+    },
+    {
+      "name": "yearly-rewind-exclusion-date-rdate-before-forward",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12",
+            "EXDATE;VALUE=DATE:17460105",
+            "RDATE;VALUE=DATE:17460102"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE:17460105",
+            "RDATE;VALUE=DATE:17460102",
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "1746-01-01T00:00:00Z",
+            "end": "1892-01-04T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1746-01-02",
+          "1746-01-05"
+        ]
+      }
+    },
+    {
+      "name": "yearly-rewind-exclusion-date-rdate-tie",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12",
+            "EXDATE;VALUE=DATE:17460105",
+            "RDATE;VALUE=DATE:17460105"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE:17460105",
+            "RDATE;VALUE=DATE:17460105",
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "1746-01-01T00:00:00Z",
+            "end": "2099-12-31T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1746-01-05",
+          "1892-01-05"
+        ]
+      }
+    },
+    {
+      "name": "yearly-rewind-exclusion-date-rewind",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12",
+            "EXDATE;VALUE=DATE:17460105"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE:17460105",
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "1746-01-01T00:00:00Z",
+            "end": "2099-12-31T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1746-01-05",
+          "1892-01-05"
+        ]
+      }
+    },
+    {
+      "name": "yearly-rewind-exclusion-time-both",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1580-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1580-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12",
+            "EXDATE:17460105T090000Z,18920105T090000Z"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1580-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1580-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE-TIME:17460105T090000Z,18920105T090000Z",
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+          ]
+        },
+        "durationMs": 900000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "1746-01-01T00:00:00Z",
+            "end": "2099-12-31T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1746-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "yearly-rewind-exclusion-time-forward",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1580-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1580-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12",
+            "EXDATE:18920105T090000Z"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1580-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1580-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE-TIME:18920105T090000Z",
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+          ]
+        },
+        "durationMs": 900000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "1746-01-01T00:00:00Z",
+            "end": "2099-12-31T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1746-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "yearly-rewind-exclusion-time-narrow-forward-excluded",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1580-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1580-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12",
+            "EXDATE:18920105T090000Z"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1580-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1580-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE-TIME:18920105T090000Z",
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+          ]
+        },
+        "durationMs": 900000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "1746-01-01T00:00:00Z",
+            "end": "1746-01-10T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1746-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "yearly-rewind-exclusion-time-rdate-before-forward",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1580-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1580-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12",
+            "EXDATE:17460105T090000Z",
+            "RDATE:17460102T090000Z"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1580-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1580-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE-TIME:17460105T090000Z",
+            "RDATE;VALUE=DATE-TIME:17460102T090000Z",
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+          ]
+        },
+        "durationMs": 900000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "1746-01-01T00:00:00Z",
+            "end": "1892-01-04T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1746-01-02T09:00:00Z",
+          "1746-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "yearly-rewind-exclusion-time-rdate-tie",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1580-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1580-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12",
+            "EXDATE:17460105T090000Z",
+            "RDATE:17460105T090000Z"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1580-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1580-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE-TIME:17460105T090000Z",
+            "RDATE;VALUE=DATE-TIME:17460105T090000Z",
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+          ]
+        },
+        "durationMs": 900000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "1746-01-01T00:00:00Z",
+            "end": "2099-12-31T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1746-01-05T09:00:00Z",
+          "1892-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "yearly-rewind-exclusion-time-rewind",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "1580-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1580-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12",
+            "EXDATE:17460105T090000Z"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "1580-01-05T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "1580-01-05T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE-TIME:17460105T090000Z",
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+          ]
+        },
+        "durationMs": 900000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "1746-01-01T00:00:00Z",
+            "end": "2099-12-31T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1746-01-05T09:00:00Z",
+          "1892-01-05T09:00:00Z"
+        ]
+      }
+    }
+  ]
+}

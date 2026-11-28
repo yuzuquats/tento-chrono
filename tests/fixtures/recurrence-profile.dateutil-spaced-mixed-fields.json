@@ -1,0 +1,248 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil mixed calendar separators",
+  "source": "python-dateutil 2.8.2 rrulestr with forceset and unfold",
+  "cases": [
+    {
+      "name": "a grouped named month and day can precede the year",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:JAN-2\r\n  2026 09:30",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-02T09:30:00",
+        "2026-01-03T09:30:00"
+      ]
+    },
+    {
+      "name": "a numeric year can precede a slash-separated month and day",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026\r\n  1/2 09:30Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-02T09:30:00Z",
+        "2026-01-03T09:30:00Z"
+      ]
+    },
+    {
+      "name": "a dotted grouped month retains the offset annotation",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:2.JAN\r\n  2026 09:30 +0200 (CET)"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T07:30:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "an ungrouped day can precede a dotted month and year",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE:2\r\n  JAN.2026 09:00"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-01T09:00:00"
+      ]
+    },
+    {
+      "name": "spaces on both sides of punctuation preserve the cutoff",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;UNTIL=2026\r\n  - 1 - 2 09:00Z"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": {
+        "error": "unknown parameter name"
+      }
+    },
+    {
+      "name": "a single dot can form a decimal month and inherit a day",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2.6\r\n  2026 09:30",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-02-28T09:30:00",
+        "2026-03-01T09:30:00"
+      ]
+    },
+    {
+      "name": "a numeric token with reserved compact width is invalid",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026.1\r\n  2 09:30",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": {
+        "error": "Unknown string format: 2026.1 2 09:30"
+      }
+    },
+    {
+      "name": "numeric decimal fields without a clock return civil dates",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026.12\r\n  2 09",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-02-09",
+        "2026-02-10"
+      ]
+    },
+    {
+      "name": "a full grouped date can have a space-separated compact clock",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:JAN-02-2026\r\n  09",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-02T09:00:00",
+        "2026-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "a month attached to a hyphen requires an adjacent field",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:JAN-\r\n  2 2026 09:30",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": {
+        "error": "Unknown string format: JAN- 2 2026 09:30"
+      }
+    },
+    {
+      "name": "invalid fields retain the unfolded spelling",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:2026\r\n  31/FEB 09:30"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": {
+        "error": "day is out of range for month: 2026 31/FEB 09:30"
+      }
+    }
+  ]
+}

@@ -1,0 +1,732 @@
+{
+  "type": "recurrence-profile",
+  "name": "rrule.js 2.8.1 timezone text",
+  "source": "rrule.js 2.8.1 rrulestr(forceset: true) or RRuleSet with external DTSTART, TZ from fixture or UTC",
+  "cases": [
+    {
+      "name": "start \"America/New_York\" 0",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=\"America/New_York\":20260307T090000",
+          "RRULE:FREQ=DAILY;COUNT=0"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-03-15",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "start \"America/New_York\" 2",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=\"America/New_York\":20260307T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-03-15"
+      },
+      "expected": {
+        "expansionError": "Invalid time zone specified: \"America/New_York\""
+      }
+    },
+    {
+      "name": "RDATE \"America/New_York\"",
+      "input": {
+        "lines": [
+          "DTSTART:20260307T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=\"America/New_York\":20260308T090000"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-03-15"
+      },
+      "expected": {
+        "expansionError": "Invalid time zone specified: \"America/New_York\""
+      }
+    },
+    {
+      "name": "RDATE VALUE=DATE-TIME;\"America/New_York\"",
+      "input": {
+        "lines": [
+          "DTSTART:20260307T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;VALUE=DATE-TIME;TZID=\"America/New_York\":20260308T090000"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-03-15",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-07T09:00:00Z",
+        "2026-03-08T09:00:00Z"
+      ]
+    },
+    {
+      "name": "EXDATE \"America/New_York\"",
+      "input": {
+        "lines": [
+          "DTSTART:20260307T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE;TZID=\"America/New_York\":20260308T090000"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-03-15",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-07T09:00:00Z"
+      ]
+    },
+    {
+      "name": "explicit dates only \"America/New_York\"",
+      "input": {
+        "lines": [
+          "RDATE;TZID=\"America/New_York\":20260307T090000"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-03-15"
+      },
+      "expected": {
+        "expansionError": "Invalid time zone specified: \"America/New_York\""
+      }
+    },
+    {
+      "name": "start Not/AZone 0",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Not/AZone:20260307T090000",
+          "RRULE:FREQ=DAILY;COUNT=0"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-03-15",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "start Not/AZone 2",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Not/AZone:20260307T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-03-15"
+      },
+      "expected": {
+        "expansionError": "Invalid time zone specified: Not/AZone"
+      }
+    },
+    {
+      "name": "RDATE Not/AZone",
+      "input": {
+        "lines": [
+          "DTSTART:20260307T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=Not/AZone:20260308T090000"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-03-15"
+      },
+      "expected": {
+        "expansionError": "Invalid time zone specified: Not/AZone"
+      }
+    },
+    {
+      "name": "RDATE VALUE=DATE-TIME;Not/AZone",
+      "input": {
+        "lines": [
+          "DTSTART:20260307T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;VALUE=DATE-TIME;TZID=Not/AZone:20260308T090000"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-03-15",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-07T09:00:00Z",
+        "2026-03-08T09:00:00Z"
+      ]
+    },
+    {
+      "name": "EXDATE Not/AZone",
+      "input": {
+        "lines": [
+          "DTSTART:20260307T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE;TZID=Not/AZone:20260308T090000"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-03-15",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-07T09:00:00Z"
+      ]
+    },
+    {
+      "name": "EXDATE VALUE=DATE-TIME;Not/AZone",
+      "input": {
+        "lines": [
+          "DTSTART:20260307T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE;VALUE=DATE-TIME;TZID=Not/AZone:20260308T090000"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-03-15",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-07T09:00:00Z"
+      ]
+    },
+    {
+      "name": "explicit dates only Not/AZone",
+      "input": {
+        "lines": [
+          "RDATE;TZID=Not/AZone:20260307T090000"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-03-15"
+      },
+      "expected": {
+        "expansionError": "Invalid time zone specified: Not/AZone"
+      }
+    },
+    {
+      "name": "start UTC 2",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=UTC:20260307T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-03-15",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-07T09:00:00Z",
+        "2026-03-08T09:00:00Z"
+      ]
+    },
+    {
+      "name": "explicit dates only UTC",
+      "input": {
+        "lines": [
+          "RDATE;TZID=UTC:20260307T090000"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-03-15",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-07T09:00:00Z"
+      ]
+    },
+    {
+      "name": "start GMT 2",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=GMT:20260307T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-03-15",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-07T09:00:00Z",
+        "2026-03-08T09:00:00Z"
+      ]
+    },
+    {
+      "name": "start US/Eastern 2",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=US/Eastern:20260307T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-03-15",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-07T14:00:00Z",
+        "2026-03-08T13:00:00Z"
+      ]
+    },
+    {
+      "name": "EXDATE VALUE=DATE-TIME;US/Eastern",
+      "input": {
+        "lines": [
+          "DTSTART:20260307T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE;VALUE=DATE-TIME;TZID=US/Eastern:20260308T090000"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-03-15",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-07T09:00:00Z"
+      ]
+    },
+    {
+      "name": "start +01:00 0",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=+01:00:20260307T090000",
+          "RRULE:FREQ=DAILY;COUNT=0"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-03-15"
+      },
+      "expected": {
+        "error": "Invalid UNTIL value: 00:20260307T090000"
+      }
+    },
+    {
+      "name": "RDATE +01:00",
+      "input": {
+        "lines": [
+          "DTSTART:20260307T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=+01:00:20260308T090000"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-03-15"
+      },
+      "expected": {
+        "error": "Invalid UNTIL value: 00:20260308T090000"
+      }
+    },
+    {
+      "name": "America/Los_Angeles first RDATE America/New_York overrides Not/AZone",
+      "input": {
+        "lines": [
+          "DTSTART:20260307T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=America/New_York:20260309T090000",
+          "RDATE;TZID=Not/AZone:20260310T090000"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "America/Los_Angeles",
+        "through": "2026-03-15",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-11"
+        ]
+      },
+      "expected": [
+        "2026-03-07T06:00:00Z",
+        "2026-03-08T05:00:00Z",
+        "2026-03-09T06:00:00Z",
+        "2026-03-10T06:00:00Z"
+      ]
+    },
+    {
+      "name": "America/Los_Angeles first parameter required for RDATE zone",
+      "input": {
+        "lines": [
+          "DTSTART:20260307T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;VALUE=DATE-TIME;TZID=Not/AZone:20260309T090000",
+          "RDATE;TZID=America/New_York:20260310T090000"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "America/Los_Angeles",
+        "through": "2026-03-15",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-11"
+        ]
+      },
+      "expected": [
+        "2026-03-07T06:00:00Z",
+        "2026-03-08T05:00:00Z",
+        "2026-03-09T06:00:00Z",
+        "2026-03-10T06:00:00Z"
+      ]
+    },
+    {
+      "name": "Asia/Tokyo start UTC overrides Not/AZone",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=UTC:20260307T090000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=Not/AZone:20260309T090000",
+          "EXDATE;TZID=Not/AZone:20260308T090000"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "Asia/Tokyo",
+        "through": "2026-03-15",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-11"
+        ]
+      },
+      "expected": [
+        "2026-03-07T09:00:00Z",
+        "2026-03-09T09:00:00Z"
+      ]
+    },
+    {
+      "name": "UTC start America/New_York overrides Not/AZone",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260307T090000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=Not/AZone:20260309T090000",
+          "EXDATE;TZID=Not/AZone:20260308T090000"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-15",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-11"
+        ]
+      },
+      "expected": [
+        "2026-03-07T14:00:00Z",
+        "2026-03-09T13:00:00Z"
+      ]
+    },
+    {
+      "name": "UTC first RDATE Not/AZone overrides America/New_York",
+      "input": {
+        "lines": [
+          "DTSTART:20260307T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=Not/AZone:20260309T090000",
+          "RDATE;TZID=America/New_York:20260310T090000"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-15"
+      },
+      "expected": {
+        "expansionError": "Invalid time zone specified: Not/AZone"
+      }
+    },
+    {
+      "name": "UTC start Not/AZone then RRULE:FREQ=DAILY;COUNT=0 EXDATE:20260309T090000",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Not/AZone:20260307T090000",
+          "RRULE:FREQ=DAILY;COUNT=0",
+          "EXDATE:20260309T090000"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-15"
+      },
+      "expected": {
+        "expansionError": "Invalid time zone specified: Not/AZone"
+      }
+    },
+    {
+      "name": "UTC start Not/AZone then RRULE:FREQ=DAILY;COUNT=0 EXRULE:FREQ=DAILY;COUNT=2",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Not/AZone:20260307T090000",
+          "RRULE:FREQ=DAILY;COUNT=0",
+          "EXRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-15",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-11"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "UTC start Not/AZone then RRULE:FREQ=DAILY;UNTIL=20260306T090000Z;COUNT=3",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Not/AZone:20260307T090000",
+          "RRULE:FREQ=DAILY;UNTIL=20260306T090000Z;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-15",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-11"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "UTC start Not/AZone then RRULE:FREQ=DAILY;COUNT=0 RRULE:FREQ=DAILY;COUNT=2",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Not/AZone:20260307T090000",
+          "RRULE:FREQ=DAILY;COUNT=0",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-15"
+      },
+      "expected": {
+        "expansionError": "Invalid time zone specified: Not/AZone"
+      }
+    },
+    {
+      "name": "UTC ignore EXDATE-only zone",
+      "input": {
+        "lines": [
+          "EXDATE;TZID=Not/AZone:20260308T090000"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-15",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-11"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "UTC ignore empty RDATE zone",
+      "input": {
+        "lines": [
+          "DTSTART:20260307T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=:20260309T090000"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-15",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-11"
+        ]
+      },
+      "expected": [
+        "2026-03-07T09:00:00Z",
+        "2026-03-08T09:00:00Z",
+        "2026-03-09T09:00:00Z"
+      ]
+    },
+    {
+      "name": "UTC leading RDATE capture spans next parameter name",
+      "input": {
+        "lines": [
+          "DTSTART:20260307T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=America/New_York;TZID=Not/AZone:20260309T090000"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-15"
+      },
+      "expected": {
+        "expansionError": "Invalid time zone specified: America/New_York;TZID"
+      }
+    },
+    {
+      "name": "UTC leading RDATE TZID followed by VALUE",
+      "input": {
+        "lines": [
+          "DTSTART:20260307T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=America/New_York;VALUE=DATE-TIME:20260309T090000"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-15"
+      },
+      "expected": {
+        "expansionError": "Invalid time zone specified: America/New_York;VALUE"
+      }
+    },
+    {
+      "name": "UTC leading DTSTART TZID followed by VALUE",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York;VALUE=DATE-TIME:20260307T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-15"
+      },
+      "expected": {
+        "error": "Invalid UNTIL value: DATE-TIME:20260307T090000"
+      }
+    },
+    {
+      "name": "external Not/AZone 0",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=0"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "2026-03-07T09:00:00",
+          "timeZone": "Not/AZone"
+        },
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "external Not/AZone 2",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "2026-03-07T09:00:00",
+          "timeZone": "Not/AZone"
+        },
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08"
+        ]
+      },
+      "expected": {
+        "expansionError": "Invalid time zone specified: Not/AZone"
+      }
+    },
+    {
+      "name": "external \"America/New_York\" 0",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=0"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "2026-03-07T09:00:00",
+          "timeZone": "\"America/New_York\""
+        },
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "external \"America/New_York\" 2",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "2026-03-07T09:00:00",
+          "timeZone": "\"America/New_York\""
+        },
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08"
+        ]
+      },
+      "expected": {
+        "expansionError": "Invalid time zone specified: \"America/New_York\""
+      }
+    },
+    {
+      "name": "external America/New_York 0",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=0"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "2026-03-07T09:00:00",
+          "timeZone": "America/New_York"
+        },
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "external America/New_York 2",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "2026-03-07T09:00:00",
+          "timeZone": "America/New_York"
+        },
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-07T14:00:00Z",
+        "2026-03-08T13:00:00Z"
+      ]
+    }
+  ]
+}

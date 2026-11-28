@@ -1,0 +1,90 @@
+{
+  "type": "recurrence-profile",
+  "name": "RFC 5545 sparse timed windows",
+  "source": "Independent Gregorian modulo calculation of phases and explicit date set algebra",
+  "cases": [
+    {
+      "name": "sparse UTC clock rule resumes beyond the implicit idle limit",
+      "input": {
+        "lines": [
+          "DTSTART:20240101T000000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=86401;BYHOUR=0;BYMINUTE=0;BYSECOND=0;BYMONTH=1;COUNT=2"
+        ],
+        "through": "4153-01-08",
+        "checkpoints": [
+          "2024-01-01",
+          "2026-01-01",
+          "3000-01-02",
+          "4153-01-07"
+        ],
+        "generationLimit": null
+      },
+      "expected": [
+        "2024-01-01T00:00:00Z",
+        "4153-01-08T00:00:00Z"
+      ]
+    },
+    {
+      "name": "timed dates merge across an empty sparse-rule window",
+      "input": {
+        "lines": [
+          "DTSTART:20240101T000000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=86401;BYHOUR=0;BYMINUTE=0;BYSECOND=0;BYMONTH=1;COUNT=2",
+          "EXDATE:20240101T000000Z",
+          "RDATE:30000102T000000Z"
+        ],
+        "through": "4153-01-08",
+        "checkpoints": [
+          "2024-01-01",
+          "2026-01-01",
+          "3000-01-02",
+          "4153-01-07"
+        ],
+        "generationLimit": null
+      },
+      "expected": [
+        "3000-01-02T00:00:00Z",
+        "4153-01-08T00:00:00Z"
+      ]
+    },
+    {
+      "name": "impossible clock phase still returns an explicit date in the window",
+      "input": {
+        "lines": [
+          "DTSTART:20240101T000000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=2;BYSECOND=1",
+          "RDATE:20240103T090000Z"
+        ],
+        "through": "2024-01-03",
+        "checkpoints": [
+          "2024-01-01",
+          "2024-01-02"
+        ],
+        "generationLimit": null
+      },
+      "expected": [
+        "2024-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "empty daily timed periods leave work for the next window",
+      "input": {
+        "lines": [
+          "DTSTART:20240101T000000Z",
+          "RRULE:FREQ=DAILY;BYMONTH=1;BYMONTHDAY=1;BYHOUR=0;COUNT=2",
+          "EXDATE:20240101T000000Z",
+          "RDATE:20240103T090000Z"
+        ],
+        "through": "2024-01-03",
+        "checkpoints": [
+          "2024-01-01",
+          "2024-01-02"
+        ],
+        "generationLimit": 10
+      },
+      "expected": [
+        "2024-01-03T09:00:00Z"
+      ]
+    }
+  ]
+}

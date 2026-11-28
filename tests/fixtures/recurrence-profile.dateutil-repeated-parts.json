@@ -1,0 +1,173 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil repeated rule parts",
+  "source": "python-dateutil 2.8.2 rrulestr with forceset and an RFC 5545 control",
+  "cases": [
+    {
+      "name": "a later FREQ cannot hide a malformed earlier frequency",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3;FREQ=NOPE;FREQ=DAILY"
+        ],
+        "through": "2026-04-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "error": "invalid 'FREQ': NOPE"
+      }
+    },
+    {
+      "name": "an unknown field before a malformed FREQ fails first",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3;X=1;FREQ=NOPE"
+        ],
+        "through": "2026-04-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "error": "unknown parameter 'X'"
+      }
+    },
+    {
+      "name": "a later WKST cannot hide a malformed exclusion week start",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXRULE:FREQ=DAILY;COUNT=3;WKST=THURSDAY;WKST=SU"
+        ],
+        "through": "2026-04-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "error": "invalid 'WKST': THURSDAY"
+      }
+    },
+    {
+      "name": "valid repeated frequencies use the last one",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3;FREQ=WEEKLY;FREQ=DAILY"
+        ],
+        "through": "2026-04-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": [
+        "2026-03-06T09:00:00Z",
+        "2026-03-07T09:00:00Z",
+        "2026-03-08T09:00:00Z"
+      ]
+    },
+    {
+      "name": "BYWEEKDAY replaces an earlier BYDAY",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3;BYDAY=FR,SU;BYWEEKDAY=SA"
+        ],
+        "through": "2026-04-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": [
+        "2026-03-07T09:00:00Z",
+        "2026-03-14T09:00:00Z",
+        "2026-03-21T09:00:00Z"
+      ]
+    },
+    {
+      "name": "a replaced BYSETPOS value does not reach range validation",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3;BYSETPOS=0;BYSETPOS=1"
+        ],
+        "through": "2026-04-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": [
+        "2026-03-06T09:00:00Z",
+        "2026-03-07T09:00:00Z",
+        "2026-03-08T09:00:00Z"
+      ]
+    },
+    {
+      "name": "UNTIL awareness precedes BYSETPOS range validation",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3;BYSETPOS=1,0,-1;UNTIL=20260308T090000"
+        ],
+        "through": "2026-04-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "error": "RRULE UNTIL values must be specified in UTC when DTSTART is timezone-aware"
+      }
+    },
+    {
+      "name": "an exclusion rule checks UNTIL awareness before BYSETPOS",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXRULE:FREQ=DAILY;COUNT=3;UNTIL=20260308T090000;BYSETPOS=-367"
+        ],
+        "through": "2026-04-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "error": "RRULE UNTIL values must be specified in UTC when DTSTART is timezone-aware"
+      }
+    },
+    {
+      "name": "the RFC reader rejects repeated valid frequencies",
+      "reference": "RFC 5545 \u00a73.3.10",
+      "input": {
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=WEEKLY;FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-10"
+      },
+      "expected": {
+        "error": "Duplicate RRULE part: FREQ"
+      }
+    }
+  ]
+}

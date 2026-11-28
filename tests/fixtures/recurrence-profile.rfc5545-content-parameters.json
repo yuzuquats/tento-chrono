@@ -1,0 +1,242 @@
+{
+  "type": "recurrence-profile",
+  "name": "RFC 5545 content-line parameters",
+  "source": "RFC 5545 §3.1 content-line parameter ABNF",
+  "cases": [
+    {
+      "name": "DTSTART 'X-NOTE'",
+      "reference": "RFC 5545 §3.1 content-line parameter ABNF",
+      "input": {
+        "lines": [
+          "DTSTART;X-NOTE:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-03"
+      },
+      "expected": {
+        "error": "Invalid DTSTART parameter"
+      }
+    },
+    {
+      "name": "RRULE 'X-NOTE=ab\"quoted\"cd'",
+      "reference": "RFC 5545 §3.1 content-line parameter ABNF",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE;X-NOTE=ab\"quoted\"cd:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-03"
+      },
+      "expected": {
+        "error": "Invalid RRULE parameter"
+      }
+    },
+    {
+      "name": "RDATE 'X_NOTE=tag'",
+      "reference": "RFC 5545 §3.1 content-line parameter ABNF",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;X_NOTE=tag:20260103T090000Z"
+        ],
+        "through": "2026-01-03"
+      },
+      "expected": {
+        "error": "Invalid RDATE parameter"
+      }
+    },
+    {
+      "name": "EXDATE ' X-NOTE=tag'",
+      "reference": "RFC 5545 §3.1 content-line parameter ABNF",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE; X-NOTE=tag:20260101T090000Z"
+        ],
+        "through": "2026-01-03"
+      },
+      "expected": {
+        "error": "Invalid EXDATE parameter"
+      }
+    },
+    {
+      "name": "RRULE '=tag'",
+      "reference": "RFC 5545 §3.1 content-line parameter ABNF",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE;=tag:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-03"
+      },
+      "expected": {
+        "error": "Invalid RRULE parameter"
+      }
+    },
+    {
+      "name": "RDATE 'X-NOTE=bare\\x01value'",
+      "reference": "RFC 5545 §3.1 content-line parameter ABNF",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;X-NOTE=bare\u0001value:20260103T090000Z"
+        ],
+        "through": "2026-01-03"
+      },
+      "expected": {
+        "error": "Invalid RDATE parameter"
+      }
+    },
+    {
+      "name": "EXDATE 'X-NOTE=\"quoted\\x7fvalue\"'",
+      "reference": "RFC 5545 §3.1 content-line parameter ABNF",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE;X-NOTE=\"quotedvalue\":20260101T090000Z"
+        ],
+        "through": "2026-01-03"
+      },
+      "expected": {
+        "error": "Invalid EXDATE parameter"
+      }
+    },
+    {
+      "name": "DTSTART 'X-NOTE=\"quoted\"x,bare'",
+      "reference": "RFC 5545 §3.1 content-line parameter ABNF",
+      "input": {
+        "lines": [
+          "DTSTART;X-NOTE=\"quoted\"x,bare:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-03"
+      },
+      "expected": {
+        "error": "Invalid DTSTART parameter"
+      }
+    },
+    {
+      "name": "DTSTART 'X-NOTE=\"alpha:beta;gamma,delta\",bare,\"日本語 🌙\"'",
+      "reference": "RFC 5545 §3.1 content-line parameter ABNF",
+      "input": {
+        "lines": [
+          "DTSTART;X-NOTE=\"alpha:beta;gamma,delta\",bare,\"日本語 🌙\":20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "RRULE 'X-NOTE=left=right,second value'",
+      "reference": "RFC 5545 §3.1 content-line parameter ABNF",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE;X-NOTE=left=right,second value:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "RDATE 'X-NOTE='",
+      "reference": "RFC 5545 §3.1 content-line parameter ABNF",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;X-NOTE=:20260103T090000Z"
+        ],
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "EXDATE 'X-NOTE=\"quoted\\tvalue\"'",
+      "reference": "RFC 5545 §3.1 content-line parameter ABNF",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE;X-NOTE=\"quoted\tvalue\":20260101T090000Z"
+        ],
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "fold inside quoted parameter retains its delimiters",
+      "reference": "RFC 5545 §3.1 content-line parameter ABNF",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;X-NOTE=\"folded:quote;",
+          " comma,value\":20260103T090000Z"
+        ],
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "valid quoted timezone and repeated extension parameter",
+      "reference": "RFC 5545 §3.1 content-line parameter ABNF",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=\"America/New_York\";X-NOTE=one;X-NOTE=two:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T14:00:00Z",
+        "2026-01-02T14:00:00Z"
+      ]
+    }
+  ]
+}

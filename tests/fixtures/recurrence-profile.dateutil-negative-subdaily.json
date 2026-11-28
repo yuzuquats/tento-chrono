@@ -1,0 +1,279 @@
+{
+  "type": "recurrence-profile",
+  "name": "dateutil negative subdaily intervals",
+  "source": "python-dateutil 2.8.2. The repeating-clock case records Chrono's termination of a proven reference cycle.",
+  "cases": [
+    {
+      "name": "hourly-negative-lower-fields-select-after-start",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T000100Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=-1;BYMINUTE=0,5,10;BYSETPOS=-2,-1;COUNT=1"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-06T00:05:00Z"
+      ]
+    },
+    {
+      "name": "minutely-negative-gap-until-before-start",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T020000",
+          "RRULE:FREQ=MINUTELY;INTERVAL=-1;UNTIL=20260308T060000Z"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-08T06:00:00Z"
+      ]
+    },
+    {
+      "name": "hourly-negative-fold-utc-until",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20251102T013000",
+          "RRULE:FREQ=HOURLY;INTERVAL=-1;UNTIL=20251102T053000Z"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": {
+        "expansionError": "day is out of range for month"
+      }
+    },
+    {
+      "name": "minute-negative-count-clips-within-period",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T000030",
+          "RRULE:FREQ=MINUTELY;INTERVAL=-1;BYSECOND=15,30,45;COUNT=1"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-06T00:00:30"
+      ]
+    },
+    {
+      "name": "minute-negative-clock-search-before-underflow",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T000100Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=-1440;BYHOUR=1;COUNT=1"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": {
+        "expansionError": "Invalid combination of interval and byhour resulting in empty rule."
+      }
+    },
+    {
+      "name": "hourly-negative-empty-initial-grid-delays-clock-error",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T000000Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=-1;BYHOUR=23;BYMINUTE=60;COUNT=1"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": {
+        "expansionError": "minute must be in 0..59"
+      }
+    },
+    {
+      "name": "hourly-negative-unsafe-phase-rejects-selector",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T000000Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=-9007199254740993;BYHOUR=1;COUNT=0"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": {
+        "error": "Invalid rrule byxxx generates an empty set."
+      }
+    },
+    {
+      "name": "hourly-negative-long-overflow-after-count-one",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T000000Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=-922337203685477600000;COUNT=1"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": {
+        "expansionError": "Python int too large to convert to C long"
+      }
+    },
+    {
+      "name": "hourly-negative-int-overflow-after-count-one",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T000000Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=-9007199254740993;COUNT=1"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": {
+        "expansionError": "signed integer is less than minimum"
+      }
+    },
+    {
+      "name": "secondly-negative-exrule-with-zero-count",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T000000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXRULE:FREQ=SECONDLY;INTERVAL=-1;COUNT=0",
+          "RDATE:20260309T100000Z"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-06T00:00:00Z",
+        "2026-03-07T00:00:00Z",
+        "2026-03-09T10:00:00Z"
+      ]
+    },
+    {
+      "name": "secondly-negative-reaches-raw-day-underflow",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=-1;COUNT=1",
+          "RDATE:20260308T100000Z"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": {
+        "expansionError": "day is out of range for month"
+      }
+    },
+    {
+      "name": "secondly-negative-invalid-position-reaches-underflow",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T000100Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=-30;BYSETPOS=2;BYSECOND=10,30;COUNT=2"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": {
+        "expansionError": "day is out of range for month"
+      }
+    },
+    {
+      "name": "hourly-negative-filtered-day-selector-carry",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T000100Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=-2;BYMONTH=2;BYHOUR=23;COUNT=2"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": {
+        "error": "Invalid rrule byxxx generates an empty set."
+      }
+    },
+    {
+      "name": "secondly-negative-unreachable-modular-selector",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T000100Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=-59;BYSECOND=60;COUNT=0"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": {
+        "expansionError": "cannot unpack non-iterable NoneType object"
+      }
+    },
+    {
+      "name": "secondly-negative-filtered-day-repeats-one-clock",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T000005Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=-86400;BYDAY=SA;COUNT=1"
+        ],
+        "through": "2026-03-10",
+        "generationLimit": null
+      },
+      "expected": {
+        "expansionError": "dateutil interval does not advance the recurrence"
+      }
+    }
+  ]
+}

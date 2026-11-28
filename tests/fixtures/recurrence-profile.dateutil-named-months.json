@@ -1,0 +1,258 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil named calendar months",
+  "source": "python-dateutil 2.8.2 rrulestr with TZ=UTC",
+  "cases": [
+    {
+      "name": "year first accepts an abbreviated month",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026-MAR-01T09:15:30Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:15:30Z",
+        "2026-03-02T09:15:30Z",
+        "2026-03-03T09:15:30Z"
+      ]
+    },
+    {
+      "name": "day first accepts a full month",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:1-MARCH-2026T09:15",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:15:00",
+        "2026-03-02T09:15:00",
+        "2026-03-03T09:15:00"
+      ]
+    },
+    {
+      "name": "month first accepts a slash date and fixed offset",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:MAR/01/2026T09:15:30+0230",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T06:45:30Z",
+        "2026-03-02T06:45:30Z",
+        "2026-03-03T06:45:30Z"
+      ]
+    },
+    {
+      "name": "year first accepts a dot before a named month",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026.MAR-01T091530",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:15:30",
+        "2026-03-02T09:15:30",
+        "2026-03-03T09:15:30"
+      ]
+    },
+    {
+      "name": "month token accepts mixed Unicode decimal fields",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:٢٠٢٦-MAR/０１T०९:१५:३०",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:15:30",
+        "2026-03-02T09:15:30",
+        "2026-03-03T09:15:30"
+      ]
+    },
+    {
+      "name": "SEPT is also an English September abbreviation",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026-SEPT-01",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-09-05",
+        "checkpoints": [
+          "2026-09-01",
+          "2026-09-02",
+          "2026-09-03"
+        ]
+      },
+      "expected": [
+        "2026-09-01",
+        "2026-09-02",
+        "2026-09-03"
+      ]
+    },
+    {
+      "name": "a named month can end a civil date",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026-01-MAR",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01",
+        "2026-03-02",
+        "2026-03-03"
+      ]
+    },
+    {
+      "name": "a named month adjacent to a time separator is invalid",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026-01-MART09:15:30Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06"
+      },
+      "expected": {
+        "error": "Unknown string format: 2026-01-MART09:15:30Z"
+      }
+    },
+    {
+      "name": "month-first mixed fractional-looking dates remain invalid",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:MAR-2026.01T09:15:30",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06"
+      },
+      "expected": {
+        "error": "Unknown string format: MAR-2026.01T09:15:30"
+      }
+    },
+    {
+      "name": "an isolated dot between year and day remains invalid",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026.01-MAR",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06"
+      },
+      "expected": {
+        "error": "Unknown string format: 2026.01-MAR"
+      }
+    },
+    {
+      "name": "a named invalid calendar date retains diagnostic",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026-FEB-29T09:15:30",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06"
+      },
+      "expected": {
+        "error": "day is out of range for month: 2026-FEB-29T09:15:30"
+      }
+    },
+    {
+      "name": "named month with an EXDATE and TZID",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_York:2026-FEB-28T09:15:30",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE;TZID=America/New_York:01-MAR-2026T09:15:30"
+        ],
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-02-28",
+          "2026-03-02"
+        ]
+      },
+      "expected": [
+        "2026-02-28T14:15:30Z",
+        "2026-03-02T14:15:30Z"
+      ]
+    },
+    {
+      "name": "named month RDATE and UNTIL retain UTC times",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260228T091530Z",
+          "RRULE:FREQ=DAILY;UNTIL=MAR.01.2026T09:15:30Z",
+          "RDATE:2026-MARCH/02T12:00:00Z"
+        ],
+        "through": "2026-03-06"
+      },
+      "expected": {
+        "error": "too many values to unpack (expected 2)"
+      }
+    },
+    {
+      "name": "RFC profile continues to require numeric date fields",
+      "input": {
+        "lines": [
+          "DTSTART:2026-MAR-01T09:15:30Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06"
+      },
+      "expected": {
+        "error": "Expected an iCalendar DATE or DATE-TIME"
+      }
+    }
+  ]
+}

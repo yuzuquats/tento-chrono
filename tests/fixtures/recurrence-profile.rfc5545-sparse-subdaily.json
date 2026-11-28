@@ -1,0 +1,238 @@
+{
+  "type": "recurrence-profile",
+  "name": "RFC 5545 sparse subdaily intervals across zone transitions",
+  "source": "Independent wall-clock enumeration and Python zoneinfo fold=0 projection (RFC 5545 and verified Erratum 4271)",
+  "cases": [
+    {
+      "name": "Hourly interval and UTC cutoff at Lord Howe's forward transition",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Australia/Lord_Howe:20261003T000513",
+          "RRULE:FREQ=HOURLY;INTERVAL=5;BYHOUR=0,5,7,9,11,12,20;BYMINUTE=5,21,28,56;BYSECOND=13,15,33,39;BYSETPOS=1,366,-366;BYMONTH=10;UNTIL=20261004T153000Z"
+        ],
+        "through": "2026-10-06",
+        "checkpoints": [
+          "2026-10-01",
+          "2026-10-02",
+          "2026-10-03",
+          "2026-10-04",
+          "2026-10-05"
+        ]
+      },
+      "expected": [
+        "2026-10-02T13:35:13Z",
+        "2026-10-02T18:35:13Z",
+        "2026-10-03T09:35:13Z",
+        "2026-10-04T00:05:13Z"
+      ]
+    },
+    {
+      "name": "1373-minute phase across Lord Howe's repeated half hour",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Australia/Lord_Howe:20260404T142806",
+          "RRULE:FREQ=MINUTELY;INTERVAL=1373;BYHOUR=5,11,13,14,18,21,22,23;BYMINUTE=0,1,7,15,28,39,40,46,53;BYSECOND=6,9,15,40;BYSETPOS=1,-1;BYMONTH=4;BYMONTHDAY=-27,-25,-24,-22;COUNT=12",
+          "RDATE:20260404T150015Z",
+          "EXDATE:20260407T003706Z"
+        ],
+        "through": "2026-04-07",
+        "checkpoints": [
+          "2026-04-02",
+          "2026-04-03",
+          "2026-04-04",
+          "2026-04-05",
+          "2026-04-06"
+        ]
+      },
+      "expected": [
+        "2026-04-04T03:28:06Z",
+        "2026-04-04T03:28:40Z",
+        "2026-04-04T15:00:15Z",
+        "2026-04-07T00:37:40Z"
+      ]
+    },
+    {
+      "name": "Count and explicit dates across Kwajalein's 23-hour fold",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Kwajalein:19690930T011621",
+          "RRULE:FREQ=MINUTELY;INTERVAL=61;BYHOUR=0,1,2,5,6,7,17,23;BYMINUTE=16,17,18,23,28,35,36,37;BYSECOND=2,21,43,56;BYSETPOS=2,-1;BYMONTH=9,10;BYDAY=TU,TH,FR,SU;COUNT=13",
+          "RDATE:19690930T130015Z",
+          "EXDATE:19690929T151756Z"
+        ],
+        "through": "1969-10-03",
+        "checkpoints": [
+          "1969-09-28",
+          "1969-09-29",
+          "1969-09-30",
+          "1969-10-01",
+          "1969-10-02"
+        ]
+      },
+      "expected": [
+        "1969-09-29T14:16:21Z",
+        "1969-09-29T14:16:56Z",
+        "1969-09-29T15:17:21Z",
+        "1969-09-30T13:00:15Z",
+        "1969-10-03T14:28:21Z",
+        "1969-10-03T14:28:56Z"
+      ]
+    },
+    {
+      "name": "Calendar limit and ranked minute buckets across Kwajalein's skipped day",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Kwajalein:19930819T224418",
+          "RRULE:FREQ=MINUTELY;INTERVAL=17;BYHOUR=0,1,2,3,4,22,23;BYMINUTE=0,9,16,17,25,32,35,44,59;BYSECOND=18,21,23,31;BYSETPOS=1,366,-366;BYMONTH=8;BYDAY=TU,TH,SA,SU;COUNT=11"
+        ],
+        "through": "1993-08-24",
+        "checkpoints": [
+          "1993-08-19",
+          "1993-08-20",
+          "1993-08-21",
+          "1993-08-22",
+          "1993-08-23"
+        ]
+      },
+      "expected": [
+        "1993-08-20T10:44:18Z",
+        "1993-08-20T11:35:18Z",
+        "1993-08-21T13:44:18Z",
+        "1993-08-21T14:35:18Z",
+        "1993-08-21T15:09:18Z",
+        "1993-08-21T16:00:18Z",
+        "1993-08-21T16:17:18Z",
+        "1993-08-22T10:25:18Z",
+        "1993-08-22T10:59:18Z",
+        "1993-08-22T11:16:18Z",
+        "1993-08-23T16:44:18Z"
+      ]
+    },
+    {
+      "name": "367-second phase with clock limits and UTC cutoff at the skipped day",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Kwajalein:19930820T113759",
+          "RRULE:FREQ=SECONDLY;INTERVAL=97;BYHOUR=11,12;BYMINUTE=2,10,37,44,46,49,50,57;BYSECOND=5,9,18,23,27,33,41,51,55,59;BYSETPOS=1,-1;BYMONTH=8;BYMONTHDAY=-12,-11,-9,-8;UNTIL=19930821T130059Z",
+          "RDATE:19930821T120015Z",
+          "EXDATE:19930820T234918Z"
+        ],
+        "through": "1993-08-24",
+        "checkpoints": [
+          "1993-08-19",
+          "1993-08-20",
+          "1993-08-21",
+          "1993-08-22",
+          "1993-08-23"
+        ]
+      },
+      "expected": [
+        "1993-08-20T23:37:59Z",
+        "1993-08-20T23:44:27Z",
+        "1993-08-20T23:50:55Z",
+        "1993-08-20T23:57:23Z",
+        "1993-08-21T12:00:15Z"
+      ]
+    },
+    {
+      "name": "Positive and negative positions with a UTC cutoff at Casey's three-hour gap",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Antarctica/Casey:20091016T234056",
+          "RRULE:FREQ=HOURLY;INTERVAL=13;BYHOUR=0,3,11,12,13,16,18,23;BYMINUTE=3,9,31,40;BYSECOND=44,46,56,58;BYSETPOS=-2;BYMONTH=10;UNTIL=20091017T190059Z"
+        ],
+        "through": "2009-10-20",
+        "checkpoints": [
+          "2009-10-15",
+          "2009-10-16",
+          "2009-10-17",
+          "2009-10-18",
+          "2009-10-19"
+        ]
+      },
+      "expected": [
+        "2009-10-16T15:40:56Z",
+        "2009-10-17T04:40:56Z"
+      ]
+    },
+    {
+      "name": "Minute interval phase across Monrovia's second-resolution offset change",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Africa/Monrovia:19720106T040328",
+          "RRULE:FREQ=MINUTELY;INTERVAL=181;BYHOUR=1,4,7,10,22;BYMINUTE=3,4,11,12,15,19,20,26;BYSECOND=26,28,44,47;BYSETPOS=2,-1;BYMONTH=1;BYMONTHDAY=-26,-24,-23,-21;COUNT=12",
+          "RDATE:19720107T004445Z",
+          "EXDATE:19720108T041947Z"
+        ],
+        "through": "1972-01-10",
+        "checkpoints": [
+          "1972-01-05",
+          "1972-01-06",
+          "1972-01-07",
+          "1972-01-08",
+          "1972-01-09"
+        ]
+      },
+      "expected": [
+        "1972-01-06T04:47:58Z",
+        "1972-01-06T04:48:17Z",
+        "1972-01-06T07:48:58Z",
+        "1972-01-06T07:49:17Z",
+        "1972-01-07T00:44:45Z",
+        "1972-01-08T04:19:28Z",
+        "1972-01-08T07:20:28Z",
+        "1972-01-08T07:20:47Z",
+        "1972-01-09T01:26:28Z",
+        "1972-01-09T01:26:47Z"
+      ]
+    },
+    {
+      "name": "661-second buckets and UTC cutoff after Monrovia's offset change",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Africa/Monrovia:19720106T033659",
+          "RRULE:FREQ=SECONDLY;INTERVAL=661;BYHOUR=3,4,5,6,7;BYMINUTE=10,33,36,38,43,44,50,54;BYSECOND=3,4,6,7,8,10,11,13,17,20,59;BYSETPOS=1,-1;BYMONTH=1;UNTIL=19720108T004430Z",
+          "RDATE:19720107T004445Z",
+          "EXDATE:19720106T053836Z"
+        ],
+        "through": "1972-01-10",
+        "checkpoints": [
+          "1972-01-05",
+          "1972-01-06",
+          "1972-01-07",
+          "1972-01-08",
+          "1972-01-09"
+        ]
+      },
+      "expected": [
+        "1972-01-06T04:21:29Z",
+        "1972-01-06T06:22:40Z",
+        "1972-01-07T00:44:45Z"
+      ]
+    },
+    {
+      "name": "Month-day limiter and explicit dates across Kathmandu's New Year gap",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Asia/Kathmandu:19851231T053928",
+          "RRULE:FREQ=MINUTELY;INTERVAL=127;BYHOUR=4,5,8,9,16,18,20;BYMINUTE=0,6,7,14,21,31,35,39,52;BYSECOND=28,40,45,54;BYSETPOS=1,-1;BYMONTH=1,12;BYMONTHDAY=-30,-29,-27,-1;COUNT=3",
+          "RDATE:19851231T183015Z",
+          "EXDATE:19851231T000954Z"
+        ],
+        "through": "1986-01-03",
+        "checkpoints": [
+          "1985-12-29",
+          "1985-12-30",
+          "1985-12-31",
+          "1986-01-01",
+          "1986-01-02"
+        ]
+      },
+      "expected": [
+        "1985-12-31T00:09:28Z",
+        "1985-12-31T10:44:28Z",
+        "1985-12-31T18:30:15Z"
+      ]
+    }
+  ]
+}

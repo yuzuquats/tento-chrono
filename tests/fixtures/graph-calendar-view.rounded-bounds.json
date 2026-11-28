@@ -1,0 +1,679 @@
+{
+  "type": "graph-calendar-view",
+  "name": "Outlook calendarView rounded and equal bounds",
+  "source": "Microsoft Graph v1.0 calendarView",
+  "cases": [
+    {
+      "name": "point-extended-bounds",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-01-19T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-19T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-01-19",
+              "type": "numbered"
+            }
+          }
+        },
+        "windows": {
+          "wide": {
+            "start": "2027-01-18T09:00:00Z",
+            "end": "2027-01-23T09:00:00Z"
+          },
+          "upper-00000000": {
+            "start": "2027-01-19T08:59:59Z",
+            "end": "2027-01-19T09:00:00.00000000Z"
+          },
+          "lower-00000000": {
+            "start": "2027-01-19T09:00:00.00000000Z",
+            "end": "2027-01-19T09:00:01Z"
+          },
+          "upper-00000001": {
+            "start": "2027-01-19T08:59:59Z",
+            "end": "2027-01-19T09:00:00.00000001Z"
+          },
+          "lower-00000001": {
+            "start": "2027-01-19T09:00:00.00000001Z",
+            "end": "2027-01-19T09:00:01Z"
+          },
+          "upper-00000004": {
+            "start": "2027-01-19T08:59:59Z",
+            "end": "2027-01-19T09:00:00.00000004Z"
+          },
+          "lower-00000004": {
+            "start": "2027-01-19T09:00:00.00000004Z",
+            "end": "2027-01-19T09:00:01Z"
+          },
+          "upper-00000005": {
+            "start": "2027-01-19T08:59:59Z",
+            "end": "2027-01-19T09:00:00.00000005Z"
+          },
+          "lower-00000005": {
+            "start": "2027-01-19T09:00:00.00000005Z",
+            "end": "2027-01-19T09:00:01Z"
+          },
+          "upper-00000006": {
+            "start": "2027-01-19T08:59:59Z",
+            "end": "2027-01-19T09:00:00.00000006Z"
+          },
+          "lower-00000006": {
+            "start": "2027-01-19T09:00:00.00000006Z",
+            "end": "2027-01-19T09:00:01Z"
+          },
+          "upper-00000009": {
+            "start": "2027-01-19T08:59:59Z",
+            "end": "2027-01-19T09:00:00.00000009Z"
+          },
+          "lower-00000009": {
+            "start": "2027-01-19T09:00:00.00000009Z",
+            "end": "2027-01-19T09:00:01Z"
+          },
+          "upper-000000001": {
+            "start": "2027-01-19T08:59:59Z",
+            "end": "2027-01-19T09:00:00.000000001Z"
+          },
+          "lower-000000001": {
+            "start": "2027-01-19T09:00:00.000000001Z",
+            "end": "2027-01-19T09:00:01Z"
+          },
+          "upper-0000000000000001": {
+            "start": "2027-01-19T08:59:59Z",
+            "end": "2027-01-19T09:00:00.0000000000000001Z"
+          },
+          "lower-0000000000000001": {
+            "start": "2027-01-19T09:00:00.0000000000000001Z",
+            "end": "2027-01-19T09:00:01Z"
+          },
+          "upper-previous-99999994": {
+            "start": "2027-01-19T08:59:59Z",
+            "end": "2027-01-19T08:59:59.99999994Z"
+          },
+          "lower-previous-99999994": {
+            "start": "2027-01-19T08:59:59.99999994Z",
+            "end": "2027-01-19T09:00:01Z"
+          },
+          "upper-previous-99999995": {
+            "start": "2027-01-19T08:59:59Z",
+            "end": "2027-01-19T08:59:59.99999995Z"
+          },
+          "lower-previous-99999995": {
+            "start": "2027-01-19T08:59:59.99999995Z",
+            "end": "2027-01-19T09:00:01Z"
+          },
+          "upper-previous-99999996": {
+            "start": "2027-01-19T08:59:59Z",
+            "end": "2027-01-19T08:59:59.99999996Z"
+          },
+          "lower-previous-99999996": {
+            "start": "2027-01-19T08:59:59.99999996Z",
+            "end": "2027-01-19T09:00:01Z"
+          },
+          "upper-previous-99999999": {
+            "start": "2027-01-19T08:59:59Z",
+            "end": "2027-01-19T08:59:59.99999999Z"
+          },
+          "lower-previous-99999999": {
+            "start": "2027-01-19T08:59:59.99999999Z",
+            "end": "2027-01-19T09:00:01Z"
+          },
+          "equal": {
+            "start": "2027-01-19T09:00:00Z",
+            "end": "2027-01-19T10:00:00+01:00"
+          },
+          "reversed": {
+            "start": "2027-01-19T09:00:01Z",
+            "end": "2027-01-19T10:00:00+01:00"
+          },
+          "same-rounded-tick": {
+            "start": "2027-01-19T09:00:00.00000001Z",
+            "end": "2027-01-19T10:00:00.00000004+01:00"
+          },
+          "rounded-span": {
+            "start": "2027-01-19T09:00:00.00000004Z",
+            "end": "2027-01-19T10:00:00.00000006+01:00"
+          }
+        },
+        "exactBounds": true
+      },
+      "expected": {
+        "wide": [
+          "2027-01-19T09:00:00Z",
+          "2027-01-20T09:00:00Z",
+          "2027-01-21T09:00:00Z"
+        ],
+        "upper-00000000": [],
+        "lower-00000000": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "upper-00000001": [],
+        "lower-00000001": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "upper-00000004": [],
+        "lower-00000004": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "upper-00000005": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "lower-00000005": [],
+        "upper-00000006": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "lower-00000006": [],
+        "upper-00000009": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "lower-00000009": [],
+        "upper-000000001": [],
+        "lower-000000001": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "upper-0000000000000001": [],
+        "lower-0000000000000001": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "upper-previous-99999994": [],
+        "lower-previous-99999994": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "upper-previous-99999995": [],
+        "lower-previous-99999995": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "upper-previous-99999996": [],
+        "lower-previous-99999996": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "upper-previous-99999999": [],
+        "lower-previous-99999999": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "equal": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "reversed": {
+          "error": "Graph calendarView end must not precede start"
+        },
+        "same-rounded-tick": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "rounded-span": [
+          "2027-01-19T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "minute-extended-bounds",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-01-19T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-19T09:01:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-01-19",
+              "type": "numbered"
+            }
+          }
+        },
+        "windows": {
+          "wide": {
+            "start": "2027-01-18T09:00:00Z",
+            "end": "2027-01-23T09:00:00Z"
+          },
+          "upper-00000000": {
+            "start": "2027-01-19T08:59:59Z",
+            "end": "2027-01-19T09:00:00.00000000Z"
+          },
+          "lower-00000000": {
+            "start": "2027-01-19T09:01:00.00000000Z",
+            "end": "2027-01-19T09:01:01Z"
+          },
+          "upper-00000001": {
+            "start": "2027-01-19T08:59:59Z",
+            "end": "2027-01-19T09:00:00.00000001Z"
+          },
+          "lower-00000001": {
+            "start": "2027-01-19T09:01:00.00000001Z",
+            "end": "2027-01-19T09:01:01Z"
+          },
+          "upper-00000004": {
+            "start": "2027-01-19T08:59:59Z",
+            "end": "2027-01-19T09:00:00.00000004Z"
+          },
+          "lower-00000004": {
+            "start": "2027-01-19T09:01:00.00000004Z",
+            "end": "2027-01-19T09:01:01Z"
+          },
+          "upper-00000005": {
+            "start": "2027-01-19T08:59:59Z",
+            "end": "2027-01-19T09:00:00.00000005Z"
+          },
+          "lower-00000005": {
+            "start": "2027-01-19T09:01:00.00000005Z",
+            "end": "2027-01-19T09:01:01Z"
+          },
+          "upper-00000006": {
+            "start": "2027-01-19T08:59:59Z",
+            "end": "2027-01-19T09:00:00.00000006Z"
+          },
+          "lower-00000006": {
+            "start": "2027-01-19T09:01:00.00000006Z",
+            "end": "2027-01-19T09:01:01Z"
+          },
+          "upper-00000009": {
+            "start": "2027-01-19T08:59:59Z",
+            "end": "2027-01-19T09:00:00.00000009Z"
+          },
+          "lower-00000009": {
+            "start": "2027-01-19T09:01:00.00000009Z",
+            "end": "2027-01-19T09:01:01Z"
+          },
+          "upper-000000001": {
+            "start": "2027-01-19T08:59:59Z",
+            "end": "2027-01-19T09:00:00.000000001Z"
+          },
+          "lower-000000001": {
+            "start": "2027-01-19T09:01:00.000000001Z",
+            "end": "2027-01-19T09:01:01Z"
+          },
+          "upper-0000000000000001": {
+            "start": "2027-01-19T08:59:59Z",
+            "end": "2027-01-19T09:00:00.0000000000000001Z"
+          },
+          "lower-0000000000000001": {
+            "start": "2027-01-19T09:01:00.0000000000000001Z",
+            "end": "2027-01-19T09:01:01Z"
+          },
+          "upper-previous-99999994": {
+            "start": "2027-01-19T08:59:59Z",
+            "end": "2027-01-19T08:59:59.99999994Z"
+          },
+          "lower-previous-99999994": {
+            "start": "2027-01-19T09:00:59.99999994Z",
+            "end": "2027-01-19T09:01:01Z"
+          },
+          "upper-previous-99999995": {
+            "start": "2027-01-19T08:59:59Z",
+            "end": "2027-01-19T08:59:59.99999995Z"
+          },
+          "lower-previous-99999995": {
+            "start": "2027-01-19T09:00:59.99999995Z",
+            "end": "2027-01-19T09:01:01Z"
+          },
+          "upper-previous-99999996": {
+            "start": "2027-01-19T08:59:59Z",
+            "end": "2027-01-19T08:59:59.99999996Z"
+          },
+          "lower-previous-99999996": {
+            "start": "2027-01-19T09:00:59.99999996Z",
+            "end": "2027-01-19T09:01:01Z"
+          },
+          "upper-previous-99999999": {
+            "start": "2027-01-19T08:59:59Z",
+            "end": "2027-01-19T08:59:59.99999999Z"
+          },
+          "lower-previous-99999999": {
+            "start": "2027-01-19T09:00:59.99999999Z",
+            "end": "2027-01-19T09:01:01Z"
+          },
+          "equal": {
+            "start": "2027-01-19T09:00:00Z",
+            "end": "2027-01-19T10:00:00+01:00"
+          },
+          "reversed": {
+            "start": "2027-01-19T09:00:01Z",
+            "end": "2027-01-19T10:00:00+01:00"
+          },
+          "same-rounded-tick": {
+            "start": "2027-01-19T09:00:00.00000001Z",
+            "end": "2027-01-19T10:00:00.00000004+01:00"
+          },
+          "rounded-span": {
+            "start": "2027-01-19T09:00:00.00000004Z",
+            "end": "2027-01-19T10:00:00.00000006+01:00"
+          }
+        },
+        "exactBounds": true
+      },
+      "expected": {
+        "wide": [
+          "2027-01-19T09:00:00Z",
+          "2027-01-20T09:00:00Z",
+          "2027-01-21T09:00:00Z"
+        ],
+        "upper-00000000": [],
+        "lower-00000000": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "upper-00000001": [],
+        "lower-00000001": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "upper-00000004": [],
+        "lower-00000004": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "upper-00000005": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "lower-00000005": [],
+        "upper-00000006": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "lower-00000006": [],
+        "upper-00000009": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "lower-00000009": [],
+        "upper-000000001": [],
+        "lower-000000001": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "upper-0000000000000001": [],
+        "lower-0000000000000001": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "upper-previous-99999994": [],
+        "lower-previous-99999994": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "upper-previous-99999995": [],
+        "lower-previous-99999995": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "upper-previous-99999996": [],
+        "lower-previous-99999996": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "upper-previous-99999999": [],
+        "lower-previous-99999999": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "equal": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "reversed": {
+          "error": "Graph calendarView end must not precede start"
+        },
+        "same-rounded-tick": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "rounded-span": [
+          "2027-01-19T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "point-equal-bounds",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-01-19T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-19T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-01-19",
+              "type": "numbered"
+            }
+          }
+        },
+        "windows": {
+          "wide": {
+            "start": "2027-01-18T09:00:00Z",
+            "end": "2027-01-23T09:00:00Z"
+          },
+          "equal-start": {
+            "start": "2027-01-19T09:00:00Z",
+            "end": "2027-01-19T10:00:00+01:00"
+          },
+          "equal-slightly-before": {
+            "start": "2027-01-19T08:59:59.999000Z",
+            "end": "2027-01-19T09:59:59.999000+01:00"
+          },
+          "equal-slightly-after": {
+            "start": "2027-01-19T09:00:00.001000Z",
+            "end": "2027-01-19T10:00:00.001000+01:00"
+          },
+          "equal-inside": {
+            "start": "2027-01-19T09:00:30Z",
+            "end": "2027-01-19T10:00:30+01:00"
+          },
+          "equal-end": {
+            "start": "2027-01-19T09:00:00Z",
+            "end": "2027-01-19T10:00:00+01:00"
+          },
+          "equal-end-after": {
+            "start": "2027-01-19T09:00:00.001000Z",
+            "end": "2027-01-19T10:00:00.001000+01:00"
+          },
+          "equal-one-tick-before": {
+            "start": "2027-01-19T08:59:59.9999999Z",
+            "end": "2027-01-19T09:59:59.9999999+01:00"
+          },
+          "equal-one-tick-after": {
+            "start": "2027-01-19T09:00:00.0000001Z",
+            "end": "2027-01-19T10:00:00.0000001+01:00"
+          },
+          "equal-rounds-to-start": {
+            "start": "2027-01-19T08:59:59.99999995Z",
+            "end": "2027-01-19T10:00:00.00000004+01:00"
+          },
+          "reversed-by-one-tick": {
+            "start": "2027-01-19T09:00:00.0000001Z",
+            "end": "2027-01-19T10:00:00+01:00"
+          },
+          "reversed-before-rounding": {
+            "start": "2027-01-19T09:00:00.00000004Z",
+            "end": "2027-01-19T10:00:00.00000001+01:00"
+          }
+        },
+        "exactBounds": true
+      },
+      "expected": {
+        "wide": [
+          "2027-01-19T09:00:00Z",
+          "2027-01-20T09:00:00Z",
+          "2027-01-21T09:00:00Z"
+        ],
+        "equal-start": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "equal-slightly-before": [],
+        "equal-slightly-after": [],
+        "equal-inside": [],
+        "equal-end": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "equal-end-after": [],
+        "equal-one-tick-before": [],
+        "equal-one-tick-after": [],
+        "equal-rounds-to-start": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "reversed-by-one-tick": {
+          "error": "Graph calendarView end must not precede start"
+        },
+        "reversed-before-rounding": [
+          "2027-01-19T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "minute-equal-bounds",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-01-19T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-19T09:01:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-01-19",
+              "type": "numbered"
+            }
+          }
+        },
+        "windows": {
+          "wide": {
+            "start": "2027-01-18T09:00:00Z",
+            "end": "2027-01-23T09:00:00Z"
+          },
+          "equal-start": {
+            "start": "2027-01-19T09:00:00Z",
+            "end": "2027-01-19T10:00:00+01:00"
+          },
+          "equal-slightly-before": {
+            "start": "2027-01-19T08:59:59.999000Z",
+            "end": "2027-01-19T09:59:59.999000+01:00"
+          },
+          "equal-slightly-after": {
+            "start": "2027-01-19T09:00:00.001000Z",
+            "end": "2027-01-19T10:00:00.001000+01:00"
+          },
+          "equal-inside": {
+            "start": "2027-01-19T09:00:30Z",
+            "end": "2027-01-19T10:00:30+01:00"
+          },
+          "equal-end": {
+            "start": "2027-01-19T09:01:00Z",
+            "end": "2027-01-19T10:01:00+01:00"
+          },
+          "equal-end-after": {
+            "start": "2027-01-19T09:01:00.001000Z",
+            "end": "2027-01-19T10:01:00.001000+01:00"
+          },
+          "equal-one-tick-before": {
+            "start": "2027-01-19T08:59:59.9999999Z",
+            "end": "2027-01-19T09:59:59.9999999+01:00"
+          },
+          "equal-one-tick-after": {
+            "start": "2027-01-19T09:00:00.0000001Z",
+            "end": "2027-01-19T10:00:00.0000001+01:00"
+          },
+          "equal-rounds-to-start": {
+            "start": "2027-01-19T08:59:59.99999995Z",
+            "end": "2027-01-19T10:00:00.00000004+01:00"
+          },
+          "reversed-by-one-tick": {
+            "start": "2027-01-19T09:00:00.0000001Z",
+            "end": "2027-01-19T10:00:00+01:00"
+          },
+          "reversed-before-rounding": {
+            "start": "2027-01-19T09:00:00.00000004Z",
+            "end": "2027-01-19T10:00:00.00000001+01:00"
+          }
+        },
+        "exactBounds": true
+      },
+      "expected": {
+        "wide": [
+          "2027-01-19T09:00:00Z",
+          "2027-01-20T09:00:00Z",
+          "2027-01-21T09:00:00Z"
+        ],
+        "equal-start": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "equal-slightly-before": [],
+        "equal-slightly-after": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "equal-inside": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "equal-end": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "equal-end-after": [],
+        "equal-one-tick-before": [],
+        "equal-one-tick-after": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "equal-rounds-to-start": [
+          "2027-01-19T09:00:00Z"
+        ],
+        "reversed-by-one-tick": {
+          "error": "Graph calendarView end must not precede start"
+        },
+        "reversed-before-rounding": [
+          "2027-01-19T09:00:00Z"
+        ]
+      }
+    }
+  ]
+}

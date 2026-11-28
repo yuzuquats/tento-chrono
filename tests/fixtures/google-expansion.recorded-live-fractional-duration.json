@@ -1,0 +1,1195 @@
+{
+  "type": "google-expansion",
+  "name": "Google Calendar fractional event clocks and duration",
+  "source": "Google Calendar API events.instances",
+  "captureCliCommit": "8db8950f7cf894e781d289f6e513f5e53e6d587a",
+  "capturedAt": "2026-11-23T15:07:53.212584+00:00",
+  "cases": [
+    {
+      "name": "millis",
+      "input": {
+        "start": "2027-01-05T09:00:00.123Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Google recurring event duration must be a whole number of seconds"
+      }
+    },
+    {
+      "name": "above-half",
+      "input": {
+        "start": "2027-01-05T09:00:00.123999Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Google recurring event duration must be a whole number of seconds"
+      }
+    },
+    {
+      "name": "last-millis",
+      "input": {
+        "start": "2027-01-05T09:00:00.999Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Google recurring event duration must be a whole number of seconds"
+      }
+    },
+    {
+      "name": "rollover",
+      "input": {
+        "start": "2027-01-05T09:00:00.999999Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Google recurring event duration must be a whole number of seconds"
+      }
+    },
+    {
+      "name": "near-zero",
+      "input": {
+        "start": "2027-01-05T09:00:00.000001Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "storedStart": {
+          "start": "2027-01-05T09:00:00Z",
+          "timezone": "UTC",
+          "end": "2027-01-05T09:15:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-05T09:00:00Z",
+          "2027-01-06T09:00:00Z",
+          "2027-01-07T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "fraction-at-second-until",
+      "input": {
+        "start": "2027-01-05T09:00:00.500Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;UNTIL=20270106T090000Z"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Google recurring event duration must be a whole number of seconds"
+      }
+    },
+    {
+      "name": "fraction-exdate-whole-second",
+      "input": {
+        "start": "2027-01-05T09:00:00.500Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE:20270106T090000Z"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Google recurring event duration must be a whole number of seconds"
+      }
+    },
+    {
+      "name": "fraction-rdate-whole-second",
+      "input": {
+        "start": "2027-01-05T09:00:00.500Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20270106T090000Z"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Google recurring event duration must be a whole number of seconds"
+      }
+    },
+    {
+      "name": "fraction-exrule-whole-second",
+      "input": {
+        "start": "2027-01-05T09:00:00.500Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXRULE:FREQ=DAILY;BYSECOND=0;COUNT=2"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Google recurring event duration must be a whole number of seconds"
+      }
+    },
+    {
+      "name": "fraction-rdate-token",
+      "input": {
+        "start": "2027-01-05T09:00:00.500Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20270108T090000.123Z"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Google recurring event duration must be a whole number of seconds"
+      }
+    },
+    {
+      "name": "fraction-named-zone",
+      "input": {
+        "start": "2027-01-05T09:00:00.123999+05:30",
+        "timezone": "Asia/Kolkata",
+        "end": "2027-01-05T09:15:00+05:30",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Google recurring event duration must be a whole number of seconds"
+      }
+    },
+    {
+      "name": "fraction-minute-rollover",
+      "input": {
+        "start": "2027-01-05T09:00:59.999999Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Google recurring event duration must be a whole number of seconds"
+      }
+    },
+    {
+      "name": "zeros",
+      "input": {
+        "start": "2027-01-05T09:00:00.000000Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "storedStart": {
+          "start": "2027-01-05T09:00:00Z",
+          "timezone": "UTC",
+          "end": "2027-01-05T09:15:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-05T09:00:00Z",
+          "2027-01-06T09:00:00Z",
+          "2027-01-07T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "below-half-millis",
+      "input": {
+        "start": "2027-01-05T09:00:00.000499Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "storedStart": {
+          "start": "2027-01-05T09:00:00Z",
+          "timezone": "UTC",
+          "end": "2027-01-05T09:15:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-05T09:00:00Z",
+          "2027-01-06T09:00:00Z",
+          "2027-01-07T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "half-millis",
+      "input": {
+        "start": "2027-01-05T09:00:00.000500Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "storedStart": {
+          "start": "2027-01-05T09:00:00Z",
+          "timezone": "UTC",
+          "end": "2027-01-05T09:15:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-05T09:00:00Z",
+          "2027-01-06T09:00:00Z",
+          "2027-01-07T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "above-half-millis",
+      "input": {
+        "start": "2027-01-05T09:00:00.000999Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "storedStart": {
+          "start": "2027-01-05T09:00:00Z",
+          "timezone": "UTC",
+          "end": "2027-01-05T09:15:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-05T09:00:00Z",
+          "2027-01-06T09:00:00Z",
+          "2027-01-07T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "one-millis",
+      "input": {
+        "start": "2027-01-05T09:00:00.001Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Google recurring event duration must be a whole number of seconds"
+      }
+    },
+    {
+      "name": "submillis-nine",
+      "input": {
+        "start": "2027-01-05T09:00:00.000999999Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "storedStart": {
+          "start": "2027-01-05T09:00:00Z",
+          "timezone": "UTC",
+          "end": "2027-01-05T09:15:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-05T09:00:00Z",
+          "2027-01-06T09:00:00Z",
+          "2027-01-07T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "same-millis-end",
+      "input": {
+        "start": "2027-01-05T09:00:00.123Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00.123Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "storedStart": {
+          "start": "2027-01-05T09:00:00Z",
+          "timezone": "UTC",
+          "end": "2027-01-05T09:15:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-05T09:00:00Z",
+          "2027-01-06T09:00:00Z",
+          "2027-01-07T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "same-submillis-end",
+      "input": {
+        "start": "2027-01-05T09:00:00.000999Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00.000999Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "storedStart": {
+          "start": "2027-01-05T09:00:00Z",
+          "timezone": "UTC",
+          "end": "2027-01-05T09:15:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-05T09:00:00Z",
+          "2027-01-06T09:00:00Z",
+          "2027-01-07T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "end-only-millis",
+      "input": {
+        "start": "2027-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00.123Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Google recurring event duration must be a whole number of seconds"
+      }
+    },
+    {
+      "name": "end-only-submillis",
+      "input": {
+        "start": "2027-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00.000999Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "storedStart": {
+          "start": "2027-01-05T09:00:00Z",
+          "timezone": "UTC",
+          "end": "2027-01-05T09:15:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-05T09:00:00Z",
+          "2027-01-06T09:00:00Z",
+          "2027-01-07T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "fractional-start-rdate-only",
+      "input": {
+        "start": "2027-01-05T09:00:00.123Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00Z",
+        "rules": [
+          "RDATE:20270108T090000Z"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Google recurring event duration must be a whole number of seconds"
+      }
+    },
+    {
+      "name": "fractional-rdate-whole-start",
+      "input": {
+        "start": "2027-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20270108T090000.123Z"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "failed to parse rdate"
+      }
+    },
+    {
+      "name": "fractional-exdate-whole-start",
+      "input": {
+        "start": "2027-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE:20270106T090000.123Z"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "failed to parse exdate"
+      }
+    },
+    {
+      "name": "fractional-until-whole-start",
+      "input": {
+        "start": "2027-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;UNTIL=20270106T090000.123Z"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Invalid Google RRULE UNTIL date-time"
+      }
+    },
+    {
+      "name": "submillis-east-of-utc",
+      "input": {
+        "start": "2027-01-05T09:00:00.000999+05:30",
+        "timezone": "Asia/Kolkata",
+        "end": "2027-01-05T09:15:00+05:30",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "storedStart": {
+          "start": "2027-01-05T03:30:00Z",
+          "timezone": "Asia/Kolkata",
+          "end": "2027-01-05T03:45:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-05T03:30:00Z",
+          "2027-01-06T03:30:00Z",
+          "2027-01-07T03:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "submillis-pre-epoch",
+      "input": {
+        "start": "1969-12-30T09:00:00.000999Z",
+        "timezone": "UTC",
+        "end": "1969-12-30T09:15:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "1969-12-30T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "storedStart": {
+          "start": "1969-12-30T09:00:00Z",
+          "timezone": "UTC",
+          "end": "1969-12-30T09:15:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1969-12-30T09:00:00Z",
+          "1969-12-31T09:00:00Z",
+          "1970-01-01T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "different-microseconds-same-millisecond",
+      "input": {
+        "start": "2027-01-05T09:00:00.123999Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00.123001Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "storedStart": {
+          "start": "2027-01-05T09:00:00Z",
+          "timezone": "UTC",
+          "end": "2027-01-05T09:15:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-05T09:00:00Z",
+          "2027-01-06T09:00:00Z",
+          "2027-01-07T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "different-millisecond",
+      "input": {
+        "start": "2027-01-05T09:00:00.123999Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00.124000Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Google recurring event duration must be a whole number of seconds"
+      }
+    },
+    {
+      "name": "equal-three-and-six-digits",
+      "input": {
+        "start": "2027-01-05T09:00:00.123Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00.123000Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "storedStart": {
+          "start": "2027-01-05T09:00:00Z",
+          "timezone": "UTC",
+          "end": "2027-01-05T09:15:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-05T09:00:00Z",
+          "2027-01-06T09:00:00Z",
+          "2027-01-07T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "same-near-rollover",
+      "input": {
+        "start": "2027-01-05T09:00:00.999999Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00.999Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "storedStart": {
+          "start": "2027-01-05T09:00:00Z",
+          "timezone": "UTC",
+          "end": "2027-01-05T09:15:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-05T09:00:00Z",
+          "2027-01-06T09:00:00Z",
+          "2027-01-07T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "exdate-with-matched-fraction",
+      "input": {
+        "start": "2027-01-05T09:00:00.123Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00.123Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE:20270106T090000Z"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "EXDATE;VALUE=DATE-TIME:20270106T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "storedStart": {
+          "start": "2027-01-05T09:00:00Z",
+          "timezone": "UTC",
+          "end": "2027-01-05T09:15:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-05T09:00:00Z",
+          "2027-01-07T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "until-with-matched-fraction",
+      "input": {
+        "start": "2027-01-05T09:00:00.123Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00.123Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;UNTIL=20270106T090000Z"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;UNTIL=20270106T090000Z"
+        ],
+        "storedStart": {
+          "start": "2027-01-05T09:00:00Z",
+          "timezone": "UTC",
+          "end": "2027-01-05T09:15:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-05T09:00:00Z",
+          "2027-01-06T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rdate-only-whole-seconds",
+      "input": {
+        "start": "2027-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00Z",
+        "rules": [
+          "RDATE:20270108T090000Z",
+          "RDATE:20270109T090000Z"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;VALUE=DATE-TIME:20270108T090000Z",
+          "RDATE;VALUE=DATE-TIME:20270109T090000Z"
+        ],
+        "storedStart": {
+          "start": "2027-01-05T09:00:00Z",
+          "timezone": "UTC",
+          "end": "2027-01-05T09:15:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-05T09:00:00Z",
+          "2027-01-08T09:00:00Z",
+          "2027-01-09T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rdate-only-matched-fraction-retry",
+      "input": {
+        "start": "2027-01-05T09:00:00.123Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00.123Z",
+        "rules": [
+          "RDATE:20270108T090000Z",
+          "RDATE:20270109T090000Z"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;VALUE=DATE-TIME:20270108T090000Z",
+          "RDATE;VALUE=DATE-TIME:20270109T090000Z"
+        ],
+        "storedStart": {
+          "start": "2027-01-05T09:00:00Z",
+          "timezone": "UTC",
+          "end": "2027-01-05T09:15:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-05T09:00:00Z",
+          "2027-01-08T09:00:00Z",
+          "2027-01-09T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "nine-digit-signed-offset",
+      "input": {
+        "start": "2027-01-05T09:00:00.123999999+05:30",
+        "timezone": "Asia/Kolkata",
+        "end": "2027-01-05T09:15:00.123000001+05:30",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "storedStart": {
+          "start": "2027-01-05T03:30:00Z",
+          "timezone": "Asia/Kolkata",
+          "end": "2027-01-05T03:45:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-05T03:30:00Z",
+          "2027-01-06T03:30:00Z",
+          "2027-01-07T03:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "ten-digit-same-millisecond",
+      "input": {
+        "start": "2027-01-05T09:00:00.1239999999Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00.1230000010Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Google recurring event timestamps allow at most nine fractional digits"
+      }
+    },
+    {
+      "name": "twelve-digit-same-millisecond",
+      "input": {
+        "start": "2027-01-05T09:00:00.123999999999Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00.123000000001Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Google recurring event timestamps allow at most nine fractional digits"
+      }
+    },
+    {
+      "name": "long-zeros",
+      "input": {
+        "start": "2027-01-05T09:00:00.000000000001Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Google recurring event timestamps allow at most nine fractional digits"
+      }
+    },
+    {
+      "name": "floating-named-start-and-end",
+      "input": {
+        "start": "2027-01-05T09:00:00.123999",
+        "timezone": "Asia/Kolkata",
+        "end": "2027-01-05T09:15:00.123001",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "storedStart": {
+          "start": "2027-01-05T03:30:00Z",
+          "timezone": "Asia/Kolkata",
+          "end": "2027-01-05T03:45:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-05T03:30:00Z",
+          "2027-01-06T03:30:00Z",
+          "2027-01-07T03:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "floating-named-cutoff",
+      "input": {
+        "start": "2027-01-05T09:00:00.000999",
+        "timezone": "Asia/Kolkata",
+        "end": "2027-01-05T09:15:00",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "storedStart": {
+          "start": "2027-01-05T03:30:00Z",
+          "timezone": "Asia/Kolkata",
+          "end": "2027-01-05T03:45:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-05T03:30:00Z",
+          "2027-01-06T03:30:00Z",
+          "2027-01-07T03:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "floating-start-with-offset-end",
+      "input": {
+        "start": "2027-01-05T09:00:00.123",
+        "timezone": "Asia/Kolkata",
+        "end": "2027-01-05T09:15:00.123+05:30",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "storedStart": {
+          "start": "2027-01-05T03:30:00Z",
+          "timezone": "Asia/Kolkata",
+          "end": "2027-01-05T03:45:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-05T03:30:00Z",
+          "2027-01-06T03:30:00Z",
+          "2027-01-07T03:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "short-fraction-pads",
+      "input": {
+        "start": "2027-01-05T09:00:00.1Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00.100000Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "storedStart": {
+          "start": "2027-01-05T09:00:00Z",
+          "timezone": "UTC",
+          "end": "2027-01-05T09:15:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-05T09:00:00Z",
+          "2027-01-06T09:00:00Z",
+          "2027-01-07T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "end-only-nine-zeros",
+      "input": {
+        "start": "2027-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00.000000000Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "storedStart": {
+          "start": "2027-01-05T09:00:00Z",
+          "timezone": "UTC",
+          "end": "2027-01-05T09:15:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-05T09:00:00Z",
+          "2027-01-06T09:00:00Z",
+          "2027-01-07T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "end-only-ten-zeros",
+      "input": {
+        "start": "2027-01-05T09:00:00Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00.0000000000Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Google recurring event timestamps allow at most nine fractional digits"
+      }
+    },
+    {
+      "name": "start-only-ten-zeros",
+      "input": {
+        "start": "2027-01-05T09:00:00.0000000000Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Google recurring event timestamps allow at most nine fractional digits"
+      }
+    },
+    {
+      "name": "ten-digit-end-matched-start-millisecond",
+      "input": {
+        "start": "2027-01-05T09:00:00.123Z",
+        "timezone": "UTC",
+        "end": "2027-01-05T09:15:00.1230000000Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-05T00:00:00Z",
+          "end": "2027-02-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Google recurring event timestamps allow at most nine fractional digits"
+      }
+    }
+  ]
+}

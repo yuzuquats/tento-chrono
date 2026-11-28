@@ -1,0 +1,1945 @@
+{
+  "type": "recurrence-profile",
+  "name": "Outlook Graph historical Samoa and minute precision",
+  "source": "Microsoft Graph v1.0 calendarView captured on the maintainer's capture host",
+  "cases": [
+    {
+      "name": "apia-time-0000",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 8,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-13"
+      },
+      "expected": [
+        "2011-12-28T10:00:00Z",
+        "2011-12-29T10:00:00Z",
+        "2011-12-30T10:00:00Z",
+        "2011-12-31T10:00:00Z",
+        "2012-01-01T10:00:00Z",
+        "2012-01-01T10:00:00Z",
+        "2012-01-02T10:00:00Z",
+        "2012-01-03T10:00:00Z"
+      ]
+    },
+    {
+      "name": "apia-time-0117",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T11:17:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 8,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-13"
+      },
+      "expected": [
+        "2011-12-28T11:17:00Z",
+        "2011-12-29T11:17:00Z",
+        "2011-12-30T11:17:00Z",
+        "2011-12-31T11:17:00Z",
+        "2012-01-01T10:17:00Z",
+        "2012-01-01T11:17:00Z",
+        "2012-01-02T11:17:00Z",
+        "2012-01-03T11:17:00Z"
+      ]
+    },
+    {
+      "name": "apia-time-0645",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T16:45:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 8,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-13"
+      },
+      "expected": [
+        "2011-12-28T16:45:00Z",
+        "2011-12-29T16:45:00Z",
+        "2011-12-30T16:45:00Z",
+        "2011-12-31T16:45:00Z",
+        "2012-01-01T10:45:00Z",
+        "2012-01-01T16:45:00Z",
+        "2012-01-02T16:45:00Z",
+        "2012-01-03T16:45:00Z"
+      ]
+    },
+    {
+      "name": "apia-time-1230",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T22:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 8,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-13"
+      },
+      "expected": [
+        "2011-12-28T22:30:00Z",
+        "2011-12-29T22:30:00Z",
+        "2011-12-30T22:30:00Z",
+        "2011-12-31T22:30:00Z",
+        "2012-01-01T10:30:00Z",
+        "2012-01-01T22:30:00Z",
+        "2012-01-02T22:30:00Z",
+        "2012-01-03T22:30:00Z"
+      ]
+    },
+    {
+      "name": "apia-time-1800",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-29T04:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 8,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-13"
+      },
+      "expected": [
+        "2011-12-29T04:00:00Z",
+        "2011-12-30T04:00:00Z",
+        "2011-12-31T04:00:00Z",
+        "2012-01-01T04:00:00Z",
+        "2012-01-01T10:00:00Z",
+        "2012-01-02T04:00:00Z",
+        "2012-01-03T04:00:00Z",
+        "2012-01-04T04:00:00Z"
+      ]
+    },
+    {
+      "name": "apia-time-2359",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-29T09:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 8,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-13"
+      },
+      "expected": [
+        "2011-12-29T09:59:00Z",
+        "2011-12-30T09:59:00Z",
+        "2011-12-31T09:59:00Z",
+        "2012-01-01T09:59:00Z",
+        "2012-01-01T10:59:00Z",
+        "2012-01-02T09:59:00Z",
+        "2012-01-03T09:59:00Z",
+        "2012-01-04T09:59:00Z"
+      ]
+    },
+    {
+      "name": "apia-start-2011-12-29",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-29T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 7,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-29",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-13"
+      },
+      "expected": [
+        "2011-12-29T19:00:00Z",
+        "2011-12-30T19:00:00Z",
+        "2011-12-31T19:00:00Z",
+        "2012-01-01T10:00:00Z",
+        "2012-01-01T19:00:00Z",
+        "2012-01-02T19:00:00Z",
+        "2012-01-03T19:00:00Z"
+      ]
+    },
+    {
+      "name": "apia-start-2011-12-30",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-30T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 7,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-30",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-13"
+      },
+      "expected": [
+        "2011-12-30T19:00:00Z",
+        "2011-12-31T19:00:00Z",
+        "2012-01-01T10:00:00Z",
+        "2012-01-01T19:00:00Z",
+        "2012-01-02T19:00:00Z",
+        "2012-01-03T19:00:00Z",
+        "2012-01-04T19:00:00Z"
+      ]
+    },
+    {
+      "name": "apia-start-2011-12-31",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-31T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 7,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-31",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-13"
+      },
+      "expected": [
+        "2011-12-31T19:00:00Z",
+        "2012-01-01T10:00:00Z",
+        "2012-01-01T19:00:00Z",
+        "2012-01-02T19:00:00Z",
+        "2012-01-03T19:00:00Z",
+        "2012-01-04T19:00:00Z",
+        "2012-01-05T19:00:00Z"
+      ]
+    },
+    {
+      "name": "apia-start-2012-01-01",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2012-01-01T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 7,
+              "recurrenceTimeZone": "",
+              "startDate": "2012-01-02",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-13"
+      },
+      "expected": [
+        "2012-01-01T10:00:00Z",
+        "2012-01-02T10:00:00Z",
+        "2012-01-03T10:00:00Z",
+        "2012-01-04T10:00:00Z",
+        "2012-01-05T10:00:00Z",
+        "2012-01-06T10:00:00Z",
+        "2012-01-07T10:00:00Z"
+      ]
+    },
+    {
+      "name": "apia-start-2012-01-02",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2012-01-01T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 7,
+              "recurrenceTimeZone": "",
+              "startDate": "2012-01-02",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-13"
+      },
+      "expected": [
+        "2012-01-01T19:00:00Z",
+        "2012-01-02T19:00:00Z",
+        "2012-01-03T19:00:00Z",
+        "2012-01-04T19:00:00Z",
+        "2012-01-05T19:00:00Z",
+        "2012-01-06T19:00:00Z",
+        "2012-01-07T19:00:00Z"
+      ]
+    },
+    {
+      "name": "apia-end-date",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2012-01-06",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2012-01-13"
+      },
+      "expected": [
+        "2011-12-28T19:00:00Z",
+        "2011-12-29T19:00:00Z",
+        "2011-12-30T19:00:00Z",
+        "2011-12-31T19:00:00Z",
+        "2012-01-01T10:00:00Z",
+        "2012-01-01T19:00:00Z",
+        "2012-01-02T19:00:00Z",
+        "2012-01-03T19:00:00Z",
+        "2012-01-04T19:00:00Z",
+        "2012-01-05T19:00:00Z"
+      ]
+    },
+    {
+      "name": "apia-no-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "noEnd"
+            }
+          }
+        },
+        "through": "2012-01-08"
+      },
+      "expected": [
+        "2011-12-28T19:00:00Z",
+        "2011-12-29T19:00:00Z",
+        "2011-12-30T19:00:00Z",
+        "2011-12-31T19:00:00Z",
+        "2012-01-01T10:00:00Z",
+        "2012-01-01T19:00:00Z",
+        "2012-01-02T19:00:00Z",
+        "2012-01-03T19:00:00Z",
+        "2012-01-04T19:00:00Z",
+        "2012-01-05T19:00:00Z",
+        "2012-01-06T19:00:00Z",
+        "2012-01-07T19:00:00Z",
+        "2012-01-08T19:00:00Z"
+      ]
+    },
+    {
+      "name": "apia-every-other-day",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 2,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 7,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-17"
+      },
+      "expected": [
+        "2011-12-28T19:00:00Z",
+        "2011-12-30T19:00:00Z",
+        "2012-01-01T10:00:00Z",
+        "2012-01-02T19:00:00Z",
+        "2012-01-04T19:00:00Z",
+        "2012-01-06T19:00:00Z",
+        "2012-01-08T19:00:00Z"
+      ]
+    },
+    {
+      "name": "apia-weekly-wed-mon",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday",
+                "wednesday"
+              ],
+              "firstDayOfWeek": "monday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "weekly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 7,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-22"
+      },
+      "expected": [
+        "2011-12-28T19:00:00Z",
+        "2012-01-01T19:00:00Z",
+        "2012-01-03T19:00:00Z",
+        "2012-01-08T19:00:00Z",
+        "2012-01-10T19:00:00Z",
+        "2012-01-15T19:00:00Z",
+        "2012-01-17T19:00:00Z"
+      ]
+    },
+    {
+      "name": "apia-all-day",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 8,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-11",
+        "allDayTimeZone": "Samoa Standard Time"
+      },
+      "expected": [
+        "2011-12-28",
+        "2011-12-29",
+        "2011-12-30",
+        "2011-12-31",
+        "2012-01-02",
+        "2012-01-02",
+        "2012-01-03",
+        "2012-01-04"
+      ]
+    },
+    {
+      "name": "apia-utc-control",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 8,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2011-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-13"
+      },
+      "expected": [
+        "2011-12-28T19:00:00Z",
+        "2011-12-29T19:00:00Z",
+        "2011-12-30T19:00:00Z",
+        "2011-12-31T19:00:00Z",
+        "2012-01-01T19:00:00Z",
+        "2012-01-02T19:00:00Z",
+        "2012-01-03T19:00:00Z",
+        "2012-01-04T19:00:00Z"
+      ]
+    },
+    {
+      "name": "count5-time-000000",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-13"
+      },
+      "expected": [
+        "2011-12-28T10:00:00Z",
+        "2011-12-29T10:00:00Z",
+        "2011-12-30T10:00:00Z",
+        "2011-12-31T10:00:00Z",
+        "2012-01-01T10:00:00Z",
+        "2012-01-01T10:00:00Z"
+      ]
+    },
+    {
+      "name": "count5-time-031742",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T13:17:42.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-13"
+      },
+      "expected": [
+        "2011-12-28T13:17:00Z",
+        "2011-12-29T13:17:00Z",
+        "2011-12-30T13:17:00Z",
+        "2011-12-31T13:17:00Z",
+        "2012-01-01T10:17:00Z",
+        "2012-01-01T13:17:00Z"
+      ]
+    },
+    {
+      "name": "count5-time-180000",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-29T04:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-13"
+      },
+      "expected": [
+        "2011-12-29T04:00:00Z",
+        "2011-12-30T04:00:00Z",
+        "2011-12-31T04:00:00Z",
+        "2012-01-01T04:00:00Z",
+        "2012-01-01T10:00:00Z",
+        "2012-01-02T04:00:00Z"
+      ]
+    },
+    {
+      "name": "count5-time-235900",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-29T09:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-13"
+      },
+      "expected": [
+        "2011-12-29T09:59:00Z",
+        "2011-12-30T09:59:00Z",
+        "2011-12-31T09:59:00Z",
+        "2012-01-01T09:59:00Z",
+        "2012-01-01T10:59:00Z",
+        "2012-01-02T09:59:00Z"
+      ]
+    },
+    {
+      "name": "end-date-2011-12-31",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2011-12-31",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2012-01-13"
+      },
+      "expected": [
+        "2011-12-28T19:00:00Z",
+        "2011-12-29T19:00:00Z",
+        "2011-12-30T19:00:00Z",
+        "2011-12-31T19:00:00Z"
+      ]
+    },
+    {
+      "name": "end-date-2012-01-01",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2012-01-02",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2012-01-13"
+      },
+      "expected": [
+        "2011-12-28T19:00:00Z",
+        "2011-12-29T19:00:00Z",
+        "2011-12-30T19:00:00Z",
+        "2011-12-31T19:00:00Z",
+        "2012-01-01T10:00:00Z",
+        "2012-01-01T19:00:00Z"
+      ]
+    },
+    {
+      "name": "end-date-2012-01-02",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2012-01-02",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2012-01-13"
+      },
+      "expected": [
+        "2011-12-28T19:00:00Z",
+        "2011-12-29T19:00:00Z",
+        "2011-12-30T19:00:00Z",
+        "2011-12-31T19:00:00Z",
+        "2012-01-01T10:00:00Z",
+        "2012-01-01T19:00:00Z"
+      ]
+    },
+    {
+      "name": "weekly-sun-1",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-25T19:17:42.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "sunday"
+              ],
+              "firstDayOfWeek": "monday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "weekly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 1,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-25",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-22"
+      },
+      "expected": [
+        "2011-12-25T19:17:00Z"
+      ]
+    },
+    {
+      "name": "weekly-sun-3",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-25T19:17:42.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "sunday"
+              ],
+              "firstDayOfWeek": "monday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "weekly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-25",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-22"
+      },
+      "expected": [
+        "2011-12-25T19:17:00Z",
+        "2012-01-01T10:17:00Z",
+        "2012-01-07T19:17:00Z"
+      ]
+    },
+    {
+      "name": "weekly-sun-mon-count2",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2012-01-01T10:17:42.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday",
+                "sunday"
+              ],
+              "firstDayOfWeek": "monday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "weekly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 2,
+              "recurrenceTimeZone": "",
+              "startDate": "2012-01-02",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-22"
+      },
+      "expected": [
+        "2012-01-01T10:17:00Z",
+        "2012-01-07T10:17:00Z"
+      ]
+    },
+    {
+      "name": "every-other-count3",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T19:17:42.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 2,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-13"
+      },
+      "expected": [
+        "2011-12-28T19:17:00Z",
+        "2011-12-30T19:17:00Z",
+        "2012-01-01T10:17:00Z"
+      ]
+    },
+    {
+      "name": "all-day-count5",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-11",
+        "allDayTimeZone": "Samoa Standard Time"
+      },
+      "expected": [
+        "2011-12-28",
+        "2011-12-29",
+        "2011-12-30",
+        "2011-12-31",
+        "2012-01-02",
+        "2012-01-02"
+      ]
+    },
+    {
+      "name": "all-day-weekly-count3",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-25T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "sunday"
+              ],
+              "firstDayOfWeek": "monday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "weekly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-25",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-22",
+        "allDayTimeZone": "Samoa Standard Time"
+      },
+      "expected": [
+        "2011-12-25",
+        "2012-01-02",
+        "2012-01-08"
+      ]
+    },
+    {
+      "name": "no-end-query-to-2012-01-10",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "noEnd"
+            }
+          }
+        },
+        "through": "2012-01-08"
+      },
+      "expected": [
+        "2011-12-28T19:00:00Z",
+        "2011-12-29T19:00:00Z",
+        "2011-12-30T19:00:00Z",
+        "2011-12-31T19:00:00Z",
+        "2012-01-01T10:00:00Z",
+        "2012-01-01T19:00:00Z",
+        "2012-01-02T19:00:00Z",
+        "2012-01-03T19:00:00Z",
+        "2012-01-04T19:00:00Z",
+        "2012-01-05T19:00:00Z",
+        "2012-01-06T19:00:00Z",
+        "2012-01-07T19:00:00Z",
+        "2012-01-08T19:00:00Z"
+      ]
+    },
+    {
+      "name": "no-end-query-to-2012-01-11",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "noEnd"
+            }
+          }
+        },
+        "through": "2012-01-09"
+      },
+      "expected": [
+        "2011-12-28T19:00:00Z",
+        "2011-12-29T19:00:00Z",
+        "2011-12-30T19:00:00Z",
+        "2011-12-31T19:00:00Z",
+        "2012-01-01T10:00:00Z",
+        "2012-01-01T19:00:00Z",
+        "2012-01-02T19:00:00Z",
+        "2012-01-03T19:00:00Z",
+        "2012-01-04T19:00:00Z",
+        "2012-01-05T19:00:00Z",
+        "2012-01-06T19:00:00Z",
+        "2012-01-07T19:00:00Z",
+        "2012-01-08T19:00:00Z",
+        "2012-01-09T19:00:00Z"
+      ]
+    },
+    {
+      "name": "no-end-query-to-2012-01-12",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "noEnd"
+            }
+          }
+        },
+        "through": "2012-01-10"
+      },
+      "expected": [
+        "2011-12-28T19:00:00Z",
+        "2011-12-29T19:00:00Z",
+        "2011-12-30T19:00:00Z",
+        "2011-12-31T19:00:00Z",
+        "2012-01-01T10:00:00Z",
+        "2012-01-01T19:00:00Z",
+        "2012-01-02T19:00:00Z",
+        "2012-01-03T19:00:00Z",
+        "2012-01-04T19:00:00Z",
+        "2012-01-05T19:00:00Z",
+        "2012-01-06T19:00:00Z",
+        "2012-01-07T19:00:00Z",
+        "2012-01-08T19:00:00Z",
+        "2012-01-09T19:00:00Z",
+        "2012-01-10T19:00:00Z"
+      ]
+    },
+    {
+      "name": "utc-seconds",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-04-02T09:17:42.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 4,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-04-02",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-04-08"
+      },
+      "expected": [
+        "2027-04-02T09:17:00Z",
+        "2027-04-03T09:17:00Z",
+        "2027-04-04T09:17:00Z",
+        "2027-04-05T09:17:00Z"
+      ]
+    },
+    {
+      "name": "utc-fractional",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-04-02T09:17:59.6220000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 4,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-04-02",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-04-08"
+      },
+      "expected": [
+        "2027-04-02T09:17:00Z",
+        "2027-04-03T09:17:00Z",
+        "2027-04-04T09:17:00Z",
+        "2027-04-05T09:17:00Z"
+      ]
+    },
+    {
+      "name": "pacific-seconds",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-04-02T16:17:42.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Pacific Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 4,
+              "recurrenceTimeZone": "Pacific Standard Time",
+              "startDate": "2027-04-02",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-04-08"
+      },
+      "expected": [
+        "2027-04-02T16:17:00Z",
+        "2027-04-03T16:17:00Z",
+        "2027-04-04T16:17:00Z",
+        "2027-04-05T16:17:00Z"
+      ]
+    },
+    {
+      "name": "samoa-modern-seconds",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-04-01T20:17:42.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 4,
+              "recurrenceTimeZone": "Samoa Standard Time",
+              "startDate": "2027-04-02",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-04-08"
+      },
+      "expected": [
+        "2027-04-01T20:17:00Z",
+        "2027-04-02T20:17:00Z",
+        "2027-04-03T20:17:00Z",
+        "2027-04-04T20:17:00Z"
+      ]
+    },
+    {
+      "name": "apia-feb-weekly",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T19:17:42.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday",
+                "wednesday"
+              ],
+              "firstDayOfWeek": "monday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "weekly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 25,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-05-14"
+      },
+      "expected": [
+        "2011-12-28T19:17:00Z",
+        "2012-01-01T19:17:00Z",
+        "2012-01-03T19:17:00Z",
+        "2012-01-08T19:17:00Z",
+        "2012-01-10T19:17:00Z",
+        "2012-01-15T19:17:00Z",
+        "2012-01-17T19:17:00Z",
+        "2012-01-22T19:17:00Z",
+        "2012-01-24T19:17:00Z",
+        "2012-01-29T19:17:00Z",
+        "2012-01-31T19:17:00Z",
+        "2012-02-05T19:17:00Z",
+        "2012-02-07T19:17:00Z",
+        "2012-02-12T19:17:00Z",
+        "2012-02-14T19:17:00Z",
+        "2012-02-19T19:17:00Z",
+        "2012-02-21T19:17:00Z",
+        "2012-02-26T19:17:00Z",
+        "2012-02-28T19:17:00Z",
+        "2012-03-04T19:17:00Z",
+        "2012-03-06T19:17:00Z",
+        "2012-03-11T19:17:00Z",
+        "2012-03-13T19:17:00Z",
+        "2012-03-18T19:17:00Z",
+        "2012-03-20T19:17:00Z"
+      ]
+    },
+    {
+      "name": "apia-monthly-first",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-01T19:17:42.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 1,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "absoluteMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 4,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-01",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-05-14"
+      },
+      "expected": [
+        "2011-12-01T19:17:00Z",
+        "2012-01-01T10:17:00Z",
+        "2012-01-31T19:17:00Z",
+        "2012-02-29T19:17:00Z"
+      ]
+    },
+    {
+      "name": "apia-skipped-day",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 6,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-07"
+      },
+      "expected": [
+        "2011-12-28T19:00:00Z",
+        "2011-12-29T19:00:00Z",
+        "2011-12-30T19:00:00Z",
+        "2011-12-31T19:00:00Z",
+        "2012-01-01T10:00:00Z",
+        "2012-01-01T19:00:00Z"
+      ]
+    },
+    {
+      "name": "apia-historic-count-5",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-11"
+      },
+      "expected": [
+        "2011-12-28T19:00:00Z",
+        "2011-12-29T19:00:00Z",
+        "2011-12-30T19:00:00Z",
+        "2011-12-31T19:00:00Z",
+        "2012-01-01T10:00:00Z",
+        "2012-01-01T19:00:00Z"
+      ]
+    },
+    {
+      "name": "apia-historic-count-7",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 7,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-11"
+      },
+      "expected": [
+        "2011-12-28T19:00:00Z",
+        "2011-12-29T19:00:00Z",
+        "2011-12-30T19:00:00Z",
+        "2011-12-31T19:00:00Z",
+        "2012-01-01T10:00:00Z",
+        "2012-01-01T19:00:00Z",
+        "2012-01-02T19:00:00Z"
+      ]
+    },
+    {
+      "name": "all-day-utc-explicit",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2011-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-11"
+      },
+      "expected": [
+        "2011-12-28",
+        "2011-12-29",
+        "2011-12-30",
+        "2011-12-31",
+        "2012-01-01"
+      ]
+    },
+    {
+      "name": "all-day-utc-no-range-zone",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2011-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-11"
+      },
+      "expected": [
+        "2011-12-28",
+        "2011-12-29",
+        "2011-12-30",
+        "2011-12-31",
+        "2012-01-01"
+      ]
+    },
+    {
+      "name": "all-day-apia-the-year-before",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2010-12-28T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2010-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2011-01-11",
+        "allDayTimeZone": "Samoa Standard Time"
+      },
+      "expected": [
+        "2010-12-28",
+        "2010-12-29",
+        "2010-12-30",
+        "2010-12-31",
+        "2011-01-01"
+      ]
+    },
+    {
+      "name": "all-day-pacific",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Pacific Standard Time",
+              "startDate": "2011-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-11"
+      },
+      "expected": [
+        "2011-12-28",
+        "2011-12-29",
+        "2011-12-30",
+        "2011-12-31",
+        "2012-01-01"
+      ]
+    },
+    {
+      "name": "all-day-line-islands",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Line Islands Standard Time",
+              "startDate": "2011-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2012-01-11"
+      },
+      "expected": [
+        "2011-12-28",
+        "2011-12-29",
+        "2011-12-30",
+        "2011-12-31",
+        "2012-01-01"
+      ]
+    },
+    {
+      "name": "utc-near-minute-boundary",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-04-02T09:17:59.9999990",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 4,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-04-02",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-04-08"
+      },
+      "expected": [
+        "2027-04-02T09:17:00Z",
+        "2027-04-03T09:17:00Z",
+        "2027-04-04T09:17:00Z",
+        "2027-04-05T09:17:00Z"
+      ]
+    }
+  ]
+}

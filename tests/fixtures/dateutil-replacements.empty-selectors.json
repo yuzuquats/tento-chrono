@@ -1,0 +1,838 @@
+{
+  "type": "dateutil-replacements",
+  "name": "dateutil 2.8.2 empty replacement selectors",
+  "source": "Python dateutil 2.8.2 rrule.replace",
+  "cases": [
+    {
+      "name": "yearly-empty-month-keeps-day",
+      "input": {
+        "lines": [
+          "DTSTART:20260115T090000",
+          "RRULE:FREQ=YEARLY;COUNT=4"
+        ],
+        "steps": [
+          {
+            "bymonth": []
+          },
+          {
+            "dtstart": {
+              "dateTime": "2026-02-17T09:00:00"
+            }
+          },
+          {
+            "bymonth": null
+          }
+        ],
+        "wkst": null
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:20260115T090000\nRRULE:FREQ=YEARLY;COUNT=4",
+          "starts": [
+            "2026-01-15T09:00:00",
+            "2027-01-15T09:00:00",
+            "2028-01-15T09:00:00",
+            "2029-01-15T09:00:00"
+          ]
+        },
+        "changes": [
+          {
+            "text": "DTSTART:20260115T090000\nRRULE:FREQ=YEARLY;COUNT=4",
+            "starts": [
+              "2026-01-15T09:00:00",
+              "2026-02-15T09:00:00",
+              "2026-03-15T09:00:00",
+              "2026-04-15T09:00:00"
+            ]
+          },
+          {
+            "text": "DTSTART:20260217T090000\nRRULE:FREQ=YEARLY;COUNT=4",
+            "starts": [
+              "2026-02-17T09:00:00",
+              "2026-03-17T09:00:00",
+              "2026-04-17T09:00:00",
+              "2026-05-17T09:00:00"
+            ]
+          },
+          {
+            "text": "DTSTART:20260217T090000\nRRULE:FREQ=YEARLY;COUNT=4",
+            "starts": [
+              "2026-02-17T09:00:00",
+              "2027-02-17T09:00:00",
+              "2028-02-17T09:00:00",
+              "2029-02-17T09:00:00"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "yearly-empty-month-keeps-yearly-ordinal",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=YEARLY;BYDAY=1MO;COUNT=4"
+        ],
+        "steps": [
+          {
+            "bymonth": []
+          }
+        ],
+        "wkst": null
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:20260101T090000\nRRULE:FREQ=YEARLY;COUNT=4;BYDAY=+1MO",
+          "starts": [
+            "2026-01-05T09:00:00",
+            "2027-01-04T09:00:00",
+            "2028-01-03T09:00:00",
+            "2029-01-01T09:00:00"
+          ]
+        },
+        "changes": [
+          {
+            "text": "DTSTART:20260101T090000\nRRULE:FREQ=YEARLY;COUNT=4;BYDAY=+1MO",
+            "starts": [
+              "2026-01-05T09:00:00",
+              "2027-01-04T09:00:00",
+              "2028-01-03T09:00:00",
+              "2029-01-01T09:00:00"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "monthly-empty-monthday-versus-clear",
+      "input": {
+        "lines": [
+          "DTSTART:20260115T090000",
+          "RRULE:FREQ=MONTHLY;COUNT=4"
+        ],
+        "steps": [
+          {
+            "bymonthday": []
+          },
+          {
+            "bymonthday": null
+          }
+        ],
+        "wkst": null
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:20260115T090000\nRRULE:FREQ=MONTHLY;COUNT=4",
+          "starts": [
+            "2026-01-15T09:00:00",
+            "2026-02-15T09:00:00",
+            "2026-03-15T09:00:00",
+            "2026-04-15T09:00:00"
+          ]
+        },
+        "changes": [
+          {
+            "text": "DTSTART:20260115T090000\nRRULE:FREQ=MONTHLY;COUNT=4",
+            "starts": [
+              "2026-01-15T09:00:00",
+              "2026-01-16T09:00:00",
+              "2026-01-17T09:00:00",
+              "2026-01-18T09:00:00"
+            ]
+          },
+          {
+            "text": "DTSTART:20260115T090000\nRRULE:FREQ=MONTHLY;COUNT=4",
+            "starts": [
+              "2026-01-15T09:00:00",
+              "2026-02-15T09:00:00",
+              "2026-03-15T09:00:00",
+              "2026-04-15T09:00:00"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "yearly-empty-yearday-suppresses-anchor",
+      "input": {
+        "lines": [
+          "DTSTART:20260115T090000",
+          "RRULE:FREQ=YEARLY;BYMONTH=1;COUNT=4"
+        ],
+        "steps": [
+          {
+            "byyearday": []
+          }
+        ],
+        "wkst": null
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:20260115T090000\nRRULE:FREQ=YEARLY;COUNT=4;BYMONTH=1",
+          "starts": [
+            "2026-01-15T09:00:00",
+            "2027-01-15T09:00:00",
+            "2028-01-15T09:00:00",
+            "2029-01-15T09:00:00"
+          ]
+        },
+        "changes": [
+          {
+            "text": "DTSTART:20260115T090000\nRRULE:FREQ=YEARLY;COUNT=4;BYMONTH=1",
+            "starts": [
+              "2026-01-15T09:00:00",
+              "2026-01-16T09:00:00",
+              "2026-01-17T09:00:00",
+              "2026-01-18T09:00:00"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "weekly-empty-weekno-suppresses-anchor",
+      "input": {
+        "lines": [
+          "DTSTART:20260115T090000",
+          "RRULE:FREQ=WEEKLY;COUNT=4"
+        ],
+        "steps": [
+          {
+            "byweekno": []
+          }
+        ],
+        "wkst": null
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:20260115T090000\nRRULE:FREQ=WEEKLY;COUNT=4",
+          "starts": [
+            "2026-01-15T09:00:00",
+            "2026-01-22T09:00:00",
+            "2026-01-29T09:00:00",
+            "2026-02-05T09:00:00"
+          ]
+        },
+        "changes": [
+          {
+            "text": "DTSTART:20260115T090000\nRRULE:FREQ=WEEKLY;COUNT=4",
+            "starts": [
+              "2026-01-15T09:00:00",
+              "2026-01-16T09:00:00",
+              "2026-01-17T09:00:00",
+              "2026-01-18T09:00:00"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "weekly-empty-weekday-suppresses-anchor",
+      "input": {
+        "lines": [
+          "DTSTART:20260115T090000",
+          "RRULE:FREQ=WEEKLY;COUNT=4"
+        ],
+        "steps": [
+          {
+            "byweekday": []
+          },
+          {
+            "freq": "monthly"
+          }
+        ],
+        "wkst": null
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:20260115T090000\nRRULE:FREQ=WEEKLY;COUNT=4",
+          "starts": [
+            "2026-01-15T09:00:00",
+            "2026-01-22T09:00:00",
+            "2026-01-29T09:00:00",
+            "2026-02-05T09:00:00"
+          ]
+        },
+        "changes": [
+          {
+            "text": "DTSTART:20260115T090000\nRRULE:FREQ=WEEKLY;COUNT=4",
+            "starts": [
+              "2026-01-15T09:00:00",
+              "2026-01-16T09:00:00",
+              "2026-01-17T09:00:00",
+              "2026-01-18T09:00:00"
+            ]
+          },
+          {
+            "text": "DTSTART:20260115T090000\nRRULE:FREQ=MONTHLY;COUNT=4",
+            "starts": [
+              "2026-01-15T09:00:00",
+              "2026-01-16T09:00:00",
+              "2026-01-17T09:00:00",
+              "2026-01-18T09:00:00"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "weekly-empty-easter-suppresses-anchor",
+      "input": {
+        "lines": [
+          "DTSTART:20260115T090000",
+          "RRULE:FREQ=WEEKLY;COUNT=4"
+        ],
+        "steps": [
+          {
+            "byeaster": []
+          }
+        ],
+        "wkst": null
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:20260115T090000\nRRULE:FREQ=WEEKLY;COUNT=4",
+          "starts": [
+            "2026-01-15T09:00:00",
+            "2026-01-22T09:00:00",
+            "2026-01-29T09:00:00",
+            "2026-02-05T09:00:00"
+          ]
+        },
+        "changes": [
+          {
+            "text": "DTSTART:20260115T090000\nRRULE:FREQ=WEEKLY;COUNT=4",
+            "starts": [
+              "2026-01-15T09:00:00",
+              "2026-01-16T09:00:00",
+              "2026-01-17T09:00:00",
+              "2026-01-18T09:00:00"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "empty-setpos-removes-ranking",
+      "input": {
+        "lines": [
+          "DTSTART:20260115T090000",
+          "RRULE:FREQ=MONTHLY;BYDAY=TH;BYSETPOS=1;COUNT=4"
+        ],
+        "steps": [
+          {
+            "bysetpos": []
+          }
+        ],
+        "wkst": null
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:20260115T090000\nRRULE:FREQ=MONTHLY;COUNT=4;BYSETPOS=1;BYDAY=TH",
+          "starts": [
+            "2026-02-05T09:00:00",
+            "2026-03-05T09:00:00",
+            "2026-04-02T09:00:00",
+            "2026-05-07T09:00:00"
+          ]
+        },
+        "changes": [
+          {
+            "text": "DTSTART:20260115T090000\nRRULE:FREQ=MONTHLY;COUNT=4;BYDAY=TH",
+            "starts": [
+              "2026-01-15T09:00:00",
+              "2026-01-22T09:00:00",
+              "2026-01-29T09:00:00",
+              "2026-02-05T09:00:00"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "empty-added-hour-grid",
+      "input": {
+        "lines": [
+          "DTSTART:99991229T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "steps": [
+          {
+            "byhour": []
+          },
+          {
+            "byhour": null
+          }
+        ],
+        "wkst": null
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:99991229T090000\nRRULE:FREQ=DAILY;COUNT=3",
+          "starts": [
+            "9999-12-29T09:00:00",
+            "9999-12-30T09:00:00",
+            "9999-12-31T09:00:00"
+          ]
+        },
+        "changes": [
+          {
+            "text": "DTSTART:99991229T090000\nRRULE:FREQ=DAILY;COUNT=3",
+            "starts": []
+          },
+          {
+            "text": "DTSTART:99991229T090000\nRRULE:FREQ=DAILY;COUNT=3",
+            "starts": [
+              "9999-12-29T09:00:00",
+              "9999-12-30T09:00:00",
+              "9999-12-31T09:00:00"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "empty-added-minute-grid",
+      "input": {
+        "lines": [
+          "DTSTART:99991231T220000",
+          "RRULE:FREQ=HOURLY;COUNT=3"
+        ],
+        "steps": [
+          {
+            "byminute": []
+          }
+        ],
+        "wkst": null
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:99991231T220000\nRRULE:FREQ=HOURLY;COUNT=3",
+          "starts": [
+            "9999-12-31T22:00:00",
+            "9999-12-31T23:00:00"
+          ]
+        },
+        "changes": [
+          {
+            "text": "DTSTART:99991231T220000\nRRULE:FREQ=HOURLY;COUNT=3",
+            "starts": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "empty-added-second-grid",
+      "input": {
+        "lines": [
+          "DTSTART:99991231T235500",
+          "RRULE:FREQ=MINUTELY;COUNT=3"
+        ],
+        "steps": [
+          {
+            "bysecond": []
+          }
+        ],
+        "wkst": null
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:99991231T235500\nRRULE:FREQ=MINUTELY;COUNT=3",
+          "starts": [
+            "9999-12-31T23:55:00",
+            "9999-12-31T23:56:00",
+            "9999-12-31T23:57:00"
+          ]
+        },
+        "changes": [
+          {
+            "text": "DTSTART:99991231T235500\nRRULE:FREQ=MINUTELY;COUNT=3",
+            "starts": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "empty-own-hour-grid",
+      "input": {
+        "lines": [
+          "DTSTART:20260115T090000",
+          "RRULE:FREQ=HOURLY;COUNT=3"
+        ],
+        "steps": [
+          {
+            "byhour": []
+          }
+        ],
+        "wkst": null
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:20260115T090000\nRRULE:FREQ=HOURLY;COUNT=3",
+          "starts": [
+            "2026-01-15T09:00:00",
+            "2026-01-15T10:00:00",
+            "2026-01-15T11:00:00"
+          ]
+        },
+        "changes": [
+          {
+            "error": "Invalid rrule byxxx generates an empty set."
+          }
+        ]
+      }
+    },
+    {
+      "name": "empty-own-minute-grid",
+      "input": {
+        "lines": [
+          "DTSTART:20260115T090000",
+          "RRULE:FREQ=MINUTELY;COUNT=3"
+        ],
+        "steps": [
+          {
+            "byminute": []
+          }
+        ],
+        "wkst": null
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:20260115T090000\nRRULE:FREQ=MINUTELY;COUNT=3",
+          "starts": [
+            "2026-01-15T09:00:00",
+            "2026-01-15T09:01:00",
+            "2026-01-15T09:02:00"
+          ]
+        },
+        "changes": [
+          {
+            "error": "Invalid rrule byxxx generates an empty set."
+          }
+        ]
+      }
+    },
+    {
+      "name": "empty-own-second-grid",
+      "input": {
+        "lines": [
+          "DTSTART:20260115T090000",
+          "RRULE:FREQ=SECONDLY;COUNT=3"
+        ],
+        "steps": [
+          {
+            "bysecond": []
+          }
+        ],
+        "wkst": null
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:20260115T090000\nRRULE:FREQ=SECONDLY;COUNT=3",
+          "starts": [
+            "2026-01-15T09:00:00",
+            "2026-01-15T09:00:01",
+            "2026-01-15T09:00:02"
+          ]
+        },
+        "changes": [
+          {
+            "error": "Invalid rrule byxxx generates an empty set."
+          }
+        ]
+      }
+    },
+    {
+      "name": "empty-limiting-clock-becomes-expanding",
+      "input": {
+        "lines": [
+          "DTSTART:99991231T235500",
+          "RRULE:FREQ=SECONDLY;COUNT=3"
+        ],
+        "steps": [
+          {
+            "byhour": []
+          },
+          {
+            "freq": "daily"
+          }
+        ],
+        "wkst": null
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:99991231T235500\nRRULE:FREQ=SECONDLY;COUNT=3",
+          "starts": [
+            "9999-12-31T23:55:00",
+            "9999-12-31T23:55:01",
+            "9999-12-31T23:55:02"
+          ]
+        },
+        "changes": [
+          {
+            "text": "DTSTART:99991231T235500\nRRULE:FREQ=SECONDLY;COUNT=3",
+            "starts": [
+              "9999-12-31T23:55:00",
+              "9999-12-31T23:55:01",
+              "9999-12-31T23:55:02"
+            ]
+          },
+          {
+            "text": "DTSTART:99991231T235500\nRRULE:FREQ=DAILY;COUNT=3",
+            "starts": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "empty-grid-still-validates-easter-mask",
+      "input": {
+        "lines": [
+          "DTSTART:20260115T090000",
+          "RRULE:FREQ=YEARLY;COUNT=4"
+        ],
+        "steps": [
+          {
+            "byhour": [],
+            "byeaster": 500
+          }
+        ],
+        "wkst": null
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:20260115T090000\nRRULE:FREQ=YEARLY;COUNT=4",
+          "starts": [
+            "2026-01-15T09:00:00",
+            "2027-01-15T09:00:00",
+            "2028-01-15T09:00:00",
+            "2029-01-15T09:00:00"
+          ]
+        },
+        "changes": [
+          {
+            "error": "list assignment index out of range"
+          }
+        ]
+      }
+    },
+    {
+      "name": "empty-grid-still-validates-ordinal-mask",
+      "input": {
+        "lines": [
+          "DTSTART:20260115T090000",
+          "RRULE:FREQ=MONTHLY;COUNT=4"
+        ],
+        "steps": [
+          {
+            "byhour": [],
+            "byweekday": "100MO"
+          }
+        ],
+        "wkst": null
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:20260115T090000\nRRULE:FREQ=MONTHLY;COUNT=4",
+          "starts": [
+            "2026-01-15T09:00:00",
+            "2026-02-15T09:00:00",
+            "2026-03-15T09:00:00",
+            "2026-04-15T09:00:00"
+          ]
+        },
+        "changes": [
+          {
+            "error": "list index out of range"
+          }
+        ]
+      }
+    },
+    {
+      "name": "empty-subdaily-grid-still-validates-easter-mask",
+      "input": {
+        "lines": [
+          "DTSTART:20260115T090000",
+          "RRULE:FREQ=HOURLY;COUNT=4"
+        ],
+        "steps": [
+          {
+            "byminute": [],
+            "byeaster": 500
+          }
+        ],
+        "wkst": null
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:20260115T090000\nRRULE:FREQ=HOURLY;COUNT=4",
+          "starts": [
+            "2026-01-15T09:00:00",
+            "2026-01-15T10:00:00",
+            "2026-01-15T11:00:00",
+            "2026-01-15T12:00:00"
+          ]
+        },
+        "changes": [
+          {
+            "error": "list assignment index out of range"
+          }
+        ]
+      }
+    },
+    {
+      "name": "empty-weekday-and-hour-still-hit-year-limit",
+      "input": {
+        "lines": [
+          "DTSTART:99991230T225757",
+          "RRULE:FREQ=WEEKLY;COUNT=3"
+        ],
+        "steps": [
+          {
+            "byhour": [],
+            "byweekday": []
+          }
+        ],
+        "wkst": null
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:99991230T225757\nRRULE:FREQ=WEEKLY;COUNT=3",
+          "starts": [
+            "9999-12-30T22:57:57"
+          ]
+        },
+        "changes": [
+          {
+            "error": "year 10000 is out of range"
+          }
+        ]
+      }
+    },
+    {
+      "name": "empty-weekno-and-hour-still-hit-year-limit",
+      "input": {
+        "lines": [
+          "DTSTART:99991230T225757",
+          "RRULE:FREQ=WEEKLY;COUNT=3"
+        ],
+        "steps": [
+          {
+            "byhour": [],
+            "byweekno": []
+          }
+        ],
+        "wkst": null
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:99991230T225757\nRRULE:FREQ=WEEKLY;COUNT=3",
+          "starts": [
+            "9999-12-30T22:57:57"
+          ]
+        },
+        "changes": [
+          {
+            "error": "year 10000 is out of range"
+          }
+        ]
+      }
+    },
+    {
+      "name": "empty-easter-and-hour-still-hit-year-limit",
+      "input": {
+        "lines": [
+          "DTSTART:99991230T225757",
+          "RRULE:FREQ=WEEKLY;COUNT=3"
+        ],
+        "steps": [
+          {
+            "byhour": [],
+            "byeaster": []
+          }
+        ],
+        "wkst": null
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:99991230T225757\nRRULE:FREQ=WEEKLY;COUNT=3",
+          "starts": [
+            "9999-12-30T22:57:57"
+          ]
+        },
+        "changes": [
+          {
+            "error": "year 10000 is out of range"
+          }
+        ]
+      }
+    },
+    {
+      "name": "empty-hour-within-calendar",
+      "input": {
+        "lines": [
+          "DTSTART:99991230T225757",
+          "RRULE:FREQ=WEEKLY;COUNT=3"
+        ],
+        "steps": [
+          {
+            "byhour": []
+          }
+        ],
+        "wkst": null
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:99991230T225757\nRRULE:FREQ=WEEKLY;COUNT=3",
+          "starts": [
+            "9999-12-30T22:57:57"
+          ]
+        },
+        "changes": [
+          {
+            "text": "DTSTART:99991230T225757\nRRULE:FREQ=WEEKLY;COUNT=3",
+            "starts": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "empty-month-and-day-constraints",
+      "input": {
+        "lines": [
+          "DTSTART:20260115T090000",
+          "RRULE:FREQ=YEARLY;COUNT=4"
+        ],
+        "steps": [
+          {
+            "bymonth": [],
+            "byweekday": []
+          }
+        ],
+        "wkst": null
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:20260115T090000\nRRULE:FREQ=YEARLY;COUNT=4",
+          "starts": [
+            "2026-01-15T09:00:00",
+            "2027-01-15T09:00:00",
+            "2028-01-15T09:00:00",
+            "2029-01-15T09:00:00"
+          ]
+        },
+        "changes": [
+          {
+            "text": "DTSTART:20260115T090000\nRRULE:FREQ=YEARLY;COUNT=4",
+            "starts": [
+              "2026-01-15T09:00:00",
+              "2026-01-16T09:00:00",
+              "2026-01-17T09:00:00",
+              "2026-01-18T09:00:00"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,306 @@
+{
+  "type": "dateutil",
+  "name": "dateutil 2.8.2 textual timezone resolver",
+  "source": "python-dateutil 2.8.2 rrulestr(tzids=...)",
+  "cases": [
+    {
+      "name": "RRuleTest.testStrWithTZIDMapping",
+      "input": {
+        "profileLines": [
+          "DTSTART;TZID=Eastern:19970902T090000",
+          "RRULE:FREQ=YEARLY;COUNT=3"
+        ],
+        "through": "2000-12-31",
+        "profileTzids": {
+          "zones": {
+            "ny": "America/New_York"
+          },
+          "mapping": {
+            "Eastern": "ny"
+          }
+        }
+      },
+      "expected": [
+        "1997-09-02T13:00:00Z",
+        "1998-09-02T13:00:00Z",
+        "1999-09-02T13:00:00Z"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrWithTZIDCallable",
+      "input": {
+        "profileLines": [
+          "DTSTART;TZID=UTC+04:19970902T090000",
+          "RRULE:FREQ=YEARLY;COUNT=3"
+        ],
+        "through": "2000-12-31",
+        "profileTzids": {
+          "zones": {
+            "fixed": "POSIX:UTC+04"
+          },
+          "calls": [
+            {
+              "name": "UTC+04",
+              "zone": "fixed"
+            }
+          ]
+        }
+      },
+      "expected": [
+        "1997-09-02T05:00:00Z",
+        "1998-09-02T05:00:00Z",
+        "1999-09-02T05:00:00Z"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrWithTZIDCallableFailure",
+      "input": {
+        "profileLines": [
+          "DTSTART;TZID=America/New_York:19970902T090000",
+          "RRULE:FREQ=YEARLY;COUNT=3"
+        ],
+        "through": "2000-12-31",
+        "profileTzids": {
+          "zones": {},
+          "calls": [
+            {
+              "name": "America/New_York",
+              "error": "Invalid!"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "error": "Invalid!"
+      }
+    },
+    {
+      "name": "RRuleTest.testStrWithTZIDMapping#shared-zone-object-at-fold",
+      "input": {
+        "profileLines": [
+          "DTSTART;TZID=Start:20261101T013000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE;TZID=Other:20261101T013000"
+        ],
+        "through": "2026-11-03",
+        "profileTzids": {
+          "zones": {
+            "ny": "America/New_York"
+          },
+          "mapping": {
+            "Start": "ny",
+            "Other": "ny"
+          }
+        }
+      },
+      "expected": [
+        "2026-11-02T06:30:00Z"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrWithTZIDMapping#distinct-zone-objects-at-fold",
+      "input": {
+        "profileLines": [
+          "DTSTART;TZID=Start:20261101T013000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE;TZID=Other:20261101T013000"
+        ],
+        "through": "2026-11-03",
+        "profileTzids": {
+          "zones": {
+            "ny": "America/New_York",
+            "ny-other": "America/New_York"
+          },
+          "mapping": {
+            "Start": "ny",
+            "Other": "ny-other"
+          }
+        }
+      },
+      "expected": [
+        "2026-11-01T05:30:00Z",
+        "2026-11-02T06:30:00Z"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrWithTZIDCallable#repeated-name-new-zone-object-at-fold",
+      "input": {
+        "profileLines": [
+          "DTSTART;TZID=Start:20261101T013000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE;TZID=Start:20261101T013000"
+        ],
+        "through": "2026-11-03",
+        "profileTzids": {
+          "zones": {
+            "ny": "America/New_York",
+            "ny-other": "America/New_York"
+          },
+          "calls": [
+            {
+              "name": "Start",
+              "zone": "ny"
+            },
+            {
+              "name": "Start",
+              "zone": "ny-other"
+            }
+          ]
+        }
+      },
+      "expected": [
+        "2026-11-01T05:30:00Z",
+        "2026-11-02T06:30:00Z"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrWithTZIDCallableFailure#repeated-name-callback-error-before-value",
+      "input": {
+        "profileLines": [
+          "DTSTART;TZID=Start:20261101T013000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE;TZID=Start;VALUE=BOGUS:20261101T013000"
+        ],
+        "through": "2026-11-03",
+        "profileTzids": {
+          "zones": {
+            "ny": "America/New_York"
+          },
+          "calls": [
+            {
+              "name": "Start",
+              "zone": "ny"
+            },
+            {
+              "name": "Start",
+              "error": "second timezone read"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "error": "second timezone read"
+      }
+    },
+    {
+      "name": "RRuleTest.testStrWithTZIDCallableFailure#value-error-before-second-callback",
+      "input": {
+        "profileLines": [
+          "DTSTART;TZID=Start:20261101T013000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE;VALUE=BOGUS;TZID=Start:20261101T013000"
+        ],
+        "through": "2026-11-03",
+        "profileTzids": {
+          "zones": {
+            "ny": "America/New_York"
+          },
+          "calls": [
+            {
+              "name": "Start",
+              "zone": "ny"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "error": "unsupported parm: VALUE=BOGUS"
+      }
+    },
+    {
+      "name": "RRuleTest.testStrWithTZIDMapping#missing-map-entry-does-not-use-built-in-zone",
+      "input": {
+        "profileLines": [
+          "DTSTART;TZID=America/New_York:20261101T013000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-11-03",
+        "profileTzids": {
+          "zones": {},
+          "mapping": {}
+        }
+      },
+      "expected": [
+        "2026-11-01T01:30:00",
+        "2026-11-02T01:30:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrWithTZIDCallable#null-callback-result-leaves-inline-offset",
+      "input": {
+        "profileLines": [
+          "DTSTART;TZID=America/New_York:20261101T013000Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-11-03",
+        "profileTzids": {
+          "zones": {},
+          "calls": [
+            {
+              "name": "America/New_York",
+              "zone": null
+            }
+          ]
+        }
+      },
+      "expected": [
+        "2026-11-01T01:30:00Z",
+        "2026-11-02T01:30:00Z"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrWithTZIDCallableFailure#rdate-tzid-is-rejected-without-callback",
+      "input": {
+        "profileLines": [
+          "DTSTART;TZID=Start:20261101T013000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=Start:20261102T013000"
+        ],
+        "through": "2026-11-03",
+        "profileTzids": {
+          "zones": {
+            "ny": "America/New_York"
+          },
+          "calls": [
+            {
+              "name": "Start",
+              "zone": "ny"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "error": "unsupported RDATE parm: TZID=START"
+      }
+    },
+    {
+      "name": "RRuleTest.testStrWithTZIDCallable#different-written-case-keeps-last-definition",
+      "input": {
+        "profileLines": [
+          "DTSTART;TZID=Start:20261101T013000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE;TZID=sTaRt:20261101T013000"
+        ],
+        "through": "2026-11-03",
+        "profileTzids": {
+          "zones": {
+            "ny": "America/New_York"
+          },
+          "calls": [
+            {
+              "name": "sTaRt",
+              "zone": "ny"
+            },
+            {
+              "name": "sTaRt",
+              "zone": "ny"
+            }
+          ]
+        }
+      },
+      "expected": [
+        "2026-11-02T06:30:00Z"
+      ]
+    }
+  ]
+}

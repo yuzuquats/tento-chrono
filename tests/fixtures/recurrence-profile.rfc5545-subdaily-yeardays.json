@@ -1,0 +1,177 @@
+{
+  "type": "recurrence-profile",
+  "name": "RFC 5545 subdaily year-day limits",
+  "source": "RFC 5545 \u00a73.3.10 with verified Erratum 3747; Python Gregorian period oracle",
+  "cases": [
+    {
+      "name": "hourly negative year day rejects New Year despite other selectors",
+      "input": {
+        "lines": [
+          "DTSTART:20241231T230000Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=1;UNTIL=20250101T015739Z;BYMONTH=1,12;BYYEARDAY=-1;BYDAY=TU,WE;BYHOUR=0,1,23;BYMINUTE=0,1,56,59;BYSECOND=0,11,39;BYMONTHDAY=-31,-1;BYSETPOS=1,-1",
+          "RDATE:20250101T230007Z",
+          "EXDATE:20241231T235939Z"
+        ],
+        "through": "2025-01-01",
+        "checkpoints": [
+          "2024-12-31"
+        ]
+      },
+      "expected": [
+        "2024-12-31T23:00:00Z",
+        "2025-01-01T23:00:07Z"
+      ]
+    },
+    {
+      "name": "hourly positive year days retain interval phase across New Year",
+      "input": {
+        "lines": [
+          "DTSTART:20231231T230000Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=2;UNTIL=20240101T015739Z;BYMONTH=1,12;BYYEARDAY=1,365;BYDAY=MO,SU;BYHOUR=0,1,23;BYMINUTE=0,1,56,59;BYSECOND=0,11,39"
+        ],
+        "through": "2024-01-01",
+        "checkpoints": [
+          "2023-12-31"
+        ]
+      },
+      "expected": [
+        "2023-12-31T23:00:00Z",
+        "2023-12-31T23:00:11Z",
+        "2023-12-31T23:00:39Z",
+        "2023-12-31T23:01:00Z",
+        "2023-12-31T23:01:11Z",
+        "2023-12-31T23:01:39Z",
+        "2023-12-31T23:56:00Z",
+        "2023-12-31T23:56:11Z",
+        "2023-12-31T23:56:39Z",
+        "2023-12-31T23:59:00Z",
+        "2023-12-31T23:59:11Z",
+        "2023-12-31T23:59:39Z",
+        "2024-01-01T01:00:00Z",
+        "2024-01-01T01:00:11Z",
+        "2024-01-01T01:00:39Z",
+        "2024-01-01T01:01:00Z",
+        "2024-01-01T01:01:11Z",
+        "2024-01-01T01:01:39Z",
+        "2024-01-01T01:56:00Z",
+        "2024-01-01T01:56:11Z",
+        "2024-01-01T01:56:39Z"
+      ]
+    },
+    {
+      "name": "minutely positive year day rejects leap day with set positions",
+      "input": {
+        "lines": [
+          "DTSTART:20240228T235600Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=2;UNTIL=20240229T015739Z;BYMONTH=2;BYYEARDAY=59;BYDAY=TH,WE;BYHOUR=0,1,23;BYMINUTE=0,1,56,59;BYSECOND=0,11,39;BYSETPOS=1,-1"
+        ],
+        "through": "2024-02-29",
+        "checkpoints": [
+          "2024-02-28"
+        ]
+      },
+      "expected": [
+        "2024-02-28T23:56:00Z",
+        "2024-02-28T23:56:39Z"
+      ]
+    },
+    {
+      "name": "minutely leap-day count is consumed before explicit exclusions",
+      "input": {
+        "lines": [
+          "DTSTART:20240229T235600Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=1;COUNT=3;BYMONTH=2,3;BYYEARDAY=-307,-306;BYDAY=FR,TH;BYHOUR=0,1,23;BYMINUTE=0,1,56,59;BYSECOND=0,11,39;BYMONTHDAY=-31,-1",
+          "RDATE:20240301T235607Z",
+          "EXDATE:20240229T235611Z"
+        ],
+        "through": "2024-03-01",
+        "checkpoints": [
+          "2024-02-29"
+        ]
+      },
+      "expected": [
+        "2024-02-29T23:56:00Z",
+        "2024-02-29T23:56:39Z",
+        "2024-03-01T23:56:07Z"
+      ]
+    },
+    {
+      "name": "minutely negative year day rejects March 1 in a common year",
+      "input": {
+        "lines": [
+          "DTSTART:20230228T235600Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=7;UNTIL=20230301T015739Z;BYMONTH=2,3;BYYEARDAY=-307;BYDAY=TU,WE;BYHOUR=0,1,23;BYMINUTE=0,1,56,59;BYSECOND=0,11,39;BYMONTHDAY=-31,-1",
+          "RDATE:20230301T235607Z",
+          "EXDATE:20230228T235611Z"
+        ],
+        "through": "2023-03-01",
+        "checkpoints": [
+          "2023-02-28"
+        ]
+      },
+      "expected": [
+        "2023-02-28T23:56:00Z",
+        "2023-02-28T23:56:39Z",
+        "2023-03-01T23:56:07Z"
+      ]
+    },
+    {
+      "name": "secondly duplicate position picks do not bypass the year-day limit",
+      "input": {
+        "lines": [
+          "DTSTART:20241231T235600Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=1;UNTIL=20250101T015739Z;BYMONTH=1,12;BYYEARDAY=-1;BYDAY=TU,WE;BYHOUR=0,1,23;BYMINUTE=0,1,56,59;BYSECOND=0,11,39;BYMONTHDAY=-31,-1;BYSETPOS=1,-1",
+          "RDATE:20250101T235607Z",
+          "EXDATE:20241231T235900Z"
+        ],
+        "through": "2025-01-01",
+        "checkpoints": [
+          "2024-12-31"
+        ]
+      },
+      "expected": [
+        "2024-12-31T23:56:00Z",
+        "2024-12-31T23:56:11Z",
+        "2024-12-31T23:56:39Z",
+        "2024-12-31T23:59:11Z",
+        "2024-12-31T23:59:39Z",
+        "2025-01-01T23:56:07Z"
+      ]
+    },
+    {
+      "name": "secondly finite count on February 28 with negative year days",
+      "input": {
+        "lines": [
+          "DTSTART:20240228T235600Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=2;COUNT=3;BYMONTH=2;BYYEARDAY=-308,-307;BYDAY=TH,WE;BYHOUR=0,1,23;BYMINUTE=0,1,56,59;BYSECOND=0,11,39"
+        ],
+        "through": "2024-02-29",
+        "checkpoints": [
+          "2024-02-28"
+        ]
+      },
+      "expected": [
+        "2024-02-28T23:56:00Z",
+        "2024-02-28T23:59:00Z",
+        "2024-02-29T00:00:00Z"
+      ]
+    },
+    {
+      "name": "secondly sparse interval with leap-day and March year-day selectors",
+      "input": {
+        "lines": [
+          "DTSTART:20240229T235600Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=7;UNTIL=20240301T015739Z;BYMONTH=2,3;BYYEARDAY=60,61;BYDAY=FR,TH;BYHOUR=0,1,23;BYMINUTE=0,1,56,59;BYSECOND=0,11,39;BYSETPOS=1,-1"
+        ],
+        "through": "2024-03-01",
+        "checkpoints": [
+          "2024-02-29"
+        ]
+      },
+      "expected": [
+        "2024-02-29T23:56:00Z",
+        "2024-03-01T00:59:00Z"
+      ]
+    }
+  ]
+}

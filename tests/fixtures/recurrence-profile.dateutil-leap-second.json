@@ -1,0 +1,134 @@
+{
+  "type": "recurrence-profile",
+  "name": "dateutil 2.8.2 leap-second selectors",
+  "source": "dateutil 2.8.2 rrulestr with forceset=True",
+  "cases": [
+    {
+      "name": "daily-rejects-leap-second-during-construction",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;BYSECOND=60;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "second must be in 0..59"
+      }
+    },
+    {
+      "name": "weekly-rejects-leap-and-ordinary-second",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=WEEKLY;BYSECOND=59,60;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "error": "second must be in 0..59"
+      }
+    },
+    {
+      "name": "hourly-rejects-leap-second-during-expansion",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=HOURLY;BYSECOND=60;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "expansionError": "second must be in 0..59"
+      }
+    },
+    {
+      "name": "minutely-rejects-leap-second-during-expansion",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=MINUTELY;BYSECOND=59,60;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "expansionError": "second must be in 0..59"
+      }
+    },
+    {
+      "name": "hourly-zero-count-still-builds-time-set",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=HOURLY;BYHOUR=10;BYSECOND=60;COUNT=0"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "expansionError": "second must be in 0..59"
+      }
+    },
+    {
+      "name": "secondly-rejects-leap-only-clock",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=SECONDLY;BYSECOND=60;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "expansionError": "cannot unpack non-iterable NoneType object"
+      }
+    },
+    {
+      "name": "secondly-keeps-reachable-ordinary-second",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=SECONDLY;BYSECOND=59,60;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:59Z",
+        "2026-01-01T09:01:59Z"
+      ]
+    },
+    {
+      "name": "secondly-unreachable-ordinary-second",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=2;BYSECOND=59,60;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "expansionError": "cannot unpack non-iterable NoneType object"
+      }
+    },
+    {
+      "name": "minutely-unreachable-hour-wins-over-leap-second",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=120;BYHOUR=10;BYSECOND=60;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01"
+      },
+      "expected": {
+        "expansionError": "Invalid combination of interval and byhour resulting in empty rule."
+      }
+    }
+  ]
+}

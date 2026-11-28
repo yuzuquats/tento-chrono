@@ -1,0 +1,55 @@
+{
+  "type": "google-expansion",
+  "name": "Google Calendar late-fallback-boundary google-expansion",
+  "source": "Google Calendar API events.instances",
+  "cases": [
+    {
+      "name": "google-late-fallback-boundary-date-early-rule-excluded",
+      "input": {
+        "start": "2099-12-30",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=8",
+          "EXRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedRecurrence": [
+          "EXRULE:FREQ=DAILY;COUNT=2",
+          "RRULE:FREQ=DAILY;COUNT=8"
+        ],
+        "window": {
+          "start": "2099-12-29T00:00:00Z",
+          "end": "2100-01-06T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2100-01-01"
+        ]
+      }
+    },
+    {
+      "name": "google-late-fallback-boundary-time-early-rule-excluded",
+      "input": {
+        "start": "2099-12-30T09:00:00Z",
+        "end": "2099-12-31T09:15:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=8",
+          "EXRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedRecurrence": [
+          "EXRULE:FREQ=DAILY;COUNT=2",
+          "RRULE:FREQ=DAILY;COUNT=8"
+        ],
+        "window": {
+          "start": "2099-12-29T00:00:00Z",
+          "end": "2100-01-06T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2100-01-01T09:00:00Z"
+        ]
+      }
+    }
+  ]
+}

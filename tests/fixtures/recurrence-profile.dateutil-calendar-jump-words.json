@@ -1,0 +1,423 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil folded calendar words and whitespace",
+  "source": "python-dateutil 2.8.2 rrulestr with forceset and unfold",
+  "cases": [
+    {
+      "name": "a month of a short year inherits and clips the day",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:FEB\r\n  OF 26 09:30",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-02-28T09:30:00",
+        "2026-03-01T09:30:00"
+      ]
+    },
+    {
+      "name": "two spaces before OF leave a day field",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:FEB\r\n   OF 26 09:30",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-02-26T09:30:00",
+        "2026-02-27T09:30:00"
+      ]
+    },
+    {
+      "name": "two spaces after OF leave a day field",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:FEB\r\n  OF  26 09:30Z"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-02-26T09:30:00Z"
+      ]
+    },
+    {
+      "name": "calendar words delimit a weekday month and clock",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:FRI\r\n  JAN OF 26 AT 09:30",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-02-06T09:30:00",
+        "2026-02-07T09:30:00"
+      ]
+    },
+    {
+      "name": "calendar words delimit an inclusion",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:ON\r\n  2 JAN 2026 AT 09:30Z"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-02T09:30:00Z"
+      ]
+    },
+    {
+      "name": "calendar words delimit an exclusion",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE:JAN\r\n  2 AND 2026 AT 09:00"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-01T09:00:00"
+      ]
+    },
+    {
+      "name": "a missing year value after OF follows dateutil's skip",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:JAN\r\n  OF NEXT 09:30",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-31T09:30:00",
+        "2026-02-01T09:30:00"
+      ]
+    },
+    {
+      "name": "a word outside the grammar still fails",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:DATE\r\n  2 JAN 2026 09:30",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": {
+        "error": "Unknown string format: DATE 2 JAN 2026 09:30"
+      }
+    },
+    {
+      "name": "a doubled slash can follow a hyphenated group",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:JAN-2//2026\r\n  09:30",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-02T09:30:00",
+        "2026-01-03T09:30:00"
+      ]
+    },
+    {
+      "name": "a repeated group separator still requires an adjacent field",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:JAN-2--2026\r\n  09:30",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": {
+        "error": "Unknown string format: JAN-2--2026 09:30"
+      }
+    },
+    {
+      "name": "an empty slash group after a month still fails",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:JAN//2/2026\r\n  09:30",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": {
+        "error": "Unknown string format: JAN//2/2026 09:30"
+      }
+    },
+    {
+      "name": "space before an integer is accepted",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT= \r\n 2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-02T09:00:00",
+        "2026-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "space after an integer is accepted",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=2 \r\n ;INTERVAL=1"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-02T09:00:00",
+        "2026-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "space after a frequency stays in the diagnostic",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000",
+          "RRULE:FREQ=DAILY \r\n ;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": {
+        "error": "invalid 'FREQ': DAILY "
+      }
+    },
+    {
+      "name": "space after a list separator is accepted",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000",
+          "RRULE:FREQ=DAILY;BYHOUR=9, \r\n 10;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-02T09:00:00",
+        "2026-01-02T10:00:00"
+      ]
+    },
+    {
+      "name": "tab before an interval is accepted",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000",
+          "RRULE:FREQ=DAILY;INTERVAL=\t\r\n 2;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-02T09:00:00",
+        "2026-01-04T09:00:00"
+      ]
+    },
+    {
+      "name": "space before a signed integer is accepted",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000",
+          "RRULE:FREQ=DAILY;BYMONTHDAY= \r\n +2;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-02T09:00:00",
+        "2026-02-02T09:00:00"
+      ]
+    },
+    {
+      "name": "information separator in an integer is rejected",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=\u001f\r\n 2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": {
+        "error": "invalid 'COUNT': \u001f2"
+      }
+    },
+    {
+      "name": "zero width no-break space in an integer is rejected",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=\ufeff\r\n 2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": {
+        "error": "invalid 'COUNT': \ufeff2"
+      }
+    }
+  ]
+}

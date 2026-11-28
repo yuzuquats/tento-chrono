@@ -1,0 +1,185 @@
+{
+  "type": "recurrence-profile",
+  "rfcDateMode": "written",
+  "name": "RFC 5545 calendar timezone identity for explicit dates",
+  "source": "RFC 5545 sections 3.2.19, 3.3.5 and 3.8.5.1 with fixed UTC offset arithmetic",
+  "cases": [
+    {
+      "name": "same-wall-time-in-a-different-tzid-keeps-rule-instance",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=X-East:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE;TZID=X-West:20260102T090000"
+        ],
+        "rfcTimeZones": {
+          "X-East": {
+            "name": "UTC",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+01:00",
+                "after": "2026-01-01T00:00:00+01:00",
+                "before_tz_abbr": "TEST",
+                "after_tz_abbr": "TEST"
+              }
+            ]
+          },
+          "X-West": {
+            "name": "UTC",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+02:00",
+                "after": "2026-01-01T00:00:00+02:00",
+                "before_tz_abbr": "TEST",
+                "after_tz_abbr": "TEST"
+              }
+            ]
+          }
+        },
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T08:00:00Z",
+        "2026-01-02T08:00:00Z",
+        "2026-01-03T08:00:00Z"
+      ]
+    },
+    {
+      "name": "same-instant-in-a-different-tzid-excludes-rule-instance",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=X-East:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE;TZID=X-West:20260102T100000"
+        ],
+        "rfcTimeZones": {
+          "X-East": {
+            "name": "UTC",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+01:00",
+                "after": "2026-01-01T00:00:00+01:00",
+                "before_tz_abbr": "TEST",
+                "after_tz_abbr": "TEST"
+              }
+            ]
+          },
+          "X-West": {
+            "name": "UTC",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+02:00",
+                "after": "2026-01-01T00:00:00+02:00",
+                "before_tz_abbr": "TEST",
+                "after_tz_abbr": "TEST"
+              }
+            ]
+          }
+        },
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T08:00:00Z",
+        "2026-01-03T08:00:00Z"
+      ]
+    },
+    {
+      "name": "same-wall-exclusion-removes-only-explicit-start-in-its-zone",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=X-East:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE;TZID=X-West:20260102T090000,20260102T100000",
+          "EXDATE;TZID=X-West:20260102T090000"
+        ],
+        "rfcTimeZones": {
+          "X-East": {
+            "name": "UTC",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+01:00",
+                "after": "2026-01-01T00:00:00+01:00",
+                "before_tz_abbr": "TEST",
+                "after_tz_abbr": "TEST"
+              }
+            ]
+          },
+          "X-West": {
+            "name": "UTC",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+02:00",
+                "after": "2026-01-01T00:00:00+02:00",
+                "before_tz_abbr": "TEST",
+                "after_tz_abbr": "TEST"
+              }
+            ]
+          }
+        },
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T08:00:00Z",
+        "2026-01-02T08:00:00Z",
+        "2026-01-03T08:00:00Z"
+      ]
+    },
+    {
+      "name": "floating-exdate-only-excludes-floating-rdate",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=X-East:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20260102T090000",
+          "EXDATE:20260102T090000"
+        ],
+        "rfcTimeZones": {
+          "X-East": {
+            "name": "UTC",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+01:00",
+                "after": "2026-01-01T00:00:00+01:00",
+                "before_tz_abbr": "TEST",
+                "after_tz_abbr": "TEST"
+              }
+            ]
+          },
+          "X-West": {
+            "name": "UTC",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+02:00",
+                "after": "2026-01-01T00:00:00+02:00",
+                "before_tz_abbr": "TEST",
+                "after_tz_abbr": "TEST"
+              }
+            ]
+          }
+        },
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T08:00:00Z",
+        "2026-01-02T08:00:00Z",
+        "2026-01-03T08:00:00Z"
+      ]
+    }
+  ]
+}

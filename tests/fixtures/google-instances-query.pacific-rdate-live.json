@@ -1,0 +1,694 @@
+{
+  "type": "google-instances-query",
+  "name": "Google Calendar all-day instances on a Pacific calendar",
+  "source": "Google Calendar API events.instances via tento-google on the maintainer's capture host",
+  "cases": [
+    {
+      "name": "explicit-date-fall",
+      "input": {
+        "master": {
+          "start": {
+            "date": "2026-10-28"
+          },
+          "end": {
+            "date": "2026-10-29"
+          },
+          "recurrence": [
+            "RDATE;VALUE=DATE:20261101",
+            "RRULE:FREQ=DAILY;COUNT=3;INTERVAL=7"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "date": "2026-10-28"
+          },
+          "end": {
+            "date": "2026-10-29"
+          },
+          "recurrence": [
+            "RDATE;VALUE=DATE:20261101",
+            "RRULE:FREQ=DAILY;INTERVAL=7;COUNT=3"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "wide": {
+            "start": "2026-10-26T07:00:00Z",
+            "end": "2026-11-22T07:00:00Z"
+          },
+          "civil-before": {
+            "start": "2026-11-02T07:59:59Z",
+            "end": "2026-11-02T08:00:00Z"
+          },
+          "civil-after": {
+            "start": "2026-11-02T08:00:00Z",
+            "end": "2026-11-02T08:00:01Z"
+          },
+          "elapsed-before": {
+            "start": "2026-11-02T06:59:59Z",
+            "end": "2026-11-02T07:00:00Z"
+          },
+          "elapsed-after": {
+            "start": "2026-11-02T07:00:00Z",
+            "end": "2026-11-02T07:00:01Z"
+          },
+          "true-start-before": {
+            "start": "2026-11-01T06:59:59Z",
+            "end": "2026-11-01T07:00:00Z"
+          },
+          "true-start-after": {
+            "start": "2026-11-01T07:00:00Z",
+            "end": "2026-11-01T07:00:01Z"
+          },
+          "middle-at-target": {
+            "start": "2026-11-01T19:00:00Z",
+            "end": "2026-11-01T19:00:01Z"
+          },
+          "past-elapsed-wide": {
+            "start": "2026-11-02T07:00:00Z",
+            "end": "2026-11-02T09:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2026-10-28",
+          "2026-11-01",
+          "2026-11-04",
+          "2026-11-11"
+        ],
+        "civil-before": [],
+        "civil-after": [],
+        "elapsed-before": [
+          "2026-11-01"
+        ],
+        "elapsed-after": [],
+        "true-start-before": [],
+        "true-start-after": [
+          "2026-11-01"
+        ],
+        "middle-at-target": [
+          "2026-11-01"
+        ],
+        "past-elapsed-wide": []
+      }
+    },
+    {
+      "name": "explicit-period-fall",
+      "input": {
+        "master": {
+          "start": {
+            "date": "2026-10-28"
+          },
+          "end": {
+            "date": "2026-10-29"
+          },
+          "recurrence": [
+            "RDATE;TZID=America/Los_Angeles:20261031T170000",
+            "RRULE:FREQ=DAILY;COUNT=3;INTERVAL=7"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "date": "2026-10-28"
+          },
+          "end": {
+            "date": "2026-10-29"
+          },
+          "recurrence": [
+            "RDATE;VALUE=PERIOD:20261101T000000Z/P3D",
+            "RRULE:FREQ=DAILY;INTERVAL=7;COUNT=3"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "wide": {
+            "start": "2026-10-26T07:00:00Z",
+            "end": "2026-11-22T07:00:00Z"
+          },
+          "civil-before": {
+            "start": "2026-11-02T07:59:59Z",
+            "end": "2026-11-02T08:00:00Z"
+          },
+          "civil-after": {
+            "start": "2026-11-02T08:00:00Z",
+            "end": "2026-11-02T08:00:01Z"
+          },
+          "elapsed-before": {
+            "start": "2026-11-02T06:59:59Z",
+            "end": "2026-11-02T07:00:00Z"
+          },
+          "elapsed-after": {
+            "start": "2026-11-02T07:00:00Z",
+            "end": "2026-11-02T07:00:01Z"
+          },
+          "true-start-before": {
+            "start": "2026-11-01T06:59:59Z",
+            "end": "2026-11-01T07:00:00Z"
+          },
+          "true-start-after": {
+            "start": "2026-11-01T07:00:00Z",
+            "end": "2026-11-01T07:00:01Z"
+          },
+          "middle-at-target": {
+            "start": "2026-11-01T19:00:00Z",
+            "end": "2026-11-01T19:00:01Z"
+          },
+          "past-elapsed-wide": {
+            "start": "2026-11-02T07:00:00Z",
+            "end": "2026-11-02T09:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2026-10-28",
+          "2026-11-01",
+          "2026-11-04",
+          "2026-11-11"
+        ],
+        "civil-before": [],
+        "civil-after": [],
+        "elapsed-before": [
+          "2026-11-01"
+        ],
+        "elapsed-after": [],
+        "true-start-before": [],
+        "true-start-after": [
+          "2026-11-01"
+        ],
+        "middle-at-target": [
+          "2026-11-01"
+        ],
+        "past-elapsed-wide": []
+      }
+    },
+    {
+      "name": "explicit-date-spring",
+      "input": {
+        "master": {
+          "start": {
+            "date": "2026-03-05"
+          },
+          "end": {
+            "date": "2026-03-06"
+          },
+          "recurrence": [
+            "RDATE;VALUE=DATE:20260308",
+            "RRULE:FREQ=DAILY;COUNT=3;INTERVAL=7"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "date": "2026-03-05"
+          },
+          "end": {
+            "date": "2026-03-06"
+          },
+          "recurrence": [
+            "RDATE;VALUE=DATE:20260308",
+            "RRULE:FREQ=DAILY;INTERVAL=7;COUNT=3"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "wide": {
+            "start": "2026-03-03T08:00:00Z",
+            "end": "2026-03-30T08:00:00Z"
+          },
+          "civil-before": {
+            "start": "2026-03-09T06:59:59Z",
+            "end": "2026-03-09T07:00:00Z"
+          },
+          "civil-after": {
+            "start": "2026-03-09T07:00:00Z",
+            "end": "2026-03-09T07:00:01Z"
+          },
+          "elapsed-before": {
+            "start": "2026-03-09T07:59:59Z",
+            "end": "2026-03-09T08:00:00Z"
+          },
+          "elapsed-after": {
+            "start": "2026-03-09T08:00:00Z",
+            "end": "2026-03-09T08:00:01Z"
+          },
+          "true-start-before": {
+            "start": "2026-03-08T07:59:59Z",
+            "end": "2026-03-08T08:00:00Z"
+          },
+          "true-start-after": {
+            "start": "2026-03-08T08:00:00Z",
+            "end": "2026-03-08T08:00:01Z"
+          },
+          "middle-at-target": {
+            "start": "2026-03-08T20:00:00Z",
+            "end": "2026-03-08T20:00:01Z"
+          },
+          "past-elapsed-wide": {
+            "start": "2026-03-09T08:00:00Z",
+            "end": "2026-03-09T10:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2026-03-05",
+          "2026-03-08",
+          "2026-03-12",
+          "2026-03-19"
+        ],
+        "civil-before": [
+          "2026-03-08"
+        ],
+        "civil-after": [],
+        "elapsed-before": [],
+        "elapsed-after": [],
+        "true-start-before": [],
+        "true-start-after": [
+          "2026-03-08"
+        ],
+        "middle-at-target": [
+          "2026-03-08"
+        ],
+        "past-elapsed-wide": []
+      }
+    },
+    {
+      "name": "explicit-date-matches-rule-fall",
+      "input": {
+        "master": {
+          "start": {
+            "date": "2026-10-25"
+          },
+          "end": {
+            "date": "2026-10-27"
+          },
+          "recurrence": [
+            "RDATE;VALUE=DATE:20261101",
+            "RRULE:FREQ=DAILY;COUNT=3;INTERVAL=7"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "date": "2026-10-25"
+          },
+          "end": {
+            "date": "2026-10-27"
+          },
+          "recurrence": [
+            "RDATE;VALUE=DATE:20261101",
+            "RRULE:FREQ=DAILY;INTERVAL=7;COUNT=3"
+          ]
+        },
+        "durationMs": 172800000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "wide": {
+            "start": "2026-10-23T07:00:00Z",
+            "end": "2026-11-19T07:00:00Z"
+          },
+          "civil-before": {
+            "start": "2026-11-03T07:59:59Z",
+            "end": "2026-11-03T08:00:00Z"
+          },
+          "civil-after": {
+            "start": "2026-11-03T08:00:00Z",
+            "end": "2026-11-03T08:00:01Z"
+          },
+          "elapsed-before": {
+            "start": "2026-11-03T06:59:59Z",
+            "end": "2026-11-03T07:00:00Z"
+          },
+          "elapsed-after": {
+            "start": "2026-11-03T07:00:00Z",
+            "end": "2026-11-03T07:00:01Z"
+          },
+          "true-start-before": {
+            "start": "2026-11-01T06:59:59Z",
+            "end": "2026-11-01T07:00:00Z"
+          },
+          "true-start-after": {
+            "start": "2026-11-01T07:00:00Z",
+            "end": "2026-11-01T07:00:01Z"
+          },
+          "middle-at-target": {
+            "start": "2026-11-01T19:00:00Z",
+            "end": "2026-11-01T19:00:01Z"
+          },
+          "past-elapsed-wide": {
+            "start": "2026-11-03T07:00:00Z",
+            "end": "2026-11-03T09:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2026-10-25",
+          "2026-11-01",
+          "2026-11-08"
+        ],
+        "civil-before": [],
+        "civil-after": [],
+        "elapsed-before": [
+          "2026-11-01"
+        ],
+        "elapsed-after": [],
+        "true-start-before": [],
+        "true-start-after": [
+          "2026-11-01"
+        ],
+        "middle-at-target": [
+          "2026-11-01"
+        ],
+        "past-elapsed-wide": []
+      }
+    },
+    {
+      "name": "explicit-date-excluded-fall",
+      "input": {
+        "master": {
+          "start": {
+            "date": "2026-10-28"
+          },
+          "end": {
+            "date": "2026-10-29"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE:20261101",
+            "RDATE;VALUE=DATE:20261101",
+            "RRULE:FREQ=DAILY;COUNT=3;INTERVAL=7"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "date": "2026-10-28"
+          },
+          "end": {
+            "date": "2026-10-29"
+          },
+          "recurrence": [
+            "RDATE;VALUE=DATE:20261101",
+            "EXDATE;VALUE=DATE:20261101",
+            "RRULE:FREQ=DAILY;INTERVAL=7;COUNT=3"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "wide": {
+            "start": "2026-10-26T07:00:00Z",
+            "end": "2026-11-22T07:00:00Z"
+          },
+          "civil-before": {
+            "start": "2026-11-02T07:59:59Z",
+            "end": "2026-11-02T08:00:00Z"
+          },
+          "civil-after": {
+            "start": "2026-11-02T08:00:00Z",
+            "end": "2026-11-02T08:00:01Z"
+          },
+          "elapsed-before": {
+            "start": "2026-11-02T06:59:59Z",
+            "end": "2026-11-02T07:00:00Z"
+          },
+          "elapsed-after": {
+            "start": "2026-11-02T07:00:00Z",
+            "end": "2026-11-02T07:00:01Z"
+          },
+          "true-start-before": {
+            "start": "2026-11-01T06:59:59Z",
+            "end": "2026-11-01T07:00:00Z"
+          },
+          "true-start-after": {
+            "start": "2026-11-01T07:00:00Z",
+            "end": "2026-11-01T07:00:01Z"
+          },
+          "middle-at-target": {
+            "start": "2026-11-01T19:00:00Z",
+            "end": "2026-11-01T19:00:01Z"
+          },
+          "past-elapsed-wide": {
+            "start": "2026-11-02T07:00:00Z",
+            "end": "2026-11-02T09:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2026-10-28",
+          "2026-11-04",
+          "2026-11-11"
+        ],
+        "civil-before": [],
+        "civil-after": [],
+        "elapsed-before": [],
+        "elapsed-after": [],
+        "true-start-before": [],
+        "true-start-after": [],
+        "middle-at-target": [],
+        "past-elapsed-wide": []
+      }
+    },
+    {
+      "name": "master-moved-onto-transition-rdate",
+      "input": {
+        "master": {
+          "start": {
+            "date": "2026-10-28"
+          },
+          "end": {
+            "date": "2026-10-29"
+          },
+          "recurrence": [
+            "RDATE;VALUE=DATE:20261101",
+            "RRULE:FREQ=DAILY;COUNT=3;INTERVAL=7"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "date": "2026-10-28"
+          },
+          "end": {
+            "date": "2026-10-29"
+          },
+          "recurrence": [
+            "RDATE;VALUE=DATE:20261101",
+            "RRULE:FREQ=DAILY;INTERVAL=7;COUNT=3"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "edits": [
+          {
+            "start": {
+              "date": "2026-11-01"
+            },
+            "end": {
+              "date": "2026-11-02"
+            },
+            "originalStartTime": {
+              "date": "2026-10-28"
+            },
+            "status": "confirmed"
+          }
+        ],
+        "windows": {
+          "wide": {
+            "start": "2026-10-26T07:00:00Z",
+            "end": "2026-11-22T07:00:00Z"
+          },
+          "civil-before": {
+            "start": "2026-11-02T07:59:59Z",
+            "end": "2026-11-02T08:00:00Z"
+          },
+          "civil-after": {
+            "start": "2026-11-02T08:00:00Z",
+            "end": "2026-11-02T08:00:01Z"
+          },
+          "elapsed-before": {
+            "start": "2026-11-02T06:59:59Z",
+            "end": "2026-11-02T07:00:00Z"
+          },
+          "elapsed-after": {
+            "start": "2026-11-02T07:00:00Z",
+            "end": "2026-11-02T07:00:01Z"
+          },
+          "true-start-before": {
+            "start": "2026-11-01T06:59:59Z",
+            "end": "2026-11-01T07:00:00Z"
+          },
+          "true-start-after": {
+            "start": "2026-11-01T07:00:00Z",
+            "end": "2026-11-01T07:00:01Z"
+          },
+          "middle-at-target": {
+            "start": "2026-11-01T19:00:00Z",
+            "end": "2026-11-01T19:00:01Z"
+          },
+          "past-elapsed-wide": {
+            "start": "2026-11-02T07:00:00Z",
+            "end": "2026-11-02T09:00:00Z"
+          },
+          "original-slot": {
+            "start": "2026-10-28T07:00:00Z",
+            "end": "2026-10-28T07:00:01Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2026-11-01",
+          "2026-11-04",
+          "2026-11-11",
+          "2026-11-01"
+        ],
+        "civil-before": [
+          "2026-11-01"
+        ],
+        "civil-after": [],
+        "elapsed-before": [
+          "2026-11-01",
+          "2026-11-01"
+        ],
+        "elapsed-after": [
+          "2026-11-01"
+        ],
+        "true-start-before": [],
+        "true-start-after": [
+          "2026-11-01",
+          "2026-11-01"
+        ],
+        "middle-at-target": [
+          "2026-11-01",
+          "2026-11-01"
+        ],
+        "past-elapsed-wide": [
+          "2026-11-01"
+        ],
+        "original-slot": []
+      }
+    },
+    {
+      "name": "rdate-moved-onto-transition-rule",
+      "input": {
+        "master": {
+          "start": {
+            "date": "2026-10-25"
+          },
+          "end": {
+            "date": "2026-10-27"
+          },
+          "recurrence": [
+            "RDATE;VALUE=DATE:20261028",
+            "RRULE:FREQ=DAILY;COUNT=3;INTERVAL=7"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "date": "2026-10-25"
+          },
+          "end": {
+            "date": "2026-10-27"
+          },
+          "recurrence": [
+            "RDATE;VALUE=DATE:20261028",
+            "RRULE:FREQ=DAILY;INTERVAL=7;COUNT=3"
+          ]
+        },
+        "durationMs": 172800000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "edits": [
+          {
+            "start": {
+              "date": "2026-11-01"
+            },
+            "end": {
+              "date": "2026-11-03"
+            },
+            "originalStartTime": {
+              "date": "2026-10-28"
+            },
+            "status": "confirmed"
+          }
+        ],
+        "windows": {
+          "wide": {
+            "start": "2026-10-23T07:00:00Z",
+            "end": "2026-11-19T07:00:00Z"
+          },
+          "civil-before": {
+            "start": "2026-11-03T07:59:59Z",
+            "end": "2026-11-03T08:00:00Z"
+          },
+          "civil-after": {
+            "start": "2026-11-03T08:00:00Z",
+            "end": "2026-11-03T08:00:01Z"
+          },
+          "elapsed-before": {
+            "start": "2026-11-03T06:59:59Z",
+            "end": "2026-11-03T07:00:00Z"
+          },
+          "elapsed-after": {
+            "start": "2026-11-03T07:00:00Z",
+            "end": "2026-11-03T07:00:01Z"
+          },
+          "true-start-before": {
+            "start": "2026-11-01T06:59:59Z",
+            "end": "2026-11-01T07:00:00Z"
+          },
+          "true-start-after": {
+            "start": "2026-11-01T07:00:00Z",
+            "end": "2026-11-01T07:00:01Z"
+          },
+          "middle-at-target": {
+            "start": "2026-11-01T19:00:00Z",
+            "end": "2026-11-01T19:00:01Z"
+          },
+          "past-elapsed-wide": {
+            "start": "2026-11-03T07:00:00Z",
+            "end": "2026-11-03T09:00:00Z"
+          },
+          "original-slot": {
+            "start": "2026-10-28T07:00:00Z",
+            "end": "2026-10-28T07:00:01Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2026-10-25",
+          "2026-11-01",
+          "2026-11-08",
+          "2026-11-01"
+        ],
+        "civil-before": [
+          "2026-11-01"
+        ],
+        "civil-after": [],
+        "elapsed-before": [
+          "2026-11-01",
+          "2026-11-01"
+        ],
+        "elapsed-after": [
+          "2026-11-01"
+        ],
+        "true-start-before": [],
+        "true-start-after": [
+          "2026-11-01",
+          "2026-11-01"
+        ],
+        "middle-at-target": [
+          "2026-11-01",
+          "2026-11-01"
+        ],
+        "past-elapsed-wide": [
+          "2026-11-01"
+        ],
+        "original-slot": []
+      }
+    }
+  ]
+}

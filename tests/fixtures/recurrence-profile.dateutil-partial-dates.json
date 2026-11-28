@@ -1,0 +1,628 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil partial calendar dates",
+  "source": "python-dateutil 2.8.2 rrulestr with a frozen process-local date",
+  "cases": [
+    {
+      "name": "an omitted day clips at the end of February",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:2025-02",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2025-02-28",
+          "2025-03-01"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2025-02-28",
+        "2025-03-01"
+      ]
+    },
+    {
+      "name": "a leap-year month clips to February 29 and keeps the UTC clock",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:2024-02T091530Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2025-12-31",
+        "checkpoints": [
+          "2024-02-29",
+          "2024-03-01"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2024-02-29T09:15:30Z",
+        "2024-03-01T09:15:30Z"
+      ]
+    },
+    {
+      "name": "a year alone inherits the month and clips its leap day",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2028,
+        "lines": [
+          "DTSTART:2026",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-02-28",
+          "2026-03-01"
+        ],
+        "dateutilNow": "2028-02-29T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2026-02-28",
+        "2026-03-01"
+      ]
+    },
+    {
+      "name": "a small numeric token supplies the day",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:01",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2026-01-01",
+        "2026-01-02"
+      ]
+    },
+    {
+      "name": "a numeric month and day inherit the process-local year",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:03/01",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2026-03-01",
+        "2026-03-02"
+      ]
+    },
+    {
+      "name": "a two-field numeric date keeps month-first interpretation",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:13/01",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": {
+        "error": "month must be in 1..12: 13/01"
+      }
+    },
+    {
+      "name": "a written invalid day raises an error",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:02-29",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": {
+        "error": "day is out of range for month: 02-29"
+      }
+    },
+    {
+      "name": "a dot before a numeric year uses the parser-year window",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:MAR.076",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "1977-12-31",
+        "checkpoints": [
+          "1976-03-31",
+          "1976-04-01"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "1976-03-31",
+        "1976-04-01"
+      ]
+    },
+    {
+      "name": "a dot after an explicitly written year preserves its width",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:076.MAR",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "0077-12-31",
+        "checkpoints": [
+          "0076-03-31",
+          "0076-04-01"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "0076-03-31",
+        "0076-04-01"
+      ]
+    },
+    {
+      "name": "a five-digit written year keeps its century",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:01/02/00076",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "0077-12-31",
+        "checkpoints": [
+          "0076-01-02",
+          "0076-01-03"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z"
+      },
+      "expected": [
+        "0076-01-02",
+        "0076-01-03"
+      ]
+    },
+    {
+      "name": "one dotted numeric token supplies the integer day",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:02.29",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2026-01-02",
+        "2026-01-03"
+      ]
+    },
+    {
+      "name": "a dotted token with compact clock width is rejected",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:076.12",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": {
+        "error": "Unknown string format: 076.12"
+      }
+    },
+    {
+      "name": "invalid month is rejected before clipping the default day",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:00/76",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": {
+        "error": "bad month number 0; must be 1-12: 00/76"
+      }
+    },
+    {
+      "name": "the dateutil reader rejects an ISO week-date spelling",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:2026-W01-1",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": {
+        "error": "Unknown string format: 2026-W01-1"
+      }
+    },
+    {
+      "name": "an RDATE inherits the process day before timezone projection",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:20250228T000000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:FEB-2025T091530Z"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2025-02-28",
+          "2025-03-01"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2025-02-28T00:00:00Z",
+        "2025-02-28T09:15:30Z",
+        "2025-03-01T00:00:00Z"
+      ]
+    },
+    {
+      "name": "an EXDATE inherits and clips the process day before comparison",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:20250228T000000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE:02/2025"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2025-03-01"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2025-03-01T00:00:00"
+      ]
+    },
+    {
+      "name": "an UNTIL cutoff includes the inherited midnight",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:20250228T000000",
+          "RRULE:FREQ=DAILY;UNTIL=2025-02"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2025-02-28"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2025-02-28T00:00:00"
+      ]
+    },
+    {
+      "name": "missing fields inherit the host date on the other side of New Year",
+      "input": {
+        "profile": "dateutil",
+        "dateutilNow": "2026-01-01T02:00:00Z",
+        "dateutilParserYear": 2076,
+        "dateutilHost": {
+          "names": [
+            "EST",
+            "EDT"
+          ],
+          "standardOffsetSeconds": -18000,
+          "daylightOffsetSeconds": -14400,
+          "localTime": [
+            [
+              0,
+              false,
+              -18000
+            ]
+          ]
+        },
+        "lines": [
+          "DTSTART:01/02",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2025-01-03"
+      },
+      "expected": [
+        "2025-01-02",
+        "2025-01-03"
+      ]
+    },
+    {
+      "name": "the default RFC reader requires both the month and the day",
+      "input": {
+        "lines": [
+          "DTSTART:2025-02",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2025-03-01"
+      },
+      "expected": {
+        "error": "Expected an iCalendar DATE or DATE-TIME"
+      }
+    }
+  ]
+}

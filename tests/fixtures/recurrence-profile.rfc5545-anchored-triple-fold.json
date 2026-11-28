@@ -1,0 +1,258 @@
+{
+  "type": "recurrence-profile",
+  "name": "RFC external DTSTART anchoring in overlapping calendar-defined zones",
+  "source": "RFC 5545 section 3.3.5 for textual dates and Chrono external DTSTART instant contract",
+  "cases": [
+    {
+      "name": "anchored-triple-fold-choose-middle",
+      "input": {
+        "dtstart": {
+          "dateTime": "2026-01-02T03:10:00+03:00",
+          "timeZone": "X-Calendar"
+        },
+        "lines": [
+          "RRULE:FREQ=MINUTELY;INTERVAL=10;COUNT=5"
+        ],
+        "rfcTimeZones": {
+          "X-Calendar": {
+            "transitions": [
+              {
+                "before": "2026-01-02T04:00:00+04:00",
+                "after": "2026-01-02T03:00:00+03:00",
+                "before_tz_abbr": "FIX",
+                "after_tz_abbr": "FIX"
+              },
+              {
+                "before": "2026-01-02T03:30:00+03:00",
+                "after": "2026-01-02T02:30:00+02:00",
+                "before_tz_abbr": "FIX",
+                "after_tz_abbr": "FIX"
+              }
+            ]
+          }
+        },
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-02T00:10:00Z",
+        "2026-01-02T00:20:00Z",
+        "2026-01-02T01:30:00Z",
+        "2026-01-02T01:40:00Z",
+        "2026-01-02T01:50:00Z"
+      ]
+    },
+    {
+      "name": "anchored-triple-fold-explicit-utc-start",
+      "input": {
+        "dtstart": {
+          "dateTime": "2026-01-02T00:10:00Z",
+          "timeZone": "X-Calendar"
+        },
+        "lines": [
+          "RRULE:FREQ=MINUTELY;INTERVAL=10;COUNT=5"
+        ],
+        "rfcTimeZones": {
+          "X-Calendar": {
+            "transitions": [
+              {
+                "before": "2026-01-02T04:00:00+04:00",
+                "after": "2026-01-02T03:00:00+03:00",
+                "before_tz_abbr": "FIX",
+                "after_tz_abbr": "FIX"
+              },
+              {
+                "before": "2026-01-02T03:30:00+03:00",
+                "after": "2026-01-02T02:30:00+02:00",
+                "before_tz_abbr": "FIX",
+                "after_tz_abbr": "FIX"
+              }
+            ]
+          }
+        },
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-02T00:10:00Z",
+        "2026-01-02T00:20:00Z",
+        "2026-01-02T01:30:00Z",
+        "2026-01-02T01:40:00Z",
+        "2026-01-02T01:50:00Z"
+      ]
+    },
+    {
+      "name": "anchored-triple-fold-respect-until",
+      "input": {
+        "dtstart": {
+          "dateTime": "2026-01-02T03:10:00+03:00",
+          "timeZone": "X-Calendar"
+        },
+        "lines": [
+          "RRULE:FREQ=MINUTELY;INTERVAL=10;UNTIL=20260102T002000Z"
+        ],
+        "rfcTimeZones": {
+          "X-Calendar": {
+            "transitions": [
+              {
+                "before": "2026-01-02T04:00:00+04:00",
+                "after": "2026-01-02T03:00:00+03:00",
+                "before_tz_abbr": "FIX",
+                "after_tz_abbr": "FIX"
+              },
+              {
+                "before": "2026-01-02T03:30:00+03:00",
+                "after": "2026-01-02T02:30:00+02:00",
+                "before_tz_abbr": "FIX",
+                "after_tz_abbr": "FIX"
+              }
+            ]
+          }
+        },
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-02T00:10:00Z",
+        "2026-01-02T00:20:00Z"
+      ]
+    },
+    {
+      "name": "anchored-triple-fold-exclude-only-first-explicit-instant",
+      "input": {
+        "dtstart": {
+          "dateTime": "2026-01-02T03:10:00+03:00",
+          "timeZone": "X-Calendar"
+        },
+        "lines": [
+          "RRULE:FREQ=MINUTELY;INTERVAL=10;COUNT=5",
+          "RDATE:20260101T231000Z",
+          "EXDATE;TZID=X-Calendar:20260102T031000"
+        ],
+        "rfcTimeZones": {
+          "X-Calendar": {
+            "transitions": [
+              {
+                "before": "2026-01-02T04:00:00+04:00",
+                "after": "2026-01-02T03:00:00+03:00",
+                "before_tz_abbr": "FIX",
+                "after_tz_abbr": "FIX"
+              },
+              {
+                "before": "2026-01-02T03:30:00+03:00",
+                "after": "2026-01-02T02:30:00+02:00",
+                "before_tz_abbr": "FIX",
+                "after_tz_abbr": "FIX"
+              }
+            ]
+          }
+        },
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-02T00:10:00Z",
+        "2026-01-02T00:20:00Z",
+        "2026-01-02T01:30:00Z",
+        "2026-01-02T01:40:00Z",
+        "2026-01-02T01:50:00Z"
+      ]
+    },
+    {
+      "name": "anchored-triple-fold-choose-last",
+      "input": {
+        "dtstart": {
+          "dateTime": "2026-01-02T03:10:00+02:00",
+          "timeZone": "X-Calendar"
+        },
+        "lines": [
+          "RRULE:FREQ=MINUTELY;INTERVAL=10;COUNT=5"
+        ],
+        "rfcTimeZones": {
+          "X-Calendar": {
+            "transitions": [
+              {
+                "before": "2026-01-02T04:00:00+04:00",
+                "after": "2026-01-02T03:00:00+03:00",
+                "before_tz_abbr": "FIX",
+                "after_tz_abbr": "FIX"
+              },
+              {
+                "before": "2026-01-02T03:30:00+03:00",
+                "after": "2026-01-02T02:30:00+02:00",
+                "before_tz_abbr": "FIX",
+                "after_tz_abbr": "FIX"
+              }
+            ]
+          }
+        },
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-02T01:10:00Z",
+        "2026-01-02T01:20:00Z",
+        "2026-01-02T01:30:00Z",
+        "2026-01-02T01:40:00Z",
+        "2026-01-02T01:50:00Z"
+      ]
+    },
+    {
+      "name": "anchored-triple-fold-before-first-transition",
+      "input": {
+        "dtstart": {
+          "dateTime": "2026-01-01T23:10:00Z",
+          "timeZone": "X-Calendar"
+        },
+        "lines": [
+          "RRULE:FREQ=MINUTELY;INTERVAL=10;COUNT=5"
+        ],
+        "rfcTimeZones": {
+          "X-Calendar": {
+            "transitions": [
+              {
+                "before": "2026-01-02T04:00:00+04:00",
+                "after": "2026-01-02T03:00:00+03:00",
+                "before_tz_abbr": "FIX",
+                "after_tz_abbr": "FIX"
+              },
+              {
+                "before": "2026-01-02T03:30:00+03:00",
+                "after": "2026-01-02T02:30:00+02:00",
+                "before_tz_abbr": "FIX",
+                "after_tz_abbr": "FIX"
+              }
+            ]
+          }
+        },
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T23:10:00Z",
+        "2026-01-01T23:20:00Z",
+        "2026-01-01T23:30:00Z",
+        "2026-01-01T23:40:00Z",
+        "2026-01-01T23:50:00Z"
+      ]
+    }
+  ]
+}

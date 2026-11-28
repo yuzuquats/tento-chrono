@@ -1,0 +1,349 @@
+{
+  "type": "recurrence-profile",
+  "name": "rrule.js EXRULE lookup across nonmonotonic starts",
+  "source": "rrule.js 2.8.1 RRuleSet.all(), Node.js 24.22.3",
+  "cases": [
+    {
+      "name": "monrovia-minute-reversal-UTC",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "lines": [
+          "DTSTART;TZID=Africa/Monrovia:19720106T233000",
+          "RRULE:FREQ=MINUTELY;INTERVAL=17;BYSECOND=7,55;COUNT=11",
+          "EXRULE:FREQ=MINUTELY;INTERVAL=17;BYSECOND=7,55;COUNT=12"
+        ],
+        "through": "1972-01-08",
+        "checkpoints": [
+          "1972-01-07"
+        ]
+      },
+      "expected": [
+        "1972-01-07T00:55:07Z"
+      ]
+    },
+    {
+      "name": "monrovia-daily-reversal-UTC",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "lines": [
+          "DTSTART;TZID=Africa/Monrovia:19720106T233000",
+          "RRULE:FREQ=DAILY;BYHOUR=0,1,2,3;BYMINUTE=0,30;COUNT=12",
+          "EXRULE:FREQ=DAILY;BYHOUR=0,1,2,3;BYMINUTE=0,30;COUNT=8"
+        ],
+        "through": "1972-01-08",
+        "checkpoints": [
+          "1972-01-07"
+        ]
+      },
+      "expected": [
+        "1972-01-07T01:00:00Z",
+        "1972-01-08T00:00:00Z",
+        "1972-01-08T00:30:00Z",
+        "1972-01-08T01:00:00Z",
+        "1972-01-08T01:30:00Z"
+      ]
+    },
+    {
+      "name": "monrovia-explicit-exdate-control-UTC",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "lines": [
+          "DTSTART;TZID=Africa/Monrovia:19720106T233000",
+          "RRULE:FREQ=MINUTELY;INTERVAL=17;BYSECOND=7,55;COUNT=11",
+          "EXRULE:FREQ=MINUTELY;INTERVAL=17;BYSECOND=7,55;COUNT=12",
+          "EXDATE:19720107T005507"
+        ],
+        "through": "1972-01-08",
+        "checkpoints": [
+          "1972-01-07"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "new-york-spring-reversal-UTC",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T063000",
+          "RRULE:FREQ=MINUTELY;INTERVAL=17;COUNT=11",
+          "EXRULE:FREQ=MINUTELY;INTERVAL=17;COUNT=12"
+        ],
+        "through": "2026-03-09",
+        "checkpoints": [
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-08T11:04:00Z",
+        "2026-03-08T11:21:00Z",
+        "2026-03-08T11:38:00Z"
+      ]
+    },
+    {
+      "name": "lord-howe-spring-reversal-UTC",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "lines": [
+          "DTSTART;TZID=Australia/Lord_Howe:20261003T150000",
+          "RRULE:FREQ=MINUTELY;INTERVAL=13;COUNT=11",
+          "EXRULE:FREQ=MINUTELY;INTERVAL=13;COUNT=12"
+        ],
+        "through": "2026-10-05",
+        "checkpoints": [
+          "2026-10-03"
+        ]
+      },
+      "expected": [
+        "2026-10-03T04:39:00Z",
+        "2026-10-03T04:52:00Z"
+      ]
+    },
+    {
+      "name": "utc-monotone-exclusion-control-UTC",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "lines": [
+          "DTSTART;TZID=UTC:19720106T233000",
+          "RRULE:FREQ=MINUTELY;INTERVAL=17;BYSECOND=7,55;COUNT=11",
+          "EXRULE:FREQ=MINUTELY;INTERVAL=17;BYSECOND=7,55;COUNT=12"
+        ],
+        "through": "1972-01-08",
+        "checkpoints": [
+          "1972-01-06",
+          "1972-01-07"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "utc-unordered-seconds-UTC",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "lines": [
+          "DTSTART;TZID=UTC:20260101T000000",
+          "RRULE:FREQ=DAILY;BYHOUR=0,1,2;BYSECOND=30,0;COUNT=12",
+          "EXRULE:FREQ=DAILY;BYHOUR=0,1,2;BYSECOND=30,0;COUNT=12"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T00:00:00Z",
+        "2026-01-01T01:00:00Z",
+        "2026-01-01T02:00:00Z",
+        "2026-01-02T00:00:00Z",
+        "2026-01-02T01:00:00Z",
+        "2026-01-02T02:00:00Z"
+      ]
+    },
+    {
+      "name": "monrovia-minute-reversal-Asia-Kathmandu",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "Asia/Kathmandu",
+        "lines": [
+          "DTSTART;TZID=Africa/Monrovia:19720106T233000",
+          "RRULE:FREQ=MINUTELY;INTERVAL=17;BYSECOND=7,55;COUNT=11",
+          "EXRULE:FREQ=MINUTELY;INTERVAL=17;BYSECOND=7,55;COUNT=12"
+        ],
+        "through": "1972-01-08",
+        "checkpoints": [
+          "1972-01-07"
+        ]
+      },
+      "expected": [
+        "1972-01-07T06:25:07Z"
+      ]
+    },
+    {
+      "name": "new-york-spring-reversal-Asia-Kathmandu",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "Asia/Kathmandu",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T063000",
+          "RRULE:FREQ=MINUTELY;INTERVAL=17;COUNT=11",
+          "EXRULE:FREQ=MINUTELY;INTERVAL=17;COUNT=12"
+        ],
+        "through": "2026-03-09",
+        "checkpoints": [
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-08T16:49:00Z",
+        "2026-03-08T17:06:00Z",
+        "2026-03-08T17:23:00Z"
+      ]
+    },
+    {
+      "name": "lord-howe-spring-reversal-Asia-Kathmandu",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "Asia/Kathmandu",
+        "lines": [
+          "DTSTART;TZID=Australia/Lord_Howe:20261003T150000",
+          "RRULE:FREQ=MINUTELY;INTERVAL=13;COUNT=11",
+          "EXRULE:FREQ=MINUTELY;INTERVAL=13;COUNT=12"
+        ],
+        "through": "2026-10-05",
+        "checkpoints": [
+          "2026-10-03"
+        ]
+      },
+      "expected": [
+        "2026-10-03T10:24:00Z",
+        "2026-10-03T10:37:00Z"
+      ]
+    },
+    {
+      "name": "monrovia-mixed-set-UTC",
+      "input": {
+        "profile": "rrule-js",
+        "through": "1972-01-16",
+        "lines": [
+          "DTSTART:19720106T233000Z",
+          "RDATE;TZID=Africa/Monrovia:19720107T073000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=0,1,2,3;BYMINUTE=0,30;COUNT=12",
+          "RRULE:FREQ=WEEKLY;BYDAY=MO,WE,SU;BYSETPOS=1,-1;COUNT=7",
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1,-1;BYDAY=MO,TH;BYSETPOS=1,-1;COUNT=11",
+          "EXRULE:FREQ=MINUTELY;INTERVAL=17;BYSECOND=7,55;COUNT=7",
+          "EXRULE:FREQ=HOURLY;BYMINUTE=0,30;BYSETPOS=-1;COUNT=10",
+          "EXRULE:FREQ=DAILY;BYHOUR=0,1,2,3;BYMINUTE=0,30;COUNT=8",
+          "EXDATE;VALUE=DATE-TIME:19720109T003000",
+          "EXDATE:19720108T073000Z",
+          "EXDATE:19720106T213000"
+        ],
+        "checkpoints": [
+          "1972-01-05",
+          "1972-01-06",
+          "1972-01-07",
+          "1972-01-08",
+          "1972-01-09",
+          "1972-01-10",
+          "1972-01-11",
+          "1972-01-12",
+          "1972-01-13",
+          "1972-01-14"
+        ],
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        "1972-01-07T01:00:00Z",
+        "1972-01-08T00:00:00Z",
+        "1972-01-08T00:30:00Z",
+        "1972-01-08T01:00:00Z",
+        "1972-01-08T01:30:00Z",
+        "1972-01-09T23:30:00Z",
+        "1972-01-10T23:30:00Z",
+        "1972-01-16T23:30:00Z"
+      ]
+    },
+    {
+      "name": "monrovia-mixed-set-Europe-Dublin",
+      "input": {
+        "profile": "rrule-js",
+        "through": "1972-01-16",
+        "lines": [
+          "DTSTART:19720106T233000Z",
+          "RDATE;TZID=Africa/Monrovia:19720107T073000Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=17;BYSECOND=7,55;COUNT=11",
+          "RRULE:FREQ=WEEKLY;BYDAY=MO,WE,SU;BYSETPOS=1,-1;COUNT=12",
+          "RRULE:FREQ=HOURLY;BYMINUTE=0,30;BYSETPOS=-1;COUNT=7",
+          "EXRULE:FREQ=HOURLY;INTERVAL=2;COUNT=1",
+          "EXRULE:FREQ=MINUTELY;INTERVAL=17;BYSECOND=7,55;COUNT=12",
+          "RDATE;VALUE=DATE-TIME:19720107T193000Z",
+          "RDATE;VALUE=DATE-TIME:19720108T043000",
+          "EXDATE;VALUE=DATE-TIME:19720105T233000",
+          "EXDATE;VALUE=DATE-TIME:19720107T173000"
+        ],
+        "checkpoints": [
+          "1972-01-05",
+          "1972-01-06",
+          "1972-01-07",
+          "1972-01-08",
+          "1972-01-09",
+          "1972-01-10",
+          "1972-01-11",
+          "1972-01-12",
+          "1972-01-13",
+          "1972-01-14"
+        ],
+        "rruleJsHostTimeZone": "Europe/Dublin"
+      },
+      "expected": [
+        "1972-01-07T00:55:07Z",
+        "1972-01-07T01:14:30Z",
+        "1972-01-07T01:30:00Z",
+        "1972-01-07T02:30:00Z",
+        "1972-01-07T03:30:00Z",
+        "1972-01-07T04:30:00Z",
+        "1972-01-07T05:30:00Z",
+        "1972-01-07T07:30:00Z",
+        "1972-01-07T19:30:00Z",
+        "1972-01-08T04:30:00Z",
+        "1972-01-09T23:30:00Z",
+        "1972-01-10T23:30:00Z",
+        "1972-01-16T23:30:00Z"
+      ]
+    },
+    {
+      "name": "external-adjacent-millisecond-exrule",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "dtstart": {
+          "dateTime": "2026-01-01T00:00:00.001Z"
+        },
+        "lines": [
+          "RRULE:FREQ=SECONDLY;COUNT=4",
+          "EXRULE:FREQ=DAILY;BYSECOND=0,1,2;COUNT=4"
+        ],
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T00:00:01Z",
+        "2026-01-01T00:00:02Z",
+        "2026-01-01T00:00:03Z"
+      ]
+    },
+    {
+      "name": "external-pre-epoch-exrule-clock",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "dtstart": {
+          "dateTime": "1969-12-31T00:00:00.999Z"
+        },
+        "lines": [
+          "RRULE:FREQ=DAILY;BYSECOND=0,1,2;COUNT=4",
+          "EXRULE:FREQ=SECONDLY;COUNT=4"
+        ],
+        "through": "1970-01-02",
+        "checkpoints": [
+          "1969-12-31"
+        ]
+      },
+      "expected": [
+        "1969-12-31T00:00:00.999Z",
+        "1969-12-31T00:00:01.999Z",
+        "1969-12-31T23:59:59.999Z",
+        "1970-01-01T00:00:00.999Z"
+      ]
+    }
+  ]
+}

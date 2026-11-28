@@ -1,0 +1,79 @@
+{
+  "type": "recurrence-profile",
+  "name": "rrule.js 2.8.1 zero interval",
+  "source": "rrulestr 2.8.1 with forceset true, TZ=UTC",
+  "cases": [
+    {
+      "name": "empty-daily",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;INTERVAL=0;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-02-01"
+      },
+      "expected": []
+    },
+    {
+      "name": "empty-weekly-keeps-rdate",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=0;COUNT=2",
+          "RDATE:20260103T090000Z"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "empty-secondly",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=0;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-02-01"
+      },
+      "expected": []
+    },
+    {
+      "name": "ordinary-rule-survives-empty-rule",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;INTERVAL=0;COUNT=2",
+          "RRULE:FREQ=WEEKLY;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-08T09:00:00Z"
+      ]
+    },
+    {
+      "name": "empty-exrule-excludes-nothing",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXRULE:FREQ=DAILY;INTERVAL=0;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    }
+  ]
+}

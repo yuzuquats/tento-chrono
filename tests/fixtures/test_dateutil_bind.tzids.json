@@ -1,0 +1,27 @@
+{
+  "type": "test_dateutil_bind",
+  "name": "Dateutil TZID binding",
+  "cases": [
+    {
+      "name": "cold and warm calls use the original object entry",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=ABC:20260105T090000",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "tzid": "ABC",
+        "originalOffsetMs": 3600000,
+        "replacementOffsetMs": 0,
+        "through": "2026-01-05"
+      },
+      "expected": {
+        "cold": [
+          "2026-01-05T08:00:00Z"
+        ],
+        "warm": [
+          "2026-01-05T08:00:00Z"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "type": "graph-calendar-view",
+  "name": "Graph calendarView after Greenwich timezone updates",
+  "source": "Microsoft Graph v1.0 calendarView",
+  "cases": [
+    {
+      "name": "historical-greenwich-control-range-only",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2018-12-30T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2018-12-30T00:50:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Greenwich Standard Time",
+          "originalEndTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Greenwich Standard Time",
+              "startDate": "2018-12-30",
+              "type": "numbered"
+            }
+          }
+        },
+        "windows": {
+          "captured": {
+            "start": "2018-12-27T00:00:00Z",
+            "end": "2019-01-12T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2018-12-30T00:30:00Z",
+          "2018-12-31T00:30:00Z",
+          "2019-01-01T00:30:00Z",
+          "2019-01-02T00:30:00Z",
+          "2019-01-03T00:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "historical-greenwich-control-endpoints-and-range",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2018-12-30T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2018-12-30T00:50:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Greenwich Standard Time",
+          "originalEndTimeZone": "Greenwich Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Greenwich Standard Time",
+              "startDate": "2018-12-30",
+              "type": "numbered"
+            }
+          }
+        },
+        "windows": {
+          "captured": {
+            "start": "2018-12-27T00:00:00Z",
+            "end": "2019-01-12T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2018-12-30T00:30:00Z",
+          "2018-12-31T00:30:00Z",
+          "2019-01-01T00:30:00Z",
+          "2019-01-02T00:30:00Z",
+          "2019-01-03T00:30:00Z"
+        ]
+      }
+    }
+  ]
+}

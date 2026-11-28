@@ -1,0 +1,318 @@
+{
+  "type": "recurrence-profile",
+  "rfcDateMode": "written",
+  "name": "RFC external DTSTART fold selection",
+  "source": "Python Gregorian and zoneinfo oracle; RFC 5545 \u00a73.3.5 for textual values",
+  "cases": [
+    {
+      "name": "external numeric offset selects the second New York occurrence",
+      "input": {
+        "dtstart": {
+          "dateTime": "2026-11-01T01:30:00-05:00",
+          "timeZone": "America/New_York"
+        },
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "2026-11-08",
+        "checkpoints": [
+          "2026-10-30",
+          "2026-10-31",
+          "2026-11-01",
+          "2026-11-02",
+          "2026-11-04"
+        ]
+      },
+      "expected": [
+        "2026-11-01T06:30:00Z",
+        "2026-11-02T06:30:00Z",
+        "2026-11-03T06:30:00Z",
+        "2026-11-04T06:30:00Z",
+        "2026-11-05T06:30:00Z"
+      ]
+    },
+    {
+      "name": "external UTC start retains the second repeated interval and exits it",
+      "input": {
+        "dtstart": {
+          "dateTime": "2026-11-01T06:30:00Z",
+          "timeZone": "America/New_York"
+        },
+        "lines": [
+          "RRULE:FREQ=MINUTELY;INTERVAL=13;COUNT=5"
+        ],
+        "through": "2026-11-08",
+        "checkpoints": [
+          "2026-10-30",
+          "2026-10-31",
+          "2026-11-01",
+          "2026-11-02",
+          "2026-11-04"
+        ]
+      },
+      "expected": [
+        "2026-11-01T06:30:00Z",
+        "2026-11-01T06:43:00Z",
+        "2026-11-01T06:56:00Z",
+        "2026-11-01T07:09:00Z",
+        "2026-11-01T07:22:00Z"
+      ]
+    },
+    {
+      "name": "external first offset selects the first New York occurrence",
+      "input": {
+        "dtstart": {
+          "dateTime": "2026-11-01T01:30:00-04:00",
+          "timeZone": "America/New_York"
+        },
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "2026-11-08",
+        "checkpoints": [
+          "2026-10-30",
+          "2026-10-31",
+          "2026-11-01",
+          "2026-11-02",
+          "2026-11-04"
+        ]
+      },
+      "expected": [
+        "2026-11-01T05:30:00Z",
+        "2026-11-02T06:30:00Z",
+        "2026-11-03T06:30:00Z",
+        "2026-11-04T06:30:00Z",
+        "2026-11-05T06:30:00Z"
+      ]
+    },
+    {
+      "name": "textual TZID retains first New York occurrence",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261101T013000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "2026-11-08",
+        "checkpoints": [
+          "2026-10-30",
+          "2026-10-31",
+          "2026-11-01",
+          "2026-11-02",
+          "2026-11-04"
+        ]
+      },
+      "expected": [
+        "2026-11-01T05:30:00Z",
+        "2026-11-02T06:30:00Z",
+        "2026-11-03T06:30:00Z",
+        "2026-11-04T06:30:00Z",
+        "2026-11-05T06:30:00Z"
+      ]
+    },
+    {
+      "name": "UTC UNTIL before selected external start yields no occurrences",
+      "input": {
+        "dtstart": {
+          "dateTime": "2026-11-01T01:30:00-05:00",
+          "timeZone": "America/New_York"
+        },
+        "lines": [
+          "RRULE:FREQ=DAILY;UNTIL=20261101T060000Z"
+        ],
+        "through": "2026-11-08",
+        "checkpoints": [
+          "2026-10-30",
+          "2026-10-31",
+          "2026-11-01",
+          "2026-11-02",
+          "2026-11-04"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "UTC UNTIL equal to the selected fold start is inclusive",
+      "input": {
+        "dtstart": {
+          "dateTime": "2026-11-01T01:30:00-05:00",
+          "timeZone": "America/New_York"
+        },
+        "lines": [
+          "RRULE:FREQ=DAILY;UNTIL=20261101T063000Z"
+        ],
+        "through": "2026-11-08",
+        "checkpoints": [
+          "2026-10-30",
+          "2026-10-31",
+          "2026-11-01",
+          "2026-11-02",
+          "2026-11-04"
+        ]
+      },
+      "expected": [
+        "2026-11-01T06:30:00Z"
+      ]
+    },
+    {
+      "name": "textual TZID EXDATE removes the earlier RDATE and preserves the external start",
+      "input": {
+        "dtstart": {
+          "dateTime": "2026-11-01T01:30:00-05:00",
+          "timeZone": "America/New_York"
+        },
+        "lines": [
+          "RRULE:FREQ=HOURLY;COUNT=5",
+          "RDATE:20261101T053000Z",
+          "EXDATE;TZID=America/New_York:20261101T013000"
+        ],
+        "through": "2026-11-08",
+        "checkpoints": [
+          "2026-10-30",
+          "2026-10-31",
+          "2026-11-01",
+          "2026-11-02",
+          "2026-11-04"
+        ]
+      },
+      "expected": [
+        "2026-11-01T06:30:00Z",
+        "2026-11-01T07:30:00Z",
+        "2026-11-01T08:30:00Z",
+        "2026-11-01T09:30:00Z",
+        "2026-11-01T10:30:00Z"
+      ]
+    },
+    {
+      "name": "UTC EXDATE removes only the second occurrence and preserves the earlier RDATE",
+      "input": {
+        "dtstart": {
+          "dateTime": "2026-11-01T01:30:00-05:00",
+          "timeZone": "America/New_York"
+        },
+        "lines": [
+          "RRULE:FREQ=HOURLY;COUNT=5",
+          "RDATE;TZID=America/New_York:20261101T013000",
+          "EXDATE:20261101T063000Z"
+        ],
+        "through": "2026-11-08",
+        "checkpoints": [
+          "2026-10-30",
+          "2026-10-31",
+          "2026-11-01",
+          "2026-11-02",
+          "2026-11-04"
+        ]
+      },
+      "expected": [
+        "2026-11-01T05:30:00Z",
+        "2026-11-01T07:30:00Z",
+        "2026-11-01T08:30:00Z",
+        "2026-11-01T09:30:00Z",
+        "2026-11-01T10:30:00Z"
+      ]
+    },
+    {
+      "name": "half-hour fold preserves initial second-side cadence",
+      "input": {
+        "dtstart": {
+          "dateTime": "2026-04-05T01:30:00+10:30",
+          "timeZone": "Australia/Lord_Howe"
+        },
+        "lines": [
+          "RRULE:FREQ=MINUTELY;INTERVAL=13;COUNT=5"
+        ],
+        "through": "2026-04-11",
+        "checkpoints": [
+          "2026-04-02",
+          "2026-04-03",
+          "2026-04-04",
+          "2026-04-05",
+          "2026-04-07"
+        ]
+      },
+      "expected": [
+        "2026-04-04T15:00:00Z",
+        "2026-04-04T15:13:00Z",
+        "2026-04-04T15:26:00Z",
+        "2026-04-04T15:39:00Z",
+        "2026-04-04T15:52:00Z"
+      ]
+    },
+    {
+      "name": "twenty-three-hour fold returns the explicitly selected side in split UTC reads",
+      "input": {
+        "dtstart": {
+          "dateTime": "1969-09-30T12:30:00-12:00",
+          "timeZone": "Pacific/Kwajalein"
+        },
+        "lines": [
+          "RRULE:FREQ=HOURLY;COUNT=5"
+        ],
+        "through": "1969-10-07",
+        "checkpoints": [
+          "1969-09-28",
+          "1969-09-29",
+          "1969-09-30",
+          "1969-10-01",
+          "1969-10-03"
+        ]
+      },
+      "expected": [
+        "1969-10-01T00:30:00Z",
+        "1969-10-01T01:30:00Z",
+        "1969-10-01T02:30:00Z",
+        "1969-10-01T03:30:00Z",
+        "1969-10-01T04:30:00Z"
+      ]
+    },
+    {
+      "name": "three-hour fold preserves cadence from the later occurrence",
+      "input": {
+        "dtstart": {
+          "dateTime": "2010-03-04T23:00:00+08:00",
+          "timeZone": "Antarctica/Casey"
+        },
+        "lines": [
+          "RRULE:FREQ=HOURLY;COUNT=5"
+        ],
+        "through": "2010-03-11",
+        "checkpoints": [
+          "2010-03-02",
+          "2010-03-03",
+          "2010-03-04",
+          "2010-03-05",
+          "2010-03-07"
+        ]
+      },
+      "expected": [
+        "2010-03-04T15:00:00Z",
+        "2010-03-04T16:00:00Z",
+        "2010-03-04T17:00:00Z",
+        "2010-03-04T18:00:00Z",
+        "2010-03-04T19:00:00Z"
+      ]
+    },
+    {
+      "name": "later years resolve their own fold to the RFC first occurrence",
+      "input": {
+        "dtstart": {
+          "dateTime": "2026-11-01T01:30:00-05:00",
+          "timeZone": "America/New_York"
+        },
+        "lines": [
+          "RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU;COUNT=2"
+        ],
+        "through": "2027-11-09",
+        "checkpoints": [
+          "2026-11-01",
+          "2027-11-06",
+          "2027-11-07"
+        ]
+      },
+      "expected": [
+        "2026-11-01T06:30:00Z",
+        "2027-11-07T05:30:00Z"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,219 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil bundled TZID spelling",
+  "source": "python-dateutil 2.8.2 gettz and IANA tzdata 2026e links",
+  "cases": [
+    {
+      "name": "wrong-case IANA name leaves a floating start",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=america/new_york:20260307T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-12",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": [
+        "2026-03-07T09:00:00",
+        "2026-03-08T09:00:00",
+        "2026-03-09T09:00:00"
+      ]
+    },
+    {
+      "name": "wrong-case alias stays floating for the rule and exclusion",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=us/eastern:20260307T090000",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE;TZID=us/eastern:20260308T090000"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-12",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-09"
+        ]
+      },
+      "expected": [
+        "2026-03-07T09:00:00",
+        "2026-03-09T09:00:00"
+      ]
+    },
+    {
+      "name": "exact-case alias keeps its reference transitions",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=US/Eastern:20260307T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-12",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": [
+        "2026-03-07T14:00:00Z",
+        "2026-03-08T13:00:00Z",
+        "2026-03-09T13:00:00Z"
+      ]
+    },
+    {
+      "name": "lowercase UTC timezone name remains unresolved",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=utc:20260307T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-12",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": [
+        "2026-03-07T09:00:00",
+        "2026-03-08T09:00:00",
+        "2026-03-09T09:00:00"
+      ]
+    },
+    {
+      "name": "uppercase UTC timezone name resolves",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=UTC:20260307T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-12",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": [
+        "2026-03-07T09:00:00Z",
+        "2026-03-08T09:00:00Z",
+        "2026-03-09T09:00:00Z"
+      ]
+    },
+    {
+      "name": "UTC suffix keeps its own offset with an unresolved TZID",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Etc/utc:20260307T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-12",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": [
+        "2026-03-07T09:00:00Z",
+        "2026-03-08T09:00:00Z",
+        "2026-03-09T09:00:00Z"
+      ]
+    },
+    {
+      "name": "lowercase IANA spelling can still resolve as a POSIX offset",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=etc/gmt+5:20260307T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-12",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": [
+        "2026-03-07T14:00:00Z",
+        "2026-03-08T14:00:00Z",
+        "2026-03-09T14:00:00Z"
+      ]
+    },
+    {
+      "name": "wrong-case fixed IANA name has its own POSIX fallback",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=eSt5:20260307T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-12",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": [
+        "2026-03-07T14:00:00Z",
+        "2026-03-08T14:00:00Z",
+        "2026-03-09T14:00:00Z"
+      ]
+    },
+    {
+      "name": "explicit TZif overrides a case-variant name",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=america/new_york:20260307T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-12",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ],
+        "dateutilTzif": {
+          "america/new_york": "America/New_York"
+        }
+      },
+      "expected": [
+        "2026-03-07T14:00:00Z",
+        "2026-03-08T13:00:00Z",
+        "2026-03-09T13:00:00Z"
+      ]
+    },
+    {
+      "name": "RFC profile keeps platform IANA spelling resolution",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=america/new_york:20260307T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "profile": "rfc5545",
+        "through": "2026-03-12",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09"
+        ]
+      },
+      "expected": [
+        "2026-03-07T14:00:00Z",
+        "2026-03-08T13:00:00Z",
+        "2026-03-09T13:00:00Z"
+      ]
+    }
+  ]
+}

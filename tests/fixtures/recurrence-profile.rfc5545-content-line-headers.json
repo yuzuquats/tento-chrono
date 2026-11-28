@@ -1,0 +1,163 @@
+{
+  "type": "recurrence-profile",
+  "name": "RFC 5545 headers on all recurrence content lines",
+  "source": "RFC 5545 §3.1 content-line ABNF",
+  "cases": [
+    {
+      "name": "rrule-with-space-before-colon",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE :FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-03"
+      },
+      "expected": {
+        "error": "Invalid iCalendar property name"
+      }
+    },
+    {
+      "name": "rdate-with-space-before-parameter",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RDATE ;VALUE=DATE-TIME:20260102T090000Z"
+        ],
+        "through": "2026-01-03"
+      },
+      "expected": {
+        "error": "Invalid iCalendar property name"
+      }
+    },
+    {
+      "name": "exdate-with-tab-before-colon",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "EXDATE\t:20260101T090000Z"
+        ],
+        "through": "2026-01-03"
+      },
+      "expected": {
+        "error": "Invalid iCalendar property name"
+      }
+    },
+    {
+      "name": "empty-property-name",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          ":value"
+        ],
+        "through": "2026-01-03"
+      },
+      "expected": {
+        "error": "Invalid iCalendar property name"
+      }
+    },
+    {
+      "name": "unknown-property-without-colon",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "X-foo"
+        ],
+        "through": "2026-01-03"
+      },
+      "expected": {
+        "error": "Missing iCalendar property value"
+      }
+    },
+    {
+      "name": "unknown-property-with-open-quote",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "X-foo;X-DESC=\"missing colon delimiter:foo"
+        ],
+        "through": "2026-01-03"
+      },
+      "expected": {
+        "error": "Missing iCalendar property value"
+      }
+    },
+    {
+      "name": "non-ascii-property-delimiter",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE：FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-03"
+      },
+      "expected": {
+        "error": "Missing iCalendar property value"
+      }
+    },
+    {
+      "name": "unknown-property-with-invalid-parameter-name",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "X-FOO;X-BAD NAME=1:thing"
+        ],
+        "through": "2026-01-03"
+      },
+      "expected": {
+        "error": "Invalid X-FOO parameter"
+      }
+    },
+    {
+      "name": "valid-summary-is-ignored",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "SUMMARY:Meeting, with punctuation"
+        ],
+        "through": "2026-01-03"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z"
+      ]
+    },
+    {
+      "name": "valid-extension-with-quoted-delimiters",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "X-EXTRA;X-VALUE=\"α;β:γ,δ\":ignored payload"
+        ],
+        "through": "2026-01-03"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z"
+      ]
+    },
+    {
+      "name": "valid-folded-parameter-and-empty-value",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "COMMENT;X-NOTE=\"first\r\n second, still quoted\":"
+        ],
+        "through": "2026-01-03"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z"
+      ]
+    },
+    {
+      "name": "non-ascii-extra-property-name",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "SUMMARÝ:event"
+        ],
+        "through": "2026-01-03"
+      },
+      "expected": {
+        "error": "Invalid iCalendar property name"
+      }
+    }
+  ]
+}

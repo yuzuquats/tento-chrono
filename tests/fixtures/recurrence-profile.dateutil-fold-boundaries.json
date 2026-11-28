@@ -1,0 +1,193 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil physical line boundaries",
+  "source": "python-dateutil 2.8.2 rrulestr with forceset and unfold for physical lines, and RFC 5545 section 3.1",
+  "cases": [
+    {
+      "name": "an ASCII space continues a split rule part",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;CO\r\n UNT=2"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "a tab does not continue a split rule part",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;CO\r\n\tUNT=2"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": {
+        "error": "not enough values to unpack (expected 2, got 1)"
+      }
+    },
+    {
+      "name": "a bare CR is a physical line boundary",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;CO\r UNT=2"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "Unicode line separator followed by space folds",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;CO\u2028 UNT=2"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "Python record separator followed by space folds",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;CO\u001e UNT=2"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "Python unit separator is only a token boundary",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;CO\u001f UNT=2"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": {
+        "error": "not enough values to unpack (expected 2, got 1)"
+      }
+    },
+    {
+      "name": "folding keeps the tab after the continuation space",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;CO\r\n \tUNT=2"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": {
+        "error": "unknown parameter 'CO\tUNT'"
+      }
+    },
+    {
+      "name": "an indented EXDATE value folds after a vertical tab",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE:\u000b 20260102T090000"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00"
+      ]
+    },
+    {
+      "name": "an extra tab leaves an incomplete packed clock",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T09\r\n \t0000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": {
+        "error": "Unknown string format: 20260101T09\t0000"
+      }
+    },
+    {
+      "name": "RFC still unfolds a tab inside a rule part",
+      "input": {
+        "profile": "rfc5545",
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;CO\r\n\tUNT=2"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-02T09:00:00"
+      ]
+    }
+  ]
+}

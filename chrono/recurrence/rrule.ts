@@ -11,10 +11,14 @@ import {
 } from "../mod.ts";
 import { TentoMath } from "../utils.ts";
 import { ExDate } from "./exdate.ts";
-import { Frequency } from "./frequency.ts";
-import { ICalAttributes, icalPropertyName } from "./ical-attributes.ts";
+import { frequencies, Frequency } from "./frequency.ts";
+import { googleJulianDayFilter, googleJulianPeriodFilter, googleJulianWeekFilter } from "./google-julian-calendar.ts";
+import { ICalAttributes, icalPropertyName, splitICalProperty } from "./ical-attributes.ts";
+import { googleWrappedYearlyFilter } from "./google-yearly-day-wrap.ts";
 import { IsoDate } from "./iso-date.ts";
 import type { Option, Optional } from "../option.ts";
+import type { TimezoneRegion } from "../timezone-region.ts";
+import type { Month1 } from "../units/units.ts";
 
 export interface RRuleLike {
   freq: Frequency;
@@ -25,18 +29,274 @@ export interface RRuleLike {
     bysetpos: number[];
     byday: Weekday[];
     bynthday: Weekday.Nth[];
+    /** First period whose ordinal weekday mask cannot be built. */
+    dateutilOrdinalMaskError: { period: NaiveDate; message: string };
+    /** Under mask lookahead, a candidate before DTSTART can still end UNTIL. */
+    dateutilCheckUntilBeforeStart: boolean;
+    /** Original offset when dateutil's UNTIL is stored as an aware wall time. */
+    dateutilUntilOffsetMs: number;
+    dateutilUntilUsesWall: boolean;
+    /** Stop the dateutil counter at Python's maximum datetime year. */
+    dateutilBoundedCalendar: boolean;
+    /** Rebuild the stationary period at the dateutil cursor boundary. */
+    dateutilSinglePeriod: boolean;
+    /** Calendar anchor distinct from the original DTSTART on a backward step. */
+    dateutilPeriodStart: NaiveDate;
+    /** Exact signed interval for dateutil’s backward calendar or clock steps. */
+    dateutilNegativeInterval: string;
+    /** Written clock values when conversion to Number loses precision. */
+    dateutilClockIntegers: Partial<Record<"byhour" | "byminute" | "bysecond", string[]>>;
+    /** A programmatic empty selector contributes no expanded clock values. */
+    dateutilEmptyClock: boolean;
+    dateutilEmptyClockPhase: boolean;
+    /** Calendar validation can still fail even when an empty clock yields no starts. */
+    dateutilValidateEmptyCalendar: boolean;
+    dateutilOrdinalIntegers: { weekday: Weekday; value: string }[];
+    /** The library profiles apply ordinary and ordinal BYDAY masks independently. */
+    intersectWeekdaySelectors: boolean;
+    /** Google applies ordinal weekdays to the containing year or month in submonthly rules. */
+    ordinalWeekdayPeriod: "year" | "month";
+    /** Wrapped Google day stride for a weekly rule with implicit BYDAY. */
+    googleWeeklyCadence: { start: NaiveDate; days: number };
+    /** Google yearly periods whose day ordinals wrap into the calendar. */
+    googleYearlyDayWrap: boolean;
+    googleYearlyOrdinalRewind: boolean;
+    /** Use the Julian-to-Gregorian calendar for an early Google master. */
+    googleJulianCalendar: "continuous" | "nominal";
+    /** Google retains a positive weekly position until the week number changes. */
+    googlePositiveWeeklyPositions: boolean;
     bymonth: number[];
+    /** Google yearly month-day rules without an explicit month use the master month. */
+    implicitYearlyMonth: Month1;
     bymonthday: number[];
     byweekno: number[];
+    /** The library profiles use calendar-year week masks. */
+    libraryWeekNumberStart: NaiveDate;
+    /** RFC yearly periods containing BYWEEKNO advance by week-numbering year. */
+    rfcWeekYear: boolean;
     byyearday: number[];
     /** Western Easter offsets, populated by the dateutil profile. */
     byeaster: { offsets: number[]; start?: NaiveDate };
+    /** The single offset parsed by rrule.js, including NaN for a list. */
+    rruleJsEasterOffset: number;
+    /** Calendar bounds, clock multiplicity, carry, and precision for rrule.js. */
+    rruleJsClock: boolean;
+    /** Clock selectors that the JS reference parses as strings or mixed arrays. */
+    rruleJsClockText: Partial<Record<"byhour" | "byminute" | "bysecond", string | (number | string)[]>>;
+    /** Written noninteger INTERVAL; the reference retains it as text. */
+    rruleJsIntervalText: string;
+    /** Keep string week numbers for rrule.js comparisons and boundary masks. */
+    rruleJsWeekNumbers: (number | string)[];
+    /** Reference host used when an empty initial clock set falls back to a Date. */
+    rruleJsHostZone: TimezoneRegion;
     byhour: number[];
     byminute: number[];
     bysecond: number[];
     until: IsoDate;
     tzid: Tzname;
   }>;
+}
+
+const RULE_PREFIX = new Map(frequencies.map((freq) => [
+  freq,
+  `RRULE:FREQ=${Frequency.serialize(freq)}`,
+]));
+
+const DEFAULT_PARAMETER_ORDER = [
+  "FREQ",
+  "WKST",
+  "COUNT",
+  "INTERVAL",
+  "BYSETPOS",
+  "BYDAY",
+  "BYMONTH",
+  "BYMONTHDAY",
+  "BYWEEKNO",
+  "BYYEARDAY",
+  "BYHOUR",
+  "BYMINUTE",
+  "BYSECOND",
+  "UNTIL",
+];
+
+function ruleOptions(
+  byday: Option<Weekday[]> = null,
+  bynthday: Option<Weekday.Nth[]> = null,
+  until: Option<IsoDate> = null,
+): NonNullable<RRuleLike["options"]> {
+  return {
+    wkst: null,
+    interval: null,
+    count: null,
+    bysetpos: null,
+    byday,
+    bynthday,
+    bymonth: null,
+    bymonthday: null,
+    byweekno: null,
+    byyearday: null,
+    byhour: null,
+    byminute: null,
+    bysecond: null,
+    tzid: undefined,
+    until,
+  };
+}
+
+// These fields resolve independently. Keep other syntax on the general parser.
+const SCALAR_RULE = /^(?:RRULE:)?FREQ=([A-Z]+)(?:;(COUNT|INTERVAL)=([^;=]*))?(?:;(COUNT|INTERVAL)=([^;=]*))?$/;
+
+/** @internal Read independently resolved scalar fields. */
+export function parseScalarRule(line: string, positiveIntegersOnly = false): RRule | undefined {
+  const fields = SCALAR_RULE.exec(line);
+  if (fields == null || fields[0].length !== line.length) return;
+  const [, frequency, firstKey, firstValue, secondKey, secondValue] = fields;
+  if (firstKey != null && firstKey === secondKey) return;
+  if (positiveIntegersOnly &&
+    ((firstKey != null && !isPositiveScalar(firstValue)) || (secondKey != null && !isPositiveScalar(secondValue)))) return;
+  const freq = Frequency.parse(frequency);
+  if (freq == null) return;
+  const options = ruleOptions();
+  const order = ["FREQ"];
+  if (firstKey != null) {
+    if (firstKey === "COUNT") {
+      order.push("COUNT");
+      options.count = TentoMath.parseOpt(firstValue);
+    } else {
+      order.push("INTERVAL");
+      options.interval = TentoMath.parseOpt(firstValue);
+    }
+  }
+  if (secondKey != null) {
+    if (secondKey === "COUNT") {
+      order.push("COUNT");
+      options.count = TentoMath.parseOpt(secondValue);
+    } else {
+      order.push("INTERVAL");
+      options.interval = TentoMath.parseOpt(secondValue);
+    }
+  }
+  return new RRule({ freq, options }, order);
+}
+
+function isPositiveScalar(text: string): boolean {
+  if (text === "" || /\D/.test(text)) return false;
+  const value = Number(text);
+  return Number.isSafeInteger(value) && value > 0;
+}
+
+function formatOrdinalWeekdays(days: Option<Weekday.Nth[]>): string[] {
+  return days == null
+    ? []
+    : days.map((day) => day.n + Weekday.toString2cap(day.weekday));
+}
+
+function formatNonScalarParameter(
+  param: string,
+  options: RRuleLike["options"],
+): string | undefined {
+  let part: string | undefined;
+  switch (param) {
+    case "WKST":
+      if (options?.wkst)
+        part = `WKST=${Weekday.toString2cap(options.wkst)}`;
+      break;
+    case "BYSETPOS":
+      if (options?.bysetpos != null && options.bysetpos.length > 0)
+        part = `BYSETPOS=${options.bysetpos.join(",")}`;
+      break;
+    case "BYDAY":
+      if (!options?.byday?.length && !options?.bynthday?.length) break;
+      const selectors = [
+        ...(options?.byday ?? []).map(Weekday.toString2cap),
+        ...formatOrdinalWeekdays(options?.bynthday),
+      ];
+      if (selectors.length > 0) part = "BYDAY=" + selectors.join(",");
+      break;
+    case "BYMONTH":
+      if (options?.bymonth != null && options.bymonth.length > 0)
+        part = `BYMONTH=${options.bymonth.join(",")}`;
+      break;
+    case "BYMONTHDAY":
+      if (options?.bymonthday != null && options.bymonthday.length > 0)
+        part = `BYMONTHDAY=${options.bymonthday.join(",")}`;
+      break;
+    case "BYWEEKNO":
+      if (options?.byweekno != null && options.byweekno.length > 0)
+        part = `BYWEEKNO=${options.byweekno.join(",")}`;
+      break;
+    case "BYYEARDAY":
+      if (options?.byyearday != null && options.byyearday.length > 0)
+        part = `BYYEARDAY=${options.byyearday.join(",")}`;
+      break;
+    case "BYHOUR":
+      if (options?.byhour != null && options.byhour.length > 0)
+        part = `BYHOUR=${options.byhour.join(",")}`;
+      break;
+    case "BYMINUTE":
+      if (options?.byminute != null && options.byminute.length > 0)
+        part = `BYMINUTE=${options.byminute.join(",")}`;
+      break;
+    case "BYSECOND":
+      if (options?.bysecond != null && options.bysecond.length > 0)
+        part = `BYSECOND=${options.bysecond.join(",")}`;
+      break;
+    case "UNTIL":
+      if (options?.until != null) {
+        part = `UNTIL=${options.until.ical()}`;
+      }
+      break;
+  }
+  return part;
+}
+
+// The caller has already checked the first loop condition.
+function appendRemainingRuleParameters(
+  line: string,
+  order: string[],
+  options: RRuleLike["options"],
+  first: number,
+  index: number,
+  custom: boolean,
+  seen: Set<string> | undefined,
+): string {
+  do {
+    const param = order[index];
+    if (param === "FREQ") continue;
+    if (seen !== undefined) {
+      if (seen.has(param)) continue;
+      seen.add(param);
+    } else if (custom && index > first && order.indexOf(param) !== index) {
+      continue;
+    }
+    if (param === "COUNT") {
+      if (options?.count != null) line += (line === "" ? "RRULE:COUNT=" : ";COUNT=") + options.count;
+      continue;
+    }
+    if (param === "INTERVAL") {
+      if (options?.interval != null) line += (line === "" ? "RRULE:INTERVAL=" : ";INTERVAL=") + options.interval;
+      continue;
+    }
+    const part = formatNonScalarParameter(param, options);
+    if (part !== undefined) line += line === "" ? "RRULE:" + part : ";" + part;
+  } while (++index < order.length);
+  return line;
+}
+
+type EasterSelector = NonNullable<NonNullable<RRuleLike["options"]>["byeaster"]>;
+
+const exactEasterOffsets = new WeakMap<EasterSelector, string[]>();
+
+/** @internal Keep exact dateutil integers for expansion behind the numeric public view. */
+export function dateutilEasterSelector(offsets: string[], start?: NaiveDate): EasterSelector {
+  const selector = { offsets: offsets.map(Number), start };
+  exactEasterOffsets.set(selector, offsets);
+  return selector;
+}
+
+/** @internal Return the offsets used by the traversal. */
+export function easterOffsets(selector: EasterSelector): readonly (number | string)[] {
+  return exactEasterOffsets.get(selector) ?? selector.offsets;
 }
 
 export class RRule {
@@ -56,15 +316,16 @@ export class RRule {
    */
   readonly exdateLines: string[] = [];
   /** The `exdates` that came from `exdateLines` (by identity), not re-written on the plain line. */
-  readonly #fromExdateLines = new Set<IsoDate>();
+  #fromExdateLines?: Set<IsoDate>;
 
   constructor(
     readonly inner: RRuleLike,
     readonly parameterOrder: Option<string[]> = null,
   ) {}
 
-  static parse(ser: string): Result<RRule> {
-    return RRule.Raw.parse(ser).resolve();
+  static parse(ser: string, parseUntil?: typeof IsoDate.parse): Result<RRule> {
+    const scalar = parseScalarRule(ser);
+    return scalar == null ? RRule.Raw.parse(ser).resolve(parseUntil) : ok(scalar);
   }
 
   static parseWithRecurrence(recurrence: string[]): Result<RRule> {
@@ -88,12 +349,12 @@ export class RRule {
       }
 
       const exdate = exdateResult.asOk()!;
-      const parameterized = exdate.tzid != null || exdate.valueType != null;
+      const parameterized = splitICalProperty(exdateLine)!.attributes.length > 1;
       if (parameterized) rrule.exdateLines.push(exdateLine);
       // Add all parsed dates from this EXDATE line
       for (const isoDate of exdate.dates) {
         rrule.exdates.push(isoDate);
-        if (parameterized) rrule.#fromExdateLines.add(isoDate);
+        if (parameterized) (rrule.#fromExdateLines ??= new Set()).add(isoDate);
       }
     }
 
@@ -112,7 +373,7 @@ export class RRule {
   carryListsTo(target: RRule, rdateLines: readonly string[] = this.rdateLines): void {
     for (const d of this.exdates) {
       target.exdates.push(d);
-      if (this.#fromExdateLines.has(d)) target.#fromExdateLines.add(d);
+      if (this.#fromExdateLines?.has(d)) (target.#fromExdateLines ??= new Set()).add(d);
     }
     target.exdateLines.push(...this.exdateLines);
     target.rdateLines.push(...rdateLines);
@@ -122,7 +383,7 @@ export class RRule {
   toRecurrenceArray(rdateLines: readonly string[] = this.rdateLines): string[] {
     const result: string[] = [this.toString()];
 
-    const plain = this.exdates.filter((d) => !this.#fromExdateLines.has(d));
+    const plain = this.exdates.filter((d) => !this.#fromExdateLines?.has(d));
     if (plain.length > 0) {
       // Format the plain exdates as a single EXDATE line
       const exdateStrs = plain.map((d) => d.ical());
@@ -135,109 +396,32 @@ export class RRule {
   }
 
   toString(): string {
-    let sb: string[] = [];
-
-    let rruleParts: string[] = [];
-    const rawOrder = this.parameterOrder ?? [
-      "FREQ",
-      "WKST",
-      "COUNT",
-      "INTERVAL",
-      "BYSETPOS",
-      "BYDAY",
-      "BYMONTH",
-      "BYMONTHDAY",
-      "BYWEEKNO",
-      "BYYEARDAY",
-      "BYHOUR",
-      "BYMINUTE",
-      "BYSECOND",
-      "UNTIL",
-    ];
-    const seenParams = new Set<string>();
-    const orderToUse: string[] = [];
-    if (rawOrder.includes("FREQ")) {
-      seenParams.add("FREQ");
-      orderToUse.push("FREQ");
-    }
-    for (const param of rawOrder) {
-      if (!seenParams.has(param)) {
-        seenParams.add(param);
-        orderToUse.push(param);
+    const customOrder = this.parameterOrder;
+    const order = customOrder ?? DEFAULT_PARAMETER_ORDER;
+    // Short orders can check for duplicates directly. Longer custom orders
+    // use a set to keep traversal linear.
+    const seen = customOrder != null && order.length > DEFAULT_PARAMETER_ORDER.length
+      ? new Set<string>() : undefined;
+    const { freq, options } = this.inner;
+    const first = order[0] === "FREQ" ? 1 : 0;
+    let line = freq && (first === 1 || order.includes("FREQ"))
+      ? (RULE_PREFIX.get(freq) ?? `RRULE:FREQ=${Frequency.serialize(freq)}`) : "";
+    if (!(first < order.length)) return line;
+    let index = first;
+    if (seen === undefined) {
+      // Write the first parameter before checking the live order again.
+      const param = order[index++];
+      if (param === "COUNT") {
+        if (options?.count != null) line += (line === "" ? "RRULE:COUNT=" : ";COUNT=") + options.count;
+      } else if (param === "INTERVAL") {
+        if (options?.interval != null) line += (line === "" ? "RRULE:INTERVAL=" : ";INTERVAL=") + options.interval;
+      } else if (param !== "FREQ") {
+        const part = formatNonScalarParameter(param, options);
+        if (part !== undefined) line += line === "" ? "RRULE:" + part : ";" + part;
       }
+      if (!(index < order.length)) return line;
     }
-
-    const options = this.inner.options;
-    for (const param of orderToUse) {
-      switch (param) {
-        case "FREQ":
-          if (this.inner.freq) {
-            rruleParts.push(`FREQ=${Frequency.serialize(this.inner.freq)}`);
-          }
-          break;
-        case "WKST":
-          if (options?.wkst)
-            rruleParts.push(`WKST=${Weekday.toString2cap(options.wkst)}`);
-          break;
-        case "COUNT":
-          if (options?.count != null) rruleParts.push(`COUNT=${options.count}`);
-          break;
-        case "INTERVAL":
-          if (options?.interval != null)
-            rruleParts.push(`INTERVAL=${options.interval}`);
-          break;
-        case "BYSETPOS":
-          if (options?.bysetpos != null && options.bysetpos.length > 0)
-            rruleParts.push(`BYSETPOS=${options.bysetpos.join(",")}`);
-          break;
-        case "BYDAY":
-          const selectors = [
-            ...(options?.byday ?? []).map(Weekday.toString2cap),
-            ...(options?.bynthday ?? []).map((d) => d.n + Weekday.toString2cap(d.weekday)),
-          ];
-          if (selectors.length > 0) rruleParts.push("BYDAY=" + selectors.join(","));
-          break;
-        case "BYMONTH":
-          if (options?.bymonth != null && options.bymonth.length > 0)
-            rruleParts.push(`BYMONTH=${options.bymonth.join(",")}`);
-          break;
-        case "BYMONTHDAY":
-          if (options?.bymonthday != null && options.bymonthday.length > 0)
-            rruleParts.push(`BYMONTHDAY=${options.bymonthday.join(",")}`);
-          break;
-        case "BYWEEKNO":
-          if (options?.byweekno != null && options.byweekno.length > 0)
-            rruleParts.push(`BYWEEKNO=${options.byweekno.join(",")}`);
-          break;
-        case "BYYEARDAY":
-          if (options?.byyearday != null && options.byyearday.length > 0)
-            rruleParts.push(`BYYEARDAY=${options.byyearday.join(",")}`);
-          break;
-        case "BYHOUR":
-          if (options?.byhour != null && options.byhour.length > 0)
-            rruleParts.push(`BYHOUR=${options.byhour.join(",")}`);
-          break;
-        case "BYMINUTE":
-          if (options?.byminute != null && options.byminute.length > 0)
-            rruleParts.push(`BYMINUTE=${options.byminute.join(",")}`);
-          break;
-        case "BYSECOND":
-          if (options?.bysecond != null && options.bysecond.length > 0)
-            rruleParts.push(`BYSECOND=${options.bysecond.join(",")}`);
-          break;
-        case "UNTIL":
-          if (options?.until != null) {
-            rruleParts.push(`UNTIL=${options.until.ical()}`);
-          }
-          break;
-      }
-    }
-
-    if (rruleParts.length > 0) {
-      sb.push("RRULE:" + rruleParts.join(";"));
-    }
-
-    return sb.join(";");
+    return appendRemainingRuleParameters(line, order, options, first, index, customOrder != null, seen);
   }
 
   toReadableDisplay(): string {
@@ -458,6 +642,8 @@ export class RRule {
     const rawInterval = options?.interval ?? 1;
     if (!Number.isSafeInteger(rawInterval) || rawInterval < 0) throw new RangeError("recurrence interval must be a nonnegative safe integer");
     const interval = Math.max(1, rawInterval);
+    const cadence = options?.googleWeeklyCadence;
+    const groupWrappedWeeks = cadence != null && cadence.days < 7 && Boolean(options?.bysetpos?.length);
 
     // Google Calendar behavior: BYWEEKNO with monthly/weekly frequency generates consecutive weekly events
     const hasWeekNoFilter = options?.byweekno && options.byweekno.length > 0;
@@ -466,7 +652,9 @@ export class RRule {
       hasWeekNoFilter &&
       (this.inner.freq === "monthly" || this.inner.freq === "weekly");
 
-    if (shouldUseWeeklyStep) {
+    if (options?.googleJulianCalendar === "nominal" && this.inner.freq === "daily") {
+      step = DateUnit.months(1);
+    } else if (shouldUseWeeklyStep) {
       step = DateUnit.weeks(1);
     } else {
       switch (this.inner.freq) {
@@ -477,7 +665,9 @@ export class RRule {
           step = DateUnit.months(interval);
           break;
         case "weekly":
-          step = DateUnit.weeks(interval);
+          step = cadence == null ? DateUnit.weeks(interval)
+            : groupWrappedWeeks ? DateUnit.weeks(1)
+            : DateUnit.days(cadence.days);
           break;
         case "daily":
           step = DateUnit.days(interval);
@@ -495,11 +685,27 @@ export class RRule {
 
     // Build filters array
     const filters: NaiveDate.Filter[] = [];
-    // Apply BYMONTH first for yearly frequency to get the right months, then apply weekday filters
-    if (options?.bymonth && options.bymonth.length > 0) {
-      const months = options.bymonth.map((m) => new Month(m as any));
-      filters.push(NaiveDate.Filter.byMonthOfYear(months));
+    const rfcWeeks = options?.rfcWeekYear ? options.byweekno : undefined;
+    if (rfcWeeks != null) {
+      filters.push(NaiveDate.Filter.byWeekOfRecurrenceYear(rfcWeeks, options?.wkst ?? Weekday.MON));
     }
+    // BYMONTH expands an ordinary yearly period into months. Numbered-week
+    // candidates are already days, so BYMONTH tests their civil month.
+    const monthFilter = options?.bymonth?.length
+      ? NaiveDate.Filter.byMonthOfYear(options.bymonth.map((month) => new Month(month as Month1)))
+      : undefined;
+    const filterDaysByMonth = useGoogleCalendarBehavior &&
+      (this.inner.freq === "weekly" || (this.inner.freq === "yearly" && hasWeekNoFilter));
+    if (monthFilter != null && !filterDaysByMonth) filters.push(monthFilter);
+    const wrappedDays: NaiveDate.Filter | undefined = groupWrappedWeeks ? function* ([first]) {
+      // Rank the wrapped day grid inside each WKST-aligned week.
+      const distance = cadence.start.dse - first.castValid().dse;
+      const offset = distance >= 0 ? distance : (distance % cadence.days + cadence.days) % cadence.days;
+      for (let day = offset; day < 7; day += cadence.days) {
+        yield [first.addDays(day), "day"];
+      }
+    } : undefined;
+    if (wrappedDays != null) filters.push(wrappedDays);
     // Enhanced filter composition for yearly BYWEEKNO patterns
     const hasYearlyByweekno =
       options?.byweekno &&
@@ -516,40 +722,43 @@ export class RRule {
         : NaiveDate.Filter.byWeekNo(weekno, useGoogleCalendarBehavior, wkst);
     };
 
-    if (hasYearlyByweekno && hasByday && useGoogleCalendarBehavior) {
-      // Special handling for yearly BYWEEKNO + BYDAY patterns
-      // Apply BYWEEKNO first, then BYDAY to fix the 2026 missing event issue
-      const yearlyByweeknoFilter = (partialdate: PartialDate.Tuple) => {
-        return (function* () {
-          const byDse = new Map<number, PartialDate.Tuple>();
-          for (const weekno of options.byweekno!) {
-            // Apply BYWEEKNO filter first
-            const singleWeekFilter = byWeekNo(weekno);
-
-            // Then apply BYDAY filter to each result
-            for (const [weekDate, _weekUnit] of singleWeekFilter(partialdate)) {
-              const bydayFilter = NaiveDate.Filter.byWeekday(options.byday!);
-              for (const [dayDate, dayUnit] of bydayFilter([weekDate, "day"])) {
+    const weekOrdinals = hasYearlyByweekno && googleYearlyStart != null && options?.bynthday?.length
+      ? NaiveDate.Filter.byNthWeekday(options.bynthday)
+      : undefined;
+    if (hasYearlyByweekno && useGoogleCalendarBehavior && (hasByday || weekOrdinals != null)) {
+      const ordinary = options.byday?.length ? NaiveDate.Filter.byWeekday(options.byday) : undefined;
+      filters.push(function* (period: PartialDate.Tuple) {
+        const ordinalDays = new Set<number>();
+        if (weekOrdinals != null) {
+          for (const [date] of weekOrdinals(period)) {
+            const day = date.toResult().asOk();
+            if (day != null) ordinalDays.add(day.dse);
+          }
+        }
+        const byDse = new Map<number, PartialDate.Tuple>();
+        for (const weekno of options.byweekno!) {
+          for (const [date] of byWeekNo(weekno)(period)) {
+            const day = date.toResult().asOk();
+            if (day != null && ordinalDays.has(day.dse)) byDse.set(day.dse, [day, "day"]);
+            if (ordinary != null) {
+              for (const [dayDate, dayUnit] of ordinary([date, "day"])) {
                 const valid = dayDate.toResult().asOk();
-                if (valid != null && !byDse.has(valid.dse)) {
-                  byDse.set(valid.dse, [valid, dayUnit] as PartialDate.Tuple);
-                }
+                if (valid != null) byDse.set(valid.dse, [valid, dayUnit]);
               }
             }
           }
-          for (const [, tuple] of [...byDse.entries()].sort((a, b) => a[0] - b[0])) {
-            yield tuple;
-          }
-        })();
-      };
-      filters.push(yearlyByweeknoFilter);
+        }
+        for (const [, tuple] of [...byDse.entries()].sort((a, b) => a[0] - b[0])) yield tuple;
+      });
     } else {
-      // Original filter composition for non-yearly patterns
-      if (options?.bynthday?.length && options?.byday?.length) {
-        const selectors = [
-          NaiveDate.Filter.byWeekday(options.byday),
-          NaiveDate.Filter.byNthWeekday(options.bynthday),
-        ];
+      const ordinal = options?.bynthday?.length
+        ? NaiveDate.Filter.byNthWeekday(options.bynthday, true, options.ordinalWeekdayPeriod ?? undefined)
+        : undefined;
+      if (options?.intersectWeekdaySelectors && ordinal && options.byday?.length) {
+        filters.push(ordinal);
+        filters.push(NaiveDate.Filter.byWeekday(options.byday));
+      } else if (ordinal && options?.byday?.length) {
+        const selectors = [NaiveDate.Filter.byWeekday(options.byday), ordinal];
         filters.push(function* (period: PartialDate.Tuple) {
           const days = new Map<number, PartialDate.Tuple>();
           for (const select of selectors) {
@@ -559,12 +768,18 @@ export class RRule {
           }
           yield* [...days.values()].sort((a,b) => a[0].castValid().dse - b[0].castValid().dse);
         });
-      } else if (options?.bynthday?.length) {
-        filters.push(NaiveDate.Filter.byNthWeekday(options.bynthday));
+      } else if (ordinal) {
+        filters.push(ordinal);
       } else if (options?.byday?.length) {
         filters.push(NaiveDate.Filter.byWeekday(options.byday));
       }
-      if (options?.byweekno && options.byweekno.length > 0) {
+      if (options?.libraryWeekNumberStart != null && options.byweekno?.length) {
+        filters.push(NaiveDate.Filter.byLibraryWeekNo(
+          options.byweekno,
+          options.wkst ?? Weekday.MON,
+          step.type === "week" ? options.libraryWeekNumberStart : undefined,
+        ));
+      } else if (rfcWeeks == null && options?.byweekno && options.byweekno.length > 0) {
         // Skip BYWEEKNO filter for Google Calendar consecutive behavior
         if (!(useGoogleCalendarBehavior && shouldUseWeeklyStep)) {
           // Create a single filter that handles multiple week numbers with OR logic
@@ -592,28 +807,51 @@ export class RRule {
       if (options?.bymonthday && options.bymonthday.length > 0)
         filters.push(NaiveDate.Filter.byDayOfMonth(options.bymonthday));
     }
+    if (options?.implicitYearlyMonth != null) {
+      // Apply after ranking weekdays in the full year.
+      filters.push(NaiveDate.Filter.byMonthOfYear([new Month(options.implicitYearlyMonth)]));
+    }
     if (options?.byyearday && options.byyearday.length > 0)
       filters.push(NaiveDate.Filter.byDayOfYear(options.byyearday));
+    if (options?.rruleJsEasterOffset != null) {
+      filters.push(NaiveDate.Filter.byRruleJsEaster(options.rruleJsEasterOffset));
+    }
     if (options?.byeaster != null) {
-      const { offsets, start } = options.byeaster;
-      const easter = NaiveDate.Filter.byEaster(offsets, start);
+      const easter = NaiveDate.Filter.byEaster(easterOffsets(options.byeaster), options.byeaster.start);
       // Weekly Easter masks are keyed by the week before BYDAY can expand it.
-      if (step.type === "week") filters.unshift(easter);
-      else filters.push(easter);
+      if (step.type === "week") {
+        filters.unshift(easter);
+      } else {
+        // dateutil rebuilds the period's mask even if other selectors discard it.
+        filters.unshift(function* (period) {
+          easter.checkYear(period[0].yr);
+          yield period;
+        });
+        filters.push(easter);
+      }
     }
 
-    const composed =
-      filters.length > 0
-        ? filters.length === 1
-          ? filters[0]
-          : NaiveDate.Filter.compose(filters)
-        : NaiveDate.Filter.identity();
+    // BYMONTH limits dates selected within a week, including yearly BYWEEKNO.
+    if (monthFilter != null && filterDaysByMonth) filters.push(monthFilter);
+    const julianDays = options?.googleJulianCalendar === "continuous" &&
+        (options.bymonth?.length || options.bymonthday?.length || options.bynthday?.length)
+      ? googleJulianDayFilter(options)
+      : undefined;
+    const standard = filters.length === 1 ? filters[0]
+      : filters.length > 1 ? NaiveDate.Filter.compose(filters) : NaiveDate.Filter.identity();
+    let composed = standard;
+    if (options?.googleJulianCalendar === "nominal") {
+      composed = hasYearlyByweekno && googleYearlyStart != null
+        ? googleJulianWeekFilter(options, googleYearlyStart, standard)
+        : googleJulianPeriodFilter(options, this.inner.freq);
+    } else if (julianDays != null) {
+      composed = wrappedDays == null ? julianDays : NaiveDate.Filter.compose([wrappedDays, julianDays]);
+    }
     // BYSETPOS picks from each period's whole set of days. A rule with time
     // parts applies it to the set of instants instead (`RRuleInstances`).
     const setpos = options?.bysetpos;
-    const filter = !deferSetPos && setpos != null && setpos.length > 0 && (ignoreTimeParts || !this.hasTimeParts())
-      ? NaiveDate.Filter.bySetPos(composed, setpos)
-      : composed;
+    const rankDays = !deferSetPos && setpos != null && setpos.length > 0 && (ignoreTimeParts || !this.hasTimeParts());
+    const filter = rankDays ? NaiveDate.Filter.bySetPos(composed, setpos) : composed;
 
     // Build options
     const filterOptions: NaiveDate.FilterPropsOptions = {};
@@ -671,13 +909,35 @@ export class RRule {
       options?.bynthday?.length ||
       options?.bymonthday?.length ||
       options?.byyearday?.length ||
+      options?.libraryWeekNumberStart != null ||
       options?.byeaster?.offsets.length,
     );
-    if (hasWeekDayExpander) {
+    if (hasWeekDayExpander || groupWrappedWeeks) {
       filterOptions.weekStart = options?.wkst ?? Weekday.MON;
     }
     filterOptions.filter = filter;
-    filterOptions.periodLookbehindDays = step.type === "year" && hasWeekNoFilter ? 7 : 0;
+    if (options?.googleYearlyDayWrap) {
+      const julian = hasYearlyByweekno && googleYearlyStart != null
+        ? googleJulianWeekFilter(options, googleYearlyStart, standard)
+        : googleJulianPeriodFilter(options, this.inner.freq);
+      // Google accepts one clock value per field for an override. In that
+      // case each distinct day contributes one position to the timed grid.
+      const singleClock = [options.byhour, options.byminute, options.bysecond]
+        .every((values) => values == null || values.length <= 1);
+      const highestPositiveRank = setpos?.length && setpos.every((position) => position > 0) && (rankDays || singleClock)
+        ? Math.max(...setpos)
+        : undefined;
+      Object.assign(filterOptions, googleWrappedYearlyFilter(
+        interval,
+        composed,
+        julian,
+        options.googleJulianCalendar === "nominal",
+        rankDays ? setpos : undefined,
+        highestPositiveRank,
+        options.googleYearlyOrdinalRewind === true,
+      ));
+    }
+    filterOptions.periodLookbehindDays = step.type === "year" && hasWeekNoFilter && options?.libraryWeekNumberStart == null ? 7 : 0;
     filterOptions.recurLimit = filterOptions.end != null ? Number.POSITIVE_INFINITY : Math.max(1000, options?.count ?? 0, limit ?? 0);
 
     // For Google Calendar yearly BYWEEKNO patterns, ensure we don't limit the generator prematurely
@@ -718,7 +978,7 @@ export namespace RRule {
       return new Raw(attributes);
     }
 
-    resolve(): Result<RRule> {
+    resolve(parseUntil = IsoDate.parse): Result<RRule> {
       const rules = this.attributes;
       const freq = Frequency.parse(rules.get("FREQ"));
       if (!freq) return err(Error("no frequency"));
@@ -744,97 +1004,63 @@ export namespace RRule {
       }
 
       const until = rules.get("UNTIL");
-      const untilResult = until != null ? IsoDate.parse(until) : null;
+      const untilResult = until != null ? parseUntil(until) : null;
       if (untilResult?.isErr) return untilResult.expeCast();
 
-      // Parse BYHOUR
-      let byhour: Option<number[]> = null;
-      const byhourStr = rules.get("BYHOUR");
-      if (byhourStr) {
-        const hours = byhourStr
-          .split(",")
-          .map((h) => TentoMath.parseOpt(h))
-          .filter((h) => h !== null) as number[];
-        if (hours.length > 0) byhour = hours;
+      const options = ruleOptions(byday, bynthday, untilResult?.asOk());
+      // The default option shape is stable. Decode selectors only when written.
+      for (const [key, value] of ICalAttributes.entriesOf(rules)) {
+        switch (key) {
+          case "WKST":
+            options.wkst = Weekday.parseOpt(value);
+            break;
+          case "INTERVAL":
+            options.interval = TentoMath.parseOpt(value);
+            break;
+          case "COUNT":
+            options.count = TentoMath.parseOpt(value);
+            break;
+          case "BYSETPOS":
+            if (value) options.bysetpos = ruleNumberList(value).filter((position) => position !== 0);
+            break;
+          case "BYMONTH":
+            if (value) options.bymonth = ruleNumberList(value);
+            break;
+          case "BYMONTHDAY":
+            if (value) options.bymonthday = ruleNumberList(value);
+            break;
+          case "BYWEEKNO":
+            if (value) options.byweekno = ruleNumberList(value);
+            break;
+          case "BYYEARDAY":
+            if (value) options.byyearday = ruleNumberList(value);
+            break;
+          case "BYHOUR":
+          case "BYMINUTE":
+          case "BYSECOND": {
+            if (!value) break;
+            const times = ruleNumberList(value);
+            if (times.length === 0) break;
+            if (key === "BYHOUR") options.byhour = times;
+            else if (key === "BYMINUTE") options.byminute = times;
+            else options.bysecond = times;
+            break;
+          }
+          case "TZID":
+            options.tzid = value as Option<Tzname>;
+            break;
+        }
       }
-
-      // Parse BYMINUTE
-      let byminute: Option<number[]> = null;
-      const byminuteStr = rules.get("BYMINUTE");
-      if (byminuteStr) {
-        const minutes = byminuteStr
-          .split(",")
-          .map((m) => TentoMath.parseOpt(m))
-          .filter((m) => m !== null) as number[];
-        if (minutes.length > 0) byminute = minutes;
-      }
-
-      // Parse BYSECOND
-      let bysecond: Option<number[]> = null;
-      const bysecondStr = rules.get("BYSECOND");
-      if (bysecondStr) {
-        const seconds = bysecondStr
-          .split(",")
-          .map((s) => TentoMath.parseOpt(s))
-          .filter((s) => s !== null) as number[];
-        if (seconds.length > 0) bysecond = seconds;
-      }
-
-      return ok(
-        new RRule(
-          {
-            freq,
-            options: {
-              wkst: Weekday.parseOpt(rules.get("WKST")),
-              interval: TentoMath.parseOpt(rules.get("INTERVAL")),
-              count: TentoMath.parseOpt(rules.get("COUNT")),
-              bysetpos: rules.get("BYSETPOS")
-                ? (rules
-                    .get("BYSETPOS")!
-                    .split(",")
-                    .map((p) => TentoMath.parseOpt(p))
-                    .filter((p) => p !== null && p !== 0) as number[])
-                : null,
-              byday: byday,
-              bynthday: bynthday,
-              bymonth: rules.get("BYMONTH")
-                ? (rules
-                    .get("BYMONTH")!
-                    .split(",")
-                    .map((m) => TentoMath.parseOpt(m))
-                    .filter((m) => m !== null) as number[])
-                : null,
-              bymonthday: rules.get("BYMONTHDAY")
-                ? (rules
-                    .get("BYMONTHDAY")!
-                    .split(",")
-                    .map((d) => TentoMath.parseOpt(d))
-                    .filter((d) => d !== null) as number[])
-                : null,
-              byweekno: rules.get("BYWEEKNO")
-                ? (rules
-                    .get("BYWEEKNO")!
-                    .split(",")
-                    .map((w) => TentoMath.parseOpt(w))
-                    .filter((w) => w !== null) as number[])
-                : null,
-              byyearday: rules.get("BYYEARDAY")
-                ? (rules
-                    .get("BYYEARDAY")!
-                    .split(",")
-                    .map((y) => TentoMath.parseOpt(y))
-                    .filter((y) => y !== null) as number[])
-                : null,
-              byhour: byhour,
-              byminute: byminute,
-              bysecond: bysecond,
-              tzid: rules.get("TZID") as Option<Tzname>,
-              until: untilResult?.asOk() ?? null,
-            },
-          },
-          rules.order,
-        ),
-      );
+      return ok(new RRule({ freq, options }, rules.order));
     }
   }
+}
+
+function ruleNumberList(text: string): number[] {
+  const values: number[] = [];
+  for (const part of text.split(",")) {
+    const value = TentoMath.parseOpt(part);
+    if (value != null) values.push(value);
+  }
+  return values;
 }

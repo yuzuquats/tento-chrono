@@ -1,0 +1,356 @@
+{
+  "type": "recurrence-profile",
+  "name": "Outlook Graph calendar boundary captures",
+  "source": "Microsoft Graph v1.0 calendarView",
+  "capturedAt": "2026-11-22T10:50:39.793628+00:00",
+  "cases": [
+    {
+      "name": "biweekly-sunday-anchor",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-01-03T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday",
+                "sunday"
+              ],
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 2,
+              "month": 0,
+              "type": "weekly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 7,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-01-03",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-04-30"
+      },
+      "expected": [
+        "2027-01-03T09:00:00Z",
+        "2027-01-04T09:00:00Z",
+        "2027-01-17T09:00:00Z",
+        "2027-01-18T09:00:00Z",
+        "2027-01-31T09:00:00Z",
+        "2027-02-01T09:00:00Z",
+        "2027-02-14T09:00:00Z"
+      ]
+    },
+    {
+      "name": "biweekly-monday-anchor",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-01-03T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday",
+                "sunday"
+              ],
+              "firstDayOfWeek": "monday",
+              "index": "first",
+              "interval": 2,
+              "month": 0,
+              "type": "weekly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 7,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-01-03",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-04-30"
+      },
+      "expected": [
+        "2027-01-03T09:00:00Z",
+        "2027-01-11T09:00:00Z",
+        "2027-01-17T09:00:00Z",
+        "2027-01-25T09:00:00Z",
+        "2027-01-31T09:00:00Z",
+        "2027-02-08T09:00:00Z",
+        "2027-02-14T09:00:00Z"
+      ]
+    },
+    {
+      "name": "unaligned-monthly-first-occurrence",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-02-15T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 15,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "absoluteMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 4,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-02-15",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-07-31"
+      },
+      "expected": [
+        "2027-02-15T09:00:00Z",
+        "2027-03-15T09:00:00Z",
+        "2027-04-15T09:00:00Z",
+        "2027-05-15T09:00:00Z"
+      ]
+    },
+    {
+      "name": "absolute-yearly-common-year-feb29",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-02-28T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 29,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 2,
+              "type": "absoluteYearly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 4,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-02-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2031-04-30"
+      },
+      "expected": [
+        "2027-02-28T09:00:00Z",
+        "2028-02-29T09:00:00Z",
+        "2029-02-28T09:00:00Z",
+        "2030-02-28T09:00:00Z"
+      ]
+    },
+    {
+      "name": "all-day-month-end-enddate",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-01-31T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 31,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "absoluteMonthly"
+            },
+            "range": {
+              "endDate": "2027-05-31",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Pacific Standard Time",
+              "startDate": "2027-01-31",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2027-06-14"
+      },
+      "expected": [
+        "2027-01-31",
+        "2027-02-28",
+        "2027-03-31",
+        "2027-04-30",
+        "2027-05-31"
+      ]
+    },
+    {
+      "name": "interval-two-relative-yearly-last-weekday",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-02-26T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday",
+                "tuesday",
+                "wednesday",
+                "thursday",
+                "friday"
+              ],
+              "firstDayOfWeek": "sunday",
+              "index": "last",
+              "interval": 2,
+              "month": 2,
+              "type": "relativeYearly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 4,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-02-26",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2029-07-31"
+      },
+      "expected": [
+        "2027-02-26T09:00:00Z",
+        "2029-02-28T09:00:00Z"
+      ]
+    },
+    {
+      "name": "weekly-enddate-includes-final-local-start",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-03-08T07:45:00.0000000",
+            "timeZone": "UTC"
+          },
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "sunday"
+              ],
+              "firstDayOfWeek": "monday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "weekly"
+            },
+            "range": {
+              "endDate": "2027-03-21",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Pacific Standard Time",
+              "startDate": "2027-03-07",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2027-04-01"
+      },
+      "expected": [
+        "2027-03-08T07:45:00Z",
+        "2027-03-15T06:45:00Z",
+        "2027-03-22T06:45:00Z"
+      ]
+    },
+    {
+      "name": "weekly-unaligned-start-before-monday",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-01-11T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday"
+              ],
+              "firstDayOfWeek": "monday",
+              "index": "first",
+              "interval": 2,
+              "month": 0,
+              "type": "weekly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 4,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-01-11",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-04-30"
+      },
+      "expected": [
+        "2027-01-11T09:00:00Z",
+        "2027-01-25T09:00:00Z",
+        "2027-02-08T09:00:00Z",
+        "2027-02-22T09:00:00Z"
+      ]
+    },
+    {
+      "name": "range-zone-shifts-civil-start",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-03-13T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "Pacific Standard Time",
+              "startDate": "2027-03-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-03-21"
+      },
+      "expected": [
+        "2027-03-13T01:00:00Z",
+        "2027-03-14T01:00:00Z",
+        "2027-03-15T00:00:00Z"
+      ]
+    }
+  ]
+}

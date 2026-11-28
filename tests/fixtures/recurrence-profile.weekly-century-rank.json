@@ -1,0 +1,162 @@
+{
+  "type": "recurrence-profile",
+  "name": "RFC and library first-week clock positions across century boundaries",
+  "source": "RFC 5545 section 3.3.10 Gregorian full-week oracle, python-dateutil 2.8.2, and rrule.js 2.8.1 under TZ=UTC",
+  "cases": [
+    {
+      "name": "rfc5545-weekly-rank-at-1899-boundary",
+      "input": {
+        "lines": [
+          "DTSTART:18990114T091500Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=11;WKST=SU;BYDAY=MO,WE,SA;BYMINUTE=15,40;BYSETPOS=1,2,4,-2;COUNT=6"
+        ],
+        "through": "1904-12-31",
+        "checkpoints": [
+          "1899-01-14",
+          "1899-12-31",
+          "1900-02-28",
+          "1900-03-01"
+        ]
+      },
+      "expected": [
+        "1899-01-14T09:15:00Z",
+        "1899-03-27T09:15:00Z",
+        "1899-03-27T09:40:00Z",
+        "1899-03-29T09:40:00Z",
+        "1899-04-01T09:15:00Z",
+        "1899-06-12T09:15:00Z"
+      ]
+    },
+    {
+      "name": "rfc5545-weekly-rank-at-2400-boundary",
+      "input": {
+        "lines": [
+          "DTSTART:24001201T091500Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=3;WKST=SU;BYDAY=SU,MO,FR;BYMINUTE=15,40;BYSETPOS=1,2,4,-2;COUNT=9"
+        ],
+        "through": "2405-12-31",
+        "checkpoints": [
+          "2400-12-01",
+          "2400-12-31",
+          "2401-02-28",
+          "2401-03-01"
+        ]
+      },
+      "expected": [
+        "2400-12-01T09:15:00Z",
+        "2400-12-17T09:15:00Z",
+        "2400-12-17T09:40:00Z",
+        "2400-12-18T09:40:00Z",
+        "2400-12-22T09:15:00Z",
+        "2401-01-07T09:15:00Z",
+        "2401-01-07T09:40:00Z",
+        "2401-01-08T09:40:00Z",
+        "2401-01-12T09:15:00Z"
+      ]
+    },
+    {
+      "name": "dateutil-weekly-rank-at-1899-boundary",
+      "input": {
+        "lines": [
+          "DTSTART:18990114T091500Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=11;WKST=SU;BYDAY=MO,WE,SA;BYMINUTE=15,40;BYSETPOS=1,2,4,-2;COUNT=6"
+        ],
+        "profile": "dateutil",
+        "through": "1904-12-31",
+        "checkpoints": [
+          "1899-01-14",
+          "1899-12-31",
+          "1900-02-28",
+          "1900-03-01"
+        ]
+      },
+      "expected": [
+        "1899-01-14T09:15:00Z",
+        "1899-01-14T09:40:00Z",
+        "1899-03-27T09:15:00Z",
+        "1899-03-27T09:40:00Z",
+        "1899-03-29T09:40:00Z",
+        "1899-04-01T09:15:00Z"
+      ]
+    },
+    {
+      "name": "dateutil-weekly-rank-at-2400-boundary",
+      "input": {
+        "lines": [
+          "DTSTART:24001201T091500Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=3;WKST=SU;BYDAY=SU,MO,FR;BYMINUTE=15,40;BYSETPOS=1,2,4,-2;COUNT=9"
+        ],
+        "profile": "dateutil",
+        "through": "2405-12-31",
+        "checkpoints": [
+          "2400-12-01",
+          "2400-12-31",
+          "2401-02-28",
+          "2401-03-01"
+        ]
+      },
+      "expected": [
+        "2400-12-01T09:15:00Z",
+        "2400-12-01T09:40:00Z",
+        "2400-12-17T09:15:00Z",
+        "2400-12-17T09:40:00Z",
+        "2400-12-18T09:40:00Z",
+        "2400-12-22T09:15:00Z",
+        "2401-01-07T09:15:00Z",
+        "2401-01-07T09:40:00Z",
+        "2401-01-08T09:40:00Z"
+      ]
+    },
+    {
+      "name": "rrule-js-weekly-rank-at-1899-boundary",
+      "input": {
+        "lines": [
+          "DTSTART:18990114T091500Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=11;WKST=SU;BYDAY=MO,WE,SA;BYMINUTE=15,40;BYSETPOS=1,2,4,-2;COUNT=6"
+        ],
+        "profile": "rrule-js",
+        "through": "1904-12-31",
+        "checkpoints": [
+          "1899-01-14",
+          "1899-12-31",
+          "1900-02-28",
+          "1900-03-01"
+        ]
+      },
+      "expected": [
+        "1899-01-14T09:15:00Z",
+        "1899-01-14T09:40:00Z",
+        "1899-03-27T09:15:00Z",
+        "1899-03-27T09:40:00Z",
+        "1899-03-29T09:40:00Z"
+      ]
+    },
+    {
+      "name": "rrule-js-weekly-rank-at-2400-boundary",
+      "input": {
+        "lines": [
+          "DTSTART:24001201T091500Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=3;WKST=SU;BYDAY=SU,MO,FR;BYMINUTE=15,40;BYSETPOS=1,2,4,-2;COUNT=9"
+        ],
+        "profile": "rrule-js",
+        "through": "2405-12-31",
+        "checkpoints": [
+          "2400-12-01",
+          "2400-12-31",
+          "2401-02-28",
+          "2401-03-01"
+        ]
+      },
+      "expected": [
+        "2400-12-01T09:15:00Z",
+        "2400-12-01T09:40:00Z",
+        "2400-12-17T09:15:00Z",
+        "2400-12-17T09:40:00Z",
+        "2400-12-18T09:40:00Z",
+        "2400-12-22T09:15:00Z",
+        "2401-01-07T09:15:00Z",
+        "2401-01-07T09:40:00Z"
+      ]
+    }
+  ]
+}

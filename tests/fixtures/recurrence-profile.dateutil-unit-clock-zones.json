@@ -1,0 +1,399 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil unit clocks with adjacent timezone tokens",
+  "source": "python-dateutil 2.8.2 rrulestr with TZ=UTC",
+  "cases": [
+    {
+      "name": "adjacent minute and Z form one unknown timezone label",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T09H30MZ",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:30:00",
+        "2026-03-02T09:30:00",
+        "2026-03-03T09:30:00"
+      ]
+    },
+    {
+      "name": "a dot separates seconds from Z",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T9H4S.Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:00:04Z",
+        "2026-03-02T09:00:04Z",
+        "2026-03-03T09:00:04Z"
+      ]
+    },
+    {
+      "name": "an absorbed seconds label changes the unit to minutes",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T9H4SZ",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:04:00",
+        "2026-03-02T09:04:00",
+        "2026-03-03T09:04:00"
+      ]
+    },
+    {
+      "name": "an adjacent unknown timezone label reverses the numeric sign",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T09H30MUTC+02",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T11:30:00Z",
+        "2026-03-02T11:30:00Z",
+        "2026-03-03T11:30:00Z"
+      ]
+    },
+    {
+      "name": "a dot after an unknown timezone label retains the numeric sign",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T09H30MUTC.-3",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T12:30:00Z",
+        "2026-03-02T12:30:00Z",
+        "2026-03-03T12:30:00Z"
+      ]
+    },
+    {
+      "name": "unlabeled minute token remains a single number",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T9H004Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:04:00Z",
+        "2026-03-02T09:04:00Z",
+        "2026-03-03T09:04:00Z"
+      ]
+    },
+    {
+      "name": "a six-digit clock token takes precedence over the preceding unit",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T8H091530Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:15:30Z",
+        "2026-03-02T09:15:30Z",
+        "2026-03-03T09:15:30Z"
+      ]
+    },
+    {
+      "name": "a standalone PM suffix adjusts an inferred clock",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T09H30M40PM",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T21:30:40",
+        "2026-03-02T21:30:40",
+        "2026-03-03T21:30:40"
+      ]
+    },
+    {
+      "name": "adjacent minute and PM do not form a meridiem",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T09H30MP.M.",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:30:00",
+        "2026-03-02T09:30:00",
+        "2026-03-03T09:30:00"
+      ]
+    },
+    {
+      "name": "an inferred field after seconds does not alter the clock",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T9H4S05Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:00:04Z",
+        "2026-03-02T09:00:04Z",
+        "2026-03-03T09:00:04Z"
+      ]
+    },
+    {
+      "name": "calendar diagnostics follow unit-clock recognition",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T09H60MZ",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03"
+      },
+      "expected": {
+        "error": "minute must be in 0..59: 20260301T09H60MZ"
+      }
+    },
+    {
+      "name": "one trailing character can be absorbed into a dotted number",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T9H4.Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03"
+      },
+      "expected": {
+        "error": "Unknown string format: 20260301T9H4.Z"
+      }
+    },
+    {
+      "name": "a dot separates hours from a labeled seconds field",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T9H.4S",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:00:04",
+        "2026-03-02T09:00:04",
+        "2026-03-03T09:00:04"
+      ]
+    },
+    {
+      "name": "dots separate a minute and its explicit seconds field",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T9H30M..5S.Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:30:05Z",
+        "2026-03-02T09:30:05Z",
+        "2026-03-03T09:30:05Z"
+      ]
+    },
+    {
+      "name": "a separated clock number can supply its own meridiem",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T9H30M.5PM",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T17:30:00",
+        "2026-03-02T17:30:00",
+        "2026-03-03T17:30:00"
+      ]
+    },
+    {
+      "name": "a separated compact clock is followed by a dotted UTC marker",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T9H.091530.Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:15:30Z",
+        "2026-03-02T09:15:30Z",
+        "2026-03-03T09:15:30Z"
+      ]
+    },
+    {
+      "name": "a dot prevents unlabeled seconds inference",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T9H30M.5SZ",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03"
+      },
+      "expected": {
+        "error": "Unknown string format: 20260301T9H30M.5SZ"
+      }
+    },
+    {
+      "name": "fractional unit-clock RDATE and EXDATE preserve identity",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T093029",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20260301T9H30M29.123456SZ,20260301T9H30M29.123654SZ",
+          "EXDATE:20260301T9H30M29.123456SZ"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:30:29",
+        "2026-03-01T09:30:29.123",
+        "2026-03-02T09:30:29",
+        "2026-03-03T09:30:29"
+      ]
+    },
+    {
+      "name": "UNTIL with a standalone unit and offset includes the boundary",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260228T093000Z",
+          "RRULE:FREQ=DAILY;UNTIL=20260301T11H30M.+02"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-02-28",
+          "2026-03-01"
+        ]
+      },
+      "expected": [
+        "2026-02-28T09:30:00Z",
+        "2026-03-01T09:30:00Z"
+      ]
+    },
+    {
+      "name": "RFC rejects unit clocks",
+      "input": {
+        "lines": [
+          "DTSTART:20260301T09H30MZ",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03"
+      },
+      "expected": {
+        "error": "Expected an iCalendar DATE or DATE-TIME"
+      }
+    }
+  ]
+}

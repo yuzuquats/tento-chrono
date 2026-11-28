@@ -1,0 +1,490 @@
+{
+  "type": "recurrence-profile",
+  "name": "RFC 5545 week-numbering years",
+  "source": "RFC 5545 \u00a73.3.10 and Python Gregorian enumeration from the first week containing January 4",
+  "cases": [
+    {
+      "name": "biannual ISO week one crosses into December",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20240101",
+          "RRULE:FREQ=YEARLY;INTERVAL=2;WKST=MO;BYWEEKNO=1;BYDAY=MO;COUNT=5"
+        ],
+        "through": "2035-12-31",
+        "checkpoints": [
+          "2024-12-28",
+          "2024-12-29",
+          "2024-12-31",
+          "2025-12-28",
+          "2025-12-29",
+          "2025-12-31",
+          "2026-12-28",
+          "2026-12-29",
+          "2026-12-31",
+          "2027-12-28",
+          "2027-12-29",
+          "2027-12-31"
+        ]
+      },
+      "expected": [
+        "2024-01-01",
+        "2025-12-29",
+        "2028-01-03",
+        "2029-12-31",
+        "2031-12-29"
+      ]
+    },
+    {
+      "name": "BYSETPOS selects Monday from the whole first week",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20240101",
+          "RRULE:FREQ=YEARLY;INTERVAL=2;WKST=MO;BYWEEKNO=1;BYDAY=MO,TU;BYSETPOS=1;COUNT=5"
+        ],
+        "through": "2035-12-31",
+        "checkpoints": [
+          "2024-12-28",
+          "2024-12-29",
+          "2024-12-31",
+          "2025-12-28",
+          "2025-12-29",
+          "2025-12-31",
+          "2026-12-28",
+          "2026-12-29",
+          "2026-12-31",
+          "2027-12-28",
+          "2027-12-29",
+          "2027-12-31"
+        ]
+      },
+      "expected": [
+        "2024-01-01",
+        "2025-12-29",
+        "2028-01-03",
+        "2029-12-31",
+        "2031-12-29"
+      ]
+    },
+    {
+      "name": "the selected final week includes January",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20201228",
+          "RRULE:FREQ=YEARLY;INTERVAL=2;WKST=MO;BYWEEKNO=-1;BYDAY=MO,FR;COUNT=5"
+        ],
+        "through": "2031-12-31",
+        "checkpoints": [
+          "2020-12-28",
+          "2020-12-29",
+          "2020-12-31",
+          "2021-12-28",
+          "2021-12-29",
+          "2021-12-31",
+          "2022-12-28",
+          "2022-12-29",
+          "2022-12-31",
+          "2023-12-28",
+          "2023-12-29",
+          "2023-12-31"
+        ]
+      },
+      "expected": [
+        "2020-12-28",
+        "2021-01-01",
+        "2022-12-26",
+        "2022-12-30",
+        "2024-12-23"
+      ]
+    },
+    {
+      "name": "week 53 skips 52-week years",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20151228",
+          "RRULE:FREQ=YEARLY;INTERVAL=1;WKST=MO;BYWEEKNO=53;BYDAY=MO;COUNT=4"
+        ],
+        "through": "2044-12-31",
+        "checkpoints": [
+          "2015-12-28",
+          "2015-12-29",
+          "2015-12-31",
+          "2016-12-28",
+          "2016-12-29",
+          "2016-12-31",
+          "2017-12-28",
+          "2017-12-29",
+          "2017-12-31",
+          "2018-12-28",
+          "2018-12-29",
+          "2018-12-31"
+        ]
+      },
+      "expected": [
+        "2015-12-28",
+        "2020-12-28",
+        "2026-12-28",
+        "2032-12-27"
+      ]
+    },
+    {
+      "name": "negative week 53 skips short years",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20141229",
+          "RRULE:FREQ=YEARLY;INTERVAL=1;WKST=MO;BYWEEKNO=-53,1;BYDAY=MO;UNTIL=20261231"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2014-12-28",
+          "2014-12-29",
+          "2014-12-31",
+          "2015-12-28",
+          "2015-12-29",
+          "2015-12-31",
+          "2016-12-28",
+          "2016-12-29",
+          "2016-12-31",
+          "2017-12-28",
+          "2017-12-29",
+          "2017-12-31"
+        ]
+      },
+      "expected": [
+        "2014-12-29",
+        "2016-01-04",
+        "2017-01-02",
+        "2018-01-01",
+        "2018-12-31",
+        "2019-12-30",
+        "2021-01-04",
+        "2022-01-03",
+        "2023-01-02",
+        "2024-01-01",
+        "2024-12-30",
+        "2025-12-29"
+      ]
+    },
+    {
+      "name": "Sunday week starts change the first eligible week",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20240101",
+          "RRULE:FREQ=YEARLY;INTERVAL=2;WKST=SU;BYWEEKNO=1;BYDAY=MO;COUNT=5"
+        ],
+        "through": "2035-12-31",
+        "checkpoints": [
+          "2024-12-28",
+          "2024-12-29",
+          "2024-12-31",
+          "2025-12-28",
+          "2025-12-29",
+          "2025-12-31",
+          "2026-12-28",
+          "2026-12-29",
+          "2026-12-31",
+          "2027-12-28",
+          "2027-12-29",
+          "2027-12-31"
+        ]
+      },
+      "expected": [
+        "2024-01-01",
+        "2026-01-05",
+        "2028-01-03",
+        "2029-12-31",
+        "2032-01-05"
+      ]
+    },
+    {
+      "name": "December DTSTART uses its numbered week year",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20241230",
+          "RRULE:FREQ=YEARLY;INTERVAL=2;WKST=MO;BYWEEKNO=1;BYDAY=MO;COUNT=5"
+        ],
+        "through": "2036-12-31",
+        "checkpoints": [
+          "2024-12-28",
+          "2024-12-29",
+          "2024-12-31",
+          "2025-12-28",
+          "2025-12-29",
+          "2025-12-31",
+          "2026-12-28",
+          "2026-12-29",
+          "2026-12-31",
+          "2027-12-28",
+          "2027-12-29",
+          "2027-12-31"
+        ]
+      },
+      "expected": [
+        "2024-12-30",
+        "2027-01-04",
+        "2029-01-01",
+        "2030-12-30",
+        "2033-01-03"
+      ]
+    },
+    {
+      "name": "January DTSTART uses the preceding numbered week year",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20210101",
+          "RRULE:FREQ=YEARLY;INTERVAL=2;WKST=MO;BYWEEKNO=-1;BYDAY=FR;COUNT=5"
+        ],
+        "through": "2031-12-31",
+        "checkpoints": [
+          "2021-12-28",
+          "2021-12-29",
+          "2021-12-31",
+          "2022-12-28",
+          "2022-12-29",
+          "2022-12-31",
+          "2023-12-28",
+          "2023-12-29",
+          "2023-12-31",
+          "2024-12-28",
+          "2024-12-29",
+          "2024-12-31"
+        ]
+      },
+      "expected": [
+        "2021-01-01",
+        "2022-12-30",
+        "2024-12-27",
+        "2027-01-01",
+        "2028-12-29"
+      ]
+    },
+    {
+      "name": "date UNTIL includes a December start assigned to next year",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20240101",
+          "RRULE:FREQ=YEARLY;INTERVAL=2;WKST=MO;BYWEEKNO=1;BYDAY=MO;UNTIL=20251229"
+        ],
+        "through": "2025-12-29",
+        "checkpoints": [
+          "2024-12-28",
+          "2024-12-29",
+          "2024-12-31",
+          "2025-12-28",
+          "2025-12-29"
+        ]
+      },
+      "expected": [
+        "2024-01-01",
+        "2025-12-29"
+      ]
+    },
+    {
+      "name": "date UNTIL excludes the next selected week",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20240101",
+          "RRULE:FREQ=YEARLY;INTERVAL=2;WKST=MO;BYWEEKNO=1;BYDAY=MO;UNTIL=20251228"
+        ],
+        "through": "2025-12-28",
+        "checkpoints": [
+          "2024-12-28",
+          "2024-12-29",
+          "2024-12-31",
+          "2025-12-28"
+        ]
+      },
+      "expected": [
+        "2024-01-01"
+      ]
+    },
+    {
+      "name": "positions span the year's timed week grid",
+      "input": {
+        "lines": [
+          "DTSTART:20191230T170000Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=2;WKST=MO;BYWEEKNO=-1,1;BYDAY=MO,WE,FR;BYHOUR=9,17;BYSETPOS=2,-1;COUNT=7",
+          "EXDATE:20210101T170000Z",
+          "RDATE:20311231T120000Z"
+        ],
+        "through": "2031-12-31",
+        "checkpoints": [
+          "2019-12-28",
+          "2019-12-29",
+          "2019-12-31",
+          "2020-12-28",
+          "2020-12-29",
+          "2020-12-31",
+          "2021-12-28",
+          "2021-12-29",
+          "2021-12-31",
+          "2022-12-28",
+          "2022-12-29",
+          "2022-12-31"
+        ]
+      },
+      "expected": [
+        "2019-12-30T17:00:00Z",
+        "2022-01-03T17:00:00Z",
+        "2022-12-30T17:00:00Z",
+        "2024-01-01T17:00:00Z",
+        "2024-12-27T17:00:00Z",
+        "2025-12-29T17:00:00Z",
+        "2031-12-31T12:00:00Z"
+      ]
+    },
+    {
+      "name": "BYMONTH filters the civil month of a selected week",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20241230",
+          "RRULE:FREQ=YEARLY;INTERVAL=2;WKST=MO;BYWEEKNO=1;BYDAY=MO;BYMONTH=12;COUNT=4"
+        ],
+        "through": "2054-12-31",
+        "checkpoints": [
+          "2024-12-28",
+          "2024-12-29",
+          "2024-12-31",
+          "2025-12-28",
+          "2025-12-29",
+          "2025-12-31",
+          "2026-12-28",
+          "2026-12-29",
+          "2026-12-31",
+          "2027-12-28",
+          "2027-12-29",
+          "2027-12-31"
+        ]
+      },
+      "expected": [
+        "2024-12-30",
+        "2030-12-30",
+        "2036-12-29",
+        "2040-12-31"
+      ]
+    },
+    {
+      "name": "BYMONTHDAY intersects selected weeks",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20240101",
+          "RRULE:FREQ=YEARLY;INTERVAL=2;WKST=MO;BYWEEKNO=1,-1;BYMONTHDAY=1,-1;COUNT=7"
+        ],
+        "through": "2035-12-31",
+        "checkpoints": [
+          "2024-12-28",
+          "2024-12-29",
+          "2024-12-31",
+          "2025-12-28",
+          "2025-12-29",
+          "2025-12-31",
+          "2026-12-28",
+          "2026-12-29",
+          "2026-12-31",
+          "2027-12-28",
+          "2027-12-29",
+          "2027-12-31"
+        ]
+      },
+      "expected": [
+        "2024-01-01",
+        "2025-12-31",
+        "2026-01-01",
+        "2026-12-31",
+        "2027-01-01",
+        "2028-12-31",
+        "2029-12-31"
+      ]
+    },
+    {
+      "name": "BYYEARDAY filters the candidate's actual year",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20240101",
+          "RRULE:FREQ=YEARLY;INTERVAL=2;WKST=MO;BYWEEKNO=1,-1;BYYEARDAY=1,-1;COUNT=7"
+        ],
+        "through": "2035-12-31",
+        "checkpoints": [
+          "2024-12-28",
+          "2024-12-29",
+          "2024-12-31",
+          "2025-12-28",
+          "2025-12-29",
+          "2025-12-31",
+          "2026-12-28",
+          "2026-12-29",
+          "2026-12-31",
+          "2027-12-28",
+          "2027-12-29",
+          "2027-12-31"
+        ]
+      },
+      "expected": [
+        "2024-01-01",
+        "2025-12-31",
+        "2026-01-01",
+        "2026-12-31",
+        "2027-01-01",
+        "2028-12-31",
+        "2029-12-31"
+      ]
+    },
+    {
+      "name": "a week selector expands seven days without BYDAY",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20240101",
+          "RRULE:FREQ=YEARLY;INTERVAL=2;WKST=MO;BYWEEKNO=1;COUNT=10"
+        ],
+        "through": "2035-12-31",
+        "checkpoints": [
+          "2024-12-28",
+          "2024-12-29",
+          "2024-12-31",
+          "2025-12-28",
+          "2025-12-29",
+          "2025-12-31",
+          "2026-12-28",
+          "2026-12-29",
+          "2026-12-31",
+          "2027-12-28",
+          "2027-12-29",
+          "2027-12-31"
+        ]
+      },
+      "expected": [
+        "2024-01-01",
+        "2024-01-02",
+        "2024-01-03",
+        "2024-01-04",
+        "2024-01-05",
+        "2024-01-06",
+        "2024-01-07",
+        "2025-12-29",
+        "2025-12-30",
+        "2025-12-31"
+      ]
+    },
+    {
+      "name": "timed UNTIL permits a prior December week position",
+      "input": {
+        "lines": [
+          "DTSTART:20240101T090000Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=2;WKST=MO;BYWEEKNO=1;BYDAY=MO,FR;BYHOUR=9,17;BYSETPOS=1,-1;UNTIL=20251229T235959Z"
+        ],
+        "through": "2025-12-29",
+        "checkpoints": [
+          "2024-12-28",
+          "2024-12-29",
+          "2024-12-31",
+          "2025-12-28",
+          "2025-12-29"
+        ]
+      },
+      "expected": [
+        "2024-01-01T09:00:00Z",
+        "2024-01-05T17:00:00Z",
+        "2025-12-29T09:00:00Z"
+      ]
+    }
+  ]
+}

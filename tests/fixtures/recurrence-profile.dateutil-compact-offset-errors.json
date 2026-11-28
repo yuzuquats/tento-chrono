@@ -1,0 +1,226 @@
+{
+  "type": "recurrence-profile",
+  "name": "dateutil compact clocks and malformed numeric offsets",
+  "source": "python-dateutil 2.8.2 rrulestr, forceset=True, TZ=UTC",
+  "cases": [
+    {
+      "name": "compact DTSTART with hours and minutes",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:202601020930",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-01-08",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:30:00",
+        "2026-01-03T09:30:00",
+        "2026-01-04T09:30:00"
+      ]
+    },
+    {
+      "name": "compact UTC DTSTART with seconds",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102093030Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-01-08",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:30:30Z",
+        "2026-01-03T09:30:30Z",
+        "2026-01-04T09:30:30Z"
+      ]
+    },
+    {
+      "name": "compact DTSTART with numeric offset",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102013030+2:3",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-01-08",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ]
+      },
+      "expected": [
+        "2026-01-01T23:27:30Z",
+        "2026-01-02T23:27:30Z",
+        "2026-01-03T23:27:30Z"
+      ]
+    },
+    {
+      "name": "compact RDATE with GMT reversed offset",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:20260102093030GMT+0530"
+        ],
+        "through": "2026-01-08",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ]
+      },
+      "expected": [
+        "2026-01-02T15:00:30Z"
+      ]
+    },
+    {
+      "name": "compact EXDATE matches aware DTSTART",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T093000Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE:202601031130+0200"
+        ],
+        "through": "2026-01-08",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:30:00Z",
+        "2026-01-04T09:30:00Z"
+      ]
+    },
+    {
+      "name": "compact floating UNTIL includes its exact cutoff",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102093030",
+          "RRULE:FREQ=DAILY;UNTIL=20260104093030"
+        ],
+        "through": "2026-01-08",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:30:30",
+        "2026-01-03T09:30:30",
+        "2026-01-04T09:30:30"
+      ]
+    },
+    {
+      "name": "compact aware UNTIL includes its exact cutoff",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102093030Z",
+          "RRULE:FREQ=DAILY;UNTIL=20260104113030+0200"
+        ],
+        "through": "2026-01-08",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:30:30Z",
+        "2026-01-03T09:30:30Z",
+        "2026-01-04T09:30:30Z"
+      ]
+    },
+    {
+      "name": "offset diagnostic reports the original letter clock",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:20260102T9h+0000:03"
+        ],
+        "through": "2026-01-08",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ]
+      },
+      "expected": {
+        "error": "Unknown string format: 20260102T9H+0000:03"
+      }
+    },
+    {
+      "name": "offset diagnostic reports the original colon clock",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T09:30+001",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-01-08",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ]
+      },
+      "expected": {
+        "error": "Unknown string format: 20260102T09:30+001"
+      }
+    },
+    {
+      "name": "offset diagnostic preserves the original GMT suffix",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T093000Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE:20260103T090000gmt+2:"
+        ],
+        "through": "2026-01-08",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ]
+      },
+      "expected": {
+        "error": "Unknown string format: 20260103T090000GMT+2:"
+      }
+    },
+    {
+      "name": "offset diagnostic reports the original compact clock",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:20260102093030+2::3"
+        ],
+        "through": "2026-01-08",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ]
+      },
+      "expected": {
+        "error": "Unknown string format: 20260102093030+2::3"
+      }
+    }
+  ]
+}

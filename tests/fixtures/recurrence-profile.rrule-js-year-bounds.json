@@ -1,0 +1,476 @@
+{
+  "type": "recurrence-profile",
+  "name": "rrule.js final calendar periods",
+  "source": "rrule.js 2.8.1 RRuleSet, TZ=UTC",
+  "cases": [
+    {
+      "name": "monthly retains both periods in 9999",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=MONTHLY;COUNT=5"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "9999-11-30T23:59:59Z"
+        },
+        "through": "10000-12-31",
+        "checkpoints": [
+          "9999-12-30",
+          "9999-12-31",
+          "10000-01-01"
+        ]
+      },
+      "expected": [
+        "9999-11-30T23:59:59Z",
+        "9999-12-30T23:59:59Z"
+      ]
+    },
+    {
+      "name": "implicit Saturday survives in the final Monday week",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=WEEKLY;COUNT=5"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "9999-12-25T09:00:00Z"
+        },
+        "through": "10000-12-31",
+        "checkpoints": [
+          "9999-12-30",
+          "9999-12-31",
+          "10000-01-01"
+        ]
+      },
+      "expected": [
+        "9999-12-25T09:00:00Z",
+        "10000-01-01T09:00:00Z"
+      ]
+    },
+    {
+      "name": "Saturday week start leaves the next period outside 9999",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=WEEKLY;WKST=SA;COUNT=5"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "9999-12-25T09:00:00Z"
+        },
+        "through": "10000-12-31",
+        "checkpoints": [
+          "9999-12-30",
+          "9999-12-31",
+          "10000-01-01"
+        ]
+      },
+      "expected": [
+        "9999-12-25T09:00:00Z"
+      ]
+    },
+    {
+      "name": "Sunday week start leaves the next period outside 9999",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=WEEKLY;WKST=SU;BYMONTH=1,12;COUNT=5"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "9999-12-26T12:01:00Z"
+        },
+        "through": "10000-12-31",
+        "checkpoints": [
+          "9999-12-30",
+          "9999-12-31",
+          "10000-01-01"
+        ]
+      },
+      "expected": [
+        "9999-12-26T12:01:00Z"
+      ]
+    },
+    {
+      "name": "last week includes Monday and both spillover days",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=WEEKLY;BYDAY=MO,SA,SU;COUNT=5"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "9999-12-27T23:59:59Z"
+        },
+        "through": "10000-12-31",
+        "checkpoints": [
+          "9999-12-30",
+          "9999-12-31",
+          "10000-01-01"
+        ]
+      },
+      "expected": [
+        "9999-12-27T23:59:59Z",
+        "10000-01-01T23:59:59Z",
+        "10000-01-02T23:59:59Z"
+      ]
+    },
+    {
+      "name": "last week positions retain both ends of the grid",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=WEEKLY;BYDAY=MO,SA;BYSETPOS=1,-1;COUNT=5"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "9999-12-27T23:59:59Z"
+        },
+        "through": "10000-12-31",
+        "checkpoints": [
+          "9999-12-30",
+          "9999-12-31",
+          "10000-01-01"
+        ]
+      },
+      "expected": [
+        "9999-12-27T23:59:59Z",
+        "10000-01-01T23:59:59Z"
+      ]
+    },
+    {
+      "name": "last week negative position can pick year 10000",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=WEEKLY;BYDAY=MO,SA;BYSETPOS=-1;COUNT=5"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "9999-12-27T23:59:59Z"
+        },
+        "through": "10000-12-31",
+        "checkpoints": [
+          "9999-12-30",
+          "9999-12-31",
+          "10000-01-01"
+        ]
+      },
+      "expected": [
+        "10000-01-01T23:59:59Z"
+      ]
+    },
+    {
+      "name": "yearly stops before year 10000",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=YEARLY;COUNT=5"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "9999-12-31T23:59:59Z"
+        },
+        "through": "10000-12-31",
+        "checkpoints": [
+          "9999-12-30",
+          "9999-12-31",
+          "10000-01-01"
+        ]
+      },
+      "expected": [
+        "9999-12-31T23:59:59Z"
+      ]
+    },
+    {
+      "name": "daily stops at the last day",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "9999-12-31T23:59:59Z"
+        },
+        "through": "10000-12-31",
+        "checkpoints": [
+          "9999-12-30",
+          "9999-12-31",
+          "10000-01-01"
+        ]
+      },
+      "expected": [
+        "9999-12-31T23:59:59Z"
+      ]
+    },
+    {
+      "name": "hourly stops at the last hour",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=HOURLY;COUNT=5"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "9999-12-31T23:59:59Z"
+        },
+        "through": "10000-12-31",
+        "checkpoints": [
+          "9999-12-30",
+          "9999-12-31",
+          "10000-01-01"
+        ]
+      },
+      "expected": [
+        "9999-12-31T23:59:59Z"
+      ]
+    },
+    {
+      "name": "minutely stops at the last minute",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=MINUTELY;COUNT=5"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "9999-12-31T23:59:59Z"
+        },
+        "through": "10000-12-31",
+        "checkpoints": [
+          "9999-12-30",
+          "9999-12-31",
+          "10000-01-01"
+        ]
+      },
+      "expected": [
+        "9999-12-31T23:59:59Z"
+      ]
+    },
+    {
+      "name": "secondly stops at the last second",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=SECONDLY;COUNT=5"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "9999-12-31T23:59:59Z"
+        },
+        "through": "10000-12-31",
+        "checkpoints": [
+          "9999-12-30",
+          "9999-12-31",
+          "10000-01-01"
+        ]
+      },
+      "expected": [
+        "9999-12-31T23:59:59Z"
+      ]
+    },
+    {
+      "name": "unreachable yearly date terminates",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=YEARLY;BYMONTH=2;BYMONTHDAY=30;COUNT=5"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "9999-12-31T23:59:59Z"
+        },
+        "through": "10000-12-31",
+        "checkpoints": [
+          "9999-12-30",
+          "9999-12-31",
+          "10000-01-01"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "unreachable monthly date terminates",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=MONTHLY;BYMONTH=2;BYMONTHDAY=30;COUNT=5"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "9999-12-31T23:59:59Z"
+        },
+        "through": "10000-12-31",
+        "checkpoints": [
+          "9999-12-30",
+          "9999-12-31",
+          "10000-01-01"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "last daily second sixty carries past midnight",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=DAILY;BYHOUR=23;BYMINUTE=59;BYSECOND=60;COUNT=5"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "9999-12-31T23:59:59Z"
+        },
+        "through": "10000-12-31",
+        "checkpoints": [
+          "9999-12-30",
+          "9999-12-31",
+          "10000-01-01"
+        ]
+      },
+      "expected": [
+        "10000-01-01T00:00:00Z"
+      ]
+    },
+    {
+      "name": "last minute retains second sixty carry",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=MINUTELY;BYSECOND=59,60;COUNT=5"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "9999-12-31T23:59:59Z"
+        },
+        "through": "10000-12-31",
+        "checkpoints": [
+          "9999-12-30",
+          "9999-12-31",
+          "10000-01-01"
+        ]
+      },
+      "expected": [
+        "9999-12-31T23:59:59Z",
+        "10000-01-01T00:00:00Z"
+      ]
+    },
+    {
+      "name": "empty Easter mask terminates",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=YEARLY;BYEASTER=900;COUNT=5"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "9999-12-31T23:59:59Z"
+        },
+        "through": "10000-12-31",
+        "checkpoints": [
+          "9999-12-30",
+          "9999-12-31",
+          "10000-01-01"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "last week uses its original year mask",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=WEEKLY;BYWEEKNO=1,-1;BYDAY=FR,SA,SU;COUNT=5"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "9999-12-31T23:59:59Z"
+        },
+        "through": "10000-12-31",
+        "checkpoints": [
+          "9999-12-30",
+          "9999-12-31",
+          "10000-01-01"
+        ]
+      },
+      "expected": [
+        "9999-12-31T23:59:59Z",
+        "10000-01-01T23:59:59Z",
+        "10000-01-02T23:59:59Z"
+      ]
+    },
+    {
+      "name": "last second retains external milliseconds",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=SECONDLY;COUNT=5"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "9999-12-31T23:59:59.125Z"
+        },
+        "through": "10000-12-31",
+        "checkpoints": [
+          "9999-12-30",
+          "9999-12-31",
+          "10000-01-01"
+        ]
+      },
+      "expected": [
+        "9999-12-31T23:59:59.125Z"
+      ]
+    },
+    {
+      "name": "zoned cutoff follows the local counter",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=YEARLY;COUNT=5"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "9999-12-27T23:59:59",
+          "timeZone": "Asia/Tokyo"
+        },
+        "through": "10000-12-31",
+        "checkpoints": [
+          "9999-12-30",
+          "9999-12-31",
+          "10000-01-01"
+        ]
+      },
+      "expected": [
+        "9999-12-27T14:59:59Z"
+      ]
+    },
+    {
+      "name": "explicit UNTIL cuts off the last week's spillover",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=WEEKLY;BYDAY=MO,SA,SU;UNTIL=99991231T235959Z"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "9999-12-27T23:59:59Z"
+        },
+        "through": "10000-12-31",
+        "checkpoints": [
+          "9999-12-30",
+          "9999-12-31",
+          "10000-01-01"
+        ]
+      },
+      "expected": [
+        "9999-12-27T23:59:59Z"
+      ]
+    },
+    {
+      "name": "exclusion rule removes a spillover instance",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=WEEKLY;BYDAY=MO,SA,SU;COUNT=5",
+          "EXRULE:FREQ=WEEKLY;BYDAY=SA;COUNT=1",
+          "RDATE:99991231T235959Z",
+          "EXDATE:99991227T235959Z"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "9999-12-27T23:59:59Z"
+        },
+        "through": "10000-12-31",
+        "checkpoints": [
+          "9999-12-30",
+          "9999-12-31",
+          "10000-01-01"
+        ]
+      },
+      "expected": [
+        "9999-12-31T23:59:59Z",
+        "10000-01-02T23:59:59Z"
+      ]
+    }
+  ]
+}

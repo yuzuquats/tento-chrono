@@ -1,0 +1,642 @@
+{
+  "type": "dateutil-sequence",
+  "name": "dateutil 2.8.2 sequence operations",
+  "source": "python-dateutil 2.8.2 uncached rrulestr, __getitem__, count",
+  "cases": [
+    {
+      "name": "RRuleTest.testGetItem",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "queries": [
+          {
+            "method": "at",
+            "index": 0
+          }
+        ]
+      },
+      "expected": [
+        "1997-09-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testGetItemNeg",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "queries": [
+          {
+            "method": "at",
+            "index": -1
+          }
+        ]
+      },
+      "expected": [
+        "1997-09-04T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testGetItemSlice",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY"
+        ],
+        "queries": [
+          {
+            "method": "slice",
+            "start": 1,
+            "stop": 2
+          }
+        ]
+      },
+      "expected": [
+        [
+          "1997-09-03T09:00:00"
+        ]
+      ]
+    },
+    {
+      "name": "RRuleTest.testGetItemSliceEmpty",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "queries": [
+          {
+            "method": "slice"
+          }
+        ]
+      },
+      "expected": [
+        [
+          "1997-09-02T09:00:00",
+          "1997-09-03T09:00:00",
+          "1997-09-04T09:00:00"
+        ]
+      ]
+    },
+    {
+      "name": "RRuleTest.testGetItemSliceStep",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "queries": [
+          {
+            "method": "slice",
+            "step": -2
+          }
+        ]
+      },
+      "expected": [
+        [
+          "1997-09-04T09:00:00",
+          "1997-09-02T09:00:00"
+        ]
+      ]
+    },
+    {
+      "name": "vendored testCount",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "queries": [
+          {
+            "method": "count"
+          }
+        ]
+      },
+      "expected": [
+        3
+      ]
+    },
+    {
+      "name": "COUNT zero and out-of-range indices",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=YEARLY;COUNT=0"
+        ],
+        "queries": [
+          {
+            "method": "count"
+          },
+          {
+            "method": "at",
+            "index": 0
+          },
+          {
+            "method": "at",
+            "index": -1
+          }
+        ]
+      },
+      "expected": [
+        0,
+        {
+          "error": "dateutil recurrence index out of range"
+        },
+        {
+          "error": "dateutil recurrence index out of range"
+        }
+      ]
+    },
+    {
+      "name": "spring gap indices are based on traversal order",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T014500",
+          "RRULE:FREQ=MINUTELY;INTERVAL=30;COUNT=2"
+        ],
+        "queries": [
+          {
+            "method": "at",
+            "index": 0
+          },
+          {
+            "method": "at",
+            "index": -1
+          },
+          {
+            "method": "slice"
+          },
+          {
+            "method": "slice",
+            "step": -1
+          },
+          {
+            "method": "count"
+          }
+        ]
+      },
+      "expected": [
+        "2026-03-08T06:45:00Z",
+        "2026-03-08T06:15:00Z",
+        [
+          "2026-03-08T06:45:00Z",
+          "2026-03-08T06:15:00Z"
+        ],
+        [
+          "2026-03-08T06:15:00Z",
+          "2026-03-08T06:45:00Z"
+        ],
+        2
+      ]
+    },
+    {
+      "name": "spring gap in a forced set",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T014500",
+          "RRULE:FREQ=MINUTELY;INTERVAL=30;COUNT=2"
+        ],
+        "queries": [
+          {
+            "method": "at",
+            "index": 0
+          },
+          {
+            "method": "at",
+            "index": -1
+          },
+          {
+            "method": "slice"
+          },
+          {
+            "method": "count"
+          }
+        ],
+        "forceSet": true
+      },
+      "expected": [
+        "2026-03-08T06:45:00Z",
+        "2026-03-08T06:15:00Z",
+        [
+          "2026-03-08T06:45:00Z",
+          "2026-03-08T06:15:00Z"
+        ],
+        2
+      ]
+    },
+    {
+      "name": "UTC RDATE and wall-time exclusions in a spring gap",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T014500",
+          "RRULE:FREQ=MINUTELY;INTERVAL=30;COUNT=2",
+          "RDATE:20260308T063000Z",
+          "EXDATE;TZID=America/New_York:20260308T021500"
+        ],
+        "queries": [
+          {
+            "method": "at",
+            "index": 0
+          },
+          {
+            "method": "at",
+            "index": -1
+          },
+          {
+            "method": "slice"
+          },
+          {
+            "method": "count"
+          }
+        ]
+      },
+      "expected": [
+        "2026-03-08T06:30:00Z",
+        "2026-03-08T06:15:00Z",
+        [
+          "2026-03-08T06:30:00Z",
+          "2026-03-08T06:45:00Z",
+          "2026-03-08T06:15:00Z"
+        ],
+        3
+      ]
+    },
+    {
+      "name": "standalone stationary count preserves repeated candidates",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T120000",
+          "RRULE:FREQ=DAILY;INTERVAL=0;COUNT=3"
+        ],
+        "queries": [
+          {
+            "method": "count"
+          },
+          {
+            "method": "at",
+            "index": 2
+          },
+          {
+            "method": "at",
+            "index": -1
+          },
+          {
+            "method": "slice",
+            "step": -1
+          }
+        ]
+      },
+      "expected": [
+        3,
+        "2026-01-01T12:00:00",
+        "2026-01-01T12:00:00",
+        [
+          "2026-01-01T12:00:00",
+          "2026-01-01T12:00:00",
+          "2026-01-01T12:00:00"
+        ]
+      ]
+    },
+    {
+      "name": "forced set stationary count deduplicates",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T120000",
+          "RRULE:FREQ=DAILY;INTERVAL=0;COUNT=3"
+        ],
+        "queries": [
+          {
+            "method": "count"
+          },
+          {
+            "method": "at",
+            "index": 2
+          },
+          {
+            "method": "at",
+            "index": -1
+          },
+          {
+            "method": "slice",
+            "step": -1
+          }
+        ],
+        "forceSet": true
+      },
+      "expected": [
+        1,
+        {
+          "error": "dateutil recurrence index out of range"
+        },
+        "2026-01-01T12:00:00",
+        [
+          "2026-01-01T12:00:00"
+        ]
+      ]
+    },
+    {
+      "name": "bounded reads of a productive unbounded stationary rule",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T120000",
+          "RRULE:FREQ=DAILY;INTERVAL=0"
+        ],
+        "queries": [
+          {
+            "method": "at",
+            "index": 5
+          },
+          {
+            "method": "slice",
+            "start": 2,
+            "stop": 8,
+            "step": 2
+          }
+        ]
+      },
+      "expected": [
+        "2026-01-01T12:00:00",
+        [
+          "2026-01-01T12:00:00",
+          "2026-01-01T12:00:00",
+          "2026-01-01T12:00:00"
+        ]
+      ]
+    },
+    {
+      "name": "implicit zero stop and zero step",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "queries": [
+          {
+            "method": "slice",
+            "stop": 0
+          },
+          {
+            "method": "slice",
+            "step": 0
+          },
+          {
+            "method": "slice",
+            "start": 1,
+            "stop": 0,
+            "step": 0
+          }
+        ]
+      },
+      "expected": [
+        [
+          "1997-09-02T09:00:00",
+          "1997-09-03T09:00:00",
+          "1997-09-04T09:00:00"
+        ],
+        [
+          "1997-09-02T09:00:00",
+          "1997-09-03T09:00:00",
+          "1997-09-04T09:00:00"
+        ],
+        [
+          "1997-09-03T09:00:00",
+          "1997-09-04T09:00:00"
+        ]
+      ]
+    },
+    {
+      "name": "negative forward bounds fail in Python's validation order",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "queries": [
+          {
+            "method": "slice",
+            "start": -1,
+            "stop": 1
+          },
+          {
+            "method": "slice",
+            "stop": -1
+          },
+          {
+            "method": "slice",
+            "stop": -2
+          },
+          {
+            "method": "slice",
+            "start": -1,
+            "stop": -1,
+            "step": 0
+          }
+        ]
+      },
+      "expected": [
+        {
+          "error": "Indices for islice() must be None or an integer: 0 <= x <= sys.maxsize."
+        },
+        {
+          "error": "Stop argument for islice() must be None or an integer: 0 <= x <= sys.maxsize."
+        },
+        {
+          "error": "Indices for islice() must be None or an integer: 0 <= x <= sys.maxsize."
+        },
+        {
+          "error": "Stop argument for islice() must be None or an integer: 0 <= x <= sys.maxsize."
+        }
+      ]
+    },
+    {
+      "name": "negative step normalizes signed bounds",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "queries": [
+          {
+            "method": "slice",
+            "start": 30,
+            "stop": -2,
+            "step": -1
+          },
+          {
+            "method": "slice",
+            "start": -1,
+            "stop": -12,
+            "step": -2
+          },
+          {
+            "method": "slice",
+            "start": -9,
+            "stop": -10,
+            "step": -1
+          },
+          {
+            "method": "slice",
+            "stop": 0,
+            "step": -1
+          },
+          {
+            "method": "slice",
+            "stop": -1,
+            "step": -1
+          }
+        ]
+      },
+      "expected": [
+        [
+          "1997-09-04T09:00:00"
+        ],
+        [
+          "1997-09-04T09:00:00",
+          "1997-09-02T09:00:00"
+        ],
+        [],
+        [
+          "1997-09-04T09:00:00",
+          "1997-09-03T09:00:00"
+        ],
+        []
+      ]
+    },
+    {
+      "name": "forward slice skips to start when stop precedes it",
+      "input": {
+        "lines": [
+          "DTSTART:00010101T090000",
+          "RRULE:FREQ=MONTHLY;INTERVAL=-1;COUNT=3"
+        ],
+        "queries": [
+          {
+            "method": "slice",
+            "start": 2,
+            "stop": 1
+          },
+          {
+            "method": "slice",
+            "start": 1,
+            "stop": 1
+          }
+        ]
+      },
+      "expected": [
+        {
+          "error": "not enough values to unpack (expected 2, got 0)"
+        },
+        []
+      ]
+    },
+    {
+      "name": "forward reads stop before an underflow consumed by reverse and count",
+      "input": {
+        "lines": [
+          "DTSTART:00010101T090000",
+          "RRULE:FREQ=MONTHLY;INTERVAL=-1;COUNT=3"
+        ],
+        "queries": [
+          {
+            "method": "at",
+            "index": 0
+          },
+          {
+            "method": "at",
+            "index": -1
+          },
+          {
+            "method": "slice",
+            "stop": 1
+          },
+          {
+            "method": "slice",
+            "step": -1
+          },
+          {
+            "method": "count"
+          }
+        ]
+      },
+      "expected": [
+        "0001-01-01T09:00:00",
+        {
+          "error": "not enough values to unpack (expected 2, got 0)"
+        },
+        [
+          "0001-01-01T09:00:00"
+        ],
+        {
+          "error": "not enough values to unpack (expected 2, got 0)"
+        },
+        {
+          "error": "not enough values to unpack (expected 2, got 0)"
+        }
+      ]
+    },
+    {
+      "name": "count keeps distinct submillisecond candidates",
+      "input": {
+        "lines": [
+          "RDATE:20260101T120000.123455Z,20260101T120000.123456Z,20260101T120000.123457Z"
+        ],
+        "queries": [
+          {
+            "method": "count"
+          },
+          {
+            "method": "at",
+            "index": 0
+          },
+          {
+            "method": "at",
+            "index": 2
+          },
+          {
+            "method": "slice"
+          }
+        ]
+      },
+      "expected": [
+        3,
+        "2026-01-01T12:00:00.123Z",
+        "2026-01-01T12:00:00.123Z",
+        [
+          "2026-01-01T12:00:00.123Z",
+          "2026-01-01T12:00:00.123Z",
+          "2026-01-01T12:00:00.123Z"
+        ]
+      ]
+    },
+    {
+      "name": "an index can be out of range in either direction",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "queries": [
+          {
+            "method": "at",
+            "index": 5
+          },
+          {
+            "method": "at",
+            "index": -5
+          }
+        ]
+      },
+      "expected": [
+        {
+          "error": "dateutil recurrence index out of range"
+        },
+        {
+          "error": "dateutil recurrence index out of range"
+        }
+      ]
+    }
+  ]
+}

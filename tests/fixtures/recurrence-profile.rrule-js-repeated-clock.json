@@ -1,0 +1,402 @@
+{
+  "type": "recurrence-profile",
+  "name": "rrule.js 2.8.1 repeated clock selectors",
+  "source": "rrulestr 2.8.1 with forceset true and the fixture process timezone",
+  "cases": [
+    {
+      "name": "daily-repeated-hours",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=9,9;COUNT=4"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-06-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "hourly-repeated-minutes",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=HOURLY;BYMINUTE=0,0;COUNT=4"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-06-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-01T10:00:00Z"
+      ]
+    },
+    {
+      "name": "minutely-repeated-seconds",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=MINUTELY;BYSECOND=0,0;COUNT=4"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-06-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-01T09:01:00Z"
+      ]
+    },
+    {
+      "name": "position-addresses-repeated-hour",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=9,9,12;BYSETPOS=2;COUNT=4"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-06-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z",
+        "2026-01-04T09:00:00Z"
+      ]
+    },
+    {
+      "name": "daily-repeat-with-second-carry",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;BYMINUTE=0,0;BYSECOND=0,60;COUNT=4"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-06-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-01T09:01:00Z"
+      ]
+    },
+    {
+      "name": "hourly-minute-and-second-multiplicity",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=HOURLY;BYMINUTE=0,0;BYSECOND=0,0;COUNT=4"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-06-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z"
+      ]
+    },
+    {
+      "name": "monthly-repeated-clock-positions",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=MONTHLY;BYMONTHDAY=1,2;BYHOUR=9,9,12;BYSETPOS=2,-2;COUNT=4"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-06-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-02-01T09:00:00Z",
+        "2026-02-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "secondly-period-selector-is-a-filter",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=SECONDLY;BYSECOND=0,0;COUNT=4"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-06-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-01T09:01:00Z",
+        "2026-01-01T09:02:00Z",
+        "2026-01-01T09:03:00Z"
+      ]
+    },
+    {
+      "name": "exrule-consumes-count-on-duplicates",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=4",
+          "EXRULE:FREQ=DAILY;BYHOUR=9,9;COUNT=4"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-06-01"
+      },
+      "expected": [
+        "2026-01-03T09:00:00Z",
+        "2026-01-04T09:00:00Z"
+      ]
+    },
+    {
+      "name": "unsorted-hours-consume-count-in-input-order",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=23,1;COUNT=1"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T23:00:00Z"
+      ]
+    },
+    {
+      "name": "incremental-window-reads-earlier-clock-from-same-day",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/Los_Angeles:20260101T000000",
+          "RRULE:FREQ=DAILY;BYHOUR=23,1;COUNT=4"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T07:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T07:00:00Z"
+      ]
+    },
+    {
+      "name": "until-stops-in-input-order",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=23,1;UNTIL=20260101T120000Z"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-02-01"
+      },
+      "expected": []
+    },
+    {
+      "name": "negative-position-clamps-day-in-daily-grid",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=9,12;BYSETPOS=-3;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-06-01"
+      },
+      "expected": [
+        "2026-01-01T12:00:00Z",
+        "2026-01-02T12:00:00Z",
+        "2026-01-03T12:00:00Z"
+      ]
+    },
+    {
+      "name": "negative-position-clamps-day-in-subdaily-grid",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=HOURLY;BYMINUTE=0,30;BYSETPOS=-3;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-06-01"
+      },
+      "expected": [
+        "2026-01-01T09:30:00Z",
+        "2026-01-01T10:30:00Z",
+        "2026-01-01T11:30:00Z"
+      ]
+    },
+    {
+      "name": "negative-position-keeps-time-in-first-day",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=MONTHLY;BYMONTHDAY=1,2;BYHOUR=9,12;BYSETPOS=-5;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-06-01"
+      },
+      "expected": [
+        "2026-01-01T12:00:00Z",
+        "2026-02-01T12:00:00Z",
+        "2026-03-01T12:00:00Z"
+      ]
+    },
+    {
+      "name": "clamped-and-ordinary-positions-consume-count",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=9,12;BYSETPOS=-4,1;COUNT=4"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-06-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "invalid-middle-position-preserves-first-visit",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=9,12;BYSETPOS=2,366,1;COUNT=1"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T12:00:00Z"
+      ]
+    },
+    {
+      "name": "invalid-first-position-allows-valid-picks-to-sort",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=9,12;BYSETPOS=366,2,1;COUNT=1"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z"
+      ]
+    },
+    {
+      "name": "invalid-position-before-valid-until-controls-termination",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=9,12;BYSETPOS=-3,366,1;UNTIL=20260101T110000Z"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-02-01"
+      },
+      "expected": []
+    },
+    {
+      "name": "invalid-subdaily-position-separates-clock-picks",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=HOURLY;BYMINUTE=0,30;BYSETPOS=2,366,1;COUNT=1"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T09:30:00Z"
+      ]
+    },
+    {
+      "name": "negative-position-on-filtered-first-hour",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=HOURLY;COUNT=3;BYHOUR=1;BYMINUTE=0,59;BYSETPOS=-30,1"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T00:00:00Z",
+        "2026-01-01T01:00:00Z"
+      ]
+    },
+    {
+      "name": "negative-positions-count-filtered-midnight-twice",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=MINUTELY;COUNT=3;BYMINUTE=1;BYSECOND=0,59;BYSETPOS=-30,-1"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T00:00:00Z",
+        "2026-01-01T00:01:00Z"
+      ]
+    },
+    {
+      "name": "filtered-first-midnight-stays-before-dtstart",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000100Z",
+          "RRULE:FREQ=MINUTELY;COUNT=3;BYMINUTE=2;BYSECOND=0,59;BYSETPOS=-30,1"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T00:02:00Z",
+        "2026-01-01T01:02:00Z"
+      ]
+    },
+    {
+      "name": "filtered-first-second-can-emit-midnight",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=SECONDLY;COUNT=3;BYSECOND=1;BYSETPOS=-2,1"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T00:00:00Z",
+        "2026-01-01T00:00:01Z"
+      ]
+    },
+    {
+      "name": "empty-clock-fallback-uses-host-before-target-rezoning",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "America/Los_Angeles",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260307T000001",
+          "RRULE:FREQ=HOURLY;BYHOUR=1;BYMINUTE=0,59;BYSETPOS=-30,1;COUNT=5"
+        ],
+        "through": "2026-03-15"
+      },
+      "expected": [
+        "2026-03-06T22:00:01Z",
+        "2026-03-07T13:00:00Z",
+        "2026-03-07T22:00:01Z"
+      ]
+    },
+    {
+      "name": "empty-clock-fallback-uses-host-with-literal-utc",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "Asia/Tokyo",
+        "lines": [
+          "DTSTART;TZID=UTC:20260307T000000",
+          "RRULE:FREQ=HOURLY;BYHOUR=1;BYMINUTE=0,59;BYSETPOS=-30,1;COUNT=5"
+        ],
+        "through": "2026-03-15"
+      },
+      "expected": [
+        "2026-03-07T01:00:00Z",
+        "2026-03-07T09:00:00Z",
+        "2026-03-08T01:00:00Z"
+      ]
+    }
+  ]
+}

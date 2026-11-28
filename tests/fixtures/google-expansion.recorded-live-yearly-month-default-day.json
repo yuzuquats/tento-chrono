@@ -1,0 +1,339 @@
+{
+  "type": "google-expansion",
+  "name": "Google Calendar yearly month selectors with an implicit day",
+  "source": "Google Calendar API events.instances",
+  "captureCliCommit": "8db8950f7cf894e781d289f6e513f5e53e6d587a",
+  "capturedAt": "2026-11-23T14:57:59.274559+00:00",
+  "cases": [
+    {
+      "name": "month-single-middle",
+      "input": {
+        "start": "2027-01-15T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;BYMONTH=2;COUNT=5"
+        ],
+        "window": {
+          "start": "2027-01-15T00:00:00Z",
+          "end": "2036-01-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=5;BYMONTH=2"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-15T09:00:00Z",
+          "2027-02-15T09:00:00Z",
+          "2028-02-15T09:00:00Z",
+          "2029-02-15T09:00:00Z",
+          "2030-02-15T09:00:00Z",
+          "2031-02-15T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "month-several-middle",
+      "input": {
+        "start": "2027-01-15T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;BYMONTH=2,3;COUNT=5"
+        ],
+        "window": {
+          "start": "2027-01-15T00:00:00Z",
+          "end": "2036-01-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=5;BYMONTH=2,3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-15T09:00:00Z",
+          "2027-02-15T09:00:00Z",
+          "2027-03-15T09:00:00Z",
+          "2028-02-15T09:00:00Z",
+          "2028-03-15T09:00:00Z",
+          "2029-02-15T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "month-several-end-day",
+      "input": {
+        "start": "2027-01-31T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;BYMONTH=2,3,4;COUNT=5"
+        ],
+        "window": {
+          "start": "2027-01-31T00:00:00Z",
+          "end": "2036-01-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=5;BYMONTH=2,3,4"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-31T09:00:00Z",
+          "2027-03-31T09:00:00Z",
+          "2028-03-31T09:00:00Z",
+          "2029-03-31T09:00:00Z",
+          "2030-03-31T09:00:00Z",
+          "2031-03-31T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "month-several-leap-day",
+      "input": {
+        "start": "2028-02-29T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;BYMONTH=2,3;COUNT=5"
+        ],
+        "window": {
+          "start": "2028-02-29T00:00:00Z",
+          "end": "2036-01-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=5;BYMONTH=2,3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2028-02-29T09:00:00Z",
+          "2028-03-29T09:00:00Z",
+          "2029-03-29T09:00:00Z",
+          "2030-03-29T09:00:00Z",
+          "2031-03-29T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "month-several-ranked-first",
+      "input": {
+        "start": "2027-01-15T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;BYMONTH=2,3;BYSETPOS=1;COUNT=5"
+        ],
+        "window": {
+          "start": "2027-01-15T00:00:00Z",
+          "end": "2036-01-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=5;BYMONTH=2,3;BYSETPOS=1"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-15T09:00:00Z",
+          "2027-02-15T09:00:00Z",
+          "2028-02-15T09:00:00Z",
+          "2029-02-15T09:00:00Z",
+          "2030-02-15T09:00:00Z",
+          "2031-02-15T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "month-several-ranked-last",
+      "input": {
+        "start": "2027-01-15T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;BYMONTH=2,3;BYSETPOS=-1;COUNT=5"
+        ],
+        "window": {
+          "start": "2027-01-15T00:00:00Z",
+          "end": "2036-01-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=5;BYMONTH=2,3;BYSETPOS=-1"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-15T09:00:00Z",
+          "2027-03-15T09:00:00Z",
+          "2028-03-15T09:00:00Z",
+          "2029-03-15T09:00:00Z",
+          "2030-03-15T09:00:00Z",
+          "2031-03-15T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "month-several-ranked-second",
+      "input": {
+        "start": "2027-01-31T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;BYMONTH=1,2,3;BYSETPOS=2;COUNT=5"
+        ],
+        "window": {
+          "start": "2027-01-31T00:00:00Z",
+          "end": "2036-01-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=5;BYMONTH=1,2,3;BYSETPOS=2"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-31T09:00:00Z",
+          "2027-03-31T09:00:00Z",
+          "2028-03-31T09:00:00Z",
+          "2029-03-31T09:00:00Z",
+          "2030-03-31T09:00:00Z",
+          "2031-03-31T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "month-several-interval",
+      "input": {
+        "start": "2027-01-15T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;BYMONTH=2,3;INTERVAL=2;COUNT=5"
+        ],
+        "window": {
+          "start": "2027-01-15T00:00:00Z",
+          "end": "2036-01-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=2;BYMONTH=2,3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-15T09:00:00Z",
+          "2027-02-15T09:00:00Z",
+          "2027-03-15T09:00:00Z",
+          "2029-02-15T09:00:00Z",
+          "2029-03-15T09:00:00Z",
+          "2031-02-15T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "month-includes-anchor-but-ranked-last",
+      "input": {
+        "start": "2027-02-15T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=YEARLY;BYMONTH=2,3;BYSETPOS=-1;COUNT=5"
+        ],
+        "window": {
+          "start": "2027-02-15T00:00:00Z",
+          "end": "2036-01-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=5;BYMONTH=2,3;BYSETPOS=-1"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-02-15T09:00:00Z",
+          "2027-03-15T09:00:00Z",
+          "2028-03-15T09:00:00Z",
+          "2029-03-15T09:00:00Z",
+          "2030-03-15T09:00:00Z",
+          "2031-03-15T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "month-several-civil",
+      "input": {
+        "start": "2027-01-31",
+        "rules": [
+          "RRULE:FREQ=YEARLY;BYMONTH=2,3,4;COUNT=5"
+        ],
+        "window": {
+          "start": "2027-01-31T00:00:00Z",
+          "end": "2036-01-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=5;BYMONTH=2,3,4"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-31",
+          "2027-03-31",
+          "2028-03-31",
+          "2029-03-31",
+          "2030-03-31",
+          "2031-03-31"
+        ]
+      }
+    },
+    {
+      "name": "month-exrule-implicit",
+      "input": {
+        "start": "2027-01-15T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=1",
+          "RDATE:20270201T090000Z,20270215T090000Z,20270228T090000Z,20270301T090000Z,20270315T090000Z,20270331T090000Z,20280215T090000Z,20280315T090000Z",
+          "EXRULE:FREQ=YEARLY;BYMONTH=2,3;COUNT=5"
+        ],
+        "window": {
+          "start": "2027-01-15T00:00:00Z",
+          "end": "2036-01-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "EXRULE:FREQ=YEARLY;COUNT=5;BYMONTH=2,3",
+          "RDATE;VALUE=DATE-TIME:20270201T090000Z,20270215T090000Z,20270228T090000Z,20270301T090000Z,20270315T090000Z,20270331T090000Z,20280215T090000Z,20280315T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-15T09:00:00Z",
+          "2027-02-01T09:00:00Z",
+          "2027-02-28T09:00:00Z",
+          "2027-03-01T09:00:00Z",
+          "2027-03-31T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "month-exrule-ranked-last",
+      "input": {
+        "start": "2027-01-15T09:00:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=1",
+          "RDATE:20270201T090000Z,20270215T090000Z,20270228T090000Z,20270301T090000Z,20270315T090000Z,20270331T090000Z,20280215T090000Z,20280315T090000Z",
+          "EXRULE:FREQ=YEARLY;BYMONTH=2,3;BYSETPOS=-1;COUNT=5"
+        ],
+        "window": {
+          "start": "2027-01-15T00:00:00Z",
+          "end": "2036-01-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "EXRULE:FREQ=YEARLY;COUNT=5;BYMONTH=2,3;BYSETPOS=-1",
+          "RDATE;VALUE=DATE-TIME:20270201T090000Z,20270215T090000Z,20270228T090000Z,20270301T090000Z,20270315T090000Z,20270331T090000Z,20280215T090000Z,20280315T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-15T09:00:00Z",
+          "2027-02-01T09:00:00Z",
+          "2027-02-15T09:00:00Z",
+          "2027-02-28T09:00:00Z",
+          "2027-03-01T09:00:00Z",
+          "2027-03-31T09:00:00Z",
+          "2028-02-15T09:00:00Z"
+        ]
+      }
+    }
+  ]
+}

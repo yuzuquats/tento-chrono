@@ -24,22 +24,22 @@ export const LA_PST = new FixedTimezone("LA_PST", {
   offset: Duration.Time.from({ mins: -480 }),
 });
 
-const fixtureLoader: TimezoneRegion.Loader = {
-  load: async (tzname: Tzname) => {
-    const name = tzname.replaceAll("/", "~");
-    if (!/^[A-Za-z0-9_+~\-]+$/.test(name)) {
-      throw new Error(`Invalid timezone fixture name: ${tzname}`);
-    }
-    const text = await Deno.readTextFile(
-      new URL(`./timezones/2024b/${name}.json`, import.meta.url),
-    );
-    const transitions: TimezoneRegion.Transition.Serialized[] = JSON.parse(text);
-    return transitions.map((value) => TimezoneRegion.Transition.parse(value, tzname));
-  },
-};
-
-export function installTimezoneLoader() {
-  TimezoneRegion.setLoader(fixtureLoader);
+export function installTimezoneLoader(
+  fixtureDirectory: "2024b" | "legacy-2024b" = "2024b",
+) {
+  TimezoneRegion.setLoader({
+    load: async (tzname: Tzname) => {
+      const name = tzname.replaceAll("/", "~");
+      if (!/^[A-Za-z0-9_+~\-]+$/.test(name)) {
+        throw new Error(`Invalid timezone fixture name: ${tzname}`);
+      }
+      const text = await Deno.readTextFile(
+        new URL(`./timezones/${fixtureDirectory}/${name}.json`, import.meta.url),
+      );
+      const transitions: TimezoneRegion.Transition.Serialized[] = JSON.parse(text);
+      return transitions.map((value) => TimezoneRegion.Transition.parse(value, tzname));
+    },
+  });
 }
 
 export function assertEqualsObject(actual: unknown, expected: unknown) {

@@ -1,0 +1,357 @@
+{
+  "type": "recurrence-profile",
+  "name": "dateutil calendar year bounds",
+  "source": "python-dateutil 2.8.2 rrulestr(forceset=True), bounded between reads",
+  "cases": [
+    {
+      "name": "last second at Python maximum",
+      "input": {
+        "lines": [
+          "DTSTART:99991231T235959Z",
+          "RRULE:FREQ=SECONDLY;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-20",
+          "9999-12-30"
+        ]
+      },
+      "expected": [
+        "9999-12-31T23:59:59Z"
+      ]
+    },
+    {
+      "name": "last day at Python maximum",
+      "input": {
+        "lines": [
+          "DTSTART:99991231T120000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-20",
+          "9999-12-30"
+        ]
+      },
+      "expected": [
+        "9999-12-31T12:00:00"
+      ]
+    },
+    {
+      "name": "no matching monthly BYMONTHDAY at Python maximum",
+      "input": {
+        "lines": [
+          "DTSTART:99991201T000000Z",
+          "RRULE:FREQ=MONTHLY;BYMONTH=2;BYMONTHDAY=30;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-20",
+          "9999-12-30"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "no matching yearly BYMONTHDAY at Python maximum",
+      "input": {
+        "lines": [
+          "DTSTART:99991231T000000Z",
+          "RRULE:FREQ=YEARLY;BYMONTH=2;BYMONTHDAY=30;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-20",
+          "9999-12-30"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "yearly COUNT cannot reach a second year after 9999",
+      "input": {
+        "lines": [
+          "DTSTART:99990101T090000Z",
+          "RRULE:FREQ=YEARLY;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-20",
+          "9999-12-30"
+        ]
+      },
+      "expected": [
+        "9999-01-01T09:00:00Z"
+      ]
+    },
+    {
+      "name": "weekly COUNT can finish before optional extra week",
+      "input": {
+        "lines": [
+          "DTSTART:99991220T120000",
+          "RRULE:FREQ=WEEKLY;BYDAY=MO,SA;COUNT=1"
+        ],
+        "profile": "dateutil",
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-20",
+          "9999-12-30"
+        ]
+      },
+      "expected": [
+        "9999-12-20T12:00:00"
+      ]
+    },
+    {
+      "name": "weekly COUNT still constructs the final Saturday",
+      "input": {
+        "lines": [
+          "DTSTART:99991231T235959",
+          "RRULE:FREQ=WEEKLY;BYDAY=FR,SA;COUNT=1"
+        ],
+        "profile": "dateutil",
+        "through": "9999-12-31"
+      },
+      "expected": {
+        "expansionError": "year 10000 is out of range"
+      }
+    },
+    {
+      "name": "weekly UNTIL still constructs the final Saturday",
+      "input": {
+        "lines": [
+          "DTSTART:99991231T235959Z",
+          "RRULE:FREQ=WEEKLY;BYDAY=FR,SA;UNTIL=99991231T235959Z"
+        ],
+        "profile": "dateutil",
+        "through": "9999-12-31"
+      },
+      "expected": {
+        "expansionError": "year 10000 is out of range"
+      }
+    },
+    {
+      "name": "weekly set position can choose valid Monday",
+      "input": {
+        "lines": [
+          "DTSTART:99991227T120000",
+          "RRULE:FREQ=WEEKLY;BYDAY=MO,SA;BYSETPOS=1;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-20",
+          "9999-12-30"
+        ]
+      },
+      "expected": [
+        "9999-12-27T12:00:00"
+      ]
+    },
+    {
+      "name": "weekly set position can choose invalid Saturday",
+      "input": {
+        "lines": [
+          "DTSTART:99991227T120000",
+          "RRULE:FREQ=WEEKLY;BYDAY=MO,SA;BYSETPOS=-1;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "9999-12-31"
+      },
+      "expected": {
+        "expansionError": "year 10000 is out of range"
+      }
+    },
+    {
+      "name": "weekly set positions construct invalid Saturday before yielding Monday",
+      "input": {
+        "lines": [
+          "DTSTART:99991227T120000",
+          "RRULE:FREQ=WEEKLY;BYDAY=MO,SA;BYSETPOS=1,-1;COUNT=1"
+        ],
+        "profile": "dateutil",
+        "through": "9999-12-31"
+      },
+      "expected": {
+        "expansionError": "year 10000 is out of range"
+      }
+    },
+    {
+      "name": "default Saturday is still selected in the final week",
+      "input": {
+        "lines": [
+          "DTSTART:99991225T235959",
+          "RRULE:FREQ=WEEKLY;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "9999-12-31"
+      },
+      "expected": {
+        "expansionError": "year 10000 is out of range"
+      }
+    },
+    {
+      "name": "December filter excludes the default Saturday in January",
+      "input": {
+        "lines": [
+          "DTSTART:99991225T235959",
+          "RRULE:FREQ=WEEKLY;BYMONTH=12;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-20",
+          "9999-12-30"
+        ]
+      },
+      "expected": [
+        "9999-12-25T23:59:59"
+      ]
+    },
+    {
+      "name": "Sunday WKST advances a default Sunday beyond the final period",
+      "input": {
+        "lines": [
+          "DTSTART:99991226T235959",
+          "RRULE:FREQ=WEEKLY;WKST=SU;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-20",
+          "9999-12-30"
+        ]
+      },
+      "expected": [
+        "9999-12-26T23:59:59"
+      ]
+    },
+    {
+      "name": "Saturday week start stops at final Friday",
+      "input": {
+        "lines": [
+          "DTSTART:99991231T235959",
+          "RRULE:FREQ=WEEKLY;BYDAY=MO;WKST=SA;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-20",
+          "9999-12-30"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "out of range Easter still fails before year exhaustion",
+      "input": {
+        "lines": [
+          "DTSTART:99991231T235959",
+          "RRULE:FREQ=YEARLY;BYEASTER=1000;COUNT=1"
+        ],
+        "profile": "dateutil",
+        "through": "9999-12-31"
+      },
+      "expected": {
+        "expansionError": "list assignment index out of range"
+      }
+    },
+    {
+      "name": "year zero DTSTART rejected",
+      "input": {
+        "lines": [
+          "DTSTART:00000101T000000Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "9999-12-31"
+      },
+      "expected": {
+        "error": "year 0 is out of range: 00000101T000000Z"
+      }
+    },
+    {
+      "name": "year zero RDATE rejected",
+      "input": {
+        "lines": [
+          "DTSTART:00010101T000000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:00001231T235959Z"
+        ],
+        "profile": "dateutil",
+        "through": "0001-01-02"
+      },
+      "expected": {
+        "error": "year 0 is out of range: 00001231T235959Z"
+      }
+    },
+    {
+      "name": "year zero EXDATE rejected",
+      "input": {
+        "lines": [
+          "DTSTART:00010101T000000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE:00001231T235959Z"
+        ],
+        "profile": "dateutil",
+        "through": "0001-01-02"
+      },
+      "expected": {
+        "error": "year 0 is out of range: 00001231T235959Z"
+      }
+    },
+    {
+      "name": "year zero UNTIL rejected",
+      "input": {
+        "lines": [
+          "DTSTART:00010101T000000Z",
+          "RRULE:FREQ=DAILY;UNTIL=00001231T235959Z"
+        ],
+        "profile": "dateutil",
+        "through": "0001-01-02"
+      },
+      "expected": {
+        "error": "invalid 'UNTIL': 00001231T235959Z"
+      }
+    },
+    {
+      "name": "year one remains replayable",
+      "input": {
+        "lines": [
+          "DTSTART:00010101T000000Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "0001-01-02",
+        "checkpoints": [
+          "0001-01-01"
+        ]
+      },
+      "expected": [
+        "0001-01-01T00:00:00Z",
+        "0001-01-02T00:00:00Z"
+      ]
+    },
+    {
+      "name": "year zero external start rejected",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "dtstart": {
+          "dateTime": "0000-01-01T00:00:00Z"
+        },
+        "through": "0001-01-02"
+      },
+      "expected": {
+        "error": "year 0 is out of range"
+      }
+    }
+  ]
+}

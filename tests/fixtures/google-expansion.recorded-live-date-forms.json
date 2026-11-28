@@ -1,0 +1,448 @@
+{
+  "type": "google-expansion",
+  "name": "Google Calendar API date forms and explicit UTC controls",
+  "source": "Google Calendar API events.instances",
+  "captureCliCommit": "8db8950f7cf894e781d289f6e513f5e53e6d587a",
+  "capturedAt": "2026-11-23T11:51:43.502660+00:00",
+  "cases": [
+    {
+      "name": "timed-bare-rdate",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20270108"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-12T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;VALUE=DATE:20270108",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-06T14:00:00Z",
+          "2027-01-08T00:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "timed-tagged-date-rdate",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE;VALUE=DATE:20270108"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-12T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;VALUE=DATE:20270108",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-06T14:00:00Z",
+          "2027-01-08T00:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "timed-bare-exdate",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE:20270105"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-12T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "EXDATE;VALUE=DATE:20270105",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-06T14:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "timed-tagged-date-exdate",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE;VALUE=DATE:20270105"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-12T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "EXDATE;VALUE=DATE:20270105",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-06T14:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "timed-floating-rdate",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20270108T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-12T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-06T14:00:00Z",
+          "2027-01-08T14:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "timed-floating-exdate",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE:20270105T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-12T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-06T14:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "timed-foreign-exdate-same-instant",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE;TZID=Asia/Tokyo:20270105T230000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-12T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "EXDATE;TZID=Asia/Tokyo:20270105T230000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-06T14:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "timed-foreign-exdate-same-clock",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE;TZID=Asia/Tokyo:20270105T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-12T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "EXDATE;TZID=Asia/Tokyo:20270105T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-06T14:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "timed-rdate-period",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE;VALUE=PERIOD:20270108T140000Z/PT30M"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-12T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;VALUE=DATE-TIME:20270108T140000Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-06T14:00:00Z",
+          "2027-01-08T14:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "timed-rdate-mixed-utc-and-floating",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20270108T140000Z,20270109T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-12T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-06T14:00:00Z",
+          "2027-01-08T14:00:00Z",
+          "2027-01-09T14:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "timed-tzid-rdate-with-utc-value",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE;TZID=Asia/Tokyo:20270108T140000Z"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-12T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Asia/Tokyo:20270108T230000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-06T14:00:00Z",
+          "2027-01-08T14:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "all-day-timed-rdate",
+      "input": {
+        "start": "2027-01-04",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20270108T140000Z"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-12T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;VALUE=DATE-TIME:20270108T140000Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-04",
+          "2027-01-05",
+          "2027-01-06",
+          "2027-01-08"
+        ]
+      }
+    },
+    {
+      "name": "all-day-timed-exdate",
+      "input": {
+        "start": "2027-01-04",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE:20270105T140000Z"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-12T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "EXDATE;VALUE=DATE-TIME:20270105T140000Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-04",
+          "2027-01-05",
+          "2027-01-06"
+        ]
+      }
+    },
+    {
+      "name": "fold-named-exdate-keeps-late-explicit-start",
+      "input": {
+        "start": "2026-11-01T01:30:00-04:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20261101T063000Z",
+          "EXDATE;TZID=America/New_York:20261101T013000"
+        ],
+        "window": {
+          "start": "2026-10-30T00:00:00Z",
+          "end": "2026-11-07T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "EXDATE;TZID=America/New_York:20261101T013000",
+          "RDATE;VALUE=DATE-TIME:20261101T063000Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2026-11-01T06:30:00Z",
+          "2026-11-02T06:30:00Z",
+          "2026-11-03T06:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "timed-floating-rdate-explicit-utc-control",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20270108T090000Z"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-12T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;VALUE=DATE-TIME:20270108T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-06T14:00:00Z",
+          "2027-01-08T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "timed-floating-exdate-explicit-utc-control",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE:20270105T090000Z"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-12T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "EXDATE;VALUE=DATE-TIME:20270105T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-06T14:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "timed-rdate-mixed-utc-and-floating-explicit-utc-control",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20270108T140000Z,20270109T090000Z"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-12T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;VALUE=DATE-TIME:20270108T140000Z,20270109T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-05T14:00:00Z",
+          "2027-01-06T14:00:00Z",
+          "2027-01-08T14:00:00Z",
+          "2027-01-09T09:00:00Z"
+        ]
+      }
+    }
+  ]
+}

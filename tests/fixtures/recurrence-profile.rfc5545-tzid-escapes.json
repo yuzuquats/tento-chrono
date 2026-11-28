@@ -1,0 +1,262 @@
+{
+  "type": "recurrence-profile",
+  "name": "iCalendar timezone parameter caret escapes",
+  "source": "RFC 6868 section 3 and RFC 5545 Erratum 5505 (held for document update)",
+  "cases": [
+    {
+      "name": "tzid-caret-unquoted-double-quotes",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=X^'Office^':20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "rfcTimeZones": {
+          "X\"Office\"": {
+            "name": "Test",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+02:00",
+                "after": "2026-01-01T00:00:00+02:00",
+                "before_tz_abbr": "FIX",
+                "after_tz_abbr": "FIX"
+              }
+            ]
+          }
+        },
+        "through": "2026-01-04",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T07:00:00Z",
+        "2026-01-02T07:00:00Z"
+      ]
+    },
+    {
+      "name": "tzid-caret-quoted-comma-and-line-break",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T070000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;VALUE=PERIOD;TZID=\"X,Office^nEast\":20260103T090000/20260103T100000"
+        ],
+        "rfcTimeZones": {
+          "X,Office\nEast": {
+            "name": "Test",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+02:00",
+                "after": "2026-01-01T00:00:00+02:00",
+                "before_tz_abbr": "FIX",
+                "after_tz_abbr": "FIX"
+              }
+            ]
+          }
+        },
+        "through": "2026-01-04",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T07:00:00Z",
+        "2026-01-02T07:00:00Z",
+        "2026-01-03T07:00:00Z"
+      ]
+    },
+    {
+      "name": "tzid-caret-escaped-caret-is-not-a-line-break",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T070000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE;TZID=X^^nOffice:20260102T090000"
+        ],
+        "rfcTimeZones": {
+          "X^nOffice": {
+            "name": "Test",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+02:00",
+                "after": "2026-01-01T00:00:00+02:00",
+                "before_tz_abbr": "FIX",
+                "after_tz_abbr": "FIX"
+              }
+            ]
+          },
+          "X\nOffice": {
+            "name": "Test",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+03:00",
+                "after": "2026-01-01T00:00:00+03:00",
+                "before_tz_abbr": "FIX",
+                "after_tz_abbr": "FIX"
+              }
+            ]
+          }
+        },
+        "through": "2026-01-04",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T07:00:00Z"
+      ]
+    },
+    {
+      "name": "tzid-caret-recognized-and-unknown-pairs",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T070000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=X^Q^^^'Office:20260103T090000"
+        ],
+        "rfcTimeZones": {
+          "X^Q^\"Office": {
+            "name": "Test",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+02:00",
+                "after": "2026-01-01T00:00:00+02:00",
+                "before_tz_abbr": "FIX",
+                "after_tz_abbr": "FIX"
+              }
+            ]
+          }
+        },
+        "through": "2026-01-04",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T07:00:00Z",
+        "2026-01-02T07:00:00Z",
+        "2026-01-03T07:00:00Z"
+      ]
+    },
+    {
+      "name": "tzid-caret-external-identifier-with-double-quote",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "rfcTimeZones": {
+          "X\"Office\"": {
+            "name": "Test",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+02:00",
+                "after": "2026-01-01T00:00:00+02:00",
+                "before_tz_abbr": "FIX",
+                "after_tz_abbr": "FIX"
+              }
+            ]
+          }
+        },
+        "through": "2026-01-04",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ],
+        "dtstart": {
+          "dateTime": "2026-01-01T09:00:00",
+          "timeZone": "X\"Office\""
+        }
+      },
+      "expected": [
+        "2026-01-01T07:00:00Z",
+        "2026-01-02T07:00:00Z"
+      ]
+    },
+    {
+      "name": "tzid-caret-literal-and-encoded-lookup-keys",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T070000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=X^^'Office:20260103T090000",
+          "RDATE;TZID=X^'Office:20260103T090000"
+        ],
+        "rfcTimeZones": {
+          "X^'Office": {
+            "name": "Test",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+03:00",
+                "after": "2026-01-01T00:00:00+03:00",
+                "before_tz_abbr": "FIX",
+                "after_tz_abbr": "FIX"
+              }
+            ]
+          },
+          "X\"Office": {
+            "name": "Test",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+02:00",
+                "after": "2026-01-01T00:00:00+02:00",
+                "before_tz_abbr": "FIX",
+                "after_tz_abbr": "FIX"
+              }
+            ]
+          }
+        },
+        "through": "2026-01-04",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T07:00:00Z",
+        "2026-01-02T07:00:00Z",
+        "2026-01-03T06:00:00Z",
+        "2026-01-03T07:00:00Z"
+      ]
+    },
+    {
+      "name": "tzid-caret-external-line-break-shares-decoded-identifier",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=\"X,Office^nEast\":20260103T090000"
+        ],
+        "rfcTimeZones": {
+          "X,Office\nEast": {
+            "name": "Test",
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+02:00",
+                "after": "2026-01-01T00:00:00+02:00",
+                "before_tz_abbr": "FIX",
+                "after_tz_abbr": "FIX"
+              }
+            ]
+          }
+        },
+        "through": "2026-01-04",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ],
+        "dtstart": {
+          "dateTime": "2026-01-01T09:00:00",
+          "timeZone": "X,Office\r\nEast"
+        }
+      },
+      "expected": [
+        "2026-01-01T07:00:00Z",
+        "2026-01-02T07:00:00Z",
+        "2026-01-03T07:00:00Z"
+      ]
+    }
+  ]
+}

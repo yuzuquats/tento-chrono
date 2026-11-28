@@ -1,0 +1,553 @@
+{
+  "type": "google-instances-query",
+  "name": "Google historical Pacific all-day overlap",
+  "source": "Google Calendar API events.instances",
+  "cases": [
+    {
+      "name": "standardization-1883",
+      "input": {
+        "master": {
+          "start": {
+            "date": "1883-11-18"
+          },
+          "end": {
+            "date": "1883-11-19"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=3;INTERVAL=7"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "date": "1883-11-18"
+          },
+          "end": {
+            "date": "1883-11-19"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;INTERVAL=7;COUNT=3"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "wide": {
+            "start": "1883-11-16T07:52:58Z",
+            "end": "1883-12-11T07:52:58Z"
+          },
+          "civil-start-before": {
+            "start": "1883-11-18T07:52:57Z",
+            "end": "1883-11-18T07:52:58Z"
+          },
+          "civil-start-after": {
+            "start": "1883-11-18T07:52:58Z",
+            "end": "1883-11-18T07:52:59Z"
+          },
+          "civil-end-before": {
+            "start": "1883-11-19T07:59:59Z",
+            "end": "1883-11-19T08:00:00Z"
+          },
+          "civil-end-after": {
+            "start": "1883-11-19T08:00:00Z",
+            "end": "1883-11-19T08:00:01Z"
+          },
+          "elapsed-end-before": {
+            "start": "1883-11-19T07:52:57Z",
+            "end": "1883-11-19T07:52:58Z"
+          },
+          "elapsed-end-after": {
+            "start": "1883-11-19T07:52:58Z",
+            "end": "1883-11-19T07:52:59Z"
+          },
+          "standard-offset-start-before": {
+            "start": "1883-11-18T07:59:59Z",
+            "end": "1883-11-18T08:00:00Z"
+          },
+          "standard-offset-start-after": {
+            "start": "1883-11-18T08:00:00Z",
+            "end": "1883-11-18T08:00:01Z"
+          },
+          "minute-rounded-start-before": {
+            "start": "1883-11-18T07:51:59Z",
+            "end": "1883-11-18T07:52:00Z"
+          },
+          "minute-rounded-start-after": {
+            "start": "1883-11-18T07:52:00Z",
+            "end": "1883-11-18T07:52:01Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "1883-11-18",
+          "1883-11-25",
+          "1883-12-02"
+        ],
+        "civil-start-before": [],
+        "civil-start-after": [
+          "1883-11-18"
+        ],
+        "civil-end-before": [],
+        "civil-end-after": [],
+        "elapsed-end-before": [
+          "1883-11-18"
+        ],
+        "elapsed-end-after": [],
+        "standard-offset-start-before": [
+          "1883-11-18"
+        ],
+        "standard-offset-start-after": [
+          "1883-11-18"
+        ],
+        "minute-rounded-start-before": [],
+        "minute-rounded-start-after": []
+      }
+    },
+    {
+      "name": "standardization-1883-two-day",
+      "input": {
+        "master": {
+          "start": {
+            "date": "1883-11-17"
+          },
+          "end": {
+            "date": "1883-11-19"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=3;INTERVAL=7"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "date": "1883-11-17"
+          },
+          "end": {
+            "date": "1883-11-19"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;INTERVAL=7;COUNT=3"
+          ]
+        },
+        "durationMs": 172800000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "wide": {
+            "start": "1883-11-15T07:52:58Z",
+            "end": "1883-12-10T07:52:58Z"
+          },
+          "civil-start-before": {
+            "start": "1883-11-17T07:52:57Z",
+            "end": "1883-11-17T07:52:58Z"
+          },
+          "civil-start-after": {
+            "start": "1883-11-17T07:52:58Z",
+            "end": "1883-11-17T07:52:59Z"
+          },
+          "civil-end-before": {
+            "start": "1883-11-19T07:59:59Z",
+            "end": "1883-11-19T08:00:00Z"
+          },
+          "civil-end-after": {
+            "start": "1883-11-19T08:00:00Z",
+            "end": "1883-11-19T08:00:01Z"
+          },
+          "elapsed-end-before": {
+            "start": "1883-11-19T07:52:57Z",
+            "end": "1883-11-19T07:52:58Z"
+          },
+          "elapsed-end-after": {
+            "start": "1883-11-19T07:52:58Z",
+            "end": "1883-11-19T07:52:59Z"
+          },
+          "standard-offset-start-before": {
+            "start": "1883-11-17T07:59:59Z",
+            "end": "1883-11-17T08:00:00Z"
+          },
+          "standard-offset-start-after": {
+            "start": "1883-11-17T08:00:00Z",
+            "end": "1883-11-17T08:00:01Z"
+          },
+          "minute-rounded-start-before": {
+            "start": "1883-11-17T07:51:59Z",
+            "end": "1883-11-17T07:52:00Z"
+          },
+          "minute-rounded-start-after": {
+            "start": "1883-11-17T07:52:00Z",
+            "end": "1883-11-17T07:52:01Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "1883-11-17",
+          "1883-11-24",
+          "1883-12-01"
+        ],
+        "civil-start-before": [],
+        "civil-start-after": [
+          "1883-11-17"
+        ],
+        "civil-end-before": [],
+        "civil-end-after": [],
+        "elapsed-end-before": [
+          "1883-11-17"
+        ],
+        "elapsed-end-after": [],
+        "standard-offset-start-before": [
+          "1883-11-17"
+        ],
+        "standard-offset-start-after": [
+          "1883-11-17"
+        ],
+        "minute-rounded-start-before": [],
+        "minute-rounded-start-after": []
+      }
+    },
+    {
+      "name": "standardization-1883-moved",
+      "input": {
+        "master": {
+          "start": {
+            "date": "1883-11-16"
+          },
+          "end": {
+            "date": "1883-11-17"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=3;INTERVAL=7"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "date": "1883-11-16"
+          },
+          "end": {
+            "date": "1883-11-17"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;INTERVAL=7;COUNT=3"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "edits": [
+          {
+            "start": {
+              "date": "1883-11-18"
+            },
+            "end": {
+              "date": "1883-11-19"
+            },
+            "originalStartTime": {
+              "date": "1883-11-16"
+            },
+            "status": "confirmed"
+          }
+        ],
+        "windows": {
+          "wide": {
+            "start": "1883-11-14T07:52:58Z",
+            "end": "1883-12-09T07:52:58Z"
+          },
+          "civil-start-before": {
+            "start": "1883-11-18T07:52:57Z",
+            "end": "1883-11-18T07:52:58Z"
+          },
+          "civil-start-after": {
+            "start": "1883-11-18T07:52:58Z",
+            "end": "1883-11-18T07:52:59Z"
+          },
+          "civil-end-before": {
+            "start": "1883-11-19T07:59:59Z",
+            "end": "1883-11-19T08:00:00Z"
+          },
+          "civil-end-after": {
+            "start": "1883-11-19T08:00:00Z",
+            "end": "1883-11-19T08:00:01Z"
+          },
+          "elapsed-end-before": {
+            "start": "1883-11-19T07:52:57Z",
+            "end": "1883-11-19T07:52:58Z"
+          },
+          "elapsed-end-after": {
+            "start": "1883-11-19T07:52:58Z",
+            "end": "1883-11-19T07:52:59Z"
+          },
+          "standard-offset-start-before": {
+            "start": "1883-11-18T07:59:59Z",
+            "end": "1883-11-18T08:00:00Z"
+          },
+          "standard-offset-start-after": {
+            "start": "1883-11-18T08:00:00Z",
+            "end": "1883-11-18T08:00:01Z"
+          },
+          "minute-rounded-start-before": {
+            "start": "1883-11-18T07:51:59Z",
+            "end": "1883-11-18T07:52:00Z"
+          },
+          "minute-rounded-start-after": {
+            "start": "1883-11-18T07:52:00Z",
+            "end": "1883-11-18T07:52:01Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "1883-11-23",
+          "1883-11-30",
+          "1883-11-18"
+        ],
+        "civil-start-before": [],
+        "civil-start-after": [
+          "1883-11-18"
+        ],
+        "civil-end-before": [
+          "1883-11-18"
+        ],
+        "civil-end-after": [],
+        "elapsed-end-before": [
+          "1883-11-18"
+        ],
+        "elapsed-end-after": [
+          "1883-11-18"
+        ],
+        "standard-offset-start-before": [
+          "1883-11-18"
+        ],
+        "standard-offset-start-after": [
+          "1883-11-18"
+        ],
+        "minute-rounded-start-before": [],
+        "minute-rounded-start-after": []
+      }
+    },
+    {
+      "name": "wartime-spring-1942",
+      "input": {
+        "master": {
+          "start": {
+            "date": "1942-02-09"
+          },
+          "end": {
+            "date": "1942-02-10"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=3;INTERVAL=7"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "date": "1942-02-09"
+          },
+          "end": {
+            "date": "1942-02-10"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;INTERVAL=7;COUNT=3"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "wide": {
+            "start": "1942-02-07T08:00:00Z",
+            "end": "1942-03-04T08:00:00Z"
+          },
+          "civil-start-before": {
+            "start": "1942-02-09T07:59:59Z",
+            "end": "1942-02-09T08:00:00Z"
+          },
+          "civil-start-after": {
+            "start": "1942-02-09T08:00:00Z",
+            "end": "1942-02-09T08:00:01Z"
+          },
+          "civil-end-before": {
+            "start": "1942-02-10T06:59:59Z",
+            "end": "1942-02-10T07:00:00Z"
+          },
+          "civil-end-after": {
+            "start": "1942-02-10T07:00:00Z",
+            "end": "1942-02-10T07:00:01Z"
+          },
+          "elapsed-end-before": {
+            "start": "1942-02-10T07:59:59Z",
+            "end": "1942-02-10T08:00:00Z"
+          },
+          "elapsed-end-after": {
+            "start": "1942-02-10T08:00:00Z",
+            "end": "1942-02-10T08:00:01Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "1942-02-09",
+          "1942-02-16",
+          "1942-02-23"
+        ],
+        "civil-start-before": [],
+        "civil-start-after": [
+          "1942-02-09"
+        ],
+        "civil-end-before": [
+          "1942-02-09"
+        ],
+        "civil-end-after": [],
+        "elapsed-end-before": [],
+        "elapsed-end-after": []
+      }
+    },
+    {
+      "name": "wartime-fall-1945",
+      "input": {
+        "master": {
+          "start": {
+            "date": "1945-09-30"
+          },
+          "end": {
+            "date": "1945-10-01"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=3;INTERVAL=7"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "date": "1945-09-30"
+          },
+          "end": {
+            "date": "1945-10-01"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;INTERVAL=7;COUNT=3"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "wide": {
+            "start": "1945-09-28T07:00:00Z",
+            "end": "1945-10-23T07:00:00Z"
+          },
+          "civil-start-before": {
+            "start": "1945-09-30T06:59:59Z",
+            "end": "1945-09-30T07:00:00Z"
+          },
+          "civil-start-after": {
+            "start": "1945-09-30T07:00:00Z",
+            "end": "1945-09-30T07:00:01Z"
+          },
+          "civil-end-before": {
+            "start": "1945-10-01T07:59:59Z",
+            "end": "1945-10-01T08:00:00Z"
+          },
+          "civil-end-after": {
+            "start": "1945-10-01T08:00:00Z",
+            "end": "1945-10-01T08:00:01Z"
+          },
+          "elapsed-end-before": {
+            "start": "1945-10-01T06:59:59Z",
+            "end": "1945-10-01T07:00:00Z"
+          },
+          "elapsed-end-after": {
+            "start": "1945-10-01T07:00:00Z",
+            "end": "1945-10-01T07:00:01Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "1945-09-30",
+          "1945-10-07",
+          "1945-10-14"
+        ],
+        "civil-start-before": [],
+        "civil-start-after": [
+          "1945-09-30"
+        ],
+        "civil-end-before": [],
+        "civil-end-after": [],
+        "elapsed-end-before": [
+          "1945-09-30"
+        ],
+        "elapsed-end-after": []
+      }
+    },
+    {
+      "name": "new-year-fall-1949",
+      "input": {
+        "master": {
+          "start": {
+            "date": "1949-01-01"
+          },
+          "end": {
+            "date": "1949-01-02"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=3;INTERVAL=7"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "date": "1949-01-01"
+          },
+          "end": {
+            "date": "1949-01-02"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;INTERVAL=7;COUNT=3"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "wide": {
+            "start": "1948-12-30T07:00:00Z",
+            "end": "1949-01-24T07:00:00Z"
+          },
+          "civil-start-before": {
+            "start": "1949-01-01T06:59:59Z",
+            "end": "1949-01-01T07:00:00Z"
+          },
+          "civil-start-after": {
+            "start": "1949-01-01T07:00:00Z",
+            "end": "1949-01-01T07:00:01Z"
+          },
+          "civil-end-before": {
+            "start": "1949-01-02T07:59:59Z",
+            "end": "1949-01-02T08:00:00Z"
+          },
+          "civil-end-after": {
+            "start": "1949-01-02T08:00:00Z",
+            "end": "1949-01-02T08:00:01Z"
+          },
+          "elapsed-end-before": {
+            "start": "1949-01-02T06:59:59Z",
+            "end": "1949-01-02T07:00:00Z"
+          },
+          "elapsed-end-after": {
+            "start": "1949-01-02T07:00:00Z",
+            "end": "1949-01-02T07:00:01Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "1949-01-01",
+          "1949-01-08",
+          "1949-01-15"
+        ],
+        "civil-start-before": [],
+        "civil-start-after": [
+          "1949-01-01"
+        ],
+        "civil-end-before": [],
+        "civil-end-after": [],
+        "elapsed-end-before": [
+          "1949-01-01"
+        ],
+        "elapsed-end-after": []
+      }
+    }
+  ]
+}

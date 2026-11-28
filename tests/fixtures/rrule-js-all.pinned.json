@@ -1,0 +1,1400 @@
+{
+  "type": "rrule-js-all",
+  "name": "rrule.js 2.8.1 all traversal",
+  "source": "Pinned rrule.js 2.8.1 RRule and RRuleSet all()",
+  "cases": [
+    {
+      "name": "standalone preserves written BYHOUR traversal",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=18,9;COUNT=4"
+        ],
+        "rruleJsForceSet": false,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        "2026-01-01T18:00:00Z",
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T18:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "forced set sorts the same values",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=18,9;COUNT=4"
+        ],
+        "rruleJsForceSet": true,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-01T18:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-02T18:00:00Z"
+      ]
+    },
+    {
+      "name": "standalone retains repeated selector outputs",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=18,18,9;COUNT=5"
+        ],
+        "rruleJsForceSet": false,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        "2026-01-01T18:00:00Z",
+        "2026-01-01T18:00:00Z",
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T18:00:00Z",
+        "2026-01-02T18:00:00Z"
+      ]
+    },
+    {
+      "name": "set consumes repetitions before deduplication",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=18,18,9;COUNT=5"
+        ],
+        "rruleJsForceSet": true,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-01T18:00:00Z",
+        "2026-01-02T18:00:00Z"
+      ]
+    },
+    {
+      "name": "ordinary set merges RDATE and EXDATE",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=18,9;COUNT=4",
+          "RDATE:20260101T210000Z,20260101T090000Z",
+          "EXDATE:20260101T180000Z"
+        ],
+        "rruleJsForceSet": false,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-01T21:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-02T18:00:00Z"
+      ]
+    },
+    {
+      "name": "set EXRULE narrow scan cannot reach a late-written 09:00 after 18:00",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=9,18;COUNT=4",
+          "EXRULE:FREQ=DAILY;BYHOUR=18,9;COUNT=4"
+        ],
+        "rruleJsForceSet": true,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "eager invalid TZID with an RDATE",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Not/AZone:20260101T000000",
+          "RDATE:20260101T090000"
+        ],
+        "rruleJsForceSet": true,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": {
+        "error": "RangeError: Invalid time zone specified: Not/AZone"
+      }
+    },
+    {
+      "name": "invalid TZID at a generated candidate",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Not/AZone:20260101T000000",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "rruleJsForceSet": false,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": {
+        "error": "RangeError: Invalid time zone specified: Not/AZone"
+      }
+    },
+    {
+      "name": "bounded secondlies preserve a fractional external start",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=SECONDLY;COUNT=4"
+        ],
+        "rruleJsForceSet": false,
+        "rruleJsHostTimeZone": "UTC",
+        "dtstart": {
+          "dateTime": "2026-01-01T00:00:00.999Z"
+        }
+      },
+      "expected": [
+        "2026-01-01T00:00:00.999Z",
+        "2026-01-01T00:00:01Z",
+        "2026-01-01T00:00:02Z",
+        "2026-01-01T00:00:03Z"
+      ]
+    },
+    {
+      "name": "compatible mode adds the original DTSTART",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;COUNT=2;BYHOUR=9"
+        ],
+        "rruleJsForceSet": false,
+        "rruleJsHostTimeZone": "UTC",
+        "dtstart": {
+          "dateTime": "2026-01-01T00:00:00Z"
+        },
+        "rruleJsCompatible": true
+      },
+      "expected": [
+        "2026-01-01T00:00:00Z",
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "last weekly period can cross into year 10000",
+      "input": {
+        "lines": [
+          "DTSTART:99991231T093000Z",
+          "RRULE:FREQ=WEEKLY;BYDAY=FR,SU;COUNT=2"
+        ],
+        "rruleJsForceSet": false,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        "9999-12-31T09:30:00Z",
+        "10000-01-02T09:30:00Z"
+      ]
+    },
+    {
+      "name": "named zone preserves non-instant slots",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:01000101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "rruleJsForceSet": false,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        null,
+        null
+      ]
+    },
+    {
+      "name": "set keeps Invalid Dates despite identical exclusions",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:01000101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE:01000101T090000Z",
+          "RDATE:01000101T090000Z,01000102T090000Z"
+        ],
+        "rruleJsForceSet": true,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        null,
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "name": "set deduplicates identical RDATE clocks before invalid projection",
+      "input": {
+        "lines": [
+          "RDATE:01000101T090000",
+          "RDATE;TZID=America/New_York:01000101T090000",
+          "RDATE:01000102T090000"
+        ],
+        "rruleJsForceSet": true,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        null,
+        null
+      ]
+    },
+    {
+      "name": "target offset crosses from year 1000 into 999",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:10000101T000000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "rruleJsForceSet": false,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        null,
+        "1000-01-02T04:56:02Z"
+      ]
+    },
+    {
+      "name": "host offset crosses from year 1000 into 999",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Asia/Tokyo:10000101T000000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "rruleJsForceSet": false,
+        "rruleJsHostTimeZone": "America/New_York"
+      },
+      "expected": [
+        null,
+        "1000-01-01T09:44:59Z"
+      ]
+    },
+    {
+      "name": "set sorts a mix of invalid and valid candidates",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:10000101T000000",
+          "RRULE:FREQ=DAILY;BYHOUR=18,0;COUNT=4",
+          "RDATE:10000102T090000Z,10000101T000000Z"
+        ],
+        "rruleJsForceSet": true,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        null,
+        "1000-01-01T22:56:02Z",
+        "1000-01-02T04:56:02Z",
+        "1000-01-02T13:56:02Z",
+        null,
+        "1000-01-02T22:56:02Z"
+      ]
+    },
+    {
+      "name": "set EXRULE skips an invalid candidate before a valid one",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:10000101T000000",
+          "RRULE:FREQ=DAILY;BYHOUR=0,9;COUNT=4",
+          "EXRULE:FREQ=DAILY;BYHOUR=0,9;COUNT=2"
+        ],
+        "rruleJsForceSet": true,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        null,
+        "1000-01-02T04:56:02Z",
+        "1000-01-02T13:56:02Z"
+      ]
+    },
+    {
+      "name": "UTC bypasses the Intl projection",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=UTC:01000101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "rruleJsForceSet": false,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        "0100-01-01T09:00:00Z",
+        "0100-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "Etc/UTC goes through the Intl projection",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Etc/UTC:01000101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "rruleJsForceSet": false,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        null,
+        null
+      ]
+    },
+    {
+      "name": "named zone carry into year 10000 returns Invalid Date",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:99991231T093000",
+          "RRULE:FREQ=WEEKLY;BYDAY=FR,SU;COUNT=2"
+        ],
+        "rruleJsForceSet": false,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        "9999-12-31T14:30:00Z",
+        null
+      ]
+    },
+    {
+      "name": "invalid TZID without candidates is lazy",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Not/AZone:20260101T000000",
+          "RRULE:FREQ=DAILY;COUNT=0"
+        ],
+        "rruleJsForceSet": false,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": []
+    },
+    {
+      "name": "invalid TZID on an unused exclusion is lazy",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Not/AZone:20260101T000000",
+          "EXRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "rruleJsForceSet": true,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": []
+    },
+    {
+      "name": "an uncounted yearly rule terminates at the library calendar limit",
+      "input": {
+        "lines": [
+          "DTSTART:99961231T093000Z",
+          "RRULE:FREQ=YEARLY"
+        ],
+        "rruleJsForceSet": false,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        "9996-12-31T09:30:00Z",
+        "9997-12-31T09:30:00Z",
+        "9998-12-31T09:30:00Z",
+        "9999-12-31T09:30:00Z"
+      ]
+    },
+    {
+      "name": "retained nonmonotonic window 0",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Kwajalein:19690929T100100",
+          "RRULE:FREQ=DAILY;BYHOUR=21,4,12;BYMINUTE=31;COUNT=16;UNTIL=19691003T235959Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=5;BYMINUTE=15;UNTIL=19691003T235959Z",
+          "EXRULE:FREQ=HOURLY;INTERVAL=3;BYMINUTE=30;COUNT=24;UNTIL=19691003T235959Z",
+          "EXRULE:FREQ=HOURLY;INTERVAL=5;BYMINUTE=59;COUNT=18;UNTIL=19691003T235959Z",
+          "EXDATE:19690930T033000Z",
+          "RDATE:19691001T201500Z"
+        ],
+        "rruleJsHostTimeZone": "America/New_York",
+        "rruleJsForceSet": true
+      },
+      "expected": [
+        "1969-09-28T19:15:00Z",
+        "1969-09-28T21:31:00Z",
+        "1969-09-29T00:15:00Z",
+        "1969-09-29T05:15:00Z",
+        "1969-09-29T06:31:00Z",
+        "1969-09-29T10:15:00Z",
+        "1969-09-29T13:31:00Z",
+        "1969-09-29T15:15:00Z",
+        "1969-09-29T20:15:00Z",
+        "1969-09-29T21:31:00Z",
+        "1969-10-01T00:15:00Z",
+        "1969-10-01T05:15:00Z",
+        "1969-10-01T05:31:00Z",
+        "1969-10-01T10:15:00Z",
+        "1969-10-01T12:31:00Z",
+        "1969-10-01T15:15:00Z",
+        "1969-10-01T20:15:00Z",
+        "1969-10-01T20:31:00Z",
+        "1969-10-02T01:15:00Z",
+        "1969-10-02T04:15:00Z",
+        "1969-10-02T05:31:00Z",
+        "1969-10-02T06:15:00Z",
+        "1969-10-02T11:15:00Z",
+        "1969-10-02T12:31:00Z",
+        "1969-10-02T16:15:00Z",
+        "1969-10-02T20:31:00Z",
+        "1969-10-02T21:15:00Z",
+        "1969-10-03T02:15:00Z",
+        "1969-10-03T05:31:00Z",
+        "1969-10-03T07:15:00Z",
+        "1969-10-03T12:15:00Z",
+        "1969-10-03T12:31:00Z",
+        "1969-10-03T17:15:00Z",
+        "1969-10-03T20:31:00Z",
+        "1969-10-03T22:15:00Z",
+        "1969-10-04T03:15:00Z",
+        "1969-10-04T05:31:00Z"
+      ]
+    },
+    {
+      "name": "retained nonmonotonic window 1",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Asia/Kathmandu:19851230T073000",
+          "RRULE:FREQ=HOURLY;INTERVAL=2;BYMINUTE=29;COUNT=32;UNTIL=19860103T235959Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=3;BYMINUTE=30;UNTIL=19860103T235959Z",
+          "RRULE:FREQ=DAILY;BYHOUR=21,13;BYMINUTE=59;UNTIL=19860103T235959Z",
+          "EXRULE:FREQ=HOURLY;INTERVAL=7;BYMINUTE=1;COUNT=26;UNTIL=19860103T235959Z",
+          "EXRULE:FREQ=HOURLY;INTERVAL=3;BYMINUTE=0;COUNT=31;UNTIL=19860103T235959Z",
+          "EXDATE:19860101T153100Z",
+          "RDATE:19860101T224500Z",
+          "EXDATE:19851230T203100Z"
+        ],
+        "rruleJsHostTimeZone": "Australia/Lord_Howe",
+        "rruleJsForceSet": true
+      },
+      "expected": [
+        "1985-12-30T13:00:00Z",
+        "1985-12-30T14:59:00Z",
+        "1985-12-30T16:00:00Z",
+        "1985-12-30T16:59:00Z",
+        "1985-12-30T18:59:00Z",
+        "1985-12-30T19:00:00Z",
+        "1985-12-30T19:29:00Z",
+        "1985-12-30T20:59:00Z",
+        "1985-12-30T22:00:00Z",
+        "1985-12-30T22:59:00Z",
+        "1985-12-31T00:59:00Z",
+        "1985-12-31T01:00:00Z",
+        "1985-12-31T02:59:00Z",
+        "1985-12-31T03:29:00Z",
+        "1985-12-31T04:00:00Z",
+        "1985-12-31T04:59:00Z",
+        "1985-12-31T06:59:00Z",
+        "1985-12-31T07:00:00Z",
+        "1985-12-31T08:59:00Z",
+        "1985-12-31T10:00:00Z",
+        "1985-12-31T10:59:00Z",
+        "1985-12-31T12:59:00Z",
+        "1985-12-31T13:00:00Z",
+        "1985-12-31T14:59:00Z",
+        "1985-12-31T16:00:00Z",
+        "1985-12-31T16:59:00Z",
+        "1985-12-31T18:59:00Z",
+        "1985-12-31T19:00:00Z",
+        "1985-12-31T19:29:00Z",
+        "1985-12-31T20:59:00Z",
+        "1985-12-31T22:00:00Z",
+        "1985-12-31T22:59:00Z",
+        "1986-01-01T00:44:00Z",
+        "1986-01-01T00:45:00Z",
+        "1986-01-01T02:44:00Z",
+        "1986-01-01T03:14:00Z",
+        "1986-01-01T03:45:00Z",
+        "1986-01-01T04:44:00Z",
+        "1986-01-01T06:44:00Z",
+        "1986-01-01T06:45:00Z",
+        "1986-01-01T08:44:00Z",
+        "1986-01-01T09:45:00Z",
+        "1986-01-01T10:44:00Z",
+        "1986-01-01T12:44:00Z",
+        "1986-01-01T12:45:00Z",
+        "1986-01-01T14:44:00Z",
+        "1986-01-01T15:45:00Z",
+        "1986-01-01T16:44:00Z",
+        "1986-01-01T18:44:00Z",
+        "1986-01-01T18:45:00Z",
+        "1986-01-01T19:14:00Z",
+        "1986-01-01T20:44:00Z",
+        "1986-01-01T21:45:00Z",
+        "1986-01-01T22:44:00Z",
+        "1986-01-02T00:44:00Z",
+        "1986-01-02T00:45:00Z",
+        "1986-01-02T02:44:00Z",
+        "1986-01-02T03:14:00Z",
+        "1986-01-02T03:45:00Z",
+        "1986-01-02T04:00:00Z",
+        "1986-01-02T04:44:00Z",
+        "1986-01-02T06:45:00Z",
+        "1986-01-02T09:45:00Z",
+        "1986-01-02T12:45:00Z",
+        "1986-01-02T15:45:00Z",
+        "1986-01-02T18:45:00Z",
+        "1986-01-02T19:14:00Z",
+        "1986-01-02T21:45:00Z",
+        "1986-01-03T00:45:00Z",
+        "1986-01-03T03:14:00Z",
+        "1986-01-03T03:45:00Z",
+        "1986-01-03T06:45:00Z",
+        "1986-01-03T09:45:00Z",
+        "1986-01-03T12:45:00Z",
+        "1986-01-03T15:45:00Z",
+        "1986-01-03T18:45:00Z",
+        "1986-01-03T19:14:00Z",
+        "1986-01-03T21:45:00Z",
+        "1986-01-04T00:45:00Z",
+        "1986-01-04T03:14:00Z",
+        "1986-01-04T03:45:00Z"
+      ]
+    },
+    {
+      "name": "retained nonmonotonic window 2",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Africa/Monrovia:19720105T234330",
+          "RRULE:FREQ=DAILY;BYHOUR=17,6,20;BYMINUTE=59;UNTIL=19720110T235959Z",
+          "RRULE:FREQ=DAILY;BYHOUR=9,19,21;UNTIL=19720110T235959Z",
+          "RRULE:FREQ=DAILY;BYHOUR=23,17,10,14;BYMINUTE=1;COUNT=49;UNTIL=19720110T235959Z",
+          "EXRULE:FREQ=DAILY;INTERVAL=11;BYMINUTE=30;COUNT=42;UNTIL=19720110T235959Z",
+          "EXRULE:FREQ=HOURLY;INTERVAL=2;BYMINUTE=0;COUNT=45;UNTIL=19720110T235959Z",
+          "EXDATE:19720107T205930Z",
+          "RDATE;TZID=Africa/Monrovia:19720106T224330"
+        ],
+        "rruleJsHostTimeZone": "Australia/Lord_Howe",
+        "rruleJsForceSet": true
+      },
+      "expected": [
+        "1972-01-06T17:44:00Z",
+        "1972-01-06T20:28:00Z",
+        "1972-01-06T20:46:00Z",
+        "1972-01-07T00:46:00Z",
+        "1972-01-07T03:46:00Z",
+        "1972-01-07T04:44:00Z",
+        "1972-01-07T06:28:00Z",
+        "1972-01-07T07:44:00Z",
+        "1972-01-07T08:28:00Z",
+        "1972-01-07T09:28:00Z",
+        "1972-01-07T09:46:00Z",
+        "1972-01-07T16:59:30Z",
+        "1972-01-07T19:43:30Z",
+        "1972-01-07T20:01:30Z",
+        "1972-01-08T00:01:30Z",
+        "1972-01-08T03:01:30Z",
+        "1972-01-08T03:59:30Z",
+        "1972-01-08T05:43:30Z",
+        "1972-01-08T07:43:30Z",
+        "1972-01-08T09:01:30Z",
+        "1972-01-08T16:59:30Z",
+        "1972-01-08T19:43:30Z",
+        "1972-01-08T20:01:30Z",
+        "1972-01-09T00:01:30Z",
+        "1972-01-09T03:01:30Z",
+        "1972-01-09T03:59:30Z",
+        "1972-01-09T05:43:30Z",
+        "1972-01-09T06:59:30Z",
+        "1972-01-09T07:43:30Z",
+        "1972-01-09T09:01:30Z",
+        "1972-01-09T16:59:30Z",
+        "1972-01-09T19:43:30Z",
+        "1972-01-09T20:01:30Z",
+        "1972-01-10T00:01:30Z",
+        "1972-01-10T03:01:30Z",
+        "1972-01-10T03:59:30Z",
+        "1972-01-10T05:43:30Z",
+        "1972-01-10T06:59:30Z",
+        "1972-01-10T07:43:30Z",
+        "1972-01-10T09:01:30Z",
+        "1972-01-10T16:59:30Z",
+        "1972-01-10T19:43:30Z",
+        "1972-01-10T20:01:30Z",
+        "1972-01-11T00:01:30Z",
+        "1972-01-11T03:01:30Z",
+        "1972-01-11T03:59:30Z",
+        "1972-01-11T05:43:30Z",
+        "1972-01-11T06:59:30Z",
+        "1972-01-11T07:43:30Z",
+        "1972-01-11T09:01:30Z"
+      ]
+    },
+    {
+      "name": "retained nonmonotonic window 3",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Europe/Dublin:20261025T000100",
+          "RRULE:FREQ=DAILY;BYHOUR=15,4,22;COUNT=50;UNTIL=20261028T235959Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=3;BYMINUTE=0;COUNT=63;UNTIL=20261028T235959Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=2;BYMINUTE=31;UNTIL=20261028T235959Z",
+          "EXRULE:FREQ=HOURLY;INTERVAL=5;BYMINUTE=29;COUNT=56;UNTIL=20261028T235959Z",
+          "EXRULE:FREQ=DAILY;INTERVAL=5;BYMINUTE=15;UNTIL=20261028T235959Z",
+          "EXDATE:20261024T180000Z"
+        ],
+        "rruleJsHostTimeZone": "Australia/Lord_Howe",
+        "rruleJsForceSet": true
+      },
+      "expected": [
+        "2026-10-25T10:31:00Z",
+        "2026-10-25T13:31:00Z",
+        "2026-10-25T14:00:00Z",
+        "2026-10-25T15:01:00Z",
+        "2026-10-25T15:31:00Z",
+        "2026-10-25T17:00:00Z",
+        "2026-10-25T17:31:00Z",
+        "2026-10-25T19:31:00Z",
+        "2026-10-25T20:00:00Z",
+        "2026-10-25T21:31:00Z",
+        "2026-10-25T23:00:00Z",
+        "2026-10-25T23:31:00Z",
+        "2026-10-26T01:31:00Z",
+        "2026-10-26T02:00:00Z",
+        "2026-10-26T02:01:00Z",
+        "2026-10-26T03:31:00Z",
+        "2026-10-26T05:00:00Z",
+        "2026-10-26T05:31:00Z",
+        "2026-10-26T07:31:00Z",
+        "2026-10-26T08:00:00Z",
+        "2026-10-26T09:01:00Z",
+        "2026-10-26T09:31:00Z",
+        "2026-10-26T11:00:00Z",
+        "2026-10-26T11:31:00Z",
+        "2026-10-26T13:31:00Z",
+        "2026-10-26T14:00:00Z",
+        "2026-10-26T15:01:00Z",
+        "2026-10-26T15:31:00Z",
+        "2026-10-26T17:00:00Z",
+        "2026-10-26T17:31:00Z",
+        "2026-10-26T19:31:00Z",
+        "2026-10-26T20:00:00Z",
+        "2026-10-26T21:31:00Z",
+        "2026-10-26T23:00:00Z",
+        "2026-10-26T23:31:00Z",
+        "2026-10-27T01:31:00Z",
+        "2026-10-27T02:00:00Z",
+        "2026-10-27T02:01:00Z",
+        "2026-10-27T03:31:00Z",
+        "2026-10-27T05:00:00Z",
+        "2026-10-27T05:31:00Z",
+        "2026-10-27T07:31:00Z",
+        "2026-10-27T08:00:00Z",
+        "2026-10-27T09:01:00Z",
+        "2026-10-27T09:31:00Z",
+        "2026-10-27T11:00:00Z",
+        "2026-10-27T11:31:00Z",
+        "2026-10-27T13:31:00Z",
+        "2026-10-27T14:00:00Z",
+        "2026-10-27T15:01:00Z",
+        "2026-10-27T15:31:00Z",
+        "2026-10-27T17:00:00Z",
+        "2026-10-27T17:31:00Z",
+        "2026-10-27T19:31:00Z",
+        "2026-10-27T20:00:00Z",
+        "2026-10-27T21:31:00Z",
+        "2026-10-27T23:00:00Z",
+        "2026-10-27T23:31:00Z",
+        "2026-10-28T01:31:00Z",
+        "2026-10-28T02:00:00Z",
+        "2026-10-28T02:01:00Z",
+        "2026-10-28T03:31:00Z",
+        "2026-10-28T05:00:00Z",
+        "2026-10-28T05:31:00Z",
+        "2026-10-28T07:31:00Z",
+        "2026-10-28T08:00:00Z",
+        "2026-10-28T09:01:00Z",
+        "2026-10-28T09:31:00Z",
+        "2026-10-28T11:00:00Z",
+        "2026-10-28T11:31:00Z",
+        "2026-10-28T13:31:00Z",
+        "2026-10-28T14:00:00Z",
+        "2026-10-28T15:01:00Z",
+        "2026-10-28T15:31:00Z",
+        "2026-10-28T17:00:00Z",
+        "2026-10-28T17:31:00Z",
+        "2026-10-28T19:31:00Z",
+        "2026-10-28T20:00:00Z",
+        "2026-10-28T21:31:00Z",
+        "2026-10-28T23:00:00Z",
+        "2026-10-28T23:31:00Z",
+        "2026-10-29T01:31:00Z",
+        "2026-10-29T02:00:00Z",
+        "2026-10-29T02:01:00Z",
+        "2026-10-29T03:31:00Z",
+        "2026-10-29T05:00:00Z",
+        "2026-10-29T05:31:00Z",
+        "2026-10-29T07:31:00Z",
+        "2026-10-29T08:00:00Z",
+        "2026-10-29T09:01:00Z",
+        "2026-10-29T09:31:00Z"
+      ]
+    },
+    {
+      "name": "retained nonmonotonic window 4",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Asia/Kathmandu:19860101T015900",
+          "RRULE:FREQ=HOURLY;INTERVAL=2;BYMINUTE=0;UNTIL=19860103T235959Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=11;BYMINUTE=0;COUNT=29;UNTIL=19860103T235959Z",
+          "RRULE:FREQ=DAILY;BYHOUR=4,14,20,7;BYMINUTE=31;UNTIL=19860103T235959Z",
+          "EXRULE:FREQ=HOURLY;INTERVAL=2;BYMINUTE=15;UNTIL=19860103T235959Z",
+          "EXRULE:FREQ=HOURLY;INTERVAL=3;BYMINUTE=0;UNTIL=19860103T235959Z"
+        ],
+        "rruleJsHostTimeZone": "Australia/Lord_Howe",
+        "rruleJsForceSet": true
+      },
+      "expected": [
+        "1986-01-01T08:15:00Z",
+        "1986-01-01T09:46:00Z",
+        "1986-01-01T10:15:00Z",
+        "1986-01-01T12:46:00Z",
+        "1986-01-01T14:15:00Z",
+        "1986-01-01T16:15:00Z",
+        "1986-01-01T17:15:00Z",
+        "1986-01-01T19:46:00Z",
+        "1986-01-01T20:15:00Z",
+        "1986-01-01T22:15:00Z",
+        "1986-01-02T01:46:00Z",
+        "1986-01-02T02:15:00Z",
+        "1986-01-02T04:15:00Z",
+        "1986-01-02T08:15:00Z",
+        "1986-01-02T09:46:00Z",
+        "1986-01-02T10:15:00Z",
+        "1986-01-02T12:46:00Z",
+        "1986-01-02T14:15:00Z",
+        "1986-01-02T16:15:00Z",
+        "1986-01-02T19:46:00Z",
+        "1986-01-02T20:15:00Z",
+        "1986-01-02T22:15:00Z",
+        "1986-01-03T01:46:00Z",
+        "1986-01-03T02:15:00Z",
+        "1986-01-03T04:15:00Z",
+        "1986-01-03T08:15:00Z",
+        "1986-01-03T09:46:00Z",
+        "1986-01-03T10:15:00Z",
+        "1986-01-03T12:46:00Z",
+        "1986-01-03T13:15:00Z",
+        "1986-01-03T14:15:00Z",
+        "1986-01-03T16:15:00Z",
+        "1986-01-03T19:46:00Z",
+        "1986-01-03T20:15:00Z",
+        "1986-01-03T22:15:00Z",
+        "1986-01-04T01:46:00Z",
+        "1986-01-04T02:15:00Z",
+        "1986-01-04T04:15:00Z"
+      ]
+    },
+    {
+      "name": "retained nonmonotonic window 5",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Kwajalein:19690929T100100",
+          "RRULE:FREQ=DAILY;BYHOUR=21,4,12;BYMINUTE=31;COUNT=16;UNTIL=19691003T235959Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=5;BYMINUTE=15;UNTIL=19691003T235959Z",
+          "EXRULE:FREQ=HOURLY;INTERVAL=3;BYMINUTE=30;COUNT=24;UNTIL=19691003T235959Z",
+          "EXRULE:FREQ=HOURLY;INTERVAL=5;BYMINUTE=59;COUNT=18;UNTIL=19691003T235959Z",
+          "EXDATE:19690930T033000Z",
+          "RDATE:19691001T201500Z"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsForceSet": true
+      },
+      "expected": [
+        "1969-09-28T23:15:00Z",
+        "1969-09-29T01:31:00Z",
+        "1969-09-29T04:15:00Z",
+        "1969-09-29T09:15:00Z",
+        "1969-09-29T10:31:00Z",
+        "1969-09-29T14:15:00Z",
+        "1969-09-29T17:31:00Z",
+        "1969-09-29T19:15:00Z",
+        "1969-09-30T00:15:00Z",
+        "1969-09-30T01:31:00Z",
+        "1969-10-01T04:15:00Z",
+        "1969-10-01T09:15:00Z",
+        "1969-10-01T09:31:00Z",
+        "1969-10-01T14:15:00Z",
+        "1969-10-01T16:31:00Z",
+        "1969-10-01T19:15:00Z",
+        "1969-10-02T00:15:00Z",
+        "1969-10-02T00:31:00Z",
+        "1969-10-02T05:15:00Z",
+        "1969-10-02T08:15:00Z",
+        "1969-10-02T09:31:00Z",
+        "1969-10-02T10:15:00Z",
+        "1969-10-02T15:15:00Z",
+        "1969-10-02T16:31:00Z",
+        "1969-10-02T20:15:00Z",
+        "1969-10-03T00:31:00Z",
+        "1969-10-03T01:15:00Z",
+        "1969-10-03T06:15:00Z",
+        "1969-10-03T09:31:00Z",
+        "1969-10-03T11:15:00Z",
+        "1969-10-03T16:15:00Z",
+        "1969-10-03T16:31:00Z",
+        "1969-10-03T21:15:00Z",
+        "1969-10-04T00:31:00Z",
+        "1969-10-04T02:15:00Z",
+        "1969-10-04T07:15:00Z",
+        "1969-10-04T09:31:00Z"
+      ]
+    },
+    {
+      "name": "unsorted bound true",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=18,9;COUNT=6"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsForceSet": true
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-01T18:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-02T18:00:00Z",
+        "2026-01-03T09:00:00Z",
+        "2026-01-03T18:00:00Z"
+      ]
+    },
+    {
+      "name": "native order true",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=18,9,9;COUNT=6"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsForceSet": true
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-01T18:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-02T18:00:00Z"
+      ]
+    },
+    {
+      "name": "exact endpoints true",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=HOURLY;COUNT=8"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsForceSet": true
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-01T10:00:00Z",
+        "2026-01-01T11:00:00Z",
+        "2026-01-01T12:00:00Z",
+        "2026-01-01T13:00:00Z",
+        "2026-01-01T14:00:00Z",
+        "2026-01-01T15:00:00Z",
+        "2026-01-01T16:00:00Z"
+      ]
+    },
+    {
+      "name": "unsorted bound false",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=18,9;COUNT=6"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsForceSet": false
+      },
+      "expected": [
+        "2026-01-01T18:00:00Z",
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T18:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T18:00:00Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "America/New_York set 2 0 0 true",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260307T003000",
+          "RRULE:FREQ=DAILY;BYHOUR=6,2,5,1;BYMINUTE=30;COUNT=18;UNTIL=20260310T235959Z"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsForceSet": true
+      },
+      "expected": [
+        "2026-03-07T06:30:00Z",
+        "2026-03-07T07:30:00Z",
+        "2026-03-07T10:30:00Z",
+        "2026-03-07T11:30:00Z",
+        "2026-03-08T06:30:00Z",
+        "2026-03-08T07:30:00Z",
+        "2026-03-08T10:30:00Z",
+        "2026-03-08T11:30:00Z",
+        "2026-03-09T05:30:00Z",
+        "2026-03-09T06:30:00Z",
+        "2026-03-09T09:30:00Z",
+        "2026-03-09T10:30:00Z",
+        "2026-03-10T05:30:00Z",
+        "2026-03-10T06:30:00Z",
+        "2026-03-10T09:30:00Z",
+        "2026-03-10T10:30:00Z"
+      ]
+    },
+    {
+      "name": "frequencies omitted and explicit",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:BYHOUR=18,9;COUNT=3",
+          "RRULE:BYHOUR=18,9;COUNT=3;FREQ=YEARLY"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsForceSet": true
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-01T18:00:00Z",
+        "2027-01-01T18:00:00Z"
+      ]
+    },
+    {
+      "name": "external clock 1969-12-31T23:30:00.750Z -1 18000001 true",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=HOURLY;COUNT=6"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsForceSet": false,
+        "dtstart": {
+          "dateTime": "1969-12-31T23:30:00.750Z"
+        }
+      },
+      "expected": [
+        "1970-01-01T00:30:00Z",
+        "1970-01-01T01:30:00Z",
+        "1970-01-01T02:30:00Z",
+        "1970-01-01T03:30:00Z",
+        "1970-01-01T04:30:00Z",
+        "1970-01-01T05:30:00Z"
+      ]
+    },
+    {
+      "name": "external clock 2026-01-01T06:00:00.250Z -1 18000001 true",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=HOURLY;COUNT=6"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsForceSet": false,
+        "dtstart": {
+          "dateTime": "2026-01-01T06:00:00.250Z"
+        }
+      },
+      "expected": [
+        "2026-01-01T06:00:00.250Z",
+        "2026-01-01T07:00:00Z",
+        "2026-01-01T08:00:00Z",
+        "2026-01-01T09:00:00Z",
+        "2026-01-01T10:00:00Z",
+        "2026-01-01T11:00:00Z"
+      ]
+    },
+    {
+      "name": "external clock 0002-01-01T06:00:00.250Z -1 18000001 true",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=HOURLY;COUNT=6"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsForceSet": false,
+        "dtstart": {
+          "dateTime": "0002-01-01T06:00:00.250Z"
+        }
+      },
+      "expected": [
+        "1902-01-01T05:59:59.250Z",
+        "1902-01-01T07:00:00Z",
+        "1902-01-01T08:00:00Z",
+        "1902-01-01T09:00:00Z",
+        "1902-01-01T10:00:00Z",
+        "1902-01-01T11:00:00Z"
+      ]
+    },
+    {
+      "name": "invalid zone candidate after query true",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Invalid/Zone:20260125T090000",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsForceSet": true
+      },
+      "expected": {
+        "error": "RangeError: Invalid time zone specified: Invalid/Zone"
+      }
+    },
+    {
+      "name": "invalid zone candidate after query false",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Invalid/Zone:20260125T090000",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsForceSet": false
+      },
+      "expected": {
+        "error": "RangeError: Invalid time zone specified: Invalid/Zone"
+      }
+    },
+    {
+      "name": "invalid zone no count slots true",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Invalid/Zone:20260125T090000",
+          "RRULE:FREQ=DAILY;COUNT=0"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsForceSet": true
+      },
+      "expected": []
+    },
+    {
+      "name": "invalid zone no count slots false",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Invalid/Zone:20260125T090000",
+          "RRULE:FREQ=DAILY;COUNT=0"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsForceSet": false
+      },
+      "expected": []
+    },
+    {
+      "name": "invalid zone until before start true",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Invalid/Zone:20260125T090000",
+          "RRULE:FREQ=DAILY;UNTIL=20260124T000000Z;COUNT=1"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsForceSet": true
+      },
+      "expected": []
+    },
+    {
+      "name": "invalid zone until before start false",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Invalid/Zone:20260125T090000",
+          "RRULE:FREQ=DAILY;UNTIL=20260124T000000Z;COUNT=1"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsForceSet": false
+      },
+      "expected": []
+    },
+    {
+      "name": "invalid zone first matching weekday after query true",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Invalid/Zone:20260125T090000",
+          "RRULE:FREQ=DAILY;BYDAY=WE;UNTIL=20260210T000000Z;COUNT=1"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsForceSet": true
+      },
+      "expected": {
+        "error": "RangeError: Invalid time zone specified: Invalid/Zone"
+      }
+    },
+    {
+      "name": "invalid zone first matching weekday after query false",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Invalid/Zone:20260125T090000",
+          "RRULE:FREQ=DAILY;BYDAY=WE;UNTIL=20260210T000000Z;COUNT=1"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsForceSet": false
+      },
+      "expected": {
+        "error": "RangeError: Invalid time zone specified: Invalid/Zone"
+      }
+    },
+    {
+      "name": "seed 5546281 case 0",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Australia/Lord_Howe:20261003T000000",
+          "RRULE:FREQ=MONTHLY;INTERVAL=4;COUNT=4;UNTIL=20261020T235959Z;BYHOUR=22,5,12;BYMINUTE=7,22",
+          "RDATE:20261003T000000Z,20261003T213000Z",
+          "EXDATE:20261003T000000Z"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsForceSet": false
+      },
+      "expected": [
+        "2026-10-02T18:37:00Z",
+        "2026-10-02T18:52:00Z",
+        "2026-10-03T10:30:00Z",
+        "2026-10-03T11:07:00Z",
+        "2026-10-03T11:22:00Z"
+      ]
+    },
+    {
+      "name": "seed 5546281 case 168",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261101T000000",
+          "RRULE:FREQ=MINUTELY;INTERVAL=4;COUNT=6;UNTIL=20261120T235959Z;BYSECOND=1,17,21",
+          "RRULE:FREQ=MINUTELY;INTERVAL=4;COUNT=6;UNTIL=20261120T235959Z;BYSECOND=1,17,21"
+        ],
+        "rruleJsHostTimeZone": "America/New_York",
+        "rruleJsForceSet": false
+      },
+      "expected": [
+        "2026-11-01T00:00:01Z",
+        "2026-11-01T00:00:17Z",
+        "2026-11-01T00:00:21Z",
+        "2026-11-01T00:04:01Z",
+        "2026-11-01T00:04:17Z",
+        "2026-11-01T00:04:21Z"
+      ]
+    },
+    {
+      "name": "seed 5546281 case 335",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Australia/Lord_Howe:20261003T000000",
+          "RRULE:FREQ=MONTHLY;INTERVAL=2;COUNT=19;UNTIL=20261020T235959Z;BYHOUR=18,19,17;BYMINUTE=7,22",
+          "RDATE:20261003T000000Z,20261003T213000Z",
+          "EXDATE:20261003T000000Z"
+        ],
+        "rruleJsHostTimeZone": "Asia/Tokyo",
+        "rruleJsForceSet": false
+      },
+      "expected": [
+        "2026-10-03T15:07:00Z",
+        "2026-10-03T15:22:00Z",
+        "2026-10-03T16:07:00Z",
+        "2026-10-03T16:22:00Z",
+        "2026-10-03T17:07:00Z",
+        "2026-10-03T17:22:00Z",
+        "2026-10-03T19:30:00Z"
+      ]
+    },
+    {
+      "name": "seed 5546281 case 502",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=UTC:20260101T000001",
+          "RRULE:FREQ=WEEKLY;INTERVAL=3;COUNT=10;UNTIL=20260120T235959Z;BYHOUR=11,19,23;BYMINUTE=7,22;BYSETPOS=-2,-1"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsForceSet": false
+      },
+      "expected": [
+        "2026-01-01T23:07:01Z",
+        "2026-01-01T23:22:01Z"
+      ]
+    },
+    {
+      "name": "seed 5546281 case 669",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261101T000000",
+          "RRULE:FREQ=DAILY;INTERVAL=3;COUNT=7;UNTIL=20261120T235959Z;BYHOUR=10,20,7;BYMINUTE=7,22",
+          "EXRULE:FREQ=DAILY;BYHOUR=18,9,1,3,0,2;BYMINUTE=7,22;COUNT=25;UNTIL=20261120T235959Z"
+        ],
+        "rruleJsHostTimeZone": "Asia/Tokyo",
+        "rruleJsForceSet": true
+      },
+      "expected": [
+        "2026-11-01T21:07:00Z",
+        "2026-11-01T21:22:00Z",
+        "2026-11-02T00:07:00Z",
+        "2026-11-02T00:22:00Z",
+        "2026-11-02T10:07:00Z",
+        "2026-11-02T10:22:00Z",
+        "2026-11-05T00:07:00Z"
+      ]
+    },
+    {
+      "name": "seed 5546281 case 836",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Kwajalein:19690929T100100",
+          "RRULE:FREQ=HOURLY;INTERVAL=4;COUNT=0;UNTIL=19691020T235959Z;BYMINUTE=11,15,33,57;BYSETPOS=2,-2",
+          "RRULE:FREQ=HOURLY;INTERVAL=4;COUNT=0;UNTIL=19691020T235959Z;BYMINUTE=11,15,33,57;BYSETPOS=2,-2"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsForceSet": true
+      },
+      "expected": []
+    },
+    {
+      "name": "2026-01-01T00:00:00.999Z 1 SECONDLY FREQ=SECONDLY;COUNT=3 1000 false",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=SECONDLY;COUNT=7;INTERVAL=1",
+          "EXRULE:FREQ=SECONDLY;COUNT=3",
+          "RDATE:20260101T000001Z"
+        ],
+        "dtstart": {
+          "dateTime": "2026-01-01T00:00:00.999Z"
+        },
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        "2026-01-01T00:00:03Z",
+        "2026-01-01T00:00:04Z",
+        "2026-01-01T00:00:05Z",
+        "2026-01-01T00:00:06Z"
+      ]
+    },
+    {
+      "name": "2026-01-01T00:00:00.999Z 1 SECONDLY FREQ=MINUTELY;BYSECOND=0,1,59;COUNT=8 1000 false",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=SECONDLY;COUNT=7;INTERVAL=1",
+          "EXRULE:FREQ=MINUTELY;BYSECOND=0,1,59;COUNT=8",
+          "RDATE:20260101T000001Z"
+        ],
+        "dtstart": {
+          "dateTime": "2026-01-01T00:00:00.999Z"
+        },
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        "2026-01-01T00:00:01Z",
+        "2026-01-01T00:00:02Z",
+        "2026-01-01T00:00:03Z",
+        "2026-01-01T00:00:04Z",
+        "2026-01-01T00:00:05Z",
+        "2026-01-01T00:00:06Z"
+      ]
+    },
+    {
+      "name": "2026-01-01T00:00:00.999Z 1 MINUTELY FREQ=SECONDLY;COUNT=3 1000 false",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=MINUTELY;COUNT=7;INTERVAL=1;BYSECOND=59,0,1",
+          "EXRULE:FREQ=SECONDLY;COUNT=3",
+          "RDATE:20260101T000001Z"
+        ],
+        "dtstart": {
+          "dateTime": "2026-01-01T00:00:00.999Z"
+        },
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        "2026-01-01T00:00:01.999Z",
+        "2026-01-01T00:00:59.999Z",
+        "2026-01-01T00:01:00Z",
+        "2026-01-01T00:01:01Z",
+        "2026-01-01T00:01:59Z",
+        "2026-01-01T00:02:00Z"
+      ]
+    },
+    {
+      "name": "2026-01-01T00:00:00.999Z 1 MINUTELY FREQ=MINUTELY;BYSECOND=0,1,59;COUNT=8 1000 false",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=MINUTELY;COUNT=7;INTERVAL=1;BYSECOND=59,0,1",
+          "EXRULE:FREQ=MINUTELY;BYSECOND=0,1,59;COUNT=8",
+          "RDATE:20260101T000001Z"
+        ],
+        "dtstart": {
+          "dateTime": "2026-01-01T00:00:00.999Z"
+        },
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        "2026-01-01T00:00:01Z"
+      ]
+    },
+    {
+      "name": "1969-12-31T23:59:58.999Z 1 SECONDLY FREQ=SECONDLY;COUNT=3 1000 false",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=SECONDLY;COUNT=7;INTERVAL=1",
+          "EXRULE:FREQ=SECONDLY;COUNT=3",
+          "RDATE:19691231T235959Z"
+        ],
+        "dtstart": {
+          "dateTime": "1969-12-31T23:59:58.999Z"
+        },
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        "1970-01-01T00:00:02Z",
+        "1970-01-01T00:00:03Z",
+        "1970-01-01T00:00:04Z",
+        "1970-01-01T00:00:05Z"
+      ]
+    },
+    {
+      "name": "1969-12-31T23:59:58.999Z 1 SECONDLY FREQ=MINUTELY;BYSECOND=0,1,59;COUNT=8 1000 false",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=SECONDLY;COUNT=7;INTERVAL=1",
+          "EXRULE:FREQ=MINUTELY;BYSECOND=0,1,59;COUNT=8",
+          "RDATE:19691231T235959Z"
+        ],
+        "dtstart": {
+          "dateTime": "1969-12-31T23:59:58.999Z"
+        },
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        "1969-12-31T23:59:59Z",
+        "1970-01-01T00:00:02Z",
+        "1970-01-01T00:00:03Z",
+        "1970-01-01T00:00:04Z",
+        "1970-01-01T00:00:05Z"
+      ]
+    },
+    {
+      "name": "1969-12-31T23:59:58.999Z 1 MINUTELY FREQ=SECONDLY;COUNT=3 1000 false",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=MINUTELY;COUNT=7;INTERVAL=1;BYSECOND=59,0,1",
+          "EXRULE:FREQ=SECONDLY;COUNT=3",
+          "RDATE:19691231T235959Z"
+        ],
+        "dtstart": {
+          "dateTime": "1969-12-31T23:59:58.999Z"
+        },
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        "1969-12-31T23:59:58.999Z",
+        "1970-01-01T00:00:59Z",
+        "1970-01-01T00:01:00Z",
+        "1970-01-01T00:01:01Z",
+        "1970-01-01T00:01:59Z"
+      ]
+    },
+    {
+      "name": "1969-12-31T23:59:58.999Z 1 MINUTELY FREQ=MINUTELY;BYSECOND=0,1,59;COUNT=8 1000 false",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=MINUTELY;COUNT=7;INTERVAL=1;BYSECOND=59,0,1",
+          "EXRULE:FREQ=MINUTELY;BYSECOND=0,1,59;COUNT=8",
+          "RDATE:19691231T235959Z"
+        ],
+        "dtstart": {
+          "dateTime": "1969-12-31T23:59:58.999Z"
+        },
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        "1969-12-31T23:59:59Z"
+      ]
+    }
+  ]
+}

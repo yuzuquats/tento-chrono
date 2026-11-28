@@ -1,0 +1,367 @@
+{
+  "type": "graph-calendar-view",
+  "name": "Outlook Morocco through July 2050",
+  "source": "Microsoft Graph v1.0 calendarView",
+  "cases": [
+    {
+      "name": "morocco-january-2036",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2036-01-12T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2036-01-12T12:50:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "originalEndTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2036-01-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 1200000,
+        "exactBounds": true,
+        "windows": {
+          "captured": {
+            "start": "2036-01-09T00:00:00Z",
+            "end": "2036-01-25T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2036-01-12T12:30:00Z",
+          "2036-01-13T12:30:00Z",
+          "2036-01-14T12:30:00Z",
+          "2036-01-15T12:30:00Z",
+          "2036-01-16T12:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "morocco-july-2036",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2036-07-12T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2036-07-12T12:50:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "originalEndTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2036-07-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 1200000,
+        "exactBounds": true,
+        "windows": {
+          "captured": {
+            "start": "2036-07-09T00:00:00Z",
+            "end": "2036-07-25T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2036-07-12T12:30:00Z",
+          "2036-07-13T12:30:00Z",
+          "2036-07-14T12:30:00Z",
+          "2036-07-15T12:30:00Z",
+          "2036-07-16T12:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "morocco-january-2040",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2040-01-12T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2040-01-12T12:50:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "originalEndTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2040-01-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 1200000,
+        "exactBounds": true,
+        "windows": {
+          "captured": {
+            "start": "2040-01-09T00:00:00Z",
+            "end": "2040-01-25T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2040-01-12T12:30:00Z",
+          "2040-01-13T12:30:00Z",
+          "2040-01-14T12:30:00Z",
+          "2040-01-15T12:30:00Z",
+          "2040-01-16T12:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "morocco-july-2040",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2040-07-12T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2040-07-12T12:50:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "originalEndTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2040-07-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 1200000,
+        "exactBounds": true,
+        "windows": {
+          "captured": {
+            "start": "2040-07-09T00:00:00Z",
+            "end": "2040-07-25T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2040-07-12T12:30:00Z",
+          "2040-07-13T12:30:00Z",
+          "2040-07-14T12:30:00Z",
+          "2040-07-15T12:30:00Z",
+          "2040-07-16T12:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "morocco-july-2050",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2050-07-12T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2050-07-12T12:50:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "originalEndTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2050-07-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 1200000,
+        "exactBounds": true,
+        "windows": {
+          "captured": {
+            "start": "2050-07-09T00:00:00Z",
+            "end": "2050-07-25T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2050-07-12T12:30:00Z",
+          "2050-07-13T12:30:00Z",
+          "2050-07-14T12:30:00Z",
+          "2050-07-15T12:30:00Z",
+          "2050-07-16T12:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "utc-july-2050",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2050-07-12T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2050-07-12T12:50:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "originalEndTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2050-07-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 1200000,
+        "exactBounds": true,
+        "windows": {
+          "captured": {
+            "start": "2050-07-09T00:00:00Z",
+            "end": "2050-07-25T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2050-07-12T12:30:00Z",
+          "2050-07-13T12:30:00Z",
+          "2050-07-14T12:30:00Z",
+          "2050-07-15T12:30:00Z",
+          "2050-07-16T12:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "morocco-yearly-2034-through-2040",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2034-07-12T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2034-07-12T12:50:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "originalEndTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 12,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 7,
+              "type": "absoluteYearly"
+            },
+            "range": {
+              "endDate": "2040-07-12",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "2034-07-12",
+              "type": "endDate"
+            }
+          }
+        },
+        "durationMs": 1200000,
+        "exactBounds": true,
+        "windows": {
+          "captured": {
+            "start": "2040-07-11T00:00:00Z",
+            "end": "2040-07-14T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2040-07-12T12:30:00Z"
+        ]
+      }
+    }
+  ]
+}

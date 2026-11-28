@@ -1,0 +1,509 @@
+{
+  "type": "google-expansion",
+  "name": "Google Calendar distant timezone transitions",
+  "source": "Google Calendar API events.instances",
+  "captureCliCommit": "8db8950f7cf894e781d289f6e513f5e53e6d587a",
+  "capturedAt": "2026-11-23T14:01:52.701546+00:00",
+  "cases": [
+    {
+      "name": "2049-America-New_York",
+      "input": {
+        "start": "2049-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE;TZID=America/New_York:20490108T090000,20490708T090000"
+        ],
+        "window": {
+          "start": "2049-01-01T00:00:00Z",
+          "end": "2049-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=America/New_York:20490108T090000,20490708T090000",
+          "RRULE:FREQ=MONTHLY;COUNT=2;INTERVAL=6"
+        ],
+        "storedStart": {
+          "start": "2049-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2049-01-04T14:00:00Z",
+          "2049-01-08T14:00:00Z",
+          "2049-07-04T13:00:00Z",
+          "2049-07-08T13:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "2049-Australia-Sydney",
+      "input": {
+        "start": "2049-01-04T09:00:00+11:00",
+        "timezone": "Australia/Sydney",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE;TZID=Australia/Sydney:20490108T090000,20490708T090000"
+        ],
+        "window": {
+          "start": "2049-01-01T00:00:00Z",
+          "end": "2049-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Australia/Sydney:20490108T090000,20490708T090000",
+          "RRULE:FREQ=MONTHLY;COUNT=2;INTERVAL=6"
+        ],
+        "storedStart": {
+          "start": "2049-01-03T22:00:00Z",
+          "timezone": "Australia/Sydney"
+        }
+      },
+      "expected": {
+        "google": [
+          "2049-01-03T22:00:00Z",
+          "2049-01-07T22:00:00Z",
+          "2049-07-03T23:00:00Z",
+          "2049-07-07T23:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "2049-Australia-Lord_Howe",
+      "input": {
+        "start": "2049-01-04T09:00:00+11:00",
+        "timezone": "Australia/Lord_Howe",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE;TZID=Australia/Lord_Howe:20490108T090000,20490708T090000"
+        ],
+        "window": {
+          "start": "2049-01-01T00:00:00Z",
+          "end": "2049-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Australia/Lord_Howe:20490108T090000,20490708T090000",
+          "RRULE:FREQ=MONTHLY;COUNT=2;INTERVAL=6"
+        ],
+        "storedStart": {
+          "start": "2049-01-03T22:00:00Z",
+          "timezone": "Australia/Lord_Howe"
+        }
+      },
+      "expected": {
+        "google": [
+          "2049-01-03T22:00:00Z",
+          "2049-01-07T22:00:00Z",
+          "2049-07-03T22:30:00Z",
+          "2049-07-07T22:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "2049-Europe-Dublin",
+      "input": {
+        "start": "2049-01-04T09:00:00+00:00",
+        "timezone": "Europe/Dublin",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE;TZID=Europe/Dublin:20490108T090000,20490708T090000"
+        ],
+        "window": {
+          "start": "2049-01-01T00:00:00Z",
+          "end": "2049-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Europe/Dublin:20490108T090000,20490708T090000",
+          "RRULE:FREQ=MONTHLY;COUNT=2;INTERVAL=6"
+        ],
+        "storedStart": {
+          "start": "2049-01-04T09:00:00Z",
+          "timezone": "Europe/Dublin"
+        }
+      },
+      "expected": {
+        "google": [
+          "2049-01-04T09:00:00Z",
+          "2049-01-08T09:00:00Z",
+          "2049-07-04T08:00:00Z",
+          "2049-07-08T08:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "2050-America-New_York",
+      "input": {
+        "start": "2050-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE;TZID=America/New_York:20500108T090000,20500708T090000"
+        ],
+        "window": {
+          "start": "2050-01-01T00:00:00Z",
+          "end": "2050-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=America/New_York:20500108T090000,20500708T090000",
+          "RRULE:FREQ=MONTHLY;COUNT=2;INTERVAL=6"
+        ],
+        "storedStart": {
+          "start": "2050-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2050-01-04T14:00:00Z",
+          "2050-01-08T14:00:00Z",
+          "2050-07-04T13:00:00Z",
+          "2050-07-08T13:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "2050-Australia-Sydney",
+      "input": {
+        "start": "2050-01-04T09:00:00+11:00",
+        "timezone": "Australia/Sydney",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE;TZID=Australia/Sydney:20500108T090000,20500708T090000"
+        ],
+        "window": {
+          "start": "2050-01-01T00:00:00Z",
+          "end": "2050-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Australia/Sydney:20500108T090000,20500708T090000",
+          "RRULE:FREQ=MONTHLY;COUNT=2;INTERVAL=6"
+        ],
+        "storedStart": {
+          "start": "2050-01-03T22:00:00Z",
+          "timezone": "Australia/Sydney"
+        }
+      },
+      "expected": {
+        "google": [
+          "2050-01-03T22:00:00Z",
+          "2050-01-07T22:00:00Z",
+          "2050-07-03T23:00:00Z",
+          "2050-07-07T23:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "2050-Australia-Lord_Howe",
+      "input": {
+        "start": "2050-01-04T09:00:00+11:00",
+        "timezone": "Australia/Lord_Howe",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE;TZID=Australia/Lord_Howe:20500108T090000,20500708T090000"
+        ],
+        "window": {
+          "start": "2050-01-01T00:00:00Z",
+          "end": "2050-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Australia/Lord_Howe:20500108T090000,20500708T090000",
+          "RRULE:FREQ=MONTHLY;COUNT=2;INTERVAL=6"
+        ],
+        "storedStart": {
+          "start": "2050-01-03T22:00:00Z",
+          "timezone": "Australia/Lord_Howe"
+        }
+      },
+      "expected": {
+        "google": [
+          "2050-01-03T22:00:00Z",
+          "2050-01-07T22:00:00Z",
+          "2050-07-03T22:30:00Z",
+          "2050-07-07T22:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "2050-Europe-Dublin",
+      "input": {
+        "start": "2050-01-04T09:00:00+00:00",
+        "timezone": "Europe/Dublin",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE;TZID=Europe/Dublin:20500108T090000,20500708T090000"
+        ],
+        "window": {
+          "start": "2050-01-01T00:00:00Z",
+          "end": "2050-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Europe/Dublin:20500108T090000,20500708T090000",
+          "RRULE:FREQ=MONTHLY;COUNT=2;INTERVAL=6"
+        ],
+        "storedStart": {
+          "start": "2050-01-04T09:00:00Z",
+          "timezone": "Europe/Dublin"
+        }
+      },
+      "expected": {
+        "google": [
+          "2050-01-04T09:00:00Z",
+          "2050-01-08T09:00:00Z",
+          "2050-07-04T08:00:00Z",
+          "2050-07-08T08:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "2075-America-New_York",
+      "input": {
+        "start": "2075-01-04T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE;TZID=America/New_York:20750108T090000,20750708T090000"
+        ],
+        "window": {
+          "start": "2075-01-01T00:00:00Z",
+          "end": "2075-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=America/New_York:20750108T090000,20750708T090000",
+          "RRULE:FREQ=MONTHLY;COUNT=2;INTERVAL=6"
+        ],
+        "storedStart": {
+          "start": "2075-01-04T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2075-01-04T14:00:00Z",
+          "2075-01-08T14:00:00Z",
+          "2075-07-04T13:00:00Z",
+          "2075-07-08T13:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "2075-Australia-Sydney",
+      "input": {
+        "start": "2075-01-04T09:00:00+11:00",
+        "timezone": "Australia/Sydney",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE;TZID=Australia/Sydney:20750108T090000,20750708T090000"
+        ],
+        "window": {
+          "start": "2075-01-01T00:00:00Z",
+          "end": "2075-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Australia/Sydney:20750108T090000,20750708T090000",
+          "RRULE:FREQ=MONTHLY;COUNT=2;INTERVAL=6"
+        ],
+        "storedStart": {
+          "start": "2075-01-03T22:00:00Z",
+          "timezone": "Australia/Sydney"
+        }
+      },
+      "expected": {
+        "google": [
+          "2075-01-03T22:00:00Z",
+          "2075-01-07T22:00:00Z",
+          "2075-07-03T23:00:00Z",
+          "2075-07-07T23:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "2075-Australia-Lord_Howe",
+      "input": {
+        "start": "2075-01-04T09:00:00+11:00",
+        "timezone": "Australia/Lord_Howe",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE;TZID=Australia/Lord_Howe:20750108T090000,20750708T090000"
+        ],
+        "window": {
+          "start": "2075-01-01T00:00:00Z",
+          "end": "2075-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Australia/Lord_Howe:20750108T090000,20750708T090000",
+          "RRULE:FREQ=MONTHLY;COUNT=2;INTERVAL=6"
+        ],
+        "storedStart": {
+          "start": "2075-01-03T22:00:00Z",
+          "timezone": "Australia/Lord_Howe"
+        }
+      },
+      "expected": {
+        "google": [
+          "2075-01-03T22:00:00Z",
+          "2075-01-07T22:00:00Z",
+          "2075-07-03T22:30:00Z",
+          "2075-07-07T22:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "2075-Europe-Dublin",
+      "input": {
+        "start": "2075-01-04T09:00:00+00:00",
+        "timezone": "Europe/Dublin",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE;TZID=Europe/Dublin:20750108T090000,20750708T090000"
+        ],
+        "window": {
+          "start": "2075-01-01T00:00:00Z",
+          "end": "2075-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Europe/Dublin:20750108T090000,20750708T090000",
+          "RRULE:FREQ=MONTHLY;COUNT=2;INTERVAL=6"
+        ],
+        "storedStart": {
+          "start": "2075-01-04T09:00:00Z",
+          "timezone": "Europe/Dublin"
+        }
+      },
+      "expected": {
+        "google": [
+          "2075-01-04T09:00:00Z",
+          "2075-01-08T09:00:00Z",
+          "2075-07-04T08:00:00Z",
+          "2075-07-08T08:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "summer-anchor-America-New_York",
+      "input": {
+        "start": "2075-07-04T09:00:00-04:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE;TZID=America/New_York:20750705T090000",
+          "RDATE;TZID=America/New_York:20750708T090000"
+        ],
+        "window": {
+          "start": "2075-07-01T00:00:00Z",
+          "end": "2075-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "EXDATE;TZID=America/New_York:20750705T090000",
+          "RDATE;TZID=America/New_York:20750708T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "storedStart": {
+          "start": "2075-07-04T13:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2075-07-04T13:00:00Z",
+          "2075-07-06T13:00:00Z",
+          "2075-07-08T13:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "summer-anchor-Australia-Sydney",
+      "input": {
+        "start": "2075-07-04T09:00:00+10:00",
+        "timezone": "Australia/Sydney",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE;TZID=Australia/Sydney:20750705T090000",
+          "RDATE;TZID=Australia/Sydney:20750708T090000"
+        ],
+        "window": {
+          "start": "2075-07-01T00:00:00Z",
+          "end": "2075-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "EXDATE;TZID=Australia/Sydney:20750705T090000",
+          "RDATE;TZID=Australia/Sydney:20750708T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "storedStart": {
+          "start": "2075-07-03T23:00:00Z",
+          "timezone": "Australia/Sydney"
+        }
+      },
+      "expected": {
+        "google": [
+          "2075-07-03T23:00:00Z",
+          "2075-07-05T23:00:00Z",
+          "2075-07-07T23:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "summer-anchor-Australia-Lord_Howe",
+      "input": {
+        "start": "2075-07-04T09:00:00+10:30",
+        "timezone": "Australia/Lord_Howe",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE;TZID=Australia/Lord_Howe:20750705T090000",
+          "RDATE;TZID=Australia/Lord_Howe:20750708T090000"
+        ],
+        "window": {
+          "start": "2075-07-01T00:00:00Z",
+          "end": "2075-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "EXDATE;TZID=Australia/Lord_Howe:20750705T090000",
+          "RDATE;TZID=Australia/Lord_Howe:20750708T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "storedStart": {
+          "start": "2075-07-03T22:30:00Z",
+          "timezone": "Australia/Lord_Howe"
+        }
+      },
+      "expected": {
+        "google": [
+          "2075-07-03T22:30:00Z",
+          "2075-07-05T22:30:00Z",
+          "2075-07-07T22:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "summer-anchor-Europe-Dublin",
+      "input": {
+        "start": "2075-07-04T09:00:00+01:00",
+        "timezone": "Europe/Dublin",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE;TZID=Europe/Dublin:20750705T090000",
+          "RDATE;TZID=Europe/Dublin:20750708T090000"
+        ],
+        "window": {
+          "start": "2075-07-01T00:00:00Z",
+          "end": "2075-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "EXDATE;TZID=Europe/Dublin:20750705T090000",
+          "RDATE;TZID=Europe/Dublin:20750708T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "storedStart": {
+          "start": "2075-07-04T08:00:00Z",
+          "timezone": "Europe/Dublin"
+        }
+      },
+      "expected": {
+        "google": [
+          "2075-07-04T08:00:00Z",
+          "2075-07-06T08:00:00Z",
+          "2075-07-08T08:00:00Z"
+        ]
+      }
+    }
+  ]
+}

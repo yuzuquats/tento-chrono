@@ -1,0 +1,1318 @@
+{
+  "type": "recurrence-profile",
+  "name": "Outlook Graph Asia-Pacific historical offsets",
+  "source": "Microsoft Graph v1.0 calendarView on a dedicated test calendar",
+  "cases": [
+    {
+      "name": "tokyo-history-1899-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-15T03:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tokyo Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Tokyo Standard Time",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T03:00:00Z",
+        "1899-01-16T03:00:00Z",
+        "1899-01-17T03:00:00Z",
+        "1899-01-18T03:00:00Z",
+        "1899-01-19T03:00:00Z"
+      ]
+    },
+    {
+      "name": "tokyo-history-1948-05-01",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1948-05-01T03:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tokyo Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Tokyo Standard Time",
+              "startDate": "1948-05-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1948-05-13",
+        "checkpoints": [
+          "1948-05-01",
+          "1948-05-02",
+          "1948-05-03",
+          "1948-05-04",
+          "1948-05-05"
+        ]
+      },
+      "expected": [
+        "1948-05-01T03:00:00Z",
+        "1948-05-02T03:00:00Z",
+        "1948-05-03T03:00:00Z",
+        "1948-05-04T03:00:00Z",
+        "1948-05-05T03:00:00Z"
+      ]
+    },
+    {
+      "name": "tokyo-history-1948-09-10",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1948-09-10T03:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tokyo Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Tokyo Standard Time",
+              "startDate": "1948-09-10",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1948-09-22",
+        "checkpoints": [
+          "1948-09-10",
+          "1948-09-11",
+          "1948-09-12",
+          "1948-09-13",
+          "1948-09-14"
+        ]
+      },
+      "expected": [
+        "1948-09-10T03:00:00Z",
+        "1948-09-11T03:00:00Z",
+        "1948-09-12T03:00:00Z",
+        "1948-09-13T03:00:00Z",
+        "1948-09-14T03:00:00Z"
+      ]
+    },
+    {
+      "name": "tokyo-history-1951-05-05",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1951-05-05T03:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tokyo Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Tokyo Standard Time",
+              "startDate": "1951-05-05",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1951-05-17",
+        "checkpoints": [
+          "1951-05-05",
+          "1951-05-06",
+          "1951-05-07",
+          "1951-05-08",
+          "1951-05-09"
+        ]
+      },
+      "expected": [
+        "1951-05-05T03:00:00Z",
+        "1951-05-06T03:00:00Z",
+        "1951-05-07T03:00:00Z",
+        "1951-05-08T03:00:00Z",
+        "1951-05-09T03:00:00Z"
+      ]
+    },
+    {
+      "name": "tokyo-history-2075-05-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-05-15T03:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tokyo Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Tokyo Standard Time",
+              "startDate": "2075-05-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-05-27",
+        "checkpoints": [
+          "2075-05-15",
+          "2075-05-16",
+          "2075-05-17",
+          "2075-05-18",
+          "2075-05-19"
+        ]
+      },
+      "expected": [
+        "2075-05-15T03:00:00Z",
+        "2075-05-16T03:00:00Z",
+        "2075-05-17T03:00:00Z",
+        "2075-05-18T03:00:00Z",
+        "2075-05-19T03:00:00Z"
+      ]
+    },
+    {
+      "name": "bangkok-history-1899-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-15T05:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "SE Asia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "SE Asia Standard Time",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T05:00:00Z",
+        "1899-01-16T05:00:00Z",
+        "1899-01-17T05:00:00Z",
+        "1899-01-18T05:00:00Z",
+        "1899-01-19T05:00:00Z"
+      ]
+    },
+    {
+      "name": "bangkok-history-1920-03-30",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1920-03-30T05:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "SE Asia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "SE Asia Standard Time",
+              "startDate": "1920-03-30",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1920-04-11",
+        "checkpoints": [
+          "1920-03-30",
+          "1920-03-31",
+          "1920-04-01",
+          "1920-04-02",
+          "1920-04-03"
+        ]
+      },
+      "expected": [
+        "1920-03-30T05:00:00Z",
+        "1920-03-31T05:00:00Z",
+        "1920-04-01T05:00:00Z",
+        "1920-04-02T05:00:00Z",
+        "1920-04-03T05:00:00Z"
+      ]
+    },
+    {
+      "name": "bangkok-history-1920-04-02",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1920-04-02T05:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "SE Asia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "SE Asia Standard Time",
+              "startDate": "1920-04-02",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1920-04-14",
+        "checkpoints": [
+          "1920-04-02",
+          "1920-04-03",
+          "1920-04-04",
+          "1920-04-05",
+          "1920-04-06"
+        ]
+      },
+      "expected": [
+        "1920-04-02T05:00:00Z",
+        "1920-04-03T05:00:00Z",
+        "1920-04-04T05:00:00Z",
+        "1920-04-05T05:00:00Z",
+        "1920-04-06T05:00:00Z"
+      ]
+    },
+    {
+      "name": "bangkok-history-2075-05-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-05-15T05:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "SE Asia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "SE Asia Standard Time",
+              "startDate": "2075-05-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-05-27",
+        "checkpoints": [
+          "2075-05-15",
+          "2075-05-16",
+          "2075-05-17",
+          "2075-05-18",
+          "2075-05-19"
+        ]
+      },
+      "expected": [
+        "2075-05-15T05:00:00Z",
+        "2075-05-16T05:00:00Z",
+        "2075-05-17T05:00:00Z",
+        "2075-05-18T05:00:00Z",
+        "2075-05-19T05:00:00Z"
+      ]
+    },
+    {
+      "name": "jakarta-history-1932-10-30",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1932-10-30T05:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Asia/Jakarta",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "SE Asia Standard Time",
+              "startDate": "1932-10-30",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1932-11-11",
+        "checkpoints": [
+          "1932-10-30",
+          "1932-10-31",
+          "1932-11-01",
+          "1932-11-02",
+          "1932-11-03"
+        ]
+      },
+      "expected": [
+        "1932-10-30T05:00:00Z",
+        "1932-10-31T05:00:00Z",
+        "1932-11-01T05:00:00Z",
+        "1932-11-02T05:00:00Z",
+        "1932-11-03T05:00:00Z"
+      ]
+    },
+    {
+      "name": "jakarta-history-1942-03-21",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1942-03-21T05:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Asia/Jakarta",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "SE Asia Standard Time",
+              "startDate": "1942-03-21",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1942-04-02",
+        "checkpoints": [
+          "1942-03-21",
+          "1942-03-22",
+          "1942-03-23",
+          "1942-03-24",
+          "1942-03-25"
+        ]
+      },
+      "expected": [
+        "1942-03-21T05:00:00Z",
+        "1942-03-22T05:00:00Z",
+        "1942-03-23T05:00:00Z",
+        "1942-03-24T05:00:00Z",
+        "1942-03-25T05:00:00Z"
+      ]
+    },
+    {
+      "name": "jakarta-history-1948-04-29",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1948-04-29T05:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Asia/Jakarta",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "SE Asia Standard Time",
+              "startDate": "1948-04-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1948-05-11",
+        "checkpoints": [
+          "1948-04-29",
+          "1948-04-30",
+          "1948-05-01",
+          "1948-05-02",
+          "1948-05-03"
+        ]
+      },
+      "expected": [
+        "1948-04-29T05:00:00Z",
+        "1948-04-30T05:00:00Z",
+        "1948-05-01T05:00:00Z",
+        "1948-05-02T05:00:00Z",
+        "1948-05-03T05:00:00Z"
+      ]
+    },
+    {
+      "name": "jakarta-history-1963-12-30",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1963-12-30T05:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Asia/Jakarta",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "SE Asia Standard Time",
+              "startDate": "1963-12-30",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1964-01-11",
+        "checkpoints": [
+          "1963-12-30",
+          "1963-12-31",
+          "1964-01-01",
+          "1964-01-02",
+          "1964-01-03"
+        ]
+      },
+      "expected": [
+        "1963-12-30T05:00:00Z",
+        "1963-12-31T05:00:00Z",
+        "1964-01-01T05:00:00Z",
+        "1964-01-02T05:00:00Z",
+        "1964-01-03T05:00:00Z"
+      ]
+    },
+    {
+      "name": "manila-history-1936-10-30",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1936-10-30T04:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Asia/Manila",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Singapore Standard Time",
+              "startDate": "1936-10-30",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1936-11-11",
+        "checkpoints": [
+          "1936-10-30",
+          "1936-10-31",
+          "1936-11-01",
+          "1936-11-02",
+          "1936-11-03"
+        ]
+      },
+      "expected": [
+        "1936-10-30T04:00:00Z",
+        "1936-10-31T04:00:00Z",
+        "1936-11-01T04:00:00Z",
+        "1936-11-02T04:00:00Z",
+        "1936-11-03T04:00:00Z"
+      ]
+    },
+    {
+      "name": "manila-history-1941-12-14",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1941-12-14T04:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Asia/Manila",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Singapore Standard Time",
+              "startDate": "1941-12-14",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1941-12-26",
+        "checkpoints": [
+          "1941-12-14",
+          "1941-12-15",
+          "1941-12-16",
+          "1941-12-17",
+          "1941-12-18"
+        ]
+      },
+      "expected": [
+        "1941-12-14T04:00:00Z",
+        "1941-12-15T04:00:00Z",
+        "1941-12-16T04:00:00Z",
+        "1941-12-17T04:00:00Z",
+        "1941-12-18T04:00:00Z"
+      ]
+    },
+    {
+      "name": "manila-history-1977-03-26",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1977-03-26T04:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Asia/Manila",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Singapore Standard Time",
+              "startDate": "1977-03-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1977-04-07",
+        "checkpoints": [
+          "1977-03-26",
+          "1977-03-27",
+          "1977-03-28",
+          "1977-03-29",
+          "1977-03-30"
+        ]
+      },
+      "expected": [
+        "1977-03-26T04:00:00Z",
+        "1977-03-27T04:00:00Z",
+        "1977-03-28T04:00:00Z",
+        "1977-03-29T04:00:00Z",
+        "1977-03-30T04:00:00Z"
+      ]
+    },
+    {
+      "name": "manila-history-1990-05-19",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1990-05-19T04:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Asia/Manila",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Singapore Standard Time",
+              "startDate": "1990-05-19",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1990-05-31",
+        "checkpoints": [
+          "1990-05-19",
+          "1990-05-20",
+          "1990-05-21",
+          "1990-05-22",
+          "1990-05-23"
+        ]
+      },
+      "expected": [
+        "1990-05-19T04:00:00Z",
+        "1990-05-20T04:00:00Z",
+        "1990-05-21T04:00:00Z",
+        "1990-05-22T04:00:00Z",
+        "1990-05-23T04:00:00Z"
+      ]
+    },
+    {
+      "name": "ulaanbaatar-history-1977-12-30",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1977-12-30T04:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Ulaanbaatar Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Ulaanbaatar Standard Time",
+              "startDate": "1977-12-30",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1978-01-11",
+        "checkpoints": [
+          "1977-12-30",
+          "1977-12-31",
+          "1978-01-01",
+          "1978-01-02",
+          "1978-01-03"
+        ]
+      },
+      "expected": [
+        "1977-12-30T04:00:00Z",
+        "1977-12-31T04:00:00Z",
+        "1978-01-01T04:00:00Z",
+        "1978-01-02T04:00:00Z",
+        "1978-01-03T04:00:00Z"
+      ]
+    },
+    {
+      "name": "ulaanbaatar-history-1998-03-27",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1998-03-27T04:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Ulaanbaatar Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Ulaanbaatar Standard Time",
+              "startDate": "1998-03-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1998-04-08",
+        "checkpoints": [
+          "1998-03-27",
+          "1998-03-28",
+          "1998-03-29",
+          "1998-03-30",
+          "1998-03-31"
+        ]
+      },
+      "expected": [
+        "1998-03-27T04:00:00Z",
+        "1998-03-28T04:00:00Z",
+        "1998-03-29T04:00:00Z",
+        "1998-03-30T04:00:00Z",
+        "1998-03-31T04:00:00Z"
+      ]
+    },
+    {
+      "name": "ulaanbaatar-history-2005-03-24",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2005-03-24T04:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Ulaanbaatar Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Ulaanbaatar Standard Time",
+              "startDate": "2005-03-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2005-04-05",
+        "checkpoints": [
+          "2005-03-24",
+          "2005-03-25",
+          "2005-03-26",
+          "2005-03-27",
+          "2005-03-28"
+        ]
+      },
+      "expected": [
+        "2005-03-24T04:00:00Z",
+        "2005-03-25T04:00:00Z",
+        "2005-03-26T04:00:00Z",
+        "2005-03-27T04:00:00Z",
+        "2005-03-28T04:00:00Z"
+      ]
+    },
+    {
+      "name": "ulaanbaatar-history-2015-03-27",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2015-03-27T04:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Ulaanbaatar Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2015-03-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2015-04-08",
+        "checkpoints": [
+          "2015-03-27",
+          "2015-03-28",
+          "2015-03-29",
+          "2015-03-30",
+          "2015-03-31"
+        ]
+      },
+      "expected": [
+        "2015-03-27T04:00:00Z",
+        "2015-03-28T03:00:00Z",
+        "2015-03-29T03:00:00Z",
+        "2015-03-30T03:00:00Z",
+        "2015-03-31T03:00:00Z"
+      ]
+    },
+    {
+      "name": "ulaanbaatar-history-2016-09-22",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2016-09-22T03:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Ulaanbaatar Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2016-09-22",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2016-10-04",
+        "checkpoints": [
+          "2016-09-22",
+          "2016-09-23",
+          "2016-09-24",
+          "2016-09-25",
+          "2016-09-26"
+        ]
+      },
+      "expected": [
+        "2016-09-22T03:00:00Z",
+        "2016-09-23T03:00:00Z",
+        "2016-09-24T04:00:00Z",
+        "2016-09-25T04:00:00Z",
+        "2016-09-26T04:00:00Z"
+      ]
+    },
+    {
+      "name": "ulaanbaatar-history-2075-05-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-05-15T04:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Ulaanbaatar Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Ulaanbaatar Standard Time",
+              "startDate": "2075-05-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-05-27",
+        "checkpoints": [
+          "2075-05-15",
+          "2075-05-16",
+          "2075-05-17",
+          "2075-05-18",
+          "2075-05-19"
+        ]
+      },
+      "expected": [
+        "2075-05-15T04:00:00Z",
+        "2075-05-16T04:00:00Z",
+        "2075-05-17T04:00:00Z",
+        "2075-05-18T04:00:00Z",
+        "2075-05-19T04:00:00Z"
+      ]
+    },
+    {
+      "name": "guam-history-1899-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-15T02:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "West Pacific Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "West Pacific Standard Time",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T02:00:00Z",
+        "1899-01-16T02:00:00Z",
+        "1899-01-17T02:00:00Z",
+        "1899-01-18T02:00:00Z",
+        "1899-01-19T02:00:00Z"
+      ]
+    },
+    {
+      "name": "guam-history-1941-12-08",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1941-12-08T02:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "West Pacific Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "West Pacific Standard Time",
+              "startDate": "1941-12-08",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1941-12-20",
+        "checkpoints": [
+          "1941-12-08",
+          "1941-12-09",
+          "1941-12-10",
+          "1941-12-11",
+          "1941-12-12"
+        ]
+      },
+      "expected": [
+        "1941-12-08T02:00:00Z",
+        "1941-12-09T02:00:00Z",
+        "1941-12-10T02:00:00Z",
+        "1941-12-11T02:00:00Z",
+        "1941-12-12T02:00:00Z"
+      ]
+    },
+    {
+      "name": "guam-history-1976-05-24",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1976-05-24T02:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "West Pacific Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "West Pacific Standard Time",
+              "startDate": "1976-05-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1976-06-05",
+        "checkpoints": [
+          "1976-05-24",
+          "1976-05-25",
+          "1976-05-26",
+          "1976-05-27",
+          "1976-05-28"
+        ]
+      },
+      "expected": [
+        "1976-05-24T02:00:00Z",
+        "1976-05-25T02:00:00Z",
+        "1976-05-26T02:00:00Z",
+        "1976-05-27T02:00:00Z",
+        "1976-05-28T02:00:00Z"
+      ]
+    },
+    {
+      "name": "guam-history-2075-05-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-05-15T02:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "West Pacific Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "West Pacific Standard Time",
+              "startDate": "2075-05-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-05-27",
+        "checkpoints": [
+          "2075-05-15",
+          "2075-05-16",
+          "2075-05-17",
+          "2075-05-18",
+          "2075-05-19"
+        ]
+      },
+      "expected": [
+        "2075-05-15T02:00:00Z",
+        "2075-05-16T02:00:00Z",
+        "2075-05-17T02:00:00Z",
+        "2075-05-18T02:00:00Z",
+        "2075-05-19T02:00:00Z"
+      ]
+    },
+    {
+      "name": "rfc-tokyo-retains-iana-offset-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Asia/Tokyo:19480501T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1948-05-05",
+        "checkpoints": [
+          "1948-05-01",
+          "1948-05-02",
+          "1948-05-03",
+          "1948-05-04",
+          "1948-05-05"
+        ]
+      },
+      "expected": [
+        "1948-05-01T03:00:00Z",
+        "1948-05-02T02:00:00Z",
+        "1948-05-03T02:00:00Z",
+        "1948-05-04T02:00:00Z",
+        "1948-05-05T02:00:00Z"
+      ]
+    },
+    {
+      "name": "rfc-bangkok-retains-iana-offset-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Asia/Bangkok:19200330T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1920-04-03",
+        "checkpoints": [
+          "1920-03-30",
+          "1920-03-31",
+          "1920-04-01",
+          "1920-04-02",
+          "1920-04-03"
+        ]
+      },
+      "expected": [
+        "1920-03-30T05:17:56Z",
+        "1920-03-31T05:17:56Z",
+        "1920-04-01T05:00:00Z",
+        "1920-04-02T05:00:00Z",
+        "1920-04-03T05:00:00Z"
+      ]
+    },
+    {
+      "name": "rfc-ulaanbaatar-retains-iana-offset-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Asia/Ulaanbaatar:20050324T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "2005-03-28",
+        "checkpoints": [
+          "2005-03-24",
+          "2005-03-25",
+          "2005-03-26",
+          "2005-03-27",
+          "2005-03-28"
+        ]
+      },
+      "expected": [
+        "2005-03-24T04:00:00Z",
+        "2005-03-25T04:00:00Z",
+        "2005-03-26T03:00:00Z",
+        "2005-03-27T03:00:00Z",
+        "2005-03-28T03:00:00Z"
+      ]
+    },
+    {
+      "name": "rfc-guam-retains-iana-offset-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Guam:19760524T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1976-05-28",
+        "checkpoints": [
+          "1976-05-24",
+          "1976-05-25",
+          "1976-05-26",
+          "1976-05-27",
+          "1976-05-28"
+        ]
+      },
+      "expected": [
+        "1976-05-24T02:00:00Z",
+        "1976-05-25T02:00:00Z",
+        "1976-05-26T01:00:00Z",
+        "1976-05-27T01:00:00Z",
+        "1976-05-28T01:00:00Z"
+      ]
+    }
+  ]
+}

@@ -30,6 +30,23 @@
       ]
     },
     {
+      "name": "explicit dates extend past the end of 2099",
+      "input": {
+        "lines": [
+          "DTSTART:20991230T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:21000102T090000Z,21000104T090000Z",
+          "EXDATE:21000102T090000Z"
+        ],
+        "through": "2100-01-05"
+      },
+      "expected": [
+        "2099-12-30T09:00:00Z",
+        "2099-12-31T09:00:00Z",
+        "2100-01-04T09:00:00Z"
+      ]
+    },
+    {
       "name": "exdate only removes the matched instant",
       "input": {
         "lines": [
@@ -337,8 +354,9 @@
       }
     },
     {
-      "name": "exdate type must match",
+      "name": "civil EXDATE does not remove a timed rule start in written mode",
       "input": {
+        "rfcDateMode": "written",
         "lines": [
           "DTSTART:20260101T090000Z",
           "RRULE:FREQ=DAILY;COUNT=2",
@@ -346,9 +364,10 @@
         ],
         "through": "2026-02-01"
       },
-      "expected": {
-        "error": "EXDATE type"
-      }
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
     },
     {
       "name": "multiple rules default validation",
@@ -602,6 +621,292 @@
         "2026-01-01T09:00:00Z",
         "2026-01-02T09:00:00Z"
       ]
+    },
+    {
+      "name": "mixed-byday-expands-ordinary-and-ordinal-weekdays",
+      "input": {
+        "lines": [
+          "DTSTART:20260105T090000Z",
+          "RRULE:FREQ=MONTHLY;BYDAY=MO,1TU;COUNT=3"
+        ],
+        "through": "2027-12-31"
+      },
+      "expected": [
+        "2026-01-05T09:00:00Z",
+        "2026-01-06T09:00:00Z",
+        "2026-01-12T09:00:00Z"
+      ]
+    },
+    {
+      "name": "verified-erratum-4271-daily-gap",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260307T023000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-12"
+      },
+      "expected": [
+        "2026-03-07T07:30:00Z",
+        "2026-03-08T07:30:00Z",
+        "2026-03-09T06:30:00Z"
+      ]
+    },
+    {
+      "name": "lord-howe-half-hour-gap-uses-offset-before-transition",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Australia/Lord_Howe:20271001T021500",
+          "RRULE:FREQ=DAILY;COUNT=6"
+        ],
+        "through": "2027-10-09"
+      },
+      "expected": [
+        "2027-09-30T15:45:00Z",
+        "2027-10-01T15:45:00Z",
+        "2027-10-02T15:45:00Z",
+        "2027-10-03T15:15:00Z",
+        "2027-10-04T15:15:00Z",
+        "2027-10-05T15:15:00Z"
+      ]
+    },
+    {
+      "name": "verified-erratum-4271-hourly-gap-collision",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T013000",
+          "RRULE:FREQ=HOURLY;COUNT=4"
+        ],
+        "through": "2026-03-12"
+      },
+      "expected": [
+        "2026-03-08T06:30:00Z",
+        "2026-03-08T07:30:00Z",
+        "2026-03-08T08:30:00Z"
+      ]
+    },
+    {
+      "name": "reject-library-byweekday-alias",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=WEEKLY;BYWEEKDAY=MO;COUNT=2"
+        ],
+        "through": "2026-01-31"
+      },
+      "expected": {
+        "error": "Unknown RRULE part: BYWEEKDAY"
+      }
+    },
+    {
+      "name": "external-milliseconds-preserved",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=SECONDLY;COUNT=3"
+        ],
+        "dtstart": {
+          "dateTime": "2026-01-01T09:00:59.125Z"
+        },
+        "through": "2026-01-02"
+      },
+      "expected": [
+        "2026-01-01T09:00:59.125Z",
+        "2026-01-01T09:01:00.125Z",
+        "2026-01-01T09:01:01.125Z"
+      ]
+    },
+    {
+      "name": "IANA Line Islands before the date-line change",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Kiritimati:19941228T093000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "1994-12-31"
+      },
+      "expected": [
+        "1994-12-28T19:30:00Z",
+        "1994-12-29T19:30:00Z",
+        "1994-12-30T19:30:00Z"
+      ]
+    },
+    {
+      "name": "IANA Casablanca before the 2026 Ramadan fold",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Africa/Casablanca:20260213T023000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-02-14"
+      },
+      "expected": [
+        "2026-02-13T01:30:00Z",
+        "2026-02-14T01:30:00Z"
+      ]
+    },
+    {
+      "name": "external DTSTART keeps the literal leap year zero",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "dtstart": {
+          "dateTime": "0000-02-28T23:00:00Z"
+        },
+        "through": "0000-03-02"
+      },
+      "expected": [
+        "0000-02-28T23:00:00Z",
+        "0000-02-29T23:00:00Z",
+        "0000-03-01T23:00:00Z"
+      ]
+    },
+    {
+      "name": "external DTSTART crosses into year 0100 in order",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=HOURLY;COUNT=3"
+        ],
+        "dtstart": {
+          "dateTime": "0099-12-31T23:00:00Z"
+        },
+        "through": "0100-01-01"
+      },
+      "expected": [
+        "0099-12-31T23:00:00Z",
+        "0100-01-01T00:00:00Z",
+        "0100-01-01T01:00:00Z"
+      ]
+    },
+    {
+      "name": "RFC daily retains pre-epoch fractions",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "dtstart": {
+          "dateTime": "1969-12-31T00:00:00.125Z"
+        },
+        "through": "1970-01-02"
+      },
+      "expected": [
+        "1969-12-31T00:00:00.125Z",
+        "1970-01-01T00:00:00.125Z",
+        "1970-01-02T00:00:00.125Z"
+      ]
+    },
+    {
+      "name": "RFC secondly retains the fraction across the epoch",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=SECONDLY;COUNT=3"
+        ],
+        "dtstart": {
+          "dateTime": "1969-12-31T23:59:59.125Z"
+        },
+        "through": "1970-01-01"
+      },
+      "expected": [
+        "1969-12-31T23:59:59.125Z",
+        "1970-01-01T00:00:00.125Z",
+        "1970-01-01T00:00:01.125Z"
+      ]
+    },
+    {
+      "name": "RFC Sao Paulo retains IANA daylight time at New Year 2019",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/Sao_Paulo:20181229T003000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "2019-01-02",
+        "checkpoints": [
+          "2018-12-31",
+          "2019-01-01"
+        ]
+      },
+      "expected": [
+        "2018-12-29T02:30:00Z",
+        "2018-12-30T02:30:00Z",
+        "2018-12-31T02:30:00Z",
+        "2019-01-01T02:30:00Z",
+        "2019-01-02T02:30:00Z"
+      ]
+    },
+    {
+      "name": "RFC Almaty observes the February 2024 offset change",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Asia/Almaty:20240227T233000",
+          "RRULE:FREQ=DAILY;COUNT=7"
+        ],
+        "through": "2024-03-04",
+        "checkpoints": [
+          "2024-02-29",
+          "2024-03-01"
+        ]
+      },
+      "expected": [
+        "2024-02-27T17:30:00Z",
+        "2024-02-28T17:30:00Z",
+        "2024-02-29T17:30:00Z",
+        "2024-03-01T18:30:00Z",
+        "2024-03-02T18:30:00Z",
+        "2024-03-03T18:30:00Z",
+        "2024-03-04T18:30:00Z"
+      ]
+    },
+    {
+      "name": "RFC rejects a unit-letter DTSTART clock",
+      "input": {
+        "lines": [
+          "DTSTART:20260102T09H30M",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-04"
+      },
+      "expected": {
+        "error": "Expected an iCalendar DATE or DATE-TIME"
+      }
+    },
+    {
+      "name": "RFC rejects an inline DTSTART numeric offset",
+      "input": {
+        "lines": [
+          "DTSTART:20260102T093000+2:3",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-04"
+      },
+      "expected": {
+        "error": "Expected an iCalendar DATE or DATE-TIME"
+      }
+    },
+    {
+      "name": "RFC rejects compact DTSTART without a T separator",
+      "input": {
+        "lines": [
+          "DTSTART:20260102093030Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-04"
+      },
+      "expected": {
+        "error": "Expected an iCalendar DATE or DATE-TIME"
+      }
+    },
+    {
+      "name": "RFC does not apply dateutil fixed TZID fallback",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=UTC+3:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "through": "2026-01-04"
+      },
+      "expected": {
+        "error": "Unknown recurrence timezone: UTC+3"
+      }
     }
   ]
 }

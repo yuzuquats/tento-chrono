@@ -1,0 +1,788 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil clocks without complete dates",
+  "source": "python-dateutil 2.8.2 rrulestr with a frozen process-local date",
+  "cases": [
+    {
+      "name": "a colon clock inherits the entire process-local date",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:09:15",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-01-31",
+          "2026-02-01"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2026-01-31T09:15:00",
+        "2026-02-01T09:15:00"
+      ]
+    },
+    {
+      "name": "a fractional hour inherits leap day",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2028,
+        "lines": [
+          "DTSTART:9.5H",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2029-12-31",
+        "checkpoints": [
+          "2028-02-29",
+          "2028-03-01"
+        ],
+        "dateutilNow": "2028-02-29T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2028-02-29T09:30:00",
+        "2028-03-01T09:30:00"
+      ]
+    },
+    {
+      "name": "a colon offset is applied after inheriting the date",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:09:15-03:30",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-01-31",
+          "2026-02-01"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2026-01-31T12:45:00Z",
+        "2026-02-01T12:45:00Z"
+      ]
+    },
+    {
+      "name": "a dotted meridiem adjusts an inherited-date clock",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:09:15P.M.",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-01-31",
+          "2026-02-01"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2026-01-31T21:15:00",
+        "2026-02-01T21:15:00"
+      ]
+    },
+    {
+      "name": "a standalone hour accepts an afternoon value above twelve",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:13PM",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-01-31",
+          "2026-02-01"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2026-01-31T13:00:00",
+        "2026-02-01T13:00:00"
+      ]
+    },
+    {
+      "name": "a colon clock checks the meridiem hour",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:13:15PM",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": {
+        "error": "Unknown string format: 13:15PM"
+      }
+    },
+    {
+      "name": "a fractional minute carries into seconds",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:30.5M",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-01-31",
+          "2026-02-01"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2026-01-31T00:30:30",
+        "2026-02-01T00:30:30"
+      ]
+    },
+    {
+      "name": "a minus sign after a minute can introduce the calendar year",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:30M-0400",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "0401-12-31",
+        "checkpoints": [
+          "0400-01-31",
+          "0400-02-01"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "0400-01-31T00:30:00",
+        "0400-02-01T00:30:00"
+      ]
+    },
+    {
+      "name": "a minute without an hour cannot bind a zone label",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:30MUTC",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": {
+        "error": "Unknown string format: 30MUTC"
+      }
+    },
+    {
+      "name": "a written hour unit takes precedence over compact clock interpretation",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:0300H",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": {
+        "error": "hour must be in 0..23: 0300H"
+      }
+    },
+    {
+      "name": "colon clock fields may have leading zeros",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:009:005:003",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-01-31",
+          "2026-02-01"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2026-01-31T09:05:03",
+        "2026-02-01T09:05:03"
+      ]
+    },
+    {
+      "name": "a weekday advances the inherited date and keeps the written clock",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:MON-9H",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-02-02",
+          "2026-02-03"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2026-02-02T09:00:00",
+        "2026-02-03T09:00:00"
+      ]
+    },
+    {
+      "name": "the month consumes the apparent hour after a hyphen",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:MAR-9H",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": {
+        "error": "Unknown string format: MAR-9H"
+      }
+    },
+    {
+      "name": "the hyphen after a complete date leaves the clock separate",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:MAR-01-2026-09:15",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2026-03-01T09:15:00",
+        "2026-03-02T09:15:00"
+      ]
+    },
+    {
+      "name": "a jump token before the hour leaves the clock separate",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:20260301T-09:15",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2026-03-01T09:15:00",
+        "2026-03-02T09:15:00"
+      ]
+    },
+    {
+      "name": "a seconds-only RDATE retains its fractional seconds",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:20260131T000000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:20.25S"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-01-31",
+          "2026-02-01"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2026-01-31T00:00:00",
+        "2026-01-31T00:00:20.250",
+        "2026-02-01T00:00:00"
+      ]
+    },
+    {
+      "name": "a weekday and clock set the exclusion time",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:20260202T000000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE:MON-09:15"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-02-02",
+          "2026-02-03"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2026-02-02T00:00:00",
+        "2026-02-03T00:00:00"
+      ]
+    },
+    {
+      "name": "an inherited-date UNTIL includes the matching day",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:20260131T000000",
+          "RRULE:FREQ=DAILY;UNTIL=12PM"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-01-31"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2026-01-31T00:00:00"
+      ]
+    },
+    {
+      "name": "a clock inherits the supplied host date before applying its offset",
+      "input": {
+        "profile": "dateutil",
+        "dateutilNow": "2026-01-01T02:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "EST",
+            "EDT"
+          ],
+          "standardOffsetSeconds": -18000,
+          "daylightOffsetSeconds": -14400,
+          "localTime": [
+            [
+              0,
+              false,
+              -18000
+            ]
+          ]
+        },
+        "lines": [
+          "DTSTART:09:15EST",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-01"
+      },
+      "expected": [
+        "2025-12-31T14:15:00Z",
+        "2026-01-01T14:15:00Z"
+      ]
+    },
+    {
+      "name": "a three-digit hour token is read as one number",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:20260301T001PM",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02"
+        ]
+      },
+      "expected": [
+        "2026-03-01T13:00:00",
+        "2026-03-02T13:00:00"
+      ]
+    },
+    {
+      "name": "a complete date changes how a two-digit meridiem hour is checked",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:2026-03-01-13PM",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "Unknown string format: 2026-03-01-13PM"
+      }
+    },
+    {
+      "name": "a bare six-digit token is a date before the M separator",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:091530M",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2031-12-31",
+        "checkpoints": [
+          "2030-09-15",
+          "2030-09-16"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2030-09-15",
+        "2030-09-16"
+      ]
+    },
+    {
+      "name": "a bare six-digit token prevents H from supplying an hour",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:091530H",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": {
+        "error": "Unknown string format: 091530H"
+      }
+    },
+    {
+      "name": "the default RFC reader requires the date before a clock",
+      "input": {
+        "lines": [
+          "DTSTART:09:15",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-31"
+      },
+      "expected": {
+        "error": "Expected an iCalendar DATE or DATE-TIME"
+      }
+    }
+  ]
+}

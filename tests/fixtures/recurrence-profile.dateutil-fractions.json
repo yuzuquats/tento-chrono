@@ -1,0 +1,176 @@
+{
+  "type": "recurrence-profile",
+  "name": "dateutil 2.8.2 fractional dates",
+  "source": "python-dateutil 2.8.2 rrulestr; expected values projected to Chrono millisecond precision",
+  "cases": [
+    {
+      "name": "millisecond-rdate-utc",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:20260101T091000.123Z"
+        ],
+        "through": "2026-12-01"
+      },
+      "expected": [
+        "2026-01-01T09:10:00.123Z"
+      ]
+    },
+    {
+      "name": "millisecond-rdate-floating",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:20260101T091000.009"
+        ],
+        "through": "2026-12-01"
+      },
+      "expected": [
+        "2026-01-01T09:10:00.009"
+      ]
+    },
+    {
+      "name": "fractional-numeric-offset-crosses-day",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:20260101T000000.123456+1400"
+        ],
+        "through": "2026-12-01"
+      },
+      "expected": [
+        "2025-12-31T10:00:00.123Z"
+      ]
+    },
+    {
+      "name": "fractional-numeric-offset-exclusion",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:20260101T091000.123456Z,20260101T091000.123457Z",
+          "EXDATE:20260101T041000.123456-0500"
+        ],
+        "through": "2026-12-01"
+      },
+      "expected": [
+        "2026-01-01T09:10:00.123Z"
+      ]
+    },
+    {
+      "name": "fractional-exdate-does-not-remove-whole-second",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T091000Z",
+          "RRULE:FREQ=DAILY;COUNT=1",
+          "EXDATE:20260101T091000.000001Z"
+        ],
+        "through": "2026-12-01"
+      },
+      "expected": [
+        "2026-01-01T09:10:00Z"
+      ]
+    },
+    {
+      "name": "fractional-rdate-not-a-duplicate-of-rule",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T091000Z",
+          "RRULE:FREQ=DAILY;COUNT=1",
+          "RDATE:20260101T091000.000999Z"
+        ],
+        "through": "2026-12-01"
+      },
+      "expected": [
+        "2026-01-01T09:10:00Z",
+        "2026-01-01T09:10:00Z"
+      ]
+    },
+    {
+      "name": "fractional-rdates-same-millisecond",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:20260101T091000.456009,20260101T091000.456001,20260101T091000.456009,20260101T091000.456000"
+        ],
+        "through": "2026-12-01"
+      },
+      "expected": [
+        "2026-01-01T09:10:00.456",
+        "2026-01-01T09:10:00.456",
+        "2026-01-01T09:10:00.456"
+      ]
+    },
+    {
+      "name": "fractional-exdate-embedded-zone-fold",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261101T013000",
+          "RRULE:FREQ=DAILY;COUNT=1",
+          "RDATE:20261101T053000.123456Z",
+          "EXDATE;TZID=America/New_York:20261101T013000.123456"
+        ],
+        "through": "2026-12-01"
+      },
+      "expected": [
+        "2026-11-01T05:30:00Z",
+        "2026-11-01T05:30:00.123Z"
+      ]
+    },
+    {
+      "name": "fractional-exdate-embedded-zone-outside-fold",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:20261102T063000.123456Z,20261102T063000.123457Z",
+          "EXDATE;TZID=America/New_York:20261102T013000.123456"
+        ],
+        "through": "2026-12-01"
+      },
+      "expected": [
+        "2026-11-02T06:30:00.123Z"
+      ]
+    },
+    {
+      "name": "truncates-after-six-digits",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:2026-01-01T09:10:00.9999999Z",
+          "EXDATE:20260101T091000.999999Z"
+        ],
+        "through": "2026-12-01"
+      },
+      "expected": []
+    },
+    {
+      "name": "reject-compact-fractional-minute-offset",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:20260101T0910.5+0100"
+        ],
+        "through": "2026-12-01"
+      },
+      "expected": {
+        "error": "Unknown string format: 20260101T0910.5+0100"
+      }
+    },
+    {
+      "name": "split-fraction-at-end-of-scan-day",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:20260101T235959.999999Z,20260102T000000.000001Z"
+        ],
+        "through": "2026-12-01"
+      },
+      "expected": [
+        "2026-01-01T23:59:59.999Z",
+        "2026-01-02T00:00:00Z"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,457 @@
+{
+  "type": "recurrence-profile",
+  "name": "dateutil calendar selectors",
+  "source": "python-dateutil 2.8.2 rrulestr(forceset=True), bounded between reads",
+  "cases": [
+    {
+      "name": "yearly zero month day leaves every day eligible",
+      "input": {
+        "lines": [
+          "DTSTART:20260110T091715",
+          "RRULE:FREQ=YEARLY;BYMONTHDAY=0;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-01",
+        "checkpoints": [
+          "2026-01-10",
+          "2026-01-15"
+        ]
+      },
+      "expected": [
+        "2026-01-10T09:17:15",
+        "2026-01-11T09:17:15",
+        "2026-01-12T09:17:15"
+      ]
+    },
+    {
+      "name": "monthly zero month day leaves every day eligible",
+      "input": {
+        "lines": [
+          "DTSTART:20260110T091715",
+          "RRULE:FREQ=MONTHLY;BYMONTHDAY=0;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-01",
+        "checkpoints": [
+          "2026-01-10",
+          "2026-01-15"
+        ]
+      },
+      "expected": [
+        "2026-01-10T09:17:15",
+        "2026-01-11T09:17:15",
+        "2026-01-12T09:17:15"
+      ]
+    },
+    {
+      "name": "weekly zero month day leaves every day eligible",
+      "input": {
+        "lines": [
+          "DTSTART:20260110T091715",
+          "RRULE:FREQ=WEEKLY;BYMONTHDAY=0;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-01",
+        "checkpoints": [
+          "2026-01-10",
+          "2026-01-15"
+        ]
+      },
+      "expected": [
+        "2026-01-10T09:17:15",
+        "2026-01-11T09:17:15",
+        "2026-01-12T09:17:15"
+      ]
+    },
+    {
+      "name": "daily zero month day leaves every day eligible",
+      "input": {
+        "lines": [
+          "DTSTART:20260110T091715",
+          "RRULE:FREQ=DAILY;BYMONTHDAY=0;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-01",
+        "checkpoints": [
+          "2026-01-10",
+          "2026-01-15"
+        ]
+      },
+      "expected": [
+        "2026-01-10T09:17:15",
+        "2026-01-11T09:17:15",
+        "2026-01-12T09:17:15"
+      ]
+    },
+    {
+      "name": "hourly zero month day leaves every day eligible",
+      "input": {
+        "lines": [
+          "DTSTART:20260110T091715",
+          "RRULE:FREQ=HOURLY;BYMONTHDAY=0;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-01",
+        "checkpoints": [
+          "2026-01-10",
+          "2026-01-15"
+        ]
+      },
+      "expected": [
+        "2026-01-10T09:17:15",
+        "2026-01-10T10:17:15",
+        "2026-01-10T11:17:15"
+      ]
+    },
+    {
+      "name": "minutely zero month day leaves every day eligible",
+      "input": {
+        "lines": [
+          "DTSTART:20260110T091715",
+          "RRULE:FREQ=MINUTELY;BYMONTHDAY=0;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-01",
+        "checkpoints": [
+          "2026-01-10",
+          "2026-01-15"
+        ]
+      },
+      "expected": [
+        "2026-01-10T09:17:15",
+        "2026-01-10T09:18:15",
+        "2026-01-10T09:19:15"
+      ]
+    },
+    {
+      "name": "secondly zero month day leaves every day eligible",
+      "input": {
+        "lines": [
+          "DTSTART:20260110T091715",
+          "RRULE:FREQ=SECONDLY;BYMONTHDAY=0;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-01",
+        "checkpoints": [
+          "2026-01-10",
+          "2026-01-15"
+        ]
+      },
+      "expected": [
+        "2026-01-10T09:17:15",
+        "2026-01-10T09:17:16",
+        "2026-01-10T09:17:17"
+      ]
+    },
+    {
+      "name": "zero together with a positive and a negative month day",
+      "input": {
+        "lines": [
+          "DTSTART:20260110T091715",
+          "RRULE:FREQ=MONTHLY;BYMONTHDAY=0,-1,11;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-01",
+        "checkpoints": [
+          "2026-01-10",
+          "2026-01-15"
+        ]
+      },
+      "expected": [
+        "2026-01-11T09:17:15",
+        "2026-01-31T09:17:15",
+        "2026-02-11T09:17:15"
+      ]
+    },
+    {
+      "name": "zero does not replace a weekly weekday filter",
+      "input": {
+        "lines": [
+          "DTSTART:20260110T091715",
+          "RRULE:FREQ=WEEKLY;BYMONTHDAY=0;BYDAY=SA,SU;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-01",
+        "checkpoints": [
+          "2026-01-10",
+          "2026-01-15"
+        ]
+      },
+      "expected": [
+        "2026-01-10T09:17:15",
+        "2026-01-11T09:17:15",
+        "2026-01-17T09:17:15"
+      ]
+    },
+    {
+      "name": "zero month day allows yearly month and set-position selection",
+      "input": {
+        "lines": [
+          "DTSTART:20260110T091715",
+          "RRULE:FREQ=YEARLY;BYMONTHDAY=0;BYMONTH=2;BYSETPOS=1;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-01",
+        "checkpoints": [
+          "2026-01-10",
+          "2026-01-15"
+        ]
+      },
+      "expected": [
+        "2026-02-01T09:17:15"
+      ]
+    },
+    {
+      "name": "ordinal mask zero month has no boundaries",
+      "input": {
+        "lines": [
+          "DTSTART:20260110T091715",
+          "RRULE:FREQ=YEARLY;BYMONTH=0;BYDAY=1MO;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-01"
+      },
+      "expected": {
+        "expansionError": "not enough values to unpack (expected 2, got 0)"
+      }
+    },
+    {
+      "name": "ordinal mask month thirteen has just one boundary",
+      "input": {
+        "lines": [
+          "DTSTART:20260110T091715",
+          "RRULE:FREQ=YEARLY;BYMONTH=13;BYDAY=1MO;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-01"
+      },
+      "expected": {
+        "expansionError": "not enough values to unpack (expected 2, got 1)"
+      }
+    },
+    {
+      "name": "valid ordinal month does not hide an invalid month",
+      "input": {
+        "lines": [
+          "DTSTART:20260110T091715",
+          "RRULE:FREQ=YEARLY;BYMONTH=1,13;BYDAY=1MO;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-01"
+      },
+      "expected": {
+        "expansionError": "not enough values to unpack (expected 2, got 1)"
+      }
+    },
+    {
+      "name": "negative month slice can retain a valid ordinal month",
+      "input": {
+        "lines": [
+          "DTSTART:20260110T091715",
+          "RRULE:FREQ=YEARLY;BYMONTH=-12,1,-2;BYDAY=1MO;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-01",
+        "checkpoints": [
+          "2026-01-10",
+          "2026-01-15"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "ordinal mask overflow precedes the next invalid month slice",
+      "input": {
+        "lines": [
+          "DTSTART:20260110T091715",
+          "RRULE:FREQ=YEARLY;BYMONTH=1,13;BYDAY=100WE;COUNT=0"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-01"
+      },
+      "expected": {
+        "expansionError": "list index out of range"
+      }
+    },
+    {
+      "name": "invalid month slice precedes Easter mask overflow",
+      "input": {
+        "lines": [
+          "DTSTART:20260110T091715",
+          "RRULE:FREQ=YEARLY;BYMONTH=13;BYDAY=1MO;BYEASTER=999;COUNT=0"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-01"
+      },
+      "expected": {
+        "expansionError": "not enough values to unpack (expected 2, got 1)"
+      }
+    },
+    {
+      "name": "a first week beginning Wednesday tries to read year zero",
+      "input": {
+        "lines": [
+          "DTSTART:00010101T091715",
+          "RRULE:FREQ=YEARLY;BYWEEKNO=2;WKST=WE;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "0001-04-01"
+      },
+      "expected": {
+        "expansionError": "year 0 is out of range"
+      }
+    },
+    {
+      "name": "year-one mask checks the previous year even for a February start",
+      "input": {
+        "lines": [
+          "DTSTART:00010210T091715",
+          "RRULE:FREQ=MONTHLY;BYWEEKNO=1;WKST=TH;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "0001-04-01"
+      },
+      "expected": {
+        "expansionError": "year 0 is out of range"
+      }
+    },
+    {
+      "name": "week minus one avoids reading year zero even with another week selected",
+      "input": {
+        "lines": [
+          "DTSTART:00010101T091715",
+          "RRULE:FREQ=YEARLY;BYWEEKNO=-1,2;WKST=WE;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "0001-04-01",
+        "checkpoints": [
+          "0001-02-10",
+          "0001-02-15"
+        ]
+      },
+      "expected": [
+        "0001-01-01T09:17:15",
+        "0001-01-02T09:17:15",
+        "0001-01-10T09:17:15"
+      ]
+    },
+    {
+      "name": "week starting Friday avoids reading year zero",
+      "input": {
+        "lines": [
+          "DTSTART:00010101T091715",
+          "RRULE:FREQ=DAILY;BYWEEKNO=1;WKST=FR;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "0001-04-01",
+        "checkpoints": [
+          "0001-02-10",
+          "0001-02-15"
+        ]
+      },
+      "expected": [
+        "0001-01-01T09:17:15",
+        "0001-01-02T09:17:15",
+        "0001-01-03T09:17:15"
+      ]
+    },
+    {
+      "name": "year-one week mask precedes ordinal and Easter failures",
+      "input": {
+        "lines": [
+          "DTSTART:00010101T091715",
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1;WKST=WE;BYMONTH=13;BYDAY=1MO;BYEASTER=999;COUNT=0"
+        ],
+        "profile": "dateutil",
+        "through": "0001-04-01"
+      },
+      "expected": {
+        "expansionError": "year 0 is out of range"
+      }
+    },
+    {
+      "name": "zero month day on an exclusion rule",
+      "input": {
+        "lines": [
+          "DTSTART:20260110T091715",
+          "RRULE:FREQ=DAILY;COUNT=5",
+          "EXRULE:FREQ=MONTHLY;BYMONTHDAY=0;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-01",
+        "checkpoints": [
+          "2026-01-10",
+          "2026-01-15"
+        ]
+      },
+      "expected": [
+        "2026-01-13T09:17:15",
+        "2026-01-14T09:17:15"
+      ]
+    },
+    {
+      "name": "invalid month in an ordinal exclusion rule",
+      "input": {
+        "lines": [
+          "DTSTART:20260110T091715",
+          "RRULE:FREQ=DAILY;COUNT=5",
+          "EXRULE:FREQ=YEARLY;BYMONTH=13;BYDAY=1MO;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-01"
+      },
+      "expected": {
+        "expansionError": "not enough values to unpack (expected 2, got 1)"
+      }
+    },
+    {
+      "name": "impossible week mask exhausts an early monthly series",
+      "input": {
+        "lines": [
+          "DTSTART:00010101T091715",
+          "RRULE:FREQ=MONTHLY;BYWEEKNO=0,-54,54;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "0001-04-01",
+        "checkpoints": [
+          "0001-01-01",
+          "0001-02-01"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "impossible week mask still checks invalid ordinal month slices",
+      "input": {
+        "lines": [
+          "DTSTART:20260110T091715",
+          "RRULE:FREQ=YEARLY;BYWEEKNO=0;BYMONTH=13;BYDAY=1MO;COUNT=0"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-01"
+      },
+      "expected": {
+        "expansionError": "not enough values to unpack (expected 2, got 1)"
+      }
+    },
+    {
+      "name": "empty weekly rule retains explicit dates",
+      "input": {
+        "lines": [
+          "DTSTART:99991201T091715",
+          "RRULE:FREQ=WEEKLY;BYWEEKNO=0;COUNT=3",
+          "RDATE:99991213T091715"
+        ],
+        "profile": "dateutil",
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-05",
+          "9999-12-15"
+        ]
+      },
+      "expected": [
+        "9999-12-13T09:17:15"
+      ]
+    }
+  ]
+}

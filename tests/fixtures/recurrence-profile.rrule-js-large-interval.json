@@ -1,0 +1,222 @@
+{
+  "type": "recurrence-profile",
+  "name": "rrule.js large numeric intervals",
+  "source": "rrule.js 2.8.1 under TZ=UTC",
+  "cases": [
+    {
+      "name": "yearly-large-number-first-period",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=9007199254740993;COUNT=4"
+        ],
+        "through": "2027-01-12",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-06T09:00:00Z"
+      ]
+    },
+    {
+      "name": "monthly-large-number-first-period",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=MONTHLY;INTERVAL=9007199254740993;COUNT=4"
+        ],
+        "through": "2027-01-12",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-06T09:00:00Z"
+      ]
+    },
+    {
+      "name": "weekly-large-number-first-period",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=9007199254740993;COUNT=4"
+        ],
+        "through": "2027-01-12",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-06T09:00:00Z"
+      ]
+    },
+    {
+      "name": "daily-large-number-first-period",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=DAILY;INTERVAL=9007199254740993;COUNT=4"
+        ],
+        "through": "2027-01-12",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-06T09:00:00Z"
+      ]
+    },
+    {
+      "name": "hourly-large-number-first-period",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=9007199254740993;COUNT=4"
+        ],
+        "through": "2027-01-12",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-06T09:00:00Z"
+      ]
+    },
+    {
+      "name": "minutely-large-number-first-period",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=9007199254740993;COUNT=4"
+        ],
+        "through": "2027-01-12",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-06T09:00:00Z"
+      ]
+    },
+    {
+      "name": "secondly-large-number-first-period",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=9007199254740993;COUNT=4"
+        ],
+        "through": "2027-01-12",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-06T09:00:00Z"
+      ]
+    },
+    {
+      "name": "secondly-positive-overflow-does-not-become-step-one",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;UNTIL=20270101T000000Z"
+        ],
+        "through": "2027-01-12",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-06T09:00:00Z"
+      ]
+    },
+    {
+      "name": "monthly-positive-overflow-keeps-grid",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=MONTHLY;INTERVAL=9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;BYHOUR=12;BYSETPOS=-1;COUNT=1"
+        ],
+        "through": "2027-01-12",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-06T12:00:00Z"
+      ]
+    },
+    {
+      "name": "yearly-negative-overflow-keeps-first-period-grid",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=-9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;BYMINUTE=0,45;BYSECOND=0,59;BYSETPOS=-1,1;COUNT=2"
+        ],
+        "through": "2027-01-12",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-06T09:00:00Z",
+        "2026-03-06T09:45:59Z"
+      ]
+    },
+    {
+      "name": "secondly-negative-overflow-keeps-first-candidate",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=-9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;COUNT=1"
+        ],
+        "through": "2027-01-12",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-06T09:00:00Z"
+      ]
+    },
+    {
+      "name": "minutely-positive-overflow-stops-at-until",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;UNTIL=20260305T235959Z"
+        ],
+        "through": "2027-01-12",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-08"
+        ]
+      },
+      "expected": []
+    }
+  ]
+}

@@ -1,0 +1,359 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil clock suffixes and rejection diagnostics",
+  "source": "python-dateutil 2.8.2 rrulestr with forceset and unfold",
+  "cases": [
+    {
+      "name": "malformed repeated T 1",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T\r\n  TT090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "Unknown string format: 20260101T TT090000"
+      }
+    },
+    {
+      "name": "malformed repeated T 2",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101\r\n  T TT090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "Unknown string format: 20260101 T TT090000"
+      }
+    },
+    {
+      "name": "malformed repeated T 3",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101\r\n \tTT090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "Unknown string format: 20260101\tTT090000"
+      }
+    },
+    {
+      "name": "malformed repeated T 4",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026-01-01\r\n  T TT090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "Unknown string format: 2026-01-01 T TT090000"
+      }
+    },
+    {
+      "name": "malformed repeated T 5",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026-01-01\r\n \tTT090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "Unknown string format: 2026-01-01\tTT090000"
+      }
+    },
+    {
+      "name": "malformed repeated T 6",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026.01.01\r\n  T TT090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "Unknown string format: 2026.01.01 T TT090000"
+      }
+    },
+    {
+      "name": "malformed repeated T 7",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026.01.01\r\n \tTT090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "Unknown string format: 2026.01.01\tTT090000"
+      }
+    },
+    {
+      "name": "malformed RDATE retains the unfolded input",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:20260101T\r\n  TT090000"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "Unknown string format: 20260101T TT090000"
+      }
+    },
+    {
+      "name": "malformed EXDATE retains the unfolded input",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE:20260101T\r\n  TT090000"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "Unknown string format: 20260101T TT090000"
+      }
+    },
+    {
+      "name": "malformed UNTIL retains the unfolded input",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;UNTIL=20260101T\r\n  TT090000"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "invalid 'UNTIL': 20260101T TT090000"
+      }
+    },
+    {
+      "name": "a trailing T with no clock resolves to midnight",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T00:00:00",
+        "2026-01-03T00:00:00"
+      ]
+    },
+    {
+      "name": "folded UTC designator on a packed clock",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000\r\n  Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "folded PM after a colon clock",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026-01-02T09:00\r\n  PM",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T21:00:00",
+        "2026-01-03T21:00:00"
+      ]
+    },
+    {
+      "name": "folded numeric RDATE offset converts to UTC",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:2026/1/2T093000\r\n  +02:30"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T07:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "folded UTC suffix excludes the timed occurrence",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE:2026.01.02T09:00:00\r\n  UTC"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z"
+      ]
+    },
+    {
+      "name": "folded numeric UNTIL offset sets the inclusive cutoff",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;UNTIL=20260103T090000\r\n  -05:00"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "unknown parameter name"
+      }
+    },
+    {
+      "name": "folded unknown alphabetic suffix stays floating",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000\r\n  XYZ",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00",
+        "2026-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "folded overlong zone retains its dateutil diagnostic",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000\r\n  NOTATIMEZONE",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "Unknown string format: 20260102T090000 NOTATIMEZONE"
+      }
+    }
+  ]
+}

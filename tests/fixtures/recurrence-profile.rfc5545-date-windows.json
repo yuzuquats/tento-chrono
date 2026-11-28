@@ -1,0 +1,68 @@
+{
+  "type": "recurrence-profile",
+  "name": "RFC 5545 sparse date windows",
+  "source": "Gregorian January 1 selection, explicit date set algebra and IANA Pacific/Chatham",
+  "cases": [
+    {
+      "name": "DATE inclusions fit an early window despite a sparse rule",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20240101",
+          "RRULE:FREQ=DAILY;BYMONTH=1;BYMONTHDAY=1;COUNT=2",
+          "RDATE;VALUE=DATE:20240103"
+        ],
+        "through": "2024-01-03",
+        "checkpoints": [
+          "2023-12-31",
+          "2024-01-01",
+          "2024-01-02"
+        ],
+        "generationLimit": 10
+      },
+      "expected": [
+        "2024-01-01",
+        "2024-01-03"
+      ]
+    },
+    {
+      "name": "UTC dates and exclusions resume across empty windows",
+      "input": {
+        "lines": [
+          "DTSTART:20240101T090000Z",
+          "RRULE:FREQ=DAILY;BYMONTH=1;BYMONTHDAY=1;COUNT=2",
+          "RDATE:20240601T060000Z",
+          "EXDATE:20240101T090000Z"
+        ],
+        "through": "2025-01-02",
+        "checkpoints": [
+          "2024-01-01",
+          "2024-01-15",
+          "2024-06-01",
+          "2024-12-31"
+        ],
+        "generationLimit": null
+      },
+      "expected": [
+        "2024-06-01T06:00:00Z",
+        "2025-01-01T09:00:00Z"
+      ]
+    },
+    {
+      "name": "zoned date periods can emit on the preceding UTC date",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Chatham:20240101T001500",
+          "RRULE:FREQ=DAILY;BYMONTH=1;BYMONTHDAY=1;COUNT=2"
+        ],
+        "through": "2023-12-31",
+        "checkpoints": [
+          "2023-12-30"
+        ],
+        "generationLimit": 10
+      },
+      "expected": [
+        "2023-12-31T10:30:00Z"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2748 @@
+{
+  "type": "recurrence-profile",
+  "name": "Outlook Graph African timezone reforms",
+  "source": "Microsoft Graph v1.0 calendarView on a dedicated test calendar",
+  "cases": [
+    {
+      "name": "windhoek-boundary-1899-03-31-0159",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-03-30T23:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Namibia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-03-31",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-04-12",
+        "checkpoints": [
+          "1899-03-30",
+          "1899-03-31",
+          "1899-04-01",
+          "1899-04-03",
+          "1899-04-04"
+        ]
+      },
+      "expected": [
+        "1899-03-30T23:59:00Z",
+        "1899-03-31T23:59:00Z",
+        "1899-04-01T23:59:00Z",
+        "1899-04-03T00:59:00Z",
+        "1899-04-04T00:59:00Z"
+      ]
+    },
+    {
+      "name": "windhoek-boundary-1899-03-31-0200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-03-31T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Namibia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-03-31",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-04-12",
+        "checkpoints": [
+          "1899-03-31",
+          "1899-04-01",
+          "1899-04-02",
+          "1899-04-03",
+          "1899-04-04"
+        ]
+      },
+      "expected": [
+        "1899-03-31T00:00:00Z",
+        "1899-04-01T00:00:00Z",
+        "1899-04-02T01:00:00Z",
+        "1899-04-03T01:00:00Z",
+        "1899-04-04T01:00:00Z"
+      ]
+    },
+    {
+      "name": "windhoek-boundary-1899-09-01-0259",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-09-01T01:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Namibia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-09-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-09-13",
+        "checkpoints": [
+          "1899-09-01",
+          "1899-09-02",
+          "1899-09-03",
+          "1899-09-04",
+          "1899-09-05"
+        ]
+      },
+      "expected": [
+        "1899-09-01T01:59:00Z",
+        "1899-09-02T01:59:00Z",
+        "1899-09-03T01:59:00Z",
+        "1899-09-04T00:59:00Z",
+        "1899-09-05T00:59:00Z"
+      ]
+    },
+    {
+      "name": "windhoek-boundary-1899-09-01-0300",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-09-01T02:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Namibia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-09-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-09-13",
+        "checkpoints": [
+          "1899-09-01",
+          "1899-09-02",
+          "1899-09-03",
+          "1899-09-04",
+          "1899-09-05"
+        ]
+      },
+      "expected": [
+        "1899-09-01T02:00:00Z",
+        "1899-09-02T02:00:00Z",
+        "1899-09-03T01:00:00Z",
+        "1899-09-04T01:00:00Z",
+        "1899-09-05T01:00:00Z"
+      ]
+    },
+    {
+      "name": "windhoek-boundary-1993-04-02-1200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1993-04-02T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Namibia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1993-04-02",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1993-04-14",
+        "checkpoints": [
+          "1993-04-02",
+          "1993-04-03",
+          "1993-04-04",
+          "1993-04-05",
+          "1993-04-06"
+        ]
+      },
+      "expected": [
+        "1993-04-02T10:00:00Z",
+        "1993-04-03T10:00:00Z",
+        "1993-04-04T11:00:00Z",
+        "1993-04-05T11:00:00Z",
+        "1993-04-06T11:00:00Z"
+      ]
+    },
+    {
+      "name": "windhoek-boundary-1993-09-03-1200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1993-09-03T11:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Namibia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1993-09-03",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1993-09-15",
+        "checkpoints": [
+          "1993-09-03",
+          "1993-09-04",
+          "1993-09-05",
+          "1993-09-06",
+          "1993-09-07"
+        ]
+      },
+      "expected": [
+        "1993-09-03T11:00:00Z",
+        "1993-09-04T11:00:00Z",
+        "1993-09-05T10:00:00Z",
+        "1993-09-06T10:00:00Z",
+        "1993-09-07T10:00:00Z"
+      ]
+    },
+    {
+      "name": "windhoek-boundary-1994-04-01-0159",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1994-03-31T23:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Namibia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1994-04-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1994-04-13",
+        "checkpoints": [
+          "1994-03-31",
+          "1994-04-01",
+          "1994-04-02",
+          "1994-04-04",
+          "1994-04-05"
+        ]
+      },
+      "expected": [
+        "1994-03-31T23:59:00Z",
+        "1994-04-01T23:59:00Z",
+        "1994-04-02T23:59:00Z",
+        "1994-04-04T00:59:00Z",
+        "1994-04-05T00:59:00Z"
+      ]
+    },
+    {
+      "name": "windhoek-boundary-1994-04-01-0200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1994-04-01T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Namibia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1994-04-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1994-04-13",
+        "checkpoints": [
+          "1994-04-01",
+          "1994-04-02",
+          "1994-04-03",
+          "1994-04-04",
+          "1994-04-05"
+        ]
+      },
+      "expected": [
+        "1994-04-01T00:00:00Z",
+        "1994-04-02T00:00:00Z",
+        "1994-04-03T01:00:00Z",
+        "1994-04-04T01:00:00Z",
+        "1994-04-05T01:00:00Z"
+      ]
+    },
+    {
+      "name": "windhoek-boundary-1994-09-02-0259",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1994-09-02T01:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Namibia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1994-09-02",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1994-09-14",
+        "checkpoints": [
+          "1994-09-02",
+          "1994-09-03",
+          "1994-09-04",
+          "1994-09-05",
+          "1994-09-06"
+        ]
+      },
+      "expected": [
+        "1994-09-02T01:59:00Z",
+        "1994-09-03T01:59:00Z",
+        "1994-09-04T01:59:00Z",
+        "1994-09-05T00:59:00Z",
+        "1994-09-06T00:59:00Z"
+      ]
+    },
+    {
+      "name": "windhoek-boundary-1994-09-02-0300",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1994-09-02T02:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Namibia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1994-09-02",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1994-09-14",
+        "checkpoints": [
+          "1994-09-02",
+          "1994-09-03",
+          "1994-09-04",
+          "1994-09-05",
+          "1994-09-06"
+        ]
+      },
+      "expected": [
+        "1994-09-02T02:00:00Z",
+        "1994-09-03T02:00:00Z",
+        "1994-09-04T01:00:00Z",
+        "1994-09-05T01:00:00Z",
+        "1994-09-06T01:00:00Z"
+      ]
+    },
+    {
+      "name": "windhoek-boundary-2017-09-01-0259",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2017-09-01T01:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Namibia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2017-09-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2017-09-13",
+        "checkpoints": [
+          "2017-09-01",
+          "2017-09-02",
+          "2017-09-03",
+          "2017-09-04",
+          "2017-09-05"
+        ]
+      },
+      "expected": [
+        "2017-09-01T01:59:00Z",
+        "2017-09-02T01:59:00Z",
+        "2017-09-03T01:59:00Z",
+        "2017-09-04T00:59:00Z",
+        "2017-09-05T00:59:00Z"
+      ]
+    },
+    {
+      "name": "windhoek-boundary-2017-09-01-0300",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2017-09-01T02:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Namibia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2017-09-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2017-09-13",
+        "checkpoints": [
+          "2017-09-01",
+          "2017-09-02",
+          "2017-09-03",
+          "2017-09-04",
+          "2017-09-05"
+        ]
+      },
+      "expected": [
+        "2017-09-01T02:00:00Z",
+        "2017-09-02T02:00:00Z",
+        "2017-09-03T01:00:00Z",
+        "2017-09-04T01:00:00Z",
+        "2017-09-05T01:00:00Z"
+      ]
+    },
+    {
+      "name": "tripoli-boundary-2012-11-08-0159",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2012-11-07T23:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Libya Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2012-11-08",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2012-11-20",
+        "checkpoints": [
+          "2012-11-07",
+          "2012-11-08",
+          "2012-11-09",
+          "2012-11-11",
+          "2012-11-12"
+        ]
+      },
+      "expected": [
+        "2012-11-07T23:59:00Z",
+        "2012-11-08T23:59:00Z",
+        "2012-11-09T23:59:00Z",
+        "2012-11-11T00:59:00Z",
+        "2012-11-12T00:59:00Z"
+      ]
+    },
+    {
+      "name": "tripoli-boundary-2012-11-08-0200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2012-11-08T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Libya Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2012-11-08",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2012-11-20",
+        "checkpoints": [
+          "2012-11-08",
+          "2012-11-09",
+          "2012-11-10",
+          "2012-11-11",
+          "2012-11-12"
+        ]
+      },
+      "expected": [
+        "2012-11-08T00:00:00Z",
+        "2012-11-09T00:00:00Z",
+        "2012-11-10T01:00:00Z",
+        "2012-11-11T01:00:00Z",
+        "2012-11-12T01:00:00Z"
+      ]
+    },
+    {
+      "name": "tripoli-boundary-2013-03-27-0159",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2013-03-27T00:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Libya Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2013-03-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2013-04-08",
+        "checkpoints": [
+          "2013-03-27",
+          "2013-03-28",
+          "2013-03-29",
+          "2013-03-30"
+        ]
+      },
+      "expected": [
+        "2013-03-27T00:59:00Z",
+        "2013-03-28T00:59:00Z",
+        "2013-03-29T00:59:00Z",
+        "2013-03-29T23:59:00Z",
+        "2013-03-30T23:59:00Z"
+      ]
+    },
+    {
+      "name": "tripoli-boundary-2013-03-27-0200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2013-03-27T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Libya Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2013-03-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2013-04-08",
+        "checkpoints": [
+          "2013-03-27",
+          "2013-03-28",
+          "2013-03-29",
+          "2013-03-30",
+          "2013-03-31"
+        ]
+      },
+      "expected": [
+        "2013-03-27T01:00:00Z",
+        "2013-03-28T01:00:00Z",
+        "2013-03-29T00:00:00Z",
+        "2013-03-30T00:00:00Z",
+        "2013-03-31T00:00:00Z"
+      ]
+    },
+    {
+      "name": "windhoek-monthly-holdout-1993-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1993-01-15T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Namibia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 15,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "absoluteMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 37,
+              "recurrenceTimeZone": "",
+              "startDate": "1993-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1996-02-13",
+        "checkpoints": [
+          "1993-01-15",
+          "1993-02-15",
+          "1993-03-15",
+          "1993-04-15",
+          "1993-05-15",
+          "1993-06-15",
+          "1993-07-15",
+          "1993-08-15",
+          "1993-09-15",
+          "1993-10-15",
+          "1993-11-15",
+          "1993-12-15",
+          "1994-01-15",
+          "1994-02-15",
+          "1994-03-15",
+          "1994-04-15",
+          "1994-05-15",
+          "1994-06-15",
+          "1994-07-15",
+          "1994-08-15",
+          "1994-09-15",
+          "1994-10-15",
+          "1994-11-15",
+          "1994-12-15",
+          "1995-01-15",
+          "1995-02-15",
+          "1995-03-15",
+          "1995-04-15",
+          "1995-05-15",
+          "1995-06-15",
+          "1995-07-15",
+          "1995-08-15",
+          "1995-09-15",
+          "1995-10-15",
+          "1995-11-15",
+          "1995-12-15",
+          "1996-01-15"
+        ]
+      },
+      "expected": [
+        "1993-01-15T10:00:00Z",
+        "1993-02-15T10:00:00Z",
+        "1993-03-15T10:00:00Z",
+        "1993-04-15T11:00:00Z",
+        "1993-05-15T11:00:00Z",
+        "1993-06-15T11:00:00Z",
+        "1993-07-15T11:00:00Z",
+        "1993-08-15T11:00:00Z",
+        "1993-09-15T10:00:00Z",
+        "1993-10-15T10:00:00Z",
+        "1993-11-15T10:00:00Z",
+        "1993-12-15T10:00:00Z",
+        "1994-01-15T10:00:00Z",
+        "1994-02-15T10:00:00Z",
+        "1994-03-15T10:00:00Z",
+        "1994-04-15T11:00:00Z",
+        "1994-05-15T11:00:00Z",
+        "1994-06-15T11:00:00Z",
+        "1994-07-15T11:00:00Z",
+        "1994-08-15T11:00:00Z",
+        "1994-09-15T10:00:00Z",
+        "1994-10-15T10:00:00Z",
+        "1994-11-15T10:00:00Z",
+        "1994-12-15T10:00:00Z",
+        "1995-01-15T10:00:00Z",
+        "1995-02-15T10:00:00Z",
+        "1995-03-15T10:00:00Z",
+        "1995-04-15T11:00:00Z",
+        "1995-05-15T11:00:00Z",
+        "1995-06-15T11:00:00Z",
+        "1995-07-15T11:00:00Z",
+        "1995-08-15T11:00:00Z",
+        "1995-09-15T10:00:00Z",
+        "1995-10-15T10:00:00Z",
+        "1995-11-15T10:00:00Z",
+        "1995-12-15T10:00:00Z",
+        "1996-01-15T10:00:00Z"
+      ]
+    },
+    {
+      "name": "windhoek-monthly-holdout-2016-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2016-01-15T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Namibia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 15,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "absoluteMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 37,
+              "recurrenceTimeZone": "",
+              "startDate": "2016-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2019-02-12",
+        "checkpoints": [
+          "2016-01-15",
+          "2016-02-15",
+          "2016-03-15",
+          "2016-04-15",
+          "2016-05-15",
+          "2016-06-15",
+          "2016-07-15",
+          "2016-08-15",
+          "2016-09-15",
+          "2016-10-15",
+          "2016-11-15",
+          "2016-12-15",
+          "2017-01-15",
+          "2017-02-15",
+          "2017-03-15",
+          "2017-04-15",
+          "2017-05-15",
+          "2017-06-15",
+          "2017-07-15",
+          "2017-08-15",
+          "2017-09-15",
+          "2017-10-15",
+          "2017-11-15",
+          "2017-12-15",
+          "2018-01-15",
+          "2018-02-15",
+          "2018-03-15",
+          "2018-04-15",
+          "2018-05-15",
+          "2018-06-15",
+          "2018-07-15",
+          "2018-08-15",
+          "2018-09-15",
+          "2018-10-15",
+          "2018-11-15",
+          "2018-12-15",
+          "2019-01-15"
+        ]
+      },
+      "expected": [
+        "2016-01-15T10:00:00Z",
+        "2016-02-15T10:00:00Z",
+        "2016-03-15T10:00:00Z",
+        "2016-04-15T11:00:00Z",
+        "2016-05-15T11:00:00Z",
+        "2016-06-15T11:00:00Z",
+        "2016-07-15T11:00:00Z",
+        "2016-08-15T11:00:00Z",
+        "2016-09-15T10:00:00Z",
+        "2016-10-15T10:00:00Z",
+        "2016-11-15T10:00:00Z",
+        "2016-12-15T10:00:00Z",
+        "2017-01-15T10:00:00Z",
+        "2017-02-15T10:00:00Z",
+        "2017-03-15T10:00:00Z",
+        "2017-04-15T11:00:00Z",
+        "2017-05-15T11:00:00Z",
+        "2017-06-15T11:00:00Z",
+        "2017-07-15T11:00:00Z",
+        "2017-08-15T11:00:00Z",
+        "2017-09-15T10:00:00Z",
+        "2017-10-15T10:00:00Z",
+        "2017-11-15T10:00:00Z",
+        "2017-12-15T10:00:00Z",
+        "2018-01-15T10:00:00Z",
+        "2018-02-15T10:00:00Z",
+        "2018-03-15T10:00:00Z",
+        "2018-04-15T10:00:00Z",
+        "2018-05-15T10:00:00Z",
+        "2018-06-15T10:00:00Z",
+        "2018-07-15T10:00:00Z",
+        "2018-08-15T10:00:00Z",
+        "2018-09-15T10:00:00Z",
+        "2018-10-15T10:00:00Z",
+        "2018-11-15T10:00:00Z",
+        "2018-12-15T10:00:00Z",
+        "2019-01-15T10:00:00Z"
+      ]
+    },
+    {
+      "name": "tripoli-monthly-holdout-2011-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-01-15T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Libya Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 15,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "absoluteMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 37,
+              "recurrenceTimeZone": "Libya Standard Time",
+              "startDate": "2011-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-02-12",
+        "checkpoints": [
+          "2011-01-15",
+          "2011-02-15",
+          "2011-03-15",
+          "2011-04-15",
+          "2011-05-15",
+          "2011-06-15",
+          "2011-07-15",
+          "2011-08-15",
+          "2011-09-15",
+          "2011-10-15",
+          "2011-11-15",
+          "2011-12-15",
+          "2012-01-15",
+          "2012-02-15",
+          "2012-03-15",
+          "2012-04-15",
+          "2012-05-15",
+          "2012-06-15",
+          "2012-07-15",
+          "2012-08-15",
+          "2012-09-15",
+          "2012-10-15",
+          "2012-11-15",
+          "2012-12-15",
+          "2013-01-15",
+          "2013-02-15",
+          "2013-03-15",
+          "2013-04-15",
+          "2013-05-15",
+          "2013-06-15",
+          "2013-07-15",
+          "2013-08-15",
+          "2013-09-15",
+          "2013-10-15",
+          "2013-11-15",
+          "2013-12-15",
+          "2014-01-15"
+        ]
+      },
+      "expected": [
+        "2011-01-15T10:00:00Z",
+        "2011-02-15T10:00:00Z",
+        "2011-03-15T10:00:00Z",
+        "2011-04-15T10:00:00Z",
+        "2011-05-15T10:00:00Z",
+        "2011-06-15T10:00:00Z",
+        "2011-07-15T10:00:00Z",
+        "2011-08-15T10:00:00Z",
+        "2011-09-15T10:00:00Z",
+        "2011-10-15T10:00:00Z",
+        "2011-11-15T10:00:00Z",
+        "2011-12-15T10:00:00Z",
+        "2012-01-15T10:00:00Z",
+        "2012-02-15T10:00:00Z",
+        "2012-03-15T10:00:00Z",
+        "2012-04-15T10:00:00Z",
+        "2012-05-15T10:00:00Z",
+        "2012-06-15T10:00:00Z",
+        "2012-07-15T10:00:00Z",
+        "2012-08-15T10:00:00Z",
+        "2012-09-15T10:00:00Z",
+        "2012-10-15T10:00:00Z",
+        "2012-11-15T11:00:00Z",
+        "2012-12-15T11:00:00Z",
+        "2013-01-15T11:00:00Z",
+        "2013-02-15T11:00:00Z",
+        "2013-03-15T11:00:00Z",
+        "2013-04-15T10:00:00Z",
+        "2013-05-15T10:00:00Z",
+        "2013-06-15T10:00:00Z",
+        "2013-07-15T10:00:00Z",
+        "2013-08-15T10:00:00Z",
+        "2013-09-15T10:00:00Z",
+        "2013-10-15T10:00:00Z",
+        "2013-11-15T10:00:00Z",
+        "2013-12-15T10:00:00Z",
+        "2014-01-15T10:00:00Z"
+      ]
+    },
+    {
+      "name": "nairobi-iana-original-1928-06-29",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1928-06-29T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Africa/Nairobi",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "E. Africa Standard Time",
+              "startDate": "1928-06-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1928-07-11",
+        "checkpoints": [
+          "1928-06-29",
+          "1928-06-30",
+          "1928-07-01",
+          "1928-07-02",
+          "1928-07-03"
+        ]
+      },
+      "expected": [
+        "1928-06-29T09:00:00Z",
+        "1928-06-30T09:00:00Z",
+        "1928-07-01T09:00:00Z",
+        "1928-07-02T09:00:00Z",
+        "1928-07-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "johannesburg-iana-original-1942-09-18",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1942-09-18T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Africa/Johannesburg",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "South Africa Standard Time",
+              "startDate": "1942-09-18",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1942-09-30",
+        "checkpoints": [
+          "1942-09-18",
+          "1942-09-19",
+          "1942-09-20",
+          "1942-09-21",
+          "1942-09-22"
+        ]
+      },
+      "expected": [
+        "1942-09-18T10:00:00Z",
+        "1942-09-19T10:00:00Z",
+        "1942-09-20T10:00:00Z",
+        "1942-09-21T10:00:00Z",
+        "1942-09-22T10:00:00Z"
+      ]
+    },
+    {
+      "name": "lagos-iana-original-1919-08-30",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1919-08-30T11:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Africa/Lagos",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "W. Central Africa Standard Time",
+              "startDate": "1919-08-30",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1919-09-11",
+        "checkpoints": [
+          "1919-08-30",
+          "1919-08-31",
+          "1919-09-01",
+          "1919-09-02",
+          "1919-09-03"
+        ]
+      },
+      "expected": [
+        "1919-08-30T11:00:00Z",
+        "1919-08-31T11:00:00Z",
+        "1919-09-01T11:00:00Z",
+        "1919-09-02T11:00:00Z",
+        "1919-09-03T11:00:00Z"
+      ]
+    },
+    {
+      "name": "windhoek-windows-history-1899-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-15T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Namibia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T10:00:00Z",
+        "1899-01-16T10:00:00Z",
+        "1899-01-17T10:00:00Z",
+        "1899-01-18T10:00:00Z",
+        "1899-01-19T10:00:00Z"
+      ]
+    },
+    {
+      "name": "windhoek-windows-history-1993-06-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1993-06-15T11:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Namibia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1993-06-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1993-06-27",
+        "checkpoints": [
+          "1993-06-15",
+          "1993-06-16",
+          "1993-06-17",
+          "1993-06-18",
+          "1993-06-19"
+        ]
+      },
+      "expected": [
+        "1993-06-15T11:00:00Z",
+        "1993-06-16T11:00:00Z",
+        "1993-06-17T11:00:00Z",
+        "1993-06-18T11:00:00Z",
+        "1993-06-19T11:00:00Z"
+      ]
+    },
+    {
+      "name": "windhoek-windows-history-1994-03-19",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1994-03-19T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Namibia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1994-03-19",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1994-03-31",
+        "checkpoints": [
+          "1994-03-19",
+          "1994-03-20",
+          "1994-03-21",
+          "1994-03-22",
+          "1994-03-23"
+        ]
+      },
+      "expected": [
+        "1994-03-19T10:00:00Z",
+        "1994-03-20T10:00:00Z",
+        "1994-03-21T10:00:00Z",
+        "1994-03-22T10:00:00Z",
+        "1994-03-23T10:00:00Z"
+      ]
+    },
+    {
+      "name": "windhoek-windows-history-1994-09-02",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1994-09-02T11:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Namibia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1994-09-02",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1994-09-14",
+        "checkpoints": [
+          "1994-09-02",
+          "1994-09-03",
+          "1994-09-04",
+          "1994-09-05",
+          "1994-09-06"
+        ]
+      },
+      "expected": [
+        "1994-09-02T11:00:00Z",
+        "1994-09-03T11:00:00Z",
+        "1994-09-04T10:00:00Z",
+        "1994-09-05T10:00:00Z",
+        "1994-09-06T10:00:00Z"
+      ]
+    },
+    {
+      "name": "windhoek-windows-history-1995-03-31",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1995-03-31T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Namibia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1995-03-31",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1995-04-12",
+        "checkpoints": [
+          "1995-03-31",
+          "1995-04-01",
+          "1995-04-02",
+          "1995-04-03",
+          "1995-04-04"
+        ]
+      },
+      "expected": [
+        "1995-03-31T10:00:00Z",
+        "1995-04-01T10:00:00Z",
+        "1995-04-02T11:00:00Z",
+        "1995-04-03T11:00:00Z",
+        "1995-04-04T11:00:00Z"
+      ]
+    },
+    {
+      "name": "windhoek-windows-history-2000-04-01",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2000-04-01T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Namibia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2000-04-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2000-04-13",
+        "checkpoints": [
+          "2000-04-01",
+          "2000-04-02",
+          "2000-04-03",
+          "2000-04-04",
+          "2000-04-05"
+        ]
+      },
+      "expected": [
+        "2000-04-01T10:00:00Z",
+        "2000-04-02T11:00:00Z",
+        "2000-04-03T11:00:00Z",
+        "2000-04-04T11:00:00Z",
+        "2000-04-05T11:00:00Z"
+      ]
+    },
+    {
+      "name": "windhoek-windows-history-2008-09-05",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2008-09-05T11:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Namibia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2008-09-05",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2008-09-17",
+        "checkpoints": [
+          "2008-09-05",
+          "2008-09-06",
+          "2008-09-07",
+          "2008-09-08",
+          "2008-09-09"
+        ]
+      },
+      "expected": [
+        "2008-09-05T11:00:00Z",
+        "2008-09-06T11:00:00Z",
+        "2008-09-07T10:00:00Z",
+        "2008-09-08T10:00:00Z",
+        "2008-09-09T10:00:00Z"
+      ]
+    },
+    {
+      "name": "windhoek-windows-history-2017-03-31",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2017-03-31T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Namibia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2017-03-31",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2017-04-12",
+        "checkpoints": [
+          "2017-03-31",
+          "2017-04-01",
+          "2017-04-02",
+          "2017-04-03",
+          "2017-04-04"
+        ]
+      },
+      "expected": [
+        "2017-03-31T10:00:00Z",
+        "2017-04-01T10:00:00Z",
+        "2017-04-02T11:00:00Z",
+        "2017-04-03T11:00:00Z",
+        "2017-04-04T11:00:00Z"
+      ]
+    },
+    {
+      "name": "windhoek-windows-history-2017-09-01",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2017-09-01T11:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Namibia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2017-09-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2017-09-13",
+        "checkpoints": [
+          "2017-09-01",
+          "2017-09-02",
+          "2017-09-03",
+          "2017-09-04",
+          "2017-09-05"
+        ]
+      },
+      "expected": [
+        "2017-09-01T11:00:00Z",
+        "2017-09-02T11:00:00Z",
+        "2017-09-03T10:00:00Z",
+        "2017-09-04T10:00:00Z",
+        "2017-09-05T10:00:00Z"
+      ]
+    },
+    {
+      "name": "windhoek-windows-history-2075-05-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-05-15T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Namibia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Namibia Standard Time",
+              "startDate": "2075-05-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-05-27",
+        "checkpoints": [
+          "2075-05-15",
+          "2075-05-16",
+          "2075-05-17",
+          "2075-05-18",
+          "2075-05-19"
+        ]
+      },
+      "expected": [
+        "2075-05-15T10:00:00Z",
+        "2075-05-16T10:00:00Z",
+        "2075-05-17T10:00:00Z",
+        "2075-05-18T10:00:00Z",
+        "2075-05-19T10:00:00Z"
+      ]
+    },
+    {
+      "name": "tripoli-windows-history-1899-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-15T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Libya Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Libya Standard Time",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T10:00:00Z",
+        "1899-01-16T10:00:00Z",
+        "1899-01-17T10:00:00Z",
+        "1899-01-18T10:00:00Z",
+        "1899-01-19T10:00:00Z"
+      ]
+    },
+    {
+      "name": "tripoli-windows-history-1982-03-30",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1982-03-30T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Libya Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Libya Standard Time",
+              "startDate": "1982-03-30",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1982-04-11",
+        "checkpoints": [
+          "1982-03-30",
+          "1982-03-31",
+          "1982-04-01",
+          "1982-04-02",
+          "1982-04-03"
+        ]
+      },
+      "expected": [
+        "1982-03-30T10:00:00Z",
+        "1982-03-31T10:00:00Z",
+        "1982-04-01T10:00:00Z",
+        "1982-04-02T10:00:00Z",
+        "1982-04-03T10:00:00Z"
+      ]
+    },
+    {
+      "name": "tripoli-windows-history-1982-09-28",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1982-09-28T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Libya Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Libya Standard Time",
+              "startDate": "1982-09-28",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1982-10-10",
+        "checkpoints": [
+          "1982-09-28",
+          "1982-09-29",
+          "1982-09-30",
+          "1982-10-01",
+          "1982-10-02"
+        ]
+      },
+      "expected": [
+        "1982-09-28T10:00:00Z",
+        "1982-09-29T10:00:00Z",
+        "1982-09-30T10:00:00Z",
+        "1982-10-01T10:00:00Z",
+        "1982-10-02T10:00:00Z"
+      ]
+    },
+    {
+      "name": "tripoli-windows-history-1996-09-28",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1996-09-28T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Libya Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Libya Standard Time",
+              "startDate": "1996-09-28",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1996-10-10",
+        "checkpoints": [
+          "1996-09-28",
+          "1996-09-29",
+          "1996-09-30",
+          "1996-10-01",
+          "1996-10-02"
+        ]
+      },
+      "expected": [
+        "1996-09-28T10:00:00Z",
+        "1996-09-29T10:00:00Z",
+        "1996-09-30T10:00:00Z",
+        "1996-10-01T10:00:00Z",
+        "1996-10-02T10:00:00Z"
+      ]
+    },
+    {
+      "name": "tripoli-windows-history-1997-04-02",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1997-04-02T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Libya Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Libya Standard Time",
+              "startDate": "1997-04-02",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1997-04-14",
+        "checkpoints": [
+          "1997-04-02",
+          "1997-04-03",
+          "1997-04-04",
+          "1997-04-05",
+          "1997-04-06"
+        ]
+      },
+      "expected": [
+        "1997-04-02T10:00:00Z",
+        "1997-04-03T10:00:00Z",
+        "1997-04-04T10:00:00Z",
+        "1997-04-05T10:00:00Z",
+        "1997-04-06T10:00:00Z"
+      ]
+    },
+    {
+      "name": "tripoli-windows-history-2012-11-08",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2012-11-08T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Libya Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2012-11-08",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2012-11-20",
+        "checkpoints": [
+          "2012-11-08",
+          "2012-11-09",
+          "2012-11-10",
+          "2012-11-11",
+          "2012-11-12"
+        ]
+      },
+      "expected": [
+        "2012-11-08T10:00:00Z",
+        "2012-11-09T10:00:00Z",
+        "2012-11-10T11:00:00Z",
+        "2012-11-11T11:00:00Z",
+        "2012-11-12T11:00:00Z"
+      ]
+    },
+    {
+      "name": "tripoli-windows-history-2013-03-27",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2013-03-27T11:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Libya Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2013-03-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2013-04-08",
+        "checkpoints": [
+          "2013-03-27",
+          "2013-03-28",
+          "2013-03-29",
+          "2013-03-30",
+          "2013-03-31"
+        ]
+      },
+      "expected": [
+        "2013-03-27T11:00:00Z",
+        "2013-03-28T11:00:00Z",
+        "2013-03-29T10:00:00Z",
+        "2013-03-30T10:00:00Z",
+        "2013-03-31T10:00:00Z"
+      ]
+    },
+    {
+      "name": "tripoli-windows-history-2075-05-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-05-15T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Libya Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Libya Standard Time",
+              "startDate": "2075-05-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-05-27",
+        "checkpoints": [
+          "2075-05-15",
+          "2075-05-16",
+          "2075-05-17",
+          "2075-05-18",
+          "2075-05-19"
+        ]
+      },
+      "expected": [
+        "2075-05-15T10:00:00Z",
+        "2075-05-16T10:00:00Z",
+        "2075-05-17T10:00:00Z",
+        "2075-05-18T10:00:00Z",
+        "2075-05-19T10:00:00Z"
+      ]
+    },
+    {
+      "name": "nairobi-windows-history-1899-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-15T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "E. Africa Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "E. Africa Standard Time",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T09:00:00Z",
+        "1899-01-16T09:00:00Z",
+        "1899-01-17T09:00:00Z",
+        "1899-01-18T09:00:00Z",
+        "1899-01-19T09:00:00Z"
+      ]
+    },
+    {
+      "name": "nairobi-windows-history-1928-06-29",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1928-06-29T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "E. Africa Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "E. Africa Standard Time",
+              "startDate": "1928-06-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1928-07-11",
+        "checkpoints": [
+          "1928-06-29",
+          "1928-06-30",
+          "1928-07-01",
+          "1928-07-02",
+          "1928-07-03"
+        ]
+      },
+      "expected": [
+        "1928-06-29T09:00:00Z",
+        "1928-06-30T09:00:00Z",
+        "1928-07-01T09:00:00Z",
+        "1928-07-02T09:00:00Z",
+        "1928-07-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "nairobi-windows-history-1937-01-01",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1937-01-01T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "E. Africa Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "E. Africa Standard Time",
+              "startDate": "1937-01-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1937-01-13",
+        "checkpoints": [
+          "1937-01-01",
+          "1937-01-02",
+          "1937-01-03",
+          "1937-01-04",
+          "1937-01-05"
+        ]
+      },
+      "expected": [
+        "1937-01-01T09:00:00Z",
+        "1937-01-02T09:00:00Z",
+        "1937-01-03T09:00:00Z",
+        "1937-01-04T09:00:00Z",
+        "1937-01-05T09:00:00Z"
+      ]
+    },
+    {
+      "name": "nairobi-windows-history-1942-07-30",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1942-07-30T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "E. Africa Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "E. Africa Standard Time",
+              "startDate": "1942-07-30",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1942-08-11",
+        "checkpoints": [
+          "1942-07-30",
+          "1942-07-31",
+          "1942-08-01",
+          "1942-08-02",
+          "1942-08-03"
+        ]
+      },
+      "expected": [
+        "1942-07-30T09:00:00Z",
+        "1942-07-31T09:00:00Z",
+        "1942-08-01T09:00:00Z",
+        "1942-08-02T09:00:00Z",
+        "1942-08-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "nairobi-windows-history-2075-05-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-05-15T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "E. Africa Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "E. Africa Standard Time",
+              "startDate": "2075-05-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-05-27",
+        "checkpoints": [
+          "2075-05-15",
+          "2075-05-16",
+          "2075-05-17",
+          "2075-05-18",
+          "2075-05-19"
+        ]
+      },
+      "expected": [
+        "2075-05-15T09:00:00Z",
+        "2075-05-16T09:00:00Z",
+        "2075-05-17T09:00:00Z",
+        "2075-05-18T09:00:00Z",
+        "2075-05-19T09:00:00Z"
+      ]
+    },
+    {
+      "name": "johannesburg-windows-history-1899-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-15T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "South Africa Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "South Africa Standard Time",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T10:00:00Z",
+        "1899-01-16T10:00:00Z",
+        "1899-01-17T10:00:00Z",
+        "1899-01-18T10:00:00Z",
+        "1899-01-19T10:00:00Z"
+      ]
+    },
+    {
+      "name": "johannesburg-windows-history-1903-02-27",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1903-02-27T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "South Africa Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "South Africa Standard Time",
+              "startDate": "1903-02-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1903-03-11",
+        "checkpoints": [
+          "1903-02-27",
+          "1903-02-28",
+          "1903-03-01",
+          "1903-03-02",
+          "1903-03-03"
+        ]
+      },
+      "expected": [
+        "1903-02-27T10:00:00Z",
+        "1903-02-28T10:00:00Z",
+        "1903-03-01T10:00:00Z",
+        "1903-03-02T10:00:00Z",
+        "1903-03-03T10:00:00Z"
+      ]
+    },
+    {
+      "name": "johannesburg-windows-history-1942-09-18",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1942-09-18T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "South Africa Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "South Africa Standard Time",
+              "startDate": "1942-09-18",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1942-09-30",
+        "checkpoints": [
+          "1942-09-18",
+          "1942-09-19",
+          "1942-09-20",
+          "1942-09-21",
+          "1942-09-22"
+        ]
+      },
+      "expected": [
+        "1942-09-18T10:00:00Z",
+        "1942-09-19T10:00:00Z",
+        "1942-09-20T10:00:00Z",
+        "1942-09-21T10:00:00Z",
+        "1942-09-22T10:00:00Z"
+      ]
+    },
+    {
+      "name": "johannesburg-windows-history-1944-03-17",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1944-03-17T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "South Africa Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "South Africa Standard Time",
+              "startDate": "1944-03-17",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1944-03-29",
+        "checkpoints": [
+          "1944-03-17",
+          "1944-03-18",
+          "1944-03-19",
+          "1944-03-20",
+          "1944-03-21"
+        ]
+      },
+      "expected": [
+        "1944-03-17T10:00:00Z",
+        "1944-03-18T10:00:00Z",
+        "1944-03-19T10:00:00Z",
+        "1944-03-20T10:00:00Z",
+        "1944-03-21T10:00:00Z"
+      ]
+    },
+    {
+      "name": "johannesburg-windows-history-2075-05-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-05-15T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "South Africa Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "South Africa Standard Time",
+              "startDate": "2075-05-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-05-27",
+        "checkpoints": [
+          "2075-05-15",
+          "2075-05-16",
+          "2075-05-17",
+          "2075-05-18",
+          "2075-05-19"
+        ]
+      },
+      "expected": [
+        "2075-05-15T10:00:00Z",
+        "2075-05-16T10:00:00Z",
+        "2075-05-17T10:00:00Z",
+        "2075-05-18T10:00:00Z",
+        "2075-05-19T10:00:00Z"
+      ]
+    },
+    {
+      "name": "lagos-windows-history-1899-01-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-15T11:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Central Africa Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "W. Central Africa Standard Time",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T11:00:00Z",
+        "1899-01-16T11:00:00Z",
+        "1899-01-17T11:00:00Z",
+        "1899-01-18T11:00:00Z",
+        "1899-01-19T11:00:00Z"
+      ]
+    },
+    {
+      "name": "lagos-windows-history-1913-12-30",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1913-12-30T11:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Central Africa Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "W. Central Africa Standard Time",
+              "startDate": "1913-12-30",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1914-01-11",
+        "checkpoints": [
+          "1913-12-30",
+          "1913-12-31",
+          "1914-01-01",
+          "1914-01-02",
+          "1914-01-03"
+        ]
+      },
+      "expected": [
+        "1913-12-30T11:00:00Z",
+        "1913-12-31T11:00:00Z",
+        "1914-01-01T11:00:00Z",
+        "1914-01-02T11:00:00Z",
+        "1914-01-03T11:00:00Z"
+      ]
+    },
+    {
+      "name": "lagos-windows-history-1919-08-30",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1919-08-30T11:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Central Africa Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "W. Central Africa Standard Time",
+              "startDate": "1919-08-30",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1919-09-11",
+        "checkpoints": [
+          "1919-08-30",
+          "1919-08-31",
+          "1919-09-01",
+          "1919-09-02",
+          "1919-09-03"
+        ]
+      },
+      "expected": [
+        "1919-08-30T11:00:00Z",
+        "1919-08-31T11:00:00Z",
+        "1919-09-01T11:00:00Z",
+        "1919-09-02T11:00:00Z",
+        "1919-09-03T11:00:00Z"
+      ]
+    },
+    {
+      "name": "lagos-windows-history-2075-05-15",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-05-15T11:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "W. Central Africa Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "W. Central Africa Standard Time",
+              "startDate": "2075-05-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-05-27",
+        "checkpoints": [
+          "2075-05-15",
+          "2075-05-16",
+          "2075-05-17",
+          "2075-05-18",
+          "2075-05-19"
+        ]
+      },
+      "expected": [
+        "2075-05-15T11:00:00Z",
+        "2075-05-16T11:00:00Z",
+        "2075-05-17T11:00:00Z",
+        "2075-05-18T11:00:00Z",
+        "2075-05-19T11:00:00Z"
+      ]
+    },
+    {
+      "name": "rfc-windhoek-retains-iana-offset-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Africa/Windhoek:19940319T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1994-03-23",
+        "checkpoints": [
+          "1994-03-19",
+          "1994-03-20",
+          "1994-03-21",
+          "1994-03-22",
+          "1994-03-23"
+        ]
+      },
+      "expected": [
+        "1994-03-19T10:00:00Z",
+        "1994-03-20T10:00:00Z",
+        "1994-03-21T11:00:00Z",
+        "1994-03-22T11:00:00Z",
+        "1994-03-23T11:00:00Z"
+      ]
+    },
+    {
+      "name": "rfc-tripoli-retains-iana-offset-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Africa/Tripoli:19820330T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1982-04-03",
+        "checkpoints": [
+          "1982-03-30",
+          "1982-03-31",
+          "1982-04-01",
+          "1982-04-02",
+          "1982-04-03"
+        ]
+      },
+      "expected": [
+        "1982-03-30T11:00:00Z",
+        "1982-03-31T11:00:00Z",
+        "1982-04-01T10:00:00Z",
+        "1982-04-02T10:00:00Z",
+        "1982-04-03T10:00:00Z"
+      ]
+    },
+    {
+      "name": "rfc-nairobi-retains-iana-offset-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Africa/Nairobi:19420730T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1942-08-03",
+        "checkpoints": [
+          "1942-07-30",
+          "1942-07-31",
+          "1942-08-01",
+          "1942-08-02",
+          "1942-08-03"
+        ]
+      },
+      "expected": [
+        "1942-07-30T09:15:00Z",
+        "1942-07-31T09:15:00Z",
+        "1942-08-01T09:00:00Z",
+        "1942-08-02T09:00:00Z",
+        "1942-08-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "rfc-johannesburg-retains-iana-offset-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Africa/Johannesburg:19420918T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1942-09-22",
+        "checkpoints": [
+          "1942-09-18",
+          "1942-09-19",
+          "1942-09-20",
+          "1942-09-21",
+          "1942-09-22"
+        ]
+      },
+      "expected": [
+        "1942-09-18T10:00:00Z",
+        "1942-09-19T10:00:00Z",
+        "1942-09-20T09:00:00Z",
+        "1942-09-21T09:00:00Z",
+        "1942-09-22T09:00:00Z"
+      ]
+    },
+    {
+      "name": "rfc-lagos-retains-iana-offset-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Africa/Lagos:19190830T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1919-09-03",
+        "checkpoints": [
+          "1919-08-30",
+          "1919-08-31",
+          "1919-09-01",
+          "1919-09-02",
+          "1919-09-03"
+        ]
+      },
+      "expected": [
+        "1919-08-30T11:30:00Z",
+        "1919-08-31T11:30:00Z",
+        "1919-09-01T11:00:00Z",
+        "1919-09-02T11:00:00Z",
+        "1919-09-03T11:00:00Z"
+      ]
+    }
+  ]
+}

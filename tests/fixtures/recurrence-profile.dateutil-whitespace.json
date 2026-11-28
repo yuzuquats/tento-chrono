@@ -1,0 +1,181 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil recurrence whitespace and folds",
+  "source": "python-dateutil 2.8.2 rrulestr with forceset, and unfold for physical-fold fixtures",
+  "cases": [
+    {
+      "name": "Python's information separator divides recurrence properties",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z\u001fRRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": [
+        "2026-03-06T09:00:00Z",
+        "2026-03-07T09:00:00Z",
+        "2026-03-08T09:00:00Z"
+      ]
+    },
+    {
+      "name": "the next-line character exposes a later unsupported property",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z\u0085X-CALENDAR:20260307",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "error": "unsupported property: X-CALENDAR"
+      }
+    },
+    {
+      "name": "Unicode whitespace ends a rule value before the next token",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=\u20033"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "error": "invalid 'COUNT': "
+      }
+    },
+    {
+      "name": "a separate bare COUNT token needs its own frequency",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z COUNT=1",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "error": "rrule.__init__() missing 1 required positional argument: 'freq'"
+      }
+    },
+    {
+      "name": "a same-line space leaves an empty DTSTART token",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART: 20260306T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "error": "String does not contain a date: "
+      }
+    },
+    {
+      "name": "a nonbreaking space does not join an RDATE list",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20260309T090000Z,\u00a020260310T090000Z"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "error": "not enough values to unpack (expected 2, got 1)"
+      }
+    },
+    {
+      "name": "a byte-order mark is an invalid date token",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE:\ufeff20260307T090000Z"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "error": "Unknown string format: \ufeff20260307T090000Z"
+      }
+    },
+    {
+      "name": "a physical fold retains a split rule key",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=DAILY;CO",
+          " UNT=3"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": [
+        "2026-03-06T09:00:00Z",
+        "2026-03-07T09:00:00Z",
+        "2026-03-08T09:00:00Z"
+      ]
+    },
+    {
+      "name": "a physical fold retains both explicit dates",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20260309T090000Z,",
+          " 20260310T090000Z"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": [
+        "2026-03-06T09:00:00Z",
+        "2026-03-07T09:00:00Z",
+        "2026-03-08T09:00:00Z",
+        "2026-03-09T09:00:00Z",
+        "2026-03-10T09:00:00Z"
+      ]
+    }
+  ]
+}

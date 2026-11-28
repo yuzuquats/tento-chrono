@@ -1,0 +1,381 @@
+{
+  "type": "google-expansion",
+  "name": "Google Calendar API inclusion cutoffs",
+  "source": "Google Calendar API events.instances",
+  "captureCliCommit": "77f899aac5",
+  "capturedAt": "2026-11-22T11:07:07.677617+00:00",
+  "cases": [
+    {
+      "name": "rrule-date-until-at-utc-midnight",
+      "input": {
+        "start": "2027-01-04T00:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;UNTIL=20270106"
+        ],
+        "window": {
+          "start": "2026-12-30T00:00:00Z",
+          "end": "2027-01-19T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;UNTIL=20270106"
+        ],
+        "submittedStart": {
+          "dateTime": "2027-01-04T00:00:00",
+          "timeZone": "UTC"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T00:00:00Z",
+          "2027-01-05T00:00:00Z",
+          "2027-01-06T00:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rrule-date-until-after-utc-midnight",
+      "input": {
+        "start": "2027-01-04T00:01:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;UNTIL=20270106"
+        ],
+        "window": {
+          "start": "2026-12-30T00:00:00Z",
+          "end": "2027-01-19T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;UNTIL=20270106"
+        ],
+        "submittedStart": {
+          "dateTime": "2027-01-04T00:01:00",
+          "timeZone": "UTC"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T00:01:00Z",
+          "2027-01-05T00:01:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rrule-date-until-at-pacific-midnight",
+      "input": {
+        "start": "2027-01-04T08:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;UNTIL=20270106"
+        ],
+        "window": {
+          "start": "2026-12-30T00:00:00Z",
+          "end": "2027-01-19T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;UNTIL=20270106"
+        ],
+        "submittedStart": {
+          "dateTime": "2027-01-04T00:00:00",
+          "timeZone": "America/Los_Angeles"
+        },
+        "timezone": "America/Los_Angeles"
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T08:00:00Z",
+          "2027-01-05T08:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rrule-date-until-pacific-before-utc-cutoff",
+      "input": {
+        "start": "2027-01-04T23:59:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;UNTIL=20270106"
+        ],
+        "window": {
+          "start": "2026-12-30T00:00:00Z",
+          "end": "2027-01-19T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;UNTIL=20270106"
+        ],
+        "submittedStart": {
+          "dateTime": "2027-01-04T15:59:00",
+          "timeZone": "America/Los_Angeles"
+        },
+        "timezone": "America/Los_Angeles"
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T23:59:00Z",
+          "2027-01-05T23:59:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rrule-date-until-pacific-exact-utc-cutoff",
+      "input": {
+        "start": "2027-01-05T00:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;UNTIL=20270106"
+        ],
+        "window": {
+          "start": "2026-12-30T00:00:00Z",
+          "end": "2027-01-19T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;UNTIL=20270106"
+        ],
+        "submittedStart": {
+          "dateTime": "2027-01-04T16:00:00",
+          "timeZone": "America/Los_Angeles"
+        },
+        "timezone": "America/Los_Angeles"
+      },
+      "expected": {
+        "google": [
+          "2027-01-05T00:00:00Z",
+          "2027-01-06T00:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rrule-date-until-pacific-after-utc-cutoff",
+      "input": {
+        "start": "2027-01-05T00:01:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;UNTIL=20270106"
+        ],
+        "window": {
+          "start": "2026-12-30T00:00:00Z",
+          "end": "2027-01-19T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;UNTIL=20270106"
+        ],
+        "submittedStart": {
+          "dateTime": "2027-01-04T16:01:00",
+          "timeZone": "America/Los_Angeles"
+        },
+        "timezone": "America/Los_Angeles"
+      },
+      "expected": {
+        "google": [
+          "2027-01-05T00:01:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rrule-date-until-positive-offset-13",
+      "input": {
+        "start": "2027-01-03T23:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;UNTIL=20270106"
+        ],
+        "window": {
+          "start": "2026-12-30T00:00:00Z",
+          "end": "2027-01-19T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;UNTIL=20270106"
+        ],
+        "submittedStart": {
+          "dateTime": "2027-01-04T13:00:00",
+          "timeZone": "Pacific/Kiritimati"
+        },
+        "timezone": "Pacific/Kiritimati"
+      },
+      "expected": {
+        "google": [
+          "2027-01-03T23:00:00Z",
+          "2027-01-04T23:00:00Z",
+          "2027-01-05T23:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rrule-date-until-positive-offset-14",
+      "input": {
+        "start": "2027-01-04T00:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;UNTIL=20270106"
+        ],
+        "window": {
+          "start": "2026-12-30T00:00:00Z",
+          "end": "2027-01-19T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;UNTIL=20270106"
+        ],
+        "submittedStart": {
+          "dateTime": "2027-01-04T14:00:00",
+          "timeZone": "Pacific/Kiritimati"
+        },
+        "timezone": "Pacific/Kiritimati"
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T00:00:00Z",
+          "2027-01-05T00:00:00Z",
+          "2027-01-06T00:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rrule-date-until-positive-offset-15",
+      "input": {
+        "start": "2027-01-04T01:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;UNTIL=20270106"
+        ],
+        "window": {
+          "start": "2026-12-30T00:00:00Z",
+          "end": "2027-01-19T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;UNTIL=20270106"
+        ],
+        "submittedStart": {
+          "dateTime": "2027-01-04T15:00:00",
+          "timeZone": "Pacific/Kiritimati"
+        },
+        "timezone": "Pacific/Kiritimati"
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T01:00:00Z",
+          "2027-01-05T01:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rrule-floating-datetime-until",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "rules": [
+          "RRULE:FREQ=DAILY;UNTIL=20270106T090000"
+        ],
+        "window": {
+          "start": "2026-12-30T00:00:00Z",
+          "end": "2027-01-19T00:00:00Z"
+        },
+        "timezone": "America/Los_Angeles"
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Google RRULE UNTIL date-time must be UTC"
+      }
+    },
+    {
+      "name": "rrule-all-day-date-until",
+      "input": {
+        "start": "2027-01-04",
+        "rules": [
+          "RRULE:FREQ=DAILY;UNTIL=20270106"
+        ],
+        "window": {
+          "start": "2026-12-30T00:00:00Z",
+          "end": "2027-01-19T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;UNTIL=20270106"
+        ],
+        "submittedStart": {
+          "date": "2027-01-04"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04",
+          "2027-01-05",
+          "2027-01-06"
+        ]
+      }
+    },
+    {
+      "name": "rrule-all-day-timestamp-until",
+      "input": {
+        "start": "2027-01-04",
+        "rules": [
+          "RRULE:FREQ=DAILY;UNTIL=20270106T000000Z"
+        ],
+        "window": {
+          "start": "2026-12-30T00:00:00Z",
+          "end": "2027-01-19T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;UNTIL=20270106T000000Z"
+        ],
+        "submittedStart": {
+          "date": "2027-01-04"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04",
+          "2027-01-05",
+          "2027-01-06"
+        ]
+      }
+    },
+    {
+      "name": "rrule-until-before-master",
+      "input": {
+        "start": "2027-01-04T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;UNTIL=20270103T000000Z"
+        ],
+        "window": {
+          "start": "2026-12-30T00:00:00Z",
+          "end": "2027-01-19T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;UNTIL=20270103T000000Z"
+        ],
+        "submittedStart": {
+          "dateTime": "2027-01-04T09:00:00",
+          "timeZone": "UTC"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rrule-date-until-rdate-after",
+      "input": {
+        "start": "2027-01-04T00:00:00Z",
+        "rules": [
+          "RDATE;VALUE=DATE-TIME:20270109T000000Z",
+          "RRULE:FREQ=DAILY;UNTIL=20270106"
+        ],
+        "window": {
+          "start": "2026-12-30T00:00:00Z",
+          "end": "2027-01-19T00:00:00Z"
+        },
+        "submittedRecurrence": [
+          "RRULE:FREQ=DAILY;UNTIL=20270106",
+          "RDATE:20270109T000000Z"
+        ],
+        "submittedStart": {
+          "dateTime": "2027-01-04T00:00:00",
+          "timeZone": "UTC"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T00:00:00Z",
+          "2027-01-05T00:00:00Z",
+          "2027-01-06T00:00:00Z",
+          "2027-01-09T00:00:00Z"
+        ]
+      }
+    }
+  ]
+}

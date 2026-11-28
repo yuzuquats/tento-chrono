@@ -1,0 +1,953 @@
+{
+  "type": "dateutil-cache",
+  "name": "dateutil 2.8.2 cache-dependent queries",
+  "source": "Python dateutil 2.8.2 rrulebase",
+  "cases": [
+    {
+      "name": "RRuleTest.testCachePre",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY;COUNT=15"
+        ],
+        "forceSet": false,
+        "cache": true,
+        "steps": [
+          {
+            "method": "slice"
+          }
+        ]
+      },
+      "expected": [
+        [
+          "1997-09-02T09:00:00",
+          "1997-09-03T09:00:00",
+          "1997-09-04T09:00:00",
+          "1997-09-05T09:00:00",
+          "1997-09-06T09:00:00",
+          "1997-09-07T09:00:00",
+          "1997-09-08T09:00:00",
+          "1997-09-09T09:00:00",
+          "1997-09-10T09:00:00",
+          "1997-09-11T09:00:00",
+          "1997-09-12T09:00:00",
+          "1997-09-13T09:00:00",
+          "1997-09-14T09:00:00",
+          "1997-09-15T09:00:00",
+          "1997-09-16T09:00:00"
+        ]
+      ]
+    },
+    {
+      "name": "RRuleTest.testCachePost",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY;COUNT=15"
+        ],
+        "forceSet": false,
+        "cache": true,
+        "steps": [
+          {
+            "method": "slice"
+          },
+          {
+            "method": "slice"
+          }
+        ]
+      },
+      "expected": [
+        [
+          "1997-09-02T09:00:00",
+          "1997-09-03T09:00:00",
+          "1997-09-04T09:00:00",
+          "1997-09-05T09:00:00",
+          "1997-09-06T09:00:00",
+          "1997-09-07T09:00:00",
+          "1997-09-08T09:00:00",
+          "1997-09-09T09:00:00",
+          "1997-09-10T09:00:00",
+          "1997-09-11T09:00:00",
+          "1997-09-12T09:00:00",
+          "1997-09-13T09:00:00",
+          "1997-09-14T09:00:00",
+          "1997-09-15T09:00:00",
+          "1997-09-16T09:00:00"
+        ],
+        [
+          "1997-09-02T09:00:00",
+          "1997-09-03T09:00:00",
+          "1997-09-04T09:00:00",
+          "1997-09-05T09:00:00",
+          "1997-09-06T09:00:00",
+          "1997-09-07T09:00:00",
+          "1997-09-08T09:00:00",
+          "1997-09-09T09:00:00",
+          "1997-09-10T09:00:00",
+          "1997-09-11T09:00:00",
+          "1997-09-12T09:00:00",
+          "1997-09-13T09:00:00",
+          "1997-09-14T09:00:00",
+          "1997-09-15T09:00:00",
+          "1997-09-16T09:00:00"
+        ]
+      ]
+    },
+    {
+      "name": "RRuleTest.testCachePreContains",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "forceSet": false,
+        "cache": true,
+        "steps": [
+          {
+            "method": "contains",
+            "at": "1997-09-03T09:00:00"
+          }
+        ]
+      },
+      "expected": [
+        true
+      ]
+    },
+    {
+      "name": "RRuleTest.testCachePostContains",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "forceSet": false,
+        "cache": true,
+        "steps": [
+          {
+            "method": "slice"
+          },
+          {
+            "method": "contains",
+            "at": "1997-09-03T09:00:00"
+          }
+        ]
+      },
+      "expected": [
+        [
+          "1997-09-02T09:00:00",
+          "1997-09-03T09:00:00",
+          "1997-09-04T09:00:00"
+        ],
+        true
+      ]
+    },
+    {
+      "name": "exact-ten-is-incomplete-until-next-pull",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY;COUNT=10"
+        ],
+        "forceSet": false,
+        "cache": true,
+        "steps": [
+          {
+            "method": "at",
+            "index": 9
+          },
+          {
+            "method": "slice",
+            "start": -2
+          },
+          {
+            "method": "at",
+            "index": 10
+          },
+          {
+            "method": "slice",
+            "start": -2
+          }
+        ]
+      },
+      "expected": [
+        "1997-09-11T09:00:00",
+        {
+          "error": "Indices for islice() must be None or an integer: 0 <= x <= sys.maxsize."
+        },
+        {
+          "error": "dateutil recurrence index out of range"
+        },
+        [
+          "1997-09-10T09:00:00",
+          "1997-09-11T09:00:00"
+        ]
+      ]
+    },
+    {
+      "name": "short-batch-lists-and-awareness",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "forceSet": false,
+        "cache": true,
+        "steps": [
+          {
+            "method": "contains",
+            "at": "1997-09-03T09:00:00Z"
+          },
+          {
+            "method": "contains",
+            "at": "1997-09-03T09:00:00Z"
+          },
+          {
+            "method": "slice",
+            "start": -2
+          }
+        ]
+      },
+      "expected": [
+        {
+          "error": "can't compare offset-naive and offset-aware datetimes"
+        },
+        false,
+        [
+          "1997-09-03T09:00:00",
+          "1997-09-04T09:00:00"
+        ]
+      ]
+    },
+    {
+      "name": "long-cache-completion",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY;COUNT=15"
+        ],
+        "forceSet": false,
+        "cache": true,
+        "steps": [
+          {
+            "method": "at",
+            "index": 0
+          },
+          {
+            "method": "slice",
+            "start": -2
+          },
+          {
+            "method": "slice",
+            "stop": 0,
+            "step": 0
+          },
+          {
+            "method": "contains",
+            "at": "1997-09-03T09:00:00"
+          },
+          {
+            "method": "before",
+            "at": "1997-09-03T09:00:00",
+            "inclusive": true
+          },
+          {
+            "method": "after",
+            "at": "1997-09-03T09:00:00"
+          },
+          {
+            "method": "xafter",
+            "at": "1997-09-03T09:00:00",
+            "count": 2
+          },
+          {
+            "method": "count"
+          },
+          {
+            "method": "contains",
+            "at": "1997-09-03T09:00:00"
+          },
+          {
+            "method": "slice",
+            "start": -2
+          },
+          {
+            "method": "slice",
+            "stop": 0
+          },
+          {
+            "method": "slice",
+            "step": 0
+          },
+          {
+            "method": "slice",
+            "start": -200,
+            "stop": -1
+          },
+          {
+            "method": "slice",
+            "step": -2
+          },
+          {
+            "method": "at",
+            "index": -1
+          },
+          {
+            "method": "at",
+            "index": 100
+          }
+        ]
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        {
+          "error": "Indices for islice() must be None or an integer: 0 <= x <= sys.maxsize."
+        },
+        [
+          "1997-09-02T09:00:00",
+          "1997-09-03T09:00:00",
+          "1997-09-04T09:00:00",
+          "1997-09-05T09:00:00",
+          "1997-09-06T09:00:00",
+          "1997-09-07T09:00:00",
+          "1997-09-08T09:00:00",
+          "1997-09-09T09:00:00",
+          "1997-09-10T09:00:00",
+          "1997-09-11T09:00:00",
+          "1997-09-12T09:00:00",
+          "1997-09-13T09:00:00",
+          "1997-09-14T09:00:00",
+          "1997-09-15T09:00:00",
+          "1997-09-16T09:00:00"
+        ],
+        true,
+        "1997-09-03T09:00:00",
+        "1997-09-04T09:00:00",
+        [
+          "1997-09-04T09:00:00",
+          "1997-09-05T09:00:00"
+        ],
+        15,
+        true,
+        [
+          "1997-09-15T09:00:00",
+          "1997-09-16T09:00:00"
+        ],
+        [],
+        {
+          "error": "slice step cannot be zero"
+        },
+        [
+          "1997-09-02T09:00:00",
+          "1997-09-03T09:00:00",
+          "1997-09-04T09:00:00",
+          "1997-09-05T09:00:00",
+          "1997-09-06T09:00:00",
+          "1997-09-07T09:00:00",
+          "1997-09-08T09:00:00",
+          "1997-09-09T09:00:00",
+          "1997-09-10T09:00:00",
+          "1997-09-11T09:00:00",
+          "1997-09-12T09:00:00",
+          "1997-09-13T09:00:00",
+          "1997-09-14T09:00:00",
+          "1997-09-15T09:00:00"
+        ],
+        [
+          "1997-09-16T09:00:00",
+          "1997-09-14T09:00:00",
+          "1997-09-12T09:00:00",
+          "1997-09-10T09:00:00",
+          "1997-09-08T09:00:00",
+          "1997-09-06T09:00:00",
+          "1997-09-04T09:00:00",
+          "1997-09-02T09:00:00"
+        ],
+        "1997-09-16T09:00:00",
+        {
+          "error": "dateutil recurrence index out of range"
+        }
+      ]
+    },
+    {
+      "name": "empty-cache-completion",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY;COUNT=0"
+        ],
+        "forceSet": false,
+        "cache": true,
+        "steps": [
+          {
+            "method": "at",
+            "index": 0
+          },
+          {
+            "method": "slice",
+            "start": -2
+          },
+          {
+            "method": "slice",
+            "stop": 0,
+            "step": 0
+          },
+          {
+            "method": "contains",
+            "at": "1997-09-03T09:00:00"
+          },
+          {
+            "method": "before",
+            "at": "1997-09-03T09:00:00",
+            "inclusive": true
+          },
+          {
+            "method": "after",
+            "at": "1997-09-03T09:00:00"
+          },
+          {
+            "method": "xafter",
+            "at": "1997-09-03T09:00:00",
+            "count": 2
+          },
+          {
+            "method": "count"
+          },
+          {
+            "method": "contains",
+            "at": "1997-09-03T09:00:00"
+          },
+          {
+            "method": "slice",
+            "start": -2
+          },
+          {
+            "method": "slice",
+            "stop": 0
+          },
+          {
+            "method": "slice",
+            "step": 0
+          },
+          {
+            "method": "slice",
+            "start": -200,
+            "stop": -1
+          },
+          {
+            "method": "slice",
+            "step": -2
+          },
+          {
+            "method": "at",
+            "index": -1
+          },
+          {
+            "method": "at",
+            "index": 100
+          }
+        ]
+      },
+      "expected": [
+        {
+          "error": "dateutil recurrence index out of range"
+        },
+        [],
+        {
+          "error": "slice step cannot be zero"
+        },
+        false,
+        null,
+        null,
+        [],
+        0,
+        false,
+        [],
+        [],
+        {
+          "error": "slice step cannot be zero"
+        },
+        [],
+        [],
+        {
+          "error": "dateutil recurrence index out of range"
+        },
+        {
+          "error": "dateutil recurrence index out of range"
+        }
+      ]
+    },
+    {
+      "name": "uncached-control",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY;COUNT=15"
+        ],
+        "forceSet": false,
+        "cache": false,
+        "steps": [
+          {
+            "method": "at",
+            "index": 0
+          },
+          {
+            "method": "slice",
+            "start": -2
+          },
+          {
+            "method": "slice",
+            "stop": 0,
+            "step": 0
+          },
+          {
+            "method": "contains",
+            "at": "1997-09-03T09:00:00"
+          },
+          {
+            "method": "before",
+            "at": "1997-09-03T09:00:00",
+            "inclusive": true
+          },
+          {
+            "method": "after",
+            "at": "1997-09-03T09:00:00"
+          },
+          {
+            "method": "xafter",
+            "at": "1997-09-03T09:00:00",
+            "count": 2
+          },
+          {
+            "method": "count"
+          },
+          {
+            "method": "contains",
+            "at": "1997-09-03T09:00:00"
+          },
+          {
+            "method": "slice",
+            "start": -2
+          },
+          {
+            "method": "slice",
+            "stop": 0
+          },
+          {
+            "method": "slice",
+            "step": 0
+          },
+          {
+            "method": "slice",
+            "start": -200,
+            "stop": -1
+          },
+          {
+            "method": "slice",
+            "step": -2
+          },
+          {
+            "method": "at",
+            "index": -1
+          },
+          {
+            "method": "at",
+            "index": 100
+          }
+        ]
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        {
+          "error": "Indices for islice() must be None or an integer: 0 <= x <= sys.maxsize."
+        },
+        [
+          "1997-09-02T09:00:00",
+          "1997-09-03T09:00:00",
+          "1997-09-04T09:00:00",
+          "1997-09-05T09:00:00",
+          "1997-09-06T09:00:00",
+          "1997-09-07T09:00:00",
+          "1997-09-08T09:00:00",
+          "1997-09-09T09:00:00",
+          "1997-09-10T09:00:00",
+          "1997-09-11T09:00:00",
+          "1997-09-12T09:00:00",
+          "1997-09-13T09:00:00",
+          "1997-09-14T09:00:00",
+          "1997-09-15T09:00:00",
+          "1997-09-16T09:00:00"
+        ],
+        true,
+        "1997-09-03T09:00:00",
+        "1997-09-04T09:00:00",
+        [
+          "1997-09-04T09:00:00",
+          "1997-09-05T09:00:00"
+        ],
+        15,
+        true,
+        {
+          "error": "Indices for islice() must be None or an integer: 0 <= x <= sys.maxsize."
+        },
+        [
+          "1997-09-02T09:00:00",
+          "1997-09-03T09:00:00",
+          "1997-09-04T09:00:00",
+          "1997-09-05T09:00:00",
+          "1997-09-06T09:00:00",
+          "1997-09-07T09:00:00",
+          "1997-09-08T09:00:00",
+          "1997-09-09T09:00:00",
+          "1997-09-10T09:00:00",
+          "1997-09-11T09:00:00",
+          "1997-09-12T09:00:00",
+          "1997-09-13T09:00:00",
+          "1997-09-14T09:00:00",
+          "1997-09-15T09:00:00",
+          "1997-09-16T09:00:00"
+        ],
+        [
+          "1997-09-02T09:00:00",
+          "1997-09-03T09:00:00",
+          "1997-09-04T09:00:00",
+          "1997-09-05T09:00:00",
+          "1997-09-06T09:00:00",
+          "1997-09-07T09:00:00",
+          "1997-09-08T09:00:00",
+          "1997-09-09T09:00:00",
+          "1997-09-10T09:00:00",
+          "1997-09-11T09:00:00",
+          "1997-09-12T09:00:00",
+          "1997-09-13T09:00:00",
+          "1997-09-14T09:00:00",
+          "1997-09-15T09:00:00",
+          "1997-09-16T09:00:00"
+        ],
+        {
+          "error": "Stop argument for islice() must be None or an integer: 0 <= x <= sys.maxsize."
+        },
+        [
+          "1997-09-16T09:00:00",
+          "1997-09-14T09:00:00",
+          "1997-09-12T09:00:00",
+          "1997-09-10T09:00:00",
+          "1997-09-08T09:00:00",
+          "1997-09-06T09:00:00",
+          "1997-09-04T09:00:00",
+          "1997-09-02T09:00:00"
+        ],
+        "1997-09-16T09:00:00",
+        {
+          "error": "dateutil recurrence index out of range"
+        }
+      ]
+    },
+    {
+      "name": "spring-gap-membership-scans-completed-cache",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T014500",
+          "RRULE:FREQ=MINUTELY;INTERVAL=30;COUNT=4"
+        ],
+        "forceSet": false,
+        "cache": true,
+        "steps": [
+          {
+            "method": "contains",
+            "at": "2026-03-08T06:15:00Z"
+          },
+          {
+            "method": "contains",
+            "at": "2026-03-08T06:15:00Z"
+          },
+          {
+            "method": "slice"
+          }
+        ]
+      },
+      "expected": [
+        false,
+        true,
+        [
+          "2026-03-08T06:45:00Z",
+          "2026-03-08T06:15:00Z",
+          "2026-03-08T06:45:00Z",
+          "2026-03-08T07:15:00Z"
+        ]
+      ]
+    },
+    {
+      "name": "cached-read-ahead-surfaces-first-batch-error",
+      "input": {
+        "lines": [
+          "DTSTART:00010101T090000",
+          "RRULE:FREQ=MONTHLY;INTERVAL=-1;COUNT=3"
+        ],
+        "forceSet": false,
+        "cache": true,
+        "steps": [
+          {
+            "method": "at",
+            "index": 0
+          }
+        ]
+      },
+      "expected": [
+        {
+          "error": "not enough values to unpack (expected 2, got 0)"
+        }
+      ]
+    },
+    {
+      "name": "cache-option-is-inherited-but-cache-is-fresh",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "forceSet": false,
+        "cache": true,
+        "steps": [
+          {
+            "method": "count"
+          },
+          {
+            "method": "slice",
+            "start": -1
+          },
+          {
+            "method": "replace"
+          },
+          {
+            "method": "slice",
+            "start": -1
+          },
+          {
+            "method": "at",
+            "index": 0
+          },
+          {
+            "method": "slice",
+            "start": -1
+          },
+          {
+            "method": "replace",
+            "cache": false
+          },
+          {
+            "method": "at",
+            "index": 0
+          },
+          {
+            "method": "slice",
+            "start": -1
+          }
+        ]
+      },
+      "expected": [
+        3,
+        [
+          "1997-09-04T09:00:00"
+        ],
+        null,
+        {
+          "error": "Indices for islice() must be None or an integer: 0 <= x <= sys.maxsize."
+        },
+        "1997-09-02T09:00:00",
+        [
+          "1997-09-04T09:00:00"
+        ],
+        null,
+        "1997-09-02T09:00:00",
+        {
+          "error": "Indices for islice() must be None or an integer: 0 <= x <= sys.maxsize."
+        }
+      ]
+    },
+    {
+      "name": "set-cache-after-exclusions",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY;COUNT=15",
+          "EXDATE:19970902T090000,19970903T090000"
+        ],
+        "forceSet": true,
+        "cache": true,
+        "steps": [
+          {
+            "method": "at",
+            "index": 0
+          },
+          {
+            "method": "slice",
+            "start": -2
+          },
+          {
+            "method": "slice",
+            "stop": 0,
+            "step": 0
+          },
+          {
+            "method": "contains",
+            "at": "1997-09-03T09:00:00"
+          },
+          {
+            "method": "before",
+            "at": "1997-09-03T09:00:00",
+            "inclusive": true
+          },
+          {
+            "method": "after",
+            "at": "1997-09-03T09:00:00"
+          },
+          {
+            "method": "xafter",
+            "at": "1997-09-03T09:00:00",
+            "count": 2
+          },
+          {
+            "method": "count"
+          },
+          {
+            "method": "contains",
+            "at": "1997-09-03T09:00:00"
+          },
+          {
+            "method": "slice",
+            "start": -2
+          },
+          {
+            "method": "slice",
+            "stop": 0
+          },
+          {
+            "method": "slice",
+            "step": 0
+          },
+          {
+            "method": "slice",
+            "start": -200,
+            "stop": -1
+          },
+          {
+            "method": "slice",
+            "step": -2
+          },
+          {
+            "method": "at",
+            "index": -1
+          },
+          {
+            "method": "at",
+            "index": 100
+          }
+        ]
+      },
+      "expected": [
+        "1997-09-04T09:00:00",
+        {
+          "error": "Indices for islice() must be None or an integer: 0 <= x <= sys.maxsize."
+        },
+        [
+          "1997-09-04T09:00:00",
+          "1997-09-05T09:00:00",
+          "1997-09-06T09:00:00",
+          "1997-09-07T09:00:00",
+          "1997-09-08T09:00:00",
+          "1997-09-09T09:00:00",
+          "1997-09-10T09:00:00",
+          "1997-09-11T09:00:00",
+          "1997-09-12T09:00:00",
+          "1997-09-13T09:00:00",
+          "1997-09-14T09:00:00",
+          "1997-09-15T09:00:00",
+          "1997-09-16T09:00:00"
+        ],
+        false,
+        null,
+        "1997-09-04T09:00:00",
+        [
+          "1997-09-04T09:00:00",
+          "1997-09-05T09:00:00"
+        ],
+        13,
+        false,
+        [
+          "1997-09-15T09:00:00",
+          "1997-09-16T09:00:00"
+        ],
+        [],
+        {
+          "error": "slice step cannot be zero"
+        },
+        [
+          "1997-09-04T09:00:00",
+          "1997-09-05T09:00:00",
+          "1997-09-06T09:00:00",
+          "1997-09-07T09:00:00",
+          "1997-09-08T09:00:00",
+          "1997-09-09T09:00:00",
+          "1997-09-10T09:00:00",
+          "1997-09-11T09:00:00",
+          "1997-09-12T09:00:00",
+          "1997-09-13T09:00:00",
+          "1997-09-14T09:00:00",
+          "1997-09-15T09:00:00"
+        ],
+        [
+          "1997-09-16T09:00:00",
+          "1997-09-14T09:00:00",
+          "1997-09-12T09:00:00",
+          "1997-09-10T09:00:00",
+          "1997-09-08T09:00:00",
+          "1997-09-06T09:00:00",
+          "1997-09-04T09:00:00"
+        ],
+        "1997-09-16T09:00:00",
+        {
+          "error": "dateutil recurrence index out of range"
+        }
+      ]
+    },
+    {
+      "name": "stationary-bounded",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T120000",
+          "RRULE:FREQ=DAILY;INTERVAL=0"
+        ],
+        "forceSet": false,
+        "cache": true,
+        "steps": [
+          {
+            "method": "contains",
+            "at": "2026-01-01T12:00:00"
+          },
+          {
+            "method": "at",
+            "index": 23
+          },
+          {
+            "method": "slice",
+            "start": 20,
+            "stop": 27
+          }
+        ]
+      },
+      "expected": [
+        true,
+        "2026-01-01T12:00:00",
+        [
+          "2026-01-01T12:00:00",
+          "2026-01-01T12:00:00",
+          "2026-01-01T12:00:00",
+          "2026-01-01T12:00:00",
+          "2026-01-01T12:00:00",
+          "2026-01-01T12:00:00",
+          "2026-01-01T12:00:00"
+        ]
+      ]
+    }
+  ]
+}

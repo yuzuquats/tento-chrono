@@ -1,7 +1,7 @@
 {
   "type": "recurrence-profile",
   "name": "Outlook Graph",
-  "source": "Microsoft Graph v1.0 calendarView captured on rwc-04",
+  "source": "Microsoft Graph v1.0 calendarView captured on the maintainer's capture host",
   "cases": [
     {
       "name": "daily-numbered",

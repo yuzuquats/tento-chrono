@@ -1,9 +1,9 @@
 /**
  * # A zone that loads shows the platform's offset
  *
- * The zone service's 2024b `1900_2050` files drop some zones' last offset
+ * The legacy 2024b `1900_2050` files dropped some zones' last offset
  * change (Pacific/Honolulu's list ends at -10:30 in 1945, America/Regina's at
- * -07:00 in 1959) and serve Pacific/Port_Moresby and Atlantic/South_Georgia as
+ * -07:00 in 1959) and served Pacific/Port_Moresby and Atlantic/South_Georgia as
  * `[]`; judge r13 C-N10 found 25 of the 417 runtime zones that load showing
  * the wrong 2026 offset. `TimezoneRegion.getOpt` checks every zone it loads
  * against the platform's offset (`PlatformZone`, Intl) and builds the zone
@@ -11,8 +11,8 @@
  * data for the zone (an empty file).
  *
  * ## Invariants Tested
- * - The served payloads of Honolulu and Regina (fixtures, byte for byte as
- *   the service answers them) load with the platform's 2026 offsets and carry
+ * - The preserved Honolulu and Regina payloads load with the platform's
+ *   2026 offsets and carry
  *   the disagreement (`mismatch`: served -630 / -420, platform -600 / -360).
  * - Port_Moresby's and South_Georgia's served `[]`, and Pacific/Truk, a link
  *   to Port_Moresby, load with the platform's offsets (judge r14 R14-C2:
@@ -51,7 +51,7 @@ const quietly = async <T>(f: () => Promise<T>): Promise<T> => {
 };
 
 Deno.test("a served zone missing its last offset change loads with the platform's offsets, and says where they disagreed", async () => {
-  installTimezoneLoader();
+  installTimezoneLoader("legacy-2024b");
   for (const [name, served, platform] of [["Pacific/Honolulu", -630, -600], ["America/Regina", -420, -360]] as const) {
     const region = await TimezoneRegion.getOpt(name as Tzname);
     assert(region != null, `${name} loads`);
@@ -64,7 +64,7 @@ Deno.test("a served zone missing its last offset change loads with the platform'
 });
 
 Deno.test("a zone served as an empty list, or a link to it, loads with the platform's offsets", async () => {
-  installTimezoneLoader();
+  installTimezoneLoader("legacy-2024b");
   const regions = new Map<string, TimezoneRegion>();
   for (const name of ["Pacific/Port_Moresby", "Atlantic/South_Georgia", "Pacific/Truk"]) {
     const region = await quietly(() => TimezoneRegion.getOpt(name as Tzname));
@@ -86,8 +86,9 @@ Deno.test("a served zone that agrees with the platform is taken as served", asyn
   assert(region != null);
   assertEquals(region.mismatch, null);
   assertEquals([regionMins(region, JAN), regionMins(region, JUL)], [-480, -420]);
-  // The served list (1918 on), not a platform rebuild (which starts at 1900).
-  assertEquals(new Date(region.transitions[0].before.mse).getUTCFullYear(), 1918);
+  // The served anchor carries the base offset and abbreviation.
+  assertEquals(region.transitions[0].before.tzabbr, "PT");
+  assertEquals(region.transitions[0].before.mse as number, Date.UTC(1900, 0, 1));
 });
 
 Deno.test("every zone the runtime reports, served wrong, loads with the platform's offset through 2026", async () => {

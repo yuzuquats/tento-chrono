@@ -1,0 +1,270 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil compound clock suffixes",
+  "source": "python-dateutil 2.8.2 rrulestr with forceset and unfold",
+  "cases": [
+    {
+      "name": "adjacent sign after UTC reverses the offset",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000\r\n  Z+0200",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T11:00:00Z",
+        "2026-01-03T11:00:00Z"
+      ]
+    },
+    {
+      "name": "a space keeps the UTC designator in effect",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000\r\n  Z +0200",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "an unknown zone with a spaced sign uses the written offset",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000\r\n  XYZ +0200",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T07:00:00Z",
+        "2026-01-03T07:00:00Z"
+      ]
+    },
+    {
+      "name": "spaced PM and UTC adjust the hour and bind the zone",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026-01-02T09:00\r\n  PM UTC",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T21:00:00Z",
+        "2026-01-03T21:00:00Z"
+      ]
+    },
+    {
+      "name": "spaced PM and numeric offset retain their separate roles",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000\r\n  PM +0200",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T19:00:00Z",
+        "2026-01-03T19:00:00Z"
+      ]
+    },
+    {
+      "name": "meridiem and adjacent zoned offset preserve the sign rule",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102090000\r\n  PM Z+0200",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T23:00:00Z",
+        "2026-01-03T23:00:00Z"
+      ]
+    },
+    {
+      "name": "a second packed clock replaces the colon clock after PM",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:2026-01-02T09:00\r\n  PM T101500"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-02T09:00:00",
+        "2026-01-02T10:15:00"
+      ]
+    },
+    {
+      "name": "spaced unit fields update a joined date and clock",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:20260102090045\r\n  10H 15.2M"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-02T09:00:00",
+        "2026-01-02T10:15:12"
+      ]
+    },
+    {
+      "name": "an hour update with an offset retains the earlier seconds",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:20260102T090045\r\n  10H +0200"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T08:00:45Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "a spaced UTC offset matches the original UTC clock",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE:20260102T090000\r\n  UTC -0200"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z"
+      ]
+    },
+    {
+      "name": "PM and a spaced GMT offset keep the UTC cutoff",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;UNTIL=20260103T09:00\r\n  PM GMT -0500"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "unknown parameter name"
+      }
+    },
+    {
+      "name": "an invalid spaced offset fails even with a UTC name",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000\r\n  Z +12345",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "Unknown string format: 20260102T090000 Z +12345"
+      }
+    },
+    {
+      "name": "RFC rejects a preserved space before a clock suffix",
+      "input": {
+        "profile": "rfc5545",
+        "lines": [
+          "DTSTART:20260102T090000\r\n  Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-07",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": {
+        "error": "Expected an iCalendar DATE or DATE-TIME"
+      }
+    }
+  ]
+}

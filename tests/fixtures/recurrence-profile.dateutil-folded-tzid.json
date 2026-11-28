@@ -1,0 +1,175 @@
+{
+  "type": "recurrence-profile",
+  "name": "Folded timezone identifiers",
+  "source": "python-dateutil 2.8.2 rrulestr with forceset and unfold, and RFC 5545 section 3.1",
+  "cases": [
+    {
+      "name": "dateutil folded TZID identifier remains floating",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_",
+          " York:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-02T09:00:00",
+        "2026-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "dateutil folded TZID parameter name remains floating",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZI",
+          " D=America/New_York:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-02T09:00:00",
+        "2026-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "dateutil folded TZID colon remains floating",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_York",
+          " :20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-02T09:00:00",
+        "2026-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "dateutil folded date value keeps its complete TZID",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260101T09",
+          " 0000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T14:00:00Z",
+        "2026-01-02T14:00:00Z",
+        "2026-01-03T14:00:00Z"
+      ]
+    },
+    {
+      "name": "dateutil folded EXDATE uses an unfolded TZID already in the input",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE;TZID=America/New_",
+          " York:20260102T090000"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T14:00:00Z",
+        "2026-01-03T14:00:00Z"
+      ]
+    },
+    {
+      "name": "dateutil floating DTSTART and EXDATE both have a folded identifier",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_",
+          " York:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE;TZID=America/New_",
+          " York:20260102T090000"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "dateutil uses the last TZID marker within a parameter",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=UTC:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE;TZID=ignoredTZID=UTC:20260102T090000"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "RFC folded TZID resolves after unfolding",
+      "input": {
+        "profile": "rfc5545",
+        "lines": [
+          "DTSTART;TZID=America/New_",
+          " York:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T14:00:00Z",
+        "2026-01-02T14:00:00Z",
+        "2026-01-03T14:00:00Z"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2590 @@
+{
+  "type": "recurrence-profile",
+  "name": "Outlook Graph historical North American daylight and fixed offsets",
+  "source": "Microsoft Graph v1.0 calendarView on a dedicated test calendar",
+  "cases": [
+    {
+      "name": "chicago-historical-1942-april-gap-start",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1942-04-03T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1942-04-03",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1942-04-15",
+        "checkpoints": [
+          "1942-04-03",
+          "1942-04-04",
+          "1942-04-05",
+          "1942-04-06",
+          "1942-04-07"
+        ]
+      },
+      "expected": [
+        "1942-04-03T08:00:00Z",
+        "1942-04-04T08:00:00Z",
+        "1942-04-05T08:00:00Z",
+        "1942-04-06T07:00:00Z",
+        "1942-04-07T07:00:00Z"
+      ]
+    },
+    {
+      "name": "chicago-historical-1942-october-fold-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1942-10-23T07:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1942-10-23",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1942-11-04",
+        "checkpoints": [
+          "1942-10-23",
+          "1942-10-24",
+          "1942-10-25",
+          "1942-10-26",
+          "1942-10-27"
+        ]
+      },
+      "expected": [
+        "1942-10-23T07:00:00Z",
+        "1942-10-24T07:00:00Z",
+        "1942-10-25T08:00:00Z",
+        "1942-10-26T08:00:00Z",
+        "1942-10-27T08:00:00Z"
+      ]
+    },
+    {
+      "name": "chicago-historical-1987-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1987-04-03T08:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1987-04-03",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1987-04-15",
+        "checkpoints": [
+          "1987-04-03",
+          "1987-04-04",
+          "1987-04-05",
+          "1987-04-06",
+          "1987-04-07"
+        ]
+      },
+      "expected": [
+        "1987-04-03T08:30:00Z",
+        "1987-04-04T08:30:00Z",
+        "1987-04-05T08:30:00Z",
+        "1987-04-06T07:30:00Z",
+        "1987-04-07T07:30:00Z"
+      ]
+    },
+    {
+      "name": "chicago-historical-2006-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2006-10-27T06:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2006-10-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2006-11-08",
+        "checkpoints": [
+          "2006-10-27",
+          "2006-10-28",
+          "2006-10-29",
+          "2006-10-30",
+          "2006-10-31"
+        ]
+      },
+      "expected": [
+        "2006-10-27T06:30:00Z",
+        "2006-10-28T06:30:00Z",
+        "2006-10-29T06:30:00Z",
+        "2006-10-30T07:30:00Z",
+        "2006-10-31T07:30:00Z"
+      ]
+    },
+    {
+      "name": "chicago-historical-2075-november",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-11-01T06:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central Standard Time",
+              "startDate": "2075-11-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-11-13",
+        "checkpoints": [
+          "2075-11-01",
+          "2075-11-02",
+          "2075-11-03",
+          "2075-11-04",
+          "2075-11-05"
+        ]
+      },
+      "expected": [
+        "2075-11-01T06:30:00Z",
+        "2075-11-02T06:30:00Z",
+        "2075-11-03T06:30:00Z",
+        "2075-11-04T07:30:00Z",
+        "2075-11-05T07:30:00Z"
+      ]
+    },
+    {
+      "name": "chicago-historical-yearly-1899-2075",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-03-14T18:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 14,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 88,
+              "month": 3,
+              "type": "absoluteYearly"
+            },
+            "range": {
+              "endDate": "2075-03-14",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-03-14",
+              "type": "endDate"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-03-15",
+        "checkpoints": [
+          "1899-03-14",
+          "1987-03-14",
+          "2075-03-14"
+        ]
+      },
+      "expected": [
+        "1899-03-14T18:00:00Z",
+        "1987-03-14T18:00:00Z",
+        "2075-03-14T17:00:00Z"
+      ]
+    },
+    {
+      "name": "denver-historical-1942-april-gap-start",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1942-04-03T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1942-04-03",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1942-04-15",
+        "checkpoints": [
+          "1942-04-03",
+          "1942-04-04",
+          "1942-04-05",
+          "1942-04-06",
+          "1942-04-07"
+        ]
+      },
+      "expected": [
+        "1942-04-03T09:00:00Z",
+        "1942-04-04T09:00:00Z",
+        "1942-04-05T09:00:00Z",
+        "1942-04-06T08:00:00Z",
+        "1942-04-07T08:00:00Z"
+      ]
+    },
+    {
+      "name": "denver-historical-1942-october-fold-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1942-10-23T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1942-10-23",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1942-11-04",
+        "checkpoints": [
+          "1942-10-23",
+          "1942-10-24",
+          "1942-10-25",
+          "1942-10-26",
+          "1942-10-27"
+        ]
+      },
+      "expected": [
+        "1942-10-23T08:00:00Z",
+        "1942-10-24T08:00:00Z",
+        "1942-10-25T09:00:00Z",
+        "1942-10-26T09:00:00Z",
+        "1942-10-27T09:00:00Z"
+      ]
+    },
+    {
+      "name": "denver-historical-1987-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1987-04-03T09:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1987-04-03",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1987-04-15",
+        "checkpoints": [
+          "1987-04-03",
+          "1987-04-04",
+          "1987-04-05",
+          "1987-04-06",
+          "1987-04-07"
+        ]
+      },
+      "expected": [
+        "1987-04-03T09:30:00Z",
+        "1987-04-04T09:30:00Z",
+        "1987-04-05T09:30:00Z",
+        "1987-04-06T08:30:00Z",
+        "1987-04-07T08:30:00Z"
+      ]
+    },
+    {
+      "name": "denver-historical-2006-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2006-10-27T07:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2006-10-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2006-11-08",
+        "checkpoints": [
+          "2006-10-27",
+          "2006-10-28",
+          "2006-10-29",
+          "2006-10-30",
+          "2006-10-31"
+        ]
+      },
+      "expected": [
+        "2006-10-27T07:30:00Z",
+        "2006-10-28T07:30:00Z",
+        "2006-10-29T07:30:00Z",
+        "2006-10-30T08:30:00Z",
+        "2006-10-31T08:30:00Z"
+      ]
+    },
+    {
+      "name": "denver-historical-2075-november",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-11-01T07:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Mountain Standard Time",
+              "startDate": "2075-11-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-11-13",
+        "checkpoints": [
+          "2075-11-01",
+          "2075-11-02",
+          "2075-11-03",
+          "2075-11-04",
+          "2075-11-05"
+        ]
+      },
+      "expected": [
+        "2075-11-01T07:30:00Z",
+        "2075-11-02T07:30:00Z",
+        "2075-11-03T07:30:00Z",
+        "2075-11-04T08:30:00Z",
+        "2075-11-05T08:30:00Z"
+      ]
+    },
+    {
+      "name": "denver-historical-yearly-1899-2075",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-03-14T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 14,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 88,
+              "month": 3,
+              "type": "absoluteYearly"
+            },
+            "range": {
+              "endDate": "2075-03-14",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-03-14",
+              "type": "endDate"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-03-15",
+        "checkpoints": [
+          "1899-03-14",
+          "1987-03-14",
+          "2075-03-14"
+        ]
+      },
+      "expected": [
+        "1899-03-14T19:00:00Z",
+        "1987-03-14T19:00:00Z",
+        "2075-03-14T18:00:00Z"
+      ]
+    },
+    {
+      "name": "halifax-historical-1942-april-gap-start",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1942-04-03T06:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Atlantic Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1942-04-03",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1942-04-15",
+        "checkpoints": [
+          "1942-04-03",
+          "1942-04-04",
+          "1942-04-05",
+          "1942-04-06",
+          "1942-04-07"
+        ]
+      },
+      "expected": [
+        "1942-04-03T06:00:00Z",
+        "1942-04-04T06:00:00Z",
+        "1942-04-05T06:00:00Z",
+        "1942-04-06T05:00:00Z",
+        "1942-04-07T05:00:00Z"
+      ]
+    },
+    {
+      "name": "halifax-historical-1942-october-fold-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1942-10-23T05:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Atlantic Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1942-10-23",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1942-11-04",
+        "checkpoints": [
+          "1942-10-23",
+          "1942-10-24",
+          "1942-10-25",
+          "1942-10-26",
+          "1942-10-27"
+        ]
+      },
+      "expected": [
+        "1942-10-23T05:00:00Z",
+        "1942-10-24T05:00:00Z",
+        "1942-10-25T06:00:00Z",
+        "1942-10-26T06:00:00Z",
+        "1942-10-27T06:00:00Z"
+      ]
+    },
+    {
+      "name": "halifax-historical-1987-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1987-04-03T06:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Atlantic Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1987-04-03",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1987-04-15",
+        "checkpoints": [
+          "1987-04-03",
+          "1987-04-04",
+          "1987-04-05",
+          "1987-04-06",
+          "1987-04-07"
+        ]
+      },
+      "expected": [
+        "1987-04-03T06:30:00Z",
+        "1987-04-04T06:30:00Z",
+        "1987-04-05T06:30:00Z",
+        "1987-04-06T05:30:00Z",
+        "1987-04-07T05:30:00Z"
+      ]
+    },
+    {
+      "name": "halifax-historical-2006-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2006-10-27T04:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Atlantic Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2006-10-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2006-11-08",
+        "checkpoints": [
+          "2006-10-27",
+          "2006-10-28",
+          "2006-10-29",
+          "2006-10-30",
+          "2006-10-31"
+        ]
+      },
+      "expected": [
+        "2006-10-27T04:30:00Z",
+        "2006-10-28T04:30:00Z",
+        "2006-10-29T04:30:00Z",
+        "2006-10-30T05:30:00Z",
+        "2006-10-31T05:30:00Z"
+      ]
+    },
+    {
+      "name": "halifax-historical-2075-november",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-11-01T04:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Atlantic Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Atlantic Standard Time",
+              "startDate": "2075-11-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-11-13",
+        "checkpoints": [
+          "2075-11-01",
+          "2075-11-02",
+          "2075-11-03",
+          "2075-11-04",
+          "2075-11-05"
+        ]
+      },
+      "expected": [
+        "2075-11-01T04:30:00Z",
+        "2075-11-02T04:30:00Z",
+        "2075-11-03T04:30:00Z",
+        "2075-11-04T05:30:00Z",
+        "2075-11-05T05:30:00Z"
+      ]
+    },
+    {
+      "name": "halifax-historical-yearly-1899-2075",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-03-14T16:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Atlantic Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 14,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 88,
+              "month": 3,
+              "type": "absoluteYearly"
+            },
+            "range": {
+              "endDate": "2075-03-14",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-03-14",
+              "type": "endDate"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-03-15",
+        "checkpoints": [
+          "1899-03-14",
+          "1987-03-14",
+          "2075-03-14"
+        ]
+      },
+      "expected": [
+        "1899-03-14T16:00:00Z",
+        "1987-03-14T16:00:00Z",
+        "2075-03-14T15:00:00Z"
+      ]
+    },
+    {
+      "name": "chicago-historical-1899-summer",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-07-14T17:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-07-14",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-07-26",
+        "checkpoints": [
+          "1899-07-14",
+          "1899-07-15",
+          "1899-07-16",
+          "1899-07-17",
+          "1899-07-18"
+        ]
+      },
+      "expected": [
+        "1899-07-14T17:00:00Z",
+        "1899-07-15T17:00:00Z",
+        "1899-07-16T17:00:00Z",
+        "1899-07-17T17:00:00Z",
+        "1899-07-18T17:00:00Z"
+      ]
+    },
+    {
+      "name": "chicago-historical-1942-war-time",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1942-02-07T08:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1942-02-07",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1942-02-19",
+        "checkpoints": [
+          "1942-02-07",
+          "1942-02-08",
+          "1942-02-09",
+          "1942-02-10",
+          "1942-02-11"
+        ]
+      },
+      "expected": [
+        "1942-02-07T08:30:00Z",
+        "1942-02-08T08:30:00Z",
+        "1942-02-09T08:30:00Z",
+        "1942-02-10T08:30:00Z",
+        "1942-02-11T08:30:00Z"
+      ]
+    },
+    {
+      "name": "chicago-historical-1967-first-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-03-31T08:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-03-31",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-04-12",
+        "checkpoints": [
+          "1967-03-31",
+          "1967-04-01",
+          "1967-04-02",
+          "1967-04-03",
+          "1967-04-04"
+        ]
+      },
+      "expected": [
+        "1967-03-31T08:30:00Z",
+        "1967-04-01T08:30:00Z",
+        "1967-04-02T08:30:00Z",
+        "1967-04-03T07:30:00Z",
+        "1967-04-04T07:30:00Z"
+      ]
+    },
+    {
+      "name": "chicago-historical-1967-last-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-10-27T06:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-10-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-11-08",
+        "checkpoints": [
+          "1967-10-27",
+          "1967-10-28",
+          "1967-10-29",
+          "1967-10-30",
+          "1967-10-31"
+        ]
+      },
+      "expected": [
+        "1967-10-27T06:30:00Z",
+        "1967-10-28T06:30:00Z",
+        "1967-10-29T06:30:00Z",
+        "1967-10-30T07:30:00Z",
+        "1967-10-31T07:30:00Z"
+      ]
+    },
+    {
+      "name": "chicago-historical-1974-january",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1974-01-04T08:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1974-01-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1974-01-16",
+        "checkpoints": [
+          "1974-01-04",
+          "1974-01-05",
+          "1974-01-06",
+          "1974-01-07",
+          "1974-01-08"
+        ]
+      },
+      "expected": [
+        "1974-01-04T08:30:00Z",
+        "1974-01-05T08:30:00Z",
+        "1974-01-06T08:30:00Z",
+        "1974-01-07T08:30:00Z",
+        "1974-01-08T08:30:00Z"
+      ]
+    },
+    {
+      "name": "chicago-historical-1986-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1986-04-04T08:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1986-04-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1986-04-16",
+        "checkpoints": [
+          "1986-04-04",
+          "1986-04-05",
+          "1986-04-06",
+          "1986-04-07",
+          "1986-04-08"
+        ]
+      },
+      "expected": [
+        "1986-04-04T08:30:00Z",
+        "1986-04-05T08:30:00Z",
+        "1986-04-06T08:30:00Z",
+        "1986-04-07T07:30:00Z",
+        "1986-04-08T07:30:00Z"
+      ]
+    },
+    {
+      "name": "chicago-historical-2006-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2006-03-31T08:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2006-03-31",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2006-04-12",
+        "checkpoints": [
+          "2006-03-31",
+          "2006-04-01",
+          "2006-04-02",
+          "2006-04-03",
+          "2006-04-04"
+        ]
+      },
+      "expected": [
+        "2006-03-31T08:30:00Z",
+        "2006-04-01T08:30:00Z",
+        "2006-04-02T08:30:00Z",
+        "2006-04-03T07:30:00Z",
+        "2006-04-04T07:30:00Z"
+      ]
+    },
+    {
+      "name": "chicago-historical-2007-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2007-03-09T08:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central Standard Time",
+              "startDate": "2007-03-09",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2007-03-21",
+        "checkpoints": [
+          "2007-03-09",
+          "2007-03-10",
+          "2007-03-11",
+          "2007-03-12",
+          "2007-03-13"
+        ]
+      },
+      "expected": [
+        "2007-03-09T08:30:00Z",
+        "2007-03-10T08:30:00Z",
+        "2007-03-11T08:30:00Z",
+        "2007-03-12T07:30:00Z",
+        "2007-03-13T07:30:00Z"
+      ]
+    },
+    {
+      "name": "chicago-historical-2075-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-03-08T08:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central Standard Time",
+              "startDate": "2075-03-08",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-03-20",
+        "checkpoints": [
+          "2075-03-08",
+          "2075-03-09",
+          "2075-03-10",
+          "2075-03-11",
+          "2075-03-12"
+        ]
+      },
+      "expected": [
+        "2075-03-08T08:30:00Z",
+        "2075-03-09T08:30:00Z",
+        "2075-03-10T08:30:00Z",
+        "2075-03-11T07:30:00Z",
+        "2075-03-12T07:30:00Z"
+      ]
+    },
+    {
+      "name": "denver-historical-1899-summer",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-07-14T18:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-07-14",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-07-26",
+        "checkpoints": [
+          "1899-07-14",
+          "1899-07-15",
+          "1899-07-16",
+          "1899-07-17",
+          "1899-07-18"
+        ]
+      },
+      "expected": [
+        "1899-07-14T18:00:00Z",
+        "1899-07-15T18:00:00Z",
+        "1899-07-16T18:00:00Z",
+        "1899-07-17T18:00:00Z",
+        "1899-07-18T18:00:00Z"
+      ]
+    },
+    {
+      "name": "denver-historical-1942-war-time",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1942-02-07T09:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1942-02-07",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1942-02-19",
+        "checkpoints": [
+          "1942-02-07",
+          "1942-02-08",
+          "1942-02-09",
+          "1942-02-10",
+          "1942-02-11"
+        ]
+      },
+      "expected": [
+        "1942-02-07T09:30:00Z",
+        "1942-02-08T09:30:00Z",
+        "1942-02-09T09:30:00Z",
+        "1942-02-10T09:30:00Z",
+        "1942-02-11T09:30:00Z"
+      ]
+    },
+    {
+      "name": "denver-historical-1967-first-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-03-31T09:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-03-31",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-04-12",
+        "checkpoints": [
+          "1967-03-31",
+          "1967-04-01",
+          "1967-04-02",
+          "1967-04-03",
+          "1967-04-04"
+        ]
+      },
+      "expected": [
+        "1967-03-31T09:30:00Z",
+        "1967-04-01T09:30:00Z",
+        "1967-04-02T09:30:00Z",
+        "1967-04-03T08:30:00Z",
+        "1967-04-04T08:30:00Z"
+      ]
+    },
+    {
+      "name": "denver-historical-1967-last-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-10-27T07:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-10-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-11-08",
+        "checkpoints": [
+          "1967-10-27",
+          "1967-10-28",
+          "1967-10-29",
+          "1967-10-30",
+          "1967-10-31"
+        ]
+      },
+      "expected": [
+        "1967-10-27T07:30:00Z",
+        "1967-10-28T07:30:00Z",
+        "1967-10-29T07:30:00Z",
+        "1967-10-30T08:30:00Z",
+        "1967-10-31T08:30:00Z"
+      ]
+    },
+    {
+      "name": "denver-historical-1974-january",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1974-01-04T09:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1974-01-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1974-01-16",
+        "checkpoints": [
+          "1974-01-04",
+          "1974-01-05",
+          "1974-01-06",
+          "1974-01-07",
+          "1974-01-08"
+        ]
+      },
+      "expected": [
+        "1974-01-04T09:30:00Z",
+        "1974-01-05T09:30:00Z",
+        "1974-01-06T09:30:00Z",
+        "1974-01-07T09:30:00Z",
+        "1974-01-08T09:30:00Z"
+      ]
+    },
+    {
+      "name": "denver-historical-1986-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1986-04-04T09:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1986-04-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1986-04-16",
+        "checkpoints": [
+          "1986-04-04",
+          "1986-04-05",
+          "1986-04-06",
+          "1986-04-07",
+          "1986-04-08"
+        ]
+      },
+      "expected": [
+        "1986-04-04T09:30:00Z",
+        "1986-04-05T09:30:00Z",
+        "1986-04-06T09:30:00Z",
+        "1986-04-07T08:30:00Z",
+        "1986-04-08T08:30:00Z"
+      ]
+    },
+    {
+      "name": "denver-historical-2006-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2006-03-31T09:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2006-03-31",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2006-04-12",
+        "checkpoints": [
+          "2006-03-31",
+          "2006-04-01",
+          "2006-04-02",
+          "2006-04-03",
+          "2006-04-04"
+        ]
+      },
+      "expected": [
+        "2006-03-31T09:30:00Z",
+        "2006-04-01T09:30:00Z",
+        "2006-04-02T09:30:00Z",
+        "2006-04-03T08:30:00Z",
+        "2006-04-04T08:30:00Z"
+      ]
+    },
+    {
+      "name": "denver-historical-2007-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2007-03-09T09:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Mountain Standard Time",
+              "startDate": "2007-03-09",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2007-03-21",
+        "checkpoints": [
+          "2007-03-09",
+          "2007-03-10",
+          "2007-03-11",
+          "2007-03-12",
+          "2007-03-13"
+        ]
+      },
+      "expected": [
+        "2007-03-09T09:30:00Z",
+        "2007-03-10T09:30:00Z",
+        "2007-03-11T09:30:00Z",
+        "2007-03-12T08:30:00Z",
+        "2007-03-13T08:30:00Z"
+      ]
+    },
+    {
+      "name": "denver-historical-2075-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-03-08T09:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Mountain Standard Time",
+              "startDate": "2075-03-08",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-03-20",
+        "checkpoints": [
+          "2075-03-08",
+          "2075-03-09",
+          "2075-03-10",
+          "2075-03-11",
+          "2075-03-12"
+        ]
+      },
+      "expected": [
+        "2075-03-08T09:30:00Z",
+        "2075-03-09T09:30:00Z",
+        "2075-03-10T09:30:00Z",
+        "2075-03-11T08:30:00Z",
+        "2075-03-12T08:30:00Z"
+      ]
+    },
+    {
+      "name": "halifax-historical-1899-summer",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-07-14T15:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Atlantic Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-07-14",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-07-26",
+        "checkpoints": [
+          "1899-07-14",
+          "1899-07-15",
+          "1899-07-16",
+          "1899-07-17",
+          "1899-07-18"
+        ]
+      },
+      "expected": [
+        "1899-07-14T15:00:00Z",
+        "1899-07-15T15:00:00Z",
+        "1899-07-16T15:00:00Z",
+        "1899-07-17T15:00:00Z",
+        "1899-07-18T15:00:00Z"
+      ]
+    },
+    {
+      "name": "halifax-historical-1942-war-time",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1942-02-07T06:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Atlantic Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1942-02-07",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1942-02-19",
+        "checkpoints": [
+          "1942-02-07",
+          "1942-02-08",
+          "1942-02-09",
+          "1942-02-10",
+          "1942-02-11"
+        ]
+      },
+      "expected": [
+        "1942-02-07T06:30:00Z",
+        "1942-02-08T06:30:00Z",
+        "1942-02-09T06:30:00Z",
+        "1942-02-10T06:30:00Z",
+        "1942-02-11T06:30:00Z"
+      ]
+    },
+    {
+      "name": "halifax-historical-1967-first-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-03-31T06:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Atlantic Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-03-31",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-04-12",
+        "checkpoints": [
+          "1967-03-31",
+          "1967-04-01",
+          "1967-04-02",
+          "1967-04-03",
+          "1967-04-04"
+        ]
+      },
+      "expected": [
+        "1967-03-31T06:30:00Z",
+        "1967-04-01T06:30:00Z",
+        "1967-04-02T06:30:00Z",
+        "1967-04-03T05:30:00Z",
+        "1967-04-04T05:30:00Z"
+      ]
+    },
+    {
+      "name": "halifax-historical-1967-last-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-10-27T04:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Atlantic Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-10-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-11-08",
+        "checkpoints": [
+          "1967-10-27",
+          "1967-10-28",
+          "1967-10-29",
+          "1967-10-30",
+          "1967-10-31"
+        ]
+      },
+      "expected": [
+        "1967-10-27T04:30:00Z",
+        "1967-10-28T04:30:00Z",
+        "1967-10-29T04:30:00Z",
+        "1967-10-30T05:30:00Z",
+        "1967-10-31T05:30:00Z"
+      ]
+    },
+    {
+      "name": "halifax-historical-1974-january",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1974-01-04T06:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Atlantic Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1974-01-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1974-01-16",
+        "checkpoints": [
+          "1974-01-04",
+          "1974-01-05",
+          "1974-01-06",
+          "1974-01-07",
+          "1974-01-08"
+        ]
+      },
+      "expected": [
+        "1974-01-04T06:30:00Z",
+        "1974-01-05T06:30:00Z",
+        "1974-01-06T06:30:00Z",
+        "1974-01-07T06:30:00Z",
+        "1974-01-08T06:30:00Z"
+      ]
+    },
+    {
+      "name": "halifax-historical-1986-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1986-04-04T06:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Atlantic Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1986-04-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1986-04-16",
+        "checkpoints": [
+          "1986-04-04",
+          "1986-04-05",
+          "1986-04-06",
+          "1986-04-07",
+          "1986-04-08"
+        ]
+      },
+      "expected": [
+        "1986-04-04T06:30:00Z",
+        "1986-04-05T06:30:00Z",
+        "1986-04-06T06:30:00Z",
+        "1986-04-07T05:30:00Z",
+        "1986-04-08T05:30:00Z"
+      ]
+    },
+    {
+      "name": "halifax-historical-2006-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2006-03-31T06:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Atlantic Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2006-03-31",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2006-04-12",
+        "checkpoints": [
+          "2006-03-31",
+          "2006-04-01",
+          "2006-04-02",
+          "2006-04-03",
+          "2006-04-04"
+        ]
+      },
+      "expected": [
+        "2006-03-31T06:30:00Z",
+        "2006-04-01T06:30:00Z",
+        "2006-04-02T06:30:00Z",
+        "2006-04-03T05:30:00Z",
+        "2006-04-04T05:30:00Z"
+      ]
+    },
+    {
+      "name": "halifax-historical-2007-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2007-03-09T06:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Atlantic Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Atlantic Standard Time",
+              "startDate": "2007-03-09",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2007-03-21",
+        "checkpoints": [
+          "2007-03-09",
+          "2007-03-10",
+          "2007-03-11",
+          "2007-03-12",
+          "2007-03-13"
+        ]
+      },
+      "expected": [
+        "2007-03-09T06:30:00Z",
+        "2007-03-10T06:30:00Z",
+        "2007-03-11T06:30:00Z",
+        "2007-03-12T05:30:00Z",
+        "2007-03-13T05:30:00Z"
+      ]
+    },
+    {
+      "name": "halifax-historical-2075-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-03-08T06:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Atlantic Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Atlantic Standard Time",
+              "startDate": "2075-03-08",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-03-20",
+        "checkpoints": [
+          "2075-03-08",
+          "2075-03-09",
+          "2075-03-10",
+          "2075-03-11",
+          "2075-03-12"
+        ]
+      },
+      "expected": [
+        "2075-03-08T06:30:00Z",
+        "2075-03-09T06:30:00Z",
+        "2075-03-10T06:30:00Z",
+        "2075-03-11T05:30:00Z",
+        "2075-03-12T05:30:00Z"
+      ]
+    },
+    {
+      "name": "regina-historical-1899-winter",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-15T08:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Canada Central Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Canada Central Standard Time",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T08:30:00Z",
+        "1899-01-16T08:30:00Z",
+        "1899-01-17T08:30:00Z",
+        "1899-01-18T08:30:00Z",
+        "1899-01-19T08:30:00Z"
+      ]
+    },
+    {
+      "name": "regina-historical-1942-war-time",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1942-02-07T08:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Canada Central Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Canada Central Standard Time",
+              "startDate": "1942-02-07",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1942-02-19",
+        "checkpoints": [
+          "1942-02-07",
+          "1942-02-08",
+          "1942-02-09",
+          "1942-02-10",
+          "1942-02-11"
+        ]
+      },
+      "expected": [
+        "1942-02-07T08:30:00Z",
+        "1942-02-08T08:30:00Z",
+        "1942-02-09T08:30:00Z",
+        "1942-02-10T08:30:00Z",
+        "1942-02-11T08:30:00Z"
+      ]
+    },
+    {
+      "name": "regina-historical-1960-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1960-04-22T08:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Canada Central Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Canada Central Standard Time",
+              "startDate": "1960-04-22",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1960-05-04",
+        "checkpoints": [
+          "1960-04-22",
+          "1960-04-23",
+          "1960-04-24",
+          "1960-04-25",
+          "1960-04-26"
+        ]
+      },
+      "expected": [
+        "1960-04-22T08:30:00Z",
+        "1960-04-23T08:30:00Z",
+        "1960-04-24T08:30:00Z",
+        "1960-04-25T08:30:00Z",
+        "1960-04-26T08:30:00Z"
+      ]
+    },
+    {
+      "name": "regina-historical-1967-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-04-28T08:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Canada Central Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Canada Central Standard Time",
+              "startDate": "1967-04-28",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-05-10",
+        "checkpoints": [
+          "1967-04-28",
+          "1967-04-29",
+          "1967-04-30",
+          "1967-05-01",
+          "1967-05-02"
+        ]
+      },
+      "expected": [
+        "1967-04-28T08:30:00Z",
+        "1967-04-29T08:30:00Z",
+        "1967-04-30T08:30:00Z",
+        "1967-05-01T08:30:00Z",
+        "1967-05-02T08:30:00Z"
+      ]
+    },
+    {
+      "name": "regina-historical-2026-july",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-07-15T08:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Canada Central Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Canada Central Standard Time",
+              "startDate": "2026-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2026-07-27",
+        "checkpoints": [
+          "2026-07-15",
+          "2026-07-16",
+          "2026-07-17",
+          "2026-07-18",
+          "2026-07-19"
+        ]
+      },
+      "expected": [
+        "2026-07-15T08:30:00Z",
+        "2026-07-16T08:30:00Z",
+        "2026-07-17T08:30:00Z",
+        "2026-07-18T08:30:00Z",
+        "2026-07-19T08:30:00Z"
+      ]
+    },
+    {
+      "name": "phoenix-historical-1899-winter",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-15T09:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "US Mountain Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "US Mountain Standard Time",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19"
+        ]
+      },
+      "expected": [
+        "1899-01-15T09:30:00Z",
+        "1899-01-16T09:30:00Z",
+        "1899-01-17T09:30:00Z",
+        "1899-01-18T09:30:00Z",
+        "1899-01-19T09:30:00Z"
+      ]
+    },
+    {
+      "name": "phoenix-historical-1942-war-time",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1942-02-07T09:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "US Mountain Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "US Mountain Standard Time",
+              "startDate": "1942-02-07",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1942-02-19",
+        "checkpoints": [
+          "1942-02-07",
+          "1942-02-08",
+          "1942-02-09",
+          "1942-02-10",
+          "1942-02-11"
+        ]
+      },
+      "expected": [
+        "1942-02-07T09:30:00Z",
+        "1942-02-08T09:30:00Z",
+        "1942-02-09T09:30:00Z",
+        "1942-02-10T09:30:00Z",
+        "1942-02-11T09:30:00Z"
+      ]
+    },
+    {
+      "name": "phoenix-historical-1960-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1960-04-22T09:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "US Mountain Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "US Mountain Standard Time",
+              "startDate": "1960-04-22",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1960-05-04",
+        "checkpoints": [
+          "1960-04-22",
+          "1960-04-23",
+          "1960-04-24",
+          "1960-04-25",
+          "1960-04-26"
+        ]
+      },
+      "expected": [
+        "1960-04-22T09:30:00Z",
+        "1960-04-23T09:30:00Z",
+        "1960-04-24T09:30:00Z",
+        "1960-04-25T09:30:00Z",
+        "1960-04-26T09:30:00Z"
+      ]
+    },
+    {
+      "name": "phoenix-historical-1967-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-04-28T09:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "US Mountain Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "US Mountain Standard Time",
+              "startDate": "1967-04-28",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-05-10",
+        "checkpoints": [
+          "1967-04-28",
+          "1967-04-29",
+          "1967-04-30",
+          "1967-05-01",
+          "1967-05-02"
+        ]
+      },
+      "expected": [
+        "1967-04-28T09:30:00Z",
+        "1967-04-29T09:30:00Z",
+        "1967-04-30T09:30:00Z",
+        "1967-05-01T09:30:00Z",
+        "1967-05-02T09:30:00Z"
+      ]
+    },
+    {
+      "name": "phoenix-historical-2026-july",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-07-15T09:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "US Mountain Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "US Mountain Standard Time",
+              "startDate": "2026-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2026-07-27",
+        "checkpoints": [
+          "2026-07-15",
+          "2026-07-16",
+          "2026-07-17",
+          "2026-07-18",
+          "2026-07-19"
+        ]
+      },
+      "expected": [
+        "2026-07-15T09:30:00Z",
+        "2026-07-16T09:30:00Z",
+        "2026-07-17T09:30:00Z",
+        "2026-07-18T09:30:00Z",
+        "2026-07-19T09:30:00Z"
+      ]
+    },
+    {
+      "name": "rfc-chicago-retains-1974-emergency-daylight",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/Chicago:19740104T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1974-01-10",
+        "checkpoints": [
+          "1974-01-04",
+          "1974-01-05",
+          "1974-01-06",
+          "1974-01-07",
+          "1974-01-08"
+        ]
+      },
+      "expected": [
+        "1974-01-04T18:00:00Z",
+        "1974-01-05T18:00:00Z",
+        "1974-01-06T17:00:00Z",
+        "1974-01-07T17:00:00Z",
+        "1974-01-08T17:00:00Z"
+      ]
+    },
+    {
+      "name": "rfc-denver-retains-1986-april-transition",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/Denver:19860425T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1986-05-01",
+        "checkpoints": [
+          "1986-04-25",
+          "1986-04-26",
+          "1986-04-27",
+          "1986-04-28",
+          "1986-04-29"
+        ]
+      },
+      "expected": [
+        "1986-04-25T19:00:00Z",
+        "1986-04-26T19:00:00Z",
+        "1986-04-27T18:00:00Z",
+        "1986-04-28T18:00:00Z",
+        "1986-04-29T18:00:00Z"
+      ]
+    },
+    {
+      "name": "rfc-halifax-retains-1942-war-time",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/Halifax:19420207T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1942-02-13",
+        "checkpoints": [
+          "1942-02-07",
+          "1942-02-08",
+          "1942-02-09",
+          "1942-02-10",
+          "1942-02-11"
+        ]
+      },
+      "expected": [
+        "1942-02-07T16:00:00Z",
+        "1942-02-08T16:00:00Z",
+        "1942-02-09T15:00:00Z",
+        "1942-02-10T15:00:00Z",
+        "1942-02-11T15:00:00Z"
+      ]
+    },
+    {
+      "name": "rfc-regina-retains-1960-offset-change",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/Regina:19600422T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1960-04-28",
+        "checkpoints": [
+          "1960-04-22",
+          "1960-04-23",
+          "1960-04-24",
+          "1960-04-25",
+          "1960-04-26"
+        ]
+      },
+      "expected": [
+        "1960-04-22T19:00:00Z",
+        "1960-04-23T19:00:00Z",
+        "1960-04-24T18:00:00Z",
+        "1960-04-25T18:00:00Z",
+        "1960-04-26T18:00:00Z"
+      ]
+    },
+    {
+      "name": "rfc-phoenix-retains-1967-daylight",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/Phoenix:19670428T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1967-05-04",
+        "checkpoints": [
+          "1967-04-28",
+          "1967-04-29",
+          "1967-04-30",
+          "1967-05-01",
+          "1967-05-02"
+        ]
+      },
+      "expected": [
+        "1967-04-28T19:00:00Z",
+        "1967-04-29T19:00:00Z",
+        "1967-04-30T18:00:00Z",
+        "1967-05-01T18:00:00Z",
+        "1967-05-02T18:00:00Z"
+      ]
+    }
+  ]
+}

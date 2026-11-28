@@ -1,0 +1,331 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil colon clocks and decimal precision",
+  "source": "python-dateutil 2.8.2 rrulestr with TZ=UTC and default Decimal context",
+  "cases": [
+    {
+      "name": "leading zeroes do not change colon clock fields",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T009:005:003Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:05:03Z",
+        "2026-03-02T09:05:03Z",
+        "2026-03-03T09:05:03Z"
+      ]
+    },
+    {
+      "name": "a decimal hour before a colon uses its integer field",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T09.5:15Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:15:00Z",
+        "2026-03-02T09:15:00Z",
+        "2026-03-03T09:15:00Z"
+      ]
+    },
+    {
+      "name": "fractional minutes supply whole seconds",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T09:15.5Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:15:30Z",
+        "2026-03-02T09:15:30Z",
+        "2026-03-03T09:15:30Z"
+      ]
+    },
+    {
+      "name": "an explicit seconds field replaces fractional minutes",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T09:15.5:30+0230",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T06:45:30Z",
+        "2026-03-02T06:45:30Z",
+        "2026-03-03T06:45:30Z"
+      ]
+    },
+    {
+      "name": "colon clocks accept Unicode decimal digits and a year-last date",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:03/01/2026T००९:００５:٠٠٣",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:05:03",
+        "2026-03-02T09:05:03",
+        "2026-03-03T09:05:03"
+      ]
+    },
+    {
+      "name": "a dot can separate a clock from its offset",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T09:15:30.+05:30",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T03:45:30Z",
+        "2026-03-02T03:45:30Z",
+        "2026-03-03T03:45:30Z"
+      ]
+    },
+    {
+      "name": "one final letter may be absorbed into the preceding dotted number",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T09:15:30.Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03"
+      },
+      "expected": {
+        "error": "Unknown string format: 20260301T09:15:30.Z"
+      }
+    },
+    {
+      "name": "a separated UTC name survives two dots",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T09:15:30..Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:15:30Z",
+        "2026-03-02T09:15:30Z",
+        "2026-03-03T09:15:30Z"
+      ]
+    },
+    {
+      "name": "a split six-digit fraction takes precedence as a compact clock",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T09:15.000003.UTC",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T00:00:03Z",
+        "2026-03-02T00:00:03Z",
+        "2026-03-03T00:00:03Z"
+      ]
+    },
+    {
+      "name": "an incomplete seconds field is a format error",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T09:15:",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03"
+      },
+      "expected": {
+        "error": "Unknown string format: 20260301T09:15:"
+      }
+    },
+    {
+      "name": "a six-digit hour reaches the compact parser before the colon",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T000009:15",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03"
+      },
+      "expected": {
+        "error": "Unknown string format: 20260301T000009:15"
+      }
+    },
+    {
+      "name": "a padded second above 59 retains its range error",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T09:15:00060",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03"
+      },
+      "expected": {
+        "error": "second must be in 0..59: 20260301T09:15:00060"
+      }
+    },
+    {
+      "name": "colon clocks apply meridiem after parsing their numeric fields",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T009:005P.M.",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T21:05:00",
+        "2026-03-02T21:05:00",
+        "2026-03-03T21:05:00"
+      ]
+    },
+    {
+      "name": "fractional explicit dates preserve microsecond set identity",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T090503Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE:20260301T009:005:003.123456Z,20260301T009:005:003.123654Z",
+          "EXDATE:20260301T009:005:003.123456Z"
+        ],
+        "through": "2026-04-03",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:05:03Z",
+        "2026-03-01T09:05:03.123Z",
+        "2026-03-02T09:05:03Z",
+        "2026-03-03T09:05:03Z"
+      ]
+    },
+    {
+      "name": "UNTIL normalizes a padded clock before comparing its offset",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260228T091530Z",
+          "RRULE:FREQ=DAILY;UNTIL=20260301T011:045:030+0230"
+        ],
+        "through": "2026-04-03"
+      },
+      "expected": {
+        "error": "too many values to unpack (expected 2)"
+      }
+    },
+    {
+      "name": "Decimal precision can round a fractional minute to sixty seconds",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T09:15.99999999999999999999999999999",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03"
+      },
+      "expected": {
+        "error": "second must be in 0..59: 20260301T09:15.99999999999999999999999999999"
+      }
+    },
+    {
+      "name": "Decimal precision can round a fractional hour to sixty minutes",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T09.99999999999999999999999999999H",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03"
+      },
+      "expected": {
+        "error": "minute must be in 0..59: 20260301T09.99999999999999999999999999999H"
+      }
+    },
+    {
+      "name": "RFC continues to require a compact clock",
+      "input": {
+        "lines": [
+          "DTSTART:20260301T009:005:003Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-04-03"
+      },
+      "expected": {
+        "error": "Expected an iCalendar DATE or DATE-TIME"
+      }
+    }
+  ]
+}

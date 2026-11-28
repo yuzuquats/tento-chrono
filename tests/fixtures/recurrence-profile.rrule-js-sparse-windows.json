@@ -1,0 +1,195 @@
+{
+  "type": "recurrence-profile",
+  "name": "rrule.js 2.8.1 sparse recurrence windows",
+  "source": "rrule.js 2.8.1 rrulestr(forceset: true) with pinned reference host zones",
+  "cases": [
+    {
+      "name": "sparse interval 43201",
+      "input": {
+        "lines": [
+          "DTSTART:20240101T000000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=43201;BYSECOND=0;BYDAY=MO;BYMONTH=1;BYMONTHDAY=1;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "generationLimit": null,
+        "through": "2362-01-01",
+        "checkpoints": [
+          "2024-01-01",
+          "2026-01-01"
+        ]
+      },
+      "expected": [
+        "2024-01-01T00:00:00Z",
+        "2362-01-01T20:35:00Z"
+      ]
+    },
+    {
+      "name": "sparse interval 86399",
+      "input": {
+        "lines": [
+          "DTSTART:20240101T000000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=86399;BYSECOND=0;BYDAY=MO;BYMONTH=1;BYMONTHDAY=1;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "generationLimit": null,
+        "through": "2790-01-01",
+        "checkpoints": [
+          "2024-01-01",
+          "2026-01-01"
+        ]
+      },
+      "expected": [
+        "2024-01-01T00:00:00Z",
+        "2790-01-01T18:17:00Z"
+      ]
+    },
+    {
+      "name": "sparse interval 86401",
+      "input": {
+        "lines": [
+          "DTSTART:20240101T000000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=86401;BYSECOND=0;BYDAY=MO;BYMONTH=1;BYMONTHDAY=1;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "generationLimit": null,
+        "through": "2379-01-01",
+        "checkpoints": [
+          "2024-01-01",
+          "2026-01-01"
+        ]
+      },
+      "expected": [
+        "2024-01-01T00:00:00Z",
+        "2379-01-01T12:01:00Z"
+      ]
+    },
+    {
+      "name": "sparse RRULE and RDATE deduplicate the late candidate",
+      "input": {
+        "lines": [
+          "DTSTART:20240101T000000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=86401;BYSECOND=0;BYDAY=MO;BYMONTH=1;BYMONTHDAY=1;COUNT=2",
+          "RDATE:21000101T000000Z,23790101T120100Z",
+          "EXDATE:20240101T000000Z"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "generationLimit": null,
+        "through": "2379-01-01",
+        "checkpoints": [
+          "2024-01-01",
+          "2026-01-01"
+        ]
+      },
+      "expected": [
+        "2100-01-01T00:00:00Z",
+        "2379-01-01T12:01:00Z"
+      ]
+    },
+    {
+      "name": "sparse EXRULE removes the late explicit candidate",
+      "input": {
+        "lines": [
+          "DTSTART:20240101T000000Z",
+          "EXRULE:FREQ=SECONDLY;INTERVAL=86401;BYSECOND=0;BYDAY=MO;BYMONTH=1;BYMONTHDAY=1;COUNT=2",
+          "RDATE:20240101T000000Z,21000101T000000Z,23790101T120100Z"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "generationLimit": null,
+        "through": "2100-01-01",
+        "checkpoints": [
+          "2024-01-01",
+          "2026-01-01"
+        ]
+      },
+      "expected": [
+        "2100-01-01T00:00:00Z"
+      ]
+    },
+    {
+      "name": "sparse UNTIL keeps an RDATE beyond the cutoff",
+      "input": {
+        "lines": [
+          "DTSTART:20240101T000000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=86401;BYSECOND=0;BYDAY=MO;BYMONTH=1;BYMONTHDAY=1;UNTIL=23790101T120059Z",
+          "RDATE:23790102T000000Z"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "generationLimit": null,
+        "through": "2379-01-02",
+        "checkpoints": [
+          "2024-01-01",
+          "2026-01-01"
+        ]
+      },
+      "expected": [
+        "2024-01-01T00:00:00Z",
+        "2379-01-02T00:00:00Z"
+      ]
+    },
+    {
+      "name": "rrule.js clock carries differ from the same RFC sparse rule",
+      "input": {
+        "lines": [
+          "DTSTART:20240101T000000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=86401;BYHOUR=0;BYMINUTE=0;BYSECOND=0;BYMONTH=1;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "generationLimit": null,
+        "through": "2031-01-18",
+        "checkpoints": [
+          "2024-01-01",
+          "2026-01-01"
+        ]
+      },
+      "expected": [
+        "2024-01-01T00:00:00Z",
+        "2031-01-18T00:00:00Z"
+      ]
+    },
+    {
+      "name": "sparse New York recurrence from the Los Angeles reference clock",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20240101T000000",
+          "RRULE:FREQ=SECONDLY;INTERVAL=86401;BYSECOND=0;BYDAY=MO;BYMONTH=1;BYMONTHDAY=1;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "America/Los_Angeles",
+        "generationLimit": null,
+        "through": "2379-01-01",
+        "checkpoints": [
+          "2024-01-01",
+          "2026-01-01"
+        ]
+      },
+      "expected": [
+        "2023-12-31T21:00:00Z",
+        "2379-01-01T09:01:00Z"
+      ]
+    },
+    {
+      "name": "unreachable seconds can still select the initial negative position",
+      "input": {
+        "lines": [
+          "DTSTART:20240101T000000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=2;BYSECOND=1;BYSETPOS=-1;COUNT=1"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "generationLimit": null,
+        "through": "2024-01-01",
+        "checkpoints": []
+      },
+      "expected": [
+        "2024-01-01T00:00:00Z"
+      ]
+    }
+  ]
+}

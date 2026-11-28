@@ -1,0 +1,2324 @@
+{
+  "type": "recurrence-profile",
+  "name": "Outlook Graph Russian seasonal timezone rules",
+  "source": "Microsoft Graph v1.0 calendarView on a dedicated test calendar. The RFC control uses the IANA Europe/Moscow offset.",
+  "cases": [
+    {
+      "name": "kaliningrad-1900-midsummer",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1900-07-14T21:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Kaliningrad Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1900-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1900-07-27",
+        "checkpoints": [
+          "1900-07-14",
+          "1900-07-15",
+          "1900-07-16",
+          "1900-07-17",
+          "1900-07-18"
+        ]
+      },
+      "expected": [
+        "1900-07-14T21:30:00Z",
+        "1900-07-15T21:30:00Z",
+        "1900-07-16T21:30:00Z",
+        "1900-07-17T21:30:00Z",
+        "1900-07-18T21:30:00Z"
+      ]
+    },
+    {
+      "name": "kaliningrad-2003-twilight-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2003-10-23T23:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Kaliningrad Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2003-10-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2003-11-05",
+        "checkpoints": [
+          "2003-10-23",
+          "2003-10-24",
+          "2003-10-25",
+          "2003-10-27",
+          "2003-10-28"
+        ]
+      },
+      "expected": [
+        "2003-10-23T23:30:00Z",
+        "2003-10-24T23:30:00Z",
+        "2003-10-25T23:30:00Z",
+        "2003-10-27T00:30:00Z",
+        "2003-10-28T00:30:00Z"
+      ]
+    },
+    {
+      "name": "kaliningrad-2004-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2004-03-26T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Kaliningrad Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2004-03-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2004-04-07",
+        "checkpoints": [
+          "2004-03-26",
+          "2004-03-27",
+          "2004-03-28",
+          "2004-03-29"
+        ]
+      },
+      "expected": [
+        "2004-03-26T00:30:00Z",
+        "2004-03-27T00:30:00Z",
+        "2004-03-28T00:30:00Z",
+        "2004-03-28T23:30:00Z",
+        "2004-03-29T23:30:00Z"
+      ]
+    },
+    {
+      "name": "moscow-1900-midsummer",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1900-07-14T20:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russian Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1900-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1900-07-27",
+        "checkpoints": [
+          "1900-07-14",
+          "1900-07-15",
+          "1900-07-16",
+          "1900-07-17",
+          "1900-07-18"
+        ]
+      },
+      "expected": [
+        "1900-07-14T20:30:00Z",
+        "1900-07-15T20:30:00Z",
+        "1900-07-16T20:30:00Z",
+        "1900-07-17T20:30:00Z",
+        "1900-07-18T20:30:00Z"
+      ]
+    },
+    {
+      "name": "moscow-2003-twilight-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2003-10-23T22:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russian Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2003-10-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2003-11-05",
+        "checkpoints": [
+          "2003-10-23",
+          "2003-10-24",
+          "2003-10-25",
+          "2003-10-26",
+          "2003-10-27"
+        ]
+      },
+      "expected": [
+        "2003-10-23T22:30:00Z",
+        "2003-10-24T22:30:00Z",
+        "2003-10-25T22:30:00Z",
+        "2003-10-26T23:30:00Z",
+        "2003-10-27T23:30:00Z"
+      ]
+    },
+    {
+      "name": "moscow-2004-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2004-03-25T23:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russian Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2004-03-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2004-04-07",
+        "checkpoints": [
+          "2004-03-25",
+          "2004-03-26",
+          "2004-03-27",
+          "2004-03-28",
+          "2004-03-29"
+        ]
+      },
+      "expected": [
+        "2004-03-25T23:30:00Z",
+        "2004-03-26T23:30:00Z",
+        "2004-03-27T23:30:00Z",
+        "2004-03-28T22:30:00Z",
+        "2004-03-29T22:30:00Z"
+      ]
+    },
+    {
+      "name": "yekaterinburg-1900-midsummer",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1900-07-14T18:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Ekaterinburg Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1900-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1900-07-27",
+        "checkpoints": [
+          "1900-07-14",
+          "1900-07-15",
+          "1900-07-16",
+          "1900-07-17",
+          "1900-07-18"
+        ]
+      },
+      "expected": [
+        "1900-07-14T18:30:00Z",
+        "1900-07-15T18:30:00Z",
+        "1900-07-16T18:30:00Z",
+        "1900-07-17T18:30:00Z",
+        "1900-07-18T18:30:00Z"
+      ]
+    },
+    {
+      "name": "yekaterinburg-2003-twilight-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2003-10-23T20:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Ekaterinburg Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2003-10-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2003-11-05",
+        "checkpoints": [
+          "2003-10-23",
+          "2003-10-24",
+          "2003-10-25",
+          "2003-10-26",
+          "2003-10-27"
+        ]
+      },
+      "expected": [
+        "2003-10-23T20:30:00Z",
+        "2003-10-24T20:30:00Z",
+        "2003-10-25T20:30:00Z",
+        "2003-10-26T21:30:00Z",
+        "2003-10-27T21:30:00Z"
+      ]
+    },
+    {
+      "name": "yekaterinburg-2004-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2004-03-25T21:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Ekaterinburg Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2004-03-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2004-04-07",
+        "checkpoints": [
+          "2004-03-25",
+          "2004-03-26",
+          "2004-03-27",
+          "2004-03-28",
+          "2004-03-29"
+        ]
+      },
+      "expected": [
+        "2004-03-25T21:30:00Z",
+        "2004-03-26T21:30:00Z",
+        "2004-03-27T21:30:00Z",
+        "2004-03-28T20:30:00Z",
+        "2004-03-29T20:30:00Z"
+      ]
+    },
+    {
+      "name": "omsk-1900-midsummer",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1900-07-14T17:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Omsk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1900-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1900-07-27",
+        "checkpoints": [
+          "1900-07-14",
+          "1900-07-15",
+          "1900-07-16",
+          "1900-07-17",
+          "1900-07-18"
+        ]
+      },
+      "expected": [
+        "1900-07-14T17:30:00Z",
+        "1900-07-15T17:30:00Z",
+        "1900-07-16T17:30:00Z",
+        "1900-07-17T17:30:00Z",
+        "1900-07-18T17:30:00Z"
+      ]
+    },
+    {
+      "name": "omsk-2003-twilight-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2003-10-23T19:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Omsk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2003-10-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2003-11-05",
+        "checkpoints": [
+          "2003-10-23",
+          "2003-10-24",
+          "2003-10-25",
+          "2003-10-26",
+          "2003-10-27"
+        ]
+      },
+      "expected": [
+        "2003-10-23T19:30:00Z",
+        "2003-10-24T19:30:00Z",
+        "2003-10-25T19:30:00Z",
+        "2003-10-26T20:30:00Z",
+        "2003-10-27T20:30:00Z"
+      ]
+    },
+    {
+      "name": "omsk-2004-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2004-03-25T20:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Omsk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2004-03-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2004-04-07",
+        "checkpoints": [
+          "2004-03-25",
+          "2004-03-26",
+          "2004-03-27",
+          "2004-03-28",
+          "2004-03-29"
+        ]
+      },
+      "expected": [
+        "2004-03-25T20:30:00Z",
+        "2004-03-26T20:30:00Z",
+        "2004-03-27T20:30:00Z",
+        "2004-03-28T19:30:00Z",
+        "2004-03-29T19:30:00Z"
+      ]
+    },
+    {
+      "name": "yakutsk-1900-midsummer",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1900-07-14T14:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Yakutsk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1900-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1900-07-27",
+        "checkpoints": [
+          "1900-07-14",
+          "1900-07-15",
+          "1900-07-16",
+          "1900-07-17",
+          "1900-07-18"
+        ]
+      },
+      "expected": [
+        "1900-07-14T14:30:00Z",
+        "1900-07-15T14:30:00Z",
+        "1900-07-16T14:30:00Z",
+        "1900-07-17T14:30:00Z",
+        "1900-07-18T14:30:00Z"
+      ]
+    },
+    {
+      "name": "yakutsk-2003-twilight-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2003-10-23T16:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Yakutsk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2003-10-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2003-11-05",
+        "checkpoints": [
+          "2003-10-23",
+          "2003-10-24",
+          "2003-10-25",
+          "2003-10-26",
+          "2003-10-27"
+        ]
+      },
+      "expected": [
+        "2003-10-23T16:30:00Z",
+        "2003-10-24T16:30:00Z",
+        "2003-10-25T16:30:00Z",
+        "2003-10-26T17:30:00Z",
+        "2003-10-27T17:30:00Z"
+      ]
+    },
+    {
+      "name": "yakutsk-2004-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2004-03-25T17:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Yakutsk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2004-03-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2004-04-07",
+        "checkpoints": [
+          "2004-03-25",
+          "2004-03-26",
+          "2004-03-27",
+          "2004-03-28",
+          "2004-03-29"
+        ]
+      },
+      "expected": [
+        "2004-03-25T17:30:00Z",
+        "2004-03-26T17:30:00Z",
+        "2004-03-27T17:30:00Z",
+        "2004-03-28T16:30:00Z",
+        "2004-03-29T16:30:00Z"
+      ]
+    },
+    {
+      "name": "vladivostok-1900-midsummer",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1900-07-14T13:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Vladivostok Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1900-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1900-07-27",
+        "checkpoints": [
+          "1900-07-14",
+          "1900-07-15",
+          "1900-07-16",
+          "1900-07-17",
+          "1900-07-18"
+        ]
+      },
+      "expected": [
+        "1900-07-14T13:30:00Z",
+        "1900-07-15T13:30:00Z",
+        "1900-07-16T13:30:00Z",
+        "1900-07-17T13:30:00Z",
+        "1900-07-18T13:30:00Z"
+      ]
+    },
+    {
+      "name": "vladivostok-2003-twilight-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2003-10-23T15:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Vladivostok Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2003-10-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2003-11-05",
+        "checkpoints": [
+          "2003-10-23",
+          "2003-10-24",
+          "2003-10-25",
+          "2003-10-26",
+          "2003-10-27"
+        ]
+      },
+      "expected": [
+        "2003-10-23T15:30:00Z",
+        "2003-10-24T15:30:00Z",
+        "2003-10-25T15:30:00Z",
+        "2003-10-26T16:30:00Z",
+        "2003-10-27T16:30:00Z"
+      ]
+    },
+    {
+      "name": "vladivostok-2004-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2004-03-25T16:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Vladivostok Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2004-03-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2004-04-07",
+        "checkpoints": [
+          "2004-03-25",
+          "2004-03-26",
+          "2004-03-27",
+          "2004-03-28",
+          "2004-03-29"
+        ]
+      },
+      "expected": [
+        "2004-03-25T16:30:00Z",
+        "2004-03-26T16:30:00Z",
+        "2004-03-27T16:30:00Z",
+        "2004-03-28T15:30:00Z",
+        "2004-03-29T15:30:00Z"
+      ]
+    },
+    {
+      "name": "magadan-1900-midsummer",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1900-07-14T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Magadan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1900-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1900-07-27",
+        "checkpoints": [
+          "1900-07-14",
+          "1900-07-15",
+          "1900-07-16",
+          "1900-07-17",
+          "1900-07-18"
+        ]
+      },
+      "expected": [
+        "1900-07-14T12:30:00Z",
+        "1900-07-15T12:30:00Z",
+        "1900-07-16T12:30:00Z",
+        "1900-07-17T12:30:00Z",
+        "1900-07-18T12:30:00Z"
+      ]
+    },
+    {
+      "name": "magadan-2003-twilight-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2003-10-23T14:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Magadan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2003-10-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2003-11-05",
+        "checkpoints": [
+          "2003-10-23",
+          "2003-10-24",
+          "2003-10-25",
+          "2003-10-26",
+          "2003-10-27"
+        ]
+      },
+      "expected": [
+        "2003-10-23T14:30:00Z",
+        "2003-10-24T14:30:00Z",
+        "2003-10-25T14:30:00Z",
+        "2003-10-26T15:30:00Z",
+        "2003-10-27T15:30:00Z"
+      ]
+    },
+    {
+      "name": "magadan-2004-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2004-03-25T15:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Magadan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2004-03-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2004-04-07",
+        "checkpoints": [
+          "2004-03-25",
+          "2004-03-26",
+          "2004-03-27",
+          "2004-03-28",
+          "2004-03-29"
+        ]
+      },
+      "expected": [
+        "2004-03-25T15:30:00Z",
+        "2004-03-26T15:30:00Z",
+        "2004-03-27T15:30:00Z",
+        "2004-03-28T14:30:00Z",
+        "2004-03-29T14:30:00Z"
+      ]
+    },
+    {
+      "name": "kaliningrad-1899-midsummer",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-07-14T21:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Kaliningrad Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-07-27",
+        "checkpoints": [
+          "1899-07-14",
+          "1899-07-15",
+          "1899-07-16",
+          "1899-07-17",
+          "1899-07-18"
+        ]
+      },
+      "expected": [
+        "1899-07-14T21:30:00Z",
+        "1899-07-15T21:30:00Z",
+        "1899-07-16T21:30:00Z",
+        "1899-07-17T21:30:00Z",
+        "1899-07-18T21:30:00Z"
+      ]
+    },
+    {
+      "name": "magadan-1899-midsummer",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-07-14T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Magadan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-07-27",
+        "checkpoints": [
+          "1899-07-14",
+          "1899-07-15",
+          "1899-07-16",
+          "1899-07-17",
+          "1899-07-18"
+        ]
+      },
+      "expected": [
+        "1899-07-14T12:30:00Z",
+        "1899-07-15T12:30:00Z",
+        "1899-07-16T12:30:00Z",
+        "1899-07-17T12:30:00Z",
+        "1899-07-18T12:30:00Z"
+      ]
+    },
+    {
+      "name": "kaliningrad-1991-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1991-03-29T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Kaliningrad Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1991-03-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1991-04-10",
+        "checkpoints": [
+          "1991-03-29",
+          "1991-03-30",
+          "1991-03-31",
+          "1991-04-01"
+        ]
+      },
+      "expected": [
+        "1991-03-29T00:30:00Z",
+        "1991-03-30T00:30:00Z",
+        "1991-03-31T00:30:00Z",
+        "1991-03-31T23:30:00Z",
+        "1991-04-01T23:30:00Z"
+      ]
+    },
+    {
+      "name": "kaliningrad-1991-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1991-10-24T23:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Kaliningrad Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1991-10-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1991-11-06",
+        "checkpoints": [
+          "1991-10-24",
+          "1991-10-25",
+          "1991-10-26",
+          "1991-10-28",
+          "1991-10-29"
+        ]
+      },
+      "expected": [
+        "1991-10-24T23:30:00Z",
+        "1991-10-25T23:30:00Z",
+        "1991-10-26T23:30:00Z",
+        "1991-10-28T00:30:00Z",
+        "1991-10-29T00:30:00Z"
+      ]
+    },
+    {
+      "name": "kaliningrad-1992-january",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1992-01-17T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Kaliningrad Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1992-01-17",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1992-01-29",
+        "checkpoints": [
+          "1992-01-17",
+          "1992-01-18",
+          "1992-01-19",
+          "1992-01-20",
+          "1992-01-21"
+        ]
+      },
+      "expected": [
+        "1992-01-17T00:30:00Z",
+        "1992-01-18T00:30:00Z",
+        "1992-01-19T00:30:00Z",
+        "1992-01-20T00:30:00Z",
+        "1992-01-21T00:30:00Z"
+      ]
+    },
+    {
+      "name": "kaliningrad-2014-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-10-23T22:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Kaliningrad Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-10-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-11-05",
+        "checkpoints": [
+          "2014-10-23",
+          "2014-10-24",
+          "2014-10-25",
+          "2014-10-26",
+          "2014-10-27"
+        ]
+      },
+      "expected": [
+        "2014-10-23T22:30:00Z",
+        "2014-10-24T22:30:00Z",
+        "2014-10-25T22:30:00Z",
+        "2014-10-26T23:30:00Z",
+        "2014-10-27T23:30:00Z"
+      ]
+    },
+    {
+      "name": "moscow-1991-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1991-03-28T23:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russian Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1991-03-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1991-04-10",
+        "checkpoints": [
+          "1991-03-28",
+          "1991-03-29",
+          "1991-03-30",
+          "1991-03-31",
+          "1991-04-01"
+        ]
+      },
+      "expected": [
+        "1991-03-28T23:30:00Z",
+        "1991-03-29T23:30:00Z",
+        "1991-03-30T23:30:00Z",
+        "1991-03-31T22:30:00Z",
+        "1991-04-01T22:30:00Z"
+      ]
+    },
+    {
+      "name": "moscow-1991-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1991-10-24T22:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russian Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1991-10-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1991-11-06",
+        "checkpoints": [
+          "1991-10-24",
+          "1991-10-25",
+          "1991-10-26",
+          "1991-10-27",
+          "1991-10-28"
+        ]
+      },
+      "expected": [
+        "1991-10-24T22:30:00Z",
+        "1991-10-25T22:30:00Z",
+        "1991-10-26T22:30:00Z",
+        "1991-10-27T23:30:00Z",
+        "1991-10-28T23:30:00Z"
+      ]
+    },
+    {
+      "name": "moscow-1992-january",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1992-01-16T23:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russian Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1992-01-17",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1992-01-29",
+        "checkpoints": [
+          "1992-01-16",
+          "1992-01-17",
+          "1992-01-18",
+          "1992-01-19",
+          "1992-01-20"
+        ]
+      },
+      "expected": [
+        "1992-01-16T23:30:00Z",
+        "1992-01-17T23:30:00Z",
+        "1992-01-18T23:30:00Z",
+        "1992-01-19T23:30:00Z",
+        "1992-01-20T23:30:00Z"
+      ]
+    },
+    {
+      "name": "moscow-2014-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-10-23T21:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russian Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-10-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-11-05",
+        "checkpoints": [
+          "2014-10-23",
+          "2014-10-24",
+          "2014-10-25",
+          "2014-10-26",
+          "2014-10-27"
+        ]
+      },
+      "expected": [
+        "2014-10-23T21:30:00Z",
+        "2014-10-24T21:30:00Z",
+        "2014-10-25T21:30:00Z",
+        "2014-10-26T22:30:00Z",
+        "2014-10-27T22:30:00Z"
+      ]
+    },
+    {
+      "name": "yekaterinburg-1991-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1991-03-28T21:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Ekaterinburg Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1991-03-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1991-04-10",
+        "checkpoints": [
+          "1991-03-28",
+          "1991-03-29",
+          "1991-03-30",
+          "1991-03-31",
+          "1991-04-01"
+        ]
+      },
+      "expected": [
+        "1991-03-28T21:30:00Z",
+        "1991-03-29T21:30:00Z",
+        "1991-03-30T21:30:00Z",
+        "1991-03-31T20:30:00Z",
+        "1991-04-01T20:30:00Z"
+      ]
+    },
+    {
+      "name": "yekaterinburg-1991-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1991-10-24T20:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Ekaterinburg Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1991-10-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1991-11-06",
+        "checkpoints": [
+          "1991-10-24",
+          "1991-10-25",
+          "1991-10-26",
+          "1991-10-27",
+          "1991-10-28"
+        ]
+      },
+      "expected": [
+        "1991-10-24T20:30:00Z",
+        "1991-10-25T20:30:00Z",
+        "1991-10-26T20:30:00Z",
+        "1991-10-27T21:30:00Z",
+        "1991-10-28T21:30:00Z"
+      ]
+    },
+    {
+      "name": "yekaterinburg-1992-january",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1992-01-16T21:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Ekaterinburg Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1992-01-17",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1992-01-29",
+        "checkpoints": [
+          "1992-01-16",
+          "1992-01-17",
+          "1992-01-18",
+          "1992-01-19",
+          "1992-01-20"
+        ]
+      },
+      "expected": [
+        "1992-01-16T21:30:00Z",
+        "1992-01-17T21:30:00Z",
+        "1992-01-18T21:30:00Z",
+        "1992-01-19T21:30:00Z",
+        "1992-01-20T21:30:00Z"
+      ]
+    },
+    {
+      "name": "yekaterinburg-2014-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-10-23T19:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Ekaterinburg Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-10-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-11-05",
+        "checkpoints": [
+          "2014-10-23",
+          "2014-10-24",
+          "2014-10-25",
+          "2014-10-26",
+          "2014-10-27"
+        ]
+      },
+      "expected": [
+        "2014-10-23T19:30:00Z",
+        "2014-10-24T19:30:00Z",
+        "2014-10-25T19:30:00Z",
+        "2014-10-26T20:30:00Z",
+        "2014-10-27T20:30:00Z"
+      ]
+    },
+    {
+      "name": "omsk-1991-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1991-03-28T20:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Omsk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1991-03-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1991-04-10",
+        "checkpoints": [
+          "1991-03-28",
+          "1991-03-29",
+          "1991-03-30",
+          "1991-03-31",
+          "1991-04-01"
+        ]
+      },
+      "expected": [
+        "1991-03-28T20:30:00Z",
+        "1991-03-29T20:30:00Z",
+        "1991-03-30T20:30:00Z",
+        "1991-03-31T19:30:00Z",
+        "1991-04-01T19:30:00Z"
+      ]
+    },
+    {
+      "name": "omsk-1991-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1991-10-24T19:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Omsk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1991-10-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1991-11-06",
+        "checkpoints": [
+          "1991-10-24",
+          "1991-10-25",
+          "1991-10-26",
+          "1991-10-27",
+          "1991-10-28"
+        ]
+      },
+      "expected": [
+        "1991-10-24T19:30:00Z",
+        "1991-10-25T19:30:00Z",
+        "1991-10-26T19:30:00Z",
+        "1991-10-27T20:30:00Z",
+        "1991-10-28T20:30:00Z"
+      ]
+    },
+    {
+      "name": "omsk-1992-january",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1992-01-16T20:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Omsk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1992-01-17",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1992-01-29",
+        "checkpoints": [
+          "1992-01-16",
+          "1992-01-17",
+          "1992-01-18",
+          "1992-01-19",
+          "1992-01-20"
+        ]
+      },
+      "expected": [
+        "1992-01-16T20:30:00Z",
+        "1992-01-17T20:30:00Z",
+        "1992-01-18T20:30:00Z",
+        "1992-01-19T20:30:00Z",
+        "1992-01-20T20:30:00Z"
+      ]
+    },
+    {
+      "name": "omsk-2014-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-10-23T18:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Omsk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-10-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-11-05",
+        "checkpoints": [
+          "2014-10-23",
+          "2014-10-24",
+          "2014-10-25",
+          "2014-10-26",
+          "2014-10-27"
+        ]
+      },
+      "expected": [
+        "2014-10-23T18:30:00Z",
+        "2014-10-24T18:30:00Z",
+        "2014-10-25T18:30:00Z",
+        "2014-10-26T19:30:00Z",
+        "2014-10-27T19:30:00Z"
+      ]
+    },
+    {
+      "name": "yakutsk-1991-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1991-03-28T17:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Yakutsk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1991-03-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1991-04-10",
+        "checkpoints": [
+          "1991-03-28",
+          "1991-03-29",
+          "1991-03-30",
+          "1991-03-31",
+          "1991-04-01"
+        ]
+      },
+      "expected": [
+        "1991-03-28T17:30:00Z",
+        "1991-03-29T17:30:00Z",
+        "1991-03-30T17:30:00Z",
+        "1991-03-31T16:30:00Z",
+        "1991-04-01T16:30:00Z"
+      ]
+    },
+    {
+      "name": "yakutsk-1991-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1991-10-24T16:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Yakutsk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1991-10-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1991-11-06",
+        "checkpoints": [
+          "1991-10-24",
+          "1991-10-25",
+          "1991-10-26",
+          "1991-10-27",
+          "1991-10-28"
+        ]
+      },
+      "expected": [
+        "1991-10-24T16:30:00Z",
+        "1991-10-25T16:30:00Z",
+        "1991-10-26T16:30:00Z",
+        "1991-10-27T17:30:00Z",
+        "1991-10-28T17:30:00Z"
+      ]
+    },
+    {
+      "name": "yakutsk-1992-january",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1992-01-16T17:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Yakutsk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1992-01-17",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1992-01-29",
+        "checkpoints": [
+          "1992-01-16",
+          "1992-01-17",
+          "1992-01-18",
+          "1992-01-19",
+          "1992-01-20"
+        ]
+      },
+      "expected": [
+        "1992-01-16T17:30:00Z",
+        "1992-01-17T17:30:00Z",
+        "1992-01-18T17:30:00Z",
+        "1992-01-19T17:30:00Z",
+        "1992-01-20T17:30:00Z"
+      ]
+    },
+    {
+      "name": "yakutsk-2014-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-10-23T15:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Yakutsk Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-10-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-11-05",
+        "checkpoints": [
+          "2014-10-23",
+          "2014-10-24",
+          "2014-10-25",
+          "2014-10-26",
+          "2014-10-27"
+        ]
+      },
+      "expected": [
+        "2014-10-23T15:30:00Z",
+        "2014-10-24T15:30:00Z",
+        "2014-10-25T15:30:00Z",
+        "2014-10-26T16:30:00Z",
+        "2014-10-27T16:30:00Z"
+      ]
+    },
+    {
+      "name": "vladivostok-1991-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1991-03-28T16:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Vladivostok Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1991-03-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1991-04-10",
+        "checkpoints": [
+          "1991-03-28",
+          "1991-03-29",
+          "1991-03-30",
+          "1991-03-31",
+          "1991-04-01"
+        ]
+      },
+      "expected": [
+        "1991-03-28T16:30:00Z",
+        "1991-03-29T16:30:00Z",
+        "1991-03-30T16:30:00Z",
+        "1991-03-31T15:30:00Z",
+        "1991-04-01T15:30:00Z"
+      ]
+    },
+    {
+      "name": "vladivostok-1991-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1991-10-24T15:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Vladivostok Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1991-10-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1991-11-06",
+        "checkpoints": [
+          "1991-10-24",
+          "1991-10-25",
+          "1991-10-26",
+          "1991-10-27",
+          "1991-10-28"
+        ]
+      },
+      "expected": [
+        "1991-10-24T15:30:00Z",
+        "1991-10-25T15:30:00Z",
+        "1991-10-26T15:30:00Z",
+        "1991-10-27T16:30:00Z",
+        "1991-10-28T16:30:00Z"
+      ]
+    },
+    {
+      "name": "vladivostok-1992-january",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1992-01-16T16:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Vladivostok Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1992-01-17",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1992-01-29",
+        "checkpoints": [
+          "1992-01-16",
+          "1992-01-17",
+          "1992-01-18",
+          "1992-01-19",
+          "1992-01-20"
+        ]
+      },
+      "expected": [
+        "1992-01-16T16:30:00Z",
+        "1992-01-17T16:30:00Z",
+        "1992-01-18T16:30:00Z",
+        "1992-01-19T16:30:00Z",
+        "1992-01-20T16:30:00Z"
+      ]
+    },
+    {
+      "name": "vladivostok-2014-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-10-23T14:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Vladivostok Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-10-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-11-05",
+        "checkpoints": [
+          "2014-10-23",
+          "2014-10-24",
+          "2014-10-25",
+          "2014-10-26",
+          "2014-10-27"
+        ]
+      },
+      "expected": [
+        "2014-10-23T14:30:00Z",
+        "2014-10-24T14:30:00Z",
+        "2014-10-25T14:30:00Z",
+        "2014-10-26T15:30:00Z",
+        "2014-10-27T15:30:00Z"
+      ]
+    },
+    {
+      "name": "magadan-1991-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1991-03-28T15:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Magadan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1991-03-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1991-04-10",
+        "checkpoints": [
+          "1991-03-28",
+          "1991-03-29",
+          "1991-03-30",
+          "1991-03-31",
+          "1991-04-01"
+        ]
+      },
+      "expected": [
+        "1991-03-28T15:30:00Z",
+        "1991-03-29T15:30:00Z",
+        "1991-03-30T15:30:00Z",
+        "1991-03-31T14:30:00Z",
+        "1991-04-01T14:30:00Z"
+      ]
+    },
+    {
+      "name": "magadan-1991-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1991-10-24T14:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Magadan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1991-10-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1991-11-06",
+        "checkpoints": [
+          "1991-10-24",
+          "1991-10-25",
+          "1991-10-26",
+          "1991-10-27",
+          "1991-10-28"
+        ]
+      },
+      "expected": [
+        "1991-10-24T14:30:00Z",
+        "1991-10-25T14:30:00Z",
+        "1991-10-26T14:30:00Z",
+        "1991-10-27T15:30:00Z",
+        "1991-10-28T15:30:00Z"
+      ]
+    },
+    {
+      "name": "magadan-1992-january",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1992-01-16T15:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Magadan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1992-01-17",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1992-01-29",
+        "checkpoints": [
+          "1992-01-16",
+          "1992-01-17",
+          "1992-01-18",
+          "1992-01-19",
+          "1992-01-20"
+        ]
+      },
+      "expected": [
+        "1992-01-16T15:30:00Z",
+        "1992-01-17T15:30:00Z",
+        "1992-01-18T15:30:00Z",
+        "1992-01-19T15:30:00Z",
+        "1992-01-20T15:30:00Z"
+      ]
+    },
+    {
+      "name": "magadan-2014-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-10-23T13:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Magadan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-10-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-11-05",
+        "checkpoints": [
+          "2014-10-23",
+          "2014-10-24",
+          "2014-10-25",
+          "2014-10-26",
+          "2014-10-27"
+        ]
+      },
+      "expected": [
+        "2014-10-23T13:30:00Z",
+        "2014-10-24T13:30:00Z",
+        "2014-10-25T13:30:00Z",
+        "2014-10-26T15:30:00Z",
+        "2014-10-27T15:30:00Z"
+      ]
+    },
+    {
+      "name": "rfc-moscow-1991-retains-iana-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Europe/Moscow:19910329T023000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1991-04-05",
+        "checkpoints": [
+          "1991-03-28",
+          "1991-03-29",
+          "1991-03-30",
+          "1991-03-31",
+          "1991-04-01"
+        ]
+      },
+      "expected": [
+        "1991-03-28T23:30:00Z",
+        "1991-03-29T23:30:00Z",
+        "1991-03-30T23:30:00Z",
+        "1991-03-31T23:30:00Z",
+        "1991-04-01T23:30:00Z"
+      ]
+    }
+  ]
+}

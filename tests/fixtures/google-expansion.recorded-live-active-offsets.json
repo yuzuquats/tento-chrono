@@ -1,0 +1,436 @@
+{
+  "type": "google-expansion",
+  "name": "Google Calendar API active offsets and non-hour gaps",
+  "source": "Google Calendar API events.instances",
+  "captureCliCommit": "8db8950f7cf894e781d289f6e513f5e53e6d587a",
+  "capturedAt": "2026-11-23T12:53:02.977135+00:00",
+  "cases": [
+    {
+      "name": "named-exdate-same-zone-gap-lord-howe",
+      "input": {
+        "start": "2027-10-01T09:00:00",
+        "timezone": "Australia/Lord_Howe",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:20271002T151500Z,20271002T154500Z",
+          "EXDATE;TZID=Australia/Lord_Howe:20271003T021500"
+        ],
+        "window": {
+          "start": "2027-10-01T00:00:00Z",
+          "end": "2027-10-07T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "EXDATE;TZID=Australia/Lord_Howe:20271003T024500",
+          "RDATE;VALUE=DATE-TIME:20271002T151500Z,20271002T154500Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-10-01T22:30:00Z",
+          "2027-10-02T15:15:00Z"
+        ]
+      }
+    },
+    {
+      "name": "named-rdate-same-zone-gap-lord-howe",
+      "input": {
+        "start": "2027-10-01T09:00:00",
+        "timezone": "Australia/Lord_Howe",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=Australia/Lord_Howe:20271003T021500"
+        ],
+        "window": {
+          "start": "2027-10-01T00:00:00Z",
+          "end": "2027-10-07T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Australia/Lord_Howe:20271003T024500",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-10-01T22:30:00Z",
+          "2027-10-02T15:45:00Z"
+        ]
+      }
+    },
+    {
+      "name": "named-exdate-foreign-zone-gap-lord-howe",
+      "input": {
+        "start": "2027-10-01T09:00:00",
+        "timezone": "Asia/Tokyo",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:20271002T151500Z,20271002T154500Z",
+          "EXDATE;TZID=Australia/Lord_Howe:20271003T021500"
+        ],
+        "window": {
+          "start": "2027-10-01T00:00:00Z",
+          "end": "2027-10-07T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "EXDATE;TZID=Australia/Lord_Howe:20271003T024500",
+          "RDATE;VALUE=DATE-TIME:20271002T151500Z,20271002T154500Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-10-01T00:00:00Z",
+          "2027-10-02T00:00:00Z",
+          "2027-10-02T15:15:00Z"
+        ]
+      }
+    },
+    {
+      "name": "named-rdate-foreign-zone-gap-lord-howe",
+      "input": {
+        "start": "2027-10-01T09:00:00",
+        "timezone": "Asia/Tokyo",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=Australia/Lord_Howe:20271003T021500"
+        ],
+        "window": {
+          "start": "2027-10-01T00:00:00Z",
+          "end": "2027-10-07T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Australia/Lord_Howe:20271003T024500",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-10-01T00:00:00Z",
+          "2027-10-02T00:00:00Z",
+          "2027-10-02T15:45:00Z"
+        ]
+      }
+    },
+    {
+      "name": "google-rule-crosses-lord-howe-gap-daily",
+      "input": {
+        "start": "2027-10-01T09:15:00",
+        "timezone": "Australia/Lord_Howe",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=6"
+        ],
+        "window": {
+          "start": "2027-10-01T00:00:00Z",
+          "end": "2027-10-07T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-10-01T22:45:00Z",
+          "2027-10-02T22:15:00Z",
+          "2027-10-03T22:15:00Z",
+          "2027-10-04T22:15:00Z",
+          "2027-10-05T22:15:00Z"
+        ]
+      }
+    },
+    {
+      "name": "google-rule-crosses-lord-howe-gap-weekly",
+      "input": {
+        "start": "2027-10-01T09:15:00",
+        "timezone": "Australia/Lord_Howe",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;BYDAY=FR,SA;COUNT=5"
+        ],
+        "window": {
+          "start": "2027-10-01T00:00:00Z",
+          "end": "2027-10-07T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=WEEKLY;COUNT=5;BYDAY=FR,SA"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-10-01T22:45:00Z"
+        ]
+      }
+    },
+    {
+      "name": "named-exdate-same-zone-gap-apia",
+      "input": {
+        "start": "2011-12-28T09:00:00",
+        "timezone": "Pacific/Apia",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:20111229T191500Z,20111230T191500Z",
+          "EXDATE;TZID=Pacific/Apia:20111230T091500"
+        ],
+        "window": {
+          "start": "2011-12-28T00:00:00Z",
+          "end": "2012-01-04T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "EXDATE;TZID=Pacific/Apia:20111231T091500",
+          "RDATE;VALUE=DATE-TIME:20111229T191500Z,20111230T191500Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2011-12-28T19:00:00Z",
+          "2011-12-29T19:00:00Z",
+          "2011-12-29T19:15:00Z"
+        ]
+      }
+    },
+    {
+      "name": "named-rdate-same-zone-gap-apia",
+      "input": {
+        "start": "2011-12-28T09:00:00",
+        "timezone": "Pacific/Apia",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=Pacific/Apia:20111230T091500"
+        ],
+        "window": {
+          "start": "2011-12-28T00:00:00Z",
+          "end": "2012-01-04T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Pacific/Apia:20111231T091500",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2011-12-28T19:00:00Z",
+          "2011-12-29T19:00:00Z",
+          "2011-12-30T19:15:00Z"
+        ]
+      }
+    },
+    {
+      "name": "named-exdate-foreign-zone-gap-apia",
+      "input": {
+        "start": "2011-12-28T09:00:00",
+        "timezone": "Asia/Tokyo",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:20111229T191500Z,20111230T191500Z",
+          "EXDATE;TZID=Pacific/Apia:20111230T091500"
+        ],
+        "window": {
+          "start": "2011-12-28T00:00:00Z",
+          "end": "2012-01-04T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "EXDATE;TZID=Pacific/Apia:20111231T091500",
+          "RDATE;VALUE=DATE-TIME:20111229T191500Z,20111230T191500Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2011-12-28T00:00:00Z",
+          "2011-12-29T00:00:00Z",
+          "2011-12-29T19:15:00Z"
+        ]
+      }
+    },
+    {
+      "name": "named-rdate-foreign-zone-gap-apia",
+      "input": {
+        "start": "2011-12-28T09:00:00",
+        "timezone": "Asia/Tokyo",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=Pacific/Apia:20111230T091500"
+        ],
+        "window": {
+          "start": "2011-12-28T00:00:00Z",
+          "end": "2012-01-04T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Pacific/Apia:20111231T091500",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2011-12-28T00:00:00Z",
+          "2011-12-29T00:00:00Z",
+          "2011-12-30T19:15:00Z"
+        ]
+      }
+    },
+    {
+      "name": "google-rule-crosses-apia-gap-daily",
+      "input": {
+        "start": "2011-12-28T09:15:00",
+        "timezone": "Pacific/Apia",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=6"
+        ],
+        "window": {
+          "start": "2011-12-28T00:00:00Z",
+          "end": "2012-01-04T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2011-12-28T19:15:00Z",
+          "2011-12-29T19:15:00Z",
+          "2011-12-30T19:15:00Z",
+          "2011-12-31T19:15:00Z",
+          "2012-01-01T19:15:00Z"
+        ]
+      }
+    },
+    {
+      "name": "google-rule-crosses-apia-gap-weekly",
+      "input": {
+        "start": "2011-12-28T09:15:00",
+        "timezone": "Pacific/Apia",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;BYDAY=FR,SA;COUNT=5"
+        ],
+        "window": {
+          "start": "2011-12-28T00:00:00Z",
+          "end": "2012-01-04T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=WEEKLY;COUNT=5;BYDAY=FR,SA"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2011-12-28T19:15:00Z",
+          "2011-12-30T19:15:00Z"
+        ]
+      }
+    },
+    {
+      "name": "google-rule-winter-anchor-through-new-york-fold",
+      "input": {
+        "start": "2027-01-07T01:30:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=YEARLY;BYMONTH=1,11;BYMONTHDAY=7;COUNT=5"
+        ],
+        "window": {
+          "start": "2027-01-06T00:00:00Z",
+          "end": "2028-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=5;BYMONTH=1,11;BYMONTHDAY=7"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-07T06:30:00Z",
+          "2027-11-07T05:30:00Z",
+          "2028-01-07T06:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "google-rule-lord-howe-rule-inside-half-hour-gap",
+      "input": {
+        "start": "2027-10-02T02:15:00",
+        "timezone": "Australia/Lord_Howe",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-09-30T00:00:00Z",
+          "end": "2027-10-06T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-10-01T15:45:00Z",
+          "2027-10-02T15:45:00Z",
+          "2027-10-03T15:15:00Z"
+        ]
+      }
+    },
+    {
+      "name": "google-rule-kiritimati-weekly-skipped-saturday",
+      "input": {
+        "start": "1994-12-30T09:00:00",
+        "timezone": "Pacific/Kiritimati",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;BYDAY=FR,SA,SU;COUNT=6"
+        ],
+        "window": {
+          "start": "1994-12-29T00:00:00Z",
+          "end": "1995-01-14T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=WEEKLY;COUNT=6;BYDAY=FR,SA,SU"
+        ]
+      },
+      "expected": {
+        "google": [
+          "1994-12-30T19:00:00Z",
+          "1994-12-31T19:00:00Z",
+          "1995-01-05T19:00:00Z",
+          "1995-01-06T19:00:00Z",
+          "1995-01-07T19:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "google-rule-apia-weekly-skipped-friday",
+      "input": {
+        "start": "2011-12-29T09:00:00",
+        "timezone": "Pacific/Apia",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;BYDAY=TH,FR,SA;COUNT=6"
+        ],
+        "window": {
+          "start": "2011-12-28T00:00:00Z",
+          "end": "2012-01-08T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RRULE:FREQ=WEEKLY;COUNT=6;BYDAY=TH,FR,SA"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2011-12-29T19:00:00Z",
+          "2011-12-30T19:00:00Z",
+          "2012-01-04T19:00:00Z",
+          "2012-01-05T19:00:00Z",
+          "2012-01-06T19:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "google-rule-new-york-fold-exdate-uses-daylight-offset",
+      "input": {
+        "start": "2027-01-07T01:30:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=YEARLY;BYMONTH=1,11;BYMONTHDAY=7;COUNT=5",
+          "EXDATE:20271107T053000Z"
+        ],
+        "window": {
+          "start": "2027-01-06T00:00:00Z",
+          "end": "2028-02-01T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "EXDATE;VALUE=DATE-TIME:20271107T053000Z",
+          "RRULE:FREQ=YEARLY;COUNT=5;BYMONTH=1,11;BYMONTHDAY=7"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-07T06:30:00Z",
+          "2028-01-07T06:30:00Z"
+        ]
+      }
+    }
+  ]
+}

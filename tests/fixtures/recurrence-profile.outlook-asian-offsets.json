@@ -1,0 +1,1744 @@
+{
+  "type": "recurrence-profile",
+  "name": "Outlook Graph Asian minute-offset history",
+  "source": "Microsoft Graph v1.0 calendarView on a dedicated test calendar. RFC controls use the original IANA offset changes.",
+  "cases": [
+    {
+      "name": "nepal-1899-midnight",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-07-14T18:20:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Nepal Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Nepal Standard Time",
+              "startDate": "1899-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-07-27",
+        "checkpoints": [
+          "1899-07-14",
+          "1899-07-15",
+          "1899-07-16",
+          "1899-07-17",
+          "1899-07-18"
+        ]
+      },
+      "expected": [
+        "1899-07-14T18:20:00Z",
+        "1899-07-15T18:20:00Z",
+        "1899-07-16T18:20:00Z",
+        "1899-07-17T18:20:00Z",
+        "1899-07-18T18:20:00Z"
+      ]
+    },
+    {
+      "name": "myanmar-1900-midnight",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1900-07-14T17:35:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Myanmar Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Myanmar Standard Time",
+              "startDate": "1900-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1900-07-27",
+        "checkpoints": [
+          "1900-07-14",
+          "1900-07-15",
+          "1900-07-16",
+          "1900-07-17",
+          "1900-07-18"
+        ]
+      },
+      "expected": [
+        "1900-07-14T17:35:00Z",
+        "1900-07-15T17:35:00Z",
+        "1900-07-16T17:35:00Z",
+        "1900-07-17T17:35:00Z",
+        "1900-07-18T17:35:00Z"
+      ]
+    },
+    {
+      "name": "afghanistan-1899-midnight",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-07-14T19:35:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Afghanistan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Afghanistan Standard Time",
+              "startDate": "1899-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-07-27",
+        "checkpoints": [
+          "1899-07-14",
+          "1899-07-15",
+          "1899-07-16",
+          "1899-07-17",
+          "1899-07-18"
+        ]
+      },
+      "expected": [
+        "1899-07-14T19:35:00Z",
+        "1899-07-15T19:35:00Z",
+        "1899-07-16T19:35:00Z",
+        "1899-07-17T19:35:00Z",
+        "1899-07-18T19:35:00Z"
+      ]
+    },
+    {
+      "name": "india-1943-midnight",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1943-07-14T18:35:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "India Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "India Standard Time",
+              "startDate": "1943-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1943-07-27",
+        "checkpoints": [
+          "1943-07-14",
+          "1943-07-15",
+          "1943-07-16",
+          "1943-07-17",
+          "1943-07-18"
+        ]
+      },
+      "expected": [
+        "1943-07-14T18:35:00Z",
+        "1943-07-15T18:35:00Z",
+        "1943-07-16T18:35:00Z",
+        "1943-07-17T18:35:00Z",
+        "1943-07-18T18:35:00Z"
+      ]
+    },
+    {
+      "name": "sri-lanka-1997-midnight",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1997-07-14T18:35:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Sri Lanka Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Sri Lanka Standard Time",
+              "startDate": "1997-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1997-07-27",
+        "checkpoints": [
+          "1997-07-14",
+          "1997-07-15",
+          "1997-07-16",
+          "1997-07-17",
+          "1997-07-18"
+        ]
+      },
+      "expected": [
+        "1997-07-14T18:35:00Z",
+        "1997-07-15T18:35:00Z",
+        "1997-07-16T18:35:00Z",
+        "1997-07-17T18:35:00Z",
+        "1997-07-18T18:35:00Z"
+      ]
+    },
+    {
+      "name": "line-islands-1900-midnight",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1900-07-14T10:05:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Line Islands Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Line Islands Standard Time",
+              "startDate": "1900-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1900-07-27",
+        "checkpoints": [
+          "1900-07-14",
+          "1900-07-15",
+          "1900-07-16",
+          "1900-07-17",
+          "1900-07-18"
+        ]
+      },
+      "expected": [
+        "1900-07-14T10:05:00Z",
+        "1900-07-15T10:05:00Z",
+        "1900-07-16T10:05:00Z",
+        "1900-07-17T10:05:00Z",
+        "1900-07-18T10:05:00Z"
+      ]
+    },
+    {
+      "name": "line-islands-1969-midnight",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1969-12-27T10:05:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Line Islands Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Line Islands Standard Time",
+              "startDate": "1969-12-28",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1970-01-09",
+        "checkpoints": [
+          "1969-12-27",
+          "1969-12-28",
+          "1969-12-29",
+          "1969-12-30",
+          "1969-12-31"
+        ]
+      },
+      "expected": [
+        "1969-12-27T10:05:00Z",
+        "1969-12-28T10:05:00Z",
+        "1969-12-29T10:05:00Z",
+        "1969-12-30T10:05:00Z",
+        "1969-12-31T10:05:00Z"
+      ]
+    },
+    {
+      "name": "nepal-iana-1986-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1985-12-29T18:20:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Asia/Kathmandu",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Nepal Standard Time",
+              "startDate": "1985-12-30",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1986-01-11",
+        "checkpoints": [
+          "1985-12-29",
+          "1985-12-30",
+          "1985-12-31",
+          "1986-01-01",
+          "1986-01-02"
+        ]
+      },
+      "expected": [
+        "1985-12-29T18:20:00Z",
+        "1985-12-30T18:20:00Z",
+        "1985-12-31T18:20:00Z",
+        "1986-01-01T18:20:00Z",
+        "1986-01-02T18:20:00Z"
+      ]
+    },
+    {
+      "name": "sri-lanka-iana-2006-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2006-04-12T18:45:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Asia/Colombo",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Sri Lanka Standard Time",
+              "startDate": "2006-04-13",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2006-04-25",
+        "checkpoints": [
+          "2006-04-12",
+          "2006-04-13",
+          "2006-04-14",
+          "2006-04-15",
+          "2006-04-16"
+        ]
+      },
+      "expected": [
+        "2006-04-12T18:45:00Z",
+        "2006-04-13T18:45:00Z",
+        "2006-04-14T18:45:00Z",
+        "2006-04-15T18:45:00Z",
+        "2006-04-16T18:45:00Z"
+      ]
+    },
+    {
+      "name": "india-iana-1941-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1941-09-28T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Asia/Kolkata",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "India Standard Time",
+              "startDate": "1941-09-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1941-10-11",
+        "checkpoints": [
+          "1941-09-28",
+          "1941-09-29",
+          "1941-09-30",
+          "1941-10-01",
+          "1941-10-02"
+        ]
+      },
+      "expected": [
+        "1941-09-28T19:00:00Z",
+        "1941-09-29T19:00:00Z",
+        "1941-09-30T19:00:00Z",
+        "1941-10-01T19:00:00Z",
+        "1941-10-02T19:00:00Z"
+      ]
+    },
+    {
+      "name": "myanmar-iana-1944-monsoon",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1944-07-09T17:32:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Asia/Yangon",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Myanmar Standard Time",
+              "startDate": "1944-07-10",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1944-07-22",
+        "checkpoints": [
+          "1944-07-09",
+          "1944-07-10",
+          "1944-07-11",
+          "1944-07-12",
+          "1944-07-13"
+        ]
+      },
+      "expected": [
+        "1944-07-09T17:32:00Z",
+        "1944-07-10T17:32:00Z",
+        "1944-07-11T17:32:00Z",
+        "1944-07-12T17:32:00Z",
+        "1944-07-13T17:32:00Z"
+      ]
+    },
+    {
+      "name": "afghanistan-iana-1945-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1944-12-29T19:45:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Asia/Kabul",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Afghanistan Standard Time",
+              "startDate": "1944-12-30",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1945-01-11",
+        "checkpoints": [
+          "1944-12-29",
+          "1944-12-30",
+          "1944-12-31",
+          "1945-01-01",
+          "1945-01-02"
+        ]
+      },
+      "expected": [
+        "1944-12-29T19:45:00Z",
+        "1944-12-30T19:45:00Z",
+        "1944-12-31T19:45:00Z",
+        "1945-01-01T19:45:00Z",
+        "1945-01-02T19:45:00Z"
+      ]
+    },
+    {
+      "name": "nepal-1919-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1919-12-30T18:10:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Nepal Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Nepal Standard Time",
+              "startDate": "1919-12-30",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1920-01-11",
+        "checkpoints": [
+          "1919-12-30",
+          "1919-12-31",
+          "1920-01-01",
+          "1920-01-02",
+          "1920-01-03"
+        ]
+      },
+      "expected": [
+        "1919-12-30T18:10:00Z",
+        "1919-12-31T18:10:00Z",
+        "1920-01-01T18:10:00Z",
+        "1920-01-02T18:10:00Z",
+        "1920-01-03T18:10:00Z"
+      ]
+    },
+    {
+      "name": "nepal-1986-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1985-12-29T18:20:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Nepal Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Nepal Standard Time",
+              "startDate": "1985-12-30",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1986-01-11",
+        "checkpoints": [
+          "1985-12-29",
+          "1985-12-30",
+          "1985-12-31",
+          "1986-01-01",
+          "1986-01-02"
+        ]
+      },
+      "expected": [
+        "1985-12-29T18:20:00Z",
+        "1985-12-30T18:20:00Z",
+        "1985-12-31T18:20:00Z",
+        "1986-01-01T18:20:00Z",
+        "1986-01-02T18:20:00Z"
+      ]
+    },
+    {
+      "name": "nepal-1986-gap-anchor",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1985-12-31T18:20:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Nepal Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Nepal Standard Time",
+              "startDate": "1986-01-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1986-01-13",
+        "checkpoints": [
+          "1985-12-31",
+          "1986-01-01",
+          "1986-01-02",
+          "1986-01-03",
+          "1986-01-04"
+        ]
+      },
+      "expected": [
+        "1985-12-31T18:20:00Z",
+        "1986-01-01T18:20:00Z",
+        "1986-01-02T18:20:00Z",
+        "1986-01-03T18:20:00Z",
+        "1986-01-04T18:20:00Z"
+      ]
+    },
+    {
+      "name": "nepal-1975-winter",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1975-01-31T18:20:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Nepal Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Nepal Standard Time",
+              "startDate": "1975-02-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1975-02-13",
+        "checkpoints": [
+          "1975-01-31",
+          "1975-02-01",
+          "1975-02-02",
+          "1975-02-03",
+          "1975-02-04"
+        ]
+      },
+      "expected": [
+        "1975-01-31T18:20:00Z",
+        "1975-02-01T18:20:00Z",
+        "1975-02-02T18:20:00Z",
+        "1975-02-03T18:20:00Z",
+        "1975-02-04T18:20:00Z"
+      ]
+    },
+    {
+      "name": "nepal-2026-control",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-11-09T18:20:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Nepal Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Nepal Standard Time",
+              "startDate": "2026-11-10",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2026-11-22",
+        "checkpoints": [
+          "2026-11-09",
+          "2026-11-10",
+          "2026-11-11",
+          "2026-11-12",
+          "2026-11-13"
+        ]
+      },
+      "expected": [
+        "2026-11-09T18:20:00Z",
+        "2026-11-10T18:20:00Z",
+        "2026-11-11T18:20:00Z",
+        "2026-11-12T18:20:00Z",
+        "2026-11-13T18:20:00Z"
+      ]
+    },
+    {
+      "name": "sri-lanka-1942-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1942-01-02T18:40:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Sri Lanka Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Sri Lanka Standard Time",
+              "startDate": "1942-01-03",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1942-01-15",
+        "checkpoints": [
+          "1942-01-02",
+          "1942-01-03",
+          "1942-01-04",
+          "1942-01-05",
+          "1942-01-06"
+        ]
+      },
+      "expected": [
+        "1942-01-02T18:40:00Z",
+        "1942-01-03T18:40:00Z",
+        "1942-01-04T18:40:00Z",
+        "1942-01-05T18:40:00Z",
+        "1942-01-06T18:40:00Z"
+      ]
+    },
+    {
+      "name": "sri-lanka-1996-may-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1996-05-22T18:45:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Sri Lanka Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Sri Lanka Standard Time",
+              "startDate": "1996-05-23",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1996-06-04",
+        "checkpoints": [
+          "1996-05-22",
+          "1996-05-23",
+          "1996-05-24",
+          "1996-05-25",
+          "1996-05-26"
+        ]
+      },
+      "expected": [
+        "1996-05-22T18:45:00Z",
+        "1996-05-23T18:45:00Z",
+        "1996-05-24T18:45:00Z",
+        "1996-05-25T18:45:00Z",
+        "1996-05-26T18:45:00Z"
+      ]
+    },
+    {
+      "name": "sri-lanka-1996-october-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1996-10-23T18:45:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Sri Lanka Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Sri Lanka Standard Time",
+              "startDate": "1996-10-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1996-11-05",
+        "checkpoints": [
+          "1996-10-23",
+          "1996-10-24",
+          "1996-10-25",
+          "1996-10-26",
+          "1996-10-27"
+        ]
+      },
+      "expected": [
+        "1996-10-23T18:45:00Z",
+        "1996-10-24T18:45:00Z",
+        "1996-10-25T18:45:00Z",
+        "1996-10-26T18:45:00Z",
+        "1996-10-27T18:45:00Z"
+      ]
+    },
+    {
+      "name": "sri-lanka-2005-control",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2005-03-02T18:45:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Sri Lanka Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Sri Lanka Standard Time",
+              "startDate": "2005-03-03",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2005-03-15",
+        "checkpoints": [
+          "2005-03-02",
+          "2005-03-03",
+          "2005-03-04",
+          "2005-03-05",
+          "2005-03-06"
+        ]
+      },
+      "expected": [
+        "2005-03-02T18:45:00Z",
+        "2005-03-03T18:45:00Z",
+        "2005-03-04T18:45:00Z",
+        "2005-03-05T18:45:00Z",
+        "2005-03-06T18:45:00Z"
+      ]
+    },
+    {
+      "name": "sri-lanka-2006-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2006-04-12T18:45:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Sri Lanka Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Sri Lanka Standard Time",
+              "startDate": "2006-04-13",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2006-04-25",
+        "checkpoints": [
+          "2006-04-12",
+          "2006-04-13",
+          "2006-04-14",
+          "2006-04-15",
+          "2006-04-16"
+        ]
+      },
+      "expected": [
+        "2006-04-12T18:45:00Z",
+        "2006-04-13T18:45:00Z",
+        "2006-04-14T18:45:00Z",
+        "2006-04-15T18:45:00Z",
+        "2006-04-16T18:45:00Z"
+      ]
+    },
+    {
+      "name": "sri-lanka-2026-control",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-11-09T18:45:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Sri Lanka Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Sri Lanka Standard Time",
+              "startDate": "2026-11-10",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2026-11-22",
+        "checkpoints": [
+          "2026-11-09",
+          "2026-11-10",
+          "2026-11-11",
+          "2026-11-12",
+          "2026-11-13"
+        ]
+      },
+      "expected": [
+        "2026-11-09T18:45:00Z",
+        "2026-11-10T18:45:00Z",
+        "2026-11-11T18:45:00Z",
+        "2026-11-12T18:45:00Z",
+        "2026-11-13T18:45:00Z"
+      ]
+    },
+    {
+      "name": "myanmar-1919-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1919-12-29T17:32:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Myanmar Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Myanmar Standard Time",
+              "startDate": "1919-12-30",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1920-01-11",
+        "checkpoints": [
+          "1919-12-29",
+          "1919-12-30",
+          "1919-12-31",
+          "1920-01-01",
+          "1920-01-02"
+        ]
+      },
+      "expected": [
+        "1919-12-29T17:32:00Z",
+        "1919-12-30T17:32:00Z",
+        "1919-12-31T17:32:00Z",
+        "1920-01-01T17:32:00Z",
+        "1920-01-02T17:32:00Z"
+      ]
+    },
+    {
+      "name": "myanmar-1942-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1942-04-28T18:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Myanmar Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Myanmar Standard Time",
+              "startDate": "1942-04-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1942-05-11",
+        "checkpoints": [
+          "1942-04-28",
+          "1942-04-29",
+          "1942-04-30",
+          "1942-05-01",
+          "1942-05-02"
+        ]
+      },
+      "expected": [
+        "1942-04-28T18:30:00Z",
+        "1942-04-29T18:30:00Z",
+        "1942-04-30T18:30:00Z",
+        "1942-05-01T18:30:00Z",
+        "1942-05-02T18:30:00Z"
+      ]
+    },
+    {
+      "name": "myanmar-1944-monsoon",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1944-07-09T17:32:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Myanmar Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Myanmar Standard Time",
+              "startDate": "1944-07-10",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1944-07-22",
+        "checkpoints": [
+          "1944-07-09",
+          "1944-07-10",
+          "1944-07-11",
+          "1944-07-12",
+          "1944-07-13"
+        ]
+      },
+      "expected": [
+        "1944-07-09T17:32:00Z",
+        "1944-07-10T17:32:00Z",
+        "1944-07-11T17:32:00Z",
+        "1944-07-12T17:32:00Z",
+        "1944-07-13T17:32:00Z"
+      ]
+    },
+    {
+      "name": "myanmar-1945-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1945-05-01T15:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Myanmar Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Myanmar Standard Time",
+              "startDate": "1945-05-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1945-05-13",
+        "checkpoints": [
+          "1945-05-01",
+          "1945-05-02",
+          "1945-05-03",
+          "1945-05-04",
+          "1945-05-05"
+        ]
+      },
+      "expected": [
+        "1945-05-01T15:30:00Z",
+        "1945-05-02T15:30:00Z",
+        "1945-05-03T15:30:00Z",
+        "1945-05-04T15:30:00Z",
+        "1945-05-05T15:30:00Z"
+      ]
+    },
+    {
+      "name": "myanmar-2026-control",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-11-09T17:35:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Myanmar Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Myanmar Standard Time",
+              "startDate": "2026-11-10",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2026-11-22",
+        "checkpoints": [
+          "2026-11-09",
+          "2026-11-10",
+          "2026-11-11",
+          "2026-11-12",
+          "2026-11-13"
+        ]
+      },
+      "expected": [
+        "2026-11-09T17:35:00Z",
+        "2026-11-10T17:35:00Z",
+        "2026-11-11T17:35:00Z",
+        "2026-11-12T17:35:00Z",
+        "2026-11-13T17:35:00Z"
+      ]
+    },
+    {
+      "name": "afghanistan-1945-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1944-12-29T19:45:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Afghanistan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Afghanistan Standard Time",
+              "startDate": "1944-12-30",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1945-01-11",
+        "checkpoints": [
+          "1944-12-29",
+          "1944-12-30",
+          "1944-12-31",
+          "1945-01-01",
+          "1945-01-02"
+        ]
+      },
+      "expected": [
+        "1944-12-29T19:45:00Z",
+        "1944-12-30T19:45:00Z",
+        "1944-12-31T19:45:00Z",
+        "1945-01-01T19:45:00Z",
+        "1945-01-02T19:45:00Z"
+      ]
+    },
+    {
+      "name": "afghanistan-1945-gap-anchor",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1944-12-31T19:45:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Afghanistan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Afghanistan Standard Time",
+              "startDate": "1945-01-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1945-01-13",
+        "checkpoints": [
+          "1944-12-31",
+          "1945-01-01",
+          "1945-01-02",
+          "1945-01-03",
+          "1945-01-04"
+        ]
+      },
+      "expected": [
+        "1944-12-31T19:45:00Z",
+        "1945-01-01T19:45:00Z",
+        "1945-01-02T19:45:00Z",
+        "1945-01-03T19:45:00Z",
+        "1945-01-04T19:45:00Z"
+      ]
+    },
+    {
+      "name": "afghanistan-1920-winter",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1920-02-03T19:45:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Afghanistan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Afghanistan Standard Time",
+              "startDate": "1920-02-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1920-02-16",
+        "checkpoints": [
+          "1920-02-03",
+          "1920-02-04",
+          "1920-02-05",
+          "1920-02-06",
+          "1920-02-07"
+        ]
+      },
+      "expected": [
+        "1920-02-03T19:45:00Z",
+        "1920-02-04T19:45:00Z",
+        "1920-02-05T19:45:00Z",
+        "1920-02-06T19:45:00Z",
+        "1920-02-07T19:45:00Z"
+      ]
+    },
+    {
+      "name": "afghanistan-2026-control",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-11-09T19:45:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Afghanistan Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Afghanistan Standard Time",
+              "startDate": "2026-11-10",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2026-11-22",
+        "checkpoints": [
+          "2026-11-09",
+          "2026-11-10",
+          "2026-11-11",
+          "2026-11-12",
+          "2026-11-13"
+        ]
+      },
+      "expected": [
+        "2026-11-09T19:45:00Z",
+        "2026-11-10T19:45:00Z",
+        "2026-11-11T19:45:00Z",
+        "2026-11-12T19:45:00Z",
+        "2026-11-13T19:45:00Z"
+      ]
+    },
+    {
+      "name": "india-1906-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1905-12-29T18:35:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "India Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "India Standard Time",
+              "startDate": "1905-12-30",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1906-01-11",
+        "checkpoints": [
+          "1905-12-29",
+          "1905-12-30",
+          "1905-12-31",
+          "1906-01-01",
+          "1906-01-02"
+        ]
+      },
+      "expected": [
+        "1905-12-29T18:35:00Z",
+        "1905-12-30T18:35:00Z",
+        "1905-12-31T18:35:00Z",
+        "1906-01-01T18:35:00Z",
+        "1906-01-02T18:35:00Z"
+      ]
+    },
+    {
+      "name": "india-1941-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1941-09-28T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "India Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "India Standard Time",
+              "startDate": "1941-09-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1941-10-11",
+        "checkpoints": [
+          "1941-09-28",
+          "1941-09-29",
+          "1941-09-30",
+          "1941-10-01",
+          "1941-10-02"
+        ]
+      },
+      "expected": [
+        "1941-09-28T19:00:00Z",
+        "1941-09-29T19:00:00Z",
+        "1941-09-30T19:00:00Z",
+        "1941-10-01T19:00:00Z",
+        "1941-10-02T19:00:00Z"
+      ]
+    },
+    {
+      "name": "india-1942-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1942-05-13T18:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "India Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "India Standard Time",
+              "startDate": "1942-05-13",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1942-05-25",
+        "checkpoints": [
+          "1942-05-13",
+          "1942-05-14",
+          "1942-05-15",
+          "1942-05-16",
+          "1942-05-17"
+        ]
+      },
+      "expected": [
+        "1942-05-13T18:00:00Z",
+        "1942-05-14T18:00:00Z",
+        "1942-05-15T18:00:00Z",
+        "1942-05-16T18:00:00Z",
+        "1942-05-17T18:00:00Z"
+      ]
+    },
+    {
+      "name": "india-1945-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1945-10-13T18:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "India Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "India Standard Time",
+              "startDate": "1945-10-13",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1945-10-25",
+        "checkpoints": [
+          "1945-10-13",
+          "1945-10-14",
+          "1945-10-15",
+          "1945-10-16",
+          "1945-10-17"
+        ]
+      },
+      "expected": [
+        "1945-10-13T18:00:00Z",
+        "1945-10-14T18:00:00Z",
+        "1945-10-15T18:00:00Z",
+        "1945-10-16T18:00:00Z",
+        "1945-10-17T18:00:00Z"
+      ]
+    },
+    {
+      "name": "india-2026-control",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-11-09T18:45:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "India Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "India Standard Time",
+              "startDate": "2026-11-10",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2026-11-22",
+        "checkpoints": [
+          "2026-11-09",
+          "2026-11-10",
+          "2026-11-11",
+          "2026-11-12",
+          "2026-11-13"
+        ]
+      },
+      "expected": [
+        "2026-11-09T18:45:00Z",
+        "2026-11-10T18:45:00Z",
+        "2026-11-11T18:45:00Z",
+        "2026-11-12T18:45:00Z",
+        "2026-11-13T18:45:00Z"
+      ]
+    },
+    {
+      "name": "rfc-kathmandu-retains-iana-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Asia/Kathmandu:19851230T000500",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1986-01-05",
+        "checkpoints": [
+          "1985-12-29",
+          "1985-12-30",
+          "1985-12-31",
+          "1986-01-01",
+          "1986-01-02"
+        ]
+      },
+      "expected": [
+        "1985-12-29T18:35:00Z",
+        "1985-12-30T18:35:00Z",
+        "1985-12-31T18:35:00Z",
+        "1986-01-01T18:20:00Z",
+        "1986-01-02T18:20:00Z"
+      ]
+    },
+    {
+      "name": "rfc-kolkata-retains-iana-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Asia/Kolkata:19410929T003000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1941-10-05",
+        "checkpoints": [
+          "1941-09-28",
+          "1941-09-29",
+          "1941-09-30",
+          "1941-10-01",
+          "1941-10-02"
+        ]
+      },
+      "expected": [
+        "1941-09-28T19:00:00Z",
+        "1941-09-29T19:00:00Z",
+        "1941-09-30T19:00:00Z",
+        "1941-10-01T18:00:00Z",
+        "1941-10-02T18:00:00Z"
+      ]
+    },
+    {
+      "name": "rfc-colombo-retains-iana-history",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Asia/Colombo:20060413T001500",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "2006-04-19",
+        "checkpoints": [
+          "2006-04-12",
+          "2006-04-13",
+          "2006-04-14",
+          "2006-04-15",
+          "2006-04-16"
+        ]
+      },
+      "expected": [
+        "2006-04-12T18:15:00Z",
+        "2006-04-13T18:15:00Z",
+        "2006-04-14T18:15:00Z",
+        "2006-04-15T18:45:00Z",
+        "2006-04-16T18:45:00Z"
+      ]
+    }
+  ]
+}

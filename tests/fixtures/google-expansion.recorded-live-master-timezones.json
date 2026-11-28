@@ -1,0 +1,560 @@
+{
+  "type": "google-expansion",
+  "name": "Google Calendar API master timezones",
+  "source": "Google Calendar API events.instances",
+  "captureCliCommit": "8db8950f7cf894e781d289f6e513f5e53e6d587a",
+  "capturedAt": "2026-11-23T13:39:07.444628+00:00",
+  "cases": [
+    {
+      "name": "master-zone-00 AET",
+      "input": {
+        "start": "2027-01-04T09:00:00+11:00",
+        "timezone": "AET",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-03T22:00:00Z",
+          "2027-01-07T22:00:00Z",
+          "2027-07-03T23:00:00Z",
+          "2027-07-07T23:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "master-zone-01 aet",
+      "input": {
+        "start": "2027-01-04T09:00:00+11:00",
+        "timezone": "aet",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        }
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Unknown recurrence timezone: aet"
+      }
+    },
+    {
+      "name": "master-zone-02 CST",
+      "input": {
+        "start": "2027-01-04T09:00:00-06:00",
+        "timezone": "CST",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T15:00:00Z",
+          "2027-01-08T15:00:00Z",
+          "2027-07-04T14:00:00Z",
+          "2027-07-08T14:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "master-zone-03 PST",
+      "input": {
+        "start": "2027-01-04T09:00:00-08:00",
+        "timezone": "PST",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T17:00:00Z",
+          "2027-01-08T17:00:00Z",
+          "2027-07-04T16:00:00Z",
+          "2027-07-08T16:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "master-zone-04 EST",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "EST",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-08T14:00:00Z",
+          "2027-07-04T14:00:00Z",
+          "2027-07-08T14:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "master-zone-05 US/Pacific",
+      "input": {
+        "start": "2027-01-04T09:00:00-08:00",
+        "timezone": "US/Pacific",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T17:00:00Z",
+          "2027-01-08T17:00:00Z",
+          "2027-07-04T16:00:00Z",
+          "2027-07-08T16:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "master-zone-06 us/pacific",
+      "input": {
+        "start": "2027-01-04T09:00:00-08:00",
+        "timezone": "us/pacific",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        }
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Unknown recurrence timezone: us/pacific"
+      }
+    },
+    {
+      "name": "master-zone-07 UTC+02:00",
+      "input": {
+        "start": "2027-01-04T09:00:00+02:00",
+        "timezone": "UTC+02:00",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T07:00:00Z",
+          "2027-01-08T07:00:00Z",
+          "2027-07-04T07:00:00Z",
+          "2027-07-08T07:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "master-zone-08 GMT+02:30",
+      "input": {
+        "start": "2027-01-04T09:00:00+02:30",
+        "timezone": "GMT+02:30",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T06:30:00Z",
+          "2027-01-08T06:30:00Z",
+          "2027-07-04T06:30:00Z",
+          "2027-07-08T06:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "master-zone-09 +0200",
+      "input": {
+        "start": "2027-01-04T09:00:00+02:00",
+        "timezone": "+0200",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T07:00:00Z",
+          "2027-01-08T07:00:00Z",
+          "2027-07-04T07:00:00Z",
+          "2027-07-08T07:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "master-zone-10 Not/AZone",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "Not/AZone",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        }
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Unknown recurrence timezone: Not/AZone"
+      }
+    },
+    {
+      "name": "master-zone-11 Etc/Zulu",
+      "input": {
+        "start": "2027-01-04T09:00:00+00:00",
+        "timezone": "Etc/Zulu",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE:20270108T090000,20270708T090000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;VALUE=DATE-TIME:20270108T090000Z,20270708T090000Z",
+          "RRULE:FREQ=MONTHLY;COUNT=2;INTERVAL=6"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T09:00:00Z",
+          "timezone": "Etc/Zulu"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T09:00:00Z",
+          "2027-01-08T09:00:00Z",
+          "2027-07-04T09:00:00Z",
+          "2027-07-08T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "master-zone-00-utc-rdates AET",
+      "input": {
+        "start": "2027-01-04T09:00:00+11:00",
+        "timezone": "AET",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE:20270108T090000Z,20270708T090000Z"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;VALUE=DATE-TIME:20270108T090000Z,20270708T090000Z",
+          "RRULE:FREQ=MONTHLY;COUNT=2;INTERVAL=6"
+        ],
+        "storedStart": {
+          "start": "2027-01-03T22:00:00Z",
+          "timezone": "Australia/Sydney"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-03T22:00:00Z",
+          "2027-01-08T09:00:00Z",
+          "2027-07-03T23:00:00Z",
+          "2027-07-08T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "master-zone-02-utc-rdates CST",
+      "input": {
+        "start": "2027-01-04T09:00:00-06:00",
+        "timezone": "CST",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE:20270108T090000Z,20270708T090000Z"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;VALUE=DATE-TIME:20270108T090000Z,20270708T090000Z",
+          "RRULE:FREQ=MONTHLY;COUNT=2;INTERVAL=6"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T15:00:00Z",
+          "timezone": "America/Chicago"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T15:00:00Z",
+          "2027-01-08T09:00:00Z",
+          "2027-07-04T14:00:00Z",
+          "2027-07-08T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "master-zone-03-utc-rdates PST",
+      "input": {
+        "start": "2027-01-04T09:00:00-08:00",
+        "timezone": "PST",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE:20270108T090000Z,20270708T090000Z"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;VALUE=DATE-TIME:20270108T090000Z,20270708T090000Z",
+          "RRULE:FREQ=MONTHLY;COUNT=2;INTERVAL=6"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T17:00:00Z",
+          "timezone": "America/Los_Angeles"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T17:00:00Z",
+          "2027-01-08T09:00:00Z",
+          "2027-07-04T16:00:00Z",
+          "2027-07-08T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "master-zone-04-utc-rdates EST",
+      "input": {
+        "start": "2027-01-04T09:00:00-05:00",
+        "timezone": "EST",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE:20270108T090000Z,20270708T090000Z"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;VALUE=DATE-TIME:20270108T090000Z,20270708T090000Z",
+          "RRULE:FREQ=MONTHLY;COUNT=2;INTERVAL=6"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T14:00:00Z",
+          "timezone": "America/Panama"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T14:00:00Z",
+          "2027-01-08T09:00:00Z",
+          "2027-07-04T14:00:00Z",
+          "2027-07-08T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "master-zone-05-utc-rdates US/Pacific",
+      "input": {
+        "start": "2027-01-04T09:00:00-08:00",
+        "timezone": "US/Pacific",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE:20270108T090000Z,20270708T090000Z"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;VALUE=DATE-TIME:20270108T090000Z,20270708T090000Z",
+          "RRULE:FREQ=MONTHLY;COUNT=2;INTERVAL=6"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T17:00:00Z",
+          "timezone": "America/Los_Angeles"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T17:00:00Z",
+          "2027-01-08T09:00:00Z",
+          "2027-07-04T16:00:00Z",
+          "2027-07-08T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "master-zone-07-utc-rdates UTC+02:00",
+      "input": {
+        "start": "2027-01-04T09:00:00+02:00",
+        "timezone": "UTC+02:00",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE:20270108T090000Z,20270708T090000Z"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;VALUE=DATE-TIME:20270108T090000Z,20270708T090000Z",
+          "RRULE:FREQ=MONTHLY;COUNT=2;INTERVAL=6"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T07:00:00Z",
+          "timezone": "UTC+02:00"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T07:00:00Z",
+          "2027-01-08T09:00:00Z",
+          "2027-07-04T07:00:00Z",
+          "2027-07-08T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "master-zone-08-utc-rdates GMT+02:30",
+      "input": {
+        "start": "2027-01-04T09:00:00+02:30",
+        "timezone": "GMT+02:30",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE:20270108T090000Z,20270708T090000Z"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;VALUE=DATE-TIME:20270108T090000Z,20270708T090000Z",
+          "RRULE:FREQ=MONTHLY;COUNT=2;INTERVAL=6"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T06:30:00Z",
+          "timezone": "GMT+02:30"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T06:30:00Z",
+          "2027-01-08T09:00:00Z",
+          "2027-07-04T06:30:00Z",
+          "2027-07-08T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "master-zone-09-utc-rdates +0200",
+      "input": {
+        "start": "2027-01-04T09:00:00+02:00",
+        "timezone": "+0200",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE:20270108T090000Z,20270708T090000Z"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;VALUE=DATE-TIME:20270108T090000Z,20270708T090000Z",
+          "RRULE:FREQ=MONTHLY;COUNT=2;INTERVAL=6"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T07:00:00Z",
+          "timezone": "GMT+02:00"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T07:00:00Z",
+          "2027-01-08T09:00:00Z",
+          "2027-07-04T07:00:00Z",
+          "2027-07-08T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "master-zone-11-utc-rdates Etc/Zulu",
+      "input": {
+        "start": "2027-01-04T09:00:00+00:00",
+        "timezone": "Etc/Zulu",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;INTERVAL=6;COUNT=2",
+          "RDATE:20270108T090000Z,20270708T090000Z"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-07-10T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;VALUE=DATE-TIME:20270108T090000Z,20270708T090000Z",
+          "RRULE:FREQ=MONTHLY;COUNT=2;INTERVAL=6"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T09:00:00Z",
+          "timezone": "Etc/Zulu"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T09:00:00Z",
+          "2027-01-08T09:00:00Z",
+          "2027-07-04T09:00:00Z",
+          "2027-07-08T09:00:00Z"
+        ]
+      }
+    }
+  ]
+}

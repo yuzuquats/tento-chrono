@@ -1,0 +1,211 @@
+{
+  "type": "recurrence-profile",
+  "name": "rrule.js 2.8.1 recurrence text",
+  "source": "rrulestr 2.8.1 TZ=UTC with unfold for folded text and dtstart for the standalone bare rule",
+  "cases": [
+    {
+      "name": "inline-space-separated-properties",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          " DTSTART:20260101T090000Z   RRULE:FREQ=DAILY;COUNT=2 "
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "tab-before-bare-freq",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260101T090000Z\tFREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "bare-rule-with-external-start",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-02-01",
+        "dtstart": {
+          "dateTime": "2026-01-01T09:00:00Z"
+        }
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "folded-rule-value",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAI\r\n LY;COUNT=2"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "bare-rule-with-inline-dtstart",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "FREQ=DAILY;COUNT=2;DTSTART=20260101T090000Z"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "mixed-labelled-bare-rule-union",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260101T090000Z RRULE:FREQ=DAILY;COUNT=2 FREQ=DAILY;INTERVAL=2;COUNT=2"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "inline-reordered-bare-rule",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260101T090000Z COUNT=2;FREQ=DAILY"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "inline-inclusions-and-exclusions",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260101T090000Z RRULE:FREQ=DAILY;COUNT=2 EXDATE:20260102T090000Z RDATE:20260103T090000Z"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "explicit-date-set-without-dtstart",
+      "input": {
+        "lines": [
+          "RDATE:20260102T090000,20260103,20260102T090000Z",
+          "EXDATE:20260102T090000Z"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-03T00:00:00Z"
+      ]
+    },
+    {
+      "name": "zoned-date-set-without-dtstart",
+      "input": {
+        "lines": [
+          "RDATE;TZID=Asia/Tokyo:20260102T090000,20260103",
+          "EXDATE:20260102T090000Z"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-02T15:00:00Z"
+      ]
+    },
+    {
+      "name": "non-leading-rdate-tzid-without-start",
+      "input": {
+        "lines": [
+          "RDATE;VALUE=DATE-TIME;TZID=Asia/Tokyo:20260102T090000"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "exdate-only-set-without-dtstart",
+      "input": {
+        "lines": [
+          "EXDATE:20260102T090000Z"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-02-01"
+      },
+      "expected": []
+    },
+    {
+      "name": "date-tag-is-midnight-in-timed-set",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE;VALUE=DATE:20260105",
+          "EXDATE;VALUE=DATE:20260102"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z",
+        "2026-01-05T00:00:00Z"
+      ]
+    },
+    {
+      "name": "tagged-exdate-matches-midnight",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE;VALUE=DATE:20260102"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T00:00:00Z",
+        "2026-01-03T00:00:00Z"
+      ]
+    }
+  ]
+}

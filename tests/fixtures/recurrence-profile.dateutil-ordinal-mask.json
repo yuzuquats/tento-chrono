@@ -1,0 +1,231 @@
+{
+  "type": "recurrence-profile",
+  "name": "dateutil 2.8.2 ordinal weekday mask",
+  "source": "python-dateutil 2.8.2 rrulestr with forceset=True",
+  "cases": [
+    {
+      "name": "december-monthly-mask-fails-in-first-period",
+      "input": {
+        "lines": [
+          "DTSTART:19991228T091147",
+          "RRULE:FREQ=MONTHLY;BYDAY=53MO,1MO,-1FR;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2032-12-31"
+      },
+      "expected": {
+        "expansionError": "list index out of range"
+      }
+    },
+    {
+      "name": "annual-december-partition-fails-before-expanding",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=YEARLY;BYMONTH=1,12;BYDAY=1MO,53MO;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2032-12-31"
+      },
+      "expected": {
+        "expansionError": "list index out of range"
+      }
+    },
+    {
+      "name": "month-mask-rebuild-after-count",
+      "input": {
+        "lines": [
+          "DTSTART:20250101T090000",
+          "RRULE:FREQ=MONTHLY;BYDAY=1MO,53MO;COUNT=1"
+        ],
+        "profile": "dateutil",
+        "through": "2032-12-31"
+      },
+      "expected": {
+        "expansionError": "list index out of range"
+      }
+    },
+    {
+      "name": "month-mask-rebuild-after-until",
+      "input": {
+        "lines": [
+          "DTSTART:20250101T090000",
+          "RRULE:FREQ=MONTHLY;BYDAY=1MO,53MO;UNTIL=20250106T090000"
+        ],
+        "profile": "dateutil",
+        "through": "2032-12-31"
+      },
+      "expected": {
+        "expansionError": "list index out of range"
+      }
+    },
+    {
+      "name": "filtered-month-still-builds-ordinal-mask",
+      "input": {
+        "lines": [
+          "DTSTART:20250101T090000",
+          "RRULE:FREQ=MONTHLY;BYMONTH=1;BYDAY=1MO,53MO;COUNT=1"
+        ],
+        "profile": "dateutil",
+        "through": "2032-12-31"
+      },
+      "expected": {
+        "expansionError": "list index out of range"
+      }
+    },
+    {
+      "name": "jan-only-interval-keeps-mask-in-bounds",
+      "input": {
+        "lines": [
+          "DTSTART:20250101T090000",
+          "RRULE:FREQ=MONTHLY;INTERVAL=12;BYDAY=1MO,53MO;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2032-12-31"
+      },
+      "expected": [
+        "2025-01-06T09:00:00",
+        "2026-01-05T09:00:00"
+      ]
+    },
+    {
+      "name": "full-year-mask-contains-position-53",
+      "input": {
+        "lines": [
+          "DTSTART:20200101T090000",
+          "RRULE:FREQ=YEARLY;BYDAY=53WE;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2032-12-31"
+      },
+      "expected": [
+        "2020-12-30T09:00:00",
+        "2025-12-31T09:00:00"
+      ]
+    },
+    {
+      "name": "annual-jan-partition-stays-in-bounds",
+      "input": {
+        "lines": [
+          "DTSTART:20250101T090000",
+          "RRULE:FREQ=YEARLY;BYMONTH=1;BYDAY=1MO,53MO;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2032-12-31"
+      },
+      "expected": [
+        "2025-01-06T09:00:00",
+        "2026-01-05T09:00:00"
+      ]
+    },
+    {
+      "name": "earlier-candidate-past-until-prevents-overflow",
+      "input": {
+        "lines": [
+          "DTSTART:20250101T090000",
+          "RRULE:FREQ=MONTHLY;BYDAY=1MO,2MO,53MO;UNTIL=20250106T090000"
+        ],
+        "profile": "dateutil",
+        "through": "2032-12-31"
+      },
+      "expected": [
+        "2025-01-06T09:00:00"
+      ]
+    },
+    {
+      "name": "earlier-candidate-past-count-prevents-overflow",
+      "input": {
+        "lines": [
+          "DTSTART:20250101T090000",
+          "RRULE:FREQ=MONTHLY;BYDAY=1MO,2MO,53MO;COUNT=1"
+        ],
+        "profile": "dateutil",
+        "through": "2032-12-31"
+      },
+      "expected": [
+        "2025-01-06T09:00:00"
+      ]
+    },
+    {
+      "name": "negative-ordinal-access-before-mask-start",
+      "input": {
+        "lines": [
+          "DTSTART:20250101T090000",
+          "RRULE:FREQ=MONTHLY;BYDAY=-100MO;COUNT=1"
+        ],
+        "profile": "dateutil",
+        "through": "2032-12-31"
+      },
+      "expected": {
+        "expansionError": "list index out of range"
+      }
+    },
+    {
+      "name": "large-negative-index-in-mask-is-not-an-occurrence",
+      "input": {
+        "lines": [
+          "DTSTART:20250101T090000",
+          "RRULE:FREQ=MONTHLY;BYDAY=1MO,-53MO;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2032-12-31"
+      },
+      "expected": [
+        "2025-01-06T09:00:00",
+        "2025-02-03T09:00:00"
+      ]
+    },
+    {
+      "name": "pre-start-candidate-after-until-stops-before-overflow",
+      "input": {
+        "lines": [
+          "DTSTART:20250131T090000",
+          "RRULE:FREQ=MONTHLY;BYDAY=1MO,53MO;UNTIL=20250105T090000"
+        ],
+        "profile": "dateutil",
+        "through": "2025-06-01"
+      },
+      "expected": []
+    },
+    {
+      "name": "pre-start-candidate-at-until-does-not-prevent-overflow",
+      "input": {
+        "lines": [
+          "DTSTART:20250131T090000",
+          "RRULE:FREQ=MONTHLY;BYDAY=1MO,53MO;UNTIL=20250106T090000"
+        ],
+        "profile": "dateutil",
+        "through": "2025-06-01"
+      },
+      "expected": {
+        "expansionError": "list index out of range"
+      }
+    },
+    {
+      "name": "pre-start-zoned-candidate-can-end-utc-until",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20250131T090000",
+          "RRULE:FREQ=MONTHLY;BYDAY=1MO,53MO;UNTIL=20250106T135959Z"
+        ],
+        "profile": "dateutil",
+        "through": "2025-06-01"
+      },
+      "expected": []
+    },
+    {
+      "name": "pre-start-zoned-candidate-at-utc-until-keeps-searching",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20250131T090000",
+          "RRULE:FREQ=MONTHLY;BYDAY=1MO,53MO;UNTIL=20250106T140000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2025-06-01"
+      },
+      "expected": {
+        "expansionError": "list index out of range"
+      }
+    }
+  ]
+}

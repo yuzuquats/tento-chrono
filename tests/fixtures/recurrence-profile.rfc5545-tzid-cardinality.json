@@ -1,0 +1,190 @@
+{
+  "type": "recurrence-profile",
+  "name": "RFC 5545 single timezone identifier parameters",
+  "source": "RFC 5545 sections 3.1, 3.2 and 3.2.19",
+  "cases": [
+    {
+      "name": "tzid-cardinality-unquoted-dtstart-list",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=X-A,X-B:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-03",
+        "rfcTimeZones": {
+          "X-A,X-B": {
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+02:00",
+                "after": "2026-01-01T00:00:00+02:00",
+                "before_tz_abbr": "TEST",
+                "after_tz_abbr": "TEST"
+              }
+            ]
+          }
+        }
+      },
+      "expected": {
+        "error": "TZID requires one parameter value"
+      }
+    },
+    {
+      "name": "tzid-cardinality-quoted-rdate-list",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T070000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=\"X-A\",\"X-B\":20260103T090000"
+        ],
+        "through": "2026-01-03",
+        "rfcTimeZones": {
+          "X-A\",\"X-B": {
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+02:00",
+                "after": "2026-01-01T00:00:00+02:00",
+                "before_tz_abbr": "TEST",
+                "after_tz_abbr": "TEST"
+              }
+            ]
+          }
+        }
+      },
+      "expected": {
+        "error": "TZID requires one parameter value"
+      }
+    },
+    {
+      "name": "tzid-cardinality-mixed-exdate-list",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T070000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE;TZID=X-A,\"X-B\":20260102T090000"
+        ],
+        "through": "2026-01-03",
+        "rfcTimeZones": {
+          "X-A,\"X-B\"": {
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+02:00",
+                "after": "2026-01-01T00:00:00+02:00",
+                "before_tz_abbr": "TEST",
+                "after_tz_abbr": "TEST"
+              }
+            ]
+          }
+        }
+      },
+      "expected": {
+        "error": "TZID requires one parameter value"
+      }
+    },
+    {
+      "name": "tzid-cardinality-period-list",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T070000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;VALUE=PERIOD;TZID=X-A,X-B:20260103T090000/PT1H"
+        ],
+        "through": "2026-01-03",
+        "rfcTimeZones": {
+          "X-A,X-B": {
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+02:00",
+                "after": "2026-01-01T00:00:00+02:00",
+                "before_tz_abbr": "TEST",
+                "after_tz_abbr": "TEST"
+              }
+            ]
+          }
+        }
+      },
+      "expected": {
+        "error": "TZID requires one parameter value"
+      }
+    },
+    {
+      "name": "tzid-cardinality-empty-quoted",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T070000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE;TZID=\"\":20260102T090000"
+        ],
+        "through": "2026-01-03",
+        "rfcTimeZones": {
+          "": {
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+02:00",
+                "after": "2026-01-01T00:00:00+02:00",
+                "before_tz_abbr": "TEST",
+                "after_tz_abbr": "TEST"
+              }
+            ]
+          }
+        }
+      },
+      "expected": {
+        "error": "Missing TZID parameter value"
+      }
+    },
+    {
+      "name": "tzid-cardinality-quoted-comma-is-one-identifier",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=\"X-A,X-B\";X-CHOICE=one,two:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-03",
+        "rfcTimeZones": {
+          "X-A,X-B": {
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+02:00",
+                "after": "2026-01-01T00:00:00+02:00",
+                "before_tz_abbr": "TEST",
+                "after_tz_abbr": "TEST"
+              }
+            ]
+          }
+        }
+      },
+      "expected": [
+        "2026-01-01T07:00:00Z",
+        "2026-01-02T07:00:00Z"
+      ]
+    },
+    {
+      "name": "tzid-cardinality-quoted-commas-on-explicit-dates",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T070000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE;TZID=\"X-A,X-B\":20260102T090000",
+          "RDATE;VALUE=PERIOD;TZID=\"X-A,X-B\":20260103T090000/PT1H"
+        ],
+        "through": "2026-01-03",
+        "rfcTimeZones": {
+          "X-A,X-B": {
+            "transitions": [
+              {
+                "before": "2026-01-01T00:00:00+02:00",
+                "after": "2026-01-01T00:00:00+02:00",
+                "before_tz_abbr": "TEST",
+                "after_tz_abbr": "TEST"
+              }
+            ]
+          }
+        }
+      },
+      "expected": [
+        "2026-01-01T07:00:00Z",
+        "2026-01-03T07:00:00Z"
+      ]
+    }
+  ]
+}

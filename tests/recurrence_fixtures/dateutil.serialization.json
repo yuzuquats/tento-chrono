@@ -1,0 +1,743 @@
+{
+  "type": "dateutil",
+  "name": "dateutil 2.8.2 standalone rule serialization",
+  "source": "Python dateutil 2.8.2 str(rrule)",
+  "cases": [
+    {
+      "name": "RRuleTest.testToStrYearlyByEaster",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=YEARLY;COUNT=3;BYEASTER=0"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31",
+        "profileRoundTrip": true
+      },
+      "expected": {
+        "text": "DTSTART:19970902T090000\nRRULE:FREQ=YEARLY;COUNT=3;BYEASTER=0",
+        "original": [
+          "1998-04-12T09:00:00",
+          "1999-04-04T09:00:00",
+          "2000-04-23T09:00:00"
+        ],
+        "reparsed": [
+          "1998-04-12T09:00:00",
+          "1999-04-04T09:00:00",
+          "2000-04-23T09:00:00"
+        ]
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByEasterPos",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=YEARLY;COUNT=3;BYEASTER=1"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31",
+        "profileRoundTrip": true
+      },
+      "expected": {
+        "text": "DTSTART:19970902T090000\nRRULE:FREQ=YEARLY;COUNT=3;BYEASTER=1",
+        "original": [
+          "1998-04-13T09:00:00",
+          "1999-04-05T09:00:00",
+          "2000-04-24T09:00:00"
+        ],
+        "reparsed": [
+          "1998-04-13T09:00:00",
+          "1999-04-05T09:00:00",
+          "2000-04-24T09:00:00"
+        ]
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByEasterNeg",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=YEARLY;COUNT=3;BYEASTER=-1"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31",
+        "profileRoundTrip": true
+      },
+      "expected": {
+        "text": "DTSTART:19970902T090000\nRRULE:FREQ=YEARLY;COUNT=3;BYEASTER=-1",
+        "original": [
+          "1998-04-11T09:00:00",
+          "1999-04-03T09:00:00",
+          "2000-04-22T09:00:00"
+        ],
+        "reparsed": [
+          "1998-04-11T09:00:00",
+          "1999-04-03T09:00:00",
+          "2000-04-22T09:00:00"
+        ]
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByEaster",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=MONTHLY;COUNT=3;BYEASTER=0"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31",
+        "profileRoundTrip": true
+      },
+      "expected": {
+        "text": "DTSTART:19970902T090000\nRRULE:FREQ=MONTHLY;COUNT=3;BYEASTER=0",
+        "original": [
+          "1998-04-12T09:00:00",
+          "1999-04-04T09:00:00",
+          "2000-04-23T09:00:00"
+        ],
+        "reparsed": [
+          "1998-04-12T09:00:00",
+          "1999-04-04T09:00:00",
+          "2000-04-23T09:00:00"
+        ]
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByEasterPos",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=MONTHLY;COUNT=3;BYEASTER=1"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31",
+        "profileRoundTrip": true
+      },
+      "expected": {
+        "text": "DTSTART:19970902T090000\nRRULE:FREQ=MONTHLY;COUNT=3;BYEASTER=1",
+        "original": [
+          "1998-04-13T09:00:00",
+          "1999-04-05T09:00:00",
+          "2000-04-24T09:00:00"
+        ],
+        "reparsed": [
+          "1998-04-13T09:00:00",
+          "1999-04-05T09:00:00",
+          "2000-04-24T09:00:00"
+        ]
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrMonthlyByEasterNeg",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=MONTHLY;COUNT=3;BYEASTER=-1"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31",
+        "profileRoundTrip": true
+      },
+      "expected": {
+        "text": "DTSTART:19970902T090000\nRRULE:FREQ=MONTHLY;COUNT=3;BYEASTER=-1",
+        "original": [
+          "1998-04-11T09:00:00",
+          "1999-04-03T09:00:00",
+          "2000-04-22T09:00:00"
+        ],
+        "reparsed": [
+          "1998-04-11T09:00:00",
+          "1999-04-03T09:00:00",
+          "2000-04-22T09:00:00"
+        ]
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyByEaster",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=WEEKLY;COUNT=3;BYEASTER=0"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31",
+        "profileRoundTrip": true
+      },
+      "expected": {
+        "text": "DTSTART:19970902T090000\nRRULE:FREQ=WEEKLY;COUNT=3;BYEASTER=0",
+        "original": [
+          "1998-04-12T09:00:00",
+          "1999-04-04T09:00:00",
+          "2000-04-23T09:00:00"
+        ],
+        "reparsed": [
+          "1998-04-12T09:00:00",
+          "1999-04-04T09:00:00",
+          "2000-04-23T09:00:00"
+        ]
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyByEasterPos",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=WEEKLY;COUNT=3;BYEASTER=1"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31",
+        "profileRoundTrip": true
+      },
+      "expected": {
+        "text": "DTSTART:19970902T090000\nRRULE:FREQ=WEEKLY;COUNT=3;BYEASTER=1",
+        "original": [
+          "1998-04-13T09:00:00",
+          "1999-04-05T09:00:00",
+          "2000-04-24T09:00:00"
+        ],
+        "reparsed": [
+          "1998-04-13T09:00:00",
+          "1999-04-05T09:00:00",
+          "2000-04-24T09:00:00"
+        ]
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrWeeklyByEasterNeg",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=WEEKLY;COUNT=3;BYEASTER=-1"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31",
+        "profileRoundTrip": true
+      },
+      "expected": {
+        "text": "DTSTART:19970902T090000\nRRULE:FREQ=WEEKLY;COUNT=3;BYEASTER=-1",
+        "original": [
+          "1998-04-11T09:00:00",
+          "1999-04-03T09:00:00",
+          "2000-04-22T09:00:00"
+        ],
+        "reparsed": [
+          "1998-04-11T09:00:00",
+          "1999-04-03T09:00:00",
+          "2000-04-22T09:00:00"
+        ]
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrDailyByEaster",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY;COUNT=3;BYEASTER=0"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31",
+        "profileRoundTrip": true
+      },
+      "expected": {
+        "text": "DTSTART:19970902T090000\nRRULE:FREQ=DAILY;COUNT=3;BYEASTER=0",
+        "original": [
+          "1998-04-12T09:00:00",
+          "1999-04-04T09:00:00",
+          "2000-04-23T09:00:00"
+        ],
+        "reparsed": [
+          "1998-04-12T09:00:00",
+          "1999-04-04T09:00:00",
+          "2000-04-23T09:00:00"
+        ]
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrDailyByEasterPos",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY;COUNT=3;BYEASTER=1"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31",
+        "profileRoundTrip": true
+      },
+      "expected": {
+        "text": "DTSTART:19970902T090000\nRRULE:FREQ=DAILY;COUNT=3;BYEASTER=1",
+        "original": [
+          "1998-04-13T09:00:00",
+          "1999-04-05T09:00:00",
+          "2000-04-24T09:00:00"
+        ],
+        "reparsed": [
+          "1998-04-13T09:00:00",
+          "1999-04-05T09:00:00",
+          "2000-04-24T09:00:00"
+        ]
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrDailyByEasterNeg",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY;COUNT=3;BYEASTER=-1"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31",
+        "profileRoundTrip": true
+      },
+      "expected": {
+        "text": "DTSTART:19970902T090000\nRRULE:FREQ=DAILY;COUNT=3;BYEASTER=-1",
+        "original": [
+          "1998-04-11T09:00:00",
+          "1999-04-03T09:00:00",
+          "2000-04-22T09:00:00"
+        ],
+        "reparsed": [
+          "1998-04-11T09:00:00",
+          "1999-04-03T09:00:00",
+          "2000-04-22T09:00:00"
+        ]
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyByEaster",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=HOURLY;COUNT=3;BYEASTER=0"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31",
+        "profileRoundTrip": true
+      },
+      "expected": {
+        "text": "DTSTART:19970902T090000\nRRULE:FREQ=HOURLY;COUNT=3;BYEASTER=0",
+        "original": [
+          "1998-04-12T00:00:00",
+          "1998-04-12T01:00:00",
+          "1998-04-12T02:00:00"
+        ],
+        "reparsed": [
+          "1998-04-12T00:00:00",
+          "1998-04-12T01:00:00",
+          "1998-04-12T02:00:00"
+        ]
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyByEasterPos",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=HOURLY;COUNT=3;BYEASTER=1"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31",
+        "profileRoundTrip": true
+      },
+      "expected": {
+        "text": "DTSTART:19970902T090000\nRRULE:FREQ=HOURLY;COUNT=3;BYEASTER=1",
+        "original": [
+          "1998-04-13T00:00:00",
+          "1998-04-13T01:00:00",
+          "1998-04-13T02:00:00"
+        ],
+        "reparsed": [
+          "1998-04-13T00:00:00",
+          "1998-04-13T01:00:00",
+          "1998-04-13T02:00:00"
+        ]
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrHourlyByEasterNeg",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=HOURLY;COUNT=3;BYEASTER=-1"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31",
+        "profileRoundTrip": true
+      },
+      "expected": {
+        "text": "DTSTART:19970902T090000\nRRULE:FREQ=HOURLY;COUNT=3;BYEASTER=-1",
+        "original": [
+          "1998-04-11T00:00:00",
+          "1998-04-11T01:00:00",
+          "1998-04-11T02:00:00"
+        ],
+        "reparsed": [
+          "1998-04-11T00:00:00",
+          "1998-04-11T01:00:00",
+          "1998-04-11T02:00:00"
+        ]
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyByEaster",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=MINUTELY;COUNT=3;BYEASTER=0"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31",
+        "profileRoundTrip": true
+      },
+      "expected": {
+        "text": "DTSTART:19970902T090000\nRRULE:FREQ=MINUTELY;COUNT=3;BYEASTER=0",
+        "original": [
+          "1998-04-12T00:00:00",
+          "1998-04-12T00:01:00",
+          "1998-04-12T00:02:00"
+        ],
+        "reparsed": [
+          "1998-04-12T00:00:00",
+          "1998-04-12T00:01:00",
+          "1998-04-12T00:02:00"
+        ]
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyByEasterPos",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=MINUTELY;COUNT=3;BYEASTER=1"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31",
+        "profileRoundTrip": true
+      },
+      "expected": {
+        "text": "DTSTART:19970902T090000\nRRULE:FREQ=MINUTELY;COUNT=3;BYEASTER=1",
+        "original": [
+          "1998-04-13T00:00:00",
+          "1998-04-13T00:01:00",
+          "1998-04-13T00:02:00"
+        ],
+        "reparsed": [
+          "1998-04-13T00:00:00",
+          "1998-04-13T00:01:00",
+          "1998-04-13T00:02:00"
+        ]
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrMinutelyByEasterNeg",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=MINUTELY;COUNT=3;BYEASTER=-1"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31",
+        "profileRoundTrip": true
+      },
+      "expected": {
+        "text": "DTSTART:19970902T090000\nRRULE:FREQ=MINUTELY;COUNT=3;BYEASTER=-1",
+        "original": [
+          "1998-04-11T00:00:00",
+          "1998-04-11T00:01:00",
+          "1998-04-11T00:02:00"
+        ],
+        "reparsed": [
+          "1998-04-11T00:00:00",
+          "1998-04-11T00:01:00",
+          "1998-04-11T00:02:00"
+        ]
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyByEaster",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=SECONDLY;COUNT=3;BYEASTER=0"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31",
+        "profileRoundTrip": true
+      },
+      "expected": {
+        "text": "DTSTART:19970902T090000\nRRULE:FREQ=SECONDLY;COUNT=3;BYEASTER=0",
+        "original": [
+          "1998-04-12T00:00:00",
+          "1998-04-12T00:00:01",
+          "1998-04-12T00:00:02"
+        ],
+        "reparsed": [
+          "1998-04-12T00:00:00",
+          "1998-04-12T00:00:01",
+          "1998-04-12T00:00:02"
+        ]
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyByEasterPos",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=SECONDLY;COUNT=3;BYEASTER=1"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31",
+        "profileRoundTrip": true
+      },
+      "expected": {
+        "text": "DTSTART:19970902T090000\nRRULE:FREQ=SECONDLY;COUNT=3;BYEASTER=1",
+        "original": [
+          "1998-04-13T00:00:00",
+          "1998-04-13T00:00:01",
+          "1998-04-13T00:00:02"
+        ],
+        "reparsed": [
+          "1998-04-13T00:00:00",
+          "1998-04-13T00:00:01",
+          "1998-04-13T00:00:02"
+        ]
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrSecondlyByEasterNeg",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=SECONDLY;COUNT=3;BYEASTER=-1"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31",
+        "profileRoundTrip": true
+      },
+      "expected": {
+        "text": "DTSTART:19970902T090000\nRRULE:FREQ=SECONDLY;COUNT=3;BYEASTER=-1",
+        "original": [
+          "1998-04-11T00:00:00",
+          "1998-04-11T00:00:01",
+          "1998-04-11T00:00:02"
+        ],
+        "reparsed": [
+          "1998-04-11T00:00:00",
+          "1998-04-11T00:00:01",
+          "1998-04-11T00:00:02"
+        ]
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByEaster#field-order-and-duplicates",
+      "input": {
+        "profileLines": [
+          "DTSTART:20261101T013045",
+          "RRULE:BYEASTER=2,0,2,-3;BYHOUR=4,1,1;BYMINUTE=4,1,1;BYSECOND=4,1,1;BYDAY=-1SU,TU,+2MO,3TU,MO,-1MO;BYWEEKNO=3,1,3;BYYEARDAY=12,-3,12;BYMONTHDAY=-1,2,0,-3,1,2;BYMONTH=12,2,2;BYSETPOS=2,-1,2;COUNT=6;WKST=SU;INTERVAL=2;FREQ=YEARLY"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31"
+      },
+      "expected": {
+        "text": "DTSTART:20261101T013045\nRRULE:FREQ=YEARLY;INTERVAL=2;WKST=SU;COUNT=6;BYSETPOS=2,-1,2;BYMONTH=2,12;BYMONTHDAY=1,2,-3,-1;BYYEARDAY=-3,12;BYWEEKNO=1,3;BYDAY=MO,TU,-1MO,+2MO,+3TU,-1SU;BYHOUR=1,4;BYMINUTE=1,4;BYSECOND=1,4;BYEASTER=-3,0,2,2"
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByEaster#unreachable-clock-values",
+      "input": {
+        "profileLines": [
+          "DTSTART:20261101T013045",
+          "RRULE:FREQ=HOURLY;INTERVAL=4;BYHOUR=17,9,4,17;COUNT=3"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31"
+      },
+      "expected": {
+        "text": "DTSTART:20261101T013045\nRRULE:FREQ=HOURLY;INTERVAL=4;COUNT=3;BYHOUR=9,17"
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByEaster#minutely-clock-sort",
+      "input": {
+        "profileLines": [
+          "DTSTART:20261101T013045",
+          "RRULE:FREQ=MINUTELY;INTERVAL=10;BYMINUTE=43,40,30,17,40;COUNT=2"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31"
+      },
+      "expected": {
+        "text": "DTSTART:20261101T013045\nRRULE:FREQ=MINUTELY;INTERVAL=10;COUNT=2;BYMINUTE=30,40"
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByEaster#secondly-clock-sort",
+      "input": {
+        "profileLines": [
+          "DTSTART:20261101T013045",
+          "RRULE:FREQ=SECONDLY;INTERVAL=15;BYSECOND=30,0,1,45,30;COUNT=2"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31"
+      },
+      "expected": {
+        "text": "DTSTART:20261101T013045\nRRULE:FREQ=SECONDLY;INTERVAL=15;COUNT=2;BYSECOND=0,30,45"
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByEaster#explicit-defaults",
+      "input": {
+        "profileLines": [
+          "DTSTART:20261101T013045",
+          "RRULE:FREQ=DAILY;INTERVAL=+01;WKST=MO;BYMONTH=11;BYHOUR=1;BYMINUTE=30;BYSECOND=45;COUNT=0"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31"
+      },
+      "expected": {
+        "text": "DTSTART:20261101T013045\nRRULE:FREQ=DAILY;COUNT=0;BYMONTH=11;BYHOUR=1;BYMINUTE=30;BYSECOND=45"
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByEaster#submonthly-ordinals-flatten",
+      "input": {
+        "profileLines": [
+          "DTSTART:20261101T013045",
+          "RRULE:FREQ=WEEKLY;BYWEEKDAY=4FR,MO,TU(-3),FR;COUNT=4"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31"
+      },
+      "expected": {
+        "text": "DTSTART:20261101T013045\nRRULE:FREQ=WEEKLY;COUNT=4;BYDAY=MO,TU,FR"
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByEaster#arbitrary-integers",
+      "input": {
+        "profileLines": [
+          "DTSTART:20261101T013045",
+          "RRULE:FREQ=YEARLY;INTERVAL=100000000000000000000000005;COUNT=100000000000000000000000000;BYMONTH=10000000000000000000000000,5"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31"
+      },
+      "expected": {
+        "text": "DTSTART:20261101T013045\nRRULE:FREQ=YEARLY;INTERVAL=100000000000000000000000005;COUNT=100000000000000000000000000;BYMONTH=5,10000000000000000000000000"
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByEaster#negative-interval-and-count",
+      "input": {
+        "profileLines": [
+          "DTSTART:20261101T013045",
+          "RRULE:FREQ=DAILY;INTERVAL=-1234567890123456789012345;COUNT=-1234567890123456789012345"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31"
+      },
+      "expected": {
+        "text": "DTSTART:20261101T013045\nRRULE:FREQ=DAILY;INTERVAL=-1234567890123456789012345;COUNT=-1234567890123456789012345"
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByEaster#zeroth-month-day-omitted",
+      "input": {
+        "profileLines": [
+          "DTSTART:20261101T013045",
+          "RRULE:FREQ=MONTHLY;BYMONTHDAY=0;COUNT=2"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31"
+      },
+      "expected": {
+        "text": "DTSTART:20261101T013045\nRRULE:FREQ=MONTHLY;COUNT=2"
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByEaster#duplicates-last-wins",
+      "input": {
+        "profileLines": [
+          "DTSTART:20261101T013045",
+          "RRULE:FREQ=DAILY;FREQ=YEARLY;COUNT=2;COUNT=3;BYHOUR=2;BYHOUR=4"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31"
+      },
+      "expected": {
+        "text": "DTSTART:20261101T013045\nRRULE:FREQ=YEARLY;COUNT=3;BYHOUR=4"
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByEaster#implicit-week-start",
+      "input": {
+        "profileLines": [
+          "DTSTART:20261101T013045",
+          "RRULE:FREQ=WEEKLY;COUNT=3"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31",
+        "profileWeekStart": "SU"
+      },
+      "expected": {
+        "text": "DTSTART:20261101T013045\nRRULE:FREQ=WEEKLY;WKST=SU;COUNT=3"
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByEaster#date-only-until",
+      "input": {
+        "profileLines": [
+          "DTSTART:20261101",
+          "RRULE:FREQ=DAILY;UNTIL=20261102"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31"
+      },
+      "expected": {
+        "text": "DTSTART:20261101T000000\nRRULE:FREQ=DAILY;UNTIL=20261102T000000"
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByEaster#offset-until-keeps-wall",
+      "input": {
+        "profileLines": [
+          "DTSTART:20261101T013049.234-0400",
+          "RRULE:FREQ=DAILY;UNTIL=20261102T020001-0500"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31"
+      },
+      "expected": {
+        "text": "DTSTART:20261101T013049\nRRULE:FREQ=DAILY;UNTIL=20261102T020001"
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByEaster#utc-until-loses-marker",
+      "input": {
+        "profileLines": [
+          "DTSTART:20261101T013049.234Z",
+          "RRULE:FREQ=DAILY;UNTIL=20261102T020001Z"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31"
+      },
+      "expected": {
+        "text": "DTSTART:20261101T013049\nRRULE:FREQ=DAILY;UNTIL=20261102T020001"
+      }
+    },
+    {
+      "name": "RRuleTest.testToStrYearlyByEaster#unpadded-year",
+      "input": {
+        "profileLines": [
+          "DTSTART:00010101T013049",
+          "RRULE:FREQ=DAILY;UNTIL=00010103T020001"
+        ],
+        "profileSerialize": true,
+        "through": "2001-12-31"
+      },
+      "expected": {
+        "text": "DTSTART:10101T013049\nRRULE:FREQ=DAILY;UNTIL=10103T020001"
+      }
+    }
+  ]
+}

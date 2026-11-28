@@ -1,0 +1,343 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil two-digit year resolution",
+  "source": "python-dateutil 2.8.2 rrulestr with a pinned parser year and TZ=UTC",
+  "cases": [
+    {
+      "name": "the lower endpoint is included in the parser-year window",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:01/02/76",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "1977-12-31",
+        "checkpoints": [
+          "1976-01-02",
+          "1976-01-03"
+        ]
+      },
+      "expected": [
+        "1976-01-02",
+        "1976-01-03"
+      ]
+    },
+    {
+      "name": "the upper endpoint is included in the parser-year window",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:01/02/75",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2076-12-31",
+        "checkpoints": [
+          "2075-01-02",
+          "2075-01-03"
+        ]
+      },
+      "expected": [
+        "2075-01-02",
+        "2075-01-03"
+      ]
+    },
+    {
+      "name": "the same spelling resolves differently in a later parser year",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2076,
+        "lines": [
+          "DTSTART:01/02/76",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2077-12-31",
+        "checkpoints": [
+          "2076-01-02",
+          "2076-01-03"
+        ]
+      },
+      "expected": [
+        "2076-01-02",
+        "2076-01-03"
+      ]
+    },
+    {
+      "name": "the first field from 13 to 31 selects day first",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:26/01/02",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2003-12-31",
+        "checkpoints": [
+          "2002-01-26",
+          "2002-01-27"
+        ]
+      },
+      "expected": [
+        "2002-01-26",
+        "2002-01-27"
+      ]
+    },
+    {
+      "name": "a leading compact field above 31 is the year",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:760102",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "1977-12-31",
+        "checkpoints": [
+          "1976-01-02",
+          "1976-01-03"
+        ]
+      },
+      "expected": [
+        "1976-01-02",
+        "1976-01-03"
+      ]
+    },
+    {
+      "name": "a compact ambiguous date retains its numeric offset",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:260102T09:15:30+0200",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2003-12-31",
+        "checkpoints": [
+          "2002-01-26",
+          "2002-01-27"
+        ]
+      },
+      "expected": [
+        "2002-01-26T07:15:30Z",
+        "2002-01-27T07:15:30Z"
+      ]
+    },
+    {
+      "name": "four explicitly written digits retain year one",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:01/02/0001",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "0002-12-31",
+        "checkpoints": [
+          "0001-01-02",
+          "0001-01-03"
+        ]
+      },
+      "expected": [
+        "0001-01-02",
+        "0001-01-03"
+      ]
+    },
+    {
+      "name": "an explicit zero year reports an error",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:01/02/000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "year 0 is out of range: 01/02/000"
+      }
+    },
+    {
+      "name": "leap-day validation uses the resolved year",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:29/02/25",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "day is out of range for month: 29/02/25"
+      }
+    },
+    {
+      "name": "the dot after the named month preserves the trailing year width",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:MAR.1-076",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "0077-12-31",
+        "checkpoints": [
+          "0076-03-01",
+          "0076-03-02"
+        ]
+      },
+      "expected": [
+        "0076-03-01",
+        "0076-03-02"
+      ]
+    },
+    {
+      "name": "the dot before the month leaves the trailing year unmarked",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:1.MAR-076",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "1977-12-31",
+        "checkpoints": [
+          "1976-03-01",
+          "1976-03-02"
+        ]
+      },
+      "expected": [
+        "1976-03-01",
+        "1976-03-02"
+      ]
+    },
+    {
+      "name": "the abbreviated month with a trailing short year keeps UTC",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:3-SEPT-76T091530Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "1977-12-31",
+        "checkpoints": [
+          "1976-09-03",
+          "1976-09-04"
+        ]
+      },
+      "expected": [
+        "1976-09-03T09:15:30Z",
+        "1976-09-04T09:15:30Z"
+      ]
+    },
+    {
+      "name": "an added date resolves its year before numeric-offset projection",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:19760101T183000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:01/02/76T9:15:30+0530"
+        ],
+        "through": "1977-12-31",
+        "checkpoints": [
+          "1976-01-01",
+          "1976-01-02"
+        ]
+      },
+      "expected": [
+        "1976-01-01T18:30:00Z",
+        "1976-01-02T03:45:30Z",
+        "1976-01-02T18:30:00Z"
+      ]
+    },
+    {
+      "name": "a floating short date excludes the matching midnight",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:19760102T000000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE:01/02/76"
+        ],
+        "through": "1977-12-31",
+        "checkpoints": [
+          "1976-01-03"
+        ]
+      },
+      "expected": [
+        "1976-01-03T00:00:00"
+      ]
+    },
+    {
+      "name": "a short UNTIL includes the resolved midnight",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:19760102T000000",
+          "RRULE:FREQ=DAILY;UNTIL=01/02/76"
+        ],
+        "through": "1977-12-31",
+        "checkpoints": [
+          "1976-01-02"
+        ]
+      },
+      "expected": [
+        "1976-01-02T00:00:00"
+      ]
+    },
+    {
+      "name": "the default parser year uses the supplied host clock at New Year",
+      "input": {
+        "profile": "dateutil",
+        "dateutilNow": "2026-01-01T02:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "EST",
+            "EDT"
+          ],
+          "standardOffsetSeconds": -18000,
+          "daylightOffsetSeconds": -14400,
+          "localTime": [
+            [
+              0,
+              false,
+              -18000
+            ]
+          ]
+        },
+        "lines": [
+          "DTSTART:01/02/75",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "1975-01-03"
+      },
+      "expected": [
+        "1975-01-02",
+        "1975-01-03"
+      ]
+    },
+    {
+      "name": "the default RFC reader requires a full iCalendar date",
+      "input": {
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:01/02/76",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "1976-01-03"
+      },
+      "expected": {
+        "error": "Expected an iCalendar DATE or DATE-TIME"
+      }
+    }
+  ]
+}

@@ -1,8 +1,10 @@
-import { Result, err, ok } from "../result.ts";
+import { err, ok, Result } from "../result.ts";
 import { icalPropertyName } from "./ical-attributes.ts";
-import { ICalDateLine } from "./ical-date-line.ts";
+import { ICalDateLine, readICalDateLine } from "./ical-date-line.ts";
+import type { IsoDate } from "./iso-date.ts";
 import { RRule } from "./rrule.ts";
 import type { Option, Optional } from "../option.ts";
+import type { TimezoneRegion } from "../timezone-region.ts";
 
 export namespace ICalendar {
   export type Lines = Optional<{
@@ -13,6 +15,10 @@ export namespace ICalendar {
     dtstart: ICalDateLine;
   }>;
 
+  /**
+   * Editable view of one recurrence rule and its date lines. Retain the original
+   * content lines when editing calendars that carry additional rules or properties.
+   */
   export class Raw {
     constructor(
       readonly lines: Lines,
@@ -27,46 +33,14 @@ export namespace ICalendar {
       return this.lines.dtstart;
     }
 
-    static async parse(
+    static parse(
       lines: string[],
       deterministic: boolean = false,
+      regions?: ReadonlyMap<string, TimezoneRegion>,
+      parseDate?: typeof IsoDate.parse,
+      parseUntil?: typeof IsoDate.parse,
     ): Promise<Result<Raw>> {
-      const inner: Lines = {};
-      const order: Option<string[]> = deterministic ? [] : null;
-
-      for (const line of lines) {
-        const property = icalPropertyName(line);
-        if (property === "RRULE") {
-          const rrule = RRule.parse(line);
-          order?.push("RRULE");
-          if (rrule.asErr())
-            return err(Error("failed to parse rrule", rrule.asErr()!));
-          inner.rrule = rrule.asOk()!;
-        } else if (property === "EXDATE") {
-          const date = await ICalDateLine.parse(line, deterministic);
-          order?.push("EXDATE");
-          if (date.asErr())
-            return err(Error("failed to parse exdate", date.asErr()!));
-          if (!inner.exdate) {
-            inner.exdate = [];
-          }
-          inner.exdate.push(date.asOk()!);
-        } else if (property === "RDATE") {
-          const date = await ICalDateLine.parse(line, deterministic);
-          order?.push("RDATE");
-          if (date.asErr())
-            return err(Error("failed to parse rdate", date.asErr()!));
-          (inner.rdate ??= []).push(date.asOk()!);
-        } else if (property === "DTSTART") {
-          const date = await ICalDateLine.parse(line, deterministic);
-          order?.push("DTSTART");
-          if (date.asErr())
-            return err(Error("failed to parse dtstart", date.asErr()!));
-          inner.dtstart = date.asOk()!;
-        }
-      }
-
-      return ok(new ICalendar.Raw(inner, order));
+      return readCalendarLines(lines, deterministic, regions, parseDate, parseUntil);
     }
 
     toString(): string {
@@ -74,14 +48,20 @@ export namespace ICalendar {
       let nextExdate = 0;
       let nextRdate = 0;
 
-      for (const order of this.order ?? ["DTSTART", "RRULE", "EXDATE", "RDATE"]) {
+      for (
+        const order of this.order ?? ["DTSTART", "RRULE", "EXDATE", "RDATE"]
+      ) {
         if (order === "DTSTART" && this.lines.dtstart) {
           parts.push(this.lines.dtstart.toString());
         } else if (order === "RRULE" && this.lines.rrule) {
           parts.push(this.lines.rrule.toString());
         } else if (order === "EXDATE" && this.lines.exdate) {
           if (this.order == null) {
-            for (const exdate of this.lines.exdate) parts.push(exdate.toString());
+            for (const exdate of this.lines.exdate) {
+              parts.push(
+                exdate.toString(),
+              );
+            }
           } else {
             const exdate = this.lines.exdate[nextExdate++];
             if (exdate != null) parts.push(exdate.toString());
@@ -99,4 +79,42 @@ export namespace ICalendar {
       return parts.join("\n");
     }
   }
+}
+
+/** @internal Read content lines, including rules already normalized by a profile. */
+export async function readCalendarLines(
+  lines: readonly (string | RRule.Raw)[],
+  deterministic: boolean,
+  regions?: ReadonlyMap<string, TimezoneRegion>,
+  parseDate?: typeof IsoDate.parse,
+  parseUntil?: typeof IsoDate.parse,
+  resolvedStart?: ICalDateLine,
+): Promise<Result<ICalendar.Raw>> {
+  const inner: ICalendar.Lines = resolvedStart == null ? {} : { dtstart: resolvedStart };
+  const order: Option<string[]> = deterministic ? (resolvedStart == null ? [] : ["DTSTART"]) : null;
+
+  for (const line of lines) {
+    const property = typeof line === "string" ? icalPropertyName(line) : "RRULE";
+    if (property === "RRULE") {
+      const rrule = typeof line === "string" ? RRule.parse(line, parseUntil) : line.resolve(parseUntil);
+      order?.push("RRULE");
+      if (rrule.asErr()) {
+        return err(Error("failed to parse rrule", rrule.asErr()!));
+      }
+      inner.rrule = rrule.asOk()!;
+    } else if (typeof line === "string" && (property === "EXDATE" || property === "RDATE" || property === "DTSTART")) {
+      const parsed = readICalDateLine(line, deterministic, regions, parseDate, property);
+      const date = parsed instanceof Promise ? await parsed : parsed;
+      order?.push(property);
+      if (date.asErr()) {
+        return err(Error("failed to parse " + property.toLowerCase(), date.asErr()!));
+      }
+      const value = date.asOk()!;
+      if (property === "EXDATE") (inner.exdate ??= []).push(value);
+      else if (property === "RDATE") (inner.rdate ??= []).push(value);
+      else inner.dtstart = value;
+    }
+  }
+
+  return ok(new ICalendar.Raw(inner, order));
 }

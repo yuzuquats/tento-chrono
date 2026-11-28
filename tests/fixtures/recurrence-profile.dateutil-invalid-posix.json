@@ -1,0 +1,254 @@
+{
+  "type": "recurrence-profile",
+  "name": "dateutil invalid recurring POSIX offsets",
+  "source": "python-dateutil 2.8.2 rrulestr and tz.gettz fallback, TZ=UTC",
+  "cases": [
+    {
+      "name": "invalid summer offset leaves winter rule valid",
+      "input": {
+        "profile": "dateutil",
+        "through": "2026-01-07",
+        "lines": [
+          "DTSTART;TZID=XST5XDT25,M3.2.0,M11.1.0:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "checkpoints": [
+          "2025-12-30",
+          "2025-12-31",
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04"
+        ]
+      },
+      "expected": [
+        "2026-01-01T14:00:00Z",
+        "2026-01-02T14:00:00Z"
+      ]
+    },
+    {
+      "name": "active invalid daylight offset is deferred for zero count",
+      "input": {
+        "profile": "dateutil",
+        "through": "2026-07-07",
+        "lines": [
+          "DTSTART;TZID=XST5XDT25,M3.2.0,M11.1.0:20260701T090000",
+          "RRULE:FREQ=DAILY;COUNT=0"
+        ],
+        "checkpoints": [
+          "2026-06-29",
+          "2026-06-30",
+          "2026-07-01",
+          "2026-07-02",
+          "2026-07-04"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "active invalid daylight offset fails UTC output",
+      "input": {
+        "profile": "dateutil",
+        "through": "2026-07-07",
+        "lines": [
+          "DTSTART;TZID=XST5XDT25,M3.2.0,M11.1.0:20260701T090000",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ]
+      },
+      "expected": {
+        "expansionError": "offset must be a timedelta strictly between -timedelta(hours=24) and timedelta(hours=24)."
+      }
+    },
+    {
+      "name": "active invalid offset raises during UTC UNTIL before count",
+      "input": {
+        "profile": "dateutil",
+        "through": "2026-07-07",
+        "lines": [
+          "DTSTART;TZID=XST5XDT25,M3.2.0,M11.1.0:20260701T090000",
+          "RRULE:FREQ=DAILY;COUNT=0;UNTIL=20260704T090000Z"
+        ]
+      },
+      "expected": {
+        "expansionError": "offset must be a timedelta strictly between -timedelta(hours=24) and timedelta(hours=24)."
+      }
+    },
+    {
+      "name": "valid winter start ignores the inactive invalid DST offset on cutoff",
+      "input": {
+        "profile": "dateutil",
+        "through": "2026-01-07",
+        "lines": [
+          "DTSTART;TZID=XST5XDT25,M3.2.0,M11.1.0:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=1;UNTIL=20260104T090000Z"
+        ],
+        "checkpoints": [
+          "2025-12-30",
+          "2025-12-31",
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04"
+        ]
+      },
+      "expected": [
+        "2026-01-01T14:00:00Z"
+      ]
+    },
+    {
+      "name": "invalid standard offset leaves summer rule valid",
+      "input": {
+        "profile": "dateutil",
+        "through": "2026-07-07",
+        "lines": [
+          "DTSTART;TZID=XST25XDT5,M3.2.0,M11.1.0:20260701T090000",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "checkpoints": [
+          "2026-06-29",
+          "2026-06-30",
+          "2026-07-01",
+          "2026-07-02",
+          "2026-07-04"
+        ]
+      },
+      "expected": [
+        "2026-07-01T14:00:00Z"
+      ]
+    },
+    {
+      "name": "invalid standard offset raises in winter",
+      "input": {
+        "profile": "dateutil",
+        "through": "2026-01-07",
+        "lines": [
+          "DTSTART;TZID=XST25XDT5,M3.2.0,M11.1.0:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ]
+      },
+      "expected": {
+        "expansionError": "offset must be a timedelta strictly between -timedelta(hours=24) and timedelta(hours=24)."
+      }
+    },
+    {
+      "name": "invalid daylight shift fails datetime timetuple before zero count",
+      "input": {
+        "profile": "dateutil",
+        "through": "2026-07-07",
+        "lines": [
+          "DTSTART;TZID=XST5XDT-25,M3.2.0,M11.1.0:20260701T090000",
+          "RRULE:FREQ=DAILY;COUNT=0"
+        ]
+      },
+      "expected": {
+        "expansionError": "offset must be a timedelta strictly between -timedelta(hours=24) and timedelta(hours=24)."
+      }
+    },
+    {
+      "name": "valid absolute offset still fails when its daylight shift exceeds 24 hours",
+      "input": {
+        "profile": "dateutil",
+        "through": "2026-07-07",
+        "lines": [
+          "DTSTART;TZID=XST20XDT-12,M3.2.0,M11.1.0:20260701T090000",
+          "RRULE:FREQ=DAILY;COUNT=0"
+        ]
+      },
+      "expected": {
+        "expansionError": "offset must be a timedelta strictly between -timedelta(hours=24) and timedelta(hours=24)."
+      }
+    },
+    {
+      "name": "implicit daylight offset can reach Python's invalid 24-hour boundary",
+      "input": {
+        "profile": "dateutil",
+        "through": "2026-07-07",
+        "lines": [
+          "DTSTART;TZID=XST-23XDT,M3.2.0,M11.1.0:20260701T090000",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ]
+      },
+      "expected": {
+        "expansionError": "offset must be a timedelta strictly between -timedelta(hours=24) and timedelta(hours=24)."
+      }
+    },
+    {
+      "name": "same-zone EXDATE removes the otherwise failing daylight candidate",
+      "input": {
+        "profile": "dateutil",
+        "through": "2026-07-07",
+        "lines": [
+          "DTSTART;TZID=XST5XDT25,M3.2.0,M11.1.0:20260701T090000",
+          "RRULE:FREQ=DAILY;COUNT=1",
+          "EXDATE;TZID=XST5XDT25,M3.2.0,M11.1.0:20260701T090000"
+        ],
+        "checkpoints": [
+          "2026-06-29",
+          "2026-06-30",
+          "2026-07-01",
+          "2026-07-02",
+          "2026-07-04"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "invalid offset is compared across zones before UTC EXDATE",
+      "input": {
+        "profile": "dateutil",
+        "through": "2026-07-07",
+        "lines": [
+          "DTSTART;TZID=XST5XDT25,M3.2.0,M11.1.0:20260701T090000",
+          "RRULE:FREQ=DAILY;COUNT=1",
+          "EXDATE:20260701T090000Z"
+        ]
+      },
+      "expected": {
+        "expansionError": "offset must be a timedelta strictly between -timedelta(hours=24) and timedelta(hours=24)."
+      }
+    },
+    {
+      "name": "legacy numeric daylight shift validation also occurs before zero count",
+      "input": {
+        "profile": "dateutil",
+        "through": "2026-07-07",
+        "lines": [
+          "DTSTART;TZID=XST5XDT,3,2,0,7200,11,1,0,7200,108000:20260701T090000",
+          "RRULE:FREQ=DAILY;COUNT=0"
+        ]
+      },
+      "expected": {
+        "expansionError": "offset must be a timedelta strictly between -timedelta(hours=24) and timedelta(hours=24)."
+      }
+    },
+    {
+      "name": "external UTC start can bind to the active invalid daylight offset",
+      "input": {
+        "profile": "dateutil",
+        "through": "2026-07-07",
+        "dtstart": {
+          "dateTime": "2026-07-01T09:00:00Z",
+          "timeZone": "XST5XDT25,M3.2.0,M11.1.0"
+        },
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ]
+      },
+      "expected": {
+        "expansionError": "offset must be a timedelta strictly between -timedelta(hours=24) and timedelta(hours=24)."
+      }
+    },
+    {
+      "name": "seasonal invalid cutoff can fail when iterating after count",
+      "input": {
+        "profile": "dateutil",
+        "through": "2026-03-13",
+        "lines": [
+          "DTSTART;TZID=XST5XDT25,M3.2.0,M11.1.0:20260307T230000",
+          "RRULE:FREQ=DAILY;COUNT=1;UNTIL=20260310T230000Z"
+        ]
+      },
+      "expected": {
+        "expansionError": "offset must be a timedelta strictly between -timedelta(hours=24) and timedelta(hours=24)."
+      }
+    }
+  ]
+}

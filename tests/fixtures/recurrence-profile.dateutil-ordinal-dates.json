@@ -1,0 +1,535 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil ordinal suffixes and weekday words",
+  "source": "python-dateutil 2.8.2 rrulestr with a frozen process-local date and parser year",
+  "cases": [
+    {
+      "name": "an ordinal suffix after the first field is a separator",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:3RD-MAR-2026",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-03-03",
+          "2026-03-04"
+        ]
+      },
+      "expected": [
+        "2026-03-03",
+        "2026-03-04"
+      ]
+    },
+    {
+      "name": "the suffix prevents the trailing year from keeping its written width",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:MAR-1ST-076",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "1977-12-31",
+        "checkpoints": [
+          "1976-03-01",
+          "1976-03-02"
+        ]
+      },
+      "expected": [
+        "1976-03-01",
+        "1976-03-02"
+      ]
+    },
+    {
+      "name": "a month consumes the leading zeros of the first numeric field",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:MAR-002ND-26",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "0003-12-31",
+        "checkpoints": [
+          "0002-03-26",
+          "0002-03-27"
+        ]
+      },
+      "expected": [
+        "0002-03-26",
+        "0002-03-27"
+      ]
+    },
+    {
+      "name": "a point can make the leading fields one decimal token",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:03.1ST.2026",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-03-31",
+          "2026-04-01"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2026-03-31",
+        "2026-04-01"
+      ]
+    },
+    {
+      "name": "a trailing month resolves fields after a slash-separated ordinal",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:3RD/2026/MAR",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-03-03",
+          "2026-03-04"
+        ]
+      },
+      "expected": [
+        "2026-03-03",
+        "2026-03-04"
+      ]
+    },
+    {
+      "name": "T and the final suffix form an unrecognized word",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:MAR-2026-3RDT091530",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "Unknown string format: MAR-2026-3RDT091530"
+      }
+    },
+    {
+      "name": "a standalone ordinal suffix leaves the day to the local calendar",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:03/ST/2026",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-03-31",
+          "2026-04-01"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2026-03-31",
+        "2026-04-01"
+      ]
+    },
+    {
+      "name": "an ordinal day inherits the local month and year",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:1ST",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2026-01-01",
+        "2026-01-02"
+      ]
+    },
+    {
+      "name": "a weekday alone advances from the process-local date",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:TUESDAY",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-02-03",
+          "2026-02-04"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2026-02-03",
+        "2026-02-04"
+      ]
+    },
+    {
+      "name": "weekday adjustment follows inherited-day clipping",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:TUE-2026-02",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-03-03",
+          "2026-03-04"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2026-03-03",
+        "2026-03-04"
+      ]
+    },
+    {
+      "name": "an explicit day takes precedence over the weekday token",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:TUE-2026-03-01",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02"
+        ]
+      },
+      "expected": [
+        "2026-03-01",
+        "2026-03-02"
+      ]
+    },
+    {
+      "name": "a compact date retains its explicit day with a weekday token",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:TUE-20260102",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02",
+        "2026-01-03"
+      ]
+    },
+    {
+      "name": "a compact short date retains its reference field order",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:TUE-260102",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2003-12-31",
+        "checkpoints": [
+          "2002-01-26",
+          "2002-01-27"
+        ]
+      },
+      "expected": [
+        "2002-01-26",
+        "2002-01-27"
+      ]
+    },
+    {
+      "name": "the final recognized weekday takes precedence",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:MON-TUE",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-02-03",
+          "2026-02-04"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2026-02-03",
+        "2026-02-04"
+      ]
+    },
+    {
+      "name": "an ordinal day and weekday can share the same date",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:3RD/TUE/MAR",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-03-03",
+          "2026-03-04"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2026-03-03",
+        "2026-03-04"
+      ]
+    },
+    {
+      "name": "an ordinal suffix with no date reports the reference error",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:ST",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "String does not contain a date: ST"
+      }
+    },
+    {
+      "name": "a standalone suffix in RDATE preserves the offset clock",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:20260330T183000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:03/ST/2026T9:05:30+0530"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-03-30",
+          "2026-03-31"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2026-03-30T18:30:00Z",
+        "2026-03-31T03:35:30Z",
+        "2026-03-31T18:30:00Z"
+      ]
+    },
+    {
+      "name": "an ordinal EXDATE removes the matching midnight",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:20260303T000000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE:MAR-3RD-2026"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-03-04"
+        ]
+      },
+      "expected": [
+        "2026-03-04T00:00:00"
+      ]
+    },
+    {
+      "name": "a weekday with missing day resolves the inclusive cutoff",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:20260303T000000",
+          "RRULE:FREQ=DAILY;UNTIL=TUE-2026-02"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-03-03"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2026-03-03T00:00:00"
+      ]
+    },
+    {
+      "name": "the default RFC reader requires numeric day fields",
+      "input": {
+        "lines": [
+          "DTSTART:3RD-MAR-2026",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-03-05"
+      },
+      "expected": {
+        "error": "Expected an iCalendar DATE or DATE-TIME"
+      }
+    }
+  ]
+}

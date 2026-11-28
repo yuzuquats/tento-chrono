@@ -1,0 +1,297 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil bundled TZif recurrence",
+  "source": "python-dateutil 2.8.2 rrulestr with IANA tzdata 2026e TZif files",
+  "cases": [
+    {
+      "name": "historic New York before the first 32-bit transition",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_York:18890701T090000",
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "checkpoints": [
+          "1889-07-01",
+          "1889-07-02",
+          "1889-07-03",
+          "1889-07-04"
+        ],
+        "through": "1889-07-06"
+      },
+      "expected": [
+        "1889-07-01T13:56:02Z",
+        "1889-07-02T13:56:02Z",
+        "1889-07-03T13:56:02Z",
+        "1889-07-04T13:56:02Z"
+      ]
+    },
+    {
+      "name": "New York standard offset after its 32-bit transitions",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20380701T090000",
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "checkpoints": [
+          "2038-07-01",
+          "2038-07-02",
+          "2038-07-03",
+          "2038-07-04"
+        ],
+        "through": "2038-07-06"
+      },
+      "expected": [
+        "2038-07-01T14:00:00Z",
+        "2038-07-02T14:00:00Z",
+        "2038-07-03T14:00:00Z",
+        "2038-07-04T14:00:00Z"
+      ]
+    },
+    {
+      "name": "New York legacy alias retains reference cutoff",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "dtstart": {
+          "dateTime": "2075-07-01T09:00:00Z",
+          "timeZone": "US/Eastern"
+        },
+        "checkpoints": [
+          "2075-07-01",
+          "2075-07-02",
+          "2075-07-03",
+          "2075-07-04"
+        ],
+        "through": "2075-07-06"
+      },
+      "expected": [
+        "2075-07-01T09:00:00Z",
+        "2075-07-02T09:00:00Z",
+        "2075-07-03T09:00:00Z",
+        "2075-07-04T09:00:00Z"
+      ]
+    },
+    {
+      "name": "Dublin after its last recorded transition",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=Europe/Dublin:20750701T090000",
+          "RRULE:FREQ=DAILY;COUNT=4",
+          "RDATE:20750630T090000Z",
+          "EXDATE;TZID=Europe/Dublin:20750702T090000"
+        ],
+        "checkpoints": [
+          "2075-06-30",
+          "2075-07-01",
+          "2075-07-03",
+          "2075-07-04"
+        ],
+        "through": "2075-07-06"
+      },
+      "expected": [
+        "2075-06-30T09:00:00Z",
+        "2075-07-01T09:00:00Z",
+        "2075-07-03T09:00:00Z",
+        "2075-07-04T09:00:00Z"
+      ]
+    },
+    {
+      "name": "Lord Howe after its last transition repeats standard time",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "dtstart": {
+          "dateTime": "2050-01-01T09:00:00",
+          "timeZone": "Australia/Lord_Howe"
+        },
+        "checkpoints": [
+          "2049-12-31",
+          "2050-01-01",
+          "2050-01-02",
+          "2050-01-03"
+        ],
+        "through": "2050-01-06"
+      },
+      "expected": [
+        "2049-12-31T22:30:00Z",
+        "2050-01-01T22:30:00Z",
+        "2050-01-02T22:30:00Z",
+        "2050-01-03T22:30:00Z"
+      ]
+    },
+    {
+      "name": "Auckland retains its early offset seconds",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=Pacific/Auckland:18000701T090000",
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "checkpoints": [
+          "1800-06-30",
+          "1800-07-01",
+          "1800-07-02",
+          "1800-07-03"
+        ],
+        "through": "1800-07-06"
+      },
+      "expected": [
+        "1800-06-30T21:20:56Z",
+        "1800-07-01T21:20:56Z",
+        "1800-07-02T21:20:56Z",
+        "1800-07-03T21:20:56Z"
+      ]
+    },
+    {
+      "name": "Auckland uses standard time in the far future",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=Pacific/Auckland:20750101T090000",
+          "RRULE:FREQ=DAILY;COUNT=4",
+          "RDATE:20741231T090000Z",
+          "EXDATE;TZID=Pacific/Auckland:20750102T090000"
+        ],
+        "checkpoints": [
+          "2074-12-31",
+          "2075-01-02",
+          "2075-01-03"
+        ],
+        "through": "2075-01-06"
+      },
+      "expected": [
+        "2074-12-31T09:00:00Z",
+        "2074-12-31T21:00:00Z",
+        "2075-01-02T21:00:00Z",
+        "2075-01-03T21:00:00Z"
+      ]
+    },
+    {
+      "name": "Casablanca uses no daylight adjustment after its cutoff",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=Africa/Casablanca:20500701T090000",
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "checkpoints": [
+          "2050-07-01",
+          "2050-07-02",
+          "2050-07-03",
+          "2050-07-04"
+        ],
+        "through": "2050-07-06"
+      },
+      "expected": [
+        "2050-07-01T09:00:00Z",
+        "2050-07-02T09:00:00Z",
+        "2050-07-03T09:00:00Z",
+        "2050-07-04T09:00:00Z"
+      ]
+    },
+    {
+      "name": "India returns to its reference standard offset before the 32-bit era",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "dtstart": {
+          "dateTime": "1870-07-01T09:00:00Z",
+          "timeZone": "Asia/Kolkata"
+        },
+        "checkpoints": [
+          "1870-07-01",
+          "1870-07-02",
+          "1870-07-03",
+          "1870-07-04"
+        ],
+        "through": "1870-07-06"
+      },
+      "expected": [
+        "1870-07-01T09:00:00Z",
+        "1870-07-02T09:00:00Z",
+        "1870-07-03T09:00:00Z",
+        "1870-07-04T09:00:00Z"
+      ]
+    },
+    {
+      "name": "Troll retains the reference timezone fold",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=Antarctica/Troll:20261024T013000",
+          "RRULE:FREQ=DAILY;COUNT=4",
+          "RDATE:20261023T013000Z",
+          "EXDATE;TZID=Antarctica/Troll:20261025T013000"
+        ],
+        "checkpoints": [
+          "2026-10-23",
+          "2026-10-26",
+          "2026-10-27"
+        ],
+        "through": "2026-10-29"
+      },
+      "expected": [
+        "2026-10-23T01:30:00Z",
+        "2026-10-23T23:30:00Z",
+        "2026-10-26T01:30:00Z",
+        "2026-10-27T01:30:00Z"
+      ]
+    },
+    {
+      "name": "explicit reference bytes override a bundled name",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20750701T090000",
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "dateutilTzif": {
+          "America/New_York": "Australia/Lord_Howe"
+        },
+        "checkpoints": [
+          "2075-06-30",
+          "2075-07-01",
+          "2075-07-02",
+          "2075-07-03"
+        ],
+        "through": "2075-07-06"
+      },
+      "expected": [
+        "2075-06-30T22:30:00Z",
+        "2075-07-01T22:30:00Z",
+        "2075-07-02T22:30:00Z",
+        "2075-07-03T22:30:00Z"
+      ]
+    },
+    {
+      "name": "an explicit null lookup leaves a bundled name floating",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20750701T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "dateutilTzif": {
+          "America/New_York": null
+        },
+        "through": "2075-07-04",
+        "checkpoints": [
+          "2075-07-01"
+        ]
+      },
+      "expected": [
+        "2075-07-01T09:00:00",
+        "2075-07-02T09:00:00"
+      ]
+    }
+  ]
+}

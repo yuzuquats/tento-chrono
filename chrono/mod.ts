@@ -23,12 +23,50 @@ import { NaiveDateTime } from "./naive-datetime.ts";
 import { NaiveTime } from "./naive-time.ts";
 import { Time } from "./time.ts";
 
-export * from "./recurrence/rrule.ts";
-export * from "./recurrence/ical.ts";
-export * from "./recurrence/recurrence.ts";
-export * from "./recurrence/iso-date.ts";
-export * from "./recurrence/exdate.ts";
-export * from "./recurrence/instances.ts";
+export { RRule, type RRuleLike } from "./recurrence/rrule.ts";
+export { ICalendar } from "./recurrence/ical.ts";
+export {
+  DateutilPosixZone,
+  DateutilTzif,
+  exclusionsOf,
+  exclusionsOfLines,
+  googleTimedStartExcluded,
+  GoogleEventGenerator,
+  isExcludedInstance,
+  Recurrence,
+  RecurrenceComposition,
+  RecurrenceExpansionLimitError,
+  shiftRecurrenceLines,
+  splitRdatesAt,
+} from "./recurrence/recurrence.ts";
+export type {
+  DateutilHost,
+  DateutilQueryBound,
+  DateutilRecurrenceSet,
+  DateutilReplaceOptions,
+  DateutilSetOptions,
+  DateutilSlice,
+  DateutilXAfterOptions,
+  DateutilZone,
+  Exclusions,
+  GoogleCalendarInstanceEdit,
+  GraphCalendarViewEdit,
+  GraphRecurrenceOptions,
+  GraphRecurringMaster,
+  ICalendarRecurrenceOptions,
+  ICalendarRecurrenceProfile,
+  QueryRange,
+  RecurrenceOccurrence,
+  RecurrenceProfile,
+  RecurrenceSeries,
+  RecurrenceShift,
+  RecurrenceStart,
+  RruleJsExactNeighbor,
+} from "./recurrence/recurrence.ts";
+export { IsoDate } from "./recurrence/iso-date.ts";
+export { ExDate } from "./recurrence/exdate.ts";
+export { RRuleInstances } from "./recurrence/instances.ts";
+export { readVTimeZone } from "./recurrence/vtimezone.ts";
 
 export function naivedate(year: number, mth1: number, day1: number): NaiveDate {
   return NaiveDate.fromYmd1(year, mth1, day1).exp();

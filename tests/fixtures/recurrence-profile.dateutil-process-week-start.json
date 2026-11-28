@@ -1,0 +1,768 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil process week start",
+  "source": "python-dateutil 2.8.2 with CPython calendar.setfirstweekday",
+  "cases": [
+    {
+      "name": "biweekly-mo",
+      "input": {
+        "profile": "dateutil",
+        "dateutilWeekStart": "MO",
+        "lines": [
+          "DTSTART:19970805T090000Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=TU,SU;COUNT=4"
+        ],
+        "through": "1997-09-15",
+        "checkpoints": [
+          "1997-08-05"
+        ]
+      },
+      "expected": [
+        "1997-08-05T09:00:00Z",
+        "1997-08-10T09:00:00Z",
+        "1997-08-19T09:00:00Z",
+        "1997-08-24T09:00:00Z"
+      ]
+    },
+    {
+      "name": "biweekly-tu",
+      "input": {
+        "profile": "dateutil",
+        "dateutilWeekStart": "TU",
+        "lines": [
+          "DTSTART:19970805T090000Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=TU,SU;COUNT=4"
+        ],
+        "through": "1997-09-15",
+        "checkpoints": [
+          "1997-08-05"
+        ]
+      },
+      "expected": [
+        "1997-08-05T09:00:00Z",
+        "1997-08-10T09:00:00Z",
+        "1997-08-19T09:00:00Z",
+        "1997-08-24T09:00:00Z"
+      ]
+    },
+    {
+      "name": "biweekly-we",
+      "input": {
+        "profile": "dateutil",
+        "dateutilWeekStart": "WE",
+        "lines": [
+          "DTSTART:19970805T090000Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=TU,SU;COUNT=4"
+        ],
+        "through": "1997-09-15",
+        "checkpoints": [
+          "1997-08-05"
+        ]
+      },
+      "expected": [
+        "1997-08-05T09:00:00Z",
+        "1997-08-17T09:00:00Z",
+        "1997-08-19T09:00:00Z",
+        "1997-08-31T09:00:00Z"
+      ]
+    },
+    {
+      "name": "biweekly-th",
+      "input": {
+        "profile": "dateutil",
+        "dateutilWeekStart": "TH",
+        "lines": [
+          "DTSTART:19970805T090000Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=TU,SU;COUNT=4"
+        ],
+        "through": "1997-09-15",
+        "checkpoints": [
+          "1997-08-05"
+        ]
+      },
+      "expected": [
+        "1997-08-05T09:00:00Z",
+        "1997-08-17T09:00:00Z",
+        "1997-08-19T09:00:00Z",
+        "1997-08-31T09:00:00Z"
+      ]
+    },
+    {
+      "name": "biweekly-fr",
+      "input": {
+        "profile": "dateutil",
+        "dateutilWeekStart": "FR",
+        "lines": [
+          "DTSTART:19970805T090000Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=TU,SU;COUNT=4"
+        ],
+        "through": "1997-09-15",
+        "checkpoints": [
+          "1997-08-05"
+        ]
+      },
+      "expected": [
+        "1997-08-05T09:00:00Z",
+        "1997-08-17T09:00:00Z",
+        "1997-08-19T09:00:00Z",
+        "1997-08-31T09:00:00Z"
+      ]
+    },
+    {
+      "name": "biweekly-sa",
+      "input": {
+        "profile": "dateutil",
+        "dateutilWeekStart": "SA",
+        "lines": [
+          "DTSTART:19970805T090000Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=TU,SU;COUNT=4"
+        ],
+        "through": "1997-09-15",
+        "checkpoints": [
+          "1997-08-05"
+        ]
+      },
+      "expected": [
+        "1997-08-05T09:00:00Z",
+        "1997-08-17T09:00:00Z",
+        "1997-08-19T09:00:00Z",
+        "1997-08-31T09:00:00Z"
+      ]
+    },
+    {
+      "name": "biweekly-su",
+      "input": {
+        "profile": "dateutil",
+        "dateutilWeekStart": "SU",
+        "lines": [
+          "DTSTART:19970805T090000Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=TU,SU;COUNT=4"
+        ],
+        "through": "1997-09-15",
+        "checkpoints": [
+          "1997-08-05"
+        ]
+      },
+      "expected": [
+        "1997-08-05T09:00:00Z",
+        "1997-08-17T09:00:00Z",
+        "1997-08-19T09:00:00Z",
+        "1997-08-31T09:00:00Z"
+      ]
+    },
+    {
+      "name": "partial-week-position-mo",
+      "input": {
+        "profile": "dateutil",
+        "dateutilWeekStart": "MO",
+        "lines": [
+          "DTSTART:20270105T090000Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=MO,TU,SU;BYSETPOS=-1;COUNT=7"
+        ],
+        "through": "2027-04-30",
+        "checkpoints": [
+          "2027-01-05"
+        ]
+      },
+      "expected": [
+        "2027-01-10T09:00:00Z",
+        "2027-01-24T09:00:00Z",
+        "2027-02-07T09:00:00Z",
+        "2027-02-21T09:00:00Z",
+        "2027-03-07T09:00:00Z",
+        "2027-03-21T09:00:00Z",
+        "2027-04-04T09:00:00Z"
+      ]
+    },
+    {
+      "name": "partial-week-position-tu",
+      "input": {
+        "profile": "dateutil",
+        "dateutilWeekStart": "TU",
+        "lines": [
+          "DTSTART:20270105T090000Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=MO,TU,SU;BYSETPOS=-1;COUNT=7"
+        ],
+        "through": "2027-04-30",
+        "checkpoints": [
+          "2027-01-05"
+        ]
+      },
+      "expected": [
+        "2027-01-11T09:00:00Z",
+        "2027-01-25T09:00:00Z",
+        "2027-02-08T09:00:00Z",
+        "2027-02-22T09:00:00Z",
+        "2027-03-08T09:00:00Z",
+        "2027-03-22T09:00:00Z",
+        "2027-04-05T09:00:00Z"
+      ]
+    },
+    {
+      "name": "partial-week-position-we",
+      "input": {
+        "profile": "dateutil",
+        "dateutilWeekStart": "WE",
+        "lines": [
+          "DTSTART:20270105T090000Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=MO,TU,SU;BYSETPOS=-1;COUNT=7"
+        ],
+        "through": "2027-04-30",
+        "checkpoints": [
+          "2027-01-05"
+        ]
+      },
+      "expected": [
+        "2027-01-05T09:00:00Z",
+        "2027-01-19T09:00:00Z",
+        "2027-02-02T09:00:00Z",
+        "2027-02-16T09:00:00Z",
+        "2027-03-02T09:00:00Z",
+        "2027-03-16T09:00:00Z",
+        "2027-03-30T09:00:00Z"
+      ]
+    },
+    {
+      "name": "yearly-week-numbers-mo",
+      "input": {
+        "profile": "dateutil",
+        "dateutilWeekStart": "MO",
+        "lines": [
+          "DTSTART:20261228T090000Z",
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1,-1;BYDAY=MO,SU;COUNT=8"
+        ],
+        "through": "2031-01-10",
+        "checkpoints": [
+          "2026-12-28"
+        ]
+      },
+      "expected": [
+        "2026-12-28T09:00:00Z",
+        "2027-01-03T09:00:00Z",
+        "2027-01-04T09:00:00Z",
+        "2027-01-10T09:00:00Z",
+        "2027-12-27T09:00:00Z",
+        "2028-01-02T09:00:00Z",
+        "2028-01-03T09:00:00Z",
+        "2028-01-09T09:00:00Z"
+      ]
+    },
+    {
+      "name": "yearly-week-numbers-tu",
+      "input": {
+        "profile": "dateutil",
+        "dateutilWeekStart": "TU",
+        "lines": [
+          "DTSTART:20261228T090000Z",
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1,-1;BYDAY=MO,SU;COUNT=8"
+        ],
+        "through": "2031-01-10",
+        "checkpoints": [
+          "2026-12-28"
+        ]
+      },
+      "expected": [
+        "2026-12-28T09:00:00Z",
+        "2027-01-03T09:00:00Z",
+        "2027-01-04T09:00:00Z",
+        "2028-01-02T09:00:00Z",
+        "2028-01-03T09:00:00Z",
+        "2028-01-09T09:00:00Z",
+        "2028-01-10T09:00:00Z",
+        "2028-12-31T09:00:00Z"
+      ]
+    },
+    {
+      "name": "yearly-week-numbers-we",
+      "input": {
+        "profile": "dateutil",
+        "dateutilWeekStart": "WE",
+        "lines": [
+          "DTSTART:20261228T090000Z",
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1,-1;BYDAY=MO,SU;COUNT=8"
+        ],
+        "through": "2031-01-10",
+        "checkpoints": [
+          "2026-12-28"
+        ]
+      },
+      "expected": [
+        "2026-12-28T09:00:00Z",
+        "2027-01-03T09:00:00Z",
+        "2027-01-04T09:00:00Z",
+        "2027-12-26T09:00:00Z",
+        "2027-12-27T09:00:00Z",
+        "2028-01-02T09:00:00Z",
+        "2028-01-03T09:00:00Z",
+        "2028-12-31T09:00:00Z"
+      ]
+    },
+    {
+      "name": "yearly-week-numbers-th",
+      "input": {
+        "profile": "dateutil",
+        "dateutilWeekStart": "TH",
+        "lines": [
+          "DTSTART:20261228T090000Z",
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1,-1;BYDAY=MO,SU;COUNT=8"
+        ],
+        "through": "2031-01-10",
+        "checkpoints": [
+          "2026-12-28"
+        ]
+      },
+      "expected": [
+        "2026-12-28T09:00:00Z",
+        "2027-01-03T09:00:00Z",
+        "2027-01-04T09:00:00Z",
+        "2027-12-26T09:00:00Z",
+        "2027-12-27T09:00:00Z",
+        "2028-01-02T09:00:00Z",
+        "2028-01-03T09:00:00Z",
+        "2028-12-31T09:00:00Z"
+      ]
+    },
+    {
+      "name": "yearly-week-numbers-fr",
+      "input": {
+        "profile": "dateutil",
+        "dateutilWeekStart": "FR",
+        "lines": [
+          "DTSTART:20261228T090000Z",
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1,-1;BYDAY=MO,SU;COUNT=8"
+        ],
+        "through": "2031-01-10",
+        "checkpoints": [
+          "2026-12-28"
+        ]
+      },
+      "expected": [
+        "2026-12-28T09:00:00Z",
+        "2027-01-03T09:00:00Z",
+        "2027-01-04T09:00:00Z",
+        "2027-12-26T09:00:00Z",
+        "2027-12-27T09:00:00Z",
+        "2028-01-02T09:00:00Z",
+        "2028-01-03T09:00:00Z",
+        "2028-12-24T09:00:00Z"
+      ]
+    },
+    {
+      "name": "yearly-week-numbers-sa",
+      "input": {
+        "profile": "dateutil",
+        "dateutilWeekStart": "SA",
+        "lines": [
+          "DTSTART:20261228T090000Z",
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1,-1;BYDAY=MO,SU;COUNT=8"
+        ],
+        "through": "2031-01-10",
+        "checkpoints": [
+          "2026-12-28"
+        ]
+      },
+      "expected": [
+        "2026-12-28T09:00:00Z",
+        "2027-01-03T09:00:00Z",
+        "2027-01-04T09:00:00Z",
+        "2027-12-26T09:00:00Z",
+        "2027-12-27T09:00:00Z",
+        "2028-01-02T09:00:00Z",
+        "2028-01-03T09:00:00Z",
+        "2028-12-24T09:00:00Z"
+      ]
+    },
+    {
+      "name": "yearly-week-numbers-su",
+      "input": {
+        "profile": "dateutil",
+        "dateutilWeekStart": "SU",
+        "lines": [
+          "DTSTART:20261228T090000Z",
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1,-1;BYDAY=MO,SU;COUNT=8"
+        ],
+        "through": "2031-01-10",
+        "checkpoints": [
+          "2026-12-28"
+        ]
+      },
+      "expected": [
+        "2026-12-28T09:00:00Z",
+        "2027-01-03T09:00:00Z",
+        "2027-01-04T09:00:00Z",
+        "2027-12-26T09:00:00Z",
+        "2027-12-27T09:00:00Z",
+        "2028-01-02T09:00:00Z",
+        "2028-01-03T09:00:00Z",
+        "2028-12-24T09:00:00Z"
+      ]
+    },
+    {
+      "name": "monthly-week-number-mo",
+      "input": {
+        "profile": "dateutil",
+        "dateutilWeekStart": "MO",
+        "lines": [
+          "DTSTART:20261228T090000Z",
+          "RRULE:FREQ=MONTHLY;BYWEEKNO=1,-1;BYDAY=TU,SU;COUNT=8"
+        ],
+        "through": "2031-01-10",
+        "checkpoints": [
+          "2026-12-28"
+        ]
+      },
+      "expected": [
+        "2026-12-29T09:00:00Z",
+        "2027-01-03T09:00:00Z",
+        "2027-01-05T09:00:00Z",
+        "2027-01-10T09:00:00Z",
+        "2027-12-28T09:00:00Z",
+        "2028-01-02T09:00:00Z",
+        "2028-01-04T09:00:00Z",
+        "2028-01-09T09:00:00Z"
+      ]
+    },
+    {
+      "name": "monthly-week-number-tu",
+      "input": {
+        "profile": "dateutil",
+        "dateutilWeekStart": "TU",
+        "lines": [
+          "DTSTART:20261228T090000Z",
+          "RRULE:FREQ=MONTHLY;BYWEEKNO=1,-1;BYDAY=TU,SU;COUNT=8"
+        ],
+        "through": "2031-01-10",
+        "checkpoints": [
+          "2026-12-28"
+        ]
+      },
+      "expected": [
+        "2026-12-29T09:00:00Z",
+        "2027-01-03T09:00:00Z",
+        "2027-12-28T09:00:00Z",
+        "2028-01-02T09:00:00Z",
+        "2028-01-04T09:00:00Z",
+        "2028-01-09T09:00:00Z",
+        "2028-12-26T09:00:00Z",
+        "2028-12-31T09:00:00Z"
+      ]
+    },
+    {
+      "name": "monthly-week-number-we",
+      "input": {
+        "profile": "dateutil",
+        "dateutilWeekStart": "WE",
+        "lines": [
+          "DTSTART:20261228T090000Z",
+          "RRULE:FREQ=MONTHLY;BYWEEKNO=1,-1;BYDAY=TU,SU;COUNT=8"
+        ],
+        "through": "2031-01-10",
+        "checkpoints": [
+          "2026-12-28"
+        ]
+      },
+      "expected": [
+        "2026-12-29T09:00:00Z",
+        "2027-01-03T09:00:00Z",
+        "2027-01-05T09:00:00Z",
+        "2027-12-26T09:00:00Z",
+        "2027-12-28T09:00:00Z",
+        "2028-01-02T09:00:00Z",
+        "2028-01-04T09:00:00Z",
+        "2028-12-31T09:00:00Z"
+      ]
+    },
+    {
+      "name": "monthly-week-number-fr",
+      "input": {
+        "profile": "dateutil",
+        "dateutilWeekStart": "FR",
+        "lines": [
+          "DTSTART:20261228T090000Z",
+          "RRULE:FREQ=MONTHLY;BYWEEKNO=1,-1;BYDAY=TU,SU;COUNT=8"
+        ],
+        "through": "2031-01-10",
+        "checkpoints": [
+          "2026-12-28"
+        ]
+      },
+      "expected": [
+        "2026-12-29T09:00:00Z",
+        "2027-01-03T09:00:00Z",
+        "2027-01-05T09:00:00Z",
+        "2027-12-26T09:00:00Z",
+        "2027-12-28T09:00:00Z",
+        "2028-01-02T09:00:00Z",
+        "2028-01-04T09:00:00Z",
+        "2028-12-24T09:00:00Z"
+      ]
+    },
+    {
+      "name": "weekly-easter-mo",
+      "input": {
+        "profile": "dateutil",
+        "dateutilWeekStart": "MO",
+        "lines": [
+          "DTSTART:20271222T090000Z",
+          "RRULE:FREQ=WEEKLY;BYEASTER=-90,-1;BYDAY=MO,FR;COUNT=5"
+        ],
+        "through": "2036-01-10",
+        "checkpoints": [
+          "2027-12-22"
+        ]
+      },
+      "expected": [
+        "2028-01-17T09:00:00Z",
+        "2029-01-01T09:00:00Z",
+        "2030-01-21T09:00:00Z",
+        "2031-01-13T09:00:00Z",
+        "2033-01-17T09:00:00Z"
+      ]
+    },
+    {
+      "name": "weekly-easter-tu",
+      "input": {
+        "profile": "dateutil",
+        "dateutilWeekStart": "TU",
+        "lines": [
+          "DTSTART:20271222T090000Z",
+          "RRULE:FREQ=WEEKLY;BYEASTER=-90,-1;BYDAY=MO,FR;COUNT=5"
+        ],
+        "through": "2036-01-10",
+        "checkpoints": [
+          "2027-12-22"
+        ]
+      },
+      "expected": [
+        "2028-01-17T09:00:00Z",
+        "2030-01-21T09:00:00Z",
+        "2031-01-13T09:00:00Z",
+        "2033-01-17T09:00:00Z",
+        "2034-01-09T09:00:00Z"
+      ]
+    },
+    {
+      "name": "weekly-exrule-mo",
+      "input": {
+        "profile": "dateutil",
+        "dateutilWeekStart": "MO",
+        "lines": [
+          "DTSTART:20270105T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=40",
+          "EXRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=TU,SU;COUNT=6"
+        ],
+        "through": "2027-03-01",
+        "checkpoints": [
+          "2027-01-05"
+        ]
+      },
+      "expected": [
+        "2027-01-06T09:00:00Z",
+        "2027-01-07T09:00:00Z",
+        "2027-01-08T09:00:00Z",
+        "2027-01-09T09:00:00Z",
+        "2027-01-11T09:00:00Z",
+        "2027-01-12T09:00:00Z",
+        "2027-01-13T09:00:00Z",
+        "2027-01-14T09:00:00Z",
+        "2027-01-15T09:00:00Z",
+        "2027-01-16T09:00:00Z",
+        "2027-01-17T09:00:00Z",
+        "2027-01-18T09:00:00Z",
+        "2027-01-20T09:00:00Z",
+        "2027-01-21T09:00:00Z",
+        "2027-01-22T09:00:00Z",
+        "2027-01-23T09:00:00Z",
+        "2027-01-25T09:00:00Z",
+        "2027-01-26T09:00:00Z",
+        "2027-01-27T09:00:00Z",
+        "2027-01-28T09:00:00Z",
+        "2027-01-29T09:00:00Z",
+        "2027-01-30T09:00:00Z",
+        "2027-01-31T09:00:00Z",
+        "2027-02-01T09:00:00Z",
+        "2027-02-03T09:00:00Z",
+        "2027-02-04T09:00:00Z",
+        "2027-02-05T09:00:00Z",
+        "2027-02-06T09:00:00Z",
+        "2027-02-08T09:00:00Z",
+        "2027-02-09T09:00:00Z",
+        "2027-02-10T09:00:00Z",
+        "2027-02-11T09:00:00Z",
+        "2027-02-12T09:00:00Z",
+        "2027-02-13T09:00:00Z"
+      ]
+    },
+    {
+      "name": "weekly-exrule-we",
+      "input": {
+        "profile": "dateutil",
+        "dateutilWeekStart": "WE",
+        "lines": [
+          "DTSTART:20270105T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=40",
+          "EXRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=TU,SU;COUNT=6"
+        ],
+        "through": "2027-03-01",
+        "checkpoints": [
+          "2027-01-05"
+        ]
+      },
+      "expected": [
+        "2027-01-06T09:00:00Z",
+        "2027-01-07T09:00:00Z",
+        "2027-01-08T09:00:00Z",
+        "2027-01-09T09:00:00Z",
+        "2027-01-10T09:00:00Z",
+        "2027-01-11T09:00:00Z",
+        "2027-01-12T09:00:00Z",
+        "2027-01-13T09:00:00Z",
+        "2027-01-14T09:00:00Z",
+        "2027-01-15T09:00:00Z",
+        "2027-01-16T09:00:00Z",
+        "2027-01-18T09:00:00Z",
+        "2027-01-20T09:00:00Z",
+        "2027-01-21T09:00:00Z",
+        "2027-01-22T09:00:00Z",
+        "2027-01-23T09:00:00Z",
+        "2027-01-24T09:00:00Z",
+        "2027-01-25T09:00:00Z",
+        "2027-01-26T09:00:00Z",
+        "2027-01-27T09:00:00Z",
+        "2027-01-28T09:00:00Z",
+        "2027-01-29T09:00:00Z",
+        "2027-01-30T09:00:00Z",
+        "2027-02-01T09:00:00Z",
+        "2027-02-03T09:00:00Z",
+        "2027-02-04T09:00:00Z",
+        "2027-02-05T09:00:00Z",
+        "2027-02-06T09:00:00Z",
+        "2027-02-07T09:00:00Z",
+        "2027-02-08T09:00:00Z",
+        "2027-02-09T09:00:00Z",
+        "2027-02-10T09:00:00Z",
+        "2027-02-11T09:00:00Z",
+        "2027-02-12T09:00:00Z",
+        "2027-02-13T09:00:00Z"
+      ]
+    },
+    {
+      "name": "explicit-wkst-su",
+      "input": {
+        "profile": "dateutil",
+        "dateutilWeekStart": "SU",
+        "lines": [
+          "DTSTART:19970805T090000Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=TU,SU;COUNT=4;WKST=MO"
+        ],
+        "through": "1997-09-15",
+        "checkpoints": [
+          "1997-08-05"
+        ]
+      },
+      "expected": [
+        "1997-08-05T09:00:00Z",
+        "1997-08-10T09:00:00Z",
+        "1997-08-19T09:00:00Z",
+        "1997-08-24T09:00:00Z"
+      ]
+    },
+    {
+      "name": "second-rule-and-exrule-mo",
+      "input": {
+        "profile": "dateutil",
+        "dateutilWeekStart": "MO",
+        "lines": [
+          "DTSTART:20270105T090000Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=TU,SU;COUNT=7",
+          "RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=WE,SA;COUNT=7;WKST=MO",
+          "EXRULE:FREQ=WEEKLY;BYDAY=TU,SU;INTERVAL=2;BYSETPOS=1;COUNT=4",
+          "RDATE:20270108T090000Z"
+        ],
+        "through": "2027-04-30",
+        "checkpoints": [
+          "2027-01-05"
+        ]
+      },
+      "expected": [
+        "2027-01-06T09:00:00Z",
+        "2027-01-08T09:00:00Z",
+        "2027-01-09T09:00:00Z",
+        "2027-01-10T09:00:00Z",
+        "2027-01-20T09:00:00Z",
+        "2027-01-23T09:00:00Z",
+        "2027-01-24T09:00:00Z",
+        "2027-02-03T09:00:00Z",
+        "2027-02-06T09:00:00Z",
+        "2027-02-07T09:00:00Z",
+        "2027-02-17T09:00:00Z"
+      ]
+    },
+    {
+      "name": "second-rule-and-exrule-we",
+      "input": {
+        "profile": "dateutil",
+        "dateutilWeekStart": "WE",
+        "lines": [
+          "DTSTART:20270105T090000Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=TU,SU;COUNT=7",
+          "RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=WE,SA;COUNT=7;WKST=MO",
+          "EXRULE:FREQ=WEEKLY;BYDAY=TU,SU;INTERVAL=2;BYSETPOS=1;COUNT=4",
+          "RDATE:20270108T090000Z"
+        ],
+        "through": "2027-04-30",
+        "checkpoints": [
+          "2027-01-05"
+        ]
+      },
+      "expected": [
+        "2027-01-06T09:00:00Z",
+        "2027-01-08T09:00:00Z",
+        "2027-01-09T09:00:00Z",
+        "2027-01-19T09:00:00Z",
+        "2027-01-20T09:00:00Z",
+        "2027-01-23T09:00:00Z",
+        "2027-02-02T09:00:00Z",
+        "2027-02-03T09:00:00Z",
+        "2027-02-06T09:00:00Z",
+        "2027-02-16T09:00:00Z",
+        "2027-02-17T09:00:00Z"
+      ]
+    },
+    {
+      "name": "biweekly-default-monday",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:19970805T090000Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=TU,SU;COUNT=4"
+        ],
+        "through": "1997-09-15",
+        "checkpoints": [
+          "1997-08-05"
+        ]
+      },
+      "expected": [
+        "1997-08-05T09:00:00Z",
+        "1997-08-10T09:00:00Z",
+        "1997-08-19T09:00:00Z",
+        "1997-08-24T09:00:00Z"
+      ]
+    },
+    {
+      "name": "invalid-explicit-wkst",
+      "input": {
+        "profile": "dateutil",
+        "dateutilWeekStart": "SU",
+        "lines": [
+          "DTSTART:19970805T090000Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=TU,SU;COUNT=4;WKST=0"
+        ],
+        "through": "1997-09-15"
+      },
+      "expected": {
+        "error": "invalid 'WKST': 0"
+      }
+    }
+  ]
+}

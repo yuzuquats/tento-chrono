@@ -1,0 +1,221 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil zero interval",
+  "source": "python-dateutil 2.8.2 rrulestr with forceset and a Chrono termination control",
+  "cases": [
+    {
+      "name": "a counted daily rule repeats the same start only",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=DAILY;INTERVAL=0;COUNT=4",
+          "RDATE:20260308T100000Z"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06"
+        ]
+      },
+      "expected": [
+        "2026-03-06T09:00:00Z",
+        "2026-03-08T10:00:00Z"
+      ]
+    },
+    {
+      "name": "a stationary exclusion only excludes its repeated start",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXRULE:FREQ=DAILY;INTERVAL=0;COUNT=4",
+          "RDATE:20260308T100000Z"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06"
+        ]
+      },
+      "expected": [
+        "2026-03-07T09:00:00Z",
+        "2026-03-08T09:00:00Z",
+        "2026-03-08T10:00:00Z"
+      ]
+    },
+    {
+      "name": "a monthly period can return to an earlier day across cursor reads",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=MONTHLY;INTERVAL=0;COUNT=4;BYMONTHDAY=6,8,-1",
+          "RDATE:20260308T100000Z"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06"
+        ]
+      },
+      "expected": [
+        "2026-03-06T09:00:00Z",
+        "2026-03-06T09:00:00Z",
+        "2026-03-08T09:00:00Z",
+        "2026-03-08T10:00:00Z"
+      ]
+    },
+    {
+      "name": "the partial weekly period and its full repeats retain duplicate starts",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=0;COUNT=4;BYDAY=FR,SA,SU;BYSETPOS=1,-1",
+          "RDATE:20260308T100000Z"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06"
+        ]
+      },
+      "expected": [
+        "2026-03-06T09:00:00Z",
+        "2026-03-06T09:00:00Z",
+        "2026-03-08T09:00:00Z",
+        "2026-03-08T09:00:00Z",
+        "2026-03-08T10:00:00Z"
+      ]
+    },
+    {
+      "name": "weekly position selection can change after the initial partial period",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=0;COUNT=9;BYDAY=MO,FR,SU;WKST=SU;BYSETPOS=1,3",
+          "RDATE:20260308T100000Z"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06"
+        ]
+      },
+      "expected": [
+        "2026-03-06T09:00:00Z",
+        "2026-03-08T10:00:00Z"
+      ]
+    },
+    {
+      "name": "a weekly rewind before the current month raises",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T090000Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=0;COUNT=2;WKST=TH;BYDAY=FR,SU,MO;BYSETPOS=1,-1",
+          "RDATE:20260308T100000Z"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-02"
+        ]
+      },
+      "expected": {
+        "expansionError": "day is out of range for month"
+      }
+    },
+    {
+      "name": "a stationary hour cycles through its expanded minutes",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=0;COUNT=2;BYMINUTE=0,15,45",
+          "RDATE:20260308T100000Z"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06"
+        ]
+      },
+      "expected": [
+        "2026-03-06T09:00:00Z",
+        "2026-03-06T09:15:00Z",
+        "2026-03-08T10:00:00Z"
+      ]
+    },
+    {
+      "name": "a date-filtered stationary hourly rule raises Python's division error",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=0;COUNT=2;BYMONTH=4",
+          "RDATE:20260308T100000Z"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06"
+        ]
+      },
+      "expected": {
+        "expansionError": "integer division or modulo by zero"
+      }
+    },
+    {
+      "name": "a cutoff earlier than the first period can stop normally",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=0;UNTIL=20260305T090000Z;BYMONTH=3;BYMONTHDAY=6,8",
+          "RDATE:20260308T100000Z"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06"
+        ]
+      },
+      "expected": [
+        "2026-03-08T10:00:00Z"
+      ]
+    },
+    {
+      "name": "a stationary spring-gap period retains the reference set order and multiplicity",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T003000",
+          "RRULE:FREQ=DAILY;INTERVAL=0;BYHOUR=0,1,2,3;BYMINUTE=30;COUNT=6",
+          "RDATE:20260308T063000Z",
+          "EXDATE:20260308T073000Z"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-07"
+        ]
+      },
+      "expected": [
+        "2026-03-08T05:30:00Z",
+        "2026-03-08T05:30:00Z",
+        "2026-03-08T06:30:00Z",
+        "2026-03-08T06:30:00Z"
+      ]
+    },
+    {
+      "name": "an unbounded stationary rule reports lack of progress",
+      "reference": "Chrono termination behavior; dateutil 2.8.2 does not finish",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=DAILY;INTERVAL=0"
+        ],
+        "through": "2026-03-10",
+        "generationLimit": null
+      },
+      "expected": {
+        "expansionError": "dateutil interval does not advance the recurrence"
+      }
+    }
+  ]
+}

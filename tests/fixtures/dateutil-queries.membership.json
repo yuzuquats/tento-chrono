@@ -1,0 +1,427 @@
+{
+  "type": "dateutil-queries",
+  "name": "dateutil 2.8.2 membership",
+  "source": "python-dateutil 2.8.2 uncached rrulebase.__contains__",
+  "cases": [
+    {
+      "name": "RRuleTest.testContains",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "contains": [
+          "1997-09-03T09:00:00"
+        ],
+        "forceSet": false
+      },
+      "expected": [
+        true
+      ]
+    },
+    {
+      "name": "RRuleTest.testContainsNot",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "contains": [
+          "1997-09-03T09:00:00"
+        ],
+        "forceSet": false
+      },
+      "expected": [
+        true
+      ]
+    },
+    {
+      "name": "absent floating values and awareness",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "contains": [
+          "1997-09-01T09:00:00",
+          "1997-09-03T08:59:59",
+          "1997-09-05T09:00:00",
+          "1997-09-03T09:00:00Z"
+        ],
+        "forceSet": false
+      },
+      "expected": [
+        false,
+        false,
+        false,
+        {
+          "error": "can't compare offset-naive and offset-aware datetimes"
+        }
+      ]
+    },
+    {
+      "name": "spring gap membership stops before the backward UTC candidate",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T014500",
+          "RRULE:FREQ=MINUTELY;INTERVAL=30;COUNT=4"
+        ],
+        "contains": [
+          "2026-03-08T06:15:00Z",
+          "2026-03-08T06:45:00Z",
+          {
+            "value": "2026-03-08T02:15:00-04:00",
+            "foldSensitive": false,
+            "timeZone": "America/New_York"
+          },
+          {
+            "value": "2026-03-08T02:15:00-04:00",
+            "foldSensitive": false
+          }
+        ],
+        "forceSet": false
+      },
+      "expected": [
+        false,
+        true,
+        true,
+        false
+      ]
+    },
+    {
+      "name": "fold candidate matches by wall with either fold for the same tzinfo",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261101T013000",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "contains": [
+          {
+            "value": "2026-11-01T01:30:00-04:00",
+            "foldSensitive": true,
+            "timeZone": "America/New_York"
+          },
+          {
+            "value": "2026-11-01T01:30:00-05:00",
+            "foldSensitive": true,
+            "timeZone": "America/New_York"
+          }
+        ],
+        "forceSet": false
+      },
+      "expected": [
+        true,
+        true
+      ]
+    },
+    {
+      "name": "fold candidate does not match a separate tzinfo at the same instant",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261101T013000",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "contains": [
+          "2026-11-01T05:30:00Z",
+          "2026-11-01T01:30:00-04:00",
+          {
+            "value": "2026-11-01T01:30:00-04:00",
+            "foldSensitive": true
+          },
+          {
+            "value": "2026-11-01T01:30:00-04:00",
+            "foldSensitive": true,
+            "timeZone": "America/Detroit"
+          }
+        ],
+        "forceSet": false
+      },
+      "expected": [
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "name": "POSIX lookup key matches the named fold but a separate object does not",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=EST5EDT,M3.2.0/2,M11.1.0/2:20261101T013000",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "contains": [
+          {
+            "value": "2026-11-01T01:30:00-04:00",
+            "foldSensitive": true,
+            "timeZone": "EST5EDT,M3.2.0/2,M11.1.0/2"
+          },
+          {
+            "value": "2026-11-01T01:30:00-05:00",
+            "foldSensitive": true,
+            "timeZone": "EST5EDT,M3.2.0/2,M11.1.0/2"
+          },
+          {
+            "value": "2026-11-01T01:30:00-04:00",
+            "foldSensitive": true
+          },
+          "2026-11-01T05:30:00Z"
+        ],
+        "forceSet": false
+      },
+      "expected": [
+        true,
+        true,
+        false,
+        false
+      ]
+    },
+    {
+      "name": "candidate outside the fold matches by instant",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261101T023000",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "contains": [
+          "2026-11-01T07:30:00Z",
+          {
+            "value": "2026-11-01T02:30:00-05:00",
+            "foldSensitive": false
+          }
+        ],
+        "forceSet": false
+      },
+      "expected": [
+        true,
+        true
+      ]
+    },
+    {
+      "name": "UTC candidate rejects a fold-sensitive bound only",
+      "input": {
+        "lines": [
+          "DTSTART:20261101T053000Z",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "contains": [
+          "2026-11-01T01:30:00-04:00",
+          {
+            "value": "2026-11-01T01:30:00-04:00",
+            "foldSensitive": true,
+            "timeZone": "America/New_York"
+          },
+          {
+            "value": "2026-11-01T01:30:00-04:00",
+            "foldSensitive": true
+          },
+          "2026-11-01T05:30:00Z",
+          "2026-11-01T05:30:00"
+        ],
+        "forceSet": false
+      },
+      "expected": [
+        true,
+        false,
+        false,
+        true,
+        {
+          "error": "can't compare offset-naive and offset-aware datetimes"
+        }
+      ]
+    },
+    {
+      "name": "Intl-independent custom bound gap sensitivity",
+      "input": {
+        "lines": [
+          "RDATE:20260308T063000Z,20260308T073000Z"
+        ],
+        "contains": [
+          {
+            "value": "2026-03-08T02:30:00-04:00",
+            "foldSensitive": false,
+            "timeZone": "America/New_York"
+          },
+          {
+            "value": "2026-03-08T02:30:00-05:00",
+            "foldSensitive": true
+          },
+          {
+            "value": "2026-03-08T02:30:00-04:00",
+            "foldSensitive": true
+          }
+        ],
+        "forceSet": false
+      },
+      "expected": [
+        true,
+        false,
+        false
+      ]
+    },
+    {
+      "name": "fold equality may match a later candidate at the same instant",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261101T013000",
+          "RRULE:FREQ=DAILY;COUNT=1",
+          "RDATE:20261101T053000Z"
+        ],
+        "contains": [
+          "2026-11-01T05:30:00Z",
+          {
+            "value": "2026-11-01T01:30:00-04:00",
+            "foldSensitive": true,
+            "timeZone": "America/New_York"
+          }
+        ],
+        "forceSet": false
+      },
+      "expected": [
+        true,
+        true
+      ]
+    },
+    {
+      "name": "submillisecond RDATE membership",
+      "input": {
+        "lines": [
+          "RDATE:20261101T053000.123456Z"
+        ],
+        "contains": [
+          "2026-11-01T05:30:00.123455Z",
+          "2026-11-01T05:30:00.123456Z",
+          "2026-11-01T05:30:00.123457Z"
+        ],
+        "forceSet": false
+      },
+      "expected": [
+        false,
+        true,
+        false
+      ]
+    },
+    {
+      "name": "floating submillisecond RDATE membership",
+      "input": {
+        "lines": [
+          "RDATE:20261101T053000.000001"
+        ],
+        "contains": [
+          "2026-11-01T05:30:00",
+          "2026-11-01T05:30:00.000001",
+          "2026-11-01T05:30:00.000002"
+        ],
+        "forceSet": false
+      },
+      "expected": [
+        false,
+        true,
+        false
+      ]
+    },
+    {
+      "name": "invalid offset is validated before awareness or equality",
+      "input": {
+        "lines": [
+          "RDATE:20260101T090000+2400"
+        ],
+        "contains": [
+          "2026-01-01T09:00:00",
+          "2026-01-01T09:00:00Z"
+        ],
+        "forceSet": false
+      },
+      "expected": [
+        {
+          "error": "offset must be a timedelta strictly between -timedelta(hours=24) and timedelta(hours=24)."
+        },
+        {
+          "error": "offset must be a timedelta strictly between -timedelta(hours=24) and timedelta(hours=24)."
+        }
+      ]
+    },
+    {
+      "name": "empty aware rule never compares a floating bound",
+      "input": {
+        "lines": [
+          "DTSTART:20261101T053000Z",
+          "RRULE:FREQ=DAILY;COUNT=0"
+        ],
+        "contains": [
+          "2026-11-01T05:30:00",
+          "2026-11-01T05:30:00Z"
+        ],
+        "forceSet": false
+      },
+      "expected": [
+        false,
+        false
+      ]
+    },
+    {
+      "name": "set excludes the wall candidate but leaves a UTC RDATE",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261101T013000",
+          "RRULE:FREQ=DAILY;COUNT=1",
+          "RDATE:20261101T053000Z",
+          "EXDATE;TZID=America/New_York:20261101T013000"
+        ],
+        "contains": [
+          "2026-11-01T05:30:00Z",
+          {
+            "value": "2026-11-01T01:30:00-04:00",
+            "foldSensitive": true,
+            "timeZone": "America/New_York"
+          }
+        ],
+        "forceSet": false
+      },
+      "expected": [
+        true,
+        false
+      ]
+    },
+    {
+      "name": "matching first candidate returns before later underflow",
+      "input": {
+        "lines": [
+          "DTSTART:00010101T090000",
+          "RRULE:FREQ=MONTHLY;INTERVAL=-1;COUNT=3"
+        ],
+        "contains": [
+          "0001-01-01T08:00:00",
+          "0001-01-01T09:00:00",
+          "0001-01-01T10:00:00"
+        ],
+        "forceSet": false
+      },
+      "expected": [
+        false,
+        true,
+        {
+          "error": "not enough values to unpack (expected 2, got 0)"
+        }
+      ]
+    },
+    {
+      "name": "uncached unbounded stationary rule can match on its first pull",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;INTERVAL=0"
+        ],
+        "contains": [
+          "2026-01-01T09:00:00",
+          "2026-01-01T08:00:00"
+        ],
+        "forceSet": false
+      },
+      "expected": [
+        true,
+        false
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2562 @@
+{
+  "type": "recurrence-profile",
+  "name": "Outlook Graph historical Romance, Central and Eastern European DST",
+  "source": "Microsoft Graph v1.0 calendarView on a dedicated test calendar",
+  "cases": [
+    {
+      "name": "paris-windows-1899-march-gap-start",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-03-24T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Romance Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Romance Standard Time",
+              "startDate": "1899-03-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-04-05",
+        "checkpoints": [
+          "1899-03-24",
+          "1899-03-25",
+          "1899-03-26",
+          "1899-03-27",
+          "1899-03-28"
+        ]
+      },
+      "expected": [
+        "1899-03-24T01:00:00Z",
+        "1899-03-25T01:00:00Z",
+        "1899-03-26T01:00:00Z",
+        "1899-03-27T00:00:00Z",
+        "1899-03-28T00:00:00Z"
+      ]
+    },
+    {
+      "name": "paris-windows-1945-october-fold-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1945-10-26T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Romance Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Romance Standard Time",
+              "startDate": "1945-10-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1945-11-07",
+        "checkpoints": [
+          "1945-10-26",
+          "1945-10-27",
+          "1945-10-28",
+          "1945-10-29",
+          "1945-10-30"
+        ]
+      },
+      "expected": [
+        "1945-10-26T01:00:00Z",
+        "1945-10-27T01:00:00Z",
+        "1945-10-28T02:00:00Z",
+        "1945-10-29T02:00:00Z",
+        "1945-10-30T02:00:00Z"
+      ]
+    },
+    {
+      "name": "paris-windows-1996-october-fold-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1996-10-25T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Romance Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Romance Standard Time",
+              "startDate": "1996-10-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1996-11-06",
+        "checkpoints": [
+          "1996-10-25",
+          "1996-10-26",
+          "1996-10-27",
+          "1996-10-28",
+          "1996-10-29"
+        ]
+      },
+      "expected": [
+        "1996-10-25T01:00:00Z",
+        "1996-10-26T01:00:00Z",
+        "1996-10-27T02:00:00Z",
+        "1996-10-28T02:00:00Z",
+        "1996-10-29T02:00:00Z"
+      ]
+    },
+    {
+      "name": "paris-windows-yearly-1900-2076",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1900-03-31T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Romance Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 31,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 88,
+              "month": 3,
+              "type": "absoluteYearly"
+            },
+            "range": {
+              "endDate": "2076-03-31",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Romance Standard Time",
+              "startDate": "1900-03-31",
+              "type": "endDate"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2076-04-01",
+        "checkpoints": [
+          "1900-03-31",
+          "1988-03-31",
+          "2076-03-31"
+        ]
+      },
+      "expected": [
+        "1900-03-31T10:00:00Z",
+        "1988-03-31T10:00:00Z",
+        "2076-03-31T10:00:00Z"
+      ]
+    },
+    {
+      "name": "warsaw-windows-1899-march-gap-start",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-03-24T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central European Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central European Standard Time",
+              "startDate": "1899-03-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-04-05",
+        "checkpoints": [
+          "1899-03-24",
+          "1899-03-25",
+          "1899-03-26",
+          "1899-03-27",
+          "1899-03-28"
+        ]
+      },
+      "expected": [
+        "1899-03-24T01:00:00Z",
+        "1899-03-25T01:00:00Z",
+        "1899-03-26T01:00:00Z",
+        "1899-03-27T00:00:00Z",
+        "1899-03-28T00:00:00Z"
+      ]
+    },
+    {
+      "name": "warsaw-windows-1945-october-fold-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1945-10-26T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central European Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central European Standard Time",
+              "startDate": "1945-10-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1945-11-07",
+        "checkpoints": [
+          "1945-10-26",
+          "1945-10-27",
+          "1945-10-28",
+          "1945-10-29",
+          "1945-10-30"
+        ]
+      },
+      "expected": [
+        "1945-10-26T01:00:00Z",
+        "1945-10-27T01:00:00Z",
+        "1945-10-28T02:00:00Z",
+        "1945-10-29T02:00:00Z",
+        "1945-10-30T02:00:00Z"
+      ]
+    },
+    {
+      "name": "warsaw-windows-1996-october-fold-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1996-10-25T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central European Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central European Standard Time",
+              "startDate": "1996-10-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1996-11-06",
+        "checkpoints": [
+          "1996-10-25",
+          "1996-10-26",
+          "1996-10-27",
+          "1996-10-28",
+          "1996-10-29"
+        ]
+      },
+      "expected": [
+        "1996-10-25T01:00:00Z",
+        "1996-10-26T01:00:00Z",
+        "1996-10-27T02:00:00Z",
+        "1996-10-28T02:00:00Z",
+        "1996-10-29T02:00:00Z"
+      ]
+    },
+    {
+      "name": "warsaw-windows-yearly-1900-2076",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1900-03-31T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central European Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 31,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 88,
+              "month": 3,
+              "type": "absoluteYearly"
+            },
+            "range": {
+              "endDate": "2076-03-31",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Central European Standard Time",
+              "startDate": "1900-03-31",
+              "type": "endDate"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2076-04-01",
+        "checkpoints": [
+          "1900-03-31",
+          "1988-03-31",
+          "2076-03-31"
+        ]
+      },
+      "expected": [
+        "1900-03-31T10:00:00Z",
+        "1988-03-31T10:00:00Z",
+        "2076-03-31T10:00:00Z"
+      ]
+    },
+    {
+      "name": "budapest-windows-1899-march-gap-start",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-03-24T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Europe Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central Europe Standard Time",
+              "startDate": "1899-03-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-04-05",
+        "checkpoints": [
+          "1899-03-24",
+          "1899-03-25",
+          "1899-03-26",
+          "1899-03-27",
+          "1899-03-28"
+        ]
+      },
+      "expected": [
+        "1899-03-24T01:00:00Z",
+        "1899-03-25T01:00:00Z",
+        "1899-03-26T01:00:00Z",
+        "1899-03-27T00:00:00Z",
+        "1899-03-28T00:00:00Z"
+      ]
+    },
+    {
+      "name": "budapest-windows-1945-october-fold-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1945-10-26T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Europe Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central Europe Standard Time",
+              "startDate": "1945-10-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1945-11-07",
+        "checkpoints": [
+          "1945-10-26",
+          "1945-10-27",
+          "1945-10-28",
+          "1945-10-29",
+          "1945-10-30"
+        ]
+      },
+      "expected": [
+        "1945-10-26T01:00:00Z",
+        "1945-10-27T01:00:00Z",
+        "1945-10-28T02:00:00Z",
+        "1945-10-29T02:00:00Z",
+        "1945-10-30T02:00:00Z"
+      ]
+    },
+    {
+      "name": "budapest-windows-1996-october-fold-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1996-10-25T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Europe Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central Europe Standard Time",
+              "startDate": "1996-10-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1996-11-06",
+        "checkpoints": [
+          "1996-10-25",
+          "1996-10-26",
+          "1996-10-27",
+          "1996-10-28",
+          "1996-10-29"
+        ]
+      },
+      "expected": [
+        "1996-10-25T01:00:00Z",
+        "1996-10-26T01:00:00Z",
+        "1996-10-27T02:00:00Z",
+        "1996-10-28T02:00:00Z",
+        "1996-10-29T02:00:00Z"
+      ]
+    },
+    {
+      "name": "budapest-windows-yearly-1900-2076",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1900-03-31T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Europe Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 31,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 88,
+              "month": 3,
+              "type": "absoluteYearly"
+            },
+            "range": {
+              "endDate": "2076-03-31",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Central Europe Standard Time",
+              "startDate": "1900-03-31",
+              "type": "endDate"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2076-04-01",
+        "checkpoints": [
+          "1900-03-31",
+          "1988-03-31",
+          "2076-03-31"
+        ]
+      },
+      "expected": [
+        "1900-03-31T10:00:00Z",
+        "1988-03-31T10:00:00Z",
+        "2076-03-31T10:00:00Z"
+      ]
+    },
+    {
+      "name": "bucharest-windows-1899-march-gap-start",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-03-24T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "GTB Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "GTB Standard Time",
+              "startDate": "1899-03-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-04-05",
+        "checkpoints": [
+          "1899-03-24",
+          "1899-03-25",
+          "1899-03-26",
+          "1899-03-27",
+          "1899-03-28"
+        ]
+      },
+      "expected": [
+        "1899-03-24T01:00:00Z",
+        "1899-03-25T01:00:00Z",
+        "1899-03-26T01:00:00Z",
+        "1899-03-27T00:00:00Z",
+        "1899-03-28T00:00:00Z"
+      ]
+    },
+    {
+      "name": "bucharest-windows-1945-october-fold-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1945-10-26T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "GTB Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "GTB Standard Time",
+              "startDate": "1945-10-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1945-11-07",
+        "checkpoints": [
+          "1945-10-26",
+          "1945-10-27",
+          "1945-10-28",
+          "1945-10-29",
+          "1945-10-30"
+        ]
+      },
+      "expected": [
+        "1945-10-26T01:00:00Z",
+        "1945-10-27T01:00:00Z",
+        "1945-10-28T02:00:00Z",
+        "1945-10-29T02:00:00Z",
+        "1945-10-30T02:00:00Z"
+      ]
+    },
+    {
+      "name": "bucharest-windows-1996-october-fold-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1996-10-25T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "GTB Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "GTB Standard Time",
+              "startDate": "1996-10-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1996-11-06",
+        "checkpoints": [
+          "1996-10-25",
+          "1996-10-26",
+          "1996-10-27",
+          "1996-10-28",
+          "1996-10-29"
+        ]
+      },
+      "expected": [
+        "1996-10-25T01:00:00Z",
+        "1996-10-26T01:00:00Z",
+        "1996-10-27T02:00:00Z",
+        "1996-10-28T02:00:00Z",
+        "1996-10-29T02:00:00Z"
+      ]
+    },
+    {
+      "name": "bucharest-windows-yearly-1900-2076",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1900-03-31T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "GTB Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 31,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 88,
+              "month": 3,
+              "type": "absoluteYearly"
+            },
+            "range": {
+              "endDate": "2076-03-31",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "GTB Standard Time",
+              "startDate": "1900-03-31",
+              "type": "endDate"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2076-04-01",
+        "checkpoints": [
+          "1900-03-31",
+          "1988-03-31",
+          "2076-03-31"
+        ]
+      },
+      "expected": [
+        "1900-03-31T09:00:00Z",
+        "1988-03-31T09:00:00Z",
+        "2076-03-31T09:00:00Z"
+      ]
+    },
+    {
+      "name": "bucharest-windows-1996-october-fold-start",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1996-10-25T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "GTB Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "GTB Standard Time",
+              "startDate": "1996-10-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1996-11-06",
+        "checkpoints": [
+          "1996-10-25",
+          "1996-10-26",
+          "1996-10-27",
+          "1996-10-28",
+          "1996-10-29"
+        ]
+      },
+      "expected": [
+        "1996-10-25T00:00:00Z",
+        "1996-10-26T00:00:00Z",
+        "1996-10-27T00:00:00Z",
+        "1996-10-28T01:00:00Z",
+        "1996-10-29T01:00:00Z"
+      ]
+    },
+    {
+      "name": "bucharest-windows-1997-march-gap-start",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1997-03-28T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "GTB Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "GTB Standard Time",
+              "startDate": "1997-03-28",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1997-04-09",
+        "checkpoints": [
+          "1997-03-28",
+          "1997-03-29",
+          "1997-03-30",
+          "1997-03-31",
+          "1997-04-01"
+        ]
+      },
+      "expected": [
+        "1997-03-28T01:00:00Z",
+        "1997-03-29T01:00:00Z",
+        "1997-03-30T01:00:00Z",
+        "1997-03-31T00:00:00Z",
+        "1997-04-01T00:00:00Z"
+      ]
+    },
+    {
+      "name": "bucharest-windows-1997-october-fold-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1997-10-24T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "GTB Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "GTB Standard Time",
+              "startDate": "1997-10-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1997-11-05",
+        "checkpoints": [
+          "1997-10-24",
+          "1997-10-25",
+          "1997-10-26",
+          "1997-10-27",
+          "1997-10-28"
+        ]
+      },
+      "expected": [
+        "1997-10-24T01:00:00Z",
+        "1997-10-25T01:00:00Z",
+        "1997-10-26T02:00:00Z",
+        "1997-10-27T02:00:00Z",
+        "1997-10-28T02:00:00Z"
+      ]
+    },
+    {
+      "name": "paris-windows-1899-winter",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-14T23:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Romance Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Romance Standard Time",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-14",
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18"
+        ]
+      },
+      "expected": [
+        "1899-01-14T23:15:00Z",
+        "1899-01-15T23:15:00Z",
+        "1899-01-16T23:15:00Z",
+        "1899-01-17T23:15:00Z",
+        "1899-01-18T23:15:00Z"
+      ]
+    },
+    {
+      "name": "paris-windows-1945-wartime",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1945-05-22T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Romance Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Romance Standard Time",
+              "startDate": "1945-05-22",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1945-06-03",
+        "checkpoints": [
+          "1945-05-22",
+          "1945-05-23",
+          "1945-05-24",
+          "1945-05-25",
+          "1945-05-26"
+        ]
+      },
+      "expected": [
+        "1945-05-22T10:00:00Z",
+        "1945-05-23T10:00:00Z",
+        "1945-05-24T10:00:00Z",
+        "1945-05-25T10:00:00Z",
+        "1945-05-26T10:00:00Z"
+      ]
+    },
+    {
+      "name": "paris-windows-1967-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-03-24T01:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Romance Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Romance Standard Time",
+              "startDate": "1967-03-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-04-05",
+        "checkpoints": [
+          "1967-03-24",
+          "1967-03-25",
+          "1967-03-26",
+          "1967-03-27",
+          "1967-03-28"
+        ]
+      },
+      "expected": [
+        "1967-03-24T01:30:00Z",
+        "1967-03-25T01:30:00Z",
+        "1967-03-26T01:30:00Z",
+        "1967-03-27T00:30:00Z",
+        "1967-03-28T00:30:00Z"
+      ]
+    },
+    {
+      "name": "paris-windows-1967-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-10-27T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Romance Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Romance Standard Time",
+              "startDate": "1967-10-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-11-08",
+        "checkpoints": [
+          "1967-10-27",
+          "1967-10-28",
+          "1967-10-29",
+          "1967-10-30",
+          "1967-10-31"
+        ]
+      },
+      "expected": [
+        "1967-10-27T00:30:00Z",
+        "1967-10-28T00:30:00Z",
+        "1967-10-29T00:30:00Z",
+        "1967-10-30T01:30:00Z",
+        "1967-10-31T01:30:00Z"
+      ]
+    },
+    {
+      "name": "paris-windows-1995-september",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1995-09-22T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Romance Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Romance Standard Time",
+              "startDate": "1995-09-22",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1995-10-04",
+        "checkpoints": [
+          "1995-09-22",
+          "1995-09-23",
+          "1995-09-24",
+          "1995-09-25",
+          "1995-09-26"
+        ]
+      },
+      "expected": [
+        "1995-09-22T00:30:00Z",
+        "1995-09-23T00:30:00Z",
+        "1995-09-24T00:30:00Z",
+        "1995-09-25T00:30:00Z",
+        "1995-09-26T00:30:00Z"
+      ]
+    },
+    {
+      "name": "paris-windows-1995-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1995-10-27T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Romance Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Romance Standard Time",
+              "startDate": "1995-10-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1995-11-08",
+        "checkpoints": [
+          "1995-10-27",
+          "1995-10-28",
+          "1995-10-29",
+          "1995-10-30",
+          "1995-10-31"
+        ]
+      },
+      "expected": [
+        "1995-10-27T00:30:00Z",
+        "1995-10-28T00:30:00Z",
+        "1995-10-29T00:30:00Z",
+        "1995-10-30T01:30:00Z",
+        "1995-10-31T01:30:00Z"
+      ]
+    },
+    {
+      "name": "paris-windows-1996-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1996-03-29T01:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Romance Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Romance Standard Time",
+              "startDate": "1996-03-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1996-04-10",
+        "checkpoints": [
+          "1996-03-29",
+          "1996-03-30",
+          "1996-03-31",
+          "1996-04-01",
+          "1996-04-02"
+        ]
+      },
+      "expected": [
+        "1996-03-29T01:30:00Z",
+        "1996-03-30T01:30:00Z",
+        "1996-03-31T01:30:00Z",
+        "1996-04-01T00:30:00Z",
+        "1996-04-02T00:30:00Z"
+      ]
+    },
+    {
+      "name": "paris-windows-2075-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-03-29T01:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Romance Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Romance Standard Time",
+              "startDate": "2075-03-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-04-10",
+        "checkpoints": [
+          "2075-03-29",
+          "2075-03-30",
+          "2075-03-31",
+          "2075-04-01",
+          "2075-04-02"
+        ]
+      },
+      "expected": [
+        "2075-03-29T01:30:00Z",
+        "2075-03-30T01:30:00Z",
+        "2075-03-31T01:30:00Z",
+        "2075-04-01T00:30:00Z",
+        "2075-04-02T00:30:00Z"
+      ]
+    },
+    {
+      "name": "paris-windows-2075-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-10-25T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Romance Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Romance Standard Time",
+              "startDate": "2075-10-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-11-06",
+        "checkpoints": [
+          "2075-10-25",
+          "2075-10-26",
+          "2075-10-27",
+          "2075-10-28",
+          "2075-10-29"
+        ]
+      },
+      "expected": [
+        "2075-10-25T00:30:00Z",
+        "2075-10-26T00:30:00Z",
+        "2075-10-27T00:30:00Z",
+        "2075-10-28T01:30:00Z",
+        "2075-10-29T01:30:00Z"
+      ]
+    },
+    {
+      "name": "warsaw-windows-1899-winter",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-14T23:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central European Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central European Standard Time",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-14",
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18"
+        ]
+      },
+      "expected": [
+        "1899-01-14T23:15:00Z",
+        "1899-01-15T23:15:00Z",
+        "1899-01-16T23:15:00Z",
+        "1899-01-17T23:15:00Z",
+        "1899-01-18T23:15:00Z"
+      ]
+    },
+    {
+      "name": "warsaw-windows-1945-wartime",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1945-05-22T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central European Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central European Standard Time",
+              "startDate": "1945-05-22",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1945-06-03",
+        "checkpoints": [
+          "1945-05-22",
+          "1945-05-23",
+          "1945-05-24",
+          "1945-05-25",
+          "1945-05-26"
+        ]
+      },
+      "expected": [
+        "1945-05-22T10:00:00Z",
+        "1945-05-23T10:00:00Z",
+        "1945-05-24T10:00:00Z",
+        "1945-05-25T10:00:00Z",
+        "1945-05-26T10:00:00Z"
+      ]
+    },
+    {
+      "name": "warsaw-windows-1967-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-03-24T01:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central European Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central European Standard Time",
+              "startDate": "1967-03-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-04-05",
+        "checkpoints": [
+          "1967-03-24",
+          "1967-03-25",
+          "1967-03-26",
+          "1967-03-27",
+          "1967-03-28"
+        ]
+      },
+      "expected": [
+        "1967-03-24T01:30:00Z",
+        "1967-03-25T01:30:00Z",
+        "1967-03-26T01:30:00Z",
+        "1967-03-27T00:30:00Z",
+        "1967-03-28T00:30:00Z"
+      ]
+    },
+    {
+      "name": "warsaw-windows-1967-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-10-27T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central European Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central European Standard Time",
+              "startDate": "1967-10-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-11-08",
+        "checkpoints": [
+          "1967-10-27",
+          "1967-10-28",
+          "1967-10-29",
+          "1967-10-30",
+          "1967-10-31"
+        ]
+      },
+      "expected": [
+        "1967-10-27T00:30:00Z",
+        "1967-10-28T00:30:00Z",
+        "1967-10-29T00:30:00Z",
+        "1967-10-30T01:30:00Z",
+        "1967-10-31T01:30:00Z"
+      ]
+    },
+    {
+      "name": "warsaw-windows-1995-september",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1995-09-22T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central European Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central European Standard Time",
+              "startDate": "1995-09-22",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1995-10-04",
+        "checkpoints": [
+          "1995-09-22",
+          "1995-09-23",
+          "1995-09-24",
+          "1995-09-25",
+          "1995-09-26"
+        ]
+      },
+      "expected": [
+        "1995-09-22T00:30:00Z",
+        "1995-09-23T00:30:00Z",
+        "1995-09-24T00:30:00Z",
+        "1995-09-25T00:30:00Z",
+        "1995-09-26T00:30:00Z"
+      ]
+    },
+    {
+      "name": "warsaw-windows-1995-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1995-10-27T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central European Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central European Standard Time",
+              "startDate": "1995-10-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1995-11-08",
+        "checkpoints": [
+          "1995-10-27",
+          "1995-10-28",
+          "1995-10-29",
+          "1995-10-30",
+          "1995-10-31"
+        ]
+      },
+      "expected": [
+        "1995-10-27T00:30:00Z",
+        "1995-10-28T00:30:00Z",
+        "1995-10-29T00:30:00Z",
+        "1995-10-30T01:30:00Z",
+        "1995-10-31T01:30:00Z"
+      ]
+    },
+    {
+      "name": "warsaw-windows-1996-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1996-03-29T01:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central European Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central European Standard Time",
+              "startDate": "1996-03-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1996-04-10",
+        "checkpoints": [
+          "1996-03-29",
+          "1996-03-30",
+          "1996-03-31",
+          "1996-04-01",
+          "1996-04-02"
+        ]
+      },
+      "expected": [
+        "1996-03-29T01:30:00Z",
+        "1996-03-30T01:30:00Z",
+        "1996-03-31T01:30:00Z",
+        "1996-04-01T00:30:00Z",
+        "1996-04-02T00:30:00Z"
+      ]
+    },
+    {
+      "name": "warsaw-windows-2075-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-03-29T01:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central European Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central European Standard Time",
+              "startDate": "2075-03-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-04-10",
+        "checkpoints": [
+          "2075-03-29",
+          "2075-03-30",
+          "2075-03-31",
+          "2075-04-01",
+          "2075-04-02"
+        ]
+      },
+      "expected": [
+        "2075-03-29T01:30:00Z",
+        "2075-03-30T01:30:00Z",
+        "2075-03-31T01:30:00Z",
+        "2075-04-01T00:30:00Z",
+        "2075-04-02T00:30:00Z"
+      ]
+    },
+    {
+      "name": "warsaw-windows-2075-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-10-25T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central European Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central European Standard Time",
+              "startDate": "2075-10-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-11-06",
+        "checkpoints": [
+          "2075-10-25",
+          "2075-10-26",
+          "2075-10-27",
+          "2075-10-28",
+          "2075-10-29"
+        ]
+      },
+      "expected": [
+        "2075-10-25T00:30:00Z",
+        "2075-10-26T00:30:00Z",
+        "2075-10-27T00:30:00Z",
+        "2075-10-28T01:30:00Z",
+        "2075-10-29T01:30:00Z"
+      ]
+    },
+    {
+      "name": "budapest-windows-1899-winter",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-14T23:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Europe Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central Europe Standard Time",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-14",
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18"
+        ]
+      },
+      "expected": [
+        "1899-01-14T23:15:00Z",
+        "1899-01-15T23:15:00Z",
+        "1899-01-16T23:15:00Z",
+        "1899-01-17T23:15:00Z",
+        "1899-01-18T23:15:00Z"
+      ]
+    },
+    {
+      "name": "budapest-windows-1945-wartime",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1945-05-22T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Europe Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central Europe Standard Time",
+              "startDate": "1945-05-22",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1945-06-03",
+        "checkpoints": [
+          "1945-05-22",
+          "1945-05-23",
+          "1945-05-24",
+          "1945-05-25",
+          "1945-05-26"
+        ]
+      },
+      "expected": [
+        "1945-05-22T10:00:00Z",
+        "1945-05-23T10:00:00Z",
+        "1945-05-24T10:00:00Z",
+        "1945-05-25T10:00:00Z",
+        "1945-05-26T10:00:00Z"
+      ]
+    },
+    {
+      "name": "budapest-windows-1967-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-03-24T01:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Europe Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central Europe Standard Time",
+              "startDate": "1967-03-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-04-05",
+        "checkpoints": [
+          "1967-03-24",
+          "1967-03-25",
+          "1967-03-26",
+          "1967-03-27",
+          "1967-03-28"
+        ]
+      },
+      "expected": [
+        "1967-03-24T01:30:00Z",
+        "1967-03-25T01:30:00Z",
+        "1967-03-26T01:30:00Z",
+        "1967-03-27T00:30:00Z",
+        "1967-03-28T00:30:00Z"
+      ]
+    },
+    {
+      "name": "budapest-windows-1967-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-10-27T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Europe Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central Europe Standard Time",
+              "startDate": "1967-10-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-11-08",
+        "checkpoints": [
+          "1967-10-27",
+          "1967-10-28",
+          "1967-10-29",
+          "1967-10-30",
+          "1967-10-31"
+        ]
+      },
+      "expected": [
+        "1967-10-27T00:30:00Z",
+        "1967-10-28T00:30:00Z",
+        "1967-10-29T00:30:00Z",
+        "1967-10-30T01:30:00Z",
+        "1967-10-31T01:30:00Z"
+      ]
+    },
+    {
+      "name": "budapest-windows-1995-september",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1995-09-22T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Europe Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central Europe Standard Time",
+              "startDate": "1995-09-22",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1995-10-04",
+        "checkpoints": [
+          "1995-09-22",
+          "1995-09-23",
+          "1995-09-24",
+          "1995-09-25",
+          "1995-09-26"
+        ]
+      },
+      "expected": [
+        "1995-09-22T00:30:00Z",
+        "1995-09-23T00:30:00Z",
+        "1995-09-24T00:30:00Z",
+        "1995-09-25T00:30:00Z",
+        "1995-09-26T00:30:00Z"
+      ]
+    },
+    {
+      "name": "budapest-windows-1995-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1995-10-27T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Europe Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central Europe Standard Time",
+              "startDate": "1995-10-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1995-11-08",
+        "checkpoints": [
+          "1995-10-27",
+          "1995-10-28",
+          "1995-10-29",
+          "1995-10-30",
+          "1995-10-31"
+        ]
+      },
+      "expected": [
+        "1995-10-27T00:30:00Z",
+        "1995-10-28T00:30:00Z",
+        "1995-10-29T00:30:00Z",
+        "1995-10-30T01:30:00Z",
+        "1995-10-31T01:30:00Z"
+      ]
+    },
+    {
+      "name": "budapest-windows-1996-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1996-03-29T01:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Europe Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central Europe Standard Time",
+              "startDate": "1996-03-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1996-04-10",
+        "checkpoints": [
+          "1996-03-29",
+          "1996-03-30",
+          "1996-03-31",
+          "1996-04-01",
+          "1996-04-02"
+        ]
+      },
+      "expected": [
+        "1996-03-29T01:30:00Z",
+        "1996-03-30T01:30:00Z",
+        "1996-03-31T01:30:00Z",
+        "1996-04-01T00:30:00Z",
+        "1996-04-02T00:30:00Z"
+      ]
+    },
+    {
+      "name": "budapest-windows-2075-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-03-29T01:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Europe Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central Europe Standard Time",
+              "startDate": "2075-03-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-04-10",
+        "checkpoints": [
+          "2075-03-29",
+          "2075-03-30",
+          "2075-03-31",
+          "2075-04-01",
+          "2075-04-02"
+        ]
+      },
+      "expected": [
+        "2075-03-29T01:30:00Z",
+        "2075-03-30T01:30:00Z",
+        "2075-03-31T01:30:00Z",
+        "2075-04-01T00:30:00Z",
+        "2075-04-02T00:30:00Z"
+      ]
+    },
+    {
+      "name": "budapest-windows-2075-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-10-25T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Europe Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central Europe Standard Time",
+              "startDate": "2075-10-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-11-06",
+        "checkpoints": [
+          "2075-10-25",
+          "2075-10-26",
+          "2075-10-27",
+          "2075-10-28",
+          "2075-10-29"
+        ]
+      },
+      "expected": [
+        "2075-10-25T00:30:00Z",
+        "2075-10-26T00:30:00Z",
+        "2075-10-27T00:30:00Z",
+        "2075-10-28T01:30:00Z",
+        "2075-10-29T01:30:00Z"
+      ]
+    },
+    {
+      "name": "bucharest-windows-1899-winter",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-14T22:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "GTB Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "GTB Standard Time",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-14",
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18"
+        ]
+      },
+      "expected": [
+        "1899-01-14T22:15:00Z",
+        "1899-01-15T22:15:00Z",
+        "1899-01-16T22:15:00Z",
+        "1899-01-17T22:15:00Z",
+        "1899-01-18T22:15:00Z"
+      ]
+    },
+    {
+      "name": "bucharest-windows-1945-wartime",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1945-05-22T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "GTB Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "GTB Standard Time",
+              "startDate": "1945-05-22",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1945-06-03",
+        "checkpoints": [
+          "1945-05-22",
+          "1945-05-23",
+          "1945-05-24",
+          "1945-05-25",
+          "1945-05-26"
+        ]
+      },
+      "expected": [
+        "1945-05-22T09:00:00Z",
+        "1945-05-23T09:00:00Z",
+        "1945-05-24T09:00:00Z",
+        "1945-05-25T09:00:00Z",
+        "1945-05-26T09:00:00Z"
+      ]
+    },
+    {
+      "name": "bucharest-windows-1967-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-03-24T01:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "GTB Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "GTB Standard Time",
+              "startDate": "1967-03-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-04-05",
+        "checkpoints": [
+          "1967-03-24",
+          "1967-03-25",
+          "1967-03-26",
+          "1967-03-27",
+          "1967-03-28"
+        ]
+      },
+      "expected": [
+        "1967-03-24T01:30:00Z",
+        "1967-03-25T01:30:00Z",
+        "1967-03-26T01:30:00Z",
+        "1967-03-27T00:30:00Z",
+        "1967-03-28T00:30:00Z"
+      ]
+    },
+    {
+      "name": "bucharest-windows-1967-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-10-27T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "GTB Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "GTB Standard Time",
+              "startDate": "1967-10-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-11-08",
+        "checkpoints": [
+          "1967-10-27",
+          "1967-10-28",
+          "1967-10-29",
+          "1967-10-30",
+          "1967-10-31"
+        ]
+      },
+      "expected": [
+        "1967-10-27T00:30:00Z",
+        "1967-10-28T00:30:00Z",
+        "1967-10-29T00:30:00Z",
+        "1967-10-30T01:30:00Z",
+        "1967-10-31T01:30:00Z"
+      ]
+    },
+    {
+      "name": "bucharest-windows-1995-september",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1995-09-22T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "GTB Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "GTB Standard Time",
+              "startDate": "1995-09-22",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1995-10-04",
+        "checkpoints": [
+          "1995-09-22",
+          "1995-09-23",
+          "1995-09-24",
+          "1995-09-25",
+          "1995-09-26"
+        ]
+      },
+      "expected": [
+        "1995-09-22T00:30:00Z",
+        "1995-09-23T00:30:00Z",
+        "1995-09-24T00:30:00Z",
+        "1995-09-25T00:30:00Z",
+        "1995-09-26T00:30:00Z"
+      ]
+    },
+    {
+      "name": "bucharest-windows-1995-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1995-10-27T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "GTB Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "GTB Standard Time",
+              "startDate": "1995-10-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1995-11-08",
+        "checkpoints": [
+          "1995-10-27",
+          "1995-10-28",
+          "1995-10-29",
+          "1995-10-30",
+          "1995-10-31"
+        ]
+      },
+      "expected": [
+        "1995-10-27T00:30:00Z",
+        "1995-10-28T00:30:00Z",
+        "1995-10-29T00:30:00Z",
+        "1995-10-30T01:30:00Z",
+        "1995-10-31T01:30:00Z"
+      ]
+    },
+    {
+      "name": "bucharest-windows-1996-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1996-03-29T01:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "GTB Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "GTB Standard Time",
+              "startDate": "1996-03-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1996-04-10",
+        "checkpoints": [
+          "1996-03-29",
+          "1996-03-30",
+          "1996-03-31",
+          "1996-04-01",
+          "1996-04-02"
+        ]
+      },
+      "expected": [
+        "1996-03-29T01:30:00Z",
+        "1996-03-30T01:30:00Z",
+        "1996-03-31T01:30:00Z",
+        "1996-04-01T00:30:00Z",
+        "1996-04-02T00:30:00Z"
+      ]
+    },
+    {
+      "name": "bucharest-windows-2075-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-03-29T01:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "GTB Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "GTB Standard Time",
+              "startDate": "2075-03-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-04-10",
+        "checkpoints": [
+          "2075-03-29",
+          "2075-03-30",
+          "2075-03-31",
+          "2075-04-01",
+          "2075-04-02"
+        ]
+      },
+      "expected": [
+        "2075-03-29T01:30:00Z",
+        "2075-03-30T01:30:00Z",
+        "2075-03-31T01:30:00Z",
+        "2075-04-01T00:30:00Z",
+        "2075-04-02T00:30:00Z"
+      ]
+    },
+    {
+      "name": "bucharest-windows-2075-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-10-25T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "GTB Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "GTB Standard Time",
+              "startDate": "2075-10-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-11-06",
+        "checkpoints": [
+          "2075-10-25",
+          "2075-10-26",
+          "2075-10-27",
+          "2075-10-28",
+          "2075-10-29"
+        ]
+      },
+      "expected": [
+        "2075-10-25T00:30:00Z",
+        "2075-10-26T00:30:00Z",
+        "2075-10-27T00:30:00Z",
+        "2075-10-28T01:30:00Z",
+        "2075-10-29T01:30:00Z"
+      ]
+    },
+    {
+      "name": "rfc-paris-retains-1995-september-fold",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Europe/Paris:19950922T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1995-09-28",
+        "checkpoints": [
+          "1995-09-22",
+          "1995-09-23",
+          "1995-09-24",
+          "1995-09-25",
+          "1995-09-26"
+        ]
+      },
+      "expected": [
+        "1995-09-22T10:00:00Z",
+        "1995-09-23T10:00:00Z",
+        "1995-09-24T11:00:00Z",
+        "1995-09-25T11:00:00Z",
+        "1995-09-26T11:00:00Z"
+      ]
+    },
+    {
+      "name": "rfc-warsaw-retains-1967-standard-time",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Europe/Warsaw:19670324T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1967-03-30",
+        "checkpoints": [
+          "1967-03-24",
+          "1967-03-25",
+          "1967-03-26",
+          "1967-03-27",
+          "1967-03-28"
+        ]
+      },
+      "expected": [
+        "1967-03-24T11:00:00Z",
+        "1967-03-25T11:00:00Z",
+        "1967-03-26T11:00:00Z",
+        "1967-03-27T11:00:00Z",
+        "1967-03-28T11:00:00Z"
+      ]
+    },
+    {
+      "name": "rfc-budapest-retains-1980-april-gap",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Europe/Budapest:19800404T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1980-04-10",
+        "checkpoints": [
+          "1980-04-04",
+          "1980-04-05",
+          "1980-04-06",
+          "1980-04-07",
+          "1980-04-08"
+        ]
+      },
+      "expected": [
+        "1980-04-04T11:00:00Z",
+        "1980-04-05T11:00:00Z",
+        "1980-04-06T10:00:00Z",
+        "1980-04-07T10:00:00Z",
+        "1980-04-08T10:00:00Z"
+      ]
+    },
+    {
+      "name": "rfc-bucharest-retains-1996-midnight-gap",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Europe/Bucharest:19960329T023000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1996-04-04",
+        "checkpoints": [
+          "1996-03-29",
+          "1996-03-30",
+          "1996-03-30",
+          "1996-03-31",
+          "1996-04-01"
+        ]
+      },
+      "expected": [
+        "1996-03-29T00:30:00Z",
+        "1996-03-30T00:30:00Z",
+        "1996-03-30T23:30:00Z",
+        "1996-03-31T23:30:00Z",
+        "1996-04-01T23:30:00Z"
+      ]
+    }
+  ]
+}

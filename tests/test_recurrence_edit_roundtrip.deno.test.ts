@@ -51,7 +51,7 @@ Deno.test("splitRdatesAt: values before the cut stay, the rest go to the followi
   const got = await splitRdatesAt([
     "RDATE:20260318T200000Z,20260325T200000Z",
     "RDATE;TZID=Europe/London:20260319T230000,20260320T010000",
-    "RDATE;VALUE=DATE:20260319,20260320", // 09:00 PDT on each day: 16:00Z
+    "RDATE;VALUE=DATE:20260319,20260320", // UTC midnight on each day
     "RDATE:20260319T163000", // floating: 16:30 PDT = 23:30Z on 03-19
   ], cut, start, la);
   assertEquals(got.before, [

@@ -1,0 +1,467 @@
+{
+  "type": "google-expansion",
+  "name": "Google yearly day wrap runtime holdouts",
+  "source": "Google Calendar API events.instances",
+  "cases": [
+    {
+      "name": "day-holdout-all-day-until-after",
+      "input": {
+        "start": "1700-01-05",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=520334847;UNTIL=17010106"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;UNTIL=17010106;INTERVAL=520334847"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1700-01-05",
+          "1701-01-05"
+        ]
+      }
+    },
+    {
+      "name": "day-holdout-all-day-until-equal",
+      "input": {
+        "start": "1700-01-05",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=520334847;UNTIL=17010105"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;UNTIL=17010105;INTERVAL=520334847"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "1700-01-05",
+          "1701-01-05"
+        ]
+      }
+    },
+    {
+      "name": "day-holdout-clock-parts",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=8819235;COUNT=8;BYHOUR=9,12;BYMINUTE=0"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=8;INTERVAL=8819235;BYHOUR=9,12;BYMINUTE=0"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1701-01-05T09:00:00Z",
+          "1702-01-05T09:00:00Z",
+          "1703-01-05T09:00:00Z",
+          "1704-01-05T09:00:00Z",
+          "1706-01-05T09:00:00Z",
+          "1707-01-05T09:00:00Z",
+          "1708-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "day-holdout-eastern-count",
+      "input": {
+        "start": "2020-03-10T09:00:00-04:00",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=520334847;COUNT=8"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=8;INTERVAL=520334847"
+        ],
+        "window": {
+          "start": "2020-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        },
+        "timezone": "America/New_York",
+        "storedStart": {
+          "start": "2020-03-10T13:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2020-03-10T13:00:00Z",
+          "2021-03-10T14:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "day-holdout-eastern-until-equal",
+      "input": {
+        "start": "2020-03-10T09:00:00-04:00",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=520334847;UNTIL=20210310T140000Z"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;UNTIL=20210310T140000Z;INTERVAL=520334847"
+        ],
+        "window": {
+          "start": "2020-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        },
+        "timezone": "America/New_York",
+        "storedStart": {
+          "start": "2020-03-10T13:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2020-03-10T13:00:00Z",
+          "2021-03-10T14:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "day-holdout-eastern-until-minus",
+      "input": {
+        "start": "2020-03-10T09:00:00-04:00",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=520334847;UNTIL=20210310T135959Z"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;UNTIL=20210310T135959Z;INTERVAL=520334847"
+        ],
+        "window": {
+          "start": "2020-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        },
+        "timezone": "America/New_York",
+        "storedStart": {
+          "start": "2020-03-10T13:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2020-03-10T13:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "day-holdout-eastern-until-plus",
+      "input": {
+        "start": "2020-03-10T09:00:00-04:00",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=520334847;UNTIL=20210310T140001Z"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;UNTIL=20210310T140001Z;INTERVAL=520334847"
+        ],
+        "window": {
+          "start": "2020-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        },
+        "timezone": "America/New_York",
+        "storedStart": {
+          "start": "2020-03-10T13:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2020-03-10T13:00:00Z",
+          "2021-03-10T14:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "day-holdout-last-position",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=8819235;COUNT=22;BYMONTH=1,7;BYMONTHDAY=5;BYSETPOS=-1"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=22;INTERVAL=8819235;BYMONTH=1,7;BYMONTHDAY=5;BYSETPOS=-1"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1700-07-05T09:00:00Z",
+          "1701-07-05T09:00:00Z",
+          "1702-07-05T09:00:00Z",
+          "1703-07-05T09:00:00Z",
+          "1704-07-05T09:00:00Z",
+          "1706-07-05T09:00:00Z",
+          "1707-07-05T09:00:00Z",
+          "1708-07-05T09:00:00Z",
+          "1709-07-05T09:00:00Z",
+          "1711-07-05T09:00:00Z",
+          "1712-07-05T09:00:00Z",
+          "1713-07-05T09:00:00Z",
+          "1714-07-05T09:00:00Z",
+          "1715-07-05T09:00:00Z",
+          "1717-07-05T09:00:00Z",
+          "1718-07-05T09:00:00Z",
+          "1719-07-05T09:00:00Z",
+          "1720-07-05T09:00:00Z",
+          "1722-07-05T09:00:00Z",
+          "1723-07-05T09:00:00Z",
+          "1724-07-05T09:00:00Z",
+          "1725-07-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "day-holdout-lord-howe-count",
+      "input": {
+        "start": "2020-01-05T04:00:00+11:00",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=520334847;COUNT=8"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=8;INTERVAL=520334847"
+        ],
+        "window": {
+          "start": "2020-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        },
+        "timezone": "Australia/Lord_Howe",
+        "storedStart": {
+          "start": "2020-01-04T17:00:00Z",
+          "timezone": "Australia/Lord_Howe"
+        }
+      },
+      "expected": {
+        "google": [
+          "2020-01-04T17:00:00Z",
+          "2021-01-04T17:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "day-holdout-month-last-day",
+      "input": {
+        "start": "1700-01-31T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=8819235;COUNT=22;BYMONTH=1,2;BYMONTHDAY=-1"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=22;INTERVAL=8819235;BYMONTH=1,2;BYMONTHDAY=-1"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "1700-01-31T09:00:00Z",
+          "1700-02-28T09:00:00Z",
+          "1701-01-31T09:00:00Z",
+          "1701-02-28T09:00:00Z",
+          "1702-01-31T09:00:00Z",
+          "1702-02-28T09:00:00Z",
+          "1703-01-31T09:00:00Z",
+          "1703-02-28T09:00:00Z",
+          "1704-01-31T09:00:00Z",
+          "1704-02-29T09:00:00Z",
+          "1706-01-31T09:00:00Z",
+          "1706-02-28T09:00:00Z",
+          "1707-01-31T09:00:00Z",
+          "1707-02-28T09:00:00Z",
+          "1708-01-31T09:00:00Z",
+          "1708-02-29T09:00:00Z",
+          "1709-01-31T09:00:00Z",
+          "1709-02-28T09:00:00Z",
+          "1711-01-31T09:00:00Z",
+          "1711-02-28T09:00:00Z",
+          "1712-01-31T09:00:00Z",
+          "1712-02-29T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "day-holdout-ordinal-weekday",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=8819235;COUNT=22;BYMONTH=1;BYDAY=1MO"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=22;INTERVAL=8819235;BYMONTH=1;BYDAY=1MO"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1701-01-03T09:00:00Z",
+          "1702-01-02T09:00:00Z",
+          "1703-01-01T09:00:00Z",
+          "1704-01-07T09:00:00Z",
+          "1706-01-04T09:00:00Z",
+          "1707-01-03T09:00:00Z",
+          "1708-01-02T09:00:00Z",
+          "1709-01-07T09:00:00Z",
+          "1711-01-05T09:00:00Z",
+          "1712-01-04T09:00:00Z",
+          "1713-01-02T09:00:00Z",
+          "1714-01-01T09:00:00Z",
+          "1715-01-07T09:00:00Z",
+          "1717-01-04T09:00:00Z",
+          "1718-01-03T09:00:00Z",
+          "1719-01-02T09:00:00Z",
+          "1720-01-01T09:00:00Z",
+          "1722-01-05T09:00:00Z",
+          "1723-01-04T09:00:00Z",
+          "1724-01-03T09:00:00Z",
+          "1725-01-01T09:00:00Z",
+          "1726-01-07T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "day-holdout-tokyo-count",
+      "input": {
+        "start": "2020-01-05T01:00:00+09:00",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=520334847;COUNT=8"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;COUNT=8;INTERVAL=520334847"
+        ],
+        "window": {
+          "start": "2020-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        },
+        "timezone": "Asia/Tokyo",
+        "storedStart": {
+          "start": "2020-01-04T16:00:00Z",
+          "timezone": "Asia/Tokyo"
+        }
+      },
+      "expected": {
+        "google": [
+          "2020-01-04T16:00:00Z",
+          "2021-01-04T16:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "day-holdout-utc-until-equal",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=520334847;UNTIL=17010105T090000Z"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;UNTIL=17010105T090000Z;INTERVAL=520334847"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1701-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "day-holdout-utc-until-minus",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=520334847;UNTIL=17010105T085959Z"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;UNTIL=17010105T085959Z;INTERVAL=520334847"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "day-holdout-utc-until-plus",
+      "input": {
+        "start": "1700-01-05T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=520334847;UNTIL=17010105T090001Z"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=YEARLY;UNTIL=17010105T090001Z;INTERVAL=520334847"
+        ],
+        "window": {
+          "start": "1700-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "1700-01-05T09:00:00Z",
+          "1701-01-05T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "day-holdout-excluded-duplicate",
+      "input": {
+        "start": "1600-01-05T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=YEARLY;INTERVAL=2939745;COUNT=5",
+          "EXDATE:16000105T090000Z",
+          "RDATE:16010106T090000Z"
+        ],
+        "storedRecurrence": [
+          "EXDATE;VALUE=DATE-TIME:16000105T090000Z",
+          "RDATE;VALUE=DATE-TIME:16010106T090000Z",
+          "RRULE:FREQ=YEARLY;COUNT=5;INTERVAL=2939745"
+        ],
+        "window": {
+          "start": "1600-01-01T00:00:00Z",
+          "end": "2100-01-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "1601-01-05T09:00:00Z",
+          "1601-01-06T09:00:00Z"
+        ]
+      }
+    }
+  ]
+}

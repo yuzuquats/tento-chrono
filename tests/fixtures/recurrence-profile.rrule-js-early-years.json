@@ -1,0 +1,137 @@
+{
+  "type": "recurrence-profile",
+  "name": "rrule.js 2.8.1 textual year encoding",
+  "source": "rrulestr 2.8.1 (TZ=UTC, forceset:true); API starts use the dtstart constructor option",
+  "cases": [
+    {
+      "name": "text-start-year-ninety-nine",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:00990228T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2000-01-01"
+      },
+      "expected": [
+        "1999-02-28T09:00:00Z",
+        "1999-03-01T09:00:00Z",
+        "1999-03-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "text-year-zero-leap-day-rolls-over-in-1900",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:00000229T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2000-01-01"
+      },
+      "expected": [
+        "1900-03-01T09:00:00Z",
+        "1900-03-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "text-year-one-hundred-is-literal",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:01000101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2000-01-01"
+      },
+      "expected": [
+        "0100-01-01T09:00:00Z",
+        "0100-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "text-until-year-zero-bounds-1900",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:18991231T090000Z",
+          "RRULE:FREQ=DAILY;UNTIL=00000102T090000Z"
+        ],
+        "through": "2000-01-01"
+      },
+      "expected": [
+        "1899-12-31T09:00:00Z",
+        "1900-01-01T09:00:00Z",
+        "1900-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "text-exdate-year-ninety-nine-matches-1999",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:19990101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE:00990102T090000Z",
+          "RDATE:00990105T090000Z"
+        ],
+        "through": "2000-01-01"
+      },
+      "expected": [
+        "1999-01-01T09:00:00Z",
+        "1999-01-03T09:00:00Z",
+        "1999-01-05T09:00:00Z"
+      ]
+    },
+    {
+      "name": "text-date-set-spans-literal-and-mapped-years",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "RDATE:00010203T123000Z,00991231,01000101"
+        ],
+        "through": "2000-01-01"
+      },
+      "expected": [
+        "0100-01-01T00:00:00Z",
+        "1901-02-03T12:30:00Z",
+        "1999-12-31T00:00:00Z"
+      ]
+    },
+    {
+      "name": "external-year-one-hundred",
+      "input": {
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "0100-01-01T00:00:00Z"
+        },
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "1001-01-01"
+      },
+      "expected": [
+        "0100-01-01T00:00:00Z",
+        "0100-01-02T00:00:00Z",
+        "0100-01-03T00:00:00Z"
+      ]
+    },
+    {
+      "name": "external-three-digit-year",
+      "input": {
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "0999-12-31T00:00:00Z"
+        },
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "1001-01-01"
+      },
+      "expected": [
+        "0999-12-31T00:00:00Z",
+        "1000-01-01T00:00:00Z"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,376 @@
+{
+  "type": "recurrence-profile",
+  "name": "dateutil integer selector bounds",
+  "source": "python-dateutil 2.8.2 with 64-bit CPython integer conversion",
+  "cases": [
+    {
+      "name": "daily-hour-above-c-int",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:99991230T000000Z",
+          "RRULE:FREQ=DAILY;INTERVAL=2;BYHOUR=2147483648;COUNT=1"
+        ],
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-30"
+        ]
+      },
+      "expected": {
+        "error": "signed integer is greater than maximum"
+      }
+    },
+    {
+      "name": "daily-hour-below-c-int",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:99991230T000000Z",
+          "RRULE:FREQ=DAILY;INTERVAL=2;BYHOUR=-2147483649;COUNT=1"
+        ],
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-30"
+        ]
+      },
+      "expected": {
+        "error": "signed integer is less than minimum"
+      }
+    },
+    {
+      "name": "hourly-minute-at-c-long-max",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:99991230T000000Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=2;BYMINUTE=9223372036854775807;COUNT=1"
+        ],
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-30"
+        ]
+      },
+      "expected": {
+        "expansionError": "signed integer is greater than maximum"
+      }
+    },
+    {
+      "name": "hourly-minute-above-c-long-max",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:99991230T000000Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=2;BYMINUTE=9223372036854775808;COUNT=1"
+        ],
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-30"
+        ]
+      },
+      "expected": {
+        "expansionError": "Python int too large to convert to C long"
+      }
+    },
+    {
+      "name": "hourly-minute-at-c-long-min",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:99991230T000000Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=2;BYMINUTE=-9223372036854775808;COUNT=1"
+        ],
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-30"
+        ]
+      },
+      "expected": {
+        "expansionError": "signed integer is less than minimum"
+      }
+    },
+    {
+      "name": "hourly-minute-below-c-long-min",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:99991230T000000Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=2;BYMINUTE=-9223372036854775809;COUNT=1"
+        ],
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-30"
+        ]
+      },
+      "expected": {
+        "expansionError": "Python int too large to convert to C long"
+      }
+    },
+    {
+      "name": "secondly-clock-phase-uses-exact-odd-integer",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:99991230T000000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=2;BYSECOND=9007199254740993;COUNT=1"
+        ],
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-30"
+        ]
+      },
+      "expected": {
+        "error": "Invalid rrule byxxx generates an empty set."
+      }
+    },
+    {
+      "name": "secondly-clock-phase-keeps-valid-zero",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:99991230T000000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=2;BYSECOND=0,9007199254740993;COUNT=1"
+        ],
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-30"
+        ]
+      },
+      "expected": [
+        "9999-12-30T00:00:00Z"
+      ]
+    },
+    {
+      "name": "monthly-impossible-month-suppresses-default",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:99991230T000000Z",
+          "RRULE:FREQ=MONTHLY;BYMONTH=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000;COUNT=1"
+        ],
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-30"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "yearly-impossible-week-suppresses-default",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:99991230T000000Z",
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000;COUNT=1"
+        ],
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-30"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "monthly-impossible-negative-month-day",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:99991230T000000Z",
+          "RRULE:FREQ=MONTHLY;BYMONTHDAY=-1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000;COUNT=1"
+        ],
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-30"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "yearly-impossible-year-day",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:99991230T000000Z",
+          "RRULE:FREQ=YEARLY;BYYEARDAY=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000;COUNT=1"
+        ],
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-30"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "convert-seconds-before-validating-hour",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:99991230T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=25;BYSECOND=2147483648;COUNT=1"
+        ],
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-30"
+        ]
+      },
+      "expected": {
+        "error": "signed integer is greater than maximum"
+      }
+    },
+    {
+      "name": "earlier-second-wins-over-later-minute",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:99991230T000000Z",
+          "RRULE:FREQ=DAILY;BYMINUTE=0,2147483648;BYSECOND=60;COUNT=1"
+        ],
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-30"
+        ]
+      },
+      "expected": {
+        "error": "second must be in 0..59"
+      }
+    },
+    {
+      "name": "minute-overflow-after-rewinding-to-matching-hour",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:99991230T000000Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=-1;BYHOUR=23;BYMINUTE=2147483648;COUNT=1"
+        ],
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-30"
+        ]
+      },
+      "expected": {
+        "expansionError": "signed integer is greater than maximum"
+      }
+    },
+    {
+      "name": "easter-mask-precedes-subdaily-clock",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:99991230T000000Z",
+          "RRULE:FREQ=HOURLY;BYMINUTE=2147483648;BYEASTER=400;COUNT=1"
+        ],
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-30"
+        ]
+      },
+      "expected": {
+        "expansionError": "list assignment index out of range"
+      }
+    },
+    {
+      "name": "easter-oversized-magnitude-first-in-order",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:99991230T000000Z",
+          "RRULE:FREQ=YEARLY;BYEASTER=400,-10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000;COUNT=1"
+        ],
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-30"
+        ]
+      },
+      "expected": {
+        "expansionError": "cannot fit 'int' into an index-sized integer"
+      }
+    },
+    {
+      "name": "easter-smaller-index-first-in-order",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:99991230T000000Z",
+          "RRULE:FREQ=YEARLY;BYEASTER=10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,-400;COUNT=1"
+        ],
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-30"
+        ]
+      },
+      "expected": {
+        "expansionError": "cannot fit 'int' into an index-sized integer"
+      }
+    },
+    {
+      "name": "ordinal-monday-precedes-tuesday",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:99991230T000000Z",
+          "RRULE:FREQ=YEARLY;BYDAY=10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000TU,100MO;COUNT=1"
+        ],
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-30"
+        ]
+      },
+      "expected": {
+        "expansionError": "list index out of range"
+      }
+    },
+    {
+      "name": "ordinal-exact-negative-order",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:99991230T000000Z",
+          "RRULE:FREQ=YEARLY;BYDAY=-100MO,-10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000MO;COUNT=1"
+        ],
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-30"
+        ]
+      },
+      "expected": {
+        "expansionError": "cannot fit 'int' into an index-sized integer"
+      }
+    },
+    {
+      "name": "ordinal-mask-precedes-easter-mask",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:99991230T000000Z",
+          "RRULE:FREQ=YEARLY;BYDAY=10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000MO;BYEASTER=400;COUNT=1"
+        ],
+        "through": "9999-12-31",
+        "checkpoints": [
+          "9999-12-30"
+        ]
+      },
+      "expected": {
+        "expansionError": "cannot fit 'int' into an index-sized integer"
+      }
+    },
+    {
+      "name": "ordinary-date-keeps-valid-byweekno",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,10;UNTIL=20261231T235959Z"
+        ],
+        "through": "2027-01-01",
+        "checkpoints": [
+          "2026-03-05",
+          "2026-03-06"
+        ]
+      },
+      "expected": [
+        "2026-03-06T09:00:00Z",
+        "2026-03-07T09:00:00Z",
+        "2026-03-08T09:00:00Z"
+      ]
+    }
+  ]
+}

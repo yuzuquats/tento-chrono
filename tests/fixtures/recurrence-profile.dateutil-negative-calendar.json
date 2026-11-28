@@ -1,0 +1,179 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil backward calendar intervals",
+  "source": "python-dateutil 2.8.2 rrulestr with forceset",
+  "cases": [
+    {
+      "name": "a backward monthly rule eventually exhausts its raw month slice",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=MONTHLY;INTERVAL=-1;COUNT=1",
+          "RDATE:20260308T100000Z"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "expansionError": "not enough values to unpack (expected 2, got 0)"
+      }
+    },
+    {
+      "name": "a negative raw month index can produce a later occurrence",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=MONTHLY;INTERVAL=-5;COUNT=3;BYMONTHDAY=6,8",
+          "RDATE:20260308T100000Z"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-06-01"
+        ]
+      },
+      "expected": [
+        "2026-03-06T09:00:00Z",
+        "2026-03-08T09:00:00Z",
+        "2026-03-08T10:00:00Z",
+        "2026-11-06T09:00:00Z"
+      ]
+    },
+    {
+      "name": "a negative monthly exclusion can suppress an explicit November occurrence",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXRULE:FREQ=MONTHLY;INTERVAL=-5;COUNT=3;BYMONTHDAY=6,8",
+          "RDATE:20260308T100000Z,20261106T090000Z"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-06-01"
+        ]
+      },
+      "expected": [
+        "2026-03-07T09:00:00Z",
+        "2026-03-08T10:00:00Z"
+      ]
+    },
+    {
+      "name": "a backward year step reaches an invalid Python year",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:00030306T090000Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=-2;COUNT=2",
+          "RDATE:00030306T100000Z"
+        ],
+        "through": "0003-04-01",
+        "checkpoints": [
+          "0003-03-06"
+        ]
+      },
+      "expected": {
+        "expansionError": "year -1 is out of range"
+      }
+    },
+    {
+      "name": "an earlier cutoff can stop before stepping backward",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:00030306T090000Z",
+          "RRULE:FREQ=DAILY;INTERVAL=-1;UNTIL=00030306T085959Z",
+          "RDATE:00030306T100000Z"
+        ],
+        "through": "0003-04-01",
+        "checkpoints": [
+          "0003-03-06"
+        ]
+      },
+      "expected": [
+        "0003-03-06T10:00:00Z"
+      ]
+    },
+    {
+      "name": "a negative day field does not borrow from the previous month",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=DAILY;INTERVAL=-1;COUNT=1",
+          "RDATE:20260308T100000Z"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "expansionError": "day is out of range for month"
+      }
+    },
+    {
+      "name": "a huge negative week exceeds the Python signed calendar field",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=-9007199254740993;COUNT=1",
+          "RDATE:20260308T100000Z"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "expansionError": "signed integer is less than minimum"
+      }
+    },
+    {
+      "name": "a 310-digit negative year exceeds Python's C long",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=-9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;COUNT=1",
+          "RDATE:20260308T100000Z"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "expansionError": "Python int too large to convert to C long"
+      }
+    },
+    {
+      "name": "zero count stops before the oversized negative step",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=-9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;COUNT=0",
+          "RDATE:20260308T100000Z"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": [
+        "2026-03-08T10:00:00Z"
+      ]
+    }
+  ]
+}

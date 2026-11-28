@@ -1,0 +1,1065 @@
+{
+  "type": "recurrence-profile",
+  "name": "rrule.js 2.8.1 signed clock carries",
+  "source": "rrule.js 2.8.1 rrulestr(forceset: true), TZ from fixture or UTC",
+  "cases": [
+    {
+      "name": "YEARLY BYHOUR=24",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=YEARLY;BYHOUR=24;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-02T00:00:00Z",
+        "2027-01-02T00:00:00Z",
+        "2028-01-02T00:00:00Z"
+      ]
+    },
+    {
+      "name": "YEARLY BYHOUR=-1",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=YEARLY;BYHOUR=-1;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-12-31T23:00:00Z",
+        "2027-12-31T23:00:00Z",
+        "2028-12-31T23:00:00Z"
+      ]
+    },
+    {
+      "name": "YEARLY BYHOUR=48,-24",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=YEARLY;BYHOUR=48,-24;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-03T00:00:00Z",
+        "2026-12-31T00:00:00Z",
+        "2027-01-03T00:00:00Z"
+      ]
+    },
+    {
+      "name": "YEARLY BYMINUTE=60",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=YEARLY;BYMINUTE=60;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T01:00:00Z",
+        "2027-01-01T01:00:00Z",
+        "2028-01-01T01:00:00Z"
+      ]
+    },
+    {
+      "name": "YEARLY BYSECOND=61",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=YEARLY;BYSECOND=61;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T00:01:01Z",
+        "2027-01-01T00:01:01Z",
+        "2028-01-01T00:01:01Z"
+      ]
+    },
+    {
+      "name": "MONTHLY BYHOUR=25",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=MONTHLY;BYHOUR=25;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-02T01:00:00Z",
+        "2026-02-02T01:00:00Z",
+        "2026-03-02T01:00:00Z"
+      ]
+    },
+    {
+      "name": "MONTHLY BYMINUTE=-1",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=MONTHLY;BYMINUTE=-1;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-31T23:59:00Z",
+        "2026-02-28T23:59:00Z",
+        "2026-03-31T23:59:00Z"
+      ]
+    },
+    {
+      "name": "MONTHLY BYSECOND=-1",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=MONTHLY;BYSECOND=-1;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-31T23:59:59Z",
+        "2026-02-28T23:59:59Z",
+        "2026-03-31T23:59:59Z"
+      ]
+    },
+    {
+      "name": "WEEKLY BYHOUR=-1,24",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=WEEKLY;BYHOUR=-1,24;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-02T00:00:00Z",
+        "2026-01-07T23:00:00Z",
+        "2026-01-09T00:00:00Z"
+      ]
+    },
+    {
+      "name": "WEEKLY BYMINUTE=-1,61",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=WEEKLY;BYMINUTE=-1,61;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T01:01:00Z",
+        "2026-01-07T23:59:00Z",
+        "2026-01-08T01:01:00Z"
+      ]
+    },
+    {
+      "name": "WEEKLY BYSECOND=-1,120",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=WEEKLY;BYSECOND=-1,120;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T00:02:00Z",
+        "2026-01-07T23:59:59Z",
+        "2026-01-08T00:02:00Z"
+      ]
+    },
+    {
+      "name": "DAILY BYHOUR=24",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=24;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-02T00:00:00Z",
+        "2026-01-03T00:00:00Z",
+        "2026-01-04T00:00:00Z"
+      ]
+    },
+    {
+      "name": "DAILY BYHOUR=48",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=48;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-03T00:00:00Z",
+        "2026-01-04T00:00:00Z",
+        "2026-01-05T00:00:00Z"
+      ]
+    },
+    {
+      "name": "DAILY BYHOUR=-1",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=-1;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T23:00:00Z",
+        "2026-01-02T23:00:00Z",
+        "2026-01-03T23:00:00Z"
+      ]
+    },
+    {
+      "name": "DAILY BYHOUR=25,-1;BYSETPOS=1,-1",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=25,-1;BYSETPOS=1,-1;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T23:00:00Z",
+        "2026-01-02T01:00:00Z",
+        "2026-01-03T01:00:00Z"
+      ]
+    },
+    {
+      "name": "DAILY BYMINUTE=60",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;BYMINUTE=60;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T01:00:00Z",
+        "2026-01-02T01:00:00Z",
+        "2026-01-03T01:00:00Z"
+      ]
+    },
+    {
+      "name": "DAILY BYMINUTE=-1",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;BYMINUTE=-1;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T23:59:00Z",
+        "2026-01-02T23:59:00Z",
+        "2026-01-03T23:59:00Z"
+      ]
+    },
+    {
+      "name": "DAILY BYSECOND=61",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;BYSECOND=61;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T00:01:01Z",
+        "2026-01-02T00:01:01Z",
+        "2026-01-03T00:01:01Z"
+      ]
+    },
+    {
+      "name": "DAILY BYSECOND=-1",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;BYSECOND=-1;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T23:59:59Z",
+        "2026-01-02T23:59:59Z",
+        "2026-01-03T23:59:59Z"
+      ]
+    },
+    {
+      "name": "DAILY BYHOUR=72,-48;BYMINUTE=60,-60;BYSECOND=61,-1;BYSETPOS=1,8",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=72,-48;BYMINUTE=60,-60;BYSECOND=61,-1;BYSETPOS=1,8;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-04T01:01:01Z",
+        "2026-01-05T01:01:01Z",
+        "2026-01-06T01:01:01Z"
+      ]
+    },
+    {
+      "name": "HOURLY BYMINUTE=60",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=HOURLY;BYMINUTE=60;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T01:00:00Z",
+        "2026-01-01T02:00:00Z",
+        "2026-01-01T03:00:00Z"
+      ]
+    },
+    {
+      "name": "HOURLY BYMINUTE=-1",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=HOURLY;BYMINUTE=-1;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T00:59:00Z",
+        "2026-01-01T01:59:00Z",
+        "2026-01-01T02:59:00Z"
+      ]
+    },
+    {
+      "name": "HOURLY BYSECOND=61",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=HOURLY;BYSECOND=61;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T00:01:01Z",
+        "2026-01-01T01:01:01Z",
+        "2026-01-01T02:01:01Z"
+      ]
+    },
+    {
+      "name": "HOURLY BYSECOND=-1",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=HOURLY;BYSECOND=-1;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T00:59:59Z",
+        "2026-01-01T01:59:59Z",
+        "2026-01-01T02:59:59Z"
+      ]
+    },
+    {
+      "name": "MINUTELY BYSECOND=61",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=MINUTELY;BYSECOND=61;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T00:01:01Z",
+        "2026-01-01T00:02:01Z",
+        "2026-01-01T00:03:01Z"
+      ]
+    },
+    {
+      "name": "MINUTELY BYSECOND=-1",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=MINUTELY;BYSECOND=-1;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T00:00:59Z",
+        "2026-01-01T00:01:59Z",
+        "2026-01-01T00:02:59Z"
+      ]
+    },
+    {
+      "name": "MINUTELY BYSECOND=-60,120;BYSETPOS=1,-1",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=MINUTELY;BYSECOND=-60,120;BYSETPOS=1,-1;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T00:00:00Z",
+        "2026-01-01T00:02:00Z",
+        "2026-01-01T00:03:00Z"
+      ]
+    },
+    {
+      "name": "FREQ=YEARLY;BYHOUR=2400000001,9;COUNT=2",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=YEARLY;BYHOUR=2400000001,9;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2027-01-01T09:00:00Z"
+      ]
+    },
+    {
+      "name": "FREQ=DAILY;BYHOUR=2400000001,9;COUNT=2",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=2400000001,9;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "FREQ=DAILY;BYHOUR=9,2400000001;BYSETPOS=1,2;COUNT=2",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=9,2400000001;BYSETPOS=1,2;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "FREQ=DAILY;BYHOUR=2400000001,9,1;BYSETPOS=1,2,3;COUNT=2",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=2400000001,9,1;BYSETPOS=1,2,3;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T01:00:00Z",
+        "2026-01-01T09:00:00Z"
+      ]
+    },
+    {
+      "name": "FREQ=MONTHLY;BYHOUR=-2500000000,9;BYSETPOS=1,2;COUNT=2",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=MONTHLY;BYHOUR=-2500000000,9;BYSETPOS=1,2;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-02-01T09:00:00Z"
+      ]
+    },
+    {
+      "name": "FREQ=HOURLY;BYMINUTE=999999999999,0;COUNT=2",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=HOURLY;BYMINUTE=999999999999,0;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T00:00:00Z",
+        "2026-01-01T01:00:00Z"
+      ]
+    },
+    {
+      "name": "FREQ=MINUTELY;BYSECOND=-90000000000000,0;COUNT=2",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=MINUTELY;BYSECOND=-90000000000000,0;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2027-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T00:00:00Z",
+        "2026-01-01T00:01:00Z"
+      ]
+    },
+    {
+      "name": "UTC FREQ=DAILY;BYHOUR=72,-1;UNTIL=20260104T235959Z;COUNT=7",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=72,-1;UNTIL=20260104T235959Z;COUNT=7"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-02-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2026-01-10"
+        ]
+      },
+      "expected": [
+        "2026-01-04T00:00:00Z"
+      ]
+    },
+    {
+      "name": "UTC FREQ=DAILY;BYHOUR=96;BYSETPOS=1,1.5;COUNT=7",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=96;BYSETPOS=1,1.5;COUNT=7"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-02-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2026-01-10"
+        ]
+      },
+      "expected": [
+        "2026-01-01T00:00:00Z",
+        "2026-01-02T00:00:00Z",
+        "2026-01-03T00:00:00Z",
+        "2026-01-04T00:00:00Z",
+        "2026-01-05T00:00:00Z",
+        "2026-01-06T00:00:00Z",
+        "2026-01-07T00:00:00Z"
+      ]
+    },
+    {
+      "name": "UTC FREQ=HOURLY;BYMINUTE=5760;BYSETPOS=1,1.5;COUNT=7",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=HOURLY;BYMINUTE=5760;BYSETPOS=1,1.5;COUNT=7"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-02-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2026-01-10"
+        ]
+      },
+      "expected": [
+        "2026-01-01T00:00:00Z",
+        "2026-01-05T00:00:00Z",
+        "2026-01-05T01:00:00Z",
+        "2026-01-05T02:00:00Z"
+      ]
+    },
+    {
+      "name": "UTC explicit set around positive and negative rolled starts",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=72,-1;COUNT=7",
+          "RDATE:20260102T230000Z,20260108T230000Z",
+          "EXDATE:20260102T230000Z",
+          "EXRULE:FREQ=DAILY;BYHOUR=48;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-02-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2026-01-10"
+        ]
+      },
+      "expected": [
+        "2026-01-01T23:00:00Z",
+        "2026-01-03T23:00:00Z",
+        "2026-01-05T00:00:00Z",
+        "2026-01-06T00:00:00Z",
+        "2026-01-07T00:00:00Z",
+        "2026-01-08T23:00:00Z"
+      ]
+    },
+    {
+      "name": "Asia/Tokyo FREQ=DAILY;BYHOUR=96;BYSETPOS=1,1.5;COUNT=7",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=96;BYSETPOS=1,1.5;COUNT=7"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "Asia/Tokyo",
+        "through": "2026-02-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2026-01-10"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z",
+        "2026-01-04T09:00:00Z",
+        "2026-01-05T00:00:00Z",
+        "2026-01-06T00:00:00Z",
+        "2026-01-07T00:00:00Z"
+      ]
+    },
+    {
+      "name": "America/Los_Angeles FREQ=DAILY;BYHOUR=96;BYSETPOS=1,1.5;UNTIL=20260108T235959Z;COUNT=7",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=96;BYSETPOS=1,1.5;UNTIL=20260108T235959Z;COUNT=7"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "America/Los_Angeles",
+        "through": "2026-02-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-04",
+          "2026-01-10"
+        ]
+      },
+      "expected": [
+        "2026-01-01T16:00:00Z",
+        "2026-01-02T16:00:00Z",
+        "2026-01-03T16:00:00Z",
+        "2026-01-04T16:00:00Z",
+        "2026-01-05T00:00:00Z",
+        "2026-01-06T00:00:00Z",
+        "2026-01-07T00:00:00Z"
+      ]
+    },
+    {
+      "name": "New York start / UTC FREQ=DAILY;BYHOUR=-1,25;BYSETPOS=1,-1;UNTIL=20260309T070000Z;COUNT=7",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260306T013000",
+          "RRULE:FREQ=DAILY;BYHOUR=-1,25;BYSETPOS=1,-1;UNTIL=20260309T070000Z;COUNT=7"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-05-01",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09",
+          "2026-03-12"
+        ]
+      },
+      "expected": [
+        "2026-03-07T04:30:00Z",
+        "2026-03-07T06:30:00Z",
+        "2026-03-08T04:30:00Z",
+        "2026-03-08T06:30:00Z",
+        "2026-03-09T03:30:00Z",
+        "2026-03-09T05:30:00Z"
+      ]
+    },
+    {
+      "name": "New York start / UTC zoned explicit dates and carried exclusions",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260306T013000",
+          "RRULE:FREQ=DAILY;BYHOUR=72,-1;COUNT=7",
+          "RDATE:20260308T033000Z,20260314T013000Z",
+          "EXDATE:20260308T033000Z",
+          "EXRULE:FREQ=DAILY;BYHOUR=48;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-05-01",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09",
+          "2026-03-12"
+        ]
+      },
+      "expected": [
+        "2026-03-07T04:30:00Z",
+        "2026-03-08T04:30:00Z",
+        "2026-03-09T03:30:00Z",
+        "2026-03-11T04:30:00Z",
+        "2026-03-12T04:30:00Z",
+        "2026-03-14T05:30:00Z"
+      ]
+    },
+    {
+      "name": "New York start / Asia/Tokyo FREQ=DAILY;BYHOUR=96;BYSETPOS=1,1.5;COUNT=7",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260306T013000",
+          "RRULE:FREQ=DAILY;BYHOUR=96;BYSETPOS=1,1.5;COUNT=7"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "Asia/Tokyo",
+        "through": "2026-05-01",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09",
+          "2026-03-12"
+        ]
+      },
+      "expected": [
+        "2026-03-06T23:00:00Z",
+        "2026-03-07T23:00:00Z",
+        "2026-03-08T22:00:00Z",
+        "2026-03-09T22:00:00Z",
+        "2026-03-10T13:30:00Z",
+        "2026-03-11T13:30:00Z",
+        "2026-03-12T13:30:00Z"
+      ]
+    },
+    {
+      "name": "New York start / Asia/Tokyo FREQ=HOURLY;BYMINUTE=180,-120;BYSETPOS=1,-1;COUNT=7",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260306T013000",
+          "RRULE:FREQ=HOURLY;BYMINUTE=180,-120;BYSETPOS=1,-1;COUNT=7"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "Asia/Tokyo",
+        "through": "2026-05-01",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09",
+          "2026-03-12"
+        ]
+      },
+      "expected": [
+        "2026-03-06T16:00:00Z",
+        "2026-03-06T17:00:00Z",
+        "2026-03-06T18:00:00Z",
+        "2026-03-06T19:00:00Z",
+        "2026-03-06T20:00:00Z",
+        "2026-03-06T21:00:00Z",
+        "2026-03-06T22:00:00Z"
+      ]
+    },
+    {
+      "name": "New York start / America/Los_Angeles FREQ=WEEKLY;BYDAY=SU,WE;BYHOUR=-1,25;COUNT=7",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260306T013000",
+          "RRULE:FREQ=WEEKLY;BYDAY=SU,WE;BYHOUR=-1,25;COUNT=7"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "America/Los_Angeles",
+        "through": "2026-05-01",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09",
+          "2026-03-12"
+        ]
+      },
+      "expected": [
+        "2026-03-07T20:30:00Z",
+        "2026-03-08T22:30:00Z",
+        "2026-03-10T20:30:00Z",
+        "2026-03-11T22:30:00Z",
+        "2026-03-14T20:30:00Z",
+        "2026-03-15T22:30:00Z",
+        "2026-03-17T20:30:00Z"
+      ]
+    },
+    {
+      "name": "FREQ=DAILY;BYHOUR=2400000001,9",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=2400000001,9"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-01-04",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z",
+        "2026-01-04T09:00:00Z"
+      ]
+    }
+  ]
+}

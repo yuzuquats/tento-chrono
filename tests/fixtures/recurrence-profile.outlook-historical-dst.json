@@ -1,0 +1,1477 @@
+{
+  "type": "recurrence-profile",
+  "name": "Outlook Graph historical DST regimes",
+  "source": "Microsoft Graph v1.0 calendarView, captured 2026-11-22 on a dedicated test calendar",
+  "cases": [
+    {
+      "name": "pacific-before-2006-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2006-03-31T10:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Pacific Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2006-03-31",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2006-04-12",
+        "checkpoints": [
+          "2006-04-01",
+          "2006-04-03"
+        ]
+      },
+      "expected": [
+        "2006-03-31T10:30:00Z",
+        "2006-04-01T10:30:00Z",
+        "2006-04-02T10:30:00Z",
+        "2006-04-03T09:30:00Z",
+        "2006-04-04T09:30:00Z"
+      ]
+    },
+    {
+      "name": "eastern-before-2006-fall",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2006-10-27T05:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Eastern Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2006-10-27",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2006-11-08",
+        "checkpoints": [
+          "2006-10-28",
+          "2006-10-30"
+        ]
+      },
+      "expected": [
+        "2006-10-27T05:30:00Z",
+        "2006-10-28T05:30:00Z",
+        "2006-10-29T05:30:00Z",
+        "2006-10-30T06:30:00Z",
+        "2006-10-31T06:30:00Z"
+      ]
+    },
+    {
+      "name": "pacific-before-2007-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2007-03-09T10:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Pacific Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Pacific Standard Time",
+              "startDate": "2007-03-09",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2007-03-21",
+        "checkpoints": [
+          "2007-03-10",
+          "2007-03-12"
+        ]
+      },
+      "expected": [
+        "2007-03-09T10:30:00Z",
+        "2007-03-10T10:30:00Z",
+        "2007-03-11T10:30:00Z",
+        "2007-03-12T09:30:00Z",
+        "2007-03-13T09:30:00Z"
+      ]
+    },
+    {
+      "name": "eastern-before-2007-fall",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2007-11-02T05:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Eastern Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Eastern Standard Time",
+              "startDate": "2007-11-02",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2007-11-14",
+        "checkpoints": [
+          "2007-11-03",
+          "2007-11-05"
+        ]
+      },
+      "expected": [
+        "2007-11-02T05:30:00Z",
+        "2007-11-03T05:30:00Z",
+        "2007-11-04T05:30:00Z",
+        "2007-11-05T06:30:00Z",
+        "2007-11-06T06:30:00Z"
+      ]
+    },
+    {
+      "name": "chatham-before-2006-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2006-09-28T14:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Chatham Islands Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2006-09-29",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2006-10-11",
+        "checkpoints": [
+          "2006-09-29",
+          "2006-10-01"
+        ]
+      },
+      "expected": [
+        "2006-09-28T14:30:00Z",
+        "2006-09-29T14:30:00Z",
+        "2006-09-30T14:30:00Z",
+        "2006-10-01T13:30:00Z",
+        "2006-10-02T13:30:00Z"
+      ]
+    },
+    {
+      "name": "chatham-before-2007-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2007-09-27T14:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Chatham Islands Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2007-09-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2007-10-10",
+        "checkpoints": [
+          "2007-09-28",
+          "2007-09-30"
+        ]
+      },
+      "expected": [
+        "2007-09-27T14:30:00Z",
+        "2007-09-28T14:30:00Z",
+        "2007-09-29T14:30:00Z",
+        "2007-09-30T13:30:00Z",
+        "2007-10-01T13:30:00Z"
+      ]
+    },
+    {
+      "name": "chatham-before-2007-fall",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2007-03-15T13:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Chatham Islands Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2007-03-16",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2007-03-28",
+        "checkpoints": [
+          "2007-03-16",
+          "2007-03-18"
+        ]
+      },
+      "expected": [
+        "2007-03-15T13:30:00Z",
+        "2007-03-16T13:30:00Z",
+        "2007-03-17T13:30:00Z",
+        "2007-03-18T14:30:00Z",
+        "2007-03-19T14:30:00Z"
+      ]
+    },
+    {
+      "name": "cairo-before-2014-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-05-13T22:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Egypt Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-05-14",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2014-05-26",
+        "checkpoints": [
+          "2014-05-14",
+          "2014-05-16"
+        ]
+      },
+      "expected": [
+        "2014-05-13T22:30:00Z",
+        "2014-05-14T22:30:00Z",
+        "2014-05-15T22:30:00Z",
+        "2014-05-16T21:30:00Z",
+        "2014-05-17T21:30:00Z"
+      ]
+    },
+    {
+      "name": "cairo-before-2014-ramadan",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-06-24T20:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Egypt Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-06-24",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2014-07-06",
+        "checkpoints": [
+          "2014-06-25",
+          "2014-06-27"
+        ]
+      },
+      "expected": [
+        "2014-06-24T20:30:00Z",
+        "2014-06-25T20:30:00Z",
+        "2014-06-26T20:30:00Z",
+        "2014-06-27T20:30:00Z",
+        "2014-06-28T20:30:00Z"
+      ]
+    },
+    {
+      "name": "cairo-before-2014-august",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-07-29T21:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Egypt Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-07-30",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2014-08-11",
+        "checkpoints": [
+          "2014-07-30",
+          "2014-08-01"
+        ]
+      },
+      "expected": [
+        "2014-07-29T21:30:00Z",
+        "2014-07-30T21:30:00Z",
+        "2014-07-31T21:30:00Z",
+        "2014-08-01T21:30:00Z",
+        "2014-08-02T21:30:00Z"
+      ]
+    },
+    {
+      "name": "cairo-before-2015-summer",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2015-05-14T10:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Egypt Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2015-05-14",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2015-05-26",
+        "checkpoints": [
+          "2015-05-15",
+          "2015-05-17"
+        ]
+      },
+      "expected": [
+        "2015-05-14T10:30:00Z",
+        "2015-05-15T10:30:00Z",
+        "2015-05-16T10:30:00Z",
+        "2015-05-17T10:30:00Z",
+        "2015-05-18T10:30:00Z"
+      ]
+    },
+    {
+      "name": "utc-2014-control",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-05-14T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2014-05-14",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2014-05-26",
+        "checkpoints": [
+          "2014-05-15",
+          "2014-05-17"
+        ]
+      },
+      "expected": [
+        "2014-05-14T00:30:00Z",
+        "2014-05-15T00:30:00Z",
+        "2014-05-16T00:30:00Z",
+        "2014-05-17T00:30:00Z",
+        "2014-05-18T00:30:00Z"
+      ]
+    },
+    {
+      "name": "cairo-may-before-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-05-14T21:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Egypt Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-05-14",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2014-05-26",
+        "checkpoints": [
+          "2014-05-15",
+          "2014-05-17"
+        ]
+      },
+      "expected": [
+        "2014-05-14T21:59:00Z",
+        "2014-05-15T21:59:00Z",
+        "2014-05-16T20:59:00Z",
+        "2014-05-17T20:59:00Z",
+        "2014-05-18T20:59:00Z"
+      ]
+    },
+    {
+      "name": "cairo-may-gap-start",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-05-13T22:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Egypt Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-05-14",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2014-05-26",
+        "checkpoints": [
+          "2014-05-14",
+          "2014-05-16"
+        ]
+      },
+      "expected": [
+        "2014-05-13T22:00:00Z",
+        "2014-05-14T22:00:00Z",
+        "2014-05-15T22:00:00Z",
+        "2014-05-16T21:00:00Z",
+        "2014-05-17T21:00:00Z"
+      ]
+    },
+    {
+      "name": "cairo-may-after-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-05-13T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Egypt Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-05-14",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2014-05-26",
+        "checkpoints": [
+          "2014-05-14",
+          "2014-05-16"
+        ]
+      },
+      "expected": [
+        "2014-05-13T23:00:00Z",
+        "2014-05-14T23:00:00Z",
+        "2014-05-15T22:00:00Z",
+        "2014-05-16T22:00:00Z",
+        "2014-05-17T22:00:00Z"
+      ]
+    },
+    {
+      "name": "cairo-july-no-range",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-07-17T21:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Egypt Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-07-18",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2014-07-30",
+        "checkpoints": [
+          "2014-07-18",
+          "2014-07-20"
+        ]
+      },
+      "expected": [
+        "2014-07-17T21:30:00Z",
+        "2014-07-18T21:30:00Z",
+        "2014-07-19T21:30:00Z",
+        "2014-07-20T21:30:00Z",
+        "2014-07-21T21:30:00Z"
+      ]
+    },
+    {
+      "name": "cairo-september-fold-start",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-09-23T20:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Egypt Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-09-23",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2014-10-05",
+        "checkpoints": [
+          "2014-09-24",
+          "2014-09-26"
+        ]
+      },
+      "expected": [
+        "2014-09-23T20:00:00Z",
+        "2014-09-24T20:00:00Z",
+        "2014-09-25T20:00:00Z",
+        "2014-09-26T21:00:00Z",
+        "2014-09-27T21:00:00Z"
+      ]
+    },
+    {
+      "name": "cairo-september-fold-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-09-23T20:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Egypt Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-09-23",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2014-10-05",
+        "checkpoints": [
+          "2014-09-24",
+          "2014-09-26"
+        ]
+      },
+      "expected": [
+        "2014-09-23T20:59:00Z",
+        "2014-09-24T20:59:00Z",
+        "2014-09-25T20:59:00Z",
+        "2014-09-26T21:59:00Z",
+        "2014-09-27T21:59:00Z"
+      ]
+    },
+    {
+      "name": "cairo-september-after-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-09-22T21:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Egypt Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-09-23",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2014-10-05",
+        "checkpoints": [
+          "2014-09-23",
+          "2014-09-25"
+        ]
+      },
+      "expected": [
+        "2014-09-22T21:00:00Z",
+        "2014-09-23T21:00:00Z",
+        "2014-09-24T21:00:00Z",
+        "2014-09-25T22:00:00Z",
+        "2014-09-26T22:00:00Z"
+      ]
+    },
+    {
+      "name": "cairo-october-noon",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-10-03T10:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Egypt Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-10-03",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2014-10-15",
+        "checkpoints": [
+          "2014-10-04",
+          "2014-10-06"
+        ]
+      },
+      "expected": [
+        "2014-10-03T10:30:00Z",
+        "2014-10-04T10:30:00Z",
+        "2014-10-05T10:30:00Z",
+        "2014-10-06T10:30:00Z",
+        "2014-10-07T10:30:00Z"
+      ]
+    },
+    {
+      "name": "cairo-2010-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2010-09-28T20:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Egypt Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2010-09-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2010-10-10",
+        "checkpoints": [
+          "2010-09-29",
+          "2010-10-01"
+        ]
+      },
+      "expected": [
+        "2010-09-28T20:30:00Z",
+        "2010-09-29T20:30:00Z",
+        "2010-09-30T20:30:00Z",
+        "2010-10-01T21:30:00Z",
+        "2010-10-02T21:30:00Z"
+      ]
+    },
+    {
+      "name": "cairo-2010-after-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2010-09-27T21:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Egypt Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2010-09-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2010-10-10",
+        "checkpoints": [
+          "2010-09-28",
+          "2010-09-30"
+        ]
+      },
+      "expected": [
+        "2010-09-27T21:00:00Z",
+        "2010-09-28T21:00:00Z",
+        "2010-09-29T21:00:00Z",
+        "2010-09-30T22:00:00Z",
+        "2010-10-01T22:00:00Z"
+      ]
+    },
+    {
+      "name": "cairo-2010-november",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2010-11-12T10:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Egypt Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2010-11-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2010-11-24",
+        "checkpoints": [
+          "2010-11-13",
+          "2010-11-15"
+        ]
+      },
+      "expected": [
+        "2010-11-12T10:30:00Z",
+        "2010-11-13T10:30:00Z",
+        "2010-11-14T10:30:00Z",
+        "2010-11-15T10:30:00Z",
+        "2010-11-16T10:30:00Z"
+      ]
+    },
+    {
+      "name": "cairo-2011-july",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-07-12T10:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Egypt Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-07-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2011-07-24",
+        "checkpoints": [
+          "2011-07-13",
+          "2011-07-15"
+        ]
+      },
+      "expected": [
+        "2011-07-12T10:30:00Z",
+        "2011-07-13T10:30:00Z",
+        "2011-07-14T10:30:00Z",
+        "2011-07-15T10:30:00Z",
+        "2011-07-16T10:30:00Z"
+      ]
+    },
+    {
+      "name": "cairo-2013-july",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2013-07-12T10:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Egypt Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2013-07-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2013-07-24",
+        "checkpoints": [
+          "2013-07-13",
+          "2013-07-15"
+        ]
+      },
+      "expected": [
+        "2013-07-12T10:30:00Z",
+        "2013-07-13T10:30:00Z",
+        "2013-07-14T10:30:00Z",
+        "2013-07-15T10:30:00Z",
+        "2013-07-16T10:30:00Z"
+      ]
+    },
+    {
+      "name": "cairo-2010-spring-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2010-04-27T22:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Egypt Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2010-04-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2010-05-10",
+        "checkpoints": [
+          "2010-04-28",
+          "2010-04-30"
+        ]
+      },
+      "expected": [
+        "2010-04-27T22:30:00Z",
+        "2010-04-28T22:30:00Z",
+        "2010-04-29T22:30:00Z",
+        "2010-04-30T21:30:00Z",
+        "2010-05-01T21:30:00Z"
+      ]
+    },
+    {
+      "name": "cairo-2010-spring-after-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2010-04-27T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Egypt Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2010-04-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2010-05-10",
+        "checkpoints": [
+          "2010-04-28",
+          "2010-04-30"
+        ]
+      },
+      "expected": [
+        "2010-04-27T23:00:00Z",
+        "2010-04-28T23:00:00Z",
+        "2010-04-29T22:00:00Z",
+        "2010-04-30T22:00:00Z",
+        "2010-05-01T22:00:00Z"
+      ]
+    },
+    {
+      "name": "cairo-2010-august-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2010-08-08T20:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Egypt Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2010-08-08",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2010-08-20",
+        "checkpoints": [
+          "2010-08-09",
+          "2010-08-11"
+        ]
+      },
+      "expected": [
+        "2010-08-08T20:30:00Z",
+        "2010-08-09T20:30:00Z",
+        "2010-08-10T20:30:00Z",
+        "2010-08-11T20:30:00Z",
+        "2010-08-12T20:30:00Z"
+      ]
+    },
+    {
+      "name": "cairo-2010-august-midnight",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2010-08-07T21:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Egypt Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2010-08-08",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2010-08-20",
+        "checkpoints": [
+          "2010-08-08",
+          "2010-08-10"
+        ]
+      },
+      "expected": [
+        "2010-08-07T21:00:00Z",
+        "2010-08-08T21:00:00Z",
+        "2010-08-09T21:00:00Z",
+        "2010-08-10T21:00:00Z",
+        "2010-08-11T21:00:00Z"
+      ]
+    },
+    {
+      "name": "cairo-2010-late-august",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2010-08-24T09:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Egypt Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2010-08-24",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2010-09-05",
+        "checkpoints": [
+          "2010-08-25",
+          "2010-08-27"
+        ]
+      },
+      "expected": [
+        "2010-08-24T09:30:00Z",
+        "2010-08-25T09:30:00Z",
+        "2010-08-26T09:30:00Z",
+        "2010-08-27T09:30:00Z",
+        "2010-08-28T09:30:00Z"
+      ]
+    },
+    {
+      "name": "cairo-2010-september-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2010-09-07T21:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Egypt Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2010-09-08",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2010-09-20",
+        "checkpoints": [
+          "2010-09-08",
+          "2010-09-10"
+        ]
+      },
+      "expected": [
+        "2010-09-07T21:30:00Z",
+        "2010-09-08T21:30:00Z",
+        "2010-09-09T21:30:00Z",
+        "2010-09-10T21:30:00Z",
+        "2010-09-11T21:30:00Z"
+      ]
+    },
+    {
+      "name": "cairo-2010-september-after-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2010-09-07T22:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Egypt Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2010-09-08",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2010-09-20",
+        "checkpoints": [
+          "2010-09-08",
+          "2010-09-10"
+        ]
+      },
+      "expected": [
+        "2010-09-07T22:00:00Z",
+        "2010-09-08T22:00:00Z",
+        "2010-09-09T22:00:00Z",
+        "2010-09-10T22:00:00Z",
+        "2010-09-11T22:00:00Z"
+      ]
+    },
+    {
+      "name": "cairo-2009-august-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2009-08-18T20:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Egypt Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2009-08-18",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2009-08-30",
+        "checkpoints": [
+          "2009-08-19",
+          "2009-08-21"
+        ]
+      },
+      "expected": [
+        "2009-08-18T20:30:00Z",
+        "2009-08-19T20:30:00Z",
+        "2009-08-20T20:30:00Z",
+        "2009-08-21T21:30:00Z",
+        "2009-08-22T21:30:00Z"
+      ]
+    },
+    {
+      "name": "cairo-2009-september-standard",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2009-09-13T10:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Egypt Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2009-09-13",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2009-09-25",
+        "checkpoints": [
+          "2009-09-14",
+          "2009-09-16"
+        ]
+      },
+      "expected": [
+        "2009-09-13T10:30:00Z",
+        "2009-09-14T10:30:00Z",
+        "2009-09-15T10:30:00Z",
+        "2009-09-16T10:30:00Z",
+        "2009-09-17T10:30:00Z"
+      ]
+    },
+    {
+      "name": "cairo-2008-august-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2008-08-26T20:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Egypt Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2008-08-26",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2008-09-07",
+        "checkpoints": [
+          "2008-08-27",
+          "2008-08-29"
+        ]
+      },
+      "expected": [
+        "2008-08-26T20:30:00Z",
+        "2008-08-27T20:30:00Z",
+        "2008-08-28T20:30:00Z",
+        "2008-08-29T21:30:00Z",
+        "2008-08-30T21:30:00Z"
+      ]
+    }
+  ]
+}

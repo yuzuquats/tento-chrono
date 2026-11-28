@@ -1,0 +1,620 @@
+{
+  "type": "google-instances-query",
+  "name": "Google yearly rewinds and the initial candidate",
+  "source": "Google Calendar API events.instances",
+  "cases": [
+    {
+      "name": "google-wrap-ceiling-date-weekday-root-cause-repeat",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "2099-06-03"
+          },
+          "end": {
+            "date": "2099-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=11759220;COUNT=4;BYMONTH=1,12;BYMONTHDAY=3;BYDAY=WE"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "2099-06-03"
+          },
+          "end": {
+            "date": "2099-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=4;INTERVAL=11759220;BYMONTH=1,12;BYMONTHDAY=3;BYDAY=WE"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2080-01-01T00:00:00Z",
+            "end": "2102-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2099-06-03"
+        ]
+      }
+    },
+    {
+      "name": "google-wrap-ceiling-date-weekday-root-cause-count-one",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "2099-06-03"
+          },
+          "end": {
+            "date": "2099-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=11759220;COUNT=1;BYMONTH=1,12;BYMONTHDAY=3;BYDAY=WE"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "2099-06-03"
+          },
+          "end": {
+            "date": "2099-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=1;INTERVAL=11759220;BYMONTH=1,12;BYMONTHDAY=3;BYDAY=WE"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2080-01-01T00:00:00Z",
+            "end": "2102-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2099-06-03"
+        ]
+      }
+    },
+    {
+      "name": "google-wrap-ceiling-date-weekday-root-cause-count-two",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "2099-06-03"
+          },
+          "end": {
+            "date": "2099-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=11759220;COUNT=2;BYMONTH=1,12;BYMONTHDAY=3;BYDAY=WE"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "2099-06-03"
+          },
+          "end": {
+            "date": "2099-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=2;INTERVAL=11759220;BYMONTH=1,12;BYMONTHDAY=3;BYDAY=WE"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2080-01-01T00:00:00Z",
+            "end": "2102-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2099-06-03"
+        ]
+      }
+    },
+    {
+      "name": "google-wrap-ceiling-date-weekday-root-cause-tuesday",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "2099-06-03"
+          },
+          "end": {
+            "date": "2099-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=11759220;COUNT=4;BYMONTH=1,12;BYMONTHDAY=3;BYDAY=TU"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "2099-06-03"
+          },
+          "end": {
+            "date": "2099-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=4;INTERVAL=11759220;BYMONTH=1,12;BYMONTHDAY=3;BYDAY=TU"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2080-01-01T00:00:00Z",
+            "end": "2102-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2099-06-03"
+        ]
+      }
+    },
+    {
+      "name": "google-wrap-ceiling-date-weekday-root-cause-saturday",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "2099-06-03"
+          },
+          "end": {
+            "date": "2099-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=11759220;COUNT=4;BYMONTH=1,12;BYMONTHDAY=3;BYDAY=SA"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "2099-06-03"
+          },
+          "end": {
+            "date": "2099-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=4;INTERVAL=11759220;BYMONTH=1,12;BYMONTHDAY=3;BYDAY=SA"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2080-01-01T00:00:00Z",
+            "end": "2102-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2099-06-03"
+        ]
+      }
+    },
+    {
+      "name": "google-wrap-ceiling-date-weekday-root-cause-december-only",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "2099-06-03"
+          },
+          "end": {
+            "date": "2099-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=11759220;COUNT=4;BYMONTH=12;BYMONTHDAY=3;BYDAY=WE"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "2099-06-03"
+          },
+          "end": {
+            "date": "2099-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=4;INTERVAL=11759220;BYMONTH=12;BYMONTHDAY=3;BYDAY=WE"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2080-01-01T00:00:00Z",
+            "end": "2102-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2099-06-03"
+        ]
+      }
+    },
+    {
+      "name": "google-wrap-ceiling-date-weekday-root-cause-june-december",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "2099-06-03"
+          },
+          "end": {
+            "date": "2099-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=11759220;COUNT=4;BYMONTH=6,12;BYMONTHDAY=3;BYDAY=WE"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "2099-06-03"
+          },
+          "end": {
+            "date": "2099-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=4;INTERVAL=11759220;BYMONTH=6,12;BYMONTHDAY=3;BYDAY=WE"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2080-01-01T00:00:00Z",
+            "end": "2102-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2087-12-03",
+          "2092-12-03",
+          "2093-06-03",
+          "2099-06-03"
+        ]
+      }
+    },
+    {
+      "name": "google-wrap-ceiling-date-initial-candidate-clipped-january",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "2099-06-03"
+          },
+          "end": {
+            "date": "2099-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=11759220;COUNT=4;BYMONTH=1;BYMONTHDAY=3;BYDAY=SA"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "2099-06-03"
+          },
+          "end": {
+            "date": "2099-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=4;INTERVAL=11759220;BYMONTH=1;BYMONTHDAY=3;BYDAY=SA"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2080-01-01T00:00:00Z",
+            "end": "2102-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2099-06-03"
+        ]
+      }
+    },
+    {
+      "name": "google-wrap-ceiling-date-initial-candidate-explicit-only",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "2099-06-03"
+          },
+          "end": {
+            "date": "2099-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=11759220;COUNT=4;BYMONTH=1,12;BYMONTHDAY=3;BYDAY=WE",
+            "RDATE;VALUE=DATE:20990604"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "2099-06-03"
+          },
+          "end": {
+            "date": "2099-06-04"
+          },
+          "recurrence": [
+            "RDATE;VALUE=DATE:20990604",
+            "RRULE:FREQ=YEARLY;COUNT=4;INTERVAL=11759220;BYMONTH=1,12;BYMONTHDAY=3;BYDAY=WE"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2080-01-01T00:00:00Z",
+            "end": "2102-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2099-06-03",
+          "2099-06-04"
+        ]
+      }
+    },
+    {
+      "name": "google-wrap-first-year-2027-aligned",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "2027-06-03"
+          },
+          "end": {
+            "date": "2027-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=11759220;COUNT=2;BYMONTH=6;BYMONTHDAY=3"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "2027-06-03"
+          },
+          "end": {
+            "date": "2027-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=2;INTERVAL=11759220;BYMONTH=6;BYMONTHDAY=3"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2008-01-01T00:00:00Z",
+            "end": "2030-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2025-06-03",
+          "2027-06-03"
+        ]
+      }
+    },
+    {
+      "name": "google-wrap-first-year-2027-later-count-one",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "2027-06-03"
+          },
+          "end": {
+            "date": "2027-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=11759220;COUNT=1;BYMONTH=6;BYMONTHDAY=4"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "2027-06-03"
+          },
+          "end": {
+            "date": "2027-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=1;INTERVAL=11759220;BYMONTH=6;BYMONTHDAY=4"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2008-01-01T00:00:00Z",
+            "end": "2030-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2027-06-03",
+          "2027-06-04"
+        ]
+      }
+    },
+    {
+      "name": "google-wrap-first-year-2099-aligned",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "2099-06-03"
+          },
+          "end": {
+            "date": "2099-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=11759220;COUNT=2;BYMONTH=6;BYMONTHDAY=3"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "2099-06-03"
+          },
+          "end": {
+            "date": "2099-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=2;INTERVAL=11759220;BYMONTH=6;BYMONTHDAY=3"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2080-01-01T00:00:00Z",
+            "end": "2102-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2097-06-03",
+          "2099-06-03"
+        ]
+      }
+    },
+    {
+      "name": "google-wrap-first-year-2099-later-count-one",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "2099-06-03"
+          },
+          "end": {
+            "date": "2099-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=11759220;COUNT=1;BYMONTH=6;BYMONTHDAY=4"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "2099-06-03"
+          },
+          "end": {
+            "date": "2099-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=1;INTERVAL=11759220;BYMONTH=6;BYMONTHDAY=4"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2080-01-01T00:00:00Z",
+            "end": "2102-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2099-06-03",
+          "2099-06-04"
+        ]
+      }
+    },
+    {
+      "name": "google-wrap-first-year-2027-patch-count-two-interval-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "2027-06-03"
+          },
+          "end": {
+            "date": "2027-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1;COUNT=2;BYMONTH=6;BYMONTHDAY=4"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "2027-06-03"
+          },
+          "end": {
+            "date": "2027-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=2;INTERVAL=1;BYMONTH=6;BYMONTHDAY=4"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2008-01-01T00:00:00Z",
+            "end": "2030-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2027-06-03",
+          "2027-06-04",
+          "2028-06-04"
+        ]
+      }
+    },
+    {
+      "name": "google-wrap-first-year-2099-patch-count-two-interval-1",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "2099-06-03"
+          },
+          "end": {
+            "date": "2099-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1;COUNT=2;BYMONTH=6;BYMONTHDAY=4"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "2099-06-03"
+          },
+          "end": {
+            "date": "2099-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=2;INTERVAL=1;BYMONTH=6;BYMONTHDAY=4"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2080-01-01T00:00:00Z",
+            "end": "2102-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2099-06-03",
+          "2099-06-04"
+        ]
+      }
+    }
+  ]
+}

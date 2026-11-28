@@ -1,0 +1,315 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil clock timezone suffixes",
+  "source": "python-dateutil 2.8.2 rrulestr with TZ=UTC",
+  "cases": [
+    {
+      "name": "unknown timezone abbreviation leaves an otherwise valid wall clock floating",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026/03/01T09:15:30JUNK",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:15:30",
+        "2026-03-02T09:15:30",
+        "2026-03-03T09:15:30"
+      ]
+    },
+    {
+      "name": "unknown lowercase abbreviation is uppercased by rrulestr",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T091530junk",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:15:30",
+        "2026-03-02T09:15:30",
+        "2026-03-03T09:15:30"
+      ]
+    },
+    {
+      "name": "known TZID still binds a date with an unknown abbreviation",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260301T091530JUNK",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T14:15:30Z",
+        "2026-03-02T14:15:30Z",
+        "2026-03-03T14:15:30Z"
+      ]
+    },
+    {
+      "name": "alphabetic prefix reverses the written numeric offset",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026.03.01T09:15:30EST-05:30",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T03:45:30Z",
+        "2026-03-02T03:45:30Z",
+        "2026-03-03T03:45:30Z"
+      ]
+    },
+    {
+      "name": "alphabetic prefix retains UTC awareness when the offset is zero",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T091530JUNK+00",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:15:30Z",
+        "2026-03-02T09:15:30Z",
+        "2026-03-03T09:15:30Z"
+      ]
+    },
+    {
+      "name": "PM adjusts the clock and keeps the ordinary numeric offset sign",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026-03-01T9:15PM+05",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T16:15:00Z",
+        "2026-03-02T16:15:00Z",
+        "2026-03-03T16:15:00Z"
+      ]
+    },
+    {
+      "name": "dotted meridiem adjusts a floating clock",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026/03/01T09:15:30P.M.",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T21:15:30",
+        "2026-03-02T21:15:30",
+        "2026-03-03T21:15:30"
+      ]
+    },
+    {
+      "name": "a dot separates an abbreviation from the numeric offset",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026/03/01T09:15:30JUNK.-3",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T12:15:30Z",
+        "2026-03-02T12:15:30Z",
+        "2026-03-03T12:15:30Z"
+      ]
+    },
+    {
+      "name": "a numeric offset adjacent to the M in dotted meridiem flips its sign",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026/03/01T09:15:30P.M+3",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-03-02",
+          "2026-03-03",
+          "2026-03-04"
+        ]
+      },
+      "expected": [
+        "2026-03-02T00:15:30Z",
+        "2026-03-03T00:15:30Z",
+        "2026-03-04T00:15:30Z"
+      ]
+    },
+    {
+      "name": "a dotted UTC name takes precedence over a separate offset",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026/03/01T09:15:30UTC.-3",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:15:30Z",
+        "2026-03-02T09:15:30Z",
+        "2026-03-03T09:15:30Z"
+      ]
+    },
+    {
+      "name": "bare minute unit does not become a timezone abbreviation",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T09M",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T00:09:00",
+        "2026-03-02T00:09:00",
+        "2026-03-03T00:09:00"
+      ]
+    },
+    {
+      "name": "alphabetic zone punctuation preserves the offset",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T091530UTC.",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02",
+          "2026-03-03"
+        ]
+      },
+      "expected": [
+        "2026-03-01T09:15:30Z",
+        "2026-03-02T09:15:30Z",
+        "2026-03-03T09:15:30Z"
+      ]
+    },
+    {
+      "name": "date range error is preserved with an unknown recognized abbreviation",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026/02/29T09:15:30JUNK",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06"
+      },
+      "expected": {
+        "error": "day is out of range for month: 2026/02/29T09:15:30JUNK"
+      }
+    },
+    {
+      "name": "long abbreviation is rejected before calendar ranges",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026.02.29T091530ABCDEF",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06"
+      },
+      "expected": {
+        "error": "Unknown string format: 2026.02.29T091530ABCDEF"
+      }
+    },
+    {
+      "name": "abbreviation after a numeric offset is invalid",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260301T091530-0500EST",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-06"
+      },
+      "expected": {
+        "error": "Unknown string format: 20260301T091530-0500EST"
+      }
+    },
+    {
+      "name": "UNTIL uses a floating time for an unknown abbreviation",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260228T091530",
+          "RRULE:FREQ=DAILY;UNTIL=2026/03/01T09:15:30JUNK"
+        ],
+        "through": "2026-03-06"
+      },
+      "expected": {
+        "error": "too many values to unpack (expected 2)"
+      }
+    }
+  ]
+}

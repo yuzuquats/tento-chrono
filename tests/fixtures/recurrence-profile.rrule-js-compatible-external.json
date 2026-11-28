@@ -1,0 +1,481 @@
+{
+  "type": "recurrence-profile",
+  "name": "rrule.js compatible external starts",
+  "source": "rrule.js 2.8.1 forced-set captures with compatible and external dtstart, plus Chrono and RFC controls",
+  "cases": [
+    {
+      "name": "compatible mode adds the textual start",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=13;COUNT=2"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsCompatible": true,
+        "dtstart": {
+          "dateTime": "2026-01-04T09:00:00Z"
+        },
+        "rruleJsNow": "2026-01-02T09:00:00Z",
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-02T13:00:00Z",
+        "2026-01-03T13:00:00Z"
+      ]
+    },
+    {
+      "name": "ordinary replay ignores the external argument",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=13;COUNT=2"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsCompatible": false,
+        "dtstart": {
+          "dateTime": "2026-01-04T09:00:00Z"
+        },
+        "rruleJsNow": "2026-01-02T09:00:00Z",
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T13:00:00Z",
+        "2026-01-03T13:00:00Z"
+      ]
+    },
+    {
+      "name": "compatible mode with no external argument omits the extra start",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=13;COUNT=2"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsCompatible": true,
+        "rruleJsNow": "2026-01-02T09:00:00Z",
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T13:00:00Z",
+        "2026-01-03T13:00:00Z"
+      ]
+    },
+    {
+      "name": "missing textual start with an external argument fails",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "RRULE:FREQ=DAILY;BYHOUR=13;COUNT=2"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsCompatible": true,
+        "dtstart": {
+          "dateTime": "2026-01-04T09:00:00Z"
+        },
+        "rruleJsNow": "2026-01-02T09:00:00Z",
+        "through": "2026-01-10",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "undefined is not Date instance"
+      }
+    },
+    {
+      "name": "ordinary mode with an external argument uses the implicit clock",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "RRULE:FREQ=DAILY;BYHOUR=13;COUNT=2"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsCompatible": false,
+        "dtstart": {
+          "dateTime": "2026-01-04T09:00:00Z"
+        },
+        "rruleJsNow": "2026-01-02T09:00:00Z",
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T13:00:00Z",
+        "2026-01-03T13:00:00Z"
+      ]
+    },
+    {
+      "name": "compatible mode uses the original split reader",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          " RRULE:FREQ=DAILY;BYHOUR=13;COUNT=2"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsCompatible": true,
+        "dtstart": {
+          "dateTime": "2026-01-04T09:00:00Z"
+        },
+        "rruleJsNow": "2026-01-02T09:00:00Z",
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-02T13:00:00Z",
+        "2026-01-03T13:00:00Z"
+      ]
+    },
+    {
+      "name": "explicit unfold joins the rule to the DTSTART property",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          " RRULE:FREQ=DAILY;BYHOUR=13;COUNT=2"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsCompatible": true,
+        "rruleJsUnfold": true,
+        "dtstart": {
+          "dateTime": "2026-01-04T09:00:00Z"
+        },
+        "rruleJsNow": "2026-01-02T09:00:00Z",
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "injected DTSTART stays outside COUNT",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=13;COUNT=1"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsCompatible": true,
+        "dtstart": {
+          "dateTime": "2026-01-04T09:00:00Z"
+        },
+        "rruleJsNow": "2026-01-02T09:00:00Z",
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-02T13:00:00Z"
+      ]
+    },
+    {
+      "name": "EXDATE can remove the injected start",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=13;COUNT=2",
+          "EXDATE:20260102T090000Z"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsCompatible": true,
+        "dtstart": {
+          "dateTime": "2026-01-04T09:00:00Z"
+        },
+        "rruleJsNow": "2026-01-02T09:00:00Z",
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T13:00:00Z",
+        "2026-01-03T13:00:00Z"
+      ]
+    },
+    {
+      "name": "EXRULE can remove the injected start",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=13;COUNT=2",
+          "EXRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsCompatible": true,
+        "dtstart": {
+          "dateTime": "2026-01-04T09:00:00Z"
+        },
+        "rruleJsNow": "2026-01-02T09:00:00Z",
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T13:00:00Z",
+        "2026-01-03T13:00:00Z"
+      ]
+    },
+    {
+      "name": "explicit start duplicate is removed",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=13;COUNT=2",
+          "RDATE:20260102T090000Z"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsCompatible": true,
+        "dtstart": {
+          "dateTime": "2026-01-04T09:00:00Z"
+        },
+        "rruleJsNow": "2026-01-02T09:00:00Z",
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-02T13:00:00Z",
+        "2026-01-03T13:00:00Z"
+      ]
+    },
+    {
+      "name": "RDATE can select a zone for the injected start",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RDATE;TZID=Asia/Kolkata:20260103T090000Z"
+        ],
+        "rruleJsHostTimeZone": "Asia/Tokyo",
+        "rruleJsCompatible": true,
+        "dtstart": {
+          "dateTime": "2026-01-04T09:00:00Z"
+        },
+        "rruleJsNow": "2026-01-02T09:00:00Z",
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T12:30:00Z",
+        "2026-01-03T12:30:00Z"
+      ]
+    },
+    {
+      "name": "half-hour spring gap uses the reference instant",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART;TZID=Australia/Lord_Howe:20261004T021500",
+          "RRULE:FREQ=DAILY;BYHOUR=13;COUNT=2"
+        ],
+        "rruleJsHostTimeZone": "America/New_York",
+        "rruleJsCompatible": true,
+        "dtstart": {
+          "dateTime": "2026-01-04T09:00:00Z"
+        },
+        "rruleJsNow": "2026-01-02T09:00:00Z",
+        "through": "2026-10-07",
+        "checkpoints": [
+          "2026-10-03",
+          "2026-10-04"
+        ]
+      },
+      "expected": [
+        "2026-10-03T11:15:00Z",
+        "2026-10-03T22:15:00Z",
+        "2026-10-04T22:15:00Z"
+      ]
+    },
+    {
+      "name": "date-only start retains the civil projection",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260102",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsCompatible": true,
+        "dtstart": {
+          "dateTime": "2026-01-04T09:00:00Z"
+        },
+        "rruleJsNow": "2026-01-02T09:00:00Z",
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02",
+        "2026-01-03"
+      ]
+    },
+    {
+      "name": "unknown zone fails when rezoning the injected date",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART;TZID=Not/AZone:20260102T090000"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsCompatible": true,
+        "dtstart": {
+          "dateTime": "2026-01-04T09:00:00Z"
+        },
+        "rruleJsNow": "2026-01-02T09:00:00Z",
+        "through": "2026-01-10",
+        "checkpoints": []
+      },
+      "expected": {
+        "expansionError": "Invalid time zone specified: Not/AZone"
+      }
+    },
+    {
+      "name": "invalid rule reports before the missing textual inclusion",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "RRULE:FREQ=INVENTED"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsCompatible": true,
+        "dtstart": {
+          "dateTime": "2026-01-04T09:00:00Z"
+        },
+        "rruleJsNow": "2026-01-02T09:00:00Z",
+        "through": "2026-01-10",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "Invalid frequency: undefined undefined"
+      }
+    },
+    {
+      "name": "the raw DTSTART must encode one date",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20260102T090000Z,20260103T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=13;COUNT=2"
+        ],
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsCompatible": true,
+        "dtstart": {
+          "dateTime": "2026-01-04T09:00:00Z"
+        },
+        "rruleJsNow": "2026-01-02T09:00:00Z",
+        "through": "2026-01-10",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "Invalid UNTIL value: 20260102T090000Z,20260103T090000Z"
+      }
+    },
+    {
+      "name": "omitted flag rejects duplicate explicit anchors",
+      "input": {
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "2026-01-04T09:00:00Z"
+        },
+        "rruleJsUnfold": false,
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-04"
+        ],
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=13;COUNT=2"
+        ]
+      },
+      "expected": {
+        "error": "DTSTART supplied twice"
+      }
+    },
+    {
+      "name": "omitted flag retains the Chrono external anchor",
+      "input": {
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "2026-01-04T09:00:00Z"
+        },
+        "rruleJsUnfold": false,
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-04"
+        ],
+        "lines": [
+          "RRULE:FREQ=DAILY;BYHOUR=13;COUNT=2"
+        ]
+      },
+      "expected": [
+        "2026-01-04T13:00:00Z",
+        "2026-01-05T13:00:00Z"
+      ]
+    },
+    {
+      "name": "RFC keeps its supplied external anchor with the rrule.js flag present",
+      "input": {
+        "profile": "rfc5545",
+        "dtstart": {
+          "dateTime": "2026-01-04T09:00:00Z"
+        },
+        "rruleJsUnfold": false,
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-04"
+        ],
+        "rruleJsCompatible": true,
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ]
+      },
+      "expected": [
+        "2026-01-04T09:00:00Z",
+        "2026-01-05T09:00:00Z"
+      ]
+    }
+  ]
+}

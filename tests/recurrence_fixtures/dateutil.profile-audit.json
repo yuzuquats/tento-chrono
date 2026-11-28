@@ -1,0 +1,319 @@
+{
+  "type": "dateutil",
+  "name": "Audited Python dateutil reference cases",
+  "referenceVersion": "2.8.2",
+  "cases": [
+    {
+      "name": "RRuleTest.testHourlyBadRRule",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=HOURLY;INTERVAL=4;BYHOUR=7,11,15,19"
+        ],
+        "through": "2005-01-01"
+      },
+      "expected": {
+        "error": "Invalid rrule byxxx generates an empty set."
+      }
+    },
+    {
+      "name": "RRuleTest.testMinutelyBadRRule",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=MINUTELY;INTERVAL=12;BYMINUTE=10,11,25,39,50"
+        ],
+        "through": "2005-01-01"
+      },
+      "expected": {
+        "error": "Invalid rrule byxxx generates an empty set."
+      }
+    },
+    {
+      "name": "RRuleTest.testSecondlyBadRRule",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=SECONDLY;INTERVAL=10;BYSECOND=2,15,37,42,59"
+        ],
+        "through": "2005-01-01"
+      },
+      "expected": {
+        "error": "Invalid rrule byxxx generates an empty set."
+      }
+    },
+    {
+      "name": "RRuleTest.testMinutelyBadComboRRule",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=MINUTELY;INTERVAL=120;BYHOUR=10,12,14,16;COUNT=2"
+        ],
+        "through": "2005-01-01"
+      },
+      "expected": {
+        "expansionError": "Invalid combination of interval and byhour resulting in empty rule."
+      }
+    },
+    {
+      "name": "RRuleTest.testSecondlyBadComboRRule",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=SECONDLY;INTERVAL=360;BYMINUTE=10,28,49;COUNT=4"
+        ],
+        "through": "2005-01-01"
+      },
+      "expected": {
+        "expansionError": "Invalid combination of interval, byhour and byminute resulting in empty rule."
+      }
+    },
+    {
+      "name": "RRuleTest.testSecondlyBadComboRRule#hour-selector",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=SECONDLY;INTERVAL=43200;BYHOUR=2,10,18,23;COUNT=4"
+        ],
+        "through": "2005-01-01"
+      },
+      "expected": {
+        "expansionError": "Invalid combination of interval, byhour and byminute resulting in empty rule."
+      }
+    },
+    {
+      "name": "RRuleTest.testStrWithConflictingTZID",
+      "input": {
+        "profileLines": [
+          "DTSTART;TZID=America/New_York:19970902T090000Z",
+          "RRULE:FREQ=YEARLY;COUNT=3"
+        ],
+        "through": "2005-01-01"
+      },
+      "expected": {
+        "error": "DTSTART/EXDATE specifies multiple timezone"
+      }
+    },
+    {
+      "name": "RRuleTest.testStrSet",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=YEARLY;COUNT=2;BYDAY=TU",
+          "RRULE:FREQ=YEARLY;COUNT=1;BYDAY=TH"
+        ],
+        "through": "2005-01-01"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-04T09:00:00",
+        "1997-09-09T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleSetTest.testSet",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=YEARLY;COUNT=2;BYDAY=TU",
+          "RRULE:FREQ=YEARLY;COUNT=1;BYDAY=TH"
+        ],
+        "through": "2005-01-01"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-04T09:00:00",
+        "1997-09-09T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrMultipleDTStartComma",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970101T000000,19970202T000000",
+          "RRULE:FREQ=YEARLY;COUNT=1"
+        ],
+        "through": "2005-01-01"
+      },
+      "expected": {
+        "error": "Multiple DTSTART values specified:19970101T000000,19970202T000000"
+      }
+    },
+    {
+      "name": "RRuleTest.testStrUntilMustBeUTC",
+      "input": {
+        "profileLines": [
+          "DTSTART;TZID=America/New_York:19970902T090000",
+          "RRULE:FREQ=YEARLY;UNTIL=19990101T000000;BYDAY=1TU,-1TH"
+        ],
+        "through": "2005-01-01"
+      },
+      "expected": {
+        "error": "RRULE UNTIL values must be specified in UTC when DTSTART is timezone-aware"
+      }
+    },
+    {
+      "name": "RRuleTest.testStrEmptyByDay",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=WEEKLY;BYDAY=;WKST=SU"
+        ],
+        "through": "2005-01-01"
+      },
+      "expected": {
+        "error": "invalid 'BYDAY': "
+      }
+    },
+    {
+      "name": "RRuleTest.testStrInvalidByDay",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=WEEKLY;BYDAY=-1OK;WKST=SU"
+        ],
+        "through": "2005-01-01"
+      },
+      "expected": {
+        "error": "invalid 'BYDAY': -1OK"
+      }
+    },
+    {
+      "name": "RRuleTest.testBadBySetPos",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=MONTHLY;COUNT=1;BYSETPOS=0"
+        ],
+        "through": "2005-01-01"
+      },
+      "expected": {
+        "error": "bysetpos must be between 1 and 366, or between -366 and -1"
+      }
+    },
+    {
+      "name": "RRuleTest.testBadBySetPosMany",
+      "input": {
+        "profileLines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=MONTHLY;COUNT=1;BYSETPOS=-1,0,1"
+        ],
+        "through": "2005-01-01"
+      },
+      "expected": {
+        "error": "bysetpos must be between 1 and 366, or between -366 and -1"
+      }
+    },
+    {
+      "name": "RRuleTest.testBetween",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "FREQ=DAILY",
+        "after": "1997-09-02T09:00:00",
+        "through": "1997-09-06T09:00:00",
+        "inclusive": false
+      },
+      "expected": [
+        "1997-09-03T09:00:00",
+        "1997-09-04T09:00:00",
+        "1997-09-05T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testBetweenInc",
+      "input": {
+        "start": "1997-09-02T09:00:00",
+        "rrule": "FREQ=DAILY",
+        "after": "1997-09-02T09:00:00",
+        "through": "1997-09-06T09:00:00",
+        "inclusive": true
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1997-09-03T09:00:00",
+        "1997-09-04T09:00:00",
+        "1997-09-05T09:00:00",
+        "1997-09-06T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrSpaces",
+      "input": {
+        "profileLines": [
+          " DTSTART:19970902T090000  RRULE:FREQ=YEARLY;COUNT=3 "
+        ],
+        "through": "2000-01-01"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1998-09-02T09:00:00",
+        "1999-09-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrUnfold",
+      "input": {
+        "profileLines": [
+          "FREQ=YEA\n RLY;COUNT=3\n"
+        ],
+        "through": "2000-01-01",
+        "profileStart": {
+          "dateTime": "1997-09-02T09:00:00"
+        }
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1998-09-02T09:00:00",
+        "1999-09-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrSpacesAndLines#profile",
+      "input": {
+        "profileLines": [
+          " DTSTART:19970902T090000 \n \n RRULE:FREQ=YEARLY;COUNT=3 \n"
+        ],
+        "through": "2000-01-01"
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1998-09-02T09:00:00",
+        "1999-09-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrValueOnly#profile",
+      "input": {
+        "profileLines": [
+          "FREQ=YEARLY;COUNT=3\n"
+        ],
+        "through": "2000-01-01",
+        "profileStart": {
+          "dateTime": "1997-09-02T09:00:00"
+        }
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1998-09-02T09:00:00",
+        "1999-09-02T09:00:00"
+      ]
+    },
+    {
+      "name": "RRuleTest.testStrNoDTStart#profile",
+      "input": {
+        "profileLines": [
+          "RRULE:FREQ=YEARLY;COUNT=3\n"
+        ],
+        "through": "2000-01-01",
+        "profileStart": {
+          "dateTime": "1997-09-02T09:00:00"
+        }
+      },
+      "expected": [
+        "1997-09-02T09:00:00",
+        "1998-09-02T09:00:00",
+        "1999-09-02T09:00:00"
+      ]
+    }
+  ]
+}

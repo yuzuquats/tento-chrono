@@ -1,0 +1,929 @@
+{
+  "type": "recurrence-profile",
+  "name": "rrule.js 2.8.1 interval text",
+  "source": "rrule.js 2.8.1 rrulestr(forceset: true), TZ=UTC",
+  "cases": [
+    {
+      "name": "YEARLY INTERVAL=0",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=0;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "YEARLY INTERVAL=00",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=00;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "YEARLY INTERVAL=0.0",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=0.0;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:23:15Z"
+      ]
+    },
+    {
+      "name": "YEARLY INTERVAL=2.0",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=2.0;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:23:15Z"
+      ]
+    },
+    {
+      "name": "YEARLY INTERVAL=2.5",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=2.5;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:23:15Z"
+      ]
+    },
+    {
+      "name": "YEARLY INTERVAL=1E1",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=1E1;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:23:15Z"
+      ]
+    },
+    {
+      "name": "YEARLY INTERVAL=",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:23:15Z"
+      ]
+    },
+    {
+      "name": "MONTHLY INTERVAL=0",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=MONTHLY;INTERVAL=0;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "MONTHLY INTERVAL=00",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=MONTHLY;INTERVAL=00;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "MONTHLY INTERVAL=1E1",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=MONTHLY;INTERVAL=1E1;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:23:15Z"
+      ]
+    },
+    {
+      "name": "MONTHLY INTERVAL=",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=MONTHLY;INTERVAL=;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:23:15Z"
+      ]
+    },
+    {
+      "name": "WEEKLY INTERVAL=0",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=0;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "WEEKLY INTERVAL=00",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=00;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "WEEKLY INTERVAL=0.0",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=0.0;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:23:15Z"
+      ]
+    },
+    {
+      "name": "WEEKLY INTERVAL=2.0",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=2.0;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:23:15Z",
+        "2026-01-15T09:23:15Z",
+        "2026-01-29T09:23:15Z"
+      ]
+    },
+    {
+      "name": "WEEKLY INTERVAL=2.5",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=2.5;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:23:15Z",
+        "2026-01-15T09:23:15Z",
+        "2026-02-12T09:23:15Z"
+      ]
+    },
+    {
+      "name": "WEEKLY INTERVAL=1E1",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=1E1;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:23:15Z",
+        "2026-03-12T09:23:15Z",
+        "2026-05-21T09:23:15Z"
+      ]
+    },
+    {
+      "name": "WEEKLY INTERVAL=0X2",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=0X2;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:23:15Z",
+        "2026-01-15T09:23:15Z",
+        "2026-01-29T09:23:15Z"
+      ]
+    },
+    {
+      "name": "WEEKLY INTERVAL=",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:23:15Z"
+      ]
+    },
+    {
+      "name": "DAILY INTERVAL=0",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=DAILY;INTERVAL=0;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "DAILY INTERVAL=00",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=DAILY;INTERVAL=00;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "DAILY INTERVAL=1E1",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=DAILY;INTERVAL=1E1;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:23:15Z",
+        "2026-04-20T09:23:15Z"
+      ]
+    },
+    {
+      "name": "DAILY INTERVAL=",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=DAILY;INTERVAL=;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:23:15Z"
+      ]
+    },
+    {
+      "name": "HOURLY INTERVAL=0",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=0;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "HOURLY INTERVAL=00",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=00;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "HOURLY INTERVAL=0.0",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=0.0;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:23:15Z",
+        "2026-01-04T18:23:15Z",
+        "2026-01-11T12:23:15Z"
+      ]
+    },
+    {
+      "name": "HOURLY INTERVAL=2.0",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=2.0;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:23:15Z",
+        "2026-01-04T20:23:15Z",
+        "2026-01-12T10:23:15Z"
+      ]
+    },
+    {
+      "name": "HOURLY INTERVAL=1E1",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=1E1;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:23:15Z",
+        "2026-02-07T22:23:15Z",
+        "2026-05-10T02:23:15Z"
+      ]
+    },
+    {
+      "name": "HOURLY INTERVAL=",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:23:15Z"
+      ]
+    },
+    {
+      "name": "MINUTELY INTERVAL=0",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=0;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "MINUTELY INTERVAL=00",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=00;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "MINUTELY INTERVAL=0.0",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=0.0;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:23:15Z",
+        "2026-01-01T12:50:15Z",
+        "2026-01-01T20:20:15Z"
+      ]
+    },
+    {
+      "name": "MINUTELY INTERVAL=2.0",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=2.0;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:23:15Z",
+        "2026-01-01T12:52:15Z",
+        "2026-01-01T20:42:15Z"
+      ]
+    },
+    {
+      "name": "MINUTELY INTERVAL=1E1",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=1E1;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:23:15Z",
+        "2026-01-02T23:30:15Z",
+        "2026-01-05T01:10:15Z"
+      ]
+    },
+    {
+      "name": "MINUTELY INTERVAL=",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:23:15Z"
+      ]
+    },
+    {
+      "name": "SECONDLY INTERVAL=0",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=0;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "SECONDLY INTERVAL=00",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=00;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "SECONDLY INTERVAL=0.0",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=0.0;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:23:15Z",
+        "2026-01-01T09:25:30Z",
+        "2026-01-01T09:30:00Z"
+      ]
+    },
+    {
+      "name": "SECONDLY INTERVAL=2.0",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=2.0;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:23:15Z",
+        "2026-01-01T09:25:32Z",
+        "2026-01-01T09:30:22Z"
+      ]
+    },
+    {
+      "name": "SECONDLY INTERVAL=1E1",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=1E1;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:23:15Z",
+        "2026-01-01T09:48:10Z",
+        "2026-01-01T10:04:50Z"
+      ]
+    },
+    {
+      "name": "SECONDLY INTERVAL=",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2029-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:23:15Z"
+      ]
+    },
+    {
+      "name": "20260101T092315Z DAILY 1E1 ",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T092315Z",
+          "RRULE:FREQ=DAILY;INTERVAL=1E1;COUNT=2;BYSETPOS=1"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:23:15Z",
+        "2026-04-20T09:23:15Z"
+      ]
+    },
+    {
+      "name": "20261129T222751Z YEARLY 2.0 ;BYDAY=MO,SU",
+      "input": {
+        "lines": [
+          "DTSTART:20261129T222751Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=2.0;COUNT=2;BYSETPOS=1,-1;BYDAY=MO,SU"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-11-29",
+          "2026-11-30"
+        ]
+      },
+      "expected": [
+        "2026-12-28T22:27:51Z"
+      ]
+    },
+    {
+      "name": "20261129T222751Z MONTHLY 2.0 ;BYDAY=MO,SU",
+      "input": {
+        "lines": [
+          "DTSTART:20261129T222751Z",
+          "RRULE:FREQ=MONTHLY;INTERVAL=2.0;COUNT=2;BYSETPOS=1,-1;BYDAY=MO,SU"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-11-29",
+          "2026-11-30"
+        ]
+      },
+      "expected": [
+        "2026-11-30T22:27:51Z"
+      ]
+    },
+    {
+      "name": "20261129T222751Z WEEKLY 0X2 ;BYDAY=MO,SU",
+      "input": {
+        "lines": [
+          "DTSTART:20261129T222751Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=0X2;COUNT=2;BYSETPOS=1,-1;BYDAY=MO,SU"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-11-29",
+          "2026-11-30"
+        ]
+      },
+      "expected": [
+        "2026-11-29T22:27:51Z"
+      ]
+    },
+    {
+      "name": "20261129T222751Z DAILY 1E1 ;BYDAY=MO,SU",
+      "input": {
+        "lines": [
+          "DTSTART:20261129T222751Z",
+          "RRULE:FREQ=DAILY;INTERVAL=1E1;COUNT=2;BYSETPOS=1,-1;BYDAY=MO,SU"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-11-29",
+          "2026-11-30"
+        ]
+      },
+      "expected": [
+        "2026-11-29T22:27:51Z"
+      ]
+    },
+    {
+      "name": "20261129T222751Z SECONDLY 1E1 ;BYDAY=MO,SU",
+      "input": {
+        "lines": [
+          "DTSTART:20261129T222751Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=1E1;COUNT=2;BYSETPOS=1,-1;BYDAY=MO,SU"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-11-29",
+          "2026-11-30"
+        ]
+      },
+      "expected": [
+        "2026-11-29T22:27:51Z"
+      ]
+    },
+    {
+      "name": "20260228T015915Z WEEKLY 2.5 ;BYMONTHDAY=1,-1",
+      "input": {
+        "lines": [
+          "DTSTART:20260228T015915Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=2.5;COUNT=2;BYSETPOS=1,-1;BYMONTHDAY=1,-1"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-02-28",
+          "2026-03-01"
+        ]
+      },
+      "expected": [
+        "2026-02-28T01:59:15Z",
+        "2026-03-01T01:59:15Z"
+      ]
+    },
+    {
+      "name": "20260105T000000Z MINUTELY 2.0 ;BYHOUR=0,1",
+      "input": {
+        "lines": [
+          "DTSTART:20260105T000000Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=2.0;COUNT=2;BYHOUR=0,1"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-05",
+          "2026-01-06"
+        ]
+      },
+      "expected": [
+        "2026-01-05T00:00:00Z",
+        "2026-01-05T00:02:00Z"
+      ]
+    },
+    {
+      "name": "20260105T000000Z SECONDLY 2.0 ;BYHOUR=0,1",
+      "input": {
+        "lines": [
+          "DTSTART:20260105T000000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=2.0;COUNT=2;BYHOUR=0,1"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-05",
+          "2026-01-06"
+        ]
+      },
+      "expected": [
+        "2026-01-05T00:00:00Z",
+        "2026-01-05T00:00:02Z"
+      ]
+    },
+    {
+      "name": "20260105T000000Z MINUTELY 2.0 ;BYMINUTE=0,4;BYSECOND=0,4",
+      "input": {
+        "lines": [
+          "DTSTART:20260105T000000Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=2.0;COUNT=2;BYMINUTE=0,4;BYSECOND=0,4"
+        ],
+        "profile": "rrule-js",
+        "through": "2028-12-31",
+        "checkpoints": [
+          "2026-01-05",
+          "2026-01-06"
+        ]
+      },
+      "expected": [
+        "2026-01-05T00:00:00Z",
+        "2026-01-05T00:00:04Z"
+      ]
+    }
+  ]
+}

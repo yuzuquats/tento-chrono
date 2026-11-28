@@ -1,0 +1,169 @@
+{
+  "type": "recurrence-profile",
+  "name": "rrule.js DTSTART recognition",
+  "source": "rrule.js 2.8.1 rrulestr with forceset and a frozen clock, plus an RFC 5545 control",
+  "cases": [
+    {
+      "name": "a quoted start zone with a semicolon fails at expansion",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=\"X;CALENDAR\":20260307T091500",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsNow": "2026-03-08T12:34:56.000Z",
+        "through": "2027-03-12",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09",
+          "2027-03-08"
+        ]
+      },
+      "expected": {
+        "expansionError": "Invalid time zone specified: \"X;CALENDAR\""
+      }
+    },
+    {
+      "name": "an invalid start zone is not resolved for zero occurrences",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=\"X;CALENDAR\":20260307T091500",
+          "RRULE:FREQ=DAILY;COUNT=0"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsNow": "2026-03-08T12:34:56.000Z",
+        "through": "2027-03-12",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09",
+          "2027-03-08"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "a colonless zoned start contributes a yearly rule beside explicit dates",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York=20260307T091500",
+          "RDATE:20260308T101000Z"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "America/Los_Angeles",
+        "rruleJsNow": "2026-03-08T12:34:56.000Z",
+        "through": "2027-03-12",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09",
+          "2027-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-07T06:15:00Z",
+        "2026-03-08T07:10:00Z",
+        "2027-03-07T06:15:00Z"
+      ]
+    },
+    {
+      "name": "a colonless start with ignored parameters adds a yearly rule at the implicit clock",
+      "input": {
+        "lines": [
+          "DTSTART;X-NOTE=word",
+          "RDATE:20260308T101000Z"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsNow": "2026-03-08T12:34:56.000Z",
+        "through": "2027-03-12",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09",
+          "2027-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-08T10:10:00Z",
+        "2026-03-08T12:34:56Z",
+        "2027-03-08T12:34:56Z"
+      ]
+    },
+    {
+      "name": "the implicit yearly rule is subject to an exclusion rule",
+      "input": {
+        "lines": [
+          "DTSTART;X-NOTE=word",
+          "RDATE:20260308T101000Z",
+          "EXRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "Asia/Tokyo",
+        "rruleJsNow": "2026-03-08T12:34:56.000Z",
+        "through": "2027-03-12",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09",
+          "2027-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-08T10:10:00Z",
+        "2027-03-08T12:34:56Z"
+      ]
+    },
+    {
+      "name": "the first recognized start token can be embedded in a parameter",
+      "input": {
+        "lines": [
+          "DTSTART;X-NOTE=\"DTSTART=20260307T091500Z;tag\":20260306T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "rruleJsNow": "2026-03-08T12:34:56.000Z",
+        "through": "2027-03-12",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09",
+          "2027-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-07T09:15:00Z",
+        "2026-03-08T09:15:00Z"
+      ]
+    },
+    {
+      "name": "the RFC reader preserves a semicolon in a quoted DTSTART extension",
+      "reference": "RFC 5545 \u00a73.1 quoted-string and \u00a73.8.2.4 DTSTART",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=\"America/New_York\";X-NOTE=\"a;b\":20260307T091500",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-03-09",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-07T14:15:00Z",
+        "2026-03-08T13:15:00Z"
+      ]
+    }
+  ]
+}

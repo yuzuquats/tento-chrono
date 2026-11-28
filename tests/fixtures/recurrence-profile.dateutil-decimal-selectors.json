@@ -1,0 +1,295 @@
+{
+  "type": "recurrence-profile",
+  "name": "dateutil decimal selector text",
+  "source": "python-dateutil 2.8.2 rrulestr(forceset=True), bounded between reads",
+  "cases": [
+    {
+      "name": "FREQ=DAILY;COUNT=٢",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=٢"
+        ],
+        "profile": "dateutil",
+        "through": "2026-06-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-15"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "FREQ=DAILY;INTERVAL=２;COUNT=3",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;INTERVAL=２;COUNT=3"
+        ],
+        "profile": "dateutil",
+        "through": "2026-06-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-15"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-03T09:00:00",
+        "2026-01-05T09:00:00"
+      ]
+    },
+    {
+      "name": "FREQ=DAILY;BYHOUR=𝟎_𝟗;COUNT=2",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;BYHOUR=𝟎_𝟗;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-06-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-15"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "FREQ=DAILY;BYHOUR=٠9;COUNT=2",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;BYHOUR=٠9;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-06-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-15"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "FREQ=MONTHLY;BYDAY=TH(+٠١);COUNT=2",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=MONTHLY;BYDAY=TH(+٠١);COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-06-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-15"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-02-05T09:00:00"
+      ]
+    },
+    {
+      "name": "FREQ=MONTHLY;BYWEEKDAY=TH(+0_1);COUNT=2",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=MONTHLY;BYWEEKDAY=TH(+0_1);COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-06-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-15"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-02-05T09:00:00"
+      ]
+    },
+    {
+      "name": "FREQ=MONTHLY;BYDAY=TH(+01];COUNT=2",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=MONTHLY;BYDAY=TH(+01];COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-06-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-15"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-02-05T09:00:00"
+      ]
+    },
+    {
+      "name": "FREQ=MONTHLY;BYDAY=TH(1)(2);COUNT=2",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=MONTHLY;BYDAY=TH(1)(2);COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-06-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-15"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-02-05T09:00:00"
+      ]
+    },
+    {
+      "name": "FREQ=MONTHLY;BYDAY=١TH;COUNT=2",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=MONTHLY;BYDAY=١TH;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-06-01"
+      },
+      "expected": {
+        "error": "invalid 'BYDAY': ١TH"
+      }
+    },
+    {
+      "name": "FREQ=MONTHLY;BYDAY=0_1TH;COUNT=2",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=MONTHLY;BYDAY=0_1TH;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-06-01"
+      },
+      "expected": {
+        "error": "invalid 'BYDAY': 0_1TH"
+      }
+    },
+    {
+      "name": "FREQ=DAILY;COUNT=²",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=²"
+        ],
+        "profile": "dateutil",
+        "through": "2026-06-01"
+      },
+      "expected": {
+        "error": "invalid 'COUNT': ²"
+      }
+    },
+    {
+      "name": "FREQ=DAILY;COUNT=2__0",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2__0"
+        ],
+        "profile": "dateutil",
+        "through": "2026-06-01"
+      },
+      "expected": {
+        "error": "invalid 'COUNT': 2__0"
+      }
+    },
+    {
+      "name": "FREQ=DAILY;COUNT=2_",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2_"
+        ],
+        "profile": "dateutil",
+        "through": "2026-06-01"
+      },
+      "expected": {
+        "error": "invalid 'COUNT': 2_"
+      }
+    },
+    {
+      "name": "FREQ=YEARLY;BYEASTER=-٥;COUNT=2",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=YEARLY;BYEASTER=-٥;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-06-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-15"
+        ]
+      },
+      "expected": [
+        "2026-03-31T09:00:00"
+      ]
+    },
+    {
+      "name": "FREQ=DAILY;BYSECOND=⁰;COUNT=2",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;BYSECOND=⁰;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-06-01"
+      },
+      "expected": {
+        "error": "invalid 'BYSECOND': ⁰"
+      }
+    },
+    {
+      "name": "Garay decimal absent from Unicode 15.0",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=𐵂"
+        ],
+        "profile": "dateutil",
+        "through": "9999-12-31"
+      },
+      "expected": {
+        "error": "invalid 'COUNT': 𐵂"
+      }
+    },
+    {
+      "name": "Kawi decimal present in Unicode 15.0",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=𑽒"
+        ],
+        "profile": "dateutil",
+        "through": "2026-02-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-15"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-02T09:00:00"
+      ]
+    }
+  ]
+}

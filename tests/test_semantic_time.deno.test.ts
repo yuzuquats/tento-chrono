@@ -60,3 +60,14 @@ Deno.test("SemanticTime partial-first probing preserves normalized partials and 
     assertEquals(error.message, `SemanticTime.parse: invalid semantic time "${raw}"`);
   }
 });
+
+Deno.test("SemanticTime.dateKey applies the written offset to the UTC day", () => {
+  for (const [raw, expected] of [
+    ["2026-05-01T00:15:00+05:30", "ymd-2026-4-30"],
+    ["2026-04-30T23:10:00-05:00", "ymd-2026-5-1"],
+    ["pt-1970-01-01T00:00:00+00:00:01", "ymd-1969-12-31"],
+    ["9999-12-31T23:59:59-00:00:01", "ymd-10000-1-1"],
+  ] as const) {
+    assertEquals(SemanticTime.dateKey(raw as SemanticTime)?.toString(), expected);
+  }
+});

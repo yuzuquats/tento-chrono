@@ -1,0 +1,157 @@
+{
+  "type": "platform-recurrence",
+  "name": "IANA distant timezone transitions",
+  "source": "Python zoneinfo, IANA tzdata 2026e",
+  "cases": [
+    {
+      "name": "New York changes its daily UTC start in March 2050",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20500312T090000",
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "through": "2050-03-15",
+        "checkpoints": [
+          "2050-03-12",
+          "2050-03-13",
+          "2050-03-14"
+        ]
+      },
+      "expected": [
+        "2050-03-12T14:00:00Z",
+        "2050-03-13T13:00:00Z",
+        "2050-03-14T13:00:00Z",
+        "2050-03-15T13:00:00Z"
+      ]
+    },
+    {
+      "name": "Lord Howe crosses a half-hour transition in 2075",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Australia/Lord_Howe:20751006T013000",
+          "RRULE:FREQ=HOURLY;COUNT=4",
+          "EXDATE:20751005T153000Z",
+          "RDATE;TZID=Australia/Lord_Howe:20751006T003000"
+        ],
+        "through": "2075-10-05",
+        "checkpoints": [
+          "2075-10-05"
+        ]
+      },
+      "expected": [
+        "2075-10-05T14:00:00Z",
+        "2075-10-05T15:00:00Z",
+        "2075-10-05T16:30:00Z",
+        "2075-10-05T17:30:00Z"
+      ]
+    },
+    {
+      "name": "Dublin keeps recurring seasonal transitions in year 9998",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Europe/Dublin:99980328T090000",
+          "RRULE:FREQ=DAILY;COUNT=4",
+          "EXDATE:99980329T080000Z",
+          "RDATE;TZID=Europe/Dublin:99980327T090000"
+        ],
+        "through": "9998-03-31",
+        "checkpoints": [
+          "9998-03-27",
+          "9998-03-28",
+          "9998-03-30"
+        ]
+      },
+      "expected": [
+        "9998-03-27T09:00:00Z",
+        "9998-03-28T09:00:00Z",
+        "9998-03-30T08:00:00Z",
+        "9998-03-31T08:00:00Z"
+      ]
+    },
+    {
+      "name": "daily reads cross the initial UTC transition table boundary",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20491230T213000",
+          "RRULE:FREQ=DAILY;COUNT=4",
+          "EXDATE:20500101T023000Z",
+          "RDATE;TZID=America/New_York:20491229T213000"
+        ],
+        "through": "2050-01-03",
+        "checkpoints": [
+          "2049-12-30",
+          "2049-12-31",
+          "2050-01-02"
+        ]
+      },
+      "expected": [
+        "2049-12-30T02:30:00Z",
+        "2049-12-31T02:30:00Z",
+        "2050-01-02T02:30:00Z",
+        "2050-01-03T02:30:00Z"
+      ]
+    },
+    {
+      "name": "UTC cutoff and zoned PERIOD across New York's 2050 spring gap",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20500313T010000",
+          "RRULE:FREQ=MINUTELY;INTERVAL=30;UNTIL=20500313T073000Z",
+          "RDATE;VALUE=PERIOD;TZID=America/New_York:20500314T010000/PT1H"
+        ],
+        "through": "2050-03-15",
+        "checkpoints": [
+          "2050-03-13",
+          "2050-03-14"
+        ]
+      },
+      "expected": [
+        "2050-03-13T06:00:00Z",
+        "2050-03-13T06:30:00Z",
+        "2050-03-13T07:00:00Z",
+        "2050-03-13T07:30:00Z",
+        "2050-03-14T05:00:00Z"
+      ]
+    },
+    {
+      "name": "explicit UTC start selects the later side of the 2050 fall fold",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=MINUTELY;INTERVAL=30;UNTIL=20501106T073000Z"
+        ],
+        "through": "2050-11-08",
+        "checkpoints": [
+          "2050-11-06"
+        ],
+        "dtstart": {
+          "dateTime": "2050-11-06T06:00:00Z",
+          "timeZone": "America/New_York"
+        }
+      },
+      "expected": [
+        "2050-11-06T06:00:00Z",
+        "2050-11-06T06:30:00Z",
+        "2050-11-06T07:00:00Z",
+        "2050-11-06T07:30:00Z"
+      ]
+    },
+    {
+      "name": "historical wall clocks before 1900 retain second-precision offsets",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:00500101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "0050-01-03",
+        "checkpoints": [
+          "0050-01-01",
+          "0050-01-02"
+        ]
+      },
+      "expected": [
+        "0050-01-01T13:56:02Z",
+        "0050-01-02T13:56:02Z"
+      ]
+    }
+  ]
+}

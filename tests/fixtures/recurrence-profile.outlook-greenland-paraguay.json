@@ -1,0 +1,467 @@
+{
+  "type": "recurrence-profile",
+  "name": "Outlook Graph Greenland and Paraguay timezone changes",
+  "source": "Microsoft Graph v1.0 calendarView, captured 2026-11-22 on a dedicated test calendar",
+  "cases": [
+    {
+      "name": "nuuk-2023-03-23",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2023-03-23T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Greenland Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2023-04-01",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "2023-03-23",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2023-04-04",
+        "checkpoints": [
+          "2023-03-26"
+        ]
+      },
+      "expected": [
+        "2023-03-23T12:30:00Z",
+        "2023-03-24T12:30:00Z",
+        "2023-03-25T12:30:00Z",
+        "2023-03-26T11:30:00Z",
+        "2023-03-27T11:30:00Z",
+        "2023-03-28T11:30:00Z",
+        "2023-03-29T11:30:00Z",
+        "2023-03-30T11:30:00Z",
+        "2023-03-31T11:30:00Z",
+        "2023-04-01T11:30:00Z"
+      ]
+    },
+    {
+      "name": "nuuk-2023-10-26",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2023-10-26T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Greenland Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2023-11-04",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "2023-10-26",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2023-11-07",
+        "checkpoints": [
+          "2023-10-31"
+        ]
+      },
+      "expected": [
+        "2023-10-26T11:30:00Z",
+        "2023-10-27T11:30:00Z",
+        "2023-10-28T11:30:00Z",
+        "2023-10-29T11:30:00Z",
+        "2023-10-30T11:30:00Z",
+        "2023-10-31T11:30:00Z",
+        "2023-11-01T11:30:00Z",
+        "2023-11-02T11:30:00Z",
+        "2023-11-03T11:30:00Z",
+        "2023-11-04T11:30:00Z"
+      ]
+    },
+    {
+      "name": "nuuk-2024-03-28",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2024-03-28T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Greenland Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2024-04-06",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Greenland Standard Time",
+              "startDate": "2024-03-28",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2024-04-09",
+        "checkpoints": [
+          "2024-03-31"
+        ]
+      },
+      "expected": [
+        "2024-03-28T11:30:00Z",
+        "2024-03-29T11:30:00Z",
+        "2024-03-30T11:30:00Z",
+        "2024-03-31T10:30:00Z",
+        "2024-04-01T10:30:00Z",
+        "2024-04-02T10:30:00Z",
+        "2024-04-03T10:30:00Z",
+        "2024-04-04T10:30:00Z",
+        "2024-04-05T10:30:00Z",
+        "2024-04-06T10:30:00Z"
+      ]
+    },
+    {
+      "name": "nuuk-2024-10-24",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2024-10-24T10:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Greenland Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2024-11-02",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Greenland Standard Time",
+              "startDate": "2024-10-24",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2024-11-05",
+        "checkpoints": [
+          "2024-10-27"
+        ]
+      },
+      "expected": [
+        "2024-10-24T10:30:00Z",
+        "2024-10-25T10:30:00Z",
+        "2024-10-26T10:30:00Z",
+        "2024-10-27T11:30:00Z",
+        "2024-10-28T11:30:00Z",
+        "2024-10-29T11:30:00Z",
+        "2024-10-30T11:30:00Z",
+        "2024-10-31T11:30:00Z",
+        "2024-11-01T11:30:00Z",
+        "2024-11-02T11:30:00Z"
+      ]
+    },
+    {
+      "name": "nuuk-2026-03-26",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-03-26T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Greenland Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2026-04-04",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Greenland Standard Time",
+              "startDate": "2026-03-26",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2026-04-07",
+        "checkpoints": [
+          "2026-03-29"
+        ]
+      },
+      "expected": [
+        "2026-03-26T11:30:00Z",
+        "2026-03-27T11:30:00Z",
+        "2026-03-28T11:30:00Z",
+        "2026-03-29T10:30:00Z",
+        "2026-03-30T10:30:00Z",
+        "2026-03-31T10:30:00Z",
+        "2026-04-01T10:30:00Z",
+        "2026-04-02T10:30:00Z",
+        "2026-04-03T10:30:00Z",
+        "2026-04-04T10:30:00Z"
+      ]
+    },
+    {
+      "name": "asuncion-2024-10-03",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2024-10-03T13:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Paraguay Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2024-10-12",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "2024-10-03",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2024-10-15",
+        "checkpoints": [
+          "2024-10-06"
+        ]
+      },
+      "expected": [
+        "2024-10-03T13:30:00Z",
+        "2024-10-04T13:30:00Z",
+        "2024-10-05T13:30:00Z",
+        "2024-10-06T12:30:00Z",
+        "2024-10-07T12:30:00Z",
+        "2024-10-08T12:30:00Z",
+        "2024-10-09T12:30:00Z",
+        "2024-10-10T12:30:00Z",
+        "2024-10-11T12:30:00Z",
+        "2024-10-12T12:30:00Z"
+      ]
+    },
+    {
+      "name": "asuncion-2025-03-20",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-03-20T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Paraguay Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2025-03-29",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Paraguay Standard Time",
+              "startDate": "2025-03-20",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2025-04-01",
+        "checkpoints": [
+          "2025-03-25"
+        ]
+      },
+      "expected": [
+        "2025-03-20T12:30:00Z",
+        "2025-03-21T12:30:00Z",
+        "2025-03-22T12:30:00Z",
+        "2025-03-23T12:30:00Z",
+        "2025-03-24T12:30:00Z",
+        "2025-03-25T12:30:00Z",
+        "2025-03-26T12:30:00Z",
+        "2025-03-27T12:30:00Z",
+        "2025-03-28T12:30:00Z",
+        "2025-03-29T12:30:00Z"
+      ]
+    },
+    {
+      "name": "asuncion-2025-10-02",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-10-02T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Paraguay Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2025-10-11",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Paraguay Standard Time",
+              "startDate": "2025-10-02",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2025-10-14",
+        "checkpoints": [
+          "2025-10-07"
+        ]
+      },
+      "expected": [
+        "2025-10-02T12:30:00Z",
+        "2025-10-03T12:30:00Z",
+        "2025-10-04T12:30:00Z",
+        "2025-10-05T12:30:00Z",
+        "2025-10-06T12:30:00Z",
+        "2025-10-07T12:30:00Z",
+        "2025-10-08T12:30:00Z",
+        "2025-10-09T12:30:00Z",
+        "2025-10-10T12:30:00Z",
+        "2025-10-11T12:30:00Z"
+      ]
+    },
+    {
+      "name": "asuncion-2026-03-19",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-03-19T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Paraguay Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2026-03-28",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Paraguay Standard Time",
+              "startDate": "2026-03-19",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2026-03-31",
+        "checkpoints": [
+          "2026-03-24"
+        ]
+      },
+      "expected": [
+        "2026-03-19T12:30:00Z",
+        "2026-03-20T12:30:00Z",
+        "2026-03-21T12:30:00Z",
+        "2026-03-22T12:30:00Z",
+        "2026-03-23T12:30:00Z",
+        "2026-03-24T12:30:00Z",
+        "2026-03-25T12:30:00Z",
+        "2026-03-26T12:30:00Z",
+        "2026-03-27T12:30:00Z",
+        "2026-03-28T12:30:00Z"
+      ]
+    },
+    {
+      "name": "asuncion-2026-10-01",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-10-01T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Paraguay Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2026-10-10",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Paraguay Standard Time",
+              "startDate": "2026-10-01",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2026-10-13",
+        "checkpoints": [
+          "2026-10-06"
+        ]
+      },
+      "expected": [
+        "2026-10-01T12:30:00Z",
+        "2026-10-02T12:30:00Z",
+        "2026-10-03T12:30:00Z",
+        "2026-10-04T12:30:00Z",
+        "2026-10-05T12:30:00Z",
+        "2026-10-06T12:30:00Z",
+        "2026-10-07T12:30:00Z",
+        "2026-10-08T12:30:00Z",
+        "2026-10-09T12:30:00Z",
+        "2026-10-10T12:30:00Z"
+      ]
+    }
+  ]
+}

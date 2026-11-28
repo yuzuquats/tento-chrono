@@ -1,0 +1,193 @@
+{
+  "type": "recurrence-profile",
+  "name": "dateutil 2.8.2 sparse recurrence windows",
+  "source": "python-dateutil 2.8.2 rrulestr(forceset=True)",
+  "cases": [
+    {
+      "name": "sparse UTC COUNT resumes at the next January midnight",
+      "input": {
+        "lines": [
+          "DTSTART:20240101T000000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=86401;BYHOUR=0;BYMINUTE=0;BYSECOND=0;BYMONTH=1;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "4153-01-08",
+        "checkpoints": [
+          "2024-01-01",
+          "2024-01-03",
+          "2026-01-01",
+          "2733-09-04",
+          "3000-01-02",
+          "4153-01-07"
+        ],
+        "generationLimit": null
+      },
+      "expected": [
+        "2024-01-01T00:00:00Z",
+        "4153-01-08T00:00:00Z"
+      ]
+    },
+    {
+      "name": "floating sparse COUNT preserves wall dates",
+      "input": {
+        "lines": [
+          "DTSTART:20240101T000000",
+          "RRULE:FREQ=SECONDLY;INTERVAL=86401;BYHOUR=0;BYMINUTE=0;BYSECOND=0;BYMONTH=1;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "4153-01-08",
+        "checkpoints": [
+          "2024-01-01",
+          "2024-01-03",
+          "2026-01-01",
+          "2733-09-04",
+          "3000-01-02",
+          "4153-01-07"
+        ],
+        "generationLimit": null
+      },
+      "expected": [
+        "2024-01-01T00:00:00",
+        "4153-01-08T00:00:00"
+      ]
+    },
+    {
+      "name": "sparse initial calendar match is later than the idle cap",
+      "input": {
+        "lines": [
+          "DTSTART:20240101T000000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=86401;BYHOUR=0;BYMINUTE=0;BYSECOND=0;BYMONTH=9;COUNT=1"
+        ],
+        "profile": "dateutil",
+        "through": "4153-01-08",
+        "checkpoints": [
+          "2024-01-01",
+          "2024-01-03",
+          "2026-01-01",
+          "2733-09-04",
+          "3000-01-02",
+          "4153-01-07"
+        ],
+        "generationLimit": null
+      },
+      "expected": [
+        "2733-09-04T00:00:00Z"
+      ]
+    },
+    {
+      "name": "sparse inclusions merge with RDATE and EXDATE",
+      "input": {
+        "lines": [
+          "DTSTART:20240101T000000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=86401;BYHOUR=0;BYMINUTE=0;BYSECOND=0;BYMONTH=1;COUNT=2",
+          "RDATE:30000102T000000Z,41530108T000000Z",
+          "EXDATE:20240101T000000Z"
+        ],
+        "profile": "dateutil",
+        "through": "4153-01-08",
+        "checkpoints": [
+          "2024-01-01",
+          "2024-01-03",
+          "2026-01-01",
+          "2733-09-04",
+          "3000-01-02",
+          "4153-01-07"
+        ],
+        "generationLimit": null
+      },
+      "expected": [
+        "3000-01-02T00:00:00Z",
+        "4153-01-08T00:00:00Z"
+      ]
+    },
+    {
+      "name": "sparse EXRULE excludes a late explicit date",
+      "input": {
+        "lines": [
+          "DTSTART:20240101T000000Z",
+          "EXRULE:FREQ=SECONDLY;INTERVAL=86401;BYHOUR=0;BYMINUTE=0;BYSECOND=0;BYMONTH=1;COUNT=2",
+          "RDATE:20240101T000000Z,30000102T000000Z,41530108T000000Z"
+        ],
+        "profile": "dateutil",
+        "through": "4153-01-08",
+        "checkpoints": [
+          "2024-01-01",
+          "2024-01-03",
+          "2026-01-01",
+          "2733-09-04",
+          "3000-01-02",
+          "4153-01-07"
+        ],
+        "generationLimit": null
+      },
+      "expected": [
+        "3000-01-02T00:00:00Z"
+      ]
+    },
+    {
+      "name": "UNTIL before the next sparse occurrence still keeps an RDATE",
+      "input": {
+        "lines": [
+          "DTSTART:20240101T000000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=86401;BYHOUR=0;BYMINUTE=0;BYSECOND=0;BYMONTH=1;UNTIL=41530107T235959Z",
+          "RDATE:41530108T000000Z"
+        ],
+        "profile": "dateutil",
+        "through": "4153-01-08",
+        "checkpoints": [
+          "2024-01-01",
+          "2024-01-03",
+          "2026-01-01",
+          "2733-09-04",
+          "3000-01-02",
+          "4153-01-07"
+        ],
+        "generationLimit": null
+      },
+      "expected": [
+        "2024-01-01T00:00:00Z",
+        "4153-01-08T00:00:00Z"
+      ]
+    },
+    {
+      "name": "impossible subdaily set position keeps explicit UTC dates",
+      "input": {
+        "lines": [
+          "DTSTART:20240101T000000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=43201;BYSETPOS=2;COUNT=1",
+          "RDATE:20240103T090000Z"
+        ],
+        "profile": "dateutil",
+        "through": "4153-01-08",
+        "checkpoints": [
+          "2024-01-01",
+          "2024-01-03",
+          "2026-01-01",
+          "2733-09-04",
+          "3000-01-02",
+          "4153-01-07"
+        ],
+        "generationLimit": null
+      },
+      "expected": [
+        "2024-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "sparse rule head retains dateutil awareness comparisons",
+      "input": {
+        "lines": [
+          "DTSTART:20240101T000000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=86401;BYHOUR=0;BYMINUTE=0;BYSECOND=0;BYMONTH=9;COUNT=1",
+          "RDATE:20240103T090000"
+        ],
+        "profile": "dateutil",
+        "through": "4153-01-08",
+        "generationLimit": null
+      },
+      "expected": {
+        "expansionError": "can't compare offset-naive and offset-aware datetimes"
+      }
+    }
+  ]
+}

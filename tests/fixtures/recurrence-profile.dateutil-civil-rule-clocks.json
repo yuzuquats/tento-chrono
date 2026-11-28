@@ -1,0 +1,223 @@
+{
+  "type": "recurrence-profile",
+  "name": "dateutil 2.8.2 clocks generated from DATE starts",
+  "source": "python-dateutil 2.8.2 rrulestr(forceset=True), with date-only projection for ordinary midnight rules",
+  "cases": [
+    {
+      "name": "civil daily rule preserves midnight and morning",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20260308",
+          "RRULE:FREQ=DAILY;COUNT=6;BYHOUR=0,9"
+        ],
+        "profile": "dateutil",
+        "through": "2026-05-01",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09",
+          "2026-03-12"
+        ]
+      },
+      "expected": [
+        "2026-03-08T00:00:00",
+        "2026-03-08T09:00:00",
+        "2026-03-09T00:00:00",
+        "2026-03-09T09:00:00",
+        "2026-03-10T00:00:00",
+        "2026-03-10T09:00:00"
+      ]
+    },
+    {
+      "name": "explicit midnight selector preserves datetime output",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20260308",
+          "RRULE:FREQ=DAILY;COUNT=2;BYHOUR=0",
+          "EXDATE:20260308T000000",
+          "RDATE:20260310T233000"
+        ],
+        "profile": "dateutil",
+        "through": "2026-05-01",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09",
+          "2026-03-12"
+        ]
+      },
+      "expected": [
+        "2026-03-09T00:00:00",
+        "2026-03-10T23:30:00"
+      ]
+    },
+    {
+      "name": "civil hourly rule crosses midnight",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20260308",
+          "RRULE:FREQ=HOURLY;COUNT=5;INTERVAL=13"
+        ],
+        "profile": "dateutil",
+        "through": "2026-05-01",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09",
+          "2026-03-12"
+        ]
+      },
+      "expected": [
+        "2026-03-08T00:00:00",
+        "2026-03-08T13:00:00",
+        "2026-03-09T02:00:00",
+        "2026-03-09T15:00:00",
+        "2026-03-10T04:00:00"
+      ]
+    },
+    {
+      "name": "civil minutely rule expands a clock",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20260308",
+          "RRULE:FREQ=MINUTELY;COUNT=3;INTERVAL=37"
+        ],
+        "profile": "dateutil",
+        "through": "2026-05-01",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09",
+          "2026-03-12"
+        ]
+      },
+      "expected": [
+        "2026-03-08T00:00:00",
+        "2026-03-08T00:37:00",
+        "2026-03-08T01:14:00"
+      ]
+    },
+    {
+      "name": "civil secondly rule expands a clock",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20260308",
+          "RRULE:FREQ=SECONDLY;COUNT=3;INTERVAL=31"
+        ],
+        "profile": "dateutil",
+        "through": "2026-05-01",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09",
+          "2026-03-12"
+        ]
+      },
+      "expected": [
+        "2026-03-08T00:00:00",
+        "2026-03-08T00:00:31",
+        "2026-03-08T00:01:02"
+      ]
+    },
+    {
+      "name": "civil daily rule without clock selectors keeps dates",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20260308",
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "profile": "dateutil",
+        "through": "2026-05-01",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09",
+          "2026-03-12"
+        ]
+      },
+      "expected": [
+        "2026-03-08",
+        "2026-03-09",
+        "2026-03-10",
+        "2026-03-11"
+      ]
+    },
+    {
+      "name": "zoned civil weekly rule preserves the spring gap clock and exclusions",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE;TZID=America/New_York:20260308",
+          "RRULE:FREQ=WEEKLY;COUNT=4;BYDAY=SU,MO;BYHOUR=0,2;BYMINUTE=30",
+          "EXDATE;TZID=America/New_York:20260308T000000",
+          "RDATE:20260310T233000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-05-01",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09",
+          "2026-03-12"
+        ]
+      },
+      "expected": [
+        "2026-03-08T05:30:00Z",
+        "2026-03-08T06:30:00Z",
+        "2026-03-09T04:30:00Z",
+        "2026-03-09T06:30:00Z",
+        "2026-03-10T23:30:00Z"
+      ]
+    },
+    {
+      "name": "zoned civil monthly rule preserves seconds and an added UTC start",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE;TZID=America/New_York:20260308",
+          "RRULE:FREQ=MONTHLY;COUNT=4;BYMONTHDAY=8,9;BYSECOND=15",
+          "EXDATE;TZID=America/New_York:20260308T000000",
+          "RDATE:20260310T233000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-05-01",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09",
+          "2026-03-12"
+        ]
+      },
+      "expected": [
+        "2026-03-08T05:00:15Z",
+        "2026-03-09T04:00:15Z",
+        "2026-03-10T23:30:00Z",
+        "2026-04-08T04:00:15Z",
+        "2026-04-09T04:00:15Z"
+      ]
+    },
+    {
+      "name": "positive-offset civil rule preserves UTC date and time after BYSETPOS",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE;TZID=Asia/Tokyo:20260308",
+          "RRULE:FREQ=DAILY;COUNT=4;BYHOUR=0,9;BYSETPOS=1",
+          "EXRULE:FREQ=DAILY;COUNT=1;BYHOUR=0",
+          "RDATE:20260312T140000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-05-01",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09",
+          "2026-03-12"
+        ]
+      },
+      "expected": [
+        "2026-03-08T15:00:00Z",
+        "2026-03-09T15:00:00Z",
+        "2026-03-10T15:00:00Z",
+        "2026-03-12T14:00:00Z"
+      ]
+    }
+  ]
+}

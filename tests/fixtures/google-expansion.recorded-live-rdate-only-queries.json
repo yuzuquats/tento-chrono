@@ -1,0 +1,55 @@
+{
+  "type": "google-expansion",
+  "name": "Google explicit date and ceiling fallback",
+  "source": "Google Calendar API events.instances",
+  "cases": [
+    {
+      "name": "google-rdate-only-ceiling-date-wider",
+      "input": {
+        "start": "2100-01-03",
+        "rules": [
+          "RDATE;VALUE=DATE:20991231",
+          "RDATE;VALUE=DATE:21000104"
+        ],
+        "storedRecurrence": [
+          "RDATE;VALUE=DATE:20991231",
+          "RDATE;VALUE=DATE:21000104"
+        ],
+        "window": {
+          "start": "2096-01-01T00:00:00Z",
+          "end": "2104-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2099-12-31"
+        ]
+      }
+    },
+    {
+      "name": "google-rdate-only-ceiling-time-wider",
+      "input": {
+        "start": "2100-01-03T09:00:00Z",
+        "end": "2100-01-03T09:15:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RDATE:20991231T090000Z",
+          "RDATE:21000104T090000Z"
+        ],
+        "storedRecurrence": [
+          "RDATE;VALUE=DATE-TIME:20991231T090000Z",
+          "RDATE;VALUE=DATE-TIME:21000104T090000Z"
+        ],
+        "window": {
+          "start": "2096-01-01T00:00:00Z",
+          "end": "2104-01-01T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2099-12-31T09:00:00Z"
+        ]
+      }
+    }
+  ]
+}

@@ -112,6 +112,8 @@ served("a zone built from the platform is heard by every listener, on its first 
   assertEquals(first, ["from-platform Pacific/Guadalcanal not-found"]);
   const later = await hearing(() => TimezoneRegion.getOpt(zone));
   assertEquals(later, ["from-platform Pacific/Guadalcanal not-found"], "a reader that opened afterwards hears it from the cache");
+  const required = await hearing(() => TimezoneRegion.get(zone));
+  assertEquals(required, later, "get reports the cached platform outcome");
   assertEquals(TimezoneRegion.takeRebuilt().map((r) => String(r.fullname)), ["Pacific/Guadalcanal"], "the queue hands it out once");
   assertEquals(TimezoneRegion.takeRebuilt(), []);
 });

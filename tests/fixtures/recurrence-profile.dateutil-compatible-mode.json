@@ -1,0 +1,364 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil compatible mode",
+  "source": "python-dateutil 2.8.2 rrulestr with compatible and forceset",
+  "cases": [
+    {
+      "name": "off-filter original start is an extra inclusion",
+      "input": {
+        "profile": "dateutil",
+        "dateutilUnfold": false,
+        "dateutilCompatible": true,
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ],
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=13;COUNT=2"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-02T13:00:00Z",
+        "2026-01-03T13:00:00Z"
+      ]
+    },
+    {
+      "name": "ordinary mode omits the off-filter start",
+      "input": {
+        "profile": "dateutil",
+        "dateutilUnfold": true,
+        "dateutilCompatible": false,
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ],
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=13;COUNT=2"
+        ]
+      },
+      "expected": [
+        "2026-01-02T13:00:00Z",
+        "2026-01-03T13:00:00Z"
+      ]
+    },
+    {
+      "name": "compatible mode unfolds even when unfold is false",
+      "input": {
+        "profile": "dateutil",
+        "dateutilUnfold": false,
+        "dateutilCompatible": true,
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ],
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=13;CO",
+          " UNT=2"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-02T13:00:00Z",
+        "2026-01-03T13:00:00Z"
+      ]
+    },
+    {
+      "name": "EXDATE can exclude the compatible start",
+      "input": {
+        "profile": "dateutil",
+        "dateutilUnfold": false,
+        "dateutilCompatible": true,
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ],
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=13;COUNT=2",
+          "EXDATE:20260102T090000Z"
+        ]
+      },
+      "expected": [
+        "2026-01-02T13:00:00Z",
+        "2026-01-03T13:00:00Z"
+      ]
+    },
+    {
+      "name": "EXRULE can exclude the compatible start",
+      "input": {
+        "profile": "dateutil",
+        "dateutilUnfold": false,
+        "dateutilCompatible": true,
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ],
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=13;COUNT=2",
+          "EXRULE:FREQ=DAILY;COUNT=1"
+        ]
+      },
+      "expected": [
+        "2026-01-02T13:00:00Z",
+        "2026-01-03T13:00:00Z"
+      ]
+    },
+    {
+      "name": "RDATE and compatible DTSTART deduplicate",
+      "input": {
+        "profile": "dateutil",
+        "dateutilUnfold": false,
+        "dateutilCompatible": true,
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-04"
+        ],
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RDATE:20260104T090000Z,20260102T090000Z"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-04T09:00:00Z"
+      ]
+    },
+    {
+      "name": "DTSTART alone supplies one inclusion",
+      "input": {
+        "profile": "dateutil",
+        "dateutilUnfold": false,
+        "dateutilCompatible": true,
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-02"
+        ],
+        "lines": [
+          "DTSTART:20260102T090000Z"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "date-only DTSTART alone supplies one civil date",
+      "input": {
+        "profile": "dateutil",
+        "dateutilUnfold": false,
+        "dateutilCompatible": true,
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-02"
+        ],
+        "lines": [
+          "DTSTART;VALUE=DATE:20260102"
+        ]
+      },
+      "expected": [
+        "2026-01-02"
+      ]
+    },
+    {
+      "name": "RDATE-only set without DTSTART gets no extra date",
+      "input": {
+        "profile": "dateutil",
+        "dateutilUnfold": false,
+        "dateutilCompatible": true,
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-04"
+        ],
+        "lines": [
+          "RDATE:20260104T090000Z"
+        ]
+      },
+      "expected": [
+        "2026-01-04T09:00:00Z"
+      ]
+    },
+    {
+      "name": "compatible DTSTART keeps fractions outside the rule clock",
+      "input": {
+        "profile": "dateutil",
+        "dateutilUnfold": false,
+        "dateutilCompatible": true,
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ],
+        "lines": [
+          "DTSTART:20260102T090000.123456Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-02T09:00:00.123Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "fractional EXDATE removes the compatible start without removing the rule",
+      "input": {
+        "profile": "dateutil",
+        "dateutilUnfold": false,
+        "dateutilCompatible": true,
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ],
+        "lines": [
+          "DTSTART:20260102T090000.123456Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE:20260102T090000.123456Z"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "an externally supplied fractional fold uses the later instant",
+      "input": {
+        "profile": "dateutil",
+        "dateutilUnfold": false,
+        "dateutilCompatible": true,
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-11-01"
+        ],
+        "lines": [
+          "RRULE:FREQ=HOURLY;COUNT=2"
+        ],
+        "dtstart": {
+          "dateTime": "2026-11-01T01:30:00.123456-05:00",
+          "timeZone": "America/New_York"
+        }
+      },
+      "expected": [
+        "2026-11-01T05:30:00Z",
+        "2026-11-01T06:30:00.123Z",
+        "2026-11-01T07:30:00Z"
+      ]
+    },
+    {
+      "name": "a submillisecond external start retains distinct set identity",
+      "input": {
+        "profile": "dateutil",
+        "dateutilUnfold": false,
+        "dateutilCompatible": true,
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-02"
+        ],
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "dtstart": {
+          "dateTime": "2026-01-02T09:00:00.000456"
+        }
+      },
+      "expected": [
+        "2026-01-02T09:00:00",
+        "2026-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "explicit textual start wins over the external default",
+      "input": {
+        "profile": "dateutil",
+        "dateutilUnfold": false,
+        "dateutilCompatible": true,
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ],
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=13;COUNT=2"
+        ],
+        "dtstart": {
+          "dateTime": "2026-01-04T09:00:00Z"
+        }
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-02T13:00:00Z",
+        "2026-01-03T13:00:00Z"
+      ]
+    },
+    {
+      "name": "compatible DTSTART participates in awareness comparisons",
+      "input": {
+        "profile": "dateutil",
+        "dateutilUnfold": false,
+        "dateutilCompatible": true,
+        "through": "2026-12-31",
+        "checkpoints": [],
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RDATE:20260103T090000"
+        ]
+      },
+      "expected": {
+        "expansionError": "can't compare offset-naive and offset-aware datetimes"
+      }
+    },
+    {
+      "name": "an implicit rule clock is not a compatible inclusion",
+      "input": {
+        "profile": "dateutil",
+        "dateutilUnfold": false,
+        "dateutilCompatible": true,
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03"
+        ],
+        "lines": [
+          "RRULE:FREQ=DAILY;BYHOUR=13;COUNT=2"
+        ],
+        "dateutilNow": "2026-01-02T09:00:00Z"
+      },
+      "expected": [
+        "2026-01-02T13:00:00",
+        "2026-01-03T13:00:00"
+      ]
+    },
+    {
+      "name": "RFC treats the dateutil flag as profile-specific",
+      "input": {
+        "profile": "rfc5545",
+        "dateutilCompatible": true,
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-04",
+        "checkpoints": [
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    }
+  ]
+}

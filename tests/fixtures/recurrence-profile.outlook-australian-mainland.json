@@ -1,0 +1,1828 @@
+{
+  "type": "recurrence-profile",
+  "name": "Outlook Graph mainland and long-lived Australian seasons",
+  "source": "Microsoft Graph v1.0 calendarView on a dedicated test calendar",
+  "cases": [
+    {
+      "name": "sydney-1899-summer",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-14T13:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "AUS Eastern Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-14",
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18"
+        ]
+      },
+      "expected": [
+        "1899-01-14T13:30:00Z",
+        "1899-01-15T13:30:00Z",
+        "1899-01-16T13:30:00Z",
+        "1899-01-17T13:30:00Z",
+        "1899-01-18T13:30:00Z"
+      ]
+    },
+    {
+      "name": "sydney-1900-winter",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1900-07-14T14:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "AUS Eastern Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1900-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1900-07-27",
+        "checkpoints": [
+          "1900-07-14",
+          "1900-07-15",
+          "1900-07-16",
+          "1900-07-17",
+          "1900-07-18"
+        ]
+      },
+      "expected": [
+        "1900-07-14T14:30:00Z",
+        "1900-07-15T14:30:00Z",
+        "1900-07-16T14:30:00Z",
+        "1900-07-17T14:30:00Z",
+        "1900-07-18T14:30:00Z"
+      ]
+    },
+    {
+      "name": "sydney-1967-autumn",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-03-23T15:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "AUS Eastern Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-03-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-04-05",
+        "checkpoints": [
+          "1967-03-23",
+          "1967-03-24",
+          "1967-03-25",
+          "1967-03-26",
+          "1967-03-27"
+        ]
+      },
+      "expected": [
+        "1967-03-23T15:30:00Z",
+        "1967-03-24T15:30:00Z",
+        "1967-03-25T15:30:00Z",
+        "1967-03-26T16:30:00Z",
+        "1967-03-27T16:30:00Z"
+      ]
+    },
+    {
+      "name": "sydney-1967-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-10-26T16:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "AUS Eastern Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-10-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-11-08",
+        "checkpoints": [
+          "1967-10-26",
+          "1967-10-27",
+          "1967-10-28",
+          "1967-10-29",
+          "1967-10-30"
+        ]
+      },
+      "expected": [
+        "1967-10-26T16:30:00Z",
+        "1967-10-27T16:30:00Z",
+        "1967-10-28T16:30:00Z",
+        "1967-10-29T15:30:00Z",
+        "1967-10-30T15:30:00Z"
+      ]
+    },
+    {
+      "name": "sydney-2000-late-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2000-10-26T16:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "AUS Eastern Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2000-10-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2000-11-08",
+        "checkpoints": [
+          "2000-10-26",
+          "2000-10-27",
+          "2000-10-28",
+          "2000-10-29",
+          "2000-10-30"
+        ]
+      },
+      "expected": [
+        "2000-10-26T16:30:00Z",
+        "2000-10-27T16:30:00Z",
+        "2000-10-28T16:30:00Z",
+        "2000-10-29T15:30:00Z",
+        "2000-10-30T15:30:00Z"
+      ]
+    },
+    {
+      "name": "sydney-2006-march-fold-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2006-03-23T16:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "AUS Eastern Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2006-03-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2006-04-05",
+        "checkpoints": [
+          "2006-03-23",
+          "2006-03-24",
+          "2006-03-25",
+          "2006-03-26",
+          "2006-03-27"
+        ]
+      },
+      "expected": [
+        "2006-03-23T16:00:00Z",
+        "2006-03-24T16:00:00Z",
+        "2006-03-25T17:00:00Z",
+        "2006-03-26T17:00:00Z",
+        "2006-03-27T17:00:00Z"
+      ]
+    },
+    {
+      "name": "sydney-2008-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2008-04-03T15:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "AUS Eastern Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "AUS Eastern Standard Time",
+              "startDate": "2008-04-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2008-04-16",
+        "checkpoints": [
+          "2008-04-03",
+          "2008-04-04",
+          "2008-04-05",
+          "2008-04-06",
+          "2008-04-07"
+        ]
+      },
+      "expected": [
+        "2008-04-03T15:30:00Z",
+        "2008-04-04T15:30:00Z",
+        "2008-04-05T15:30:00Z",
+        "2008-04-06T16:30:00Z",
+        "2008-04-07T16:30:00Z"
+      ]
+    },
+    {
+      "name": "sydney-2008-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2008-10-02T16:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "AUS Eastern Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "AUS Eastern Standard Time",
+              "startDate": "2008-10-03",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2008-10-15",
+        "checkpoints": [
+          "2008-10-02",
+          "2008-10-03",
+          "2008-10-04",
+          "2008-10-05",
+          "2008-10-06"
+        ]
+      },
+      "expected": [
+        "2008-10-02T16:30:00Z",
+        "2008-10-03T16:30:00Z",
+        "2008-10-04T16:30:00Z",
+        "2008-10-05T15:30:00Z",
+        "2008-10-06T15:30:00Z"
+      ]
+    },
+    {
+      "name": "adelaide-1899-summer",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-14T14:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Cen. Australia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-14",
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18"
+        ]
+      },
+      "expected": [
+        "1899-01-14T14:00:00Z",
+        "1899-01-15T14:00:00Z",
+        "1899-01-16T14:00:00Z",
+        "1899-01-17T14:00:00Z",
+        "1899-01-18T14:00:00Z"
+      ]
+    },
+    {
+      "name": "adelaide-1900-winter",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1900-07-14T15:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Cen. Australia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1900-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1900-07-27",
+        "checkpoints": [
+          "1900-07-14",
+          "1900-07-15",
+          "1900-07-16",
+          "1900-07-17",
+          "1900-07-18"
+        ]
+      },
+      "expected": [
+        "1900-07-14T15:00:00Z",
+        "1900-07-15T15:00:00Z",
+        "1900-07-16T15:00:00Z",
+        "1900-07-17T15:00:00Z",
+        "1900-07-18T15:00:00Z"
+      ]
+    },
+    {
+      "name": "adelaide-1967-autumn",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-03-23T16:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Cen. Australia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-03-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-04-05",
+        "checkpoints": [
+          "1967-03-23",
+          "1967-03-24",
+          "1967-03-25",
+          "1967-03-26",
+          "1967-03-27"
+        ]
+      },
+      "expected": [
+        "1967-03-23T16:00:00Z",
+        "1967-03-24T16:00:00Z",
+        "1967-03-25T16:00:00Z",
+        "1967-03-26T17:00:00Z",
+        "1967-03-27T17:00:00Z"
+      ]
+    },
+    {
+      "name": "adelaide-1967-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-10-26T17:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Cen. Australia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-10-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-11-08",
+        "checkpoints": [
+          "1967-10-26",
+          "1967-10-27",
+          "1967-10-28",
+          "1967-10-29",
+          "1967-10-30"
+        ]
+      },
+      "expected": [
+        "1967-10-26T17:00:00Z",
+        "1967-10-27T17:00:00Z",
+        "1967-10-28T17:00:00Z",
+        "1967-10-29T16:00:00Z",
+        "1967-10-30T16:00:00Z"
+      ]
+    },
+    {
+      "name": "adelaide-2000-late-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2000-10-26T17:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Cen. Australia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2000-10-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2000-11-08",
+        "checkpoints": [
+          "2000-10-26",
+          "2000-10-27",
+          "2000-10-28",
+          "2000-10-29",
+          "2000-10-30"
+        ]
+      },
+      "expected": [
+        "2000-10-26T17:00:00Z",
+        "2000-10-27T17:00:00Z",
+        "2000-10-28T17:00:00Z",
+        "2000-10-29T16:00:00Z",
+        "2000-10-30T16:00:00Z"
+      ]
+    },
+    {
+      "name": "adelaide-2006-march-fold-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2006-03-23T16:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Cen. Australia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2006-03-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2006-04-05",
+        "checkpoints": [
+          "2006-03-23",
+          "2006-03-24",
+          "2006-03-25",
+          "2006-03-26",
+          "2006-03-27"
+        ]
+      },
+      "expected": [
+        "2006-03-23T16:30:00Z",
+        "2006-03-24T16:30:00Z",
+        "2006-03-25T17:30:00Z",
+        "2006-03-26T17:30:00Z",
+        "2006-03-27T17:30:00Z"
+      ]
+    },
+    {
+      "name": "adelaide-2008-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2008-04-03T16:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Cen. Australia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Cen. Australia Standard Time",
+              "startDate": "2008-04-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2008-04-16",
+        "checkpoints": [
+          "2008-04-03",
+          "2008-04-04",
+          "2008-04-05",
+          "2008-04-06",
+          "2008-04-07"
+        ]
+      },
+      "expected": [
+        "2008-04-03T16:00:00Z",
+        "2008-04-04T16:00:00Z",
+        "2008-04-05T16:00:00Z",
+        "2008-04-06T17:00:00Z",
+        "2008-04-07T17:00:00Z"
+      ]
+    },
+    {
+      "name": "adelaide-2008-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2008-10-02T17:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Cen. Australia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Cen. Australia Standard Time",
+              "startDate": "2008-10-03",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2008-10-15",
+        "checkpoints": [
+          "2008-10-02",
+          "2008-10-03",
+          "2008-10-04",
+          "2008-10-05",
+          "2008-10-06"
+        ]
+      },
+      "expected": [
+        "2008-10-02T17:00:00Z",
+        "2008-10-03T17:00:00Z",
+        "2008-10-04T17:00:00Z",
+        "2008-10-05T16:00:00Z",
+        "2008-10-06T16:00:00Z"
+      ]
+    },
+    {
+      "name": "hobart-2006-march-015900",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2006-03-23T14:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tasmania Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2006-03-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2006-04-05",
+        "checkpoints": [
+          "2006-03-23",
+          "2006-03-24",
+          "2006-03-25",
+          "2006-03-26",
+          "2006-03-27"
+        ]
+      },
+      "expected": [
+        "2006-03-23T14:59:00Z",
+        "2006-03-24T14:59:00Z",
+        "2006-03-25T14:59:00Z",
+        "2006-03-26T15:59:00Z",
+        "2006-03-27T15:59:00Z"
+      ]
+    },
+    {
+      "name": "hobart-2006-march-020000",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2006-03-23T15:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tasmania Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2006-03-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2006-04-05",
+        "checkpoints": [
+          "2006-03-23",
+          "2006-03-24",
+          "2006-03-25",
+          "2006-03-26",
+          "2006-03-27"
+        ]
+      },
+      "expected": [
+        "2006-03-23T15:00:00Z",
+        "2006-03-24T15:00:00Z",
+        "2006-03-25T15:00:00Z",
+        "2006-03-26T16:00:00Z",
+        "2006-03-27T16:00:00Z"
+      ]
+    },
+    {
+      "name": "hobart-2006-march-030000",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2006-03-23T16:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tasmania Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2006-03-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2006-04-05",
+        "checkpoints": [
+          "2006-03-23",
+          "2006-03-24",
+          "2006-03-25",
+          "2006-03-26",
+          "2006-03-27"
+        ]
+      },
+      "expected": [
+        "2006-03-23T16:00:00Z",
+        "2006-03-24T16:00:00Z",
+        "2006-03-25T17:00:00Z",
+        "2006-03-26T17:00:00Z",
+        "2006-03-27T17:00:00Z"
+      ]
+    },
+    {
+      "name": "sydney-2000-olympics",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2000-08-24T16:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "AUS Eastern Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2000-08-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2000-09-06",
+        "checkpoints": [
+          "2000-08-24",
+          "2000-08-25",
+          "2000-08-26",
+          "2000-08-27",
+          "2000-08-28"
+        ]
+      },
+      "expected": [
+        "2000-08-24T16:30:00Z",
+        "2000-08-25T16:30:00Z",
+        "2000-08-26T16:30:00Z",
+        "2000-08-27T16:30:00Z",
+        "2000-08-28T16:30:00Z"
+      ]
+    },
+    {
+      "name": "sydney-2000-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2000-09-28T16:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "AUS Eastern Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2000-09-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2000-10-11",
+        "checkpoints": [
+          "2000-09-28",
+          "2000-09-29",
+          "2000-09-30",
+          "2000-10-01",
+          "2000-10-02"
+        ]
+      },
+      "expected": [
+        "2000-09-28T16:30:00Z",
+        "2000-09-29T16:30:00Z",
+        "2000-09-30T16:30:00Z",
+        "2000-10-01T16:30:00Z",
+        "2000-10-02T16:30:00Z"
+      ]
+    },
+    {
+      "name": "sydney-2006-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2006-03-23T15:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "AUS Eastern Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2006-03-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2006-04-05",
+        "checkpoints": [
+          "2006-03-23",
+          "2006-03-24",
+          "2006-03-25",
+          "2006-03-26",
+          "2006-03-27"
+        ]
+      },
+      "expected": [
+        "2006-03-23T15:30:00Z",
+        "2006-03-24T15:30:00Z",
+        "2006-03-25T15:30:00Z",
+        "2006-03-26T16:30:00Z",
+        "2006-03-27T16:30:00Z"
+      ]
+    },
+    {
+      "name": "sydney-2006-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2006-03-30T16:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "AUS Eastern Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2006-03-31",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2006-04-12",
+        "checkpoints": [
+          "2006-03-30",
+          "2006-03-31",
+          "2006-04-01",
+          "2006-04-02",
+          "2006-04-03"
+        ]
+      },
+      "expected": [
+        "2006-03-30T16:30:00Z",
+        "2006-03-31T16:30:00Z",
+        "2006-04-01T16:30:00Z",
+        "2006-04-02T16:30:00Z",
+        "2006-04-03T16:30:00Z"
+      ]
+    },
+    {
+      "name": "sydney-2075-autumn",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-04-04T15:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "AUS Eastern Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "AUS Eastern Standard Time",
+              "startDate": "2075-04-05",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-04-17",
+        "checkpoints": [
+          "2075-04-04",
+          "2075-04-05",
+          "2075-04-06",
+          "2075-04-07",
+          "2075-04-08"
+        ]
+      },
+      "expected": [
+        "2075-04-04T15:30:00Z",
+        "2075-04-05T15:30:00Z",
+        "2075-04-06T15:30:00Z",
+        "2075-04-07T16:30:00Z",
+        "2075-04-08T16:30:00Z"
+      ]
+    },
+    {
+      "name": "sydney-2075-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-10-03T16:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "AUS Eastern Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "AUS Eastern Standard Time",
+              "startDate": "2075-10-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-10-16",
+        "checkpoints": [
+          "2075-10-03",
+          "2075-10-04",
+          "2075-10-05",
+          "2075-10-06",
+          "2075-10-07"
+        ]
+      },
+      "expected": [
+        "2075-10-03T16:30:00Z",
+        "2075-10-04T16:30:00Z",
+        "2075-10-05T16:30:00Z",
+        "2075-10-06T15:30:00Z",
+        "2075-10-07T15:30:00Z"
+      ]
+    },
+    {
+      "name": "adelaide-2000-olympics",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2000-08-24T17:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Cen. Australia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2000-08-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2000-09-06",
+        "checkpoints": [
+          "2000-08-24",
+          "2000-08-25",
+          "2000-08-26",
+          "2000-08-27",
+          "2000-08-28"
+        ]
+      },
+      "expected": [
+        "2000-08-24T17:00:00Z",
+        "2000-08-25T17:00:00Z",
+        "2000-08-26T17:00:00Z",
+        "2000-08-27T17:00:00Z",
+        "2000-08-28T17:00:00Z"
+      ]
+    },
+    {
+      "name": "adelaide-2000-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2000-09-28T17:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Cen. Australia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2000-09-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2000-10-11",
+        "checkpoints": [
+          "2000-09-28",
+          "2000-09-29",
+          "2000-09-30",
+          "2000-10-01",
+          "2000-10-02"
+        ]
+      },
+      "expected": [
+        "2000-09-28T17:00:00Z",
+        "2000-09-29T17:00:00Z",
+        "2000-09-30T17:00:00Z",
+        "2000-10-01T17:00:00Z",
+        "2000-10-02T17:00:00Z"
+      ]
+    },
+    {
+      "name": "adelaide-2006-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2006-03-23T16:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Cen. Australia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2006-03-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2006-04-05",
+        "checkpoints": [
+          "2006-03-23",
+          "2006-03-24",
+          "2006-03-25",
+          "2006-03-26",
+          "2006-03-27"
+        ]
+      },
+      "expected": [
+        "2006-03-23T16:00:00Z",
+        "2006-03-24T16:00:00Z",
+        "2006-03-25T16:00:00Z",
+        "2006-03-26T17:00:00Z",
+        "2006-03-27T17:00:00Z"
+      ]
+    },
+    {
+      "name": "adelaide-2006-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2006-03-30T17:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Cen. Australia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2006-03-31",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2006-04-12",
+        "checkpoints": [
+          "2006-03-30",
+          "2006-03-31",
+          "2006-04-01",
+          "2006-04-02",
+          "2006-04-03"
+        ]
+      },
+      "expected": [
+        "2006-03-30T17:00:00Z",
+        "2006-03-31T17:00:00Z",
+        "2006-04-01T17:00:00Z",
+        "2006-04-02T17:00:00Z",
+        "2006-04-03T17:00:00Z"
+      ]
+    },
+    {
+      "name": "adelaide-2075-autumn",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-04-04T16:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Cen. Australia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Cen. Australia Standard Time",
+              "startDate": "2075-04-05",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-04-17",
+        "checkpoints": [
+          "2075-04-04",
+          "2075-04-05",
+          "2075-04-06",
+          "2075-04-07",
+          "2075-04-08"
+        ]
+      },
+      "expected": [
+        "2075-04-04T16:00:00Z",
+        "2075-04-05T16:00:00Z",
+        "2075-04-06T16:00:00Z",
+        "2075-04-07T17:00:00Z",
+        "2075-04-08T17:00:00Z"
+      ]
+    },
+    {
+      "name": "adelaide-2075-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-10-03T17:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Cen. Australia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Cen. Australia Standard Time",
+              "startDate": "2075-10-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-10-16",
+        "checkpoints": [
+          "2075-10-03",
+          "2075-10-04",
+          "2075-10-05",
+          "2075-10-06",
+          "2075-10-07"
+        ]
+      },
+      "expected": [
+        "2075-10-03T17:00:00Z",
+        "2075-10-04T17:00:00Z",
+        "2075-10-05T17:00:00Z",
+        "2075-10-06T16:00:00Z",
+        "2075-10-07T16:00:00Z"
+      ]
+    },
+    {
+      "name": "melbourne-2075-autumn",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-04-04T15:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Australia/Melbourne",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "AUS Eastern Standard Time",
+              "startDate": "2075-04-05",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-04-17",
+        "checkpoints": [
+          "2075-04-04",
+          "2075-04-05",
+          "2075-04-06",
+          "2075-04-07",
+          "2075-04-08"
+        ]
+      },
+      "expected": [
+        "2075-04-04T15:30:00Z",
+        "2075-04-05T15:30:00Z",
+        "2075-04-06T15:30:00Z",
+        "2075-04-07T16:30:00Z",
+        "2075-04-08T16:30:00Z"
+      ]
+    },
+    {
+      "name": "melbourne-2075-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-10-03T16:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Australia/Melbourne",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "AUS Eastern Standard Time",
+              "startDate": "2075-10-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-10-16",
+        "checkpoints": [
+          "2075-10-03",
+          "2075-10-04",
+          "2075-10-05",
+          "2075-10-06",
+          "2075-10-07"
+        ]
+      },
+      "expected": [
+        "2075-10-03T16:30:00Z",
+        "2075-10-04T16:30:00Z",
+        "2075-10-05T16:30:00Z",
+        "2075-10-06T15:30:00Z",
+        "2075-10-07T15:30:00Z"
+      ]
+    },
+    {
+      "name": "hobart-2003-through-2009-autumn",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2003-03-29T15:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tasmania Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "sunday"
+              ],
+              "firstDayOfWeek": "sunday",
+              "index": "last",
+              "interval": 1,
+              "month": 3,
+              "type": "relativeYearly"
+            },
+            "range": {
+              "endDate": "2009-11-01",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "2003-03-30",
+              "type": "endDate"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2009-04-01",
+        "checkpoints": [
+          "2003-03-29",
+          "2004-03-27",
+          "2005-03-26",
+          "2006-03-25",
+          "2007-03-24",
+          "2008-03-29",
+          "2009-03-28"
+        ]
+      },
+      "expected": [
+        "2003-03-29T15:30:00Z",
+        "2004-03-27T15:30:00Z",
+        "2005-03-26T15:30:00Z",
+        "2006-03-25T15:30:00Z",
+        "2007-03-24T15:30:00Z",
+        "2008-03-29T15:30:00Z",
+        "2009-03-28T15:30:00Z"
+      ]
+    },
+    {
+      "name": "hobart-2003-through-2009-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2003-10-04T16:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tasmania Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "sunday"
+              ],
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 10,
+              "type": "relativeYearly"
+            },
+            "range": {
+              "endDate": "2009-11-01",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "2003-10-05",
+              "type": "endDate"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2009-11-01",
+        "checkpoints": [
+          "2003-10-04",
+          "2004-10-02",
+          "2005-10-01",
+          "2006-09-30",
+          "2007-10-06",
+          "2008-10-04",
+          "2009-10-03"
+        ]
+      },
+      "expected": [
+        "2003-10-04T16:30:00Z",
+        "2004-10-02T16:30:00Z",
+        "2005-10-01T16:30:00Z",
+        "2006-09-30T16:30:00Z",
+        "2007-10-06T16:30:00Z",
+        "2008-10-04T16:30:00Z",
+        "2009-10-03T16:30:00Z"
+      ]
+    },
+    {
+      "name": "sydney-2003-through-2009-autumn",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2003-03-29T15:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "AUS Eastern Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "sunday"
+              ],
+              "firstDayOfWeek": "sunday",
+              "index": "last",
+              "interval": 1,
+              "month": 3,
+              "type": "relativeYearly"
+            },
+            "range": {
+              "endDate": "2009-11-01",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "2003-03-30",
+              "type": "endDate"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2009-04-01",
+        "checkpoints": [
+          "2003-03-29",
+          "2004-03-27",
+          "2005-03-26",
+          "2006-03-25",
+          "2007-03-24",
+          "2008-03-29",
+          "2009-03-28"
+        ]
+      },
+      "expected": [
+        "2003-03-29T15:30:00Z",
+        "2004-03-27T15:30:00Z",
+        "2005-03-26T15:30:00Z",
+        "2006-03-25T15:30:00Z",
+        "2007-03-24T15:30:00Z",
+        "2008-03-29T15:30:00Z",
+        "2009-03-28T15:30:00Z"
+      ]
+    },
+    {
+      "name": "sydney-2003-through-2009-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2003-10-25T16:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "AUS Eastern Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "sunday"
+              ],
+              "firstDayOfWeek": "sunday",
+              "index": "last",
+              "interval": 1,
+              "month": 10,
+              "type": "relativeYearly"
+            },
+            "range": {
+              "endDate": "2009-11-01",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "2003-10-26",
+              "type": "endDate"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2009-11-01",
+        "checkpoints": [
+          "2003-10-25",
+          "2004-10-30",
+          "2005-10-29",
+          "2006-10-28",
+          "2007-10-27",
+          "2008-10-25",
+          "2009-10-24"
+        ]
+      },
+      "expected": [
+        "2003-10-25T16:30:00Z",
+        "2004-10-30T16:30:00Z",
+        "2005-10-29T16:30:00Z",
+        "2006-10-28T16:30:00Z",
+        "2007-10-27T16:30:00Z",
+        "2008-10-25T16:30:00Z",
+        "2009-10-24T16:30:00Z"
+      ]
+    },
+    {
+      "name": "adelaide-2003-through-2009-autumn",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2003-03-29T16:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Cen. Australia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "sunday"
+              ],
+              "firstDayOfWeek": "sunday",
+              "index": "last",
+              "interval": 1,
+              "month": 3,
+              "type": "relativeYearly"
+            },
+            "range": {
+              "endDate": "2009-11-01",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "2003-03-30",
+              "type": "endDate"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2009-04-01",
+        "checkpoints": [
+          "2003-03-29",
+          "2004-03-27",
+          "2005-03-26",
+          "2006-03-25",
+          "2007-03-24",
+          "2008-03-29",
+          "2009-03-28"
+        ]
+      },
+      "expected": [
+        "2003-03-29T16:00:00Z",
+        "2004-03-27T16:00:00Z",
+        "2005-03-26T16:00:00Z",
+        "2006-03-25T16:00:00Z",
+        "2007-03-24T16:00:00Z",
+        "2008-03-29T16:00:00Z",
+        "2009-03-28T16:00:00Z"
+      ]
+    },
+    {
+      "name": "adelaide-2003-through-2009-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2003-10-25T17:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Cen. Australia Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "sunday"
+              ],
+              "firstDayOfWeek": "sunday",
+              "index": "last",
+              "interval": 1,
+              "month": 10,
+              "type": "relativeYearly"
+            },
+            "range": {
+              "endDate": "2009-11-01",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "2003-10-26",
+              "type": "endDate"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2009-11-01",
+        "checkpoints": [
+          "2003-10-25",
+          "2004-10-30",
+          "2005-10-29",
+          "2006-10-28",
+          "2007-10-27",
+          "2008-10-25",
+          "2009-10-24"
+        ]
+      },
+      "expected": [
+        "2003-10-25T17:00:00Z",
+        "2004-10-30T17:00:00Z",
+        "2005-10-29T17:00:00Z",
+        "2006-10-28T17:00:00Z",
+        "2007-10-27T17:00:00Z",
+        "2008-10-25T17:00:00Z",
+        "2009-10-24T17:00:00Z"
+      ]
+    },
+    {
+      "name": "rfc-sydney-preserves-olympics-dst-start",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Australia/Sydney:20000825T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "2000-08-31",
+        "checkpoints": [
+          "2000-08-25",
+          "2000-08-26",
+          "2000-08-27",
+          "2000-08-28",
+          "2000-08-29"
+        ]
+      },
+      "expected": [
+        "2000-08-25T02:00:00Z",
+        "2000-08-26T02:00:00Z",
+        "2000-08-27T01:00:00Z",
+        "2000-08-28T01:00:00Z",
+        "2000-08-29T01:00:00Z"
+      ]
+    }
+  ]
+}

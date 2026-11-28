@@ -1,0 +1,1086 @@
+{
+  "type": "dateutil-queries",
+  "name": "dateutil 2.8.2 queries",
+  "source": "python-dateutil 2.8.2 rrulestr and rrulebase before/after/between/xafter",
+  "cases": [
+    {
+      "name": "RRuleTest.testBefore",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY"
+        ],
+        "after": "1997-09-02T09:00:00",
+        "before": "1997-09-05T09:00:00",
+        "inclusive": false,
+        "count": 4
+      },
+      "expected": {
+        "before": "1997-09-04T09:00:00",
+        "after": "1997-09-03T09:00:00",
+        "between": [
+          "1997-09-03T09:00:00",
+          "1997-09-04T09:00:00"
+        ],
+        "xafter": [
+          "1997-09-03T09:00:00",
+          "1997-09-04T09:00:00",
+          "1997-09-05T09:00:00",
+          "1997-09-06T09:00:00"
+        ]
+      }
+    },
+    {
+      "name": "vendored between end and exact boundary False",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY"
+        ],
+        "after": "1997-09-02T09:00:00",
+        "before": "1997-09-06T09:00:00",
+        "inclusive": false,
+        "count": 4
+      },
+      "expected": {
+        "before": "1997-09-05T09:00:00",
+        "after": "1997-09-03T09:00:00",
+        "between": [
+          "1997-09-03T09:00:00",
+          "1997-09-04T09:00:00",
+          "1997-09-05T09:00:00"
+        ],
+        "xafter": [
+          "1997-09-03T09:00:00",
+          "1997-09-04T09:00:00",
+          "1997-09-05T09:00:00",
+          "1997-09-06T09:00:00"
+        ]
+      }
+    },
+    {
+      "name": "RRuleTest.testAfter",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY"
+        ],
+        "after": "1997-09-04T09:00:00",
+        "before": "1997-09-05T09:00:00",
+        "inclusive": false,
+        "count": 4
+      },
+      "expected": {
+        "before": "1997-09-04T09:00:00",
+        "after": "1997-09-05T09:00:00",
+        "between": [],
+        "xafter": [
+          "1997-09-05T09:00:00",
+          "1997-09-06T09:00:00",
+          "1997-09-07T09:00:00",
+          "1997-09-08T09:00:00"
+        ]
+      }
+    },
+    {
+      "name": "RRuleTest.testXAfter",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY"
+        ],
+        "after": "1997-09-08T09:00:00",
+        "before": "1997-09-20T09:00:00",
+        "inclusive": false,
+        "count": 12
+      },
+      "expected": {
+        "before": "1997-09-19T09:00:00",
+        "after": "1997-09-09T09:00:00",
+        "between": [
+          "1997-09-09T09:00:00",
+          "1997-09-10T09:00:00",
+          "1997-09-11T09:00:00",
+          "1997-09-12T09:00:00",
+          "1997-09-13T09:00:00",
+          "1997-09-14T09:00:00",
+          "1997-09-15T09:00:00",
+          "1997-09-16T09:00:00",
+          "1997-09-17T09:00:00",
+          "1997-09-18T09:00:00",
+          "1997-09-19T09:00:00"
+        ],
+        "xafter": [
+          "1997-09-09T09:00:00",
+          "1997-09-10T09:00:00",
+          "1997-09-11T09:00:00",
+          "1997-09-12T09:00:00",
+          "1997-09-13T09:00:00",
+          "1997-09-14T09:00:00",
+          "1997-09-15T09:00:00",
+          "1997-09-16T09:00:00",
+          "1997-09-17T09:00:00",
+          "1997-09-18T09:00:00",
+          "1997-09-19T09:00:00",
+          "1997-09-20T09:00:00"
+        ]
+      }
+    },
+    {
+      "name": "RRuleTest.testBeforeInc",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY"
+        ],
+        "after": "1997-09-02T09:00:00",
+        "before": "1997-09-05T09:00:00",
+        "inclusive": true,
+        "count": 4
+      },
+      "expected": {
+        "before": "1997-09-05T09:00:00",
+        "after": "1997-09-02T09:00:00",
+        "between": [
+          "1997-09-02T09:00:00",
+          "1997-09-03T09:00:00",
+          "1997-09-04T09:00:00",
+          "1997-09-05T09:00:00"
+        ],
+        "xafter": [
+          "1997-09-02T09:00:00",
+          "1997-09-03T09:00:00",
+          "1997-09-04T09:00:00",
+          "1997-09-05T09:00:00"
+        ]
+      }
+    },
+    {
+      "name": "vendored between end and exact boundary True",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY"
+        ],
+        "after": "1997-09-02T09:00:00",
+        "before": "1997-09-06T09:00:00",
+        "inclusive": true,
+        "count": 4
+      },
+      "expected": {
+        "before": "1997-09-06T09:00:00",
+        "after": "1997-09-02T09:00:00",
+        "between": [
+          "1997-09-02T09:00:00",
+          "1997-09-03T09:00:00",
+          "1997-09-04T09:00:00",
+          "1997-09-05T09:00:00",
+          "1997-09-06T09:00:00"
+        ],
+        "xafter": [
+          "1997-09-02T09:00:00",
+          "1997-09-03T09:00:00",
+          "1997-09-04T09:00:00",
+          "1997-09-05T09:00:00"
+        ]
+      }
+    },
+    {
+      "name": "RRuleTest.testAfterInc",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY"
+        ],
+        "after": "1997-09-04T09:00:00",
+        "before": "1997-09-05T09:00:00",
+        "inclusive": true,
+        "count": 4
+      },
+      "expected": {
+        "before": "1997-09-05T09:00:00",
+        "after": "1997-09-04T09:00:00",
+        "between": [
+          "1997-09-04T09:00:00",
+          "1997-09-05T09:00:00"
+        ],
+        "xafter": [
+          "1997-09-04T09:00:00",
+          "1997-09-05T09:00:00",
+          "1997-09-06T09:00:00",
+          "1997-09-07T09:00:00"
+        ]
+      }
+    },
+    {
+      "name": "RRuleTest.testXAfterInc",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY"
+        ],
+        "after": "1997-09-08T09:00:00",
+        "before": "1997-09-20T09:00:00",
+        "inclusive": true,
+        "count": 12
+      },
+      "expected": {
+        "before": "1997-09-20T09:00:00",
+        "after": "1997-09-08T09:00:00",
+        "between": [
+          "1997-09-08T09:00:00",
+          "1997-09-09T09:00:00",
+          "1997-09-10T09:00:00",
+          "1997-09-11T09:00:00",
+          "1997-09-12T09:00:00",
+          "1997-09-13T09:00:00",
+          "1997-09-14T09:00:00",
+          "1997-09-15T09:00:00",
+          "1997-09-16T09:00:00",
+          "1997-09-17T09:00:00",
+          "1997-09-18T09:00:00",
+          "1997-09-19T09:00:00",
+          "1997-09-20T09:00:00"
+        ],
+        "xafter": [
+          "1997-09-08T09:00:00",
+          "1997-09-09T09:00:00",
+          "1997-09-10T09:00:00",
+          "1997-09-11T09:00:00",
+          "1997-09-12T09:00:00",
+          "1997-09-13T09:00:00",
+          "1997-09-14T09:00:00",
+          "1997-09-15T09:00:00",
+          "1997-09-16T09:00:00",
+          "1997-09-17T09:00:00",
+          "1997-09-18T09:00:00",
+          "1997-09-19T09:00:00"
+        ]
+      }
+    },
+    {
+      "name": "spring gap stops before an earlier projected instant",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T014500",
+          "RRULE:FREQ=MINUTELY;INTERVAL=30;COUNT=4"
+        ],
+        "after": "2026-03-08T06:00:00Z",
+        "before": "2026-03-08T06:30:00Z",
+        "inclusive": false,
+        "count": 4
+      },
+      "expected": {
+        "before": null,
+        "after": "2026-03-08T06:45:00Z",
+        "between": [],
+        "xafter": [
+          "2026-03-08T06:45:00Z",
+          "2026-03-08T06:15:00Z",
+          "2026-03-08T06:45:00Z",
+          "2026-03-08T07:15:00Z"
+        ]
+      }
+    },
+    {
+      "name": "between retains a below-bound regression after its first match",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T014500",
+          "RRULE:FREQ=MINUTELY;INTERVAL=30;COUNT=4"
+        ],
+        "after": "2026-03-08T06:30:00Z",
+        "before": "2026-03-08T07:00:00Z",
+        "inclusive": false,
+        "count": 4
+      },
+      "expected": {
+        "before": "2026-03-08T06:45:00Z",
+        "after": "2026-03-08T06:45:00Z",
+        "between": [
+          "2026-03-08T06:45:00Z",
+          "2026-03-08T06:15:00Z",
+          "2026-03-08T06:45:00Z"
+        ],
+        "xafter": [
+          "2026-03-08T06:45:00Z",
+          "2026-03-08T06:45:00Z",
+          "2026-03-08T07:15:00Z"
+        ]
+      }
+    },
+    {
+      "name": "before returns the last visited value",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T014500",
+          "RRULE:FREQ=MINUTELY;INTERVAL=30;COUNT=4"
+        ],
+        "after": "2026-03-08T06:10:00Z",
+        "before": "2026-03-08T06:45:00.000001Z",
+        "inclusive": false,
+        "count": 4
+      },
+      "expected": {
+        "before": "2026-03-08T06:45:00Z",
+        "after": "2026-03-08T06:45:00Z",
+        "between": [
+          "2026-03-08T06:45:00Z",
+          "2026-03-08T06:15:00Z",
+          "2026-03-08T06:45:00Z"
+        ],
+        "xafter": [
+          "2026-03-08T06:45:00Z",
+          "2026-03-08T06:15:00Z",
+          "2026-03-08T06:45:00Z",
+          "2026-03-08T07:15:00Z"
+        ]
+      }
+    },
+    {
+      "name": "spring gap before chooses the smaller last visited instant",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T014500",
+          "RRULE:FREQ=MINUTELY;INTERVAL=30;COUNT=2"
+        ],
+        "after": "2026-03-08T06:00:00Z",
+        "before": "2026-03-08T07:00:00Z",
+        "inclusive": false,
+        "count": 4
+      },
+      "expected": {
+        "before": "2026-03-08T06:15:00Z",
+        "after": "2026-03-08T06:45:00Z",
+        "between": [
+          "2026-03-08T06:45:00Z",
+          "2026-03-08T06:15:00Z"
+        ],
+        "xafter": [
+          "2026-03-08T06:45:00Z",
+          "2026-03-08T06:15:00Z"
+        ]
+      }
+    },
+    {
+      "name": "sets pull inclusion and exclusion candidates before stopping",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T014500",
+          "RRULE:FREQ=MINUTELY;INTERVAL=30;COUNT=4",
+          "RRULE:FREQ=HOURLY;COUNT=3",
+          "EXRULE:FREQ=DAILY;BYHOUR=2;COUNT=1",
+          "RDATE:20260308T063000Z"
+        ],
+        "after": "2026-03-08T06:15:00Z",
+        "before": "2026-03-08T07:15:00Z",
+        "inclusive": true,
+        "count": 4
+      },
+      "expected": {
+        "before": "2026-03-08T07:15:00Z",
+        "after": "2026-03-08T06:30:00Z",
+        "between": [
+          "2026-03-08T06:30:00Z",
+          "2026-03-08T06:45:00Z",
+          "2026-03-08T06:15:00Z",
+          "2026-03-08T07:15:00Z"
+        ],
+        "xafter": [
+          "2026-03-08T06:30:00Z",
+          "2026-03-08T06:45:00Z",
+          "2026-03-08T06:15:00Z",
+          "2026-03-08T07:15:00Z"
+        ]
+      }
+    },
+    {
+      "name": "stationary rule force set False",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T120000",
+          "RRULE:FREQ=DAILY;INTERVAL=0;COUNT=3"
+        ],
+        "after": "2026-01-01T12:00:00",
+        "before": "2026-01-01T12:00:00",
+        "inclusive": true,
+        "count": null
+      },
+      "expected": {
+        "before": "2026-01-01T12:00:00",
+        "after": "2026-01-01T12:00:00",
+        "between": [
+          "2026-01-01T12:00:00",
+          "2026-01-01T12:00:00",
+          "2026-01-01T12:00:00"
+        ],
+        "xafter": [
+          "2026-01-01T12:00:00",
+          "2026-01-01T12:00:00",
+          "2026-01-01T12:00:00"
+        ]
+      }
+    },
+    {
+      "name": "compatible retains fractional DTSTART force set False",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T120000.123456Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "after": "2026-01-01T12:00:00.123455Z",
+        "before": "2026-01-01T12:00:00.123456Z",
+        "inclusive": true,
+        "count": null,
+        "compatible": true
+      },
+      "expected": {
+        "before": "2026-01-01T12:00:00.123Z",
+        "after": "2026-01-01T12:00:00.123Z",
+        "between": [
+          "2026-01-01T12:00:00.123Z"
+        ],
+        "xafter": [
+          "2026-01-01T12:00:00.123Z",
+          "2026-01-02T12:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "stationary rule force set True",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T120000",
+          "RRULE:FREQ=DAILY;INTERVAL=0;COUNT=3"
+        ],
+        "after": "2026-01-01T12:00:00",
+        "before": "2026-01-01T12:00:00",
+        "inclusive": true,
+        "count": null,
+        "forceSet": true
+      },
+      "expected": {
+        "before": "2026-01-01T12:00:00",
+        "after": "2026-01-01T12:00:00",
+        "between": [
+          "2026-01-01T12:00:00"
+        ],
+        "xafter": [
+          "2026-01-01T12:00:00"
+        ]
+      }
+    },
+    {
+      "name": "compatible retains fractional DTSTART force set True",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T120000.123456Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "after": "2026-01-01T12:00:00.123455Z",
+        "before": "2026-01-01T12:00:00.123456Z",
+        "inclusive": true,
+        "count": null,
+        "forceSet": true,
+        "compatible": true
+      },
+      "expected": {
+        "before": "2026-01-01T12:00:00.123Z",
+        "after": "2026-01-01T12:00:00.123Z",
+        "between": [
+          "2026-01-01T12:00:00.123Z"
+        ],
+        "xafter": [
+          "2026-01-01T12:00:00.123Z",
+          "2026-01-02T12:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "UTC explicit submillisecond False",
+      "input": {
+        "lines": [
+          "RDATE:20260101T120000.123455Z,20260101T120000.123456Z,20260101T120000.123457Z"
+        ],
+        "after": "2026-01-01T12:00:00.123455Z",
+        "before": "2026-01-01T12:00:00.123457Z",
+        "inclusive": false,
+        "count": null
+      },
+      "expected": {
+        "before": "2026-01-01T12:00:00.123Z",
+        "after": "2026-01-01T12:00:00.123Z",
+        "between": [
+          "2026-01-01T12:00:00.123Z"
+        ],
+        "xafter": [
+          "2026-01-01T12:00:00.123Z",
+          "2026-01-01T12:00:00.123Z"
+        ]
+      }
+    },
+    {
+      "name": "floating explicit submillisecond False",
+      "input": {
+        "lines": [
+          "RDATE:20260101T120000.000001,20260101T120000.000002,20260101T120000.000999"
+        ],
+        "after": "2026-01-01T12:00:00.000001",
+        "before": "2026-01-01T12:00:00.000002",
+        "inclusive": false,
+        "count": 0
+      },
+      "expected": {
+        "before": "2026-01-01T12:00:00",
+        "after": "2026-01-01T12:00:00",
+        "between": [],
+        "xafter": []
+      }
+    },
+    {
+      "name": "fold same TZID 0 inclusive False",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261101T013000",
+          "RRULE:FREQ=HOURLY;COUNT=3"
+        ],
+        "after": {
+          "value": "2026-11-01T01:30:00-04:00",
+          "timeZone": "America/New_York",
+          "fold": 0
+        },
+        "before": {
+          "value": "2026-11-01T01:30:00-04:00",
+          "timeZone": "America/New_York",
+          "fold": 0
+        },
+        "inclusive": false,
+        "count": 4
+      },
+      "expected": {
+        "before": null,
+        "after": "2026-11-01T07:30:00Z",
+        "between": [],
+        "xafter": [
+          "2026-11-01T07:30:00Z",
+          "2026-11-01T08:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "fold separate TZID 0 inclusive False",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261101T013000",
+          "RRULE:FREQ=HOURLY;COUNT=3"
+        ],
+        "after": {
+          "value": "2026-11-01T01:30:00-04:00",
+          "timeZone": "America/Detroit",
+          "fold": 0
+        },
+        "before": {
+          "value": "2026-11-01T01:30:00-04:00",
+          "timeZone": "America/Detroit",
+          "fold": 0
+        },
+        "inclusive": false,
+        "count": 4
+      },
+      "expected": {
+        "before": null,
+        "after": "2026-11-01T07:30:00Z",
+        "between": [],
+        "xafter": [
+          "2026-11-01T07:30:00Z",
+          "2026-11-01T08:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "fold same TZID 1 inclusive False",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261101T013000",
+          "RRULE:FREQ=HOURLY;COUNT=3"
+        ],
+        "after": {
+          "value": "2026-11-01T01:30:00-05:00",
+          "timeZone": "America/New_York",
+          "fold": 1
+        },
+        "before": {
+          "value": "2026-11-01T01:30:00-05:00",
+          "timeZone": "America/New_York",
+          "fold": 1
+        },
+        "inclusive": false,
+        "count": 4
+      },
+      "expected": {
+        "before": null,
+        "after": "2026-11-01T07:30:00Z",
+        "between": [],
+        "xafter": [
+          "2026-11-01T07:30:00Z",
+          "2026-11-01T08:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "fold separate TZID 1 inclusive False",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261101T013000",
+          "RRULE:FREQ=HOURLY;COUNT=3"
+        ],
+        "after": {
+          "value": "2026-11-01T01:30:00-05:00",
+          "timeZone": "America/Detroit",
+          "fold": 1
+        },
+        "before": {
+          "value": "2026-11-01T01:30:00-05:00",
+          "timeZone": "America/Detroit",
+          "fold": 1
+        },
+        "inclusive": false,
+        "count": 4
+      },
+      "expected": {
+        "before": "2026-11-01T05:30:00Z",
+        "after": "2026-11-01T07:30:00Z",
+        "between": [],
+        "xafter": [
+          "2026-11-01T07:30:00Z",
+          "2026-11-01T08:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "UTC explicit submillisecond True",
+      "input": {
+        "lines": [
+          "RDATE:20260101T120000.123455Z,20260101T120000.123456Z,20260101T120000.123457Z"
+        ],
+        "after": "2026-01-01T12:00:00.123455Z",
+        "before": "2026-01-01T12:00:00.123457Z",
+        "inclusive": true,
+        "count": null
+      },
+      "expected": {
+        "before": "2026-01-01T12:00:00.123Z",
+        "after": "2026-01-01T12:00:00.123Z",
+        "between": [
+          "2026-01-01T12:00:00.123Z",
+          "2026-01-01T12:00:00.123Z",
+          "2026-01-01T12:00:00.123Z"
+        ],
+        "xafter": [
+          "2026-01-01T12:00:00.123Z",
+          "2026-01-01T12:00:00.123Z",
+          "2026-01-01T12:00:00.123Z"
+        ]
+      }
+    },
+    {
+      "name": "floating explicit submillisecond True",
+      "input": {
+        "lines": [
+          "RDATE:20260101T120000.000001,20260101T120000.000002,20260101T120000.000999"
+        ],
+        "after": "2026-01-01T12:00:00.000001",
+        "before": "2026-01-01T12:00:00.000002",
+        "inclusive": true,
+        "count": 0
+      },
+      "expected": {
+        "before": "2026-01-01T12:00:00",
+        "after": "2026-01-01T12:00:00",
+        "between": [
+          "2026-01-01T12:00:00",
+          "2026-01-01T12:00:00"
+        ],
+        "xafter": []
+      }
+    },
+    {
+      "name": "fold same TZID 0 inclusive True",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261101T013000",
+          "RRULE:FREQ=HOURLY;COUNT=3"
+        ],
+        "after": {
+          "value": "2026-11-01T01:30:00-04:00",
+          "timeZone": "America/New_York",
+          "fold": 0
+        },
+        "before": {
+          "value": "2026-11-01T01:30:00-04:00",
+          "timeZone": "America/New_York",
+          "fold": 0
+        },
+        "inclusive": true,
+        "count": 4
+      },
+      "expected": {
+        "before": "2026-11-01T05:30:00Z",
+        "after": "2026-11-01T05:30:00Z",
+        "between": [
+          "2026-11-01T05:30:00Z"
+        ],
+        "xafter": [
+          "2026-11-01T05:30:00Z",
+          "2026-11-01T07:30:00Z",
+          "2026-11-01T08:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "fold separate TZID 0 inclusive True",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261101T013000",
+          "RRULE:FREQ=HOURLY;COUNT=3"
+        ],
+        "after": {
+          "value": "2026-11-01T01:30:00-04:00",
+          "timeZone": "America/Detroit",
+          "fold": 0
+        },
+        "before": {
+          "value": "2026-11-01T01:30:00-04:00",
+          "timeZone": "America/Detroit",
+          "fold": 0
+        },
+        "inclusive": true,
+        "count": 4
+      },
+      "expected": {
+        "before": "2026-11-01T05:30:00Z",
+        "after": "2026-11-01T05:30:00Z",
+        "between": [
+          "2026-11-01T05:30:00Z"
+        ],
+        "xafter": [
+          "2026-11-01T05:30:00Z",
+          "2026-11-01T07:30:00Z",
+          "2026-11-01T08:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "fold same TZID 1 inclusive True",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261101T013000",
+          "RRULE:FREQ=HOURLY;COUNT=3"
+        ],
+        "after": {
+          "value": "2026-11-01T01:30:00-05:00",
+          "timeZone": "America/New_York",
+          "fold": 1
+        },
+        "before": {
+          "value": "2026-11-01T01:30:00-05:00",
+          "timeZone": "America/New_York",
+          "fold": 1
+        },
+        "inclusive": true,
+        "count": 4
+      },
+      "expected": {
+        "before": "2026-11-01T05:30:00Z",
+        "after": "2026-11-01T05:30:00Z",
+        "between": [
+          "2026-11-01T05:30:00Z"
+        ],
+        "xafter": [
+          "2026-11-01T05:30:00Z",
+          "2026-11-01T07:30:00Z",
+          "2026-11-01T08:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "fold separate TZID 1 inclusive True",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261101T013000",
+          "RRULE:FREQ=HOURLY;COUNT=3"
+        ],
+        "after": {
+          "value": "2026-11-01T01:30:00-05:00",
+          "timeZone": "America/Detroit",
+          "fold": 1
+        },
+        "before": {
+          "value": "2026-11-01T01:30:00-05:00",
+          "timeZone": "America/Detroit",
+          "fold": 1
+        },
+        "inclusive": true,
+        "count": 4
+      },
+      "expected": {
+        "before": "2026-11-01T05:30:00Z",
+        "after": "2026-11-01T07:30:00Z",
+        "between": [],
+        "xafter": [
+          "2026-11-01T07:30:00Z",
+          "2026-11-01T08:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "POSIX lookup key uses wall ordering in the fold",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=EST5EDT,M3.2.0/2,M11.1.0/2:20261101T013000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "after": {
+          "value": "2026-11-01T01:30:00-05:00",
+          "timeZone": "EST5EDT,M3.2.0/2,M11.1.0/2",
+          "fold": 1
+        },
+        "before": {
+          "value": "2026-11-01T01:30:00-05:00",
+          "timeZone": "EST5EDT,M3.2.0/2,M11.1.0/2",
+          "fold": 1
+        },
+        "inclusive": true,
+        "count": null
+      },
+      "expected": {
+        "before": "2026-11-01T05:30:00Z",
+        "after": "2026-11-01T05:30:00Z",
+        "between": [
+          "2026-11-01T05:30:00Z"
+        ],
+        "xafter": [
+          "2026-11-01T05:30:00Z",
+          "2026-11-02T06:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "invalid RDATE offset precedes the awareness check",
+      "input": {
+        "lines": [
+          "RDATE:20260101T090000+2400"
+        ],
+        "after": "2026-01-01T09:00:00",
+        "before": "2026-01-01T09:00:00Z",
+        "inclusive": false,
+        "count": 4
+      },
+      "expected": {
+        "before": {
+          "error": "offset must be a timedelta strictly between -timedelta(hours=24) and timedelta(hours=24)."
+        },
+        "after": {
+          "error": "offset must be a timedelta strictly between -timedelta(hours=24) and timedelta(hours=24)."
+        },
+        "between": {
+          "error": "offset must be a timedelta strictly between -timedelta(hours=24) and timedelta(hours=24)."
+        },
+        "xafter": {
+          "error": "offset must be a timedelta strictly between -timedelta(hours=24) and timedelta(hours=24)."
+        }
+      }
+    },
+    {
+      "name": "aware bounds against floating rules",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY"
+        ],
+        "after": "1997-09-04T09:00:00Z",
+        "before": "1997-09-05T09:00:00Z",
+        "inclusive": false,
+        "count": 4
+      },
+      "expected": {
+        "before": {
+          "error": "can't compare offset-naive and offset-aware datetimes"
+        },
+        "after": {
+          "error": "can't compare offset-naive and offset-aware datetimes"
+        },
+        "between": {
+          "error": "can't compare offset-naive and offset-aware datetimes"
+        },
+        "xafter": {
+          "error": "can't compare offset-naive and offset-aware datetimes"
+        }
+      }
+    },
+    {
+      "name": "floating bounds against UTC rules",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000Z",
+          "RRULE:FREQ=DAILY"
+        ],
+        "after": "1997-09-04T09:00:00",
+        "before": "1997-09-05T09:00:00",
+        "inclusive": false,
+        "count": 4
+      },
+      "expected": {
+        "before": {
+          "error": "can't compare offset-naive and offset-aware datetimes"
+        },
+        "after": {
+          "error": "can't compare offset-naive and offset-aware datetimes"
+        },
+        "between": {
+          "error": "can't compare offset-naive and offset-aware datetimes"
+        },
+        "xafter": {
+          "error": "can't compare offset-naive and offset-aware datetimes"
+        }
+      }
+    },
+    {
+      "name": "between checks its upper bound first",
+      "input": {
+        "lines": [
+          "DTSTART:19970902T090000",
+          "RRULE:FREQ=DAILY"
+        ],
+        "after": "1997-09-02T09:00:00Z",
+        "before": "1997-09-02T08:00:00",
+        "inclusive": false,
+        "count": 4
+      },
+      "expected": {
+        "before": null,
+        "after": {
+          "error": "can't compare offset-naive and offset-aware datetimes"
+        },
+        "between": [],
+        "xafter": {
+          "error": "can't compare offset-naive and offset-aware datetimes"
+        }
+      }
+    },
+    {
+      "name": "mixed awareness can go unobserved for an empty rule",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=0"
+        ],
+        "after": "2026-01-01T09:00:00",
+        "before": "2026-01-01T09:00:00",
+        "inclusive": false,
+        "count": null
+      },
+      "expected": {
+        "before": null,
+        "after": null,
+        "between": [],
+        "xafter": []
+      }
+    },
+    {
+      "name": "bounded xafter repeats a productive stationary rule",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T120000",
+          "RRULE:FREQ=DAILY;INTERVAL=0"
+        ],
+        "after": "2026-01-01T12:00:00",
+        "before": "2026-01-01T11:00:00",
+        "inclusive": true,
+        "count": 4
+      },
+      "expected": {
+        "before": null,
+        "after": "2026-01-01T12:00:00",
+        "between": [],
+        "xafter": [
+          "2026-01-01T12:00:00",
+          "2026-01-01T12:00:00",
+          "2026-01-01T12:00:00",
+          "2026-01-01T12:00:00"
+        ]
+      }
+    },
+    {
+      "name": "negative xafter count",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T014500",
+          "RRULE:FREQ=MINUTELY;INTERVAL=30;COUNT=4"
+        ],
+        "after": "2026-03-08T06:00:00Z",
+        "before": "2026-03-08T07:00:00Z",
+        "inclusive": false,
+        "count": -1
+      },
+      "expected": {
+        "before": "2026-03-08T06:45:00Z",
+        "after": "2026-03-08T06:45:00Z",
+        "between": [
+          "2026-03-08T06:45:00Z",
+          "2026-03-08T06:15:00Z",
+          "2026-03-08T06:45:00Z"
+        ],
+        "xafter": []
+      }
+    },
+    {
+      "name": "date-only DTSTART yields reference datetimes",
+      "input": {
+        "lines": [
+          "DTSTART:20260101",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "after": "2026-01-01T00:00:00",
+        "before": "2026-01-03T00:00:00",
+        "inclusive": true,
+        "count": null
+      },
+      "expected": {
+        "before": "2026-01-03T00:00:00",
+        "after": "2026-01-01T00:00:00",
+        "between": [
+          "2026-01-01T00:00:00",
+          "2026-01-02T00:00:00",
+          "2026-01-03T00:00:00"
+        ],
+        "xafter": [
+          "2026-01-01T00:00:00",
+          "2026-01-02T00:00:00",
+          "2026-01-03T00:00:00"
+        ]
+      }
+    },
+    {
+      "name": "underflow error after a successful first result",
+      "input": {
+        "lines": [
+          "DTSTART:00010101T090000",
+          "RRULE:FREQ=MONTHLY;INTERVAL=-1;COUNT=3"
+        ],
+        "after": "0001-01-01T08:00:00",
+        "before": "0001-01-01T09:00:00",
+        "inclusive": false,
+        "count": 1
+      },
+      "expected": {
+        "before": null,
+        "after": "0001-01-01T09:00:00",
+        "between": [],
+        "xafter": {
+          "error": "not enough values to unpack (expected 2, got 0)"
+        }
+      }
+    }
+  ]
+}

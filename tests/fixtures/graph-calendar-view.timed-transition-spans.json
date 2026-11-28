@@ -1,0 +1,1072 @@
+{
+  "type": "graph-calendar-view",
+  "name": "Graph timed spans across timezone transitions",
+  "source": "Microsoft Graph v1.0 calendarView",
+  "cases": [
+    {
+      "name": "graph-timed-transition-span-eastern-spring-end-in-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-03-13T06:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-03-13T07:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Eastern Standard Time",
+          "originalEndTimeZone": "Eastern Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "Eastern Standard Time",
+              "startDate": "2027-03-13",
+              "type": "numbered"
+            }
+          }
+        },
+        "exactBounds": true,
+        "windows": {
+          "wide": {
+            "start": "2027-03-10T00:00:00Z",
+            "end": "2027-03-26T00:00:00Z"
+          },
+          "start-point--1": {
+            "start": "2027-03-14T06:29:59Z",
+            "end": "2027-03-14T06:30:00Z"
+          },
+          "start-point-0": {
+            "start": "2027-03-14T06:30:00Z",
+            "end": "2027-03-14T06:30:01Z"
+          },
+          "start-point-1": {
+            "start": "2027-03-14T06:30:01Z",
+            "end": "2027-03-14T06:30:02Z"
+          },
+          "returned-end-point--1": {
+            "start": "2027-03-14T07:29:59Z",
+            "end": "2027-03-14T07:30:00Z"
+          },
+          "returned-end-point-0": {
+            "start": "2027-03-14T07:30:00Z",
+            "end": "2027-03-14T07:30:01Z"
+          },
+          "returned-end-point-1": {
+            "start": "2027-03-14T07:30:01Z",
+            "end": "2027-03-14T07:30:02Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2027-03-13T06:30:00Z",
+          "2027-03-14T06:30:00Z",
+          "2027-03-15T05:30:00Z"
+        ],
+        "start-point--1": [],
+        "start-point-0": [
+          "2027-03-14T06:30:00Z"
+        ],
+        "start-point-1": [
+          "2027-03-14T06:30:00Z"
+        ],
+        "returned-end-point--1": [
+          "2027-03-14T06:30:00Z"
+        ],
+        "returned-end-point-0": [
+          "2027-03-14T06:30:00Z"
+        ],
+        "returned-end-point-1": []
+      }
+    },
+    {
+      "name": "graph-timed-transition-span-eastern-spring-span-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-03-13T06:45:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-03-13T08:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Eastern Standard Time",
+          "originalEndTimeZone": "Eastern Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "Eastern Standard Time",
+              "startDate": "2027-03-13",
+              "type": "numbered"
+            }
+          }
+        },
+        "exactBounds": true,
+        "windows": {
+          "wide": {
+            "start": "2027-03-10T00:00:00Z",
+            "end": "2027-03-26T00:00:00Z"
+          },
+          "start-point--1": {
+            "start": "2027-03-14T06:44:59Z",
+            "end": "2027-03-14T06:45:00Z"
+          },
+          "start-point-0": {
+            "start": "2027-03-14T06:45:00Z",
+            "end": "2027-03-14T06:45:01Z"
+          },
+          "start-point-1": {
+            "start": "2027-03-14T06:45:01Z",
+            "end": "2027-03-14T06:45:02Z"
+          },
+          "returned-end-point--1": {
+            "start": "2027-03-14T07:14:59Z",
+            "end": "2027-03-14T07:15:00Z"
+          },
+          "returned-end-point-0": {
+            "start": "2027-03-14T07:15:00Z",
+            "end": "2027-03-14T07:15:01Z"
+          },
+          "returned-end-point-1": {
+            "start": "2027-03-14T07:15:01Z",
+            "end": "2027-03-14T07:15:02Z"
+          },
+          "elapsed-end-point--1": {
+            "start": "2027-03-14T08:14:59Z",
+            "end": "2027-03-14T08:15:00Z"
+          },
+          "elapsed-end-point-0": {
+            "start": "2027-03-14T08:15:00Z",
+            "end": "2027-03-14T08:15:01Z"
+          },
+          "elapsed-end-point-1": {
+            "start": "2027-03-14T08:15:01Z",
+            "end": "2027-03-14T08:15:02Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2027-03-13T06:45:00Z",
+          "2027-03-14T06:45:00Z",
+          "2027-03-15T05:45:00Z"
+        ],
+        "start-point--1": [],
+        "start-point-0": [
+          "2027-03-14T06:45:00Z"
+        ],
+        "start-point-1": [
+          "2027-03-14T06:45:00Z"
+        ],
+        "returned-end-point--1": [
+          "2027-03-14T06:45:00Z"
+        ],
+        "returned-end-point-0": [
+          "2027-03-14T06:45:00Z"
+        ],
+        "returned-end-point-1": [],
+        "elapsed-end-point--1": [],
+        "elapsed-end-point-0": [],
+        "elapsed-end-point-1": []
+      }
+    },
+    {
+      "name": "graph-timed-transition-span-eastern-spring-both-in-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-03-13T07:10:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-03-13T07:40:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Eastern Standard Time",
+          "originalEndTimeZone": "Eastern Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "Eastern Standard Time",
+              "startDate": "2027-03-13",
+              "type": "numbered"
+            }
+          }
+        },
+        "exactBounds": true,
+        "windows": {
+          "wide": {
+            "start": "2027-03-10T00:00:00Z",
+            "end": "2027-03-26T00:00:00Z"
+          },
+          "start-point--1": {
+            "start": "2027-03-14T07:09:59Z",
+            "end": "2027-03-14T07:10:00Z"
+          },
+          "start-point-0": {
+            "start": "2027-03-14T07:10:00Z",
+            "end": "2027-03-14T07:10:01Z"
+          },
+          "start-point-1": {
+            "start": "2027-03-14T07:10:01Z",
+            "end": "2027-03-14T07:10:02Z"
+          },
+          "returned-end-point--1": {
+            "start": "2027-03-14T07:39:59Z",
+            "end": "2027-03-14T07:40:00Z"
+          },
+          "returned-end-point-0": {
+            "start": "2027-03-14T07:40:00Z",
+            "end": "2027-03-14T07:40:01Z"
+          },
+          "returned-end-point-1": {
+            "start": "2027-03-14T07:40:01Z",
+            "end": "2027-03-14T07:40:02Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2027-03-13T07:10:00Z",
+          "2027-03-14T07:10:00Z",
+          "2027-03-15T06:10:00Z"
+        ],
+        "start-point--1": [],
+        "start-point-0": [
+          "2027-03-14T07:10:00Z"
+        ],
+        "start-point-1": [
+          "2027-03-14T07:10:00Z"
+        ],
+        "returned-end-point--1": [
+          "2027-03-14T07:10:00Z"
+        ],
+        "returned-end-point-0": [
+          "2027-03-14T07:10:00Z"
+        ],
+        "returned-end-point-1": []
+      }
+    },
+    {
+      "name": "graph-timed-transition-span-eastern-spring-start-in-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-03-13T07:45:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-03-13T08:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Eastern Standard Time",
+          "originalEndTimeZone": "Eastern Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "Eastern Standard Time",
+              "startDate": "2027-03-13",
+              "type": "numbered"
+            }
+          }
+        },
+        "exactBounds": true,
+        "windows": {
+          "wide": {
+            "start": "2027-03-10T00:00:00Z",
+            "end": "2027-03-26T00:00:00Z"
+          },
+          "start-point--1": {
+            "start": "2027-03-14T07:44:59Z",
+            "end": "2027-03-14T07:45:00Z"
+          },
+          "start-point-0": {
+            "start": "2027-03-14T07:45:00Z",
+            "end": "2027-03-14T07:45:01Z"
+          },
+          "start-point-1": {
+            "start": "2027-03-14T07:45:01Z",
+            "end": "2027-03-14T07:45:02Z"
+          },
+          "elapsed-end-point--1": {
+            "start": "2027-03-14T08:14:59Z",
+            "end": "2027-03-14T08:15:00Z"
+          },
+          "elapsed-end-point-0": {
+            "start": "2027-03-14T08:15:00Z",
+            "end": "2027-03-14T08:15:01Z"
+          },
+          "elapsed-end-point-1": {
+            "start": "2027-03-14T08:15:01Z",
+            "end": "2027-03-14T08:15:02Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2027-03-13T07:45:00Z",
+          "2027-03-14T07:45:00Z",
+          "2027-03-15T06:45:00Z"
+        ],
+        "start-point--1": [],
+        "start-point-0": [
+          "2027-03-14T07:45:00Z"
+        ],
+        "start-point-1": [],
+        "elapsed-end-point--1": [],
+        "elapsed-end-point-0": [],
+        "elapsed-end-point-1": []
+      }
+    },
+    {
+      "name": "graph-timed-transition-span-eastern-fall-span-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-11-06T04:45:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-11-06T06:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Eastern Standard Time",
+          "originalEndTimeZone": "Eastern Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "Eastern Standard Time",
+              "startDate": "2027-11-06",
+              "type": "numbered"
+            }
+          }
+        },
+        "exactBounds": true,
+        "windows": {
+          "wide": {
+            "start": "2027-11-03T00:00:00Z",
+            "end": "2027-11-19T00:00:00Z"
+          },
+          "start-point--1": {
+            "start": "2027-11-07T04:44:59Z",
+            "end": "2027-11-07T04:45:00Z"
+          },
+          "start-point-0": {
+            "start": "2027-11-07T04:45:00Z",
+            "end": "2027-11-07T04:45:01Z"
+          },
+          "start-point-1": {
+            "start": "2027-11-07T04:45:01Z",
+            "end": "2027-11-07T04:45:02Z"
+          },
+          "returned-end-point--1": {
+            "start": "2027-11-07T07:14:59Z",
+            "end": "2027-11-07T07:15:00Z"
+          },
+          "returned-end-point-0": {
+            "start": "2027-11-07T07:15:00Z",
+            "end": "2027-11-07T07:15:01Z"
+          },
+          "returned-end-point-1": {
+            "start": "2027-11-07T07:15:01Z",
+            "end": "2027-11-07T07:15:02Z"
+          },
+          "elapsed-end-point--1": {
+            "start": "2027-11-07T06:14:59Z",
+            "end": "2027-11-07T06:15:00Z"
+          },
+          "elapsed-end-point-0": {
+            "start": "2027-11-07T06:15:00Z",
+            "end": "2027-11-07T06:15:01Z"
+          },
+          "elapsed-end-point-1": {
+            "start": "2027-11-07T06:15:01Z",
+            "end": "2027-11-07T06:15:02Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2027-11-06T04:45:00Z",
+          "2027-11-07T04:45:00Z",
+          "2027-11-08T05:45:00Z"
+        ],
+        "start-point--1": [],
+        "start-point-0": [
+          "2027-11-07T04:45:00Z"
+        ],
+        "start-point-1": [
+          "2027-11-07T04:45:00Z"
+        ],
+        "returned-end-point--1": [
+          "2027-11-07T04:45:00Z"
+        ],
+        "returned-end-point-0": [
+          "2027-11-07T04:45:00Z"
+        ],
+        "returned-end-point-1": [],
+        "elapsed-end-point--1": [
+          "2027-11-07T04:45:00Z"
+        ],
+        "elapsed-end-point-0": [
+          "2027-11-07T04:45:00Z"
+        ],
+        "elapsed-end-point-1": [
+          "2027-11-07T04:45:00Z"
+        ]
+      }
+    },
+    {
+      "name": "graph-timed-transition-span-eastern-fall-both-in-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-11-06T05:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-11-06T05:45:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Eastern Standard Time",
+          "originalEndTimeZone": "Eastern Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "Eastern Standard Time",
+              "startDate": "2027-11-06",
+              "type": "numbered"
+            }
+          }
+        },
+        "exactBounds": true,
+        "windows": {
+          "wide": {
+            "start": "2027-11-03T00:00:00Z",
+            "end": "2027-11-19T00:00:00Z"
+          },
+          "start-point--1": {
+            "start": "2027-11-07T05:14:59Z",
+            "end": "2027-11-07T05:15:00Z"
+          },
+          "start-point-0": {
+            "start": "2027-11-07T05:15:00Z",
+            "end": "2027-11-07T05:15:01Z"
+          },
+          "start-point-1": {
+            "start": "2027-11-07T05:15:01Z",
+            "end": "2027-11-07T05:15:02Z"
+          },
+          "returned-end-point--1": {
+            "start": "2027-11-07T05:44:59Z",
+            "end": "2027-11-07T05:45:00Z"
+          },
+          "returned-end-point-0": {
+            "start": "2027-11-07T05:45:00Z",
+            "end": "2027-11-07T05:45:01Z"
+          },
+          "returned-end-point-1": {
+            "start": "2027-11-07T05:45:01Z",
+            "end": "2027-11-07T05:45:02Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2027-11-06T05:15:00Z",
+          "2027-11-07T05:15:00Z",
+          "2027-11-08T06:15:00Z"
+        ],
+        "start-point--1": [],
+        "start-point-0": [
+          "2027-11-07T05:15:00Z"
+        ],
+        "start-point-1": [
+          "2027-11-07T05:15:00Z"
+        ],
+        "returned-end-point--1": [
+          "2027-11-07T05:15:00Z"
+        ],
+        "returned-end-point-0": [
+          "2027-11-07T05:15:00Z"
+        ],
+        "returned-end-point-1": []
+      }
+    },
+    {
+      "name": "graph-timed-transition-span-eastern-fall-start-in-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-11-06T05:45:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-11-06T06:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Eastern Standard Time",
+          "originalEndTimeZone": "Eastern Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "Eastern Standard Time",
+              "startDate": "2027-11-06",
+              "type": "numbered"
+            }
+          }
+        },
+        "exactBounds": true,
+        "windows": {
+          "wide": {
+            "start": "2027-11-03T00:00:00Z",
+            "end": "2027-11-19T00:00:00Z"
+          },
+          "start-point--1": {
+            "start": "2027-11-07T05:44:59Z",
+            "end": "2027-11-07T05:45:00Z"
+          },
+          "start-point-0": {
+            "start": "2027-11-07T05:45:00Z",
+            "end": "2027-11-07T05:45:01Z"
+          },
+          "start-point-1": {
+            "start": "2027-11-07T05:45:01Z",
+            "end": "2027-11-07T05:45:02Z"
+          },
+          "returned-end-point--1": {
+            "start": "2027-11-07T07:14:59Z",
+            "end": "2027-11-07T07:15:00Z"
+          },
+          "returned-end-point-0": {
+            "start": "2027-11-07T07:15:00Z",
+            "end": "2027-11-07T07:15:01Z"
+          },
+          "returned-end-point-1": {
+            "start": "2027-11-07T07:15:01Z",
+            "end": "2027-11-07T07:15:02Z"
+          },
+          "elapsed-end-point--1": {
+            "start": "2027-11-07T06:14:59Z",
+            "end": "2027-11-07T06:15:00Z"
+          },
+          "elapsed-end-point-0": {
+            "start": "2027-11-07T06:15:00Z",
+            "end": "2027-11-07T06:15:01Z"
+          },
+          "elapsed-end-point-1": {
+            "start": "2027-11-07T06:15:01Z",
+            "end": "2027-11-07T06:15:02Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2027-11-06T05:45:00Z",
+          "2027-11-07T05:45:00Z",
+          "2027-11-08T06:45:00Z"
+        ],
+        "start-point--1": [],
+        "start-point-0": [
+          "2027-11-07T05:45:00Z"
+        ],
+        "start-point-1": [
+          "2027-11-07T05:45:00Z"
+        ],
+        "returned-end-point--1": [
+          "2027-11-07T05:45:00Z"
+        ],
+        "returned-end-point-0": [
+          "2027-11-07T05:45:00Z"
+        ],
+        "returned-end-point-1": [],
+        "elapsed-end-point--1": [
+          "2027-11-07T05:45:00Z"
+        ],
+        "elapsed-end-point-0": [
+          "2027-11-07T05:45:00Z"
+        ],
+        "elapsed-end-point-1": [
+          "2027-11-07T05:45:00Z"
+        ]
+      }
+    },
+    {
+      "name": "graph-timed-transition-span-lord-howe-spring-span-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-10-01T15:20:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-10-01T16:05:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Lord Howe Standard Time",
+          "originalEndTimeZone": "Lord Howe Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "Lord Howe Standard Time",
+              "startDate": "2027-10-02",
+              "type": "numbered"
+            }
+          }
+        },
+        "exactBounds": true,
+        "windows": {
+          "wide": {
+            "start": "2027-09-29T00:00:00Z",
+            "end": "2027-10-15T00:00:00Z"
+          },
+          "start-point--1": {
+            "start": "2027-10-02T15:19:59Z",
+            "end": "2027-10-02T15:20:00Z"
+          },
+          "start-point-0": {
+            "start": "2027-10-02T15:20:00Z",
+            "end": "2027-10-02T15:20:01Z"
+          },
+          "start-point-1": {
+            "start": "2027-10-02T15:20:01Z",
+            "end": "2027-10-02T15:20:02Z"
+          },
+          "returned-end-point--1": {
+            "start": "2027-10-02T15:34:59Z",
+            "end": "2027-10-02T15:35:00Z"
+          },
+          "returned-end-point-0": {
+            "start": "2027-10-02T15:35:00Z",
+            "end": "2027-10-02T15:35:01Z"
+          },
+          "returned-end-point-1": {
+            "start": "2027-10-02T15:35:01Z",
+            "end": "2027-10-02T15:35:02Z"
+          },
+          "elapsed-end-point--1": {
+            "start": "2027-10-02T16:04:59Z",
+            "end": "2027-10-02T16:05:00Z"
+          },
+          "elapsed-end-point-0": {
+            "start": "2027-10-02T16:05:00Z",
+            "end": "2027-10-02T16:05:01Z"
+          },
+          "elapsed-end-point-1": {
+            "start": "2027-10-02T16:05:01Z",
+            "end": "2027-10-02T16:05:02Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2027-10-01T15:20:00Z",
+          "2027-10-02T15:20:00Z",
+          "2027-10-03T14:50:00Z"
+        ],
+        "start-point--1": [],
+        "start-point-0": [
+          "2027-10-02T15:20:00Z"
+        ],
+        "start-point-1": [
+          "2027-10-02T15:20:00Z"
+        ],
+        "returned-end-point--1": [
+          "2027-10-02T15:20:00Z"
+        ],
+        "returned-end-point-0": [
+          "2027-10-02T15:20:00Z"
+        ],
+        "returned-end-point-1": [],
+        "elapsed-end-point--1": [],
+        "elapsed-end-point-0": [],
+        "elapsed-end-point-1": []
+      }
+    },
+    {
+      "name": "graph-timed-transition-span-lord-howe-fall-span-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-04-02T14:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-04-02T15:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Lord Howe Standard Time",
+          "originalEndTimeZone": "Lord Howe Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "Lord Howe Standard Time",
+              "startDate": "2027-04-03",
+              "type": "numbered"
+            }
+          }
+        },
+        "exactBounds": true,
+        "windows": {
+          "wide": {
+            "start": "2027-03-31T00:00:00Z",
+            "end": "2027-04-16T00:00:00Z"
+          },
+          "start-point--1": {
+            "start": "2027-04-03T14:14:59Z",
+            "end": "2027-04-03T14:15:00Z"
+          },
+          "start-point-0": {
+            "start": "2027-04-03T14:15:00Z",
+            "end": "2027-04-03T14:15:01Z"
+          },
+          "start-point-1": {
+            "start": "2027-04-03T14:15:01Z",
+            "end": "2027-04-03T14:15:02Z"
+          },
+          "returned-end-point--1": {
+            "start": "2027-04-03T15:44:59Z",
+            "end": "2027-04-03T15:45:00Z"
+          },
+          "returned-end-point-0": {
+            "start": "2027-04-03T15:45:00Z",
+            "end": "2027-04-03T15:45:01Z"
+          },
+          "returned-end-point-1": {
+            "start": "2027-04-03T15:45:01Z",
+            "end": "2027-04-03T15:45:02Z"
+          },
+          "elapsed-end-point--1": {
+            "start": "2027-04-03T15:14:59Z",
+            "end": "2027-04-03T15:15:00Z"
+          },
+          "elapsed-end-point-0": {
+            "start": "2027-04-03T15:15:00Z",
+            "end": "2027-04-03T15:15:01Z"
+          },
+          "elapsed-end-point-1": {
+            "start": "2027-04-03T15:15:01Z",
+            "end": "2027-04-03T15:15:02Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2027-04-02T14:15:00Z",
+          "2027-04-03T14:15:00Z",
+          "2027-04-04T14:45:00Z"
+        ],
+        "start-point--1": [],
+        "start-point-0": [
+          "2027-04-03T14:15:00Z"
+        ],
+        "start-point-1": [
+          "2027-04-03T14:15:00Z"
+        ],
+        "returned-end-point--1": [
+          "2027-04-03T14:15:00Z"
+        ],
+        "returned-end-point-0": [
+          "2027-04-03T14:15:00Z"
+        ],
+        "returned-end-point-1": [],
+        "elapsed-end-point--1": [
+          "2027-04-03T14:15:00Z"
+        ],
+        "elapsed-end-point-0": [
+          "2027-04-03T14:15:00Z"
+        ],
+        "elapsed-end-point-1": [
+          "2027-04-03T14:15:00Z"
+        ]
+      }
+    },
+    {
+      "name": "graph-timed-transition-span-dublin-fall-span-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-10-29T23:45:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-10-30T01:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "GMT Standard Time",
+          "originalEndTimeZone": "GMT Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "GMT Standard Time",
+              "startDate": "2027-10-30",
+              "type": "numbered"
+            }
+          }
+        },
+        "exactBounds": true,
+        "windows": {
+          "wide": {
+            "start": "2027-10-27T00:00:00Z",
+            "end": "2027-11-12T00:00:00Z"
+          },
+          "start-point--1": {
+            "start": "2027-10-30T23:44:59Z",
+            "end": "2027-10-30T23:45:00Z"
+          },
+          "start-point-0": {
+            "start": "2027-10-30T23:45:00Z",
+            "end": "2027-10-30T23:45:01Z"
+          },
+          "start-point-1": {
+            "start": "2027-10-30T23:45:01Z",
+            "end": "2027-10-30T23:45:02Z"
+          },
+          "returned-end-point--1": {
+            "start": "2027-10-31T02:14:59Z",
+            "end": "2027-10-31T02:15:00Z"
+          },
+          "returned-end-point-0": {
+            "start": "2027-10-31T02:15:00Z",
+            "end": "2027-10-31T02:15:01Z"
+          },
+          "returned-end-point-1": {
+            "start": "2027-10-31T02:15:01Z",
+            "end": "2027-10-31T02:15:02Z"
+          },
+          "elapsed-end-point--1": {
+            "start": "2027-10-31T01:14:59Z",
+            "end": "2027-10-31T01:15:00Z"
+          },
+          "elapsed-end-point-0": {
+            "start": "2027-10-31T01:15:00Z",
+            "end": "2027-10-31T01:15:01Z"
+          },
+          "elapsed-end-point-1": {
+            "start": "2027-10-31T01:15:01Z",
+            "end": "2027-10-31T01:15:02Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2027-10-29T23:45:00Z",
+          "2027-10-30T23:45:00Z",
+          "2027-11-01T00:45:00Z"
+        ],
+        "start-point--1": [],
+        "start-point-0": [
+          "2027-10-30T23:45:00Z"
+        ],
+        "start-point-1": [
+          "2027-10-30T23:45:00Z"
+        ],
+        "returned-end-point--1": [
+          "2027-10-30T23:45:00Z"
+        ],
+        "returned-end-point-0": [
+          "2027-10-30T23:45:00Z"
+        ],
+        "returned-end-point-1": [],
+        "elapsed-end-point--1": [
+          "2027-10-30T23:45:00Z"
+        ],
+        "elapsed-end-point-0": [
+          "2027-10-30T23:45:00Z"
+        ],
+        "elapsed-end-point-1": [
+          "2027-10-30T23:45:00Z"
+        ]
+      }
+    },
+    {
+      "name": "graph-timed-transition-span-utc-control-gap-shape",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-03-13T02:45:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-03-13T03:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "originalEndTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-03-13",
+              "type": "numbered"
+            }
+          }
+        },
+        "exactBounds": true,
+        "windows": {
+          "wide": {
+            "start": "2027-03-10T00:00:00Z",
+            "end": "2027-03-26T00:00:00Z"
+          },
+          "start-point--1": {
+            "start": "2027-03-14T02:44:59Z",
+            "end": "2027-03-14T02:45:00Z"
+          },
+          "start-point-0": {
+            "start": "2027-03-14T02:45:00Z",
+            "end": "2027-03-14T02:45:01Z"
+          },
+          "start-point-1": {
+            "start": "2027-03-14T02:45:01Z",
+            "end": "2027-03-14T02:45:02Z"
+          },
+          "returned-end-point--1": {
+            "start": "2027-03-14T03:14:59Z",
+            "end": "2027-03-14T03:15:00Z"
+          },
+          "returned-end-point-0": {
+            "start": "2027-03-14T03:15:00Z",
+            "end": "2027-03-14T03:15:01Z"
+          },
+          "returned-end-point-1": {
+            "start": "2027-03-14T03:15:01Z",
+            "end": "2027-03-14T03:15:02Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2027-03-13T02:45:00Z",
+          "2027-03-14T02:45:00Z",
+          "2027-03-15T02:45:00Z"
+        ],
+        "start-point--1": [],
+        "start-point-0": [
+          "2027-03-14T02:45:00Z"
+        ],
+        "start-point-1": [
+          "2027-03-14T02:45:00Z"
+        ],
+        "returned-end-point--1": [
+          "2027-03-14T02:45:00Z"
+        ],
+        "returned-end-point-0": [
+          "2027-03-14T02:45:00Z"
+        ],
+        "returned-end-point-1": []
+      }
+    }
+  ]
+}

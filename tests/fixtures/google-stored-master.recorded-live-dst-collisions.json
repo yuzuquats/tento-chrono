@@ -1,0 +1,283 @@
+{
+  "type": "google-stored-master",
+  "name": "Google Calendar stored recurrence dates across DST",
+  "source": "Google Calendar API events.instances",
+  "cases": [
+    {
+      "name": "google-stored-dst-lord-howe-rdate",
+      "input": {
+        "window": {
+          "start": "2027-09-20T00:00:00Z",
+          "end": "2027-10-12T00:00:00Z"
+        },
+        "master": {
+          "start": "2027-09-30T22:30:00Z",
+          "timezone": "Australia/Lord_Howe",
+          "end": "2027-09-30T22:45:00Z",
+          "rules": [
+            "RDATE;VALUE=DATE-TIME:20271002T110000Z,20271004T110000Z",
+            "RRULE:FREQ=DAILY;COUNT=5"
+          ]
+        },
+        "submissions": [
+          {
+            "start": "2027-10-01T09:00:00+10:30",
+            "timezone": "Australia/Lord_Howe",
+            "end": "2027-10-01T09:15:00+10:30",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=5",
+              "RDATE:20271002T110000,20271004T110000"
+            ]
+          },
+          {
+            "start": "2027-10-01T09:00:00+10:30",
+            "timezone": "Australia/Lord_Howe",
+            "end": "2027-10-01T09:15:00+10:30",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=5",
+              "RDATE:20271002T110000Z,20271004T110000Z"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "submitted": [
+          [
+            "2027-09-30T22:30:00Z",
+            "2027-10-01T22:30:00Z",
+            "2027-10-02T00:30:00Z",
+            "2027-10-02T22:00:00Z",
+            "2027-10-03T22:00:00Z",
+            "2027-10-04T00:00:00Z",
+            "2027-10-04T22:00:00Z"
+          ],
+          [
+            "2027-09-30T22:30:00Z",
+            "2027-10-01T22:30:00Z",
+            "2027-10-02T11:00:00Z",
+            "2027-10-02T22:00:00Z",
+            "2027-10-03T22:00:00Z",
+            "2027-10-04T11:00:00Z",
+            "2027-10-04T22:00:00Z"
+          ]
+        ],
+        "stored": [
+          "2027-09-30T22:30:00Z",
+          "2027-10-01T22:30:00Z",
+          "2027-10-02T11:00:00Z",
+          "2027-10-02T22:00:00Z",
+          "2027-10-03T22:00:00Z",
+          "2027-10-04T11:00:00Z",
+          "2027-10-04T22:00:00Z"
+        ]
+      },
+      "captures": [
+        "google-stored-master-dst-recorded-live.json/google-stored-dst-lord-howe-rdate-floating",
+        "google-stored-master-dst-recorded-live.json/google-stored-dst-lord-howe-rdate-utc"
+      ]
+    },
+    {
+      "name": "google-stored-dst-lord-howe-exdate",
+      "input": {
+        "window": {
+          "start": "2027-09-20T00:00:00Z",
+          "end": "2027-10-12T00:00:00Z"
+        },
+        "master": {
+          "start": "2027-09-30T22:30:00Z",
+          "timezone": "Australia/Lord_Howe",
+          "end": "2027-09-30T22:45:00Z",
+          "rules": [
+            "EXDATE;VALUE=DATE-TIME:20271002T090000Z,20271004T090000Z",
+            "RRULE:FREQ=DAILY;COUNT=5"
+          ]
+        },
+        "submissions": [
+          {
+            "start": "2027-10-01T09:00:00+10:30",
+            "timezone": "Australia/Lord_Howe",
+            "end": "2027-10-01T09:15:00+10:30",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=5",
+              "EXDATE:20271002T090000,20271004T090000"
+            ]
+          },
+          {
+            "start": "2027-10-01T09:00:00+10:30",
+            "timezone": "Australia/Lord_Howe",
+            "end": "2027-10-01T09:15:00+10:30",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=5",
+              "EXDATE:20271002T090000Z,20271004T090000Z"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "submitted": [
+          [
+            "2027-09-30T22:30:00Z",
+            "2027-10-02T22:00:00Z",
+            "2027-10-04T22:00:00Z"
+          ],
+          [
+            "2027-09-30T22:30:00Z",
+            "2027-10-01T22:30:00Z",
+            "2027-10-02T22:00:00Z",
+            "2027-10-03T22:00:00Z",
+            "2027-10-04T22:00:00Z"
+          ]
+        ],
+        "stored": [
+          "2027-09-30T22:30:00Z",
+          "2027-10-01T22:30:00Z",
+          "2027-10-02T22:00:00Z",
+          "2027-10-03T22:00:00Z",
+          "2027-10-04T22:00:00Z"
+        ]
+      },
+      "captures": [
+        "google-stored-master-dst-recorded-live.json/google-stored-dst-lord-howe-exdate-floating",
+        "google-stored-master-dst-recorded-live.json/google-stored-dst-lord-howe-exdate-utc"
+      ]
+    },
+    {
+      "name": "google-stored-dst-chatham-rdate",
+      "input": {
+        "window": {
+          "start": "2027-09-20T00:00:00Z",
+          "end": "2027-10-12T00:00:00Z"
+        },
+        "master": {
+          "start": "2027-09-23T20:15:00Z",
+          "timezone": "Pacific/Chatham",
+          "end": "2027-09-23T20:30:00Z",
+          "rules": [
+            "RDATE;VALUE=DATE-TIME:20270925T110000Z,20270927T110000Z",
+            "RRULE:FREQ=DAILY;COUNT=5"
+          ]
+        },
+        "submissions": [
+          {
+            "start": "2027-09-24T09:00:00+12:45",
+            "timezone": "Pacific/Chatham",
+            "end": "2027-09-24T09:15:00+12:45",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=5",
+              "RDATE:20270925T110000,20270927T110000"
+            ]
+          },
+          {
+            "start": "2027-09-24T09:00:00+12:45",
+            "timezone": "Pacific/Chatham",
+            "end": "2027-09-24T09:15:00+12:45",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=5",
+              "RDATE:20270925T110000Z,20270927T110000Z"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "submitted": [
+          [
+            "2027-09-23T20:15:00Z",
+            "2027-09-24T20:15:00Z",
+            "2027-09-24T22:15:00Z",
+            "2027-09-25T19:15:00Z",
+            "2027-09-26T19:15:00Z",
+            "2027-09-26T21:15:00Z",
+            "2027-09-27T19:15:00Z"
+          ],
+          [
+            "2027-09-23T20:15:00Z",
+            "2027-09-24T20:15:00Z",
+            "2027-09-25T11:00:00Z",
+            "2027-09-25T19:15:00Z",
+            "2027-09-26T19:15:00Z",
+            "2027-09-27T11:00:00Z",
+            "2027-09-27T19:15:00Z"
+          ]
+        ],
+        "stored": [
+          "2027-09-23T20:15:00Z",
+          "2027-09-24T20:15:00Z",
+          "2027-09-25T11:00:00Z",
+          "2027-09-25T19:15:00Z",
+          "2027-09-26T19:15:00Z",
+          "2027-09-27T11:00:00Z",
+          "2027-09-27T19:15:00Z"
+        ]
+      },
+      "captures": [
+        "google-stored-master-dst-recorded-live.json/google-stored-dst-chatham-rdate-floating",
+        "google-stored-master-dst-recorded-live.json/google-stored-dst-chatham-rdate-utc"
+      ]
+    },
+    {
+      "name": "google-stored-dst-chatham-exdate",
+      "input": {
+        "window": {
+          "start": "2027-09-20T00:00:00Z",
+          "end": "2027-10-12T00:00:00Z"
+        },
+        "master": {
+          "start": "2027-09-23T20:15:00Z",
+          "timezone": "Pacific/Chatham",
+          "end": "2027-09-23T20:30:00Z",
+          "rules": [
+            "EXDATE;VALUE=DATE-TIME:20270925T090000Z,20270927T090000Z",
+            "RRULE:FREQ=DAILY;COUNT=5"
+          ]
+        },
+        "submissions": [
+          {
+            "start": "2027-09-24T09:00:00+12:45",
+            "timezone": "Pacific/Chatham",
+            "end": "2027-09-24T09:15:00+12:45",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=5",
+              "EXDATE:20270925T090000,20270927T090000"
+            ]
+          },
+          {
+            "start": "2027-09-24T09:00:00+12:45",
+            "timezone": "Pacific/Chatham",
+            "end": "2027-09-24T09:15:00+12:45",
+            "rules": [
+              "RRULE:FREQ=DAILY;COUNT=5",
+              "EXDATE:20270925T090000Z,20270927T090000Z"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "submitted": [
+          [
+            "2027-09-23T20:15:00Z",
+            "2027-09-25T19:15:00Z",
+            "2027-09-27T19:15:00Z"
+          ],
+          [
+            "2027-09-23T20:15:00Z",
+            "2027-09-24T20:15:00Z",
+            "2027-09-25T19:15:00Z",
+            "2027-09-26T19:15:00Z",
+            "2027-09-27T19:15:00Z"
+          ]
+        ],
+        "stored": [
+          "2027-09-23T20:15:00Z",
+          "2027-09-24T20:15:00Z",
+          "2027-09-25T19:15:00Z",
+          "2027-09-26T19:15:00Z",
+          "2027-09-27T19:15:00Z"
+        ]
+      },
+      "captures": [
+        "google-stored-master-dst-recorded-live.json/google-stored-dst-chatham-exdate-floating",
+        "google-stored-master-dst-recorded-live.json/google-stored-dst-chatham-exdate-utc"
+      ]
+    }
+  ]
+}

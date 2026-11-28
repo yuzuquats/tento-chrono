@@ -1,0 +1,1203 @@
+{
+  "type": "google-expansion",
+  "name": "Google Calendar API rule validation and month limits",
+  "source": "Google Calendar API events.instances",
+  "captureCliCommit": "77f899aac5",
+  "capturedAt": "2026-11-22T11:19:03.707928+00:00",
+  "cases": [
+    {
+      "name": "reject-unknown-rule-part",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYMONTHDAYS=5"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-03-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Unknown RRULE part: BYMONTHDAYS"
+      }
+    },
+    {
+      "name": "reject-malformed-weekday",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;COUNT=3;BYDAY=FUNDAY"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-03-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Invalid BYDAY"
+      }
+    },
+    {
+      "name": "reject-invalid-week-start",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;COUNT=3;WKST=FRIDAY"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-03-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Invalid WKST"
+      }
+    },
+    {
+      "name": "reject-zero-weekday-ordinal",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;COUNT=3;BYDAY=0MO"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-03-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Invalid BYDAY"
+      }
+    },
+    {
+      "name": "reject-zero-position",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;COUNT=3;BYDAY=MO;BYSETPOS=0"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-03-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Invalid BYSETPOS"
+      }
+    },
+    {
+      "name": "out-of-range-month",
+      "input": {
+        "start": "2027-01-04T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYMONTH=13"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-03-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T09:00:00Z",
+          "2027-01-05T09:00:00Z",
+          "2027-01-06T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "count-zero",
+      "input": {
+        "start": "2027-01-04T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=0"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY"
+        ],
+        "returnedRecurrence": [
+          "RRULE:FREQ=DAILY"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-03-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T09:00:00Z",
+          "2027-01-05T09:00:00Z",
+          "2027-01-06T09:00:00Z",
+          "2027-01-07T09:00:00Z",
+          "2027-01-08T09:00:00Z",
+          "2027-01-09T09:00:00Z",
+          "2027-01-10T09:00:00Z",
+          "2027-01-11T09:00:00Z",
+          "2027-01-12T09:00:00Z",
+          "2027-01-13T09:00:00Z",
+          "2027-01-14T09:00:00Z",
+          "2027-01-15T09:00:00Z",
+          "2027-01-16T09:00:00Z",
+          "2027-01-17T09:00:00Z",
+          "2027-01-18T09:00:00Z",
+          "2027-01-19T09:00:00Z",
+          "2027-01-20T09:00:00Z",
+          "2027-01-21T09:00:00Z",
+          "2027-01-22T09:00:00Z",
+          "2027-01-23T09:00:00Z",
+          "2027-01-24T09:00:00Z",
+          "2027-01-25T09:00:00Z",
+          "2027-01-26T09:00:00Z",
+          "2027-01-27T09:00:00Z",
+          "2027-01-28T09:00:00Z",
+          "2027-01-29T09:00:00Z",
+          "2027-01-30T09:00:00Z",
+          "2027-01-31T09:00:00Z",
+          "2027-02-01T09:00:00Z",
+          "2027-02-02T09:00:00Z",
+          "2027-02-03T09:00:00Z",
+          "2027-02-04T09:00:00Z",
+          "2027-02-05T09:00:00Z",
+          "2027-02-06T09:00:00Z",
+          "2027-02-07T09:00:00Z",
+          "2027-02-08T09:00:00Z",
+          "2027-02-09T09:00:00Z",
+          "2027-02-10T09:00:00Z",
+          "2027-02-11T09:00:00Z",
+          "2027-02-12T09:00:00Z",
+          "2027-02-13T09:00:00Z",
+          "2027-02-14T09:00:00Z",
+          "2027-02-15T09:00:00Z",
+          "2027-02-16T09:00:00Z",
+          "2027-02-17T09:00:00Z",
+          "2027-02-18T09:00:00Z",
+          "2027-02-19T09:00:00Z",
+          "2027-02-20T09:00:00Z",
+          "2027-02-21T09:00:00Z",
+          "2027-02-22T09:00:00Z",
+          "2027-02-23T09:00:00Z",
+          "2027-02-24T09:00:00Z",
+          "2027-02-25T09:00:00Z",
+          "2027-02-26T09:00:00Z",
+          "2027-02-27T09:00:00Z",
+          "2027-02-28T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "interval-zero",
+      "input": {
+        "start": "2027-01-04T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;INTERVAL=0;COUNT=3"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "returnedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-03-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T09:00:00Z",
+          "2027-01-05T09:00:00Z",
+          "2027-01-06T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "invalid-count",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=1x"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-03-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Invalid COUNT"
+      }
+    },
+    {
+      "name": "rule-property-parameter",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "rules": [
+          "RRULE;VALUE=RECUR:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-03-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Unsupported Google recurrence property parameter: VALUE=RECUR"
+      }
+    },
+    {
+      "name": "unknown-exrule-part",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXRULE:FREQ=DAILY;BYMONTHDAYS=5"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-03-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Unknown RRULE part: BYMONTHDAYS"
+      }
+    },
+    {
+      "name": "invalid-bysecond-ignored-or-rejected",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYSECOND=61"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-03-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Invalid BYSECOND"
+      }
+    },
+    {
+      "name": "leap-second-accepted-or-rejected",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYSECOND=60"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-03-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Invalid BYSECOND"
+      }
+    },
+    {
+      "name": "duplicate-count",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-03-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Duplicate RRULE part: COUNT"
+      }
+    },
+    {
+      "name": "zero-monthday",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;COUNT=3;BYMONTHDAY=0"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-03-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Invalid BYMONTHDAY"
+      }
+    },
+    {
+      "name": "valid-daily-month-limits",
+      "input": {
+        "start": "2027-01-04T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYMONTH=2"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-05-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T09:00:00Z",
+          "2027-02-01T09:00:00Z",
+          "2027-02-02T09:00:00Z",
+          "2027-02-03T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "month-thirteen-from-february",
+      "input": {
+        "start": "2027-02-04T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYMONTH=13"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-05-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2027-02-04T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "mixed-valid-and-invalid-months",
+      "input": {
+        "start": "2027-01-04T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYMONTH=2,13"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-05-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T09:00:00Z",
+          "2027-02-01T09:00:00Z",
+          "2027-02-02T09:00:00Z",
+          "2027-02-03T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "month-zero",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYMONTH=0"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-05-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Invalid BYMONTH"
+      }
+    },
+    {
+      "name": "month-negative",
+      "input": {
+        "start": "2027-01-04T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYMONTH=-1"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-05-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "hour-twenty-four",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYHOUR=24"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-05-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Invalid BYHOUR"
+      }
+    },
+    {
+      "name": "minute-sixty",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYMINUTE=60"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-05-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Invalid BYMINUTE"
+      }
+    },
+    {
+      "name": "month-day-thirty-two",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;COUNT=3;BYMONTHDAY=32"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-05-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Invalid BYMONTHDAY"
+      }
+    },
+    {
+      "name": "week-number-zero",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "rules": [
+          "RRULE:FREQ=YEARLY;COUNT=3;BYWEEKNO=0"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-05-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Invalid BYWEEKNO"
+      }
+    },
+    {
+      "name": "year-day-zero",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "rules": [
+          "RRULE:FREQ=YEARLY;COUNT=3;BYYEARDAY=0"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-05-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Invalid BYYEARDAY"
+      }
+    },
+    {
+      "name": "weekday-ordinal-fifty-four",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "rules": [
+          "RRULE:FREQ=YEARLY;COUNT=3;BYDAY=54MO"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-05-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Invalid BYDAY"
+      }
+    },
+    {
+      "name": "position-three-sixty-seven",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;COUNT=3;BYDAY=MO;BYSETPOS=367"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-05-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Invalid BYSETPOS"
+      }
+    },
+    {
+      "name": "count-negative",
+      "input": {
+        "start": "2027-01-04T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=-1"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-05-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "interval-negative",
+      "input": {
+        "start": "2027-01-04T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;INTERVAL=-1;COUNT=3"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3;INTERVAL=-1"
+        ],
+        "returnedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3;INTERVAL=-1"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-05-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T09:00:00Z",
+          "2027-01-05T09:00:00Z",
+          "2027-01-06T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "exrule-zero-count",
+      "input": {
+        "start": "2027-01-04T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=15",
+          "EXRULE:FREQ=WEEKLY;BYDAY=MO;COUNT=0"
+        ],
+        "storedRecurrence": [
+          "EXRULE:FREQ=WEEKLY;BYDAY=MO",
+          "RRULE:FREQ=DAILY;COUNT=15"
+        ],
+        "returnedRecurrence": [
+          "EXRULE:FREQ=WEEKLY;BYDAY=MO",
+          "RRULE:FREQ=DAILY;COUNT=15"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-05-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2027-01-05T09:00:00Z",
+          "2027-01-06T09:00:00Z",
+          "2027-01-07T09:00:00Z",
+          "2027-01-08T09:00:00Z",
+          "2027-01-09T09:00:00Z",
+          "2027-01-10T09:00:00Z",
+          "2027-01-12T09:00:00Z",
+          "2027-01-13T09:00:00Z",
+          "2027-01-14T09:00:00Z",
+          "2027-01-15T09:00:00Z",
+          "2027-01-16T09:00:00Z",
+          "2027-01-17T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "rrule-trailing-delimiter",
+      "input": {
+        "start": "2027-01-04T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3;"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "returnedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-05-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T09:00:00Z",
+          "2027-01-05T09:00:00Z",
+          "2027-01-06T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "month-thirteen-next-year",
+      "input": {
+        "start": "2027-02-04T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYMONTH=13"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2028-04-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2027-02-04T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "month-fourteen-outside-january",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYMONTH=14"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2028-04-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Invalid BYMONTH"
+      }
+    },
+    {
+      "name": "month-twenty-five",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYMONTH=25"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2028-04-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Invalid BYMONTH"
+      }
+    },
+    {
+      "name": "month-negative-one-through-december",
+      "input": {
+        "start": "2027-01-04T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYMONTH=-1"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2028-04-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T09:00:00Z",
+          "2027-12-01T09:00:00Z",
+          "2027-12-02T09:00:00Z",
+          "2027-12-03T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "month-negative-twelve",
+      "input": {
+        "start": "2027-01-04T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYMONTH=-12"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2028-04-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T09:00:00Z",
+          "2027-01-05T09:00:00Z",
+          "2027-01-06T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "month-thirteen-and-fourteen",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYMONTH=13,14"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2028-04-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Invalid BYMONTH"
+      }
+    },
+    {
+      "name": "month-twelve-and-thirteen",
+      "input": {
+        "start": "2027-01-04T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYMONTH=12,13"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2028-04-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T09:00:00Z",
+          "2027-12-01T09:00:00Z",
+          "2027-12-02T09:00:00Z",
+          "2027-12-03T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "monthly-freq-month-thirteen",
+      "input": {
+        "start": "2027-02-04T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;COUNT=3;BYMONTH=13"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2028-04-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2027-02-04T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "yearly-freq-month-thirteen",
+      "input": {
+        "start": "2027-02-04T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=YEARLY;COUNT=3;BYMONTH=13"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2030-01-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2027-02-04T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "month-thirteen-daily-across-end-of-january",
+      "input": {
+        "start": "2027-01-30T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=5;BYMONTH=13"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2028-04-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2027-01-30T09:00:00Z",
+          "2027-01-31T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "month-thirteen-weekly-across-end-of-january",
+      "input": {
+        "start": "2027-01-30T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=WEEKLY;COUNT=5;BYMONTH=13"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2028-04-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2027-01-30T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "month-thirteen-monthly-from-january",
+      "input": {
+        "start": "2027-01-30T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=MONTHLY;COUNT=4;BYMONTH=13"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2028-04-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2027-01-30T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "month-thirteen-yearly-from-january",
+      "input": {
+        "start": "2027-01-30T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=YEARLY;COUNT=4;BYMONTH=13"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2031-01-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2027-01-30T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "month-thirteen-and-negative-twelve",
+      "input": {
+        "start": "2027-01-30T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=4;BYMONTH=13,-12"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2028-04-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2027-01-30T09:00:00Z",
+          "2027-01-31T09:00:00Z",
+          "2028-01-01T09:00:00Z",
+          "2028-01-02T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "month-negative-thirteen",
+      "input": {
+        "start": "2027-01-30T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYMONTH=-13"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2028-04-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2027-01-30T09:00:00Z",
+          "2027-01-31T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "negative-two-interval",
+      "input": {
+        "start": "2027-01-30T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;INTERVAL=-2;COUNT=3"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3;INTERVAL=-2"
+        ],
+        "returnedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3;INTERVAL=-2"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2028-04-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "google": [
+          "2027-01-30T09:00:00Z",
+          "2027-01-31T09:00:00Z",
+          "2027-02-01T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "explicit-positive-byhour",
+      "input": {
+        "start": "2027-01-04T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYHOUR=+9"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYHOUR=9"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-03-01T00:00:00Z"
+        },
+        "timezone": "UTC",
+        "returnedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYHOUR=9"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T09:00:00Z",
+          "2027-01-05T09:00:00Z",
+          "2027-01-06T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "explicit-positive-byminute",
+      "input": {
+        "start": "2027-01-04T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYMINUTE=+0"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYMINUTE=0"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-03-01T00:00:00Z"
+        },
+        "timezone": "UTC",
+        "returnedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYMINUTE=0"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T09:00:00Z",
+          "2027-01-05T09:00:00Z",
+          "2027-01-06T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "explicit-positive-bysecond",
+      "input": {
+        "start": "2027-01-04T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYSECOND=+0"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYSECOND=0"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-03-01T00:00:00Z"
+        },
+        "timezone": "UTC",
+        "returnedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3;BYSECOND=0"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T09:00:00Z",
+          "2027-01-05T09:00:00Z",
+          "2027-01-06T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "double-trailing-delimiter",
+      "input": {
+        "start": "2027-01-04T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3;;"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-03-01T00:00:00Z"
+        },
+        "timezone": "UTC",
+        "returnedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T09:00:00Z",
+          "2027-01-05T09:00:00Z",
+          "2027-01-06T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "internal-empty-delimiter",
+      "input": {
+        "start": "2027-01-04T09:00:00Z",
+        "rules": [
+          "RRULE:FREQ=DAILY;;COUNT=3"
+        ],
+        "storedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-03-01T00:00:00Z"
+        },
+        "timezone": "UTC",
+        "returnedRecurrence": [
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ]
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T09:00:00Z",
+          "2027-01-05T09:00:00Z",
+          "2027-01-06T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "zero-count-with-until",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=0;UNTIL=20270106T090000Z"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-03-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "COUNT and UNTIL are mutually exclusive"
+      }
+    },
+    {
+      "name": "abbreviated-until-utc-hour",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "rules": [
+          "RRULE:FREQ=DAILY;UNTIL=20270106T09Z"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-03-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Invalid Google RRULE UNTIL date-time"
+      }
+    },
+    {
+      "name": "week-number-fifty-four",
+      "input": {
+        "start": "2027-01-04T09:00:00",
+        "rules": [
+          "RRULE:FREQ=YEARLY;BYWEEKNO=54;COUNT=3"
+        ],
+        "window": {
+          "start": "2027-01-01T00:00:00Z",
+          "end": "2027-03-01T00:00:00Z"
+        },
+        "timezone": "UTC"
+      },
+      "expected": {
+        "googleHttpStatus": 400,
+        "error": "Invalid BYWEEKNO"
+      }
+    }
+  ]
+}

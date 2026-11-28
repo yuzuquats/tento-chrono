@@ -1,0 +1,578 @@
+{
+  "type": "platform-recurrence",
+  "name": "rrule.js distant timezone windows",
+  "source": "rrule 2.8.1 under the named host TZ",
+  "cases": [
+    {
+      "name": "UTC / spring change in the target timezone",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20500313T053000",
+          "RRULE:FREQ=MINUTELY;INTERVAL=30;COUNT=8"
+        ],
+        "through": "2050-03-15",
+        "checkpoints": [
+          "2050-03-13"
+        ]
+      },
+      "expected": [
+        "2050-03-13T10:30:00Z",
+        "2050-03-13T11:00:00Z",
+        "2050-03-13T11:30:00Z",
+        "2050-03-13T12:00:00Z",
+        "2050-03-13T12:30:00Z",
+        "2050-03-13T13:00:00Z"
+      ]
+    },
+    {
+      "name": "UTC / fall change with explicit date lists",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20501106T033000",
+          "RRULE:FREQ=DAILY;COUNT=4",
+          "RDATE:20501105T033000Z",
+          "EXDATE:20501107T033000Z"
+        ],
+        "through": "2050-11-11",
+        "checkpoints": [
+          "2050-11-05",
+          "2050-11-06",
+          "2050-11-08",
+          "2050-11-09"
+        ]
+      },
+      "expected": [
+        "2050-11-05T07:30:00Z",
+        "2050-11-06T07:30:00Z",
+        "2050-11-08T08:30:00Z",
+        "2050-11-09T08:30:00Z"
+      ]
+    },
+    {
+      "name": "UTC / half-hour change with an external start",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "lines": [
+          "RRULE:FREQ=MINUTELY;INTERVAL=30;COUNT=8"
+        ],
+        "dtstart": {
+          "dateTime": "2075-10-05T14:00:00",
+          "timeZone": "Australia/Lord_Howe"
+        },
+        "through": "2075-10-07",
+        "checkpoints": [
+          "2075-10-05"
+        ]
+      },
+      "expected": [
+        "2075-10-05T03:30:00Z",
+        "2075-10-05T04:00:00Z",
+        "2075-10-05T04:30:00Z",
+        "2075-10-05T05:00:00Z",
+        "2075-10-05T05:30:00Z",
+        "2075-10-05T06:00:00Z",
+        "2075-10-05T06:30:00Z"
+      ]
+    },
+    {
+      "name": "UTC / seasonal transition in year 9998",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "lines": [
+          "DTSTART;TZID=Europe/Dublin:99980329T000000",
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "through": "9998-04-02",
+        "checkpoints": [
+          "9998-03-29",
+          "9998-03-30",
+          "9998-03-31"
+        ]
+      },
+      "expected": [
+        "9998-03-29T00:00:00Z",
+        "9998-03-29T23:00:00Z",
+        "9998-03-30T23:00:00Z",
+        "9998-03-31T23:00:00Z"
+      ]
+    },
+    {
+      "name": "UTC / initial transition window boundary",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=4",
+          "RDATE:20491230T233000Z",
+          "EXDATE:20500101T233000Z"
+        ],
+        "dtstart": {
+          "dateTime": "2049-12-31T23:30:00",
+          "timeZone": "Pacific/Auckland"
+        },
+        "through": "2050-01-05",
+        "checkpoints": [
+          "2049-12-30",
+          "2049-12-31",
+          "2050-01-02",
+          "2050-01-03"
+        ]
+      },
+      "expected": [
+        "2049-12-30T10:30:00Z",
+        "2049-12-31T10:30:00Z",
+        "2050-01-02T10:30:00Z",
+        "2050-01-03T10:30:00Z"
+      ]
+    },
+    {
+      "name": "UTC / host season shifts a fixed target zone",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "lines": [
+          "DTSTART;TZID=Asia/Tokyo:20500313T053000",
+          "RRULE:FREQ=MINUTELY;INTERVAL=30;COUNT=8"
+        ],
+        "through": "2050-03-15",
+        "checkpoints": [
+          "2050-03-12",
+          "2050-03-13"
+        ]
+      },
+      "expected": [
+        "2050-03-12T20:30:00Z",
+        "2050-03-12T21:00:00Z",
+        "2050-03-12T21:30:00Z",
+        "2050-03-12T22:00:00Z",
+        "2050-03-12T22:30:00Z",
+        "2050-03-12T23:00:00Z",
+        "2050-03-12T23:30:00Z",
+        "2050-03-13T00:00:00Z"
+      ]
+    },
+    {
+      "name": "UTC / historical positive offset seconds",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "dtstart": {
+          "dateTime": "1899-12-30T00:00:00",
+          "timeZone": "Asia/Kolkata"
+        },
+        "through": "1900-01-03",
+        "checkpoints": [
+          "1899-12-29",
+          "1899-12-30",
+          "1899-12-31",
+          "1900-01-01"
+        ]
+      },
+      "expected": [
+        "1899-12-29T18:38:50Z",
+        "1899-12-30T18:38:50Z",
+        "1899-12-31T18:38:50Z",
+        "1900-01-01T18:38:50Z"
+      ]
+    },
+    {
+      "name": "UTC / historical negative offset seconds",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "lines": [
+          "DTSTART;TZID=Africa/Monrovia:18991231T232000",
+          "RRULE:FREQ=MINUTELY;INTERVAL=30;COUNT=8"
+        ],
+        "through": "1900-01-03",
+        "checkpoints": [
+          "1900-01-01"
+        ]
+      },
+      "expected": [
+        "1900-01-01T00:03:08Z",
+        "1900-01-01T00:33:08Z",
+        "1900-01-01T01:03:08Z",
+        "1900-01-01T01:33:08Z",
+        "1900-01-01T02:03:08Z",
+        "1900-01-01T02:33:08Z",
+        "1900-01-01T03:03:08Z",
+        "1900-01-01T03:33:08Z"
+      ]
+    },
+    {
+      "name": "UTC / UTC target keeps encoded instants",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "lines": [
+          "DTSTART;TZID=UTC:20500313T053000",
+          "RRULE:FREQ=MINUTELY;INTERVAL=30;COUNT=8"
+        ],
+        "through": "2050-03-15",
+        "checkpoints": [
+          "2050-03-13"
+        ]
+      },
+      "expected": [
+        "2050-03-13T05:30:00Z",
+        "2050-03-13T06:00:00Z",
+        "2050-03-13T06:30:00Z",
+        "2050-03-13T07:00:00Z",
+        "2050-03-13T07:30:00Z",
+        "2050-03-13T08:00:00Z",
+        "2050-03-13T08:30:00Z",
+        "2050-03-13T09:00:00Z"
+      ]
+    },
+    {
+      "name": "UTC / ranked daily candidates in a distant transition window",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20500313T053000",
+          "RRULE:FREQ=DAILY;BYHOUR=7,13;BYMINUTE=0,30;BYSETPOS=-1;COUNT=4"
+        ],
+        "through": "2050-03-18",
+        "checkpoints": [
+          "2050-03-13",
+          "2050-03-14",
+          "2050-03-15",
+          "2050-03-16"
+        ]
+      },
+      "expected": [
+        "2050-03-13T17:30:00Z",
+        "2050-03-14T17:30:00Z",
+        "2050-03-15T17:30:00Z",
+        "2050-03-16T17:30:00Z"
+      ]
+    },
+    {
+      "name": "UTC / timed cutoff stays in the encoded wall frame",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "lines": [
+          "RRULE:FREQ=HOURLY;UNTIL=20501106T073000Z",
+          "RDATE:20501105T033000Z",
+          "EXDATE:20501107T033000Z"
+        ],
+        "dtstart": {
+          "dateTime": "2050-11-06T03:30:00",
+          "timeZone": "America/New_York"
+        },
+        "through": "2050-11-08",
+        "checkpoints": [
+          "2050-11-05",
+          "2050-11-06"
+        ]
+      },
+      "expected": [
+        "2050-11-05T07:30:00Z",
+        "2050-11-06T07:30:00Z",
+        "2050-11-06T08:30:00Z",
+        "2050-11-06T09:30:00Z",
+        "2050-11-06T11:30:00Z",
+        "2050-11-06T12:30:00Z"
+      ]
+    },
+    {
+      "name": "America/New_York / spring change in the target timezone",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "America/New_York",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20500313T053000",
+          "RRULE:FREQ=MINUTELY;INTERVAL=30;COUNT=8"
+        ],
+        "through": "2050-03-15",
+        "checkpoints": [
+          "2050-03-13"
+        ]
+      },
+      "expected": [
+        "2050-03-13T05:30:00Z",
+        "2050-03-13T06:00:00Z",
+        "2050-03-13T06:30:00Z",
+        "2050-03-13T07:00:00Z",
+        "2050-03-13T07:30:00Z",
+        "2050-03-13T08:00:00Z",
+        "2050-03-13T08:30:00Z",
+        "2050-03-13T09:00:00Z"
+      ]
+    },
+    {
+      "name": "America/New_York / fall change with explicit date lists",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "America/New_York",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20501106T033000",
+          "RRULE:FREQ=DAILY;COUNT=4",
+          "RDATE:20501105T033000Z",
+          "EXDATE:20501107T033000Z"
+        ],
+        "through": "2050-11-11",
+        "checkpoints": [
+          "2050-11-05",
+          "2050-11-06",
+          "2050-11-08",
+          "2050-11-09"
+        ]
+      },
+      "expected": [
+        "2050-11-05T03:30:00Z",
+        "2050-11-06T03:30:00Z",
+        "2050-11-08T03:30:00Z",
+        "2050-11-09T03:30:00Z"
+      ]
+    },
+    {
+      "name": "America/New_York / half-hour change with an external start",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "America/New_York",
+        "lines": [
+          "RRULE:FREQ=MINUTELY;INTERVAL=30;COUNT=8"
+        ],
+        "dtstart": {
+          "dateTime": "2075-10-05T14:00:00",
+          "timeZone": "Australia/Lord_Howe"
+        },
+        "through": "2075-10-07",
+        "checkpoints": [
+          "2075-10-04",
+          "2075-10-05"
+        ]
+      },
+      "expected": [
+        "2075-10-04T23:30:00Z",
+        "2075-10-05T00:00:00Z",
+        "2075-10-05T00:30:00Z",
+        "2075-10-05T01:00:00Z",
+        "2075-10-05T01:30:00Z",
+        "2075-10-05T02:00:00Z",
+        "2075-10-05T02:30:00Z"
+      ]
+    },
+    {
+      "name": "America/New_York / seasonal transition in year 9998",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "America/New_York",
+        "lines": [
+          "DTSTART;TZID=Europe/Dublin:99980329T000000",
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "through": "9998-04-02",
+        "checkpoints": [
+          "9998-03-28",
+          "9998-03-29",
+          "9998-03-30",
+          "9998-03-31"
+        ]
+      },
+      "expected": [
+        "9998-03-28T20:00:00Z",
+        "9998-03-29T19:00:00Z",
+        "9998-03-30T19:00:00Z",
+        "9998-03-31T19:00:00Z"
+      ]
+    },
+    {
+      "name": "America/New_York / initial transition window boundary",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "America/New_York",
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=4",
+          "RDATE:20491230T233000Z",
+          "EXDATE:20500101T233000Z"
+        ],
+        "dtstart": {
+          "dateTime": "2049-12-31T23:30:00",
+          "timeZone": "Pacific/Auckland"
+        },
+        "through": "2050-01-05",
+        "checkpoints": [
+          "2049-12-30",
+          "2049-12-31",
+          "2050-01-02",
+          "2050-01-03"
+        ]
+      },
+      "expected": [
+        "2049-12-30T05:30:00Z",
+        "2049-12-31T05:30:00Z",
+        "2050-01-02T05:30:00Z",
+        "2050-01-03T05:30:00Z"
+      ]
+    },
+    {
+      "name": "America/New_York / host season shifts a fixed target zone",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "America/New_York",
+        "lines": [
+          "DTSTART;TZID=Asia/Tokyo:20500313T053000",
+          "RRULE:FREQ=MINUTELY;INTERVAL=30;COUNT=8"
+        ],
+        "through": "2050-03-15",
+        "checkpoints": [
+          "2050-03-12"
+        ]
+      },
+      "expected": [
+        "2050-03-12T15:30:00Z",
+        "2050-03-12T16:00:00Z",
+        "2050-03-12T16:30:00Z",
+        "2050-03-12T18:00:00Z",
+        "2050-03-12T18:30:00Z",
+        "2050-03-12T19:00:00Z",
+        "2050-03-12T19:30:00Z",
+        "2050-03-12T20:00:00Z"
+      ]
+    },
+    {
+      "name": "America/New_York / historical positive offset seconds",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "America/New_York",
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=4"
+        ],
+        "dtstart": {
+          "dateTime": "1899-12-30T00:00:00",
+          "timeZone": "Asia/Kolkata"
+        },
+        "through": "1900-01-03",
+        "checkpoints": [
+          "1899-12-29",
+          "1899-12-30",
+          "1899-12-31",
+          "1900-01-01"
+        ]
+      },
+      "expected": [
+        "1899-12-29T13:38:50Z",
+        "1899-12-30T13:38:50Z",
+        "1899-12-31T13:38:50Z",
+        "1900-01-01T13:38:50Z"
+      ]
+    },
+    {
+      "name": "America/New_York / historical negative offset seconds",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "America/New_York",
+        "lines": [
+          "DTSTART;TZID=Africa/Monrovia:18991231T232000",
+          "RRULE:FREQ=MINUTELY;INTERVAL=30;COUNT=8"
+        ],
+        "through": "1900-01-02",
+        "checkpoints": [
+          "1899-12-31"
+        ]
+      },
+      "expected": [
+        "1899-12-31T19:03:08Z",
+        "1899-12-31T19:33:08Z",
+        "1899-12-31T20:03:08Z",
+        "1899-12-31T20:33:08Z",
+        "1899-12-31T21:03:08Z",
+        "1899-12-31T21:33:08Z",
+        "1899-12-31T22:03:08Z",
+        "1899-12-31T22:33:08Z"
+      ]
+    },
+    {
+      "name": "America/New_York / UTC target keeps encoded instants",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "America/New_York",
+        "lines": [
+          "DTSTART;TZID=UTC:20500313T053000",
+          "RRULE:FREQ=MINUTELY;INTERVAL=30;COUNT=8"
+        ],
+        "through": "2050-03-15",
+        "checkpoints": [
+          "2050-03-13"
+        ]
+      },
+      "expected": [
+        "2050-03-13T05:30:00Z",
+        "2050-03-13T06:00:00Z",
+        "2050-03-13T06:30:00Z",
+        "2050-03-13T07:00:00Z",
+        "2050-03-13T07:30:00Z",
+        "2050-03-13T08:00:00Z",
+        "2050-03-13T08:30:00Z",
+        "2050-03-13T09:00:00Z"
+      ]
+    },
+    {
+      "name": "America/New_York / ranked daily candidates in a distant transition window",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "America/New_York",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20500313T053000",
+          "RRULE:FREQ=DAILY;BYHOUR=7,13;BYMINUTE=0,30;BYSETPOS=-1;COUNT=4"
+        ],
+        "through": "2050-03-18",
+        "checkpoints": [
+          "2050-03-13",
+          "2050-03-14",
+          "2050-03-15",
+          "2050-03-16"
+        ]
+      },
+      "expected": [
+        "2050-03-13T13:30:00Z",
+        "2050-03-14T13:30:00Z",
+        "2050-03-15T13:30:00Z",
+        "2050-03-16T13:30:00Z"
+      ]
+    },
+    {
+      "name": "America/New_York / timed cutoff stays in the encoded wall frame",
+      "input": {
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "America/New_York",
+        "lines": [
+          "RRULE:FREQ=HOURLY;UNTIL=20501106T073000Z",
+          "RDATE:20501105T033000Z",
+          "EXDATE:20501107T033000Z"
+        ],
+        "dtstart": {
+          "dateTime": "2050-11-06T03:30:00",
+          "timeZone": "America/New_York"
+        },
+        "through": "2050-11-08",
+        "checkpoints": [
+          "2050-11-05",
+          "2050-11-06"
+        ]
+      },
+      "expected": [
+        "2050-11-05T03:30:00Z",
+        "2050-11-06T03:30:00Z",
+        "2050-11-06T04:30:00Z",
+        "2050-11-06T05:30:00Z",
+        "2050-11-06T06:30:00Z",
+        "2050-11-06T07:30:00Z"
+      ]
+    }
+  ]
+}

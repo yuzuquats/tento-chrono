@@ -1,0 +1,89 @@
+{
+  "type": "test_graph_master",
+  "name": "Graph master fractional timestamps",
+  "cases": [
+    {
+      "name": "reject a second fraction in the master clock",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-01-05T09:00:00.1.2",
+            "timeZone": "UTC"
+          },
+          "recurrence": {
+            "pattern": {
+              "type": "daily",
+              "interval": 1
+            },
+            "range": {
+              "type": "numbered",
+              "startDate": "2026-01-05",
+              "numberOfOccurrences": 2,
+              "recurrenceTimeZone": "UTC"
+            }
+          }
+        },
+        "through": "2026-01-06"
+      },
+      "expected": {
+        "error": "Invalid Graph start.dateTime \"2026-01-05T09:00:00.1.2\""
+      }
+    },
+    {
+      "name": "truncate a valid local clock without rounding into the next minute",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-01-05T09:00:59.9999999",
+            "timeZone": "UTC"
+          },
+          "recurrence": {
+            "pattern": {
+              "type": "daily",
+              "interval": 1
+            },
+            "range": {
+              "type": "numbered",
+              "startDate": "2026-01-05",
+              "numberOfOccurrences": 2,
+              "recurrenceTimeZone": "UTC"
+            }
+          }
+        },
+        "through": "2026-01-06"
+      },
+      "expected": [
+        "2026-01-05T09:00:00Z",
+        "2026-01-06T09:00:00Z"
+      ]
+    },
+    {
+      "name": "truncate a valid offset clock",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-01-05T10:00:59.9999999+01:00",
+            "timeZone": "UTC"
+          },
+          "recurrence": {
+            "pattern": {
+              "type": "daily",
+              "interval": 1
+            },
+            "range": {
+              "type": "numbered",
+              "startDate": "2026-01-05",
+              "numberOfOccurrences": 2,
+              "recurrenceTimeZone": "UTC"
+            }
+          }
+        },
+        "through": "2026-01-06"
+      },
+      "expected": [
+        "2026-01-05T09:00:00Z",
+        "2026-01-06T09:00:00Z"
+      ]
+    }
+  ]
+}

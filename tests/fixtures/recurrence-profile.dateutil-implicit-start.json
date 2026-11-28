@@ -1,0 +1,233 @@
+{
+  "type": "recurrence-profile",
+  "name": "dateutil 2.8.2 implicit DTSTART",
+  "source": "python-dateutil 2.8.2 rrulestr(forceset=True), TZ=UTC",
+  "cases": [
+    {
+      "name": "only exclusion",
+      "input": {
+        "lines": [
+          "EXRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-01-31",
+        "checkpoints": [
+          "2024-01-02",
+          "2024-01-05"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "only exclusion with old UNTIL",
+      "input": {
+        "lines": [
+          "EXRULE:FREQ=DAILY;UNTIL=20240101T090000"
+        ],
+        "profile": "dateutil",
+        "through": "2026-01-31",
+        "checkpoints": [
+          "2024-01-02",
+          "2024-01-05"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "only exclusion with old UTC UNTIL",
+      "input": {
+        "lines": [
+          "EXRULE:FREQ=DAILY;UNTIL=20240101T090000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-01-31",
+        "checkpoints": [
+          "2024-01-02",
+          "2024-01-05"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "only exclusion with unrecognized rule part",
+      "input": {
+        "lines": [
+          "EXRULE:FREQ=DAILY;FOO=1"
+        ],
+        "profile": "dateutil",
+        "through": "2026-01-31"
+      },
+      "expected": {
+        "error": "unknown parameter 'FOO'"
+      }
+    },
+    {
+      "name": "old explicit dates and exclusion",
+      "input": {
+        "lines": [
+          "RDATE:20240102T090000,20240105T090000",
+          "EXRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-01-31",
+        "checkpoints": [
+          "2024-01-02",
+          "2024-01-05"
+        ]
+      },
+      "expected": [
+        "2024-01-02T09:00:00",
+        "2024-01-05T09:00:00"
+      ]
+    },
+    {
+      "name": "old UTC explicit dates and exclusion",
+      "input": {
+        "lines": [
+          "RDATE:20240102T090000Z,20240105T090000Z",
+          "EXRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-01-31"
+      },
+      "expected": {
+        "expansionError": "can't compare offset-naive and offset-aware datetimes"
+      }
+    },
+    {
+      "name": "old UTC explicit dates and aware exclusion",
+      "input": {
+        "lines": [
+          "RDATE:20240102T090000Z",
+          "EXRULE:FREQ=DAILY;UNTIL=20240102T090000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-01-31",
+        "checkpoints": [
+          "2024-01-02",
+          "2024-01-05"
+        ]
+      },
+      "expected": [
+        "2024-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "exclude old explicit dates with EXDATE",
+      "input": {
+        "lines": [
+          "RDATE:20240102T090000,20240105T090000",
+          "EXDATE:20240105T090000",
+          "EXRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "dateutil",
+        "through": "2026-01-31",
+        "checkpoints": [
+          "2024-01-02",
+          "2024-01-05"
+        ]
+      },
+      "expected": [
+        "2024-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "only exclusion clock construction failure",
+      "input": {
+        "lines": [
+          "EXRULE:FREQ=DAILY;BYHOUR=24;COUNT=1"
+        ],
+        "profile": "dateutil",
+        "through": "2026-01-31"
+      },
+      "expected": {
+        "error": "hour must be in 0..23"
+      }
+    },
+    {
+      "name": "only exclusion expansion failure",
+      "input": {
+        "lines": [
+          "EXRULE:FREQ=HOURLY;BYMINUTE=60;COUNT=1"
+        ],
+        "profile": "dateutil",
+        "through": "2026-01-31"
+      },
+      "expected": {
+        "expansionError": "minute must be in 0..59"
+      }
+    },
+    {
+      "name": "only inclusion and zero count",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=0"
+        ],
+        "profile": "dateutil",
+        "through": "2026-01-31",
+        "checkpoints": [
+          "2024-01-02",
+          "2024-01-05"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "only inclusion and old cutoff",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=DAILY;UNTIL=20240101T090000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-01-31",
+        "checkpoints": [
+          "2024-01-02",
+          "2024-01-05"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "only explicit start",
+      "input": {
+        "lines": [
+          "DTSTART:20240101T090000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-01-31",
+        "checkpoints": [
+          "2024-01-02",
+          "2024-01-05"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "explicit start and exclusion",
+      "input": {
+        "lines": [
+          "DTSTART:20240101T090000Z",
+          "EXRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "profile": "dateutil",
+        "through": "2026-01-31",
+        "checkpoints": [
+          "2024-01-02",
+          "2024-01-05"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "empty input",
+      "input": {
+        "lines": [],
+        "profile": "dateutil",
+        "through": "2026-01-31"
+      },
+      "expected": {
+        "error": "empty string"
+      }
+    }
+  ]
+}

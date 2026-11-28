@@ -1,0 +1,2698 @@
+{
+  "type": "recurrence-profile",
+  "name": "Outlook Graph Israel and West Bank timezone rules",
+  "source": "Microsoft Graph v1.0 calendarView on a dedicated test calendar. The RFC control uses IANA Asia/Jerusalem with the pre-gap offset.",
+  "cases": [
+    {
+      "name": "israel-1984-spring-crossing",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1984-05-03T21:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1984-05-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1984-05-16",
+        "checkpoints": [
+          "1984-05-03",
+          "1984-05-04",
+          "1984-05-05",
+          "1984-05-06",
+          "1984-05-07"
+        ]
+      },
+      "expected": [
+        "1984-05-03T21:30:00Z",
+        "1984-05-04T21:30:00Z",
+        "1984-05-05T21:30:00Z",
+        "1984-05-06T21:30:00Z",
+        "1984-05-07T21:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-1984-spring-anchor",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1984-05-05T21:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1984-05-06",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1984-05-18",
+        "checkpoints": [
+          "1984-05-05",
+          "1984-05-06",
+          "1984-05-07",
+          "1984-05-08",
+          "1984-05-09"
+        ]
+      },
+      "expected": [
+        "1984-05-05T21:30:00Z",
+        "1984-05-06T21:30:00Z",
+        "1984-05-07T21:30:00Z",
+        "1984-05-08T21:30:00Z",
+        "1984-05-09T21:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-1984-autumn",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1984-08-23T21:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1984-08-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1984-09-05",
+        "checkpoints": [
+          "1984-08-23",
+          "1984-08-24",
+          "1984-08-25",
+          "1984-08-26",
+          "1984-08-27"
+        ]
+      },
+      "expected": [
+        "1984-08-23T21:30:00Z",
+        "1984-08-24T21:30:00Z",
+        "1984-08-25T21:30:00Z",
+        "1984-08-26T21:30:00Z",
+        "1984-08-27T21:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-1985-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1985-04-12T09:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1985-04-12",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1985-04-24",
+        "checkpoints": [
+          "1985-04-12",
+          "1985-04-13",
+          "1985-04-14",
+          "1985-04-15",
+          "1985-04-16"
+        ]
+      },
+      "expected": [
+        "1985-04-12T09:30:00Z",
+        "1985-04-13T09:30:00Z",
+        "1985-04-14T09:30:00Z",
+        "1985-04-15T09:30:00Z",
+        "1985-04-16T09:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-1985-autumn",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1985-08-30T20:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1985-08-30",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1985-09-11",
+        "checkpoints": [
+          "1985-08-30",
+          "1985-08-31",
+          "1985-09-01",
+          "1985-09-02",
+          "1985-09-03"
+        ]
+      },
+      "expected": [
+        "1985-08-30T20:30:00Z",
+        "1985-08-31T20:30:00Z",
+        "1985-09-01T20:30:00Z",
+        "1985-09-02T20:30:00Z",
+        "1985-09-03T20:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-2025-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-03-27T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Israel Standard Time",
+              "startDate": "2025-03-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2025-04-08",
+        "checkpoints": [
+          "2025-03-27",
+          "2025-03-28",
+          "2025-03-29",
+          "2025-03-30"
+        ]
+      },
+      "expected": [
+        "2025-03-27T00:30:00Z",
+        "2025-03-28T00:30:00Z",
+        "2025-03-28T23:30:00Z",
+        "2025-03-29T23:30:00Z",
+        "2025-03-30T23:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-2025-autumn",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-10-23T22:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Israel Standard Time",
+              "startDate": "2025-10-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2025-11-05",
+        "checkpoints": [
+          "2025-10-23",
+          "2025-10-24",
+          "2025-10-25",
+          "2025-10-26",
+          "2025-10-27"
+        ]
+      },
+      "expected": [
+        "2025-10-23T22:30:00Z",
+        "2025-10-24T22:30:00Z",
+        "2025-10-25T22:30:00Z",
+        "2025-10-26T23:30:00Z",
+        "2025-10-27T23:30:00Z"
+      ]
+    },
+    {
+      "name": "west-bank-2023-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2023-04-27T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "West Bank Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2023-04-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2023-05-09",
+        "checkpoints": [
+          "2023-04-27",
+          "2023-04-28",
+          "2023-04-29",
+          "2023-04-30"
+        ]
+      },
+      "expected": [
+        "2023-04-27T00:30:00Z",
+        "2023-04-28T00:30:00Z",
+        "2023-04-29T00:30:00Z",
+        "2023-04-29T23:30:00Z",
+        "2023-04-30T23:30:00Z"
+      ]
+    },
+    {
+      "name": "west-bank-2023-autumn",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2023-10-25T22:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "West Bank Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2023-10-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2023-11-07",
+        "checkpoints": [
+          "2023-10-25",
+          "2023-10-26",
+          "2023-10-27",
+          "2023-10-28",
+          "2023-10-29"
+        ]
+      },
+      "expected": [
+        "2023-10-25T22:30:00Z",
+        "2023-10-26T22:30:00Z",
+        "2023-10-27T22:30:00Z",
+        "2023-10-28T23:30:00Z",
+        "2023-10-29T23:30:00Z"
+      ]
+    },
+    {
+      "name": "west-bank-2024-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2024-04-18T10:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "West Bank Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2024-04-18",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2024-04-30",
+        "checkpoints": [
+          "2024-04-18",
+          "2024-04-19",
+          "2024-04-20",
+          "2024-04-21",
+          "2024-04-22"
+        ]
+      },
+      "expected": [
+        "2024-04-18T10:30:00Z",
+        "2024-04-19T10:30:00Z",
+        "2024-04-20T09:30:00Z",
+        "2024-04-21T09:30:00Z",
+        "2024-04-22T09:30:00Z"
+      ]
+    },
+    {
+      "name": "west-bank-2025-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-04-10T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "West Bank Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-04-10",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2025-04-22",
+        "checkpoints": [
+          "2025-04-10",
+          "2025-04-11",
+          "2025-04-12",
+          "2025-04-13"
+        ]
+      },
+      "expected": [
+        "2025-04-10T00:30:00Z",
+        "2025-04-11T00:30:00Z",
+        "2025-04-12T00:30:00Z",
+        "2025-04-12T23:30:00Z",
+        "2025-04-13T23:30:00Z"
+      ]
+    },
+    {
+      "name": "west-bank-2026-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-03-26T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "West Bank Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "West Bank Standard Time",
+              "startDate": "2026-03-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2026-04-07",
+        "checkpoints": [
+          "2026-03-26",
+          "2026-03-27",
+          "2026-03-28",
+          "2026-03-29"
+        ]
+      },
+      "expected": [
+        "2026-03-26T00:30:00Z",
+        "2026-03-27T00:30:00Z",
+        "2026-03-28T00:30:00Z",
+        "2026-03-28T23:30:00Z",
+        "2026-03-29T23:30:00Z"
+      ]
+    },
+    {
+      "name": "west-bank-2026-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-04-08T23:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "West Bank Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "West Bank Standard Time",
+              "startDate": "2026-04-09",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2026-04-21",
+        "checkpoints": [
+          "2026-04-08",
+          "2026-04-09",
+          "2026-04-10",
+          "2026-04-11",
+          "2026-04-12"
+        ]
+      },
+      "expected": [
+        "2026-04-08T23:30:00Z",
+        "2026-04-09T23:30:00Z",
+        "2026-04-10T23:30:00Z",
+        "2026-04-11T23:30:00Z",
+        "2026-04-12T23:30:00Z"
+      ]
+    },
+    {
+      "name": "west-bank-2026-autumn",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-10-21T22:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "West Bank Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "West Bank Standard Time",
+              "startDate": "2026-10-22",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2026-11-03",
+        "checkpoints": [
+          "2026-10-21",
+          "2026-10-22",
+          "2026-10-23",
+          "2026-10-24",
+          "2026-10-25"
+        ]
+      },
+      "expected": [
+        "2026-10-21T22:30:00Z",
+        "2026-10-22T22:30:00Z",
+        "2026-10-23T22:30:00Z",
+        "2026-10-24T23:30:00Z",
+        "2026-10-25T23:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-1900-winter-midnight",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1900-02-14T22:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1900-02-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1900-02-27",
+        "checkpoints": [
+          "1900-02-14",
+          "1900-02-15",
+          "1900-02-16",
+          "1900-02-17",
+          "1900-02-18"
+        ]
+      },
+      "expected": [
+        "1900-02-14T22:30:00Z",
+        "1900-02-15T22:30:00Z",
+        "1900-02-16T22:30:00Z",
+        "1900-02-17T22:30:00Z",
+        "1900-02-18T22:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-1900-summer-midnight",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1900-06-14T21:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1900-06-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1900-06-27",
+        "checkpoints": [
+          "1900-06-14",
+          "1900-06-15",
+          "1900-06-16",
+          "1900-06-17",
+          "1900-06-18"
+        ]
+      },
+      "expected": [
+        "1900-06-14T21:30:00Z",
+        "1900-06-15T21:30:00Z",
+        "1900-06-16T21:30:00Z",
+        "1900-06-17T21:30:00Z",
+        "1900-06-18T21:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-1975-april-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1975-03-31T23:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1975-04-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1975-04-13",
+        "checkpoints": [
+          "1975-03-31",
+          "1975-04-01",
+          "1975-04-02",
+          "1975-04-03",
+          "1975-04-04"
+        ]
+      },
+      "expected": [
+        "1975-03-31T23:30:00Z",
+        "1975-04-01T23:30:00Z",
+        "1975-04-02T22:30:00Z",
+        "1975-04-03T22:30:00Z",
+        "1975-04-04T22:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-1975-september-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1975-09-22T21:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1975-09-23",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1975-10-05",
+        "checkpoints": [
+          "1975-09-22",
+          "1975-09-23",
+          "1975-09-24",
+          "1975-09-25",
+          "1975-09-26"
+        ]
+      },
+      "expected": [
+        "1975-09-22T21:30:00Z",
+        "1975-09-23T21:30:00Z",
+        "1975-09-24T22:30:00Z",
+        "1975-09-25T22:30:00Z",
+        "1975-09-26T22:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-1984-april-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1984-04-02T23:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1984-04-03",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1984-04-15",
+        "checkpoints": [
+          "1984-04-02",
+          "1984-04-03",
+          "1984-04-04",
+          "1984-04-05",
+          "1984-04-06"
+        ]
+      },
+      "expected": [
+        "1984-04-02T23:30:00Z",
+        "1984-04-03T23:30:00Z",
+        "1984-04-04T22:30:00Z",
+        "1984-04-05T22:30:00Z",
+        "1984-04-06T22:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-1984-april-inside-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1984-04-03T23:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1984-04-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1984-04-16",
+        "checkpoints": [
+          "1984-04-03",
+          "1984-04-04",
+          "1984-04-05",
+          "1984-04-06",
+          "1984-04-07"
+        ]
+      },
+      "expected": [
+        "1984-04-03T23:30:00Z",
+        "1984-04-04T23:30:00Z",
+        "1984-04-05T23:30:00Z",
+        "1984-04-06T23:30:00Z",
+        "1984-04-07T23:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-1984-april-after-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1984-04-03T23:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1984-04-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1984-04-16",
+        "checkpoints": [
+          "1984-04-03",
+          "1984-04-04",
+          "1984-04-05",
+          "1984-04-06",
+          "1984-04-07"
+        ]
+      },
+      "expected": [
+        "1984-04-03T23:30:00Z",
+        "1984-04-04T23:30:00Z",
+        "1984-04-05T23:30:00Z",
+        "1984-04-06T23:30:00Z",
+        "1984-04-07T23:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-1984-september-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1984-09-24T21:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1984-09-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1984-10-07",
+        "checkpoints": [
+          "1984-09-24",
+          "1984-09-25",
+          "1984-09-26",
+          "1984-09-27",
+          "1984-09-28"
+        ]
+      },
+      "expected": [
+        "1984-09-24T21:30:00Z",
+        "1984-09-25T21:30:00Z",
+        "1984-09-26T22:30:00Z",
+        "1984-09-27T22:30:00Z",
+        "1984-09-28T22:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-1984-september-inside-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1984-09-25T21:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1984-09-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1984-10-08",
+        "checkpoints": [
+          "1984-09-25",
+          "1984-09-26",
+          "1984-09-27",
+          "1984-09-28",
+          "1984-09-29"
+        ]
+      },
+      "expected": [
+        "1984-09-25T21:30:00Z",
+        "1984-09-26T22:30:00Z",
+        "1984-09-27T22:30:00Z",
+        "1984-09-28T22:30:00Z",
+        "1984-09-29T22:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-1985-april-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1985-04-01T23:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1985-04-02",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1985-04-14",
+        "checkpoints": [
+          "1985-04-01",
+          "1985-04-02",
+          "1985-04-03",
+          "1985-04-04",
+          "1985-04-05"
+        ]
+      },
+      "expected": [
+        "1985-04-01T23:30:00Z",
+        "1985-04-02T23:30:00Z",
+        "1985-04-03T22:30:00Z",
+        "1985-04-04T22:30:00Z",
+        "1985-04-05T22:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-1985-september-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1985-09-23T21:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1985-09-24",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1985-10-06",
+        "checkpoints": [
+          "1985-09-23",
+          "1985-09-24",
+          "1985-09-25",
+          "1985-09-26",
+          "1985-09-27"
+        ]
+      },
+      "expected": [
+        "1985-09-23T21:30:00Z",
+        "1985-09-24T21:30:00Z",
+        "1985-09-25T22:30:00Z",
+        "1985-09-26T22:30:00Z",
+        "1985-09-27T22:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-1995-april-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1995-04-03T23:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1995-04-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1995-04-16",
+        "checkpoints": [
+          "1995-04-03",
+          "1995-04-04",
+          "1995-04-05",
+          "1995-04-06",
+          "1995-04-07"
+        ]
+      },
+      "expected": [
+        "1995-04-03T23:30:00Z",
+        "1995-04-04T23:30:00Z",
+        "1995-04-05T22:30:00Z",
+        "1995-04-06T22:30:00Z",
+        "1995-04-07T22:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-1995-september-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1995-09-25T21:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1995-09-26",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1995-10-08",
+        "checkpoints": [
+          "1995-09-25",
+          "1995-09-26",
+          "1995-09-27",
+          "1995-09-28",
+          "1995-09-29"
+        ]
+      },
+      "expected": [
+        "1995-09-25T21:30:00Z",
+        "1995-09-26T21:30:00Z",
+        "1995-09-27T22:30:00Z",
+        "1995-09-28T22:30:00Z",
+        "1995-09-29T22:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-2003-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2003-03-31T23:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2003-04-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2003-04-13",
+        "checkpoints": [
+          "2003-03-31",
+          "2003-04-01",
+          "2003-04-02",
+          "2003-04-03",
+          "2003-04-04"
+        ]
+      },
+      "expected": [
+        "2003-03-31T23:30:00Z",
+        "2003-04-01T23:30:00Z",
+        "2003-04-02T22:30:00Z",
+        "2003-04-03T22:30:00Z",
+        "2003-04-04T22:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-2003-september",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2003-09-22T21:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2003-09-23",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2003-10-05",
+        "checkpoints": [
+          "2003-09-22",
+          "2003-09-23",
+          "2003-09-24",
+          "2003-09-25",
+          "2003-09-26"
+        ]
+      },
+      "expected": [
+        "2003-09-22T21:30:00Z",
+        "2003-09-23T21:30:00Z",
+        "2003-09-24T22:30:00Z",
+        "2003-09-25T22:30:00Z",
+        "2003-09-26T22:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-2004-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2004-04-05T23:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2004-04-06",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2004-04-18",
+        "checkpoints": [
+          "2004-04-05",
+          "2004-04-06",
+          "2004-04-07",
+          "2004-04-08",
+          "2004-04-09"
+        ]
+      },
+      "expected": [
+        "2004-04-05T23:30:00Z",
+        "2004-04-06T23:30:00Z",
+        "2004-04-07T22:30:00Z",
+        "2004-04-08T22:30:00Z",
+        "2004-04-09T22:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-2004-september",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2004-09-20T21:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2004-09-21",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2004-10-03",
+        "checkpoints": [
+          "2004-09-20",
+          "2004-09-21",
+          "2004-09-22",
+          "2004-09-23",
+          "2004-09-24"
+        ]
+      },
+      "expected": [
+        "2004-09-20T21:30:00Z",
+        "2004-09-21T21:30:00Z",
+        "2004-09-22T22:30:00Z",
+        "2004-09-23T22:30:00Z",
+        "2004-09-24T22:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-1975-year-sweep",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1975-01-01T10:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 7,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 54,
+              "recurrenceTimeZone": "",
+              "startDate": "1975-01-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1976-01-10",
+        "checkpoints": [
+          "1975-01-01",
+          "1975-01-08",
+          "1975-01-15",
+          "1975-01-22",
+          "1975-01-29",
+          "1975-02-05",
+          "1975-02-12",
+          "1975-02-19",
+          "1975-02-26",
+          "1975-03-05",
+          "1975-03-12",
+          "1975-03-19",
+          "1975-03-26",
+          "1975-04-02",
+          "1975-04-09",
+          "1975-04-16",
+          "1975-04-23",
+          "1975-04-30",
+          "1975-05-07",
+          "1975-05-14",
+          "1975-05-21",
+          "1975-05-28",
+          "1975-06-04",
+          "1975-06-11",
+          "1975-06-18",
+          "1975-06-25",
+          "1975-07-02",
+          "1975-07-09",
+          "1975-07-16",
+          "1975-07-23",
+          "1975-07-30",
+          "1975-08-06",
+          "1975-08-13",
+          "1975-08-20",
+          "1975-08-27",
+          "1975-09-03",
+          "1975-09-10",
+          "1975-09-17",
+          "1975-09-24",
+          "1975-10-01",
+          "1975-10-08",
+          "1975-10-15",
+          "1975-10-22",
+          "1975-10-29",
+          "1975-11-05",
+          "1975-11-12",
+          "1975-11-19",
+          "1975-11-26",
+          "1975-12-03",
+          "1975-12-10",
+          "1975-12-17",
+          "1975-12-24",
+          "1975-12-31",
+          "1976-01-07"
+        ]
+      },
+      "expected": [
+        "1975-01-01T10:30:00Z",
+        "1975-01-08T10:30:00Z",
+        "1975-01-15T10:30:00Z",
+        "1975-01-22T10:30:00Z",
+        "1975-01-29T10:30:00Z",
+        "1975-02-05T10:30:00Z",
+        "1975-02-12T10:30:00Z",
+        "1975-02-19T10:30:00Z",
+        "1975-02-26T10:30:00Z",
+        "1975-03-05T10:30:00Z",
+        "1975-03-12T10:30:00Z",
+        "1975-03-19T10:30:00Z",
+        "1975-03-26T10:30:00Z",
+        "1975-04-02T09:30:00Z",
+        "1975-04-09T09:30:00Z",
+        "1975-04-16T09:30:00Z",
+        "1975-04-23T09:30:00Z",
+        "1975-04-30T09:30:00Z",
+        "1975-05-07T09:30:00Z",
+        "1975-05-14T09:30:00Z",
+        "1975-05-21T09:30:00Z",
+        "1975-05-28T09:30:00Z",
+        "1975-06-04T09:30:00Z",
+        "1975-06-11T09:30:00Z",
+        "1975-06-18T09:30:00Z",
+        "1975-06-25T09:30:00Z",
+        "1975-07-02T09:30:00Z",
+        "1975-07-09T09:30:00Z",
+        "1975-07-16T09:30:00Z",
+        "1975-07-23T09:30:00Z",
+        "1975-07-30T09:30:00Z",
+        "1975-08-06T09:30:00Z",
+        "1975-08-13T09:30:00Z",
+        "1975-08-20T09:30:00Z",
+        "1975-08-27T09:30:00Z",
+        "1975-09-03T09:30:00Z",
+        "1975-09-10T09:30:00Z",
+        "1975-09-17T09:30:00Z",
+        "1975-09-24T10:30:00Z",
+        "1975-10-01T10:30:00Z",
+        "1975-10-08T10:30:00Z",
+        "1975-10-15T10:30:00Z",
+        "1975-10-22T10:30:00Z",
+        "1975-10-29T10:30:00Z",
+        "1975-11-05T10:30:00Z",
+        "1975-11-12T10:30:00Z",
+        "1975-11-19T10:30:00Z",
+        "1975-11-26T10:30:00Z",
+        "1975-12-03T10:30:00Z",
+        "1975-12-10T10:30:00Z",
+        "1975-12-17T10:30:00Z",
+        "1975-12-24T10:30:00Z",
+        "1975-12-31T10:30:00Z",
+        "1976-01-07T10:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-1984-year-sweep",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1984-01-01T10:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 7,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 54,
+              "recurrenceTimeZone": "",
+              "startDate": "1984-01-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1985-01-09",
+        "checkpoints": [
+          "1984-01-01",
+          "1984-01-08",
+          "1984-01-15",
+          "1984-01-22",
+          "1984-01-29",
+          "1984-02-05",
+          "1984-02-12",
+          "1984-02-19",
+          "1984-02-26",
+          "1984-03-04",
+          "1984-03-11",
+          "1984-03-18",
+          "1984-03-25",
+          "1984-04-01",
+          "1984-04-08",
+          "1984-04-15",
+          "1984-04-22",
+          "1984-04-29",
+          "1984-05-06",
+          "1984-05-13",
+          "1984-05-20",
+          "1984-05-27",
+          "1984-06-03",
+          "1984-06-10",
+          "1984-06-17",
+          "1984-06-24",
+          "1984-07-01",
+          "1984-07-08",
+          "1984-07-15",
+          "1984-07-22",
+          "1984-07-29",
+          "1984-08-05",
+          "1984-08-12",
+          "1984-08-19",
+          "1984-08-26",
+          "1984-09-02",
+          "1984-09-09",
+          "1984-09-16",
+          "1984-09-23",
+          "1984-09-30",
+          "1984-10-07",
+          "1984-10-14",
+          "1984-10-21",
+          "1984-10-28",
+          "1984-11-04",
+          "1984-11-11",
+          "1984-11-18",
+          "1984-11-25",
+          "1984-12-02",
+          "1984-12-09",
+          "1984-12-16",
+          "1984-12-23",
+          "1984-12-30",
+          "1985-01-06"
+        ]
+      },
+      "expected": [
+        "1984-01-01T10:30:00Z",
+        "1984-01-08T10:30:00Z",
+        "1984-01-15T10:30:00Z",
+        "1984-01-22T10:30:00Z",
+        "1984-01-29T10:30:00Z",
+        "1984-02-05T10:30:00Z",
+        "1984-02-12T10:30:00Z",
+        "1984-02-19T10:30:00Z",
+        "1984-02-26T10:30:00Z",
+        "1984-03-04T10:30:00Z",
+        "1984-03-11T10:30:00Z",
+        "1984-03-18T10:30:00Z",
+        "1984-03-25T10:30:00Z",
+        "1984-04-01T10:30:00Z",
+        "1984-04-08T09:30:00Z",
+        "1984-04-15T09:30:00Z",
+        "1984-04-22T09:30:00Z",
+        "1984-04-29T09:30:00Z",
+        "1984-05-06T09:30:00Z",
+        "1984-05-13T09:30:00Z",
+        "1984-05-20T09:30:00Z",
+        "1984-05-27T09:30:00Z",
+        "1984-06-03T09:30:00Z",
+        "1984-06-10T09:30:00Z",
+        "1984-06-17T09:30:00Z",
+        "1984-06-24T09:30:00Z",
+        "1984-07-01T09:30:00Z",
+        "1984-07-08T09:30:00Z",
+        "1984-07-15T09:30:00Z",
+        "1984-07-22T09:30:00Z",
+        "1984-07-29T09:30:00Z",
+        "1984-08-05T09:30:00Z",
+        "1984-08-12T09:30:00Z",
+        "1984-08-19T09:30:00Z",
+        "1984-08-26T09:30:00Z",
+        "1984-09-02T09:30:00Z",
+        "1984-09-09T09:30:00Z",
+        "1984-09-16T09:30:00Z",
+        "1984-09-23T09:30:00Z",
+        "1984-09-30T10:30:00Z",
+        "1984-10-07T10:30:00Z",
+        "1984-10-14T10:30:00Z",
+        "1984-10-21T10:30:00Z",
+        "1984-10-28T10:30:00Z",
+        "1984-11-04T10:30:00Z",
+        "1984-11-11T10:30:00Z",
+        "1984-11-18T10:30:00Z",
+        "1984-11-25T10:30:00Z",
+        "1984-12-02T10:30:00Z",
+        "1984-12-09T10:30:00Z",
+        "1984-12-16T10:30:00Z",
+        "1984-12-23T10:30:00Z",
+        "1984-12-30T10:30:00Z",
+        "1985-01-06T10:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-1985-year-sweep",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1985-01-01T10:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 7,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 54,
+              "recurrenceTimeZone": "",
+              "startDate": "1985-01-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1986-01-10",
+        "checkpoints": [
+          "1985-01-01",
+          "1985-01-08",
+          "1985-01-15",
+          "1985-01-22",
+          "1985-01-29",
+          "1985-02-05",
+          "1985-02-12",
+          "1985-02-19",
+          "1985-02-26",
+          "1985-03-05",
+          "1985-03-12",
+          "1985-03-19",
+          "1985-03-26",
+          "1985-04-02",
+          "1985-04-09",
+          "1985-04-16",
+          "1985-04-23",
+          "1985-04-30",
+          "1985-05-07",
+          "1985-05-14",
+          "1985-05-21",
+          "1985-05-28",
+          "1985-06-04",
+          "1985-06-11",
+          "1985-06-18",
+          "1985-06-25",
+          "1985-07-02",
+          "1985-07-09",
+          "1985-07-16",
+          "1985-07-23",
+          "1985-07-30",
+          "1985-08-06",
+          "1985-08-13",
+          "1985-08-20",
+          "1985-08-27",
+          "1985-09-03",
+          "1985-09-10",
+          "1985-09-17",
+          "1985-09-24",
+          "1985-10-01",
+          "1985-10-08",
+          "1985-10-15",
+          "1985-10-22",
+          "1985-10-29",
+          "1985-11-05",
+          "1985-11-12",
+          "1985-11-19",
+          "1985-11-26",
+          "1985-12-03",
+          "1985-12-10",
+          "1985-12-17",
+          "1985-12-24",
+          "1985-12-31",
+          "1986-01-07"
+        ]
+      },
+      "expected": [
+        "1985-01-01T10:30:00Z",
+        "1985-01-08T10:30:00Z",
+        "1985-01-15T10:30:00Z",
+        "1985-01-22T10:30:00Z",
+        "1985-01-29T10:30:00Z",
+        "1985-02-05T10:30:00Z",
+        "1985-02-12T10:30:00Z",
+        "1985-02-19T10:30:00Z",
+        "1985-02-26T10:30:00Z",
+        "1985-03-05T10:30:00Z",
+        "1985-03-12T10:30:00Z",
+        "1985-03-19T10:30:00Z",
+        "1985-03-26T10:30:00Z",
+        "1985-04-02T10:30:00Z",
+        "1985-04-09T09:30:00Z",
+        "1985-04-16T09:30:00Z",
+        "1985-04-23T09:30:00Z",
+        "1985-04-30T09:30:00Z",
+        "1985-05-07T09:30:00Z",
+        "1985-05-14T09:30:00Z",
+        "1985-05-21T09:30:00Z",
+        "1985-05-28T09:30:00Z",
+        "1985-06-04T09:30:00Z",
+        "1985-06-11T09:30:00Z",
+        "1985-06-18T09:30:00Z",
+        "1985-06-25T09:30:00Z",
+        "1985-07-02T09:30:00Z",
+        "1985-07-09T09:30:00Z",
+        "1985-07-16T09:30:00Z",
+        "1985-07-23T09:30:00Z",
+        "1985-07-30T09:30:00Z",
+        "1985-08-06T09:30:00Z",
+        "1985-08-13T09:30:00Z",
+        "1985-08-20T09:30:00Z",
+        "1985-08-27T09:30:00Z",
+        "1985-09-03T09:30:00Z",
+        "1985-09-10T09:30:00Z",
+        "1985-09-17T09:30:00Z",
+        "1985-09-24T09:30:00Z",
+        "1985-10-01T10:30:00Z",
+        "1985-10-08T10:30:00Z",
+        "1985-10-15T10:30:00Z",
+        "1985-10-22T10:30:00Z",
+        "1985-10-29T10:30:00Z",
+        "1985-11-05T10:30:00Z",
+        "1985-11-12T10:30:00Z",
+        "1985-11-19T10:30:00Z",
+        "1985-11-26T10:30:00Z",
+        "1985-12-03T10:30:00Z",
+        "1985-12-10T10:30:00Z",
+        "1985-12-17T10:30:00Z",
+        "1985-12-24T10:30:00Z",
+        "1985-12-31T10:30:00Z",
+        "1986-01-07T10:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-1995-year-sweep",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1995-01-01T10:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 7,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 54,
+              "recurrenceTimeZone": "",
+              "startDate": "1995-01-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1996-01-10",
+        "checkpoints": [
+          "1995-01-01",
+          "1995-01-08",
+          "1995-01-15",
+          "1995-01-22",
+          "1995-01-29",
+          "1995-02-05",
+          "1995-02-12",
+          "1995-02-19",
+          "1995-02-26",
+          "1995-03-05",
+          "1995-03-12",
+          "1995-03-19",
+          "1995-03-26",
+          "1995-04-02",
+          "1995-04-09",
+          "1995-04-16",
+          "1995-04-23",
+          "1995-04-30",
+          "1995-05-07",
+          "1995-05-14",
+          "1995-05-21",
+          "1995-05-28",
+          "1995-06-04",
+          "1995-06-11",
+          "1995-06-18",
+          "1995-06-25",
+          "1995-07-02",
+          "1995-07-09",
+          "1995-07-16",
+          "1995-07-23",
+          "1995-07-30",
+          "1995-08-06",
+          "1995-08-13",
+          "1995-08-20",
+          "1995-08-27",
+          "1995-09-03",
+          "1995-09-10",
+          "1995-09-17",
+          "1995-09-24",
+          "1995-10-01",
+          "1995-10-08",
+          "1995-10-15",
+          "1995-10-22",
+          "1995-10-29",
+          "1995-11-05",
+          "1995-11-12",
+          "1995-11-19",
+          "1995-11-26",
+          "1995-12-03",
+          "1995-12-10",
+          "1995-12-17",
+          "1995-12-24",
+          "1995-12-31",
+          "1996-01-07"
+        ]
+      },
+      "expected": [
+        "1995-01-01T10:30:00Z",
+        "1995-01-08T10:30:00Z",
+        "1995-01-15T10:30:00Z",
+        "1995-01-22T10:30:00Z",
+        "1995-01-29T10:30:00Z",
+        "1995-02-05T10:30:00Z",
+        "1995-02-12T10:30:00Z",
+        "1995-02-19T10:30:00Z",
+        "1995-02-26T10:30:00Z",
+        "1995-03-05T10:30:00Z",
+        "1995-03-12T10:30:00Z",
+        "1995-03-19T10:30:00Z",
+        "1995-03-26T10:30:00Z",
+        "1995-04-02T10:30:00Z",
+        "1995-04-09T09:30:00Z",
+        "1995-04-16T09:30:00Z",
+        "1995-04-23T09:30:00Z",
+        "1995-04-30T09:30:00Z",
+        "1995-05-07T09:30:00Z",
+        "1995-05-14T09:30:00Z",
+        "1995-05-21T09:30:00Z",
+        "1995-05-28T09:30:00Z",
+        "1995-06-04T09:30:00Z",
+        "1995-06-11T09:30:00Z",
+        "1995-06-18T09:30:00Z",
+        "1995-06-25T09:30:00Z",
+        "1995-07-02T09:30:00Z",
+        "1995-07-09T09:30:00Z",
+        "1995-07-16T09:30:00Z",
+        "1995-07-23T09:30:00Z",
+        "1995-07-30T09:30:00Z",
+        "1995-08-06T09:30:00Z",
+        "1995-08-13T09:30:00Z",
+        "1995-08-20T09:30:00Z",
+        "1995-08-27T09:30:00Z",
+        "1995-09-03T09:30:00Z",
+        "1995-09-10T09:30:00Z",
+        "1995-09-17T09:30:00Z",
+        "1995-09-24T09:30:00Z",
+        "1995-10-01T10:30:00Z",
+        "1995-10-08T10:30:00Z",
+        "1995-10-15T10:30:00Z",
+        "1995-10-22T10:30:00Z",
+        "1995-10-29T10:30:00Z",
+        "1995-11-05T10:30:00Z",
+        "1995-11-12T10:30:00Z",
+        "1995-11-19T10:30:00Z",
+        "1995-11-26T10:30:00Z",
+        "1995-12-03T10:30:00Z",
+        "1995-12-10T10:30:00Z",
+        "1995-12-17T10:30:00Z",
+        "1995-12-24T10:30:00Z",
+        "1995-12-31T10:30:00Z",
+        "1996-01-07T10:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-2004-year-sweep",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2004-01-01T10:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 7,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 54,
+              "recurrenceTimeZone": "",
+              "startDate": "2004-01-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2005-01-09",
+        "checkpoints": [
+          "2004-01-01",
+          "2004-01-08",
+          "2004-01-15",
+          "2004-01-22",
+          "2004-01-29",
+          "2004-02-05",
+          "2004-02-12",
+          "2004-02-19",
+          "2004-02-26",
+          "2004-03-04",
+          "2004-03-11",
+          "2004-03-18",
+          "2004-03-25",
+          "2004-04-01",
+          "2004-04-08",
+          "2004-04-15",
+          "2004-04-22",
+          "2004-04-29",
+          "2004-05-06",
+          "2004-05-13",
+          "2004-05-20",
+          "2004-05-27",
+          "2004-06-03",
+          "2004-06-10",
+          "2004-06-17",
+          "2004-06-24",
+          "2004-07-01",
+          "2004-07-08",
+          "2004-07-15",
+          "2004-07-22",
+          "2004-07-29",
+          "2004-08-05",
+          "2004-08-12",
+          "2004-08-19",
+          "2004-08-26",
+          "2004-09-02",
+          "2004-09-09",
+          "2004-09-16",
+          "2004-09-23",
+          "2004-09-30",
+          "2004-10-07",
+          "2004-10-14",
+          "2004-10-21",
+          "2004-10-28",
+          "2004-11-04",
+          "2004-11-11",
+          "2004-11-18",
+          "2004-11-25",
+          "2004-12-02",
+          "2004-12-09",
+          "2004-12-16",
+          "2004-12-23",
+          "2004-12-30",
+          "2005-01-06"
+        ]
+      },
+      "expected": [
+        "2004-01-01T10:30:00Z",
+        "2004-01-08T10:30:00Z",
+        "2004-01-15T10:30:00Z",
+        "2004-01-22T10:30:00Z",
+        "2004-01-29T10:30:00Z",
+        "2004-02-05T10:30:00Z",
+        "2004-02-12T10:30:00Z",
+        "2004-02-19T10:30:00Z",
+        "2004-02-26T10:30:00Z",
+        "2004-03-04T10:30:00Z",
+        "2004-03-11T10:30:00Z",
+        "2004-03-18T10:30:00Z",
+        "2004-03-25T10:30:00Z",
+        "2004-04-01T10:30:00Z",
+        "2004-04-08T09:30:00Z",
+        "2004-04-15T09:30:00Z",
+        "2004-04-22T09:30:00Z",
+        "2004-04-29T09:30:00Z",
+        "2004-05-06T09:30:00Z",
+        "2004-05-13T09:30:00Z",
+        "2004-05-20T09:30:00Z",
+        "2004-05-27T09:30:00Z",
+        "2004-06-03T09:30:00Z",
+        "2004-06-10T09:30:00Z",
+        "2004-06-17T09:30:00Z",
+        "2004-06-24T09:30:00Z",
+        "2004-07-01T09:30:00Z",
+        "2004-07-08T09:30:00Z",
+        "2004-07-15T09:30:00Z",
+        "2004-07-22T09:30:00Z",
+        "2004-07-29T09:30:00Z",
+        "2004-08-05T09:30:00Z",
+        "2004-08-12T09:30:00Z",
+        "2004-08-19T09:30:00Z",
+        "2004-08-26T09:30:00Z",
+        "2004-09-02T09:30:00Z",
+        "2004-09-09T09:30:00Z",
+        "2004-09-16T09:30:00Z",
+        "2004-09-23T10:30:00Z",
+        "2004-09-30T10:30:00Z",
+        "2004-10-07T10:30:00Z",
+        "2004-10-14T10:30:00Z",
+        "2004-10-21T10:30:00Z",
+        "2004-10-28T10:30:00Z",
+        "2004-11-04T10:30:00Z",
+        "2004-11-11T10:30:00Z",
+        "2004-11-18T10:30:00Z",
+        "2004-11-25T10:30:00Z",
+        "2004-12-02T10:30:00Z",
+        "2004-12-09T10:30:00Z",
+        "2004-12-16T10:30:00Z",
+        "2004-12-23T10:30:00Z",
+        "2004-12-30T10:30:00Z",
+        "2005-01-06T10:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-2005-year-sweep",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2005-01-01T10:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 7,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 54,
+              "recurrenceTimeZone": "",
+              "startDate": "2005-01-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2006-01-10",
+        "checkpoints": [
+          "2005-01-01",
+          "2005-01-08",
+          "2005-01-15",
+          "2005-01-22",
+          "2005-01-29",
+          "2005-02-05",
+          "2005-02-12",
+          "2005-02-19",
+          "2005-02-26",
+          "2005-03-05",
+          "2005-03-12",
+          "2005-03-19",
+          "2005-03-26",
+          "2005-04-02",
+          "2005-04-09",
+          "2005-04-16",
+          "2005-04-23",
+          "2005-04-30",
+          "2005-05-07",
+          "2005-05-14",
+          "2005-05-21",
+          "2005-05-28",
+          "2005-06-04",
+          "2005-06-11",
+          "2005-06-18",
+          "2005-06-25",
+          "2005-07-02",
+          "2005-07-09",
+          "2005-07-16",
+          "2005-07-23",
+          "2005-07-30",
+          "2005-08-06",
+          "2005-08-13",
+          "2005-08-20",
+          "2005-08-27",
+          "2005-09-03",
+          "2005-09-10",
+          "2005-09-17",
+          "2005-09-24",
+          "2005-10-01",
+          "2005-10-08",
+          "2005-10-15",
+          "2005-10-22",
+          "2005-10-29",
+          "2005-11-05",
+          "2005-11-12",
+          "2005-11-19",
+          "2005-11-26",
+          "2005-12-03",
+          "2005-12-10",
+          "2005-12-17",
+          "2005-12-24",
+          "2005-12-31",
+          "2006-01-07"
+        ]
+      },
+      "expected": [
+        "2005-01-01T10:30:00Z",
+        "2005-01-08T10:30:00Z",
+        "2005-01-15T10:30:00Z",
+        "2005-01-22T10:30:00Z",
+        "2005-01-29T10:30:00Z",
+        "2005-02-05T10:30:00Z",
+        "2005-02-12T10:30:00Z",
+        "2005-02-19T10:30:00Z",
+        "2005-02-26T10:30:00Z",
+        "2005-03-05T10:30:00Z",
+        "2005-03-12T10:30:00Z",
+        "2005-03-19T10:30:00Z",
+        "2005-03-26T10:30:00Z",
+        "2005-04-02T09:30:00Z",
+        "2005-04-09T09:30:00Z",
+        "2005-04-16T09:30:00Z",
+        "2005-04-23T09:30:00Z",
+        "2005-04-30T09:30:00Z",
+        "2005-05-07T09:30:00Z",
+        "2005-05-14T09:30:00Z",
+        "2005-05-21T09:30:00Z",
+        "2005-05-28T09:30:00Z",
+        "2005-06-04T09:30:00Z",
+        "2005-06-11T09:30:00Z",
+        "2005-06-18T09:30:00Z",
+        "2005-06-25T09:30:00Z",
+        "2005-07-02T09:30:00Z",
+        "2005-07-09T09:30:00Z",
+        "2005-07-16T09:30:00Z",
+        "2005-07-23T09:30:00Z",
+        "2005-07-30T09:30:00Z",
+        "2005-08-06T09:30:00Z",
+        "2005-08-13T09:30:00Z",
+        "2005-08-20T09:30:00Z",
+        "2005-08-27T09:30:00Z",
+        "2005-09-03T09:30:00Z",
+        "2005-09-10T09:30:00Z",
+        "2005-09-17T09:30:00Z",
+        "2005-09-24T09:30:00Z",
+        "2005-10-01T09:30:00Z",
+        "2005-10-08T09:30:00Z",
+        "2005-10-15T10:30:00Z",
+        "2005-10-22T10:30:00Z",
+        "2005-10-29T10:30:00Z",
+        "2005-11-05T10:30:00Z",
+        "2005-11-12T10:30:00Z",
+        "2005-11-19T10:30:00Z",
+        "2005-11-26T10:30:00Z",
+        "2005-12-03T10:30:00Z",
+        "2005-12-10T10:30:00Z",
+        "2005-12-17T10:30:00Z",
+        "2005-12-24T10:30:00Z",
+        "2005-12-31T10:30:00Z",
+        "2006-01-07T10:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-2012-year-sweep",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2012-01-01T10:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 7,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 54,
+              "recurrenceTimeZone": "",
+              "startDate": "2012-01-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2013-01-09",
+        "checkpoints": [
+          "2012-01-01",
+          "2012-01-08",
+          "2012-01-15",
+          "2012-01-22",
+          "2012-01-29",
+          "2012-02-05",
+          "2012-02-12",
+          "2012-02-19",
+          "2012-02-26",
+          "2012-03-04",
+          "2012-03-11",
+          "2012-03-18",
+          "2012-03-25",
+          "2012-04-01",
+          "2012-04-08",
+          "2012-04-15",
+          "2012-04-22",
+          "2012-04-29",
+          "2012-05-06",
+          "2012-05-13",
+          "2012-05-20",
+          "2012-05-27",
+          "2012-06-03",
+          "2012-06-10",
+          "2012-06-17",
+          "2012-06-24",
+          "2012-07-01",
+          "2012-07-08",
+          "2012-07-15",
+          "2012-07-22",
+          "2012-07-29",
+          "2012-08-05",
+          "2012-08-12",
+          "2012-08-19",
+          "2012-08-26",
+          "2012-09-02",
+          "2012-09-09",
+          "2012-09-16",
+          "2012-09-23",
+          "2012-09-30",
+          "2012-10-07",
+          "2012-10-14",
+          "2012-10-21",
+          "2012-10-28",
+          "2012-11-04",
+          "2012-11-11",
+          "2012-11-18",
+          "2012-11-25",
+          "2012-12-02",
+          "2012-12-09",
+          "2012-12-16",
+          "2012-12-23",
+          "2012-12-30",
+          "2013-01-06"
+        ]
+      },
+      "expected": [
+        "2012-01-01T10:30:00Z",
+        "2012-01-08T10:30:00Z",
+        "2012-01-15T10:30:00Z",
+        "2012-01-22T10:30:00Z",
+        "2012-01-29T10:30:00Z",
+        "2012-02-05T10:30:00Z",
+        "2012-02-12T10:30:00Z",
+        "2012-02-19T10:30:00Z",
+        "2012-02-26T10:30:00Z",
+        "2012-03-04T10:30:00Z",
+        "2012-03-11T10:30:00Z",
+        "2012-03-18T10:30:00Z",
+        "2012-03-25T10:30:00Z",
+        "2012-04-01T09:30:00Z",
+        "2012-04-08T09:30:00Z",
+        "2012-04-15T09:30:00Z",
+        "2012-04-22T09:30:00Z",
+        "2012-04-29T09:30:00Z",
+        "2012-05-06T09:30:00Z",
+        "2012-05-13T09:30:00Z",
+        "2012-05-20T09:30:00Z",
+        "2012-05-27T09:30:00Z",
+        "2012-06-03T09:30:00Z",
+        "2012-06-10T09:30:00Z",
+        "2012-06-17T09:30:00Z",
+        "2012-06-24T09:30:00Z",
+        "2012-07-01T09:30:00Z",
+        "2012-07-08T09:30:00Z",
+        "2012-07-15T09:30:00Z",
+        "2012-07-22T09:30:00Z",
+        "2012-07-29T09:30:00Z",
+        "2012-08-05T09:30:00Z",
+        "2012-08-12T09:30:00Z",
+        "2012-08-19T09:30:00Z",
+        "2012-08-26T09:30:00Z",
+        "2012-09-02T09:30:00Z",
+        "2012-09-09T09:30:00Z",
+        "2012-09-16T09:30:00Z",
+        "2012-09-23T10:30:00Z",
+        "2012-09-30T10:30:00Z",
+        "2012-10-07T10:30:00Z",
+        "2012-10-14T10:30:00Z",
+        "2012-10-21T10:30:00Z",
+        "2012-10-28T10:30:00Z",
+        "2012-11-04T10:30:00Z",
+        "2012-11-11T10:30:00Z",
+        "2012-11-18T10:30:00Z",
+        "2012-11-25T10:30:00Z",
+        "2012-12-02T10:30:00Z",
+        "2012-12-09T10:30:00Z",
+        "2012-12-16T10:30:00Z",
+        "2012-12-23T10:30:00Z",
+        "2012-12-30T10:30:00Z",
+        "2013-01-06T10:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-2013-year-sweep",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2013-01-01T10:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 7,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 54,
+              "recurrenceTimeZone": "Israel Standard Time",
+              "startDate": "2013-01-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2014-01-10",
+        "checkpoints": [
+          "2013-01-01",
+          "2013-01-08",
+          "2013-01-15",
+          "2013-01-22",
+          "2013-01-29",
+          "2013-02-05",
+          "2013-02-12",
+          "2013-02-19",
+          "2013-02-26",
+          "2013-03-05",
+          "2013-03-12",
+          "2013-03-19",
+          "2013-03-26",
+          "2013-04-02",
+          "2013-04-09",
+          "2013-04-16",
+          "2013-04-23",
+          "2013-04-30",
+          "2013-05-07",
+          "2013-05-14",
+          "2013-05-21",
+          "2013-05-28",
+          "2013-06-04",
+          "2013-06-11",
+          "2013-06-18",
+          "2013-06-25",
+          "2013-07-02",
+          "2013-07-09",
+          "2013-07-16",
+          "2013-07-23",
+          "2013-07-30",
+          "2013-08-06",
+          "2013-08-13",
+          "2013-08-20",
+          "2013-08-27",
+          "2013-09-03",
+          "2013-09-10",
+          "2013-09-17",
+          "2013-09-24",
+          "2013-10-01",
+          "2013-10-08",
+          "2013-10-15",
+          "2013-10-22",
+          "2013-10-29",
+          "2013-11-05",
+          "2013-11-12",
+          "2013-11-19",
+          "2013-11-26",
+          "2013-12-03",
+          "2013-12-10",
+          "2013-12-17",
+          "2013-12-24",
+          "2013-12-31",
+          "2014-01-07"
+        ]
+      },
+      "expected": [
+        "2013-01-01T10:30:00Z",
+        "2013-01-08T10:30:00Z",
+        "2013-01-15T10:30:00Z",
+        "2013-01-22T10:30:00Z",
+        "2013-01-29T10:30:00Z",
+        "2013-02-05T10:30:00Z",
+        "2013-02-12T10:30:00Z",
+        "2013-02-19T10:30:00Z",
+        "2013-02-26T10:30:00Z",
+        "2013-03-05T10:30:00Z",
+        "2013-03-12T10:30:00Z",
+        "2013-03-19T10:30:00Z",
+        "2013-03-26T10:30:00Z",
+        "2013-04-02T09:30:00Z",
+        "2013-04-09T09:30:00Z",
+        "2013-04-16T09:30:00Z",
+        "2013-04-23T09:30:00Z",
+        "2013-04-30T09:30:00Z",
+        "2013-05-07T09:30:00Z",
+        "2013-05-14T09:30:00Z",
+        "2013-05-21T09:30:00Z",
+        "2013-05-28T09:30:00Z",
+        "2013-06-04T09:30:00Z",
+        "2013-06-11T09:30:00Z",
+        "2013-06-18T09:30:00Z",
+        "2013-06-25T09:30:00Z",
+        "2013-07-02T09:30:00Z",
+        "2013-07-09T09:30:00Z",
+        "2013-07-16T09:30:00Z",
+        "2013-07-23T09:30:00Z",
+        "2013-07-30T09:30:00Z",
+        "2013-08-06T09:30:00Z",
+        "2013-08-13T09:30:00Z",
+        "2013-08-20T09:30:00Z",
+        "2013-08-27T09:30:00Z",
+        "2013-09-03T09:30:00Z",
+        "2013-09-10T09:30:00Z",
+        "2013-09-17T09:30:00Z",
+        "2013-09-24T09:30:00Z",
+        "2013-10-01T09:30:00Z",
+        "2013-10-08T09:30:00Z",
+        "2013-10-15T09:30:00Z",
+        "2013-10-22T09:30:00Z",
+        "2013-10-29T10:30:00Z",
+        "2013-11-05T10:30:00Z",
+        "2013-11-12T10:30:00Z",
+        "2013-11-19T10:30:00Z",
+        "2013-11-26T10:30:00Z",
+        "2013-12-03T10:30:00Z",
+        "2013-12-10T10:30:00Z",
+        "2013-12-17T10:30:00Z",
+        "2013-12-24T10:30:00Z",
+        "2013-12-31T10:30:00Z",
+        "2014-01-07T10:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-1984-march-boundary",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1984-03-22T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1984-03-22",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1984-04-03",
+        "checkpoints": [
+          "1984-03-22",
+          "1984-03-23",
+          "1984-03-24",
+          "1984-03-25",
+          "1984-03-26"
+        ]
+      },
+      "expected": [
+        "1984-03-22T00:30:00Z",
+        "1984-03-23T00:30:00Z",
+        "1984-03-24T00:30:00Z",
+        "1984-03-25T00:30:00Z",
+        "1984-03-26T00:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-1984-october-boundary",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1984-10-24T23:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1984-10-25",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1984-11-06",
+        "checkpoints": [
+          "1984-10-24",
+          "1984-10-25",
+          "1984-10-26",
+          "1984-10-27",
+          "1984-10-28"
+        ]
+      },
+      "expected": [
+        "1984-10-24T23:30:00Z",
+        "1984-10-25T23:30:00Z",
+        "1984-10-26T23:30:00Z",
+        "1984-10-27T23:30:00Z",
+        "1984-10-28T23:30:00Z"
+      ]
+    },
+    {
+      "name": "israel-1985-winter-midnight",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1985-01-31T22:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Israel Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1985-02-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1985-02-13",
+        "checkpoints": [
+          "1985-01-31",
+          "1985-02-01",
+          "1985-02-02",
+          "1985-02-03",
+          "1985-02-04"
+        ]
+      },
+      "expected": [
+        "1985-01-31T22:30:00Z",
+        "1985-02-01T22:30:00Z",
+        "1985-02-02T22:30:00Z",
+        "1985-02-03T22:30:00Z",
+        "1985-02-04T22:30:00Z"
+      ]
+    },
+    {
+      "name": "rfc-israel-1984-uses-iana-spring-offset",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Asia/Jerusalem:19840504T003000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1984-05-09",
+        "checkpoints": [
+          "1984-05-03",
+          "1984-05-05"
+        ]
+      },
+      "expected": [
+        "1984-05-03T22:30:00Z",
+        "1984-05-04T22:30:00Z",
+        "1984-05-05T22:30:00Z",
+        "1984-05-06T21:30:00Z",
+        "1984-05-07T21:30:00Z"
+      ]
+    }
+  ]
+}

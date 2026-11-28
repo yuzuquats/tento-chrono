@@ -1,0 +1,345 @@
+{
+  "type": "recurrence-profile",
+  "name": "Outlook Graph clock boundaries",
+  "source": "Microsoft Graph v1.0 calendarView, captured 2026-11-23",
+  "cases": [
+    {
+      "name": "utc-fraction-before-midnight",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-03-12T23:59:59.9999990",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2027-03-14",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-03-12",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2027-03-16",
+        "checkpoints": [
+          "2027-03-12",
+          "2027-03-13",
+          "2027-03-14"
+        ]
+      },
+      "expected": [
+        "2027-03-12T23:59:00Z",
+        "2027-03-13T23:59:00Z",
+        "2027-03-14T23:59:00Z"
+      ]
+    },
+    {
+      "name": "utc-fraction-after-midnight",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-03-12T00:00:00.9999990",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2027-03-14",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-03-12",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2027-03-16",
+        "checkpoints": [
+          "2027-03-12",
+          "2027-03-13",
+          "2027-03-14"
+        ]
+      },
+      "expected": [
+        "2027-03-12T00:00:00Z",
+        "2027-03-13T00:00:00Z",
+        "2027-03-14T00:00:00Z"
+      ]
+    },
+    {
+      "name": "east-spring-earlier-anchor-last-gap-minute",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-03-12T07:59:59.9999990",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Eastern Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2027-03-15",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Eastern Standard Time",
+              "startDate": "2027-03-12",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2027-03-16",
+        "checkpoints": [
+          "2027-03-12",
+          "2027-03-13",
+          "2027-03-14",
+          "2027-03-15"
+        ]
+      },
+      "expected": [
+        "2027-03-12T07:59:00Z",
+        "2027-03-13T07:59:00Z",
+        "2027-03-14T07:59:00Z",
+        "2027-03-15T06:59:00Z"
+      ]
+    },
+    {
+      "name": "east-spring-gap-anchor-first-gap-minute",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-03-14T07:00:00.9999990",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Eastern Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "Eastern Standard Time",
+              "startDate": "2027-03-14",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-03-18",
+        "checkpoints": [
+          "2027-03-14",
+          "2027-03-15",
+          "2027-03-16"
+        ]
+      },
+      "expected": [
+        "2027-03-14T07:00:00Z",
+        "2027-03-15T07:00:00Z",
+        "2027-03-16T07:00:00Z"
+      ]
+    },
+    {
+      "name": "east-fall-earlier-anchor-last-fold-minute",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-11-05T05:59:59.9999990",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Eastern Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2027-11-08",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Eastern Standard Time",
+              "startDate": "2027-11-05",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2027-11-09",
+        "checkpoints": [
+          "2027-11-05",
+          "2027-11-06",
+          "2027-11-07",
+          "2027-11-08"
+        ]
+      },
+      "expected": [
+        "2027-11-05T05:59:00Z",
+        "2027-11-06T05:59:00Z",
+        "2027-11-07T05:59:00Z",
+        "2027-11-08T06:59:00Z"
+      ]
+    },
+    {
+      "name": "east-fall-fold-anchor-first-fold-minute",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-11-07T05:00:00.9999990",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Eastern Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "Eastern Standard Time",
+              "startDate": "2027-11-07",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-11-11",
+        "checkpoints": [
+          "2027-11-07",
+          "2027-11-08",
+          "2027-11-09"
+        ]
+      },
+      "expected": [
+        "2027-11-07T05:00:00Z",
+        "2027-11-08T06:00:00Z",
+        "2027-11-09T06:00:00Z"
+      ]
+    },
+    {
+      "name": "east-fall-fold-anchor-last-fold-minute",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-11-07T05:59:59.9999990",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Eastern Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday",
+                "sunday"
+              ],
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "weekly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "Eastern Standard Time",
+              "startDate": "2027-11-07",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-11-15",
+        "checkpoints": [
+          "2027-11-07",
+          "2027-11-08",
+          "2027-11-14"
+        ]
+      },
+      "expected": [
+        "2027-11-07T05:59:00Z",
+        "2027-11-08T06:59:00Z",
+        "2027-11-14T06:59:00Z"
+      ]
+    },
+    {
+      "name": "lord-howe-fall-fold-from-earlier-anchor",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-04-01T14:59:59.9999990",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Lord Howe Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2027-04-05",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Lord Howe Standard Time",
+              "startDate": "2027-04-02",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2027-04-06",
+        "checkpoints": [
+          "2027-04-01",
+          "2027-04-02",
+          "2027-04-03",
+          "2027-04-04"
+        ]
+      },
+      "expected": [
+        "2027-04-01T14:59:00Z",
+        "2027-04-02T14:59:00Z",
+        "2027-04-03T14:59:00Z",
+        "2027-04-04T15:29:00Z"
+      ]
+    }
+  ]
+}

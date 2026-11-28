@@ -1,0 +1,186 @@
+{
+  "type": "recurrence-profile",
+  "name": "dateutil invalid UNTIL offsets",
+  "source": "python-dateutil 2.8.2 rrulestr, forceset=True, TZ=UTC",
+  "cases": [
+    {
+      "name": "invalid UNTIL is still aware when DTSTART is floating",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000",
+          "RRULE:FREQ=DAILY;UNTIL=20260103T090000+2400"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "RRULE UNTIL values must be specified in UTC when DTSTART is timezone-aware"
+      }
+    },
+    {
+      "name": "invalid UNTIL precedes zero count when a candidate needs UTC",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=0;UNTIL=20260101T090000+2400"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": []
+      },
+      "expected": {
+        "expansionError": "offset must be a timedelta strictly between -timedelta(hours=24) and timedelta(hours=24)."
+      }
+    },
+    {
+      "name": "invalid UNTIL fails against a different invalid zone",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000+2500",
+          "RRULE:FREQ=DAILY;COUNT=1;UNTIL=20260103T090000+2400"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": []
+      },
+      "expected": {
+        "expansionError": "offset must be a timedelta strictly between -timedelta(hours=24) and timedelta(hours=24)."
+      }
+    },
+    {
+      "name": "identical out-of-range offset lets earlier UNTIL stop by wall time",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000-2400",
+          "RRULE:FREQ=DAILY;COUNT=1;UNTIL=20260102T085959-2400"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "same invalid UNTIL offset preserves zero count",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000+2400",
+          "RRULE:FREQ=DAILY;COUNT=0;UNTIL=20260103T090000+2400"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "inclusive matching invalid UNTIL yields a candidate that cannot project",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000+2400",
+          "RRULE:FREQ=DAILY;COUNT=1;UNTIL=20260102T090000+2400"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": []
+      },
+      "expected": {
+        "expansionError": "offset must be a timedelta strictly between -timedelta(hours=24) and timedelta(hours=24)."
+      }
+    },
+    {
+      "name": "same invalid UNTIL admits an occurrence removed before projection",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000+2400",
+          "RRULE:FREQ=DAILY;UNTIL=20260102T090000+2400",
+          "EXDATE:20260102T090000+2400"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "identical negative cutoff offset works in EXRULE",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000-2400",
+          "RRULE:FREQ=DAILY;COUNT=1",
+          "EXRULE:FREQ=DAILY;UNTIL=20260102T090000-2400"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "invalid EXRULE cutoff validates before its zero count",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000Z",
+          "RDATE:20260102T090000Z",
+          "EXRULE:FREQ=DAILY;UNTIL=20260103T090000-2400;COUNT=0"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": []
+      },
+      "expected": {
+        "expansionError": "offset must be a timedelta strictly between -timedelta(hours=24) and timedelta(hours=24)."
+      }
+    },
+    {
+      "name": "implicit start inherits the invalid cutoff offset",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RRULE:FREQ=DAILY;UNTIL=00010102T090000+2400"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "no candidate leaves invalid UNTIL unvalidated",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:99991230T090000Z",
+          "RRULE:FREQ=DAILY;BYMONTH=1;UNTIL=99991231T090000+2400"
+        ],
+        "through": "2026-01-05",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": []
+    }
+  ]
+}

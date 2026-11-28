@@ -1,0 +1,437 @@
+{
+  "type": "recurrence-profile",
+  "name": "rrule.js week-year masks and historical zone sets",
+  "source": "rrule.js 2.8.1 rrulestr forceset, Node tzdata 2026e",
+  "cases": [
+    {
+      "name": "yearly week 53 selects weekdays in three calendar years",
+      "input": {
+        "lines": [
+          "DTSTART:20191227T093000Z",
+          "RRULE:FREQ=YEARLY;WKST=MO;BYWEEKNO=53;BYDAY=MO,SU;UNTIL=20220120T235959Z"
+        ],
+        "through": "2022-01-20",
+        "checkpoints": [
+          "2020-12-28",
+          "2021-01-03",
+          "2022-01-02"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        "2020-12-28T09:30:00Z",
+        "2021-01-03T09:30:00Z",
+        "2022-01-02T09:30:00Z"
+      ]
+    },
+    {
+      "name": "monthly week 53 keeps the calendar-year mask",
+      "input": {
+        "lines": [
+          "DTSTART:20191227T093000Z",
+          "RRULE:FREQ=MONTHLY;WKST=MO;BYWEEKNO=53;BYDAY=MO,SU;UNTIL=20220120T235959Z"
+        ],
+        "through": "2022-01-20",
+        "checkpoints": [
+          "2020-12-28",
+          "2021-01-03",
+          "2022-01-02"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        "2020-12-28T09:30:00Z",
+        "2021-01-03T09:30:00Z",
+        "2022-01-02T09:30:00Z"
+      ]
+    },
+    {
+      "name": "weekly week 53 uses the mask of the week anchor",
+      "input": {
+        "lines": [
+          "DTSTART:20191227T093000Z",
+          "RRULE:FREQ=WEEKLY;WKST=MO;BYWEEKNO=53;BYDAY=MO,SU;UNTIL=20220120T235959Z"
+        ],
+        "through": "2022-01-20",
+        "checkpoints": [
+          "2020-12-28",
+          "2021-01-03"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        "2020-12-28T09:30:00Z",
+        "2021-01-03T09:30:00Z"
+      ]
+    },
+    {
+      "name": "negative week 53 selects the first days of leap year 2020",
+      "input": {
+        "lines": [
+          "DTSTART:20191227T093000Z",
+          "RRULE:FREQ=DAILY;WKST=MO;BYWEEKNO=-53;UNTIL=20220120T235959Z"
+        ],
+        "through": "2022-01-20",
+        "checkpoints": [
+          "2020-01-01",
+          "2020-01-02",
+          "2020-01-03",
+          "2020-01-04",
+          "2020-01-05"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        "2020-01-01T09:30:00Z",
+        "2020-01-02T09:30:00Z",
+        "2020-01-03T09:30:00Z",
+        "2020-01-04T09:30:00Z",
+        "2020-01-05T09:30:00Z"
+      ]
+    },
+    {
+      "name": "yearly positions select clocks after combining week numbers",
+      "input": {
+        "lines": [
+          "DTSTART:20191227T093000Z",
+          "RRULE:FREQ=YEARLY;WKST=MO;BYWEEKNO=1,52,-1;BYHOUR=0,23;BYDAY=MO,WE;BYSETPOS=1,-1;UNTIL=20220120T235959Z"
+        ],
+        "through": "2022-01-20",
+        "checkpoints": [
+          "2019-12-30",
+          "2020-01-01",
+          "2020-12-30",
+          "2021-01-04",
+          "2021-12-29",
+          "2022-01-03"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        "2019-12-30T23:30:00Z",
+        "2020-01-01T00:30:00Z",
+        "2020-12-30T23:30:00Z",
+        "2021-01-04T00:30:00Z",
+        "2021-12-29T23:30:00Z",
+        "2022-01-03T00:30:00Z"
+      ]
+    },
+    {
+      "name": "month boundary selector intersects week one",
+      "input": {
+        "lines": [
+          "DTSTART:20191227T093000Z",
+          "RRULE:FREQ=MONTHLY;WKST=MO;BYWEEKNO=1;BYMONTHDAY=1,-1;UNTIL=20220120T235959Z"
+        ],
+        "through": "2022-01-20",
+        "checkpoints": [
+          "2019-12-31",
+          "2020-01-01"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        "2019-12-31T09:30:00Z",
+        "2020-01-01T09:30:00Z"
+      ]
+    },
+    {
+      "name": "weekly year boundary selector keeps the trailing January day",
+      "input": {
+        "lines": [
+          "DTSTART:20191227T093000Z",
+          "RRULE:FREQ=WEEKLY;WKST=MO;BYWEEKNO=1;BYYEARDAY=1,-1;UNTIL=20220120T235959Z"
+        ],
+        "through": "2022-01-20",
+        "checkpoints": [
+          "2019-12-31",
+          "2020-01-01"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        "2019-12-31T09:30:00Z",
+        "2020-01-01T09:30:00Z"
+      ]
+    },
+    {
+      "name": "hourly week 53 expansion across the year boundary",
+      "input": {
+        "lines": [
+          "DTSTART:20201228T093000Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=5;BYMINUTE=0,30;WKST=MO;BYWEEKNO=53;BYDAY=MO,SU;COUNT=12;UNTIL=20210109T235959Z"
+        ],
+        "through": "2021-01-09",
+        "checkpoints": [
+          "2020-12-28",
+          "2021-01-03"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        "2020-12-28T09:30:00Z",
+        "2020-12-28T14:00:00Z",
+        "2020-12-28T14:30:00Z",
+        "2020-12-28T19:00:00Z",
+        "2020-12-28T19:30:00Z",
+        "2021-01-03T00:00:00Z",
+        "2021-01-03T00:30:00Z",
+        "2021-01-03T05:00:00Z",
+        "2021-01-03T05:30:00Z",
+        "2021-01-03T10:00:00Z",
+        "2021-01-03T10:30:00Z",
+        "2021-01-03T15:00:00Z"
+      ]
+    },
+    {
+      "name": "minute interval keeps its phase at the last day of the year",
+      "input": {
+        "lines": [
+          "DTSTART:20201228T093000Z",
+          "RRULE:FREQ=MINUTELY;INTERVAL=179;BYSECOND=0,30;WKST=MO;BYWEEKNO=-1;BYMONTHDAY=1,-1;COUNT=12;UNTIL=20210109T235959Z"
+        ],
+        "through": "2021-01-09",
+        "checkpoints": [
+          "2020-12-31"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        "2020-12-31T00:09:00Z",
+        "2020-12-31T00:09:30Z",
+        "2020-12-31T03:08:00Z",
+        "2020-12-31T03:08:30Z",
+        "2020-12-31T06:07:00Z",
+        "2020-12-31T06:07:30Z",
+        "2020-12-31T09:06:00Z",
+        "2020-12-31T09:06:30Z",
+        "2020-12-31T12:05:00Z",
+        "2020-12-31T12:05:30Z",
+        "2020-12-31T15:04:00Z",
+        "2020-12-31T15:04:30Z"
+      ]
+    },
+    {
+      "name": "second interval intersects the first and last days of the year",
+      "input": {
+        "lines": [
+          "DTSTART:20201228T093000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=3601;BYSECOND=0,30;WKST=MO;BYWEEKNO=-1;BYYEARDAY=1,-1;COUNT=12;UNTIL=20210109T235959Z"
+        ],
+        "through": "2021-01-09",
+        "checkpoints": [
+          "2021-01-01"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": [
+        "2021-01-01T03:31:30Z"
+      ]
+    },
+    {
+      "name": "Monrovia offset seconds with a Kathmandu host",
+      "input": {
+        "profile": "rrule-js",
+        "through": "1972-01-16",
+        "lines": [
+          "DTSTART;TZID=Africa/Monrovia:19720106T013000",
+          "RRULE:FREQ=HOURLY;INTERVAL=2;COUNT=4",
+          "RRULE:FREQ=WEEKLY;BYDAY=MO,WE,SU;BYSETPOS=1,-1;COUNT=11",
+          "EXRULE:FREQ=WEEKLY;WKST=SU;BYDAY=SU,MO,FR;COUNT=3",
+          "EXRULE:FREQ=DAILY;BYHOUR=0,1,2,3;BYMINUTE=0,30;COUNT=8",
+          "RDATE:19720107T123000",
+          "RDATE:19720107T073000Z",
+          "EXDATE:19720106T153000Z",
+          "EXDATE;VALUE=DATE-TIME:19720108T233000"
+        ],
+        "checkpoints": [
+          "1972-01-06",
+          "1972-01-07"
+        ],
+        "rruleJsHostTimeZone": "Asia/Kathmandu"
+      },
+      "expected": [
+        "1972-01-06T11:44:30Z",
+        "1972-01-06T13:44:30Z",
+        "1972-01-07T13:00:00Z",
+        "1972-01-07T18:00:00Z",
+        "1972-01-16T07:00:00Z"
+      ]
+    },
+    {
+      "name": "Kathmandu's 15-minute offset reform with a Kwajalein host",
+      "input": {
+        "profile": "rrule-js",
+        "through": "1986-01-09",
+        "lines": [
+          "DTSTART;TZID=Asia/Kathmandu:19851230T013000",
+          "RRULE:FREQ=WEEKLY;WKST=SU;BYDAY=SU,MO,FR;COUNT=4",
+          "RRULE:FREQ=DAILY;BYHOUR=0,1,2,3;BYMINUTE=0,30;BYSETPOS=1,-1;COUNT=5",
+          "EXRULE:FREQ=DAILY;BYHOUR=0,1,2,3;BYMINUTE=0,30;COUNT=5",
+          "RDATE:19860101T213000",
+          "EXDATE;VALUE=DATE-TIME:19851229T023000Z",
+          "EXDATE;VALUE=DATE-TIME:19851230T103000"
+        ],
+        "checkpoints": [
+          "1985-12-30",
+          "1985-12-31",
+          "1986-01-01",
+          "1986-01-02",
+          "1986-01-04",
+          "1986-01-05"
+        ],
+        "rruleJsHostTimeZone": "Pacific/Kwajalein"
+      },
+      "expected": [
+        "1985-12-30T06:30:00Z",
+        "1985-12-30T10:00:00Z",
+        "1985-12-31T06:15:00Z",
+        "1985-12-31T09:45:00Z",
+        "1986-01-01T03:45:00Z",
+        "1986-01-02T07:45:00Z",
+        "1986-01-04T07:45:00Z",
+        "1986-01-05T07:45:00Z"
+      ]
+    },
+    {
+      "name": "Kwajalein date-line rollback with a historical Monrovia host",
+      "input": {
+        "profile": "rrule-js",
+        "through": "1969-10-09",
+        "lines": [
+          "DTSTART;TZID=Pacific/Kwajalein:19690929T013000",
+          "RRULE:FREQ=WEEKLY;WKST=SU;BYDAY=SU,MO,FR;COUNT=5",
+          "RRULE:FREQ=DAILY;BYHOUR=0,1,2,3;BYMINUTE=0,30;BYSETPOS=1,-1;COUNT=6",
+          "RRULE:FREQ=DAILY;BYHOUR=0,1,2,3;BYMINUTE=0,30;COUNT=9",
+          "EXRULE:FREQ=WEEKLY;BYDAY=MO,WE,SU;BYSETPOS=1,-1;COUNT=7",
+          "EXRULE:FREQ=DAILY;BYHOUR=0,1,2,3;BYMINUTE=0,30;BYSETPOS=1,-1;COUNT=11",
+          "EXRULE:FREQ=DAILY;BYHOUR=0,1,2,3;BYMINUTE=0,30;COUNT=8",
+          "RDATE;VALUE=DATE-TIME:19691001T083000",
+          "RDATE;VALUE=DATE-TIME:19690930T103000",
+          "RDATE:19690929T203000Z",
+          "EXDATE:19690929T143000",
+          "EXDATE:19691001T033000Z",
+          "EXDATE:19691001T093000Z",
+          "EXDATE:19690928T143000"
+        ],
+        "checkpoints": [
+          "1969-09-29",
+          "1969-10-01",
+          "1969-10-03"
+        ],
+        "rruleJsHostTimeZone": "Africa/Monrovia"
+      },
+      "expected": [
+        "1969-09-29T08:45:30Z",
+        "1969-09-29T13:45:30Z",
+        "1969-09-29T22:45:30Z",
+        "1969-10-01T19:45:30Z",
+        "1969-10-03T12:45:30Z"
+      ]
+    },
+    {
+      "name": "Apia crosses its skipped day as both target and host",
+      "input": {
+        "profile": "rrule-js",
+        "through": "2012-01-07",
+        "lines": [
+          "DTSTART;TZID=Pacific/Apia:20111228T013000",
+          "RRULE:FREQ=WEEKLY;BYDAY=MO,WE,SU;BYSETPOS=1,-1;COUNT=3",
+          "RRULE:FREQ=DAILY;BYHOUR=0,1,2,3;BYMINUTE=0,30;COUNT=6",
+          "EXRULE:FREQ=DAILY;BYHOUR=0,1,2,3;BYMINUTE=0,30;COUNT=10",
+          "EXRULE:FREQ=DAILY;COUNT=1",
+          "EXRULE:FREQ=DAILY;BYHOUR=0,1,2,3;BYMINUTE=0,30;BYSETPOS=1,-1;COUNT=8",
+          "RDATE;VALUE=DATE-TIME:20111228T053000"
+        ],
+        "checkpoints": [
+          "2011-12-28",
+          "2012-01-01",
+          "2012-01-02"
+        ],
+        "rruleJsHostTimeZone": "Pacific/Apia"
+      },
+      "expected": [
+        "2011-12-28T05:30:00Z",
+        "2012-01-01T01:30:00Z",
+        "2012-01-02T01:30:00Z"
+      ]
+    },
+    {
+      "name": "Kiritimati date-line change with an Apia host",
+      "input": {
+        "profile": "rrule-js",
+        "through": "1995-01-09",
+        "lines": [
+          "DTSTART;TZID=Pacific/Kiritimati:19941230T013000",
+          "RRULE:FREQ=DAILY;BYHOUR=0,1,2,3;BYMINUTE=0,30;COUNT=1",
+          "RRULE:FREQ=DAILY;COUNT=4",
+          "EXRULE:FREQ=DAILY;COUNT=0",
+          "RDATE:19941229T223000",
+          "RDATE:19950101T143000",
+          "RDATE;VALUE=DATE-TIME:19950101T123000"
+        ],
+        "checkpoints": [
+          "1994-12-29",
+          "1994-12-30",
+          "1994-12-31",
+          "1995-01-01"
+        ],
+        "rruleJsHostTimeZone": "Pacific/Apia"
+      },
+      "expected": [
+        "1994-12-29T21:30:00Z",
+        "1994-12-30T00:30:00Z",
+        "1994-12-31T00:30:00Z",
+        "1994-12-31T11:30:00Z",
+        "1994-12-31T13:30:00Z",
+        "1995-01-01T00:30:00Z"
+      ]
+    },
+    {
+      "name": "seconds interval with reachable selected hours",
+      "input": {
+        "profile": "rrule-js",
+        "lines": [
+          "DTSTART:20201228T093000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=5401;BYHOUR=11,20;COUNT=12;UNTIL=20210109T235959Z"
+        ],
+        "through": "2021-01-09",
+        "checkpoints": [
+          "2020-12-28",
+          "2020-12-29",
+          "2020-12-30",
+          "2020-12-31",
+          "2021-01-01",
+          "2021-01-02",
+          "2021-01-03",
+          "2021-01-04",
+          "2021-01-05"
+        ]
+      },
+      "expected": [
+        "2020-12-28T11:00:01Z",
+        "2020-12-28T20:30:02Z",
+        "2020-12-29T20:00:03Z",
+        "2020-12-30T11:30:04Z",
+        "2020-12-31T11:00:05Z",
+        "2020-12-31T20:30:06Z",
+        "2021-01-01T20:00:07Z",
+        "2021-01-02T11:30:08Z",
+        "2021-01-03T11:00:09Z",
+        "2021-01-03T20:30:10Z",
+        "2021-01-04T20:00:11Z",
+        "2021-01-05T11:30:12Z"
+      ]
+    }
+  ]
+}

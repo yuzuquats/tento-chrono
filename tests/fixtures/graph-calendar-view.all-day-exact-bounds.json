@@ -1,0 +1,2388 @@
+{
+  "type": "graph-calendar-view",
+  "name": "Outlook calendarView all-day exact bounds",
+  "source": "Microsoft Graph v1.0 calendarView",
+  "cases": [
+    {
+      "name": "utc-zero-offset",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-03-08T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2026-03-09T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 3,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2026-03-08",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 86400000,
+        "exactBounds": true,
+        "windows": {
+          "wide": {
+            "start": "2026-03-06T00:00:00Z",
+            "end": "2026-03-24T00:00:00Z"
+          },
+          "start-upper-exact": {
+            "start": "2026-03-07T23:59:59Z",
+            "end": "2026-03-08T00:00:00Z"
+          },
+          "start-upper-plus-tick": {
+            "start": "2026-03-07T23:59:59Z",
+            "end": "2026-03-08T00:00:00.0000001Z"
+          },
+          "start-lower-exact": {
+            "start": "2026-03-08T00:00:00Z",
+            "end": "2026-03-08T00:00:01Z"
+          },
+          "start-lower-plus-tick": {
+            "start": "2026-03-08T00:00:00.0000001Z",
+            "end": "2026-03-08T00:00:01Z"
+          },
+          "start-point-at": {
+            "start": "2026-03-08T00:00:00Z",
+            "end": "2026-03-08T01:00:00+01:00"
+          },
+          "start-point-before": {
+            "start": "2026-03-07T23:59:59.9999999Z",
+            "end": "2026-03-08T00:59:59.9999999+01:00"
+          },
+          "start-point-after": {
+            "start": "2026-03-08T00:00:00.0000001Z",
+            "end": "2026-03-08T01:00:00.0000001+01:00"
+          },
+          "end-upper-exact": {
+            "start": "2026-03-08T23:59:59Z",
+            "end": "2026-03-09T00:00:00Z"
+          },
+          "end-upper-plus-tick": {
+            "start": "2026-03-08T23:59:59Z",
+            "end": "2026-03-09T00:00:00.0000001Z"
+          },
+          "end-lower-exact": {
+            "start": "2026-03-09T00:00:00Z",
+            "end": "2026-03-09T00:00:01Z"
+          },
+          "end-lower-plus-tick": {
+            "start": "2026-03-09T00:00:00.0000001Z",
+            "end": "2026-03-09T00:00:01Z"
+          },
+          "end-point-at": {
+            "start": "2026-03-09T00:00:00Z",
+            "end": "2026-03-09T01:00:00+01:00"
+          },
+          "end-point-before": {
+            "start": "2026-03-08T23:59:59.9999999Z",
+            "end": "2026-03-09T00:59:59.9999999+01:00"
+          },
+          "end-point-after": {
+            "start": "2026-03-09T00:00:00.0000001Z",
+            "end": "2026-03-09T01:00:00.0000001+01:00"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2026-03-08T00:00:00Z",
+          "2026-03-11T00:00:00Z",
+          "2026-03-14T00:00:00Z"
+        ],
+        "start-upper-exact": [],
+        "start-upper-plus-tick": [
+          "2026-03-08T00:00:00Z"
+        ],
+        "start-lower-exact": [
+          "2026-03-08T00:00:00Z"
+        ],
+        "start-lower-plus-tick": [
+          "2026-03-08T00:00:00Z"
+        ],
+        "start-point-at": [
+          "2026-03-08T00:00:00Z"
+        ],
+        "start-point-before": [],
+        "start-point-after": [
+          "2026-03-08T00:00:00Z"
+        ],
+        "end-upper-exact": [
+          "2026-03-08T00:00:00Z"
+        ],
+        "end-upper-plus-tick": [
+          "2026-03-08T00:00:00Z"
+        ],
+        "end-lower-exact": [
+          "2026-03-08T00:00:00Z"
+        ],
+        "end-lower-plus-tick": [],
+        "end-point-at": [
+          "2026-03-08T00:00:00Z"
+        ],
+        "end-point-before": [
+          "2026-03-08T00:00:00Z"
+        ],
+        "end-point-after": []
+      }
+    },
+    {
+      "name": "pacific-spring-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-03-08T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2026-03-09T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 3,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "Pacific Standard Time",
+              "startDate": "2026-03-08",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 86400000,
+        "exactBounds": true,
+        "windows": {
+          "wide": {
+            "start": "2026-03-06T00:00:00Z",
+            "end": "2026-03-24T00:00:00Z"
+          },
+          "start-upper-exact": {
+            "start": "2026-03-08T07:59:59Z",
+            "end": "2026-03-08T08:00:00Z"
+          },
+          "start-upper-plus-tick": {
+            "start": "2026-03-08T07:59:59Z",
+            "end": "2026-03-08T08:00:00.0000001Z"
+          },
+          "start-lower-exact": {
+            "start": "2026-03-08T08:00:00Z",
+            "end": "2026-03-08T08:00:01Z"
+          },
+          "start-lower-plus-tick": {
+            "start": "2026-03-08T08:00:00.0000001Z",
+            "end": "2026-03-08T08:00:01Z"
+          },
+          "start-point-at": {
+            "start": "2026-03-08T08:00:00Z",
+            "end": "2026-03-08T09:00:00+01:00"
+          },
+          "start-point-before": {
+            "start": "2026-03-08T07:59:59.9999999Z",
+            "end": "2026-03-08T08:59:59.9999999+01:00"
+          },
+          "start-point-after": {
+            "start": "2026-03-08T08:00:00.0000001Z",
+            "end": "2026-03-08T09:00:00.0000001+01:00"
+          },
+          "end-upper-exact": {
+            "start": "2026-03-09T06:59:59Z",
+            "end": "2026-03-09T07:00:00Z"
+          },
+          "end-upper-plus-tick": {
+            "start": "2026-03-09T06:59:59Z",
+            "end": "2026-03-09T07:00:00.0000001Z"
+          },
+          "end-lower-exact": {
+            "start": "2026-03-09T07:00:00Z",
+            "end": "2026-03-09T07:00:01Z"
+          },
+          "end-lower-plus-tick": {
+            "start": "2026-03-09T07:00:00.0000001Z",
+            "end": "2026-03-09T07:00:01Z"
+          },
+          "end-point-at": {
+            "start": "2026-03-09T07:00:00Z",
+            "end": "2026-03-09T08:00:00+01:00"
+          },
+          "end-point-before": {
+            "start": "2026-03-09T06:59:59.9999999Z",
+            "end": "2026-03-09T07:59:59.9999999+01:00"
+          },
+          "end-point-after": {
+            "start": "2026-03-09T07:00:00.0000001Z",
+            "end": "2026-03-09T08:00:00.0000001+01:00"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2026-03-08T00:00:00Z",
+          "2026-03-11T00:00:00Z",
+          "2026-03-14T00:00:00Z"
+        ],
+        "start-upper-exact": [],
+        "start-upper-plus-tick": [
+          "2026-03-08T00:00:00Z"
+        ],
+        "start-lower-exact": [
+          "2026-03-08T00:00:00Z"
+        ],
+        "start-lower-plus-tick": [
+          "2026-03-08T00:00:00Z"
+        ],
+        "start-point-at": [
+          "2026-03-08T00:00:00Z"
+        ],
+        "start-point-before": [],
+        "start-point-after": [
+          "2026-03-08T00:00:00Z"
+        ],
+        "end-upper-exact": [
+          "2026-03-08T00:00:00Z"
+        ],
+        "end-upper-plus-tick": [
+          "2026-03-08T00:00:00Z"
+        ],
+        "end-lower-exact": [
+          "2026-03-08T00:00:00Z"
+        ],
+        "end-lower-plus-tick": [],
+        "end-point-at": [
+          "2026-03-08T00:00:00Z"
+        ],
+        "end-point-before": [
+          "2026-03-08T00:00:00Z"
+        ],
+        "end-point-after": []
+      }
+    },
+    {
+      "name": "pacific-fall-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-11-01T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2026-11-02T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 3,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "Pacific Standard Time",
+              "startDate": "2026-11-01",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 86400000,
+        "exactBounds": true,
+        "windows": {
+          "wide": {
+            "start": "2026-10-30T00:00:00Z",
+            "end": "2026-11-17T00:00:00Z"
+          },
+          "start-upper-exact": {
+            "start": "2026-11-01T06:59:59Z",
+            "end": "2026-11-01T07:00:00Z"
+          },
+          "start-upper-plus-tick": {
+            "start": "2026-11-01T06:59:59Z",
+            "end": "2026-11-01T07:00:00.0000001Z"
+          },
+          "start-lower-exact": {
+            "start": "2026-11-01T07:00:00Z",
+            "end": "2026-11-01T07:00:01Z"
+          },
+          "start-lower-plus-tick": {
+            "start": "2026-11-01T07:00:00.0000001Z",
+            "end": "2026-11-01T07:00:01Z"
+          },
+          "start-point-at": {
+            "start": "2026-11-01T07:00:00Z",
+            "end": "2026-11-01T08:00:00+01:00"
+          },
+          "start-point-before": {
+            "start": "2026-11-01T06:59:59.9999999Z",
+            "end": "2026-11-01T07:59:59.9999999+01:00"
+          },
+          "start-point-after": {
+            "start": "2026-11-01T07:00:00.0000001Z",
+            "end": "2026-11-01T08:00:00.0000001+01:00"
+          },
+          "end-upper-exact": {
+            "start": "2026-11-02T07:59:59Z",
+            "end": "2026-11-02T08:00:00Z"
+          },
+          "end-upper-plus-tick": {
+            "start": "2026-11-02T07:59:59Z",
+            "end": "2026-11-02T08:00:00.0000001Z"
+          },
+          "end-lower-exact": {
+            "start": "2026-11-02T08:00:00Z",
+            "end": "2026-11-02T08:00:01Z"
+          },
+          "end-lower-plus-tick": {
+            "start": "2026-11-02T08:00:00.0000001Z",
+            "end": "2026-11-02T08:00:01Z"
+          },
+          "end-point-at": {
+            "start": "2026-11-02T08:00:00Z",
+            "end": "2026-11-02T09:00:00+01:00"
+          },
+          "end-point-before": {
+            "start": "2026-11-02T07:59:59.9999999Z",
+            "end": "2026-11-02T08:59:59.9999999+01:00"
+          },
+          "end-point-after": {
+            "start": "2026-11-02T08:00:00.0000001Z",
+            "end": "2026-11-02T09:00:00.0000001+01:00"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2026-11-01T00:00:00Z",
+          "2026-11-04T00:00:00Z",
+          "2026-11-07T00:00:00Z"
+        ],
+        "start-upper-exact": [],
+        "start-upper-plus-tick": [
+          "2026-11-01T00:00:00Z"
+        ],
+        "start-lower-exact": [
+          "2026-11-01T00:00:00Z"
+        ],
+        "start-lower-plus-tick": [
+          "2026-11-01T00:00:00Z"
+        ],
+        "start-point-at": [
+          "2026-11-01T00:00:00Z"
+        ],
+        "start-point-before": [],
+        "start-point-after": [
+          "2026-11-01T00:00:00Z"
+        ],
+        "end-upper-exact": [
+          "2026-11-01T00:00:00Z"
+        ],
+        "end-upper-plus-tick": [
+          "2026-11-01T00:00:00Z"
+        ],
+        "end-lower-exact": [
+          "2026-11-01T00:00:00Z"
+        ],
+        "end-lower-plus-tick": [],
+        "end-point-at": [
+          "2026-11-01T00:00:00Z"
+        ],
+        "end-point-before": [
+          "2026-11-01T00:00:00Z"
+        ],
+        "end-point-after": []
+      }
+    },
+    {
+      "name": "lord-howe-half-hour",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-10-04T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2026-10-05T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 3,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "Lord Howe Standard Time",
+              "startDate": "2026-10-04",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 86400000,
+        "exactBounds": true,
+        "windows": {
+          "wide": {
+            "start": "2026-10-02T00:00:00Z",
+            "end": "2026-10-20T00:00:00Z"
+          },
+          "start-upper-exact": {
+            "start": "2026-10-03T13:29:59Z",
+            "end": "2026-10-03T13:30:00Z"
+          },
+          "start-upper-plus-tick": {
+            "start": "2026-10-03T13:29:59Z",
+            "end": "2026-10-03T13:30:00.0000001Z"
+          },
+          "start-lower-exact": {
+            "start": "2026-10-03T13:30:00Z",
+            "end": "2026-10-03T13:30:01Z"
+          },
+          "start-lower-plus-tick": {
+            "start": "2026-10-03T13:30:00.0000001Z",
+            "end": "2026-10-03T13:30:01Z"
+          },
+          "start-point-at": {
+            "start": "2026-10-03T13:30:00Z",
+            "end": "2026-10-03T14:30:00+01:00"
+          },
+          "start-point-before": {
+            "start": "2026-10-03T13:29:59.9999999Z",
+            "end": "2026-10-03T14:29:59.9999999+01:00"
+          },
+          "start-point-after": {
+            "start": "2026-10-03T13:30:00.0000001Z",
+            "end": "2026-10-03T14:30:00.0000001+01:00"
+          },
+          "end-upper-exact": {
+            "start": "2026-10-04T12:59:59Z",
+            "end": "2026-10-04T13:00:00Z"
+          },
+          "end-upper-plus-tick": {
+            "start": "2026-10-04T12:59:59Z",
+            "end": "2026-10-04T13:00:00.0000001Z"
+          },
+          "end-lower-exact": {
+            "start": "2026-10-04T13:00:00Z",
+            "end": "2026-10-04T13:00:01Z"
+          },
+          "end-lower-plus-tick": {
+            "start": "2026-10-04T13:00:00.0000001Z",
+            "end": "2026-10-04T13:00:01Z"
+          },
+          "end-point-at": {
+            "start": "2026-10-04T13:00:00Z",
+            "end": "2026-10-04T14:00:00+01:00"
+          },
+          "end-point-before": {
+            "start": "2026-10-04T12:59:59.9999999Z",
+            "end": "2026-10-04T13:59:59.9999999+01:00"
+          },
+          "end-point-after": {
+            "start": "2026-10-04T13:00:00.0000001Z",
+            "end": "2026-10-04T14:00:00.0000001+01:00"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2026-10-04T00:00:00Z",
+          "2026-10-07T00:00:00Z",
+          "2026-10-10T00:00:00Z"
+        ],
+        "start-upper-exact": [],
+        "start-upper-plus-tick": [
+          "2026-10-04T00:00:00Z"
+        ],
+        "start-lower-exact": [
+          "2026-10-04T00:00:00Z"
+        ],
+        "start-lower-plus-tick": [
+          "2026-10-04T00:00:00Z"
+        ],
+        "start-point-at": [
+          "2026-10-04T00:00:00Z"
+        ],
+        "start-point-before": [],
+        "start-point-after": [
+          "2026-10-04T00:00:00Z"
+        ],
+        "end-upper-exact": [
+          "2026-10-04T00:00:00Z"
+        ],
+        "end-upper-plus-tick": [
+          "2026-10-04T00:00:00Z"
+        ],
+        "end-lower-exact": [
+          "2026-10-04T00:00:00Z"
+        ],
+        "end-lower-plus-tick": [],
+        "end-point-at": [
+          "2026-10-04T00:00:00Z"
+        ],
+        "end-point-before": [
+          "2026-10-04T00:00:00Z"
+        ],
+        "end-point-after": []
+      }
+    },
+    {
+      "name": "sao-paulo-midnight-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2018-11-06T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2018-11-08T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 3,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "E. South America Standard Time",
+              "startDate": "2018-11-07",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 172800000,
+        "exactBounds": true,
+        "windows": {
+          "wide": {
+            "start": "2018-11-02T00:00:00Z",
+            "end": "2018-11-20T00:00:00Z"
+          },
+          "start-upper-exact": {
+            "start": "2018-11-04T02:59:59Z",
+            "end": "2018-11-04T03:00:00Z"
+          },
+          "start-upper-plus-tick": {
+            "start": "2018-11-04T02:59:59Z",
+            "end": "2018-11-04T03:00:00.0000001Z"
+          },
+          "start-lower-exact": {
+            "start": "2018-11-04T03:00:00Z",
+            "end": "2018-11-04T03:00:01Z"
+          },
+          "start-lower-plus-tick": {
+            "start": "2018-11-04T03:00:00.0000001Z",
+            "end": "2018-11-04T03:00:01Z"
+          },
+          "start-point-at": {
+            "start": "2018-11-04T03:00:00Z",
+            "end": "2018-11-04T04:00:00+01:00"
+          },
+          "start-point-before": {
+            "start": "2018-11-04T02:59:59.9999999Z",
+            "end": "2018-11-04T03:59:59.9999999+01:00"
+          },
+          "start-point-after": {
+            "start": "2018-11-04T03:00:00.0000001Z",
+            "end": "2018-11-04T04:00:00.0000001+01:00"
+          },
+          "end-upper-exact": {
+            "start": "2018-11-05T01:59:59Z",
+            "end": "2018-11-05T02:00:00Z"
+          },
+          "end-upper-plus-tick": {
+            "start": "2018-11-05T01:59:59Z",
+            "end": "2018-11-05T02:00:00.0000001Z"
+          },
+          "end-lower-exact": {
+            "start": "2018-11-05T02:00:00Z",
+            "end": "2018-11-05T02:00:01Z"
+          },
+          "end-lower-plus-tick": {
+            "start": "2018-11-05T02:00:00.0000001Z",
+            "end": "2018-11-05T02:00:01Z"
+          },
+          "end-point-at": {
+            "start": "2018-11-05T02:00:00Z",
+            "end": "2018-11-05T03:00:00+01:00"
+          },
+          "end-point-before": {
+            "start": "2018-11-05T01:59:59.9999999Z",
+            "end": "2018-11-05T02:59:59.9999999+01:00"
+          },
+          "end-point-after": {
+            "start": "2018-11-05T02:00:00.0000001Z",
+            "end": "2018-11-05T03:00:00.0000001+01:00"
+          }
+        },
+        "edits": [
+          {
+            "originalSlot": "2018-11-07",
+            "replacement": {
+              "start": "2018-11-07",
+              "end": "2018-11-09",
+              "selection": {
+                "start": "2018-11-07T04:00:00Z",
+                "end": "2018-11-08T04:00:00Z"
+              }
+            }
+          }
+        ]
+      },
+      "expected": {
+        "wide": [
+          "2018-11-07T00:00:00Z",
+          "2018-11-10T00:00:00Z",
+          "2018-11-13T00:00:00Z"
+        ],
+        "start-upper-exact": [],
+        "start-upper-plus-tick": [],
+        "start-lower-exact": [],
+        "start-lower-plus-tick": [],
+        "start-point-at": [],
+        "start-point-before": [],
+        "start-point-after": [],
+        "end-upper-exact": [],
+        "end-upper-plus-tick": [],
+        "end-lower-exact": [],
+        "end-lower-plus-tick": [],
+        "end-point-at": [],
+        "end-point-before": [],
+        "end-point-after": []
+      }
+    },
+    {
+      "name": "samoa-date-line-duplicate",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2011-12-29T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 8,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 86400000,
+        "exactBounds": true,
+        "windows": {
+          "wide": {
+            "start": "2011-12-26T00:00:00Z",
+            "end": "2012-01-13T00:00:00Z"
+          },
+          "start-upper-exact": {
+            "start": "2012-01-01T09:59:59Z",
+            "end": "2012-01-01T10:00:00Z"
+          },
+          "start-upper-plus-tick": {
+            "start": "2012-01-01T09:59:59Z",
+            "end": "2012-01-01T10:00:00.0000001Z"
+          },
+          "start-lower-exact": {
+            "start": "2012-01-01T10:00:00Z",
+            "end": "2012-01-01T10:00:01Z"
+          },
+          "start-lower-plus-tick": {
+            "start": "2012-01-01T10:00:00.0000001Z",
+            "end": "2012-01-01T10:00:01Z"
+          },
+          "start-point-at": {
+            "start": "2012-01-01T10:00:00Z",
+            "end": "2012-01-01T11:00:00+01:00"
+          },
+          "start-point-before": {
+            "start": "2012-01-01T09:59:59.9999999Z",
+            "end": "2012-01-01T10:59:59.9999999+01:00"
+          },
+          "start-point-after": {
+            "start": "2012-01-01T10:00:00.0000001Z",
+            "end": "2012-01-01T11:00:00.0000001+01:00"
+          },
+          "end-upper-exact": {
+            "start": "2012-01-02T09:59:59Z",
+            "end": "2012-01-02T10:00:00Z"
+          },
+          "end-upper-plus-tick": {
+            "start": "2012-01-02T09:59:59Z",
+            "end": "2012-01-02T10:00:00.0000001Z"
+          },
+          "end-lower-exact": {
+            "start": "2012-01-02T10:00:00Z",
+            "end": "2012-01-02T10:00:01Z"
+          },
+          "end-lower-plus-tick": {
+            "start": "2012-01-02T10:00:00.0000001Z",
+            "end": "2012-01-02T10:00:01Z"
+          },
+          "end-point-at": {
+            "start": "2012-01-02T10:00:00Z",
+            "end": "2012-01-02T11:00:00+01:00"
+          },
+          "end-point-before": {
+            "start": "2012-01-02T09:59:59.9999999Z",
+            "end": "2012-01-02T10:59:59.9999999+01:00"
+          },
+          "end-point-after": {
+            "start": "2012-01-02T10:00:00.0000001Z",
+            "end": "2012-01-02T11:00:00.0000001+01:00"
+          }
+        },
+        "allDayTimeZone": "Samoa Standard Time"
+      },
+      "expected": {
+        "wide": [
+          "2011-12-28T00:00:00Z",
+          "2011-12-29T00:00:00Z",
+          "2011-12-30T00:00:00Z",
+          "2011-12-31T00:00:00Z",
+          "2012-01-02T00:00:00Z",
+          "2012-01-02T00:00:00Z",
+          "2012-01-03T00:00:00Z",
+          "2012-01-04T00:00:00Z"
+        ],
+        "start-upper-exact": [
+          "2011-12-31T00:00:00Z"
+        ],
+        "start-upper-plus-tick": [
+          "2011-12-31T00:00:00Z",
+          "2012-01-02T00:00:00Z"
+        ],
+        "start-lower-exact": [
+          "2011-12-31T00:00:00Z",
+          "2012-01-02T00:00:00Z"
+        ],
+        "start-lower-plus-tick": [
+          "2012-01-02T00:00:00Z"
+        ],
+        "start-point-at": [
+          "2011-12-31T00:00:00Z",
+          "2012-01-02T00:00:00Z"
+        ],
+        "start-point-before": [
+          "2011-12-31T00:00:00Z"
+        ],
+        "start-point-after": [
+          "2012-01-02T00:00:00Z"
+        ],
+        "end-upper-exact": [
+          "2012-01-02T00:00:00Z"
+        ],
+        "end-upper-plus-tick": [
+          "2012-01-02T00:00:00Z",
+          "2012-01-02T00:00:00Z"
+        ],
+        "end-lower-exact": [
+          "2012-01-02T00:00:00Z",
+          "2012-01-02T00:00:00Z"
+        ],
+        "end-lower-plus-tick": [
+          "2012-01-02T00:00:00Z"
+        ],
+        "end-point-at": [
+          "2012-01-02T00:00:00Z",
+          "2012-01-02T00:00:00Z"
+        ],
+        "end-point-before": [
+          "2012-01-02T00:00:00Z"
+        ],
+        "end-point-after": [
+          "2012-01-02T00:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "sao-paulo-normalized-first-slot",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2018-11-06T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2018-11-08T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 3,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "E. South America Standard Time",
+              "startDate": "2018-11-07",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 172800000,
+        "exactBounds": true,
+        "windows": {
+          "wide": {
+            "start": "2018-11-02T00:00:00Z",
+            "end": "2018-11-20T00:00:00Z"
+          },
+          "start-upper-exact": {
+            "start": "2018-11-07T01:59:59Z",
+            "end": "2018-11-07T02:00:00Z"
+          },
+          "start-upper-plus-tick": {
+            "start": "2018-11-07T01:59:59Z",
+            "end": "2018-11-07T02:00:00.0000001Z"
+          },
+          "start-lower-exact": {
+            "start": "2018-11-07T02:00:00Z",
+            "end": "2018-11-07T02:00:01Z"
+          },
+          "start-lower-plus-tick": {
+            "start": "2018-11-07T02:00:00.0000001Z",
+            "end": "2018-11-07T02:00:01Z"
+          },
+          "start-point-at": {
+            "start": "2018-11-07T02:00:00Z",
+            "end": "2018-11-07T03:00:00+01:00"
+          },
+          "start-point-before": {
+            "start": "2018-11-07T01:59:59.9999999Z",
+            "end": "2018-11-07T02:59:59.9999999+01:00"
+          },
+          "start-point-after": {
+            "start": "2018-11-07T02:00:00.0000001Z",
+            "end": "2018-11-07T03:00:00.0000001+01:00"
+          },
+          "end-upper-exact": {
+            "start": "2018-11-09T01:59:59Z",
+            "end": "2018-11-09T02:00:00Z"
+          },
+          "end-upper-plus-tick": {
+            "start": "2018-11-09T01:59:59Z",
+            "end": "2018-11-09T02:00:00.0000001Z"
+          },
+          "end-lower-exact": {
+            "start": "2018-11-09T02:00:00Z",
+            "end": "2018-11-09T02:00:01Z"
+          },
+          "end-lower-plus-tick": {
+            "start": "2018-11-09T02:00:00.0000001Z",
+            "end": "2018-11-09T02:00:01Z"
+          },
+          "end-point-at": {
+            "start": "2018-11-09T02:00:00Z",
+            "end": "2018-11-09T03:00:00+01:00"
+          },
+          "end-point-before": {
+            "start": "2018-11-09T01:59:59.9999999Z",
+            "end": "2018-11-09T02:59:59.9999999+01:00"
+          },
+          "end-point-after": {
+            "start": "2018-11-09T02:00:00.0000001Z",
+            "end": "2018-11-09T03:00:00.0000001+01:00"
+          }
+        },
+        "edits": [
+          {
+            "originalSlot": "2018-11-07",
+            "replacement": {
+              "start": "2018-11-07",
+              "end": "2018-11-09",
+              "selection": {
+                "start": "2018-11-07T04:00:00Z",
+                "end": "2018-11-08T04:00:00Z"
+              }
+            }
+          }
+        ]
+      },
+      "expected": {
+        "wide": [
+          "2018-11-07T00:00:00Z",
+          "2018-11-10T00:00:00Z",
+          "2018-11-13T00:00:00Z"
+        ],
+        "start-upper-exact": [],
+        "start-upper-plus-tick": [],
+        "start-lower-exact": [],
+        "start-lower-plus-tick": [],
+        "start-point-at": [],
+        "start-point-before": [],
+        "start-point-after": [],
+        "end-upper-exact": [],
+        "end-upper-plus-tick": [],
+        "end-lower-exact": [],
+        "end-lower-plus-tick": [],
+        "end-point-at": [],
+        "end-point-before": [],
+        "end-point-after": []
+      }
+    },
+    {
+      "name": "sao-paulo-gap-selection",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2018-11-06T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2018-11-08T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 3,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "E. South America Standard Time",
+              "startDate": "2018-11-07",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 172800000,
+        "exactBounds": true,
+        "windows": {
+          "wide": {
+            "start": "2018-11-02T00:00:00Z",
+            "end": "2018-11-20T00:00:00Z"
+          },
+          "start-upper-exact": {
+            "start": "2018-11-07T03:59:59Z",
+            "end": "2018-11-07T04:00:00Z"
+          },
+          "start-upper-plus-tick": {
+            "start": "2018-11-07T03:59:59Z",
+            "end": "2018-11-07T04:00:00.0000001Z"
+          },
+          "start-lower-exact": {
+            "start": "2018-11-07T04:00:00Z",
+            "end": "2018-11-07T04:00:01Z"
+          },
+          "start-lower-plus-tick": {
+            "start": "2018-11-07T04:00:00.0000001Z",
+            "end": "2018-11-07T04:00:01Z"
+          },
+          "start-point-at": {
+            "start": "2018-11-07T04:00:00Z",
+            "end": "2018-11-07T05:00:00+01:00"
+          },
+          "start-point-before": {
+            "start": "2018-11-07T03:59:59.9999999Z",
+            "end": "2018-11-07T04:59:59.9999999+01:00"
+          },
+          "start-point-after": {
+            "start": "2018-11-07T04:00:00.0000001Z",
+            "end": "2018-11-07T05:00:00.0000001+01:00"
+          },
+          "end-upper-exact": {
+            "start": "2018-11-08T03:59:59Z",
+            "end": "2018-11-08T04:00:00Z"
+          },
+          "end-upper-plus-tick": {
+            "start": "2018-11-08T03:59:59Z",
+            "end": "2018-11-08T04:00:00.0000001Z"
+          },
+          "end-lower-exact": {
+            "start": "2018-11-08T04:00:00Z",
+            "end": "2018-11-08T04:00:01Z"
+          },
+          "end-lower-plus-tick": {
+            "start": "2018-11-08T04:00:00.0000001Z",
+            "end": "2018-11-08T04:00:01Z"
+          },
+          "end-point-at": {
+            "start": "2018-11-08T04:00:00Z",
+            "end": "2018-11-08T05:00:00+01:00"
+          },
+          "end-point-before": {
+            "start": "2018-11-08T03:59:59.9999999Z",
+            "end": "2018-11-08T04:59:59.9999999+01:00"
+          },
+          "end-point-after": {
+            "start": "2018-11-08T04:00:00.0000001Z",
+            "end": "2018-11-08T05:00:00.0000001+01:00"
+          }
+        },
+        "edits": [
+          {
+            "originalSlot": "2018-11-07",
+            "replacement": {
+              "start": "2018-11-07",
+              "end": "2018-11-09",
+              "selection": {
+                "start": "2018-11-07T04:00:00Z",
+                "end": "2018-11-08T04:00:00Z"
+              }
+            }
+          }
+        ]
+      },
+      "expected": {
+        "wide": [
+          "2018-11-07T00:00:00Z",
+          "2018-11-10T00:00:00Z",
+          "2018-11-13T00:00:00Z"
+        ],
+        "start-upper-exact": [],
+        "start-upper-plus-tick": [
+          "2018-11-07T00:00:00Z"
+        ],
+        "start-lower-exact": [
+          "2018-11-07T00:00:00Z"
+        ],
+        "start-lower-plus-tick": [
+          "2018-11-07T00:00:00Z"
+        ],
+        "start-point-at": [
+          "2018-11-07T00:00:00Z"
+        ],
+        "start-point-before": [],
+        "start-point-after": [
+          "2018-11-07T00:00:00Z"
+        ],
+        "end-upper-exact": [
+          "2018-11-07T00:00:00Z"
+        ],
+        "end-upper-plus-tick": [
+          "2018-11-07T00:00:00Z"
+        ],
+        "end-lower-exact": [
+          "2018-11-07T00:00:00Z"
+        ],
+        "end-lower-plus-tick": [],
+        "end-point-at": [
+          "2018-11-07T00:00:00Z"
+        ],
+        "end-point-before": [
+          "2018-11-07T00:00:00Z"
+        ],
+        "end-point-after": []
+      }
+    },
+    {
+      "name": "cuba-gap-write",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-03-11T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2026-03-12T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 3,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "Cuba Standard Time",
+              "startDate": "2026-03-11",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 86400000,
+        "exactBounds": true,
+        "windows": {
+          "wide": {
+            "start": "2026-03-06T00:00:00Z",
+            "end": "2026-03-24T00:00:00Z"
+          },
+          "point--1": {
+            "start": "2026-03-10T23:00:00Z",
+            "end": "2026-03-11T00:00:00+01:00"
+          },
+          "point-0": {
+            "start": "2026-03-11T00:00:00Z",
+            "end": "2026-03-11T01:00:00+01:00"
+          },
+          "point-1": {
+            "start": "2026-03-11T01:00:00Z",
+            "end": "2026-03-11T02:00:00+01:00"
+          },
+          "point-2": {
+            "start": "2026-03-11T02:00:00Z",
+            "end": "2026-03-11T03:00:00+01:00"
+          },
+          "point-3": {
+            "start": "2026-03-11T03:00:00Z",
+            "end": "2026-03-11T04:00:00+01:00"
+          },
+          "point-4": {
+            "start": "2026-03-11T04:00:00Z",
+            "end": "2026-03-11T05:00:00+01:00"
+          },
+          "point-5": {
+            "start": "2026-03-11T05:00:00Z",
+            "end": "2026-03-11T06:00:00+01:00"
+          },
+          "point-6": {
+            "start": "2026-03-11T06:00:00Z",
+            "end": "2026-03-11T07:00:00+01:00"
+          },
+          "point-7": {
+            "start": "2026-03-11T07:00:00Z",
+            "end": "2026-03-11T08:00:00+01:00"
+          },
+          "point-8": {
+            "start": "2026-03-11T08:00:00Z",
+            "end": "2026-03-11T09:00:00+01:00"
+          },
+          "point-9": {
+            "start": "2026-03-11T09:00:00Z",
+            "end": "2026-03-11T10:00:00+01:00"
+          },
+          "point-10": {
+            "start": "2026-03-11T10:00:00Z",
+            "end": "2026-03-11T11:00:00+01:00"
+          },
+          "point-11": {
+            "start": "2026-03-11T11:00:00Z",
+            "end": "2026-03-11T12:00:00+01:00"
+          },
+          "point-12": {
+            "start": "2026-03-11T12:00:00Z",
+            "end": "2026-03-11T13:00:00+01:00"
+          },
+          "point-13": {
+            "start": "2026-03-11T13:00:00Z",
+            "end": "2026-03-11T14:00:00+01:00"
+          },
+          "point-14": {
+            "start": "2026-03-11T14:00:00Z",
+            "end": "2026-03-11T15:00:00+01:00"
+          },
+          "point-15": {
+            "start": "2026-03-11T15:00:00Z",
+            "end": "2026-03-11T16:00:00+01:00"
+          },
+          "point-16": {
+            "start": "2026-03-11T16:00:00Z",
+            "end": "2026-03-11T17:00:00+01:00"
+          },
+          "point-17": {
+            "start": "2026-03-11T17:00:00Z",
+            "end": "2026-03-11T18:00:00+01:00"
+          },
+          "point-18": {
+            "start": "2026-03-11T18:00:00Z",
+            "end": "2026-03-11T19:00:00+01:00"
+          },
+          "point-19": {
+            "start": "2026-03-11T19:00:00Z",
+            "end": "2026-03-11T20:00:00+01:00"
+          },
+          "point-20": {
+            "start": "2026-03-11T20:00:00Z",
+            "end": "2026-03-11T21:00:00+01:00"
+          },
+          "point-21": {
+            "start": "2026-03-11T21:00:00Z",
+            "end": "2026-03-11T22:00:00+01:00"
+          },
+          "point-22": {
+            "start": "2026-03-11T22:00:00Z",
+            "end": "2026-03-11T23:00:00+01:00"
+          },
+          "point-23": {
+            "start": "2026-03-11T23:00:00Z",
+            "end": "2026-03-12T00:00:00+01:00"
+          },
+          "point-24": {
+            "start": "2026-03-12T00:00:00Z",
+            "end": "2026-03-12T01:00:00+01:00"
+          },
+          "point-25": {
+            "start": "2026-03-12T01:00:00Z",
+            "end": "2026-03-12T02:00:00+01:00"
+          },
+          "point-26": {
+            "start": "2026-03-12T02:00:00Z",
+            "end": "2026-03-12T03:00:00+01:00"
+          },
+          "point-27": {
+            "start": "2026-03-12T03:00:00Z",
+            "end": "2026-03-12T04:00:00+01:00"
+          },
+          "point-28": {
+            "start": "2026-03-12T04:00:00Z",
+            "end": "2026-03-12T05:00:00+01:00"
+          },
+          "point-29": {
+            "start": "2026-03-12T05:00:00Z",
+            "end": "2026-03-12T06:00:00+01:00"
+          },
+          "point-30": {
+            "start": "2026-03-12T06:00:00Z",
+            "end": "2026-03-12T07:00:00+01:00"
+          },
+          "point-31": {
+            "start": "2026-03-12T07:00:00Z",
+            "end": "2026-03-12T08:00:00+01:00"
+          },
+          "before-tick-4": {
+            "start": "2026-03-11T03:59:59.9999999Z",
+            "end": "2026-03-11T04:59:59.9999999+01:00"
+          },
+          "after-tick-4": {
+            "start": "2026-03-11T04:00:00.0000001Z",
+            "end": "2026-03-11T05:00:00.0000001+01:00"
+          },
+          "before-tick-5": {
+            "start": "2026-03-11T04:59:59.9999999Z",
+            "end": "2026-03-11T05:59:59.9999999+01:00"
+          },
+          "after-tick-5": {
+            "start": "2026-03-11T05:00:00.0000001Z",
+            "end": "2026-03-11T06:00:00.0000001+01:00"
+          },
+          "before-tick-8": {
+            "start": "2026-03-11T07:59:59.9999999Z",
+            "end": "2026-03-11T08:59:59.9999999+01:00"
+          },
+          "after-tick-8": {
+            "start": "2026-03-11T08:00:00.0000001Z",
+            "end": "2026-03-11T09:00:00.0000001+01:00"
+          },
+          "before-tick-28": {
+            "start": "2026-03-12T03:59:59.9999999Z",
+            "end": "2026-03-12T04:59:59.9999999+01:00"
+          },
+          "after-tick-28": {
+            "start": "2026-03-12T04:00:00.0000001Z",
+            "end": "2026-03-12T05:00:00.0000001+01:00"
+          }
+        },
+        "edits": [
+          {
+            "originalSlot": "2026-03-11",
+            "replacement": {
+              "start": "2026-03-11",
+              "end": "2026-03-12",
+              "selection": {
+                "start": "2026-03-11T05:00:00Z",
+                "end": "2026-03-12T04:00:00Z"
+              }
+            }
+          }
+        ]
+      },
+      "expected": {
+        "wide": [
+          "2026-03-11T00:00:00Z",
+          "2026-03-14T00:00:00Z",
+          "2026-03-17T00:00:00Z"
+        ],
+        "point--1": [],
+        "point-0": [],
+        "point-1": [],
+        "point-2": [],
+        "point-3": [],
+        "point-4": [],
+        "point-5": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-6": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-7": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-8": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-9": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-10": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-11": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-12": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-13": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-14": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-15": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-16": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-17": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-18": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-19": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-20": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-21": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-22": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-23": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-24": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-25": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-26": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-27": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-28": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-29": [],
+        "point-30": [],
+        "point-31": [],
+        "before-tick-4": [],
+        "after-tick-4": [],
+        "before-tick-5": [],
+        "after-tick-5": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "before-tick-8": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "after-tick-8": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "before-tick-28": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "after-tick-28": []
+      }
+    },
+    {
+      "name": "cuba-aligned-write",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-03-11T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2026-03-12T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 3,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "Cuba Standard Time",
+              "startDate": "2026-03-11",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 86400000,
+        "exactBounds": true,
+        "windows": {
+          "wide": {
+            "start": "2026-03-09T00:00:00Z",
+            "end": "2026-03-27T00:00:00Z"
+          },
+          "point--1": {
+            "start": "2026-03-10T23:00:00Z",
+            "end": "2026-03-11T00:00:00+01:00"
+          },
+          "point-0": {
+            "start": "2026-03-11T00:00:00Z",
+            "end": "2026-03-11T01:00:00+01:00"
+          },
+          "point-1": {
+            "start": "2026-03-11T01:00:00Z",
+            "end": "2026-03-11T02:00:00+01:00"
+          },
+          "point-2": {
+            "start": "2026-03-11T02:00:00Z",
+            "end": "2026-03-11T03:00:00+01:00"
+          },
+          "point-3": {
+            "start": "2026-03-11T03:00:00Z",
+            "end": "2026-03-11T04:00:00+01:00"
+          },
+          "point-4": {
+            "start": "2026-03-11T04:00:00Z",
+            "end": "2026-03-11T05:00:00+01:00"
+          },
+          "point-5": {
+            "start": "2026-03-11T05:00:00Z",
+            "end": "2026-03-11T06:00:00+01:00"
+          },
+          "point-6": {
+            "start": "2026-03-11T06:00:00Z",
+            "end": "2026-03-11T07:00:00+01:00"
+          },
+          "point-7": {
+            "start": "2026-03-11T07:00:00Z",
+            "end": "2026-03-11T08:00:00+01:00"
+          },
+          "point-8": {
+            "start": "2026-03-11T08:00:00Z",
+            "end": "2026-03-11T09:00:00+01:00"
+          },
+          "point-9": {
+            "start": "2026-03-11T09:00:00Z",
+            "end": "2026-03-11T10:00:00+01:00"
+          },
+          "point-10": {
+            "start": "2026-03-11T10:00:00Z",
+            "end": "2026-03-11T11:00:00+01:00"
+          },
+          "point-11": {
+            "start": "2026-03-11T11:00:00Z",
+            "end": "2026-03-11T12:00:00+01:00"
+          },
+          "point-12": {
+            "start": "2026-03-11T12:00:00Z",
+            "end": "2026-03-11T13:00:00+01:00"
+          },
+          "point-13": {
+            "start": "2026-03-11T13:00:00Z",
+            "end": "2026-03-11T14:00:00+01:00"
+          },
+          "point-14": {
+            "start": "2026-03-11T14:00:00Z",
+            "end": "2026-03-11T15:00:00+01:00"
+          },
+          "point-15": {
+            "start": "2026-03-11T15:00:00Z",
+            "end": "2026-03-11T16:00:00+01:00"
+          },
+          "point-16": {
+            "start": "2026-03-11T16:00:00Z",
+            "end": "2026-03-11T17:00:00+01:00"
+          },
+          "point-17": {
+            "start": "2026-03-11T17:00:00Z",
+            "end": "2026-03-11T18:00:00+01:00"
+          },
+          "point-18": {
+            "start": "2026-03-11T18:00:00Z",
+            "end": "2026-03-11T19:00:00+01:00"
+          },
+          "point-19": {
+            "start": "2026-03-11T19:00:00Z",
+            "end": "2026-03-11T20:00:00+01:00"
+          },
+          "point-20": {
+            "start": "2026-03-11T20:00:00Z",
+            "end": "2026-03-11T21:00:00+01:00"
+          },
+          "point-21": {
+            "start": "2026-03-11T21:00:00Z",
+            "end": "2026-03-11T22:00:00+01:00"
+          },
+          "point-22": {
+            "start": "2026-03-11T22:00:00Z",
+            "end": "2026-03-11T23:00:00+01:00"
+          },
+          "point-23": {
+            "start": "2026-03-11T23:00:00Z",
+            "end": "2026-03-12T00:00:00+01:00"
+          },
+          "point-24": {
+            "start": "2026-03-12T00:00:00Z",
+            "end": "2026-03-12T01:00:00+01:00"
+          },
+          "point-25": {
+            "start": "2026-03-12T01:00:00Z",
+            "end": "2026-03-12T02:00:00+01:00"
+          },
+          "point-26": {
+            "start": "2026-03-12T02:00:00Z",
+            "end": "2026-03-12T03:00:00+01:00"
+          },
+          "point-27": {
+            "start": "2026-03-12T03:00:00Z",
+            "end": "2026-03-12T04:00:00+01:00"
+          },
+          "point-28": {
+            "start": "2026-03-12T04:00:00Z",
+            "end": "2026-03-12T05:00:00+01:00"
+          },
+          "point-29": {
+            "start": "2026-03-12T05:00:00Z",
+            "end": "2026-03-12T06:00:00+01:00"
+          },
+          "point-30": {
+            "start": "2026-03-12T06:00:00Z",
+            "end": "2026-03-12T07:00:00+01:00"
+          },
+          "point-31": {
+            "start": "2026-03-12T07:00:00Z",
+            "end": "2026-03-12T08:00:00+01:00"
+          },
+          "before-tick-4": {
+            "start": "2026-03-11T03:59:59.9999999Z",
+            "end": "2026-03-11T04:59:59.9999999+01:00"
+          },
+          "after-tick-4": {
+            "start": "2026-03-11T04:00:00.0000001Z",
+            "end": "2026-03-11T05:00:00.0000001+01:00"
+          },
+          "before-tick-5": {
+            "start": "2026-03-11T04:59:59.9999999Z",
+            "end": "2026-03-11T05:59:59.9999999+01:00"
+          },
+          "after-tick-5": {
+            "start": "2026-03-11T05:00:00.0000001Z",
+            "end": "2026-03-11T06:00:00.0000001+01:00"
+          },
+          "before-tick-8": {
+            "start": "2026-03-11T07:59:59.9999999Z",
+            "end": "2026-03-11T08:59:59.9999999+01:00"
+          },
+          "after-tick-8": {
+            "start": "2026-03-11T08:00:00.0000001Z",
+            "end": "2026-03-11T09:00:00.0000001+01:00"
+          },
+          "before-tick-28": {
+            "start": "2026-03-12T03:59:59.9999999Z",
+            "end": "2026-03-12T04:59:59.9999999+01:00"
+          },
+          "after-tick-28": {
+            "start": "2026-03-12T04:00:00.0000001Z",
+            "end": "2026-03-12T05:00:00.0000001+01:00"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2026-03-11T00:00:00Z",
+          "2026-03-14T00:00:00Z",
+          "2026-03-17T00:00:00Z"
+        ],
+        "point--1": [],
+        "point-0": [],
+        "point-1": [],
+        "point-2": [],
+        "point-3": [],
+        "point-4": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-5": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-6": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-7": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-8": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-9": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-10": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-11": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-12": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-13": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-14": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-15": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-16": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-17": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-18": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-19": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-20": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-21": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-22": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-23": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-24": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-25": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-26": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-27": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-28": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "point-29": [],
+        "point-30": [],
+        "point-31": [],
+        "before-tick-4": [],
+        "after-tick-4": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "before-tick-5": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "after-tick-5": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "before-tick-8": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "after-tick-8": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "before-tick-28": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "after-tick-28": []
+      }
+    },
+    {
+      "name": "azores-gap-write",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-04-01T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2026-04-02T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 3,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "Azores Standard Time",
+              "startDate": "2026-04-01",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 86400000,
+        "exactBounds": true,
+        "windows": {
+          "wide": {
+            "start": "2026-03-27T00:00:00Z",
+            "end": "2026-04-14T00:00:00Z"
+          },
+          "point--1": {
+            "start": "2026-03-31T23:00:00Z",
+            "end": "2026-04-01T00:00:00+01:00"
+          },
+          "point-0": {
+            "start": "2026-04-01T00:00:00Z",
+            "end": "2026-04-01T01:00:00+01:00"
+          },
+          "point-1": {
+            "start": "2026-04-01T01:00:00Z",
+            "end": "2026-04-01T02:00:00+01:00"
+          },
+          "point-2": {
+            "start": "2026-04-01T02:00:00Z",
+            "end": "2026-04-01T03:00:00+01:00"
+          },
+          "point-3": {
+            "start": "2026-04-01T03:00:00Z",
+            "end": "2026-04-01T04:00:00+01:00"
+          },
+          "point-4": {
+            "start": "2026-04-01T04:00:00Z",
+            "end": "2026-04-01T05:00:00+01:00"
+          },
+          "point-5": {
+            "start": "2026-04-01T05:00:00Z",
+            "end": "2026-04-01T06:00:00+01:00"
+          },
+          "point-6": {
+            "start": "2026-04-01T06:00:00Z",
+            "end": "2026-04-01T07:00:00+01:00"
+          },
+          "point-7": {
+            "start": "2026-04-01T07:00:00Z",
+            "end": "2026-04-01T08:00:00+01:00"
+          },
+          "point-8": {
+            "start": "2026-04-01T08:00:00Z",
+            "end": "2026-04-01T09:00:00+01:00"
+          },
+          "point-9": {
+            "start": "2026-04-01T09:00:00Z",
+            "end": "2026-04-01T10:00:00+01:00"
+          },
+          "point-10": {
+            "start": "2026-04-01T10:00:00Z",
+            "end": "2026-04-01T11:00:00+01:00"
+          },
+          "point-11": {
+            "start": "2026-04-01T11:00:00Z",
+            "end": "2026-04-01T12:00:00+01:00"
+          },
+          "point-12": {
+            "start": "2026-04-01T12:00:00Z",
+            "end": "2026-04-01T13:00:00+01:00"
+          },
+          "point-13": {
+            "start": "2026-04-01T13:00:00Z",
+            "end": "2026-04-01T14:00:00+01:00"
+          },
+          "point-14": {
+            "start": "2026-04-01T14:00:00Z",
+            "end": "2026-04-01T15:00:00+01:00"
+          },
+          "point-15": {
+            "start": "2026-04-01T15:00:00Z",
+            "end": "2026-04-01T16:00:00+01:00"
+          },
+          "point-16": {
+            "start": "2026-04-01T16:00:00Z",
+            "end": "2026-04-01T17:00:00+01:00"
+          },
+          "point-17": {
+            "start": "2026-04-01T17:00:00Z",
+            "end": "2026-04-01T18:00:00+01:00"
+          },
+          "point-18": {
+            "start": "2026-04-01T18:00:00Z",
+            "end": "2026-04-01T19:00:00+01:00"
+          },
+          "point-19": {
+            "start": "2026-04-01T19:00:00Z",
+            "end": "2026-04-01T20:00:00+01:00"
+          },
+          "point-20": {
+            "start": "2026-04-01T20:00:00Z",
+            "end": "2026-04-01T21:00:00+01:00"
+          },
+          "point-21": {
+            "start": "2026-04-01T21:00:00Z",
+            "end": "2026-04-01T22:00:00+01:00"
+          },
+          "point-22": {
+            "start": "2026-04-01T22:00:00Z",
+            "end": "2026-04-01T23:00:00+01:00"
+          },
+          "point-23": {
+            "start": "2026-04-01T23:00:00Z",
+            "end": "2026-04-02T00:00:00+01:00"
+          },
+          "point-24": {
+            "start": "2026-04-02T00:00:00Z",
+            "end": "2026-04-02T01:00:00+01:00"
+          },
+          "point-25": {
+            "start": "2026-04-02T01:00:00Z",
+            "end": "2026-04-02T02:00:00+01:00"
+          },
+          "point-26": {
+            "start": "2026-04-02T02:00:00Z",
+            "end": "2026-04-02T03:00:00+01:00"
+          },
+          "point-27": {
+            "start": "2026-04-02T03:00:00Z",
+            "end": "2026-04-02T04:00:00+01:00"
+          },
+          "point-28": {
+            "start": "2026-04-02T04:00:00Z",
+            "end": "2026-04-02T05:00:00+01:00"
+          },
+          "point-29": {
+            "start": "2026-04-02T05:00:00Z",
+            "end": "2026-04-02T06:00:00+01:00"
+          },
+          "point-30": {
+            "start": "2026-04-02T06:00:00Z",
+            "end": "2026-04-02T07:00:00+01:00"
+          },
+          "point-31": {
+            "start": "2026-04-02T07:00:00Z",
+            "end": "2026-04-02T08:00:00+01:00"
+          },
+          "before-tick-0": {
+            "start": "2026-03-31T23:59:59.9999999Z",
+            "end": "2026-04-01T00:59:59.9999999+01:00"
+          },
+          "after-tick-0": {
+            "start": "2026-04-01T00:00:00.0000001Z",
+            "end": "2026-04-01T01:00:00.0000001+01:00"
+          },
+          "before-tick-1": {
+            "start": "2026-04-01T00:59:59.9999999Z",
+            "end": "2026-04-01T01:59:59.9999999+01:00"
+          },
+          "after-tick-1": {
+            "start": "2026-04-01T01:00:00.0000001Z",
+            "end": "2026-04-01T02:00:00.0000001+01:00"
+          },
+          "before-tick-24": {
+            "start": "2026-04-01T23:59:59.9999999Z",
+            "end": "2026-04-02T00:59:59.9999999+01:00"
+          },
+          "after-tick-24": {
+            "start": "2026-04-02T00:00:00.0000001Z",
+            "end": "2026-04-02T01:00:00.0000001+01:00"
+          }
+        },
+        "edits": [
+          {
+            "originalSlot": "2026-04-01",
+            "replacement": {
+              "start": "2026-04-01",
+              "end": "2026-04-02",
+              "selection": {
+                "start": "2026-04-01T01:00:00Z",
+                "end": "2026-04-02T00:00:00Z"
+              }
+            }
+          }
+        ]
+      },
+      "expected": {
+        "wide": [
+          "2026-04-01T00:00:00Z",
+          "2026-04-04T00:00:00Z",
+          "2026-04-07T00:00:00Z"
+        ],
+        "point--1": [],
+        "point-0": [],
+        "point-1": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-2": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-3": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-4": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-5": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-6": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-7": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-8": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-9": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-10": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-11": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-12": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-13": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-14": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-15": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-16": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-17": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-18": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-19": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-20": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-21": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-22": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-23": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-24": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-25": [],
+        "point-26": [],
+        "point-27": [],
+        "point-28": [],
+        "point-29": [],
+        "point-30": [],
+        "point-31": [],
+        "before-tick-0": [],
+        "after-tick-0": [],
+        "before-tick-1": [],
+        "after-tick-1": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "before-tick-24": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "after-tick-24": []
+      }
+    },
+    {
+      "name": "azores-aligned-write",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-04-01T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2026-04-02T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 3,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "Azores Standard Time",
+              "startDate": "2026-04-01",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 86400000,
+        "exactBounds": true,
+        "windows": {
+          "wide": {
+            "start": "2026-03-30T00:00:00Z",
+            "end": "2026-04-17T00:00:00Z"
+          },
+          "point--1": {
+            "start": "2026-03-31T23:00:00Z",
+            "end": "2026-04-01T00:00:00+01:00"
+          },
+          "point-0": {
+            "start": "2026-04-01T00:00:00Z",
+            "end": "2026-04-01T01:00:00+01:00"
+          },
+          "point-1": {
+            "start": "2026-04-01T01:00:00Z",
+            "end": "2026-04-01T02:00:00+01:00"
+          },
+          "point-2": {
+            "start": "2026-04-01T02:00:00Z",
+            "end": "2026-04-01T03:00:00+01:00"
+          },
+          "point-3": {
+            "start": "2026-04-01T03:00:00Z",
+            "end": "2026-04-01T04:00:00+01:00"
+          },
+          "point-4": {
+            "start": "2026-04-01T04:00:00Z",
+            "end": "2026-04-01T05:00:00+01:00"
+          },
+          "point-5": {
+            "start": "2026-04-01T05:00:00Z",
+            "end": "2026-04-01T06:00:00+01:00"
+          },
+          "point-6": {
+            "start": "2026-04-01T06:00:00Z",
+            "end": "2026-04-01T07:00:00+01:00"
+          },
+          "point-7": {
+            "start": "2026-04-01T07:00:00Z",
+            "end": "2026-04-01T08:00:00+01:00"
+          },
+          "point-8": {
+            "start": "2026-04-01T08:00:00Z",
+            "end": "2026-04-01T09:00:00+01:00"
+          },
+          "point-9": {
+            "start": "2026-04-01T09:00:00Z",
+            "end": "2026-04-01T10:00:00+01:00"
+          },
+          "point-10": {
+            "start": "2026-04-01T10:00:00Z",
+            "end": "2026-04-01T11:00:00+01:00"
+          },
+          "point-11": {
+            "start": "2026-04-01T11:00:00Z",
+            "end": "2026-04-01T12:00:00+01:00"
+          },
+          "point-12": {
+            "start": "2026-04-01T12:00:00Z",
+            "end": "2026-04-01T13:00:00+01:00"
+          },
+          "point-13": {
+            "start": "2026-04-01T13:00:00Z",
+            "end": "2026-04-01T14:00:00+01:00"
+          },
+          "point-14": {
+            "start": "2026-04-01T14:00:00Z",
+            "end": "2026-04-01T15:00:00+01:00"
+          },
+          "point-15": {
+            "start": "2026-04-01T15:00:00Z",
+            "end": "2026-04-01T16:00:00+01:00"
+          },
+          "point-16": {
+            "start": "2026-04-01T16:00:00Z",
+            "end": "2026-04-01T17:00:00+01:00"
+          },
+          "point-17": {
+            "start": "2026-04-01T17:00:00Z",
+            "end": "2026-04-01T18:00:00+01:00"
+          },
+          "point-18": {
+            "start": "2026-04-01T18:00:00Z",
+            "end": "2026-04-01T19:00:00+01:00"
+          },
+          "point-19": {
+            "start": "2026-04-01T19:00:00Z",
+            "end": "2026-04-01T20:00:00+01:00"
+          },
+          "point-20": {
+            "start": "2026-04-01T20:00:00Z",
+            "end": "2026-04-01T21:00:00+01:00"
+          },
+          "point-21": {
+            "start": "2026-04-01T21:00:00Z",
+            "end": "2026-04-01T22:00:00+01:00"
+          },
+          "point-22": {
+            "start": "2026-04-01T22:00:00Z",
+            "end": "2026-04-01T23:00:00+01:00"
+          },
+          "point-23": {
+            "start": "2026-04-01T23:00:00Z",
+            "end": "2026-04-02T00:00:00+01:00"
+          },
+          "point-24": {
+            "start": "2026-04-02T00:00:00Z",
+            "end": "2026-04-02T01:00:00+01:00"
+          },
+          "point-25": {
+            "start": "2026-04-02T01:00:00Z",
+            "end": "2026-04-02T02:00:00+01:00"
+          },
+          "point-26": {
+            "start": "2026-04-02T02:00:00Z",
+            "end": "2026-04-02T03:00:00+01:00"
+          },
+          "point-27": {
+            "start": "2026-04-02T03:00:00Z",
+            "end": "2026-04-02T04:00:00+01:00"
+          },
+          "point-28": {
+            "start": "2026-04-02T04:00:00Z",
+            "end": "2026-04-02T05:00:00+01:00"
+          },
+          "point-29": {
+            "start": "2026-04-02T05:00:00Z",
+            "end": "2026-04-02T06:00:00+01:00"
+          },
+          "point-30": {
+            "start": "2026-04-02T06:00:00Z",
+            "end": "2026-04-02T07:00:00+01:00"
+          },
+          "point-31": {
+            "start": "2026-04-02T07:00:00Z",
+            "end": "2026-04-02T08:00:00+01:00"
+          },
+          "before-tick-0": {
+            "start": "2026-03-31T23:59:59.9999999Z",
+            "end": "2026-04-01T00:59:59.9999999+01:00"
+          },
+          "after-tick-0": {
+            "start": "2026-04-01T00:00:00.0000001Z",
+            "end": "2026-04-01T01:00:00.0000001+01:00"
+          },
+          "before-tick-1": {
+            "start": "2026-04-01T00:59:59.9999999Z",
+            "end": "2026-04-01T01:59:59.9999999+01:00"
+          },
+          "after-tick-1": {
+            "start": "2026-04-01T01:00:00.0000001Z",
+            "end": "2026-04-01T02:00:00.0000001+01:00"
+          },
+          "before-tick-24": {
+            "start": "2026-04-01T23:59:59.9999999Z",
+            "end": "2026-04-02T00:59:59.9999999+01:00"
+          },
+          "after-tick-24": {
+            "start": "2026-04-02T00:00:00.0000001Z",
+            "end": "2026-04-02T01:00:00.0000001+01:00"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2026-04-01T00:00:00Z",
+          "2026-04-04T00:00:00Z",
+          "2026-04-07T00:00:00Z"
+        ],
+        "point--1": [],
+        "point-0": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-1": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-2": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-3": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-4": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-5": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-6": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-7": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-8": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-9": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-10": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-11": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-12": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-13": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-14": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-15": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-16": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-17": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-18": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-19": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-20": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-21": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-22": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-23": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-24": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "point-25": [],
+        "point-26": [],
+        "point-27": [],
+        "point-28": [],
+        "point-29": [],
+        "point-30": [],
+        "point-31": [],
+        "before-tick-0": [],
+        "after-tick-0": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "before-tick-1": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "after-tick-1": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "before-tick-24": [
+          "2026-04-01T00:00:00Z"
+        ],
+        "after-tick-24": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,245 @@
+{
+  "type": "recurrence-profile",
+  "name": "RFC 5545 content-line values",
+  "source": "RFC 5545 section 3.1 VALUE-CHAR, WSP and UTF-8 scalar values",
+  "cases": [
+    {
+      "name": "nul",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "X-NOTE:before\u0000after"
+        ],
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": {
+        "error": "Invalid X-NOTE content value"
+      }
+    },
+    {
+      "name": "bare-cr",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "X-NOTE:before\rafter"
+        ],
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": {
+        "error": "Invalid X-NOTE content value"
+      }
+    },
+    {
+      "name": "vertical-tab",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "X-NOTE:before\u000bafter"
+        ],
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": {
+        "error": "Invalid X-NOTE content value"
+      }
+    },
+    {
+      "name": "delete",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "X-NOTE:before\u007fafter"
+        ],
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": {
+        "error": "Invalid X-NOTE content value"
+      }
+    },
+    {
+      "name": "unpaired-high-surrogate",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "X-NOTE:before\ud800after"
+        ],
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": {
+        "error": "Invalid X-NOTE content value"
+      }
+    },
+    {
+      "name": "unpaired-low-surrogate",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "X-NOTE:before\udfffafter"
+        ],
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": {
+        "error": "Invalid X-NOTE content value"
+      }
+    },
+    {
+      "name": "control-in-rule",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2\u0000"
+        ],
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": {
+        "error": "Invalid RRULE content value"
+      }
+    },
+    {
+      "name": "control-in-start",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T09\r0000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "SUMMARY:probe"
+        ],
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": {
+        "error": "Invalid DTSTART content value"
+      }
+    },
+    {
+      "name": "control-in-inclusion",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:20260103T090000Z\u007f"
+        ],
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": {
+        "error": "Invalid RDATE content value"
+      }
+    },
+    {
+      "name": "control-in-exclusion",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE:20260101T090000Z\u001f"
+        ],
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": {
+        "error": "Invalid EXDATE content value"
+      }
+    },
+    {
+      "name": "folded-content-keeps-valid-tab-and-unicode",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "X-NOTE:caf\u00e9\r\n \t\u0085\u2028\ud83d\uddd3"
+        ],
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "valid-rfc-value-characters-and-empty-value",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "X-NOTE: ;,:\"\\~",
+          "X-EMPTY:"
+        ],
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "google-tolerates-control-in-ignored-property",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "X-NOTE:before\u0000after"
+        ],
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ],
+        "profile": "google"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,344 @@
+{
+  "type": "recurrence-profile",
+  "name": "dateutil 2.8.2 explicit date awareness and projection",
+  "source": "python-dateutil 2.8.2 rrulestr(forceset=True), TZ=UTC",
+  "cases": [
+    {
+      "name": "DTSTART:20260101T090000 RRULE:FREQ=DAILY;COUNT=0 RDATE:20260102T090000Z",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=0",
+          "RDATE:20260102T090000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "DTSTART:20260101T090000 RRULE:FREQ=DAILY;COUNT=0 EXDATE:20260102T090000Z",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=0",
+          "EXDATE:20260102T090000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "DTSTART:20260101T090000 EXRULE:FREQ=DAILY;COUNT=0 RDATE:20260102T090000Z",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "EXRULE:FREQ=DAILY;COUNT=0",
+          "RDATE:20260102T090000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "DTSTART:20260101T090000 EXRULE:FREQ=DAILY;COUNT=0 EXDATE:20260102T090000Z",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "EXRULE:FREQ=DAILY;COUNT=0",
+          "EXDATE:20260102T090000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "DTSTART:20260101T090000Z RRULE:FREQ=DAILY;COUNT=0 RDATE:20260102T090000",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=0",
+          "RDATE:20260102T090000"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "DTSTART:20260101T090000Z RRULE:FREQ=DAILY;COUNT=0 EXDATE:20260102T090000",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=0",
+          "EXDATE:20260102T090000"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "DTSTART:20260101T090000Z EXRULE:FREQ=DAILY;COUNT=0 RDATE:20260102T090000",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "EXRULE:FREQ=DAILY;COUNT=0",
+          "RDATE:20260102T090000"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "DTSTART:20260101T090000Z EXRULE:FREQ=DAILY;COUNT=0 EXDATE:20260102T090000",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "EXRULE:FREQ=DAILY;COUNT=0",
+          "EXDATE:20260102T090000"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "empty naive DATE rule preserves aware RDATE",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20260101",
+          "RRULE:FREQ=DAILY;COUNT=0",
+          "RDATE:20260102T090000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "empty aware DATE rule preserves naive RDATE",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE;TZID=America/Los_Angeles:20260101",
+          "RRULE:FREQ=DAILY;COUNT=0",
+          "RDATE:20260102T090000"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00"
+      ]
+    },
+    {
+      "name": "empty civil rule preserves two floating times on one day",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20260101",
+          "RRULE:FREQ=DAILY;COUNT=0",
+          "RDATE:20260102T090000",
+          "RDATE:20260102T170000",
+          "RDATE:20260105"
+        ],
+        "profile": "dateutil",
+        "through": "2026-01-12",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00",
+        "2026-01-02T17:00:00",
+        "2026-01-05"
+      ]
+    },
+    {
+      "name": "civil rule keeps timed RDATEs and generated midnights",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20260101",
+          "RRULE:FREQ=DAILY;COUNT=4",
+          "RDATE:20260102T090000",
+          "RDATE:20260102T170000",
+          "RDATE:20260105"
+        ],
+        "profile": "dateutil",
+        "through": "2026-01-12",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-01",
+        "2026-01-02",
+        "2026-01-02T09:00:00",
+        "2026-01-02T17:00:00",
+        "2026-01-03",
+        "2026-01-04",
+        "2026-01-05"
+      ]
+    },
+    {
+      "name": "civil rule preserves an explicit midnight and excludes a generated day",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20260101",
+          "RRULE:FREQ=DAILY;COUNT=4;INTERVAL=3",
+          "RDATE:20260102T000100",
+          "RDATE:20260103T000000",
+          "RDATE:20260105",
+          "EXDATE:20260102"
+        ],
+        "profile": "dateutil",
+        "through": "2026-01-12",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-01",
+        "2026-01-02T00:01:00",
+        "2026-01-03T00:00:00",
+        "2026-01-04",
+        "2026-01-05",
+        "2026-01-07",
+        "2026-01-10"
+      ]
+    },
+    {
+      "name": "empty zoned civil rule preserves two UTC times",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE;TZID=America/New_York:20260101",
+          "RRULE:FREQ=DAILY;COUNT=0",
+          "RDATE:20260102T090000Z",
+          "RDATE:20260102T170000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-01-12",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-02T17:00:00Z"
+      ]
+    },
+    {
+      "name": "zoned civil rule preserves explicit UTC midnight and excludes by wall date",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE;TZID=America/New_York:20260101",
+          "RRULE:FREQ=DAILY;COUNT=4",
+          "RDATE:20260102T000100Z",
+          "RDATE:20260103T000000Z",
+          "EXDATE;TZID=America/New_York:20260102"
+        ],
+        "profile": "dateutil",
+        "through": "2026-01-12",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-01",
+        "2026-01-02T00:01:00Z",
+        "2026-01-03T00:00:00Z",
+        "2026-01-03",
+        "2026-01-04"
+      ]
+    },
+    {
+      "name": "zoned civil rule preserves fractional time across incremental reads",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE;TZID=America/New_York:20260101",
+          "RRULE:FREQ=DAILY;COUNT=4",
+          "RDATE:20260102T235959.123Z",
+          "RDATE:20260103T010000Z",
+          "EXDATE;TZID=America/New_York:20260102"
+        ],
+        "profile": "dateutil",
+        "through": "2026-01-12",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-01-03"
+        ]
+      },
+      "expected": [
+        "2026-01-01",
+        "2026-01-02T23:59:59.123Z",
+        "2026-01-03T01:00:00Z",
+        "2026-01-03",
+        "2026-01-04"
+      ]
+    }
+  ]
+}

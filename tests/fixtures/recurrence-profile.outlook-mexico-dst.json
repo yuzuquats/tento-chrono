@@ -1,0 +1,1519 @@
+{
+  "type": "recurrence-profile",
+  "name": "Outlook Graph Mexican timezone rules",
+  "source": "Microsoft Graph v1.0 calendarView, captured 2026-11-22 on a dedicated test calendar",
+  "cases": [
+    {
+      "name": "mexico-city-2022-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2022-04-01T08:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2022-04-01",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2022-04-13",
+        "checkpoints": [
+          "2022-04-02",
+          "2022-04-04"
+        ]
+      },
+      "expected": [
+        "2022-04-01T08:30:00Z",
+        "2022-04-02T08:30:00Z",
+        "2022-04-03T08:30:00Z",
+        "2022-04-04T07:30:00Z",
+        "2022-04-05T07:30:00Z"
+      ]
+    },
+    {
+      "name": "mexico-city-2022-fall",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2022-10-28T06:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2022-10-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2022-11-09",
+        "checkpoints": [
+          "2022-10-29",
+          "2022-10-31"
+        ]
+      },
+      "expected": [
+        "2022-10-28T06:30:00Z",
+        "2022-10-29T06:30:00Z",
+        "2022-10-30T06:30:00Z",
+        "2022-10-31T07:30:00Z",
+        "2022-11-01T07:30:00Z"
+      ]
+    },
+    {
+      "name": "mexico-city-2023-abolished-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2023-03-31T08:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central Standard Time (Mexico)",
+              "startDate": "2023-03-31",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2023-04-12",
+        "checkpoints": [
+          "2023-04-01",
+          "2023-04-03"
+        ]
+      },
+      "expected": [
+        "2023-03-31T08:30:00Z",
+        "2023-04-01T08:30:00Z",
+        "2023-04-02T08:30:00Z",
+        "2023-04-03T08:30:00Z",
+        "2023-04-04T08:30:00Z"
+      ]
+    },
+    {
+      "name": "mexico-city-2026-summer",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-07-10T18:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Central Standard Time (Mexico)",
+              "startDate": "2026-07-10",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-07-22",
+        "checkpoints": [
+          "2026-07-11",
+          "2026-07-13"
+        ]
+      },
+      "expected": [
+        "2026-07-10T18:30:00Z",
+        "2026-07-11T18:30:00Z",
+        "2026-07-12T18:30:00Z",
+        "2026-07-13T18:30:00Z",
+        "2026-07-14T18:30:00Z"
+      ]
+    },
+    {
+      "name": "mazatlan-2022-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2022-04-01T09:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2022-04-01",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2022-04-13",
+        "checkpoints": [
+          "2022-04-02",
+          "2022-04-04"
+        ]
+      },
+      "expected": [
+        "2022-04-01T09:30:00Z",
+        "2022-04-02T09:30:00Z",
+        "2022-04-03T09:30:00Z",
+        "2022-04-04T08:30:00Z",
+        "2022-04-05T08:30:00Z"
+      ]
+    },
+    {
+      "name": "mazatlan-2022-fall",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2022-10-28T07:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2022-10-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2022-11-09",
+        "checkpoints": [
+          "2022-10-29",
+          "2022-10-31"
+        ]
+      },
+      "expected": [
+        "2022-10-28T07:30:00Z",
+        "2022-10-29T07:30:00Z",
+        "2022-10-30T07:30:00Z",
+        "2022-10-31T08:30:00Z",
+        "2022-11-01T08:30:00Z"
+      ]
+    },
+    {
+      "name": "mazatlan-2023-abolished-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2023-03-31T09:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Mountain Standard Time (Mexico)",
+              "startDate": "2023-03-31",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2023-04-12",
+        "checkpoints": [
+          "2023-04-01",
+          "2023-04-03"
+        ]
+      },
+      "expected": [
+        "2023-03-31T09:30:00Z",
+        "2023-04-01T09:30:00Z",
+        "2023-04-02T09:30:00Z",
+        "2023-04-03T09:30:00Z",
+        "2023-04-04T09:30:00Z"
+      ]
+    },
+    {
+      "name": "mazatlan-2026-summer",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-07-10T19:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Mountain Standard Time (Mexico)",
+              "startDate": "2026-07-10",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-07-22",
+        "checkpoints": [
+          "2026-07-11",
+          "2026-07-13"
+        ]
+      },
+      "expected": [
+        "2026-07-10T19:30:00Z",
+        "2026-07-11T19:30:00Z",
+        "2026-07-12T19:30:00Z",
+        "2026-07-13T19:30:00Z",
+        "2026-07-14T19:30:00Z"
+      ]
+    },
+    {
+      "name": "mexico-city-1901-local-start",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1901-01-10T06:01:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1901-01-10",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "1901-01-22",
+        "checkpoints": [
+          "1901-01-11",
+          "1901-01-13"
+        ]
+      },
+      "expected": [
+        "1901-01-10T06:01:00Z",
+        "1901-01-11T06:01:00Z",
+        "1901-01-12T06:01:00Z",
+        "1901-01-13T06:01:00Z",
+        "1901-01-14T06:01:00Z"
+      ]
+    },
+    {
+      "name": "mazatlan-1901-local-start",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1901-01-10T07:01:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1901-01-10",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "1901-01-22",
+        "checkpoints": [
+          "1901-01-11",
+          "1901-01-13"
+        ]
+      },
+      "expected": [
+        "1901-01-10T07:01:00Z",
+        "1901-01-11T07:01:00Z",
+        "1901-01-12T07:01:00Z",
+        "1901-01-13T07:01:00Z",
+        "1901-01-14T07:01:00Z"
+      ]
+    },
+    {
+      "name": "mexico-city-1996-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1996-04-05T08:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1996-04-05",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "1996-04-17",
+        "checkpoints": [
+          "1996-04-06",
+          "1996-04-08"
+        ]
+      },
+      "expected": [
+        "1996-04-05T08:30:00Z",
+        "1996-04-06T08:30:00Z",
+        "1996-04-07T08:30:00Z",
+        "1996-04-08T07:30:00Z",
+        "1996-04-09T07:30:00Z"
+      ]
+    },
+    {
+      "name": "mazatlan-1996-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1996-04-05T09:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1996-04-05",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "1996-04-17",
+        "checkpoints": [
+          "1996-04-06",
+          "1996-04-08"
+        ]
+      },
+      "expected": [
+        "1996-04-05T09:30:00Z",
+        "1996-04-06T09:30:00Z",
+        "1996-04-07T09:30:00Z",
+        "1996-04-08T08:30:00Z",
+        "1996-04-09T08:30:00Z"
+      ]
+    },
+    {
+      "name": "mexico-city-1922-standard-offset",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1921-12-30T16:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1921-12-30",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "1922-01-11",
+        "checkpoints": [
+          "1921-12-31",
+          "1922-01-02"
+        ]
+      },
+      "expected": [
+        "1921-12-30T16:30:00Z",
+        "1921-12-31T16:30:00Z",
+        "1922-01-01T16:30:00Z",
+        "1922-01-02T16:30:00Z",
+        "1922-01-03T16:30:00Z"
+      ]
+    },
+    {
+      "name": "mazatlan-1922-standard-offset",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1921-12-30T17:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1921-12-30",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "1922-01-11",
+        "checkpoints": [
+          "1921-12-31",
+          "1922-01-02"
+        ]
+      },
+      "expected": [
+        "1921-12-30T17:30:00Z",
+        "1921-12-31T17:30:00Z",
+        "1922-01-01T17:30:00Z",
+        "1922-01-02T17:30:00Z",
+        "1922-01-03T17:30:00Z"
+      ]
+    },
+    {
+      "name": "mexico-city-1927-offset-change",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1927-06-08T15:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1927-06-08",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "1927-06-20",
+        "checkpoints": [
+          "1927-06-09",
+          "1927-06-11"
+        ]
+      },
+      "expected": [
+        "1927-06-08T15:30:00Z",
+        "1927-06-09T15:30:00Z",
+        "1927-06-10T15:30:00Z",
+        "1927-06-11T15:30:00Z",
+        "1927-06-12T15:30:00Z"
+      ]
+    },
+    {
+      "name": "mazatlan-1927-offset-change",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1927-06-08T16:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1927-06-08",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "1927-06-20",
+        "checkpoints": [
+          "1927-06-09",
+          "1927-06-11"
+        ]
+      },
+      "expected": [
+        "1927-06-08T16:30:00Z",
+        "1927-06-09T16:30:00Z",
+        "1927-06-10T16:30:00Z",
+        "1927-06-11T16:30:00Z",
+        "1927-06-12T16:30:00Z"
+      ]
+    },
+    {
+      "name": "mexico-city-1932-offset-change",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1932-03-30T16:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1932-03-30",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "1932-04-11",
+        "checkpoints": [
+          "1932-03-31",
+          "1932-04-02"
+        ]
+      },
+      "expected": [
+        "1932-03-30T16:30:00Z",
+        "1932-03-31T16:30:00Z",
+        "1932-04-01T16:30:00Z",
+        "1932-04-02T16:30:00Z",
+        "1932-04-03T15:30:00Z"
+      ]
+    },
+    {
+      "name": "mazatlan-1942-offset-change",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1942-04-22T16:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1942-04-22",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "1942-05-04",
+        "checkpoints": [
+          "1942-04-23",
+          "1942-04-25"
+        ]
+      },
+      "expected": [
+        "1942-04-22T16:30:00Z",
+        "1942-04-23T16:30:00Z",
+        "1942-04-24T16:30:00Z",
+        "1942-04-25T16:30:00Z",
+        "1942-04-26T16:30:00Z"
+      ]
+    },
+    {
+      "name": "mexico-city-1950-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1950-02-10T16:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1950-02-10",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "1950-02-22",
+        "checkpoints": [
+          "1950-02-11",
+          "1950-02-13"
+        ]
+      },
+      "expected": [
+        "1950-02-10T16:30:00Z",
+        "1950-02-11T16:30:00Z",
+        "1950-02-12T16:30:00Z",
+        "1950-02-13T16:30:00Z",
+        "1950-02-14T16:30:00Z"
+      ]
+    },
+    {
+      "name": "mexico-city-1950-summer",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1950-07-12T15:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1950-07-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "1950-07-24",
+        "checkpoints": [
+          "1950-07-13",
+          "1950-07-15"
+        ]
+      },
+      "expected": [
+        "1950-07-12T15:30:00Z",
+        "1950-07-13T15:30:00Z",
+        "1950-07-14T15:30:00Z",
+        "1950-07-15T15:30:00Z",
+        "1950-07-16T15:30:00Z"
+      ]
+    },
+    {
+      "name": "mexico-city-2001-late-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2001-05-04T07:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2001-05-04",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2001-05-16",
+        "checkpoints": [
+          "2001-05-05",
+          "2001-05-07"
+        ]
+      },
+      "expected": [
+        "2001-05-04T07:30:00Z",
+        "2001-05-05T07:30:00Z",
+        "2001-05-06T07:30:00Z",
+        "2001-05-07T07:30:00Z",
+        "2001-05-08T07:30:00Z"
+      ]
+    },
+    {
+      "name": "mazatlan-2001-early-fall",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2001-09-28T07:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2001-09-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2001-10-10",
+        "checkpoints": [
+          "2001-09-29",
+          "2001-10-01"
+        ]
+      },
+      "expected": [
+        "2001-09-28T07:30:00Z",
+        "2001-09-29T07:30:00Z",
+        "2001-09-30T07:30:00Z",
+        "2001-10-01T07:30:00Z",
+        "2001-10-02T07:30:00Z"
+      ]
+    },
+    {
+      "name": "mexico-city-1901-spring-0259",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1901-04-05T08:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1901-04-05",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "1901-04-17",
+        "checkpoints": [
+          "1901-04-06",
+          "1901-04-08"
+        ]
+      },
+      "expected": [
+        "1901-04-05T08:59:00Z",
+        "1901-04-06T08:59:00Z",
+        "1901-04-07T08:59:00Z",
+        "1901-04-08T07:59:00Z",
+        "1901-04-09T07:59:00Z"
+      ]
+    },
+    {
+      "name": "mexico-city-1901-spring-0300",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1901-04-05T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1901-04-05",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "1901-04-17",
+        "checkpoints": [
+          "1901-04-06",
+          "1901-04-08"
+        ]
+      },
+      "expected": [
+        "1901-04-05T09:00:00Z",
+        "1901-04-06T09:00:00Z",
+        "1901-04-07T08:00:00Z",
+        "1901-04-08T08:00:00Z",
+        "1901-04-09T08:00:00Z"
+      ]
+    },
+    {
+      "name": "mexico-city-1901-autumn",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1901-10-25T07:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1901-10-25",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "1901-11-06",
+        "checkpoints": [
+          "1901-10-26",
+          "1901-10-28"
+        ]
+      },
+      "expected": [
+        "1901-10-25T07:00:00Z",
+        "1901-10-26T07:00:00Z",
+        "1901-10-27T08:00:00Z",
+        "1901-10-28T08:00:00Z",
+        "1901-10-29T08:00:00Z"
+      ]
+    },
+    {
+      "name": "mazatlan-1901-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1901-04-05T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1901-04-05",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "1901-04-17",
+        "checkpoints": [
+          "1901-04-06",
+          "1901-04-08"
+        ]
+      },
+      "expected": [
+        "1901-04-05T10:00:00Z",
+        "1901-04-06T10:00:00Z",
+        "1901-04-07T09:00:00Z",
+        "1901-04-08T09:00:00Z",
+        "1901-04-09T09:00:00Z"
+      ]
+    },
+    {
+      "name": "mazatlan-1901-autumn",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1901-10-25T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1901-10-25",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "1901-11-06",
+        "checkpoints": [
+          "1901-10-26",
+          "1901-10-28"
+        ]
+      },
+      "expected": [
+        "1901-10-25T08:00:00Z",
+        "1901-10-26T08:00:00Z",
+        "1901-10-27T09:00:00Z",
+        "1901-10-28T09:00:00Z",
+        "1901-10-29T09:00:00Z"
+      ]
+    },
+    {
+      "name": "mexico-city-1950-april-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1950-03-31T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1950-03-31",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "1950-04-12",
+        "checkpoints": [
+          "1950-04-01",
+          "1950-04-03"
+        ]
+      },
+      "expected": [
+        "1950-03-31T09:00:00Z",
+        "1950-04-01T09:00:00Z",
+        "1950-04-02T08:00:00Z",
+        "1950-04-03T08:00:00Z",
+        "1950-04-04T08:00:00Z"
+      ]
+    },
+    {
+      "name": "mexico-city-1950-autumn-0159",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1950-10-27T06:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1950-10-27",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "1950-11-08",
+        "checkpoints": [
+          "1950-10-28",
+          "1950-10-30"
+        ]
+      },
+      "expected": [
+        "1950-10-27T06:59:00Z",
+        "1950-10-28T06:59:00Z",
+        "1950-10-29T06:59:00Z",
+        "1950-10-30T07:59:00Z",
+        "1950-10-31T07:59:00Z"
+      ]
+    },
+    {
+      "name": "mexico-city-1950-autumn-0200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1950-10-27T07:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1950-10-27",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "1950-11-08",
+        "checkpoints": [
+          "1950-10-28",
+          "1950-10-30"
+        ]
+      },
+      "expected": [
+        "1950-10-27T07:00:00Z",
+        "1950-10-28T07:00:00Z",
+        "1950-10-29T08:00:00Z",
+        "1950-10-30T08:00:00Z",
+        "1950-10-31T08:00:00Z"
+      ]
+    },
+    {
+      "name": "mazatlan-1975-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1975-04-04T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1975-04-04",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "1975-04-16",
+        "checkpoints": [
+          "1975-04-05",
+          "1975-04-07"
+        ]
+      },
+      "expected": [
+        "1975-04-04T10:00:00Z",
+        "1975-04-05T10:00:00Z",
+        "1975-04-06T09:00:00Z",
+        "1975-04-07T09:00:00Z",
+        "1975-04-08T09:00:00Z"
+      ]
+    },
+    {
+      "name": "mazatlan-1995-autumn",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1995-10-27T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1995-10-27",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "1995-11-08",
+        "checkpoints": [
+          "1995-10-28",
+          "1995-10-30"
+        ]
+      },
+      "expected": [
+        "1995-10-27T08:00:00Z",
+        "1995-10-28T08:00:00Z",
+        "1995-10-29T09:00:00Z",
+        "1995-10-30T09:00:00Z",
+        "1995-10-31T09:00:00Z"
+      ]
+    },
+    {
+      "name": "mexico-city-2001-april-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2001-03-30T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2001-03-30",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2001-04-11",
+        "checkpoints": [
+          "2001-03-31",
+          "2001-04-02"
+        ]
+      },
+      "expected": [
+        "2001-03-30T09:00:00Z",
+        "2001-03-31T09:00:00Z",
+        "2001-04-01T08:00:00Z",
+        "2001-04-02T08:00:00Z",
+        "2001-04-03T08:00:00Z"
+      ]
+    },
+    {
+      "name": "mexico-city-2001-october-autumn",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2001-10-26T07:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2001-10-26",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2001-11-07",
+        "checkpoints": [
+          "2001-10-27",
+          "2001-10-29"
+        ]
+      },
+      "expected": [
+        "2001-10-26T07:00:00Z",
+        "2001-10-27T07:00:00Z",
+        "2001-10-28T08:00:00Z",
+        "2001-10-29T08:00:00Z",
+        "2001-10-30T08:00:00Z"
+      ]
+    },
+    {
+      "name": "mazatlan-2001-april-spring",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2001-03-30T10:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2001-03-30",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2001-04-11",
+        "checkpoints": [
+          "2001-03-31",
+          "2001-04-02"
+        ]
+      },
+      "expected": [
+        "2001-03-30T10:00:00Z",
+        "2001-03-31T10:00:00Z",
+        "2001-04-01T09:00:00Z",
+        "2001-04-02T09:00:00Z",
+        "2001-04-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "mazatlan-2001-october-autumn",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2001-10-26T08:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Mountain Standard Time (Mexico)",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2001-10-26",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2001-11-07",
+        "checkpoints": [
+          "2001-10-27",
+          "2001-10-29"
+        ]
+      },
+      "expected": [
+        "2001-10-26T08:00:00Z",
+        "2001-10-27T08:00:00Z",
+        "2001-10-28T09:00:00Z",
+        "2001-10-29T09:00:00Z",
+        "2001-10-30T09:00:00Z"
+      ]
+    }
+  ]
+}

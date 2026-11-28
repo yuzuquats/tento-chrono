@@ -1,0 +1,47 @@
+{
+  "type": "dateutil",
+  "name": "dateutil 2.8.2 implicit aware DTSTART with a frozen clock",
+  "source": "Python dateutil 2.8.2 rrule and rrulestr",
+  "cases": [
+    {
+      "name": "test_generated_aware_dtstart",
+      "input": {
+        "profileLines": [
+          "RRULE:FREQ=HOURLY;UNTIL=20180306T080000Z"
+        ],
+        "profileNow": "2018-03-06T05:36:00Z",
+        "through": "2018-03-06"
+      },
+      "expected": [
+        "2018-03-06T05:36:00Z",
+        "2018-03-06T06:36:00Z",
+        "2018-03-06T07:36:00Z"
+      ]
+    },
+    {
+      "name": "test_generated_aware_dtstart_rrulestr",
+      "input": {
+        "profileLines": [
+          "RRULE:FREQ=HOURLY;UNTIL=20180306T080000Z"
+        ],
+        "profileNow": "2018-03-06T05:36:00Z",
+        "through": "2018-03-06",
+        "profileSerialize": true,
+        "profileRoundTrip": true
+      },
+      "expected": {
+        "text": "DTSTART:20180306T053600\nRRULE:FREQ=HOURLY;UNTIL=20180306T080000",
+        "original": [
+          "2018-03-06T05:36:00Z",
+          "2018-03-06T06:36:00Z",
+          "2018-03-06T07:36:00Z"
+        ],
+        "reparsed": [
+          "2018-03-06T05:36:00",
+          "2018-03-06T06:36:00",
+          "2018-03-06T07:36:00"
+        ]
+      }
+    }
+  ]
+}

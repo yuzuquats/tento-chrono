@@ -1,0 +1,1059 @@
+{
+  "type": "dateutil-mutable-set",
+  "name": "dateutil 2.8.2 mutable set queries",
+  "source": "python-dateutil 2.8.2 rruleset",
+  "cases": [
+    {
+      "name": "ordinary-mutations-cache-False",
+      "input": {
+        "cache": false,
+        "steps": [
+          {
+            "action": "rrule",
+            "lines": [
+              "DTSTART:20260101T090000",
+              "RRULE:FREQ=DAILY;COUNT=8"
+            ]
+          },
+          {
+            "action": "exrule",
+            "lines": [
+              "DTSTART:20260102T090000",
+              "RRULE:FREQ=DAILY;INTERVAL=4;COUNT=2"
+            ]
+          },
+          {
+            "action": "rdate",
+            "value": "2026-01-12T09:00:00"
+          },
+          {
+            "action": "at",
+            "index": 0
+          },
+          {
+            "action": "after",
+            "at": "2026-01-03T09:00:00",
+            "inclusive": true
+          },
+          {
+            "action": "before",
+            "at": "2026-01-03T09:00:00"
+          },
+          {
+            "action": "contains",
+            "at": "2026-01-03T09:00:00"
+          },
+          {
+            "action": "between",
+            "after": "2026-01-03T09:00:00",
+            "before": "2026-01-06T09:00:00",
+            "inclusive": true
+          },
+          {
+            "action": "xafter",
+            "at": "2026-01-03T09:00:00",
+            "count": 2
+          },
+          {
+            "action": "slice",
+            "start": 0,
+            "stop": 3
+          },
+          {
+            "action": "slice",
+            "start": -2
+          },
+          {
+            "action": "count"
+          },
+          {
+            "action": "at",
+            "index": -1
+          },
+          {
+            "action": "at",
+            "index": -99
+          },
+          {
+            "action": "slice",
+            "step": -2
+          },
+          {
+            "action": "slice",
+            "stop": 0
+          },
+          {
+            "action": "slice",
+            "step": 0
+          },
+          {
+            "action": "exdate",
+            "value": "2026-01-03T09:00:00"
+          },
+          {
+            "action": "slice",
+            "start": -2
+          },
+          {
+            "action": "at",
+            "index": 0
+          },
+          {
+            "action": "after",
+            "at": "2026-01-03T09:00:00",
+            "inclusive": true
+          },
+          {
+            "action": "before",
+            "at": "2026-01-03T09:00:00"
+          },
+          {
+            "action": "contains",
+            "at": "2026-01-03T09:00:00"
+          },
+          {
+            "action": "between",
+            "after": "2026-01-03T09:00:00",
+            "before": "2026-01-06T09:00:00",
+            "inclusive": true
+          },
+          {
+            "action": "xafter",
+            "at": "2026-01-03T09:00:00",
+            "count": 2
+          },
+          {
+            "action": "slice",
+            "start": 0,
+            "stop": 3
+          },
+          {
+            "action": "slice",
+            "start": -2
+          },
+          {
+            "action": "count"
+          },
+          {
+            "action": "at",
+            "index": -1
+          },
+          {
+            "action": "at",
+            "index": -99
+          },
+          {
+            "action": "slice",
+            "step": -2
+          },
+          {
+            "action": "slice",
+            "stop": 0
+          },
+          {
+            "action": "slice",
+            "step": 0
+          }
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-03T09:00:00",
+        "2026-01-01T09:00:00",
+        true,
+        [
+          "2026-01-03T09:00:00",
+          "2026-01-04T09:00:00",
+          "2026-01-05T09:00:00"
+        ],
+        [
+          "2026-01-04T09:00:00",
+          "2026-01-05T09:00:00"
+        ],
+        [
+          "2026-01-01T09:00:00",
+          "2026-01-03T09:00:00",
+          "2026-01-04T09:00:00"
+        ],
+        {
+          "error": "Indices for islice() must be None or an integer: 0 <= x <= sys.maxsize."
+        },
+        7,
+        "2026-01-12T09:00:00",
+        {
+          "error": "dateutil recurrence index out of range"
+        },
+        [
+          "2026-01-12T09:00:00",
+          "2026-01-07T09:00:00",
+          "2026-01-04T09:00:00",
+          "2026-01-01T09:00:00"
+        ],
+        [
+          "2026-01-01T09:00:00",
+          "2026-01-03T09:00:00",
+          "2026-01-04T09:00:00",
+          "2026-01-05T09:00:00",
+          "2026-01-07T09:00:00",
+          "2026-01-08T09:00:00",
+          "2026-01-12T09:00:00"
+        ],
+        [
+          "2026-01-01T09:00:00",
+          "2026-01-03T09:00:00",
+          "2026-01-04T09:00:00",
+          "2026-01-05T09:00:00",
+          "2026-01-07T09:00:00",
+          "2026-01-08T09:00:00",
+          "2026-01-12T09:00:00"
+        ],
+        {
+          "error": "Indices for islice() must be None or an integer: 0 <= x <= sys.maxsize."
+        },
+        "2026-01-01T09:00:00",
+        "2026-01-04T09:00:00",
+        "2026-01-01T09:00:00",
+        false,
+        [
+          "2026-01-04T09:00:00",
+          "2026-01-05T09:00:00"
+        ],
+        [
+          "2026-01-04T09:00:00",
+          "2026-01-05T09:00:00"
+        ],
+        [
+          "2026-01-01T09:00:00",
+          "2026-01-04T09:00:00",
+          "2026-01-05T09:00:00"
+        ],
+        {
+          "error": "Indices for islice() must be None or an integer: 0 <= x <= sys.maxsize."
+        },
+        6,
+        "2026-01-12T09:00:00",
+        {
+          "error": "dateutil recurrence index out of range"
+        },
+        [
+          "2026-01-12T09:00:00",
+          "2026-01-07T09:00:00",
+          "2026-01-04T09:00:00"
+        ],
+        [
+          "2026-01-01T09:00:00",
+          "2026-01-04T09:00:00",
+          "2026-01-05T09:00:00",
+          "2026-01-07T09:00:00",
+          "2026-01-08T09:00:00",
+          "2026-01-12T09:00:00"
+        ],
+        [
+          "2026-01-01T09:00:00",
+          "2026-01-04T09:00:00",
+          "2026-01-05T09:00:00",
+          "2026-01-07T09:00:00",
+          "2026-01-08T09:00:00",
+          "2026-01-12T09:00:00"
+        ]
+      ]
+    },
+    {
+      "name": "spring-gap-cache-False",
+      "input": {
+        "cache": false,
+        "steps": [
+          {
+            "action": "rrule",
+            "lines": [
+              "DTSTART;TZID=America/New_York:20260308T014500",
+              "RRULE:FREQ=MINUTELY;INTERVAL=30;COUNT=4"
+            ]
+          },
+          {
+            "action": "rdate",
+            "value": "2026-03-08T06:30:00Z"
+          },
+          {
+            "action": "contains",
+            "at": "2026-03-08T06:15:00Z"
+          },
+          {
+            "action": "contains",
+            "at": "2026-03-08T06:15:00Z"
+          },
+          {
+            "action": "contains",
+            "at": {
+              "value": "2026-03-08T02:15:00-04:00",
+              "timeZone": "America/New_York"
+            }
+          },
+          {
+            "action": "after",
+            "at": "2026-03-08T06:15:00Z"
+          },
+          {
+            "action": "before",
+            "at": "2026-03-08T06:15:00Z"
+          },
+          {
+            "action": "between",
+            "after": "2026-03-08T06:45:00Z",
+            "before": "2026-03-08T07:15:00Z",
+            "inclusive": true
+          },
+          {
+            "action": "xafter",
+            "at": "2026-03-08T06:15:00Z",
+            "count": 2
+          },
+          {
+            "action": "slice"
+          },
+          {
+            "action": "at",
+            "index": -2
+          }
+        ]
+      },
+      "expected": [
+        false,
+        false,
+        false,
+        "2026-03-08T06:30:00Z",
+        null,
+        [
+          "2026-03-08T06:45:00Z",
+          "2026-03-08T06:15:00Z",
+          "2026-03-08T06:45:00Z",
+          "2026-03-08T07:15:00Z"
+        ],
+        [
+          "2026-03-08T06:30:00Z",
+          "2026-03-08T06:45:00Z"
+        ],
+        [
+          "2026-03-08T06:30:00Z",
+          "2026-03-08T06:45:00Z",
+          "2026-03-08T06:15:00Z",
+          "2026-03-08T06:45:00Z",
+          "2026-03-08T07:15:00Z"
+        ],
+        "2026-03-08T06:45:00Z"
+      ]
+    },
+    {
+      "name": "empty-cache-False",
+      "input": {
+        "cache": false,
+        "steps": [
+          {
+            "action": "at",
+            "index": 0
+          },
+          {
+            "action": "after",
+            "at": "2026-01-03T09:00:00",
+            "inclusive": true
+          },
+          {
+            "action": "before",
+            "at": "2026-01-03T09:00:00"
+          },
+          {
+            "action": "contains",
+            "at": "2026-01-03T09:00:00"
+          },
+          {
+            "action": "between",
+            "after": "2026-01-03T09:00:00",
+            "before": "2026-01-06T09:00:00",
+            "inclusive": true
+          },
+          {
+            "action": "xafter",
+            "at": "2026-01-03T09:00:00",
+            "count": 2
+          },
+          {
+            "action": "slice",
+            "start": 0,
+            "stop": 3
+          },
+          {
+            "action": "slice",
+            "start": -2
+          },
+          {
+            "action": "count"
+          },
+          {
+            "action": "at",
+            "index": -1
+          },
+          {
+            "action": "at",
+            "index": -99
+          },
+          {
+            "action": "slice",
+            "step": -2
+          },
+          {
+            "action": "slice",
+            "stop": 0
+          },
+          {
+            "action": "slice",
+            "step": 0
+          }
+        ]
+      },
+      "expected": [
+        {
+          "error": "dateutil recurrence index out of range"
+        },
+        null,
+        null,
+        false,
+        [],
+        [],
+        [],
+        {
+          "error": "Indices for islice() must be None or an integer: 0 <= x <= sys.maxsize."
+        },
+        0,
+        {
+          "error": "dateutil recurrence index out of range"
+        },
+        {
+          "error": "dateutil recurrence index out of range"
+        },
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "name": "ordinary-mutations-cache-True",
+      "input": {
+        "cache": true,
+        "steps": [
+          {
+            "action": "rrule",
+            "lines": [
+              "DTSTART:20260101T090000",
+              "RRULE:FREQ=DAILY;COUNT=8"
+            ]
+          },
+          {
+            "action": "exrule",
+            "lines": [
+              "DTSTART:20260102T090000",
+              "RRULE:FREQ=DAILY;INTERVAL=4;COUNT=2"
+            ]
+          },
+          {
+            "action": "rdate",
+            "value": "2026-01-12T09:00:00"
+          },
+          {
+            "action": "at",
+            "index": 0
+          },
+          {
+            "action": "after",
+            "at": "2026-01-03T09:00:00",
+            "inclusive": true
+          },
+          {
+            "action": "before",
+            "at": "2026-01-03T09:00:00"
+          },
+          {
+            "action": "contains",
+            "at": "2026-01-03T09:00:00"
+          },
+          {
+            "action": "between",
+            "after": "2026-01-03T09:00:00",
+            "before": "2026-01-06T09:00:00",
+            "inclusive": true
+          },
+          {
+            "action": "xafter",
+            "at": "2026-01-03T09:00:00",
+            "count": 2
+          },
+          {
+            "action": "slice",
+            "start": 0,
+            "stop": 3
+          },
+          {
+            "action": "slice",
+            "start": -2
+          },
+          {
+            "action": "count"
+          },
+          {
+            "action": "at",
+            "index": -1
+          },
+          {
+            "action": "at",
+            "index": -99
+          },
+          {
+            "action": "slice",
+            "step": -2
+          },
+          {
+            "action": "slice",
+            "stop": 0
+          },
+          {
+            "action": "slice",
+            "step": 0
+          },
+          {
+            "action": "exdate",
+            "value": "2026-01-03T09:00:00"
+          },
+          {
+            "action": "slice",
+            "start": -2
+          },
+          {
+            "action": "at",
+            "index": 0
+          },
+          {
+            "action": "after",
+            "at": "2026-01-03T09:00:00",
+            "inclusive": true
+          },
+          {
+            "action": "before",
+            "at": "2026-01-03T09:00:00"
+          },
+          {
+            "action": "contains",
+            "at": "2026-01-03T09:00:00"
+          },
+          {
+            "action": "between",
+            "after": "2026-01-03T09:00:00",
+            "before": "2026-01-06T09:00:00",
+            "inclusive": true
+          },
+          {
+            "action": "xafter",
+            "at": "2026-01-03T09:00:00",
+            "count": 2
+          },
+          {
+            "action": "slice",
+            "start": 0,
+            "stop": 3
+          },
+          {
+            "action": "slice",
+            "start": -2
+          },
+          {
+            "action": "count"
+          },
+          {
+            "action": "at",
+            "index": -1
+          },
+          {
+            "action": "at",
+            "index": -99
+          },
+          {
+            "action": "slice",
+            "step": -2
+          },
+          {
+            "action": "slice",
+            "stop": 0
+          },
+          {
+            "action": "slice",
+            "step": 0
+          }
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-03T09:00:00",
+        "2026-01-01T09:00:00",
+        true,
+        [
+          "2026-01-03T09:00:00",
+          "2026-01-04T09:00:00",
+          "2026-01-05T09:00:00"
+        ],
+        [
+          "2026-01-04T09:00:00",
+          "2026-01-05T09:00:00"
+        ],
+        [
+          "2026-01-01T09:00:00",
+          "2026-01-03T09:00:00",
+          "2026-01-04T09:00:00"
+        ],
+        [
+          "2026-01-08T09:00:00",
+          "2026-01-12T09:00:00"
+        ],
+        7,
+        "2026-01-12T09:00:00",
+        {
+          "error": "dateutil recurrence index out of range"
+        },
+        [
+          "2026-01-12T09:00:00",
+          "2026-01-07T09:00:00",
+          "2026-01-04T09:00:00",
+          "2026-01-01T09:00:00"
+        ],
+        [],
+        {
+          "error": "slice step cannot be zero"
+        },
+        {
+          "error": "Indices for islice() must be None or an integer: 0 <= x <= sys.maxsize."
+        },
+        "2026-01-01T09:00:00",
+        "2026-01-04T09:00:00",
+        "2026-01-01T09:00:00",
+        false,
+        [
+          "2026-01-04T09:00:00",
+          "2026-01-05T09:00:00"
+        ],
+        [
+          "2026-01-04T09:00:00",
+          "2026-01-05T09:00:00"
+        ],
+        [
+          "2026-01-01T09:00:00",
+          "2026-01-04T09:00:00",
+          "2026-01-05T09:00:00"
+        ],
+        [
+          "2026-01-08T09:00:00",
+          "2026-01-12T09:00:00"
+        ],
+        6,
+        "2026-01-12T09:00:00",
+        {
+          "error": "dateutil recurrence index out of range"
+        },
+        [
+          "2026-01-12T09:00:00",
+          "2026-01-07T09:00:00",
+          "2026-01-04T09:00:00"
+        ],
+        [],
+        {
+          "error": "slice step cannot be zero"
+        }
+      ]
+    },
+    {
+      "name": "spring-gap-cache-True",
+      "input": {
+        "cache": true,
+        "steps": [
+          {
+            "action": "rrule",
+            "lines": [
+              "DTSTART;TZID=America/New_York:20260308T014500",
+              "RRULE:FREQ=MINUTELY;INTERVAL=30;COUNT=4"
+            ]
+          },
+          {
+            "action": "rdate",
+            "value": "2026-03-08T06:30:00Z"
+          },
+          {
+            "action": "contains",
+            "at": "2026-03-08T06:15:00Z"
+          },
+          {
+            "action": "contains",
+            "at": "2026-03-08T06:15:00Z"
+          },
+          {
+            "action": "contains",
+            "at": {
+              "value": "2026-03-08T02:15:00-04:00",
+              "timeZone": "America/New_York"
+            }
+          },
+          {
+            "action": "after",
+            "at": "2026-03-08T06:15:00Z"
+          },
+          {
+            "action": "before",
+            "at": "2026-03-08T06:15:00Z"
+          },
+          {
+            "action": "between",
+            "after": "2026-03-08T06:45:00Z",
+            "before": "2026-03-08T07:15:00Z",
+            "inclusive": true
+          },
+          {
+            "action": "xafter",
+            "at": "2026-03-08T06:15:00Z",
+            "count": 2
+          },
+          {
+            "action": "slice"
+          },
+          {
+            "action": "at",
+            "index": -2
+          }
+        ]
+      },
+      "expected": [
+        false,
+        true,
+        true,
+        "2026-03-08T06:30:00Z",
+        null,
+        [
+          "2026-03-08T06:45:00Z",
+          "2026-03-08T06:15:00Z",
+          "2026-03-08T06:45:00Z",
+          "2026-03-08T07:15:00Z"
+        ],
+        [
+          "2026-03-08T06:30:00Z",
+          "2026-03-08T06:45:00Z"
+        ],
+        [
+          "2026-03-08T06:30:00Z",
+          "2026-03-08T06:45:00Z",
+          "2026-03-08T06:15:00Z",
+          "2026-03-08T06:45:00Z",
+          "2026-03-08T07:15:00Z"
+        ],
+        "2026-03-08T06:45:00Z"
+      ]
+    },
+    {
+      "name": "empty-cache-True",
+      "input": {
+        "cache": true,
+        "steps": [
+          {
+            "action": "at",
+            "index": 0
+          },
+          {
+            "action": "after",
+            "at": "2026-01-03T09:00:00",
+            "inclusive": true
+          },
+          {
+            "action": "before",
+            "at": "2026-01-03T09:00:00"
+          },
+          {
+            "action": "contains",
+            "at": "2026-01-03T09:00:00"
+          },
+          {
+            "action": "between",
+            "after": "2026-01-03T09:00:00",
+            "before": "2026-01-06T09:00:00",
+            "inclusive": true
+          },
+          {
+            "action": "xafter",
+            "at": "2026-01-03T09:00:00",
+            "count": 2
+          },
+          {
+            "action": "slice",
+            "start": 0,
+            "stop": 3
+          },
+          {
+            "action": "slice",
+            "start": -2
+          },
+          {
+            "action": "count"
+          },
+          {
+            "action": "at",
+            "index": -1
+          },
+          {
+            "action": "at",
+            "index": -99
+          },
+          {
+            "action": "slice",
+            "step": -2
+          },
+          {
+            "action": "slice",
+            "stop": 0
+          },
+          {
+            "action": "slice",
+            "step": 0
+          }
+        ]
+      },
+      "expected": [
+        {
+          "error": "dateutil recurrence index out of range"
+        },
+        null,
+        null,
+        false,
+        [],
+        [],
+        [],
+        [],
+        0,
+        {
+          "error": "dateutil recurrence index out of range"
+        },
+        {
+          "error": "dateutil recurrence index out of range"
+        },
+        [],
+        [],
+        {
+          "error": "slice step cannot be zero"
+        }
+      ]
+    },
+    {
+      "name": "fall-fold-same-identity",
+      "input": {
+        "cache": true,
+        "steps": [
+          {
+            "action": "rrule",
+            "lines": [
+              "DTSTART;TZID=America/New_York:20261101T013000",
+              "RRULE:FREQ=DAILY;COUNT=2"
+            ]
+          },
+          {
+            "action": "contains",
+            "at": "2026-11-01T05:30:00Z"
+          },
+          {
+            "action": "contains",
+            "at": {
+              "value": "2026-11-01T01:30:00-04:00",
+              "timeZone": "America/New_York"
+            }
+          },
+          {
+            "action": "before",
+            "at": "2026-11-01T05:30:00Z",
+            "inclusive": true
+          },
+          {
+            "action": "count"
+          },
+          {
+            "action": "contains",
+            "at": "2026-11-01T05:30:00Z"
+          },
+          {
+            "action": "contains",
+            "at": {
+              "value": "2026-11-01T01:30:00-04:00",
+              "timeZone": "America/New_York"
+            }
+          }
+        ]
+      },
+      "expected": [
+        false,
+        true,
+        "2026-11-01T05:30:00Z",
+        2,
+        false,
+        true
+      ]
+    },
+    {
+      "name": "microseconds-before-projection",
+      "input": {
+        "cache": true,
+        "steps": [
+          {
+            "action": "rdate",
+            "value": "2026-01-02T09:00:00.000001Z"
+          },
+          {
+            "action": "rdate",
+            "value": "2026-01-02T09:00:00.000003Z"
+          },
+          {
+            "action": "contains",
+            "at": "2026-01-02T09:00:00.000002Z"
+          },
+          {
+            "action": "count"
+          },
+          {
+            "action": "between",
+            "after": "2026-01-02T09:00:00.000001Z",
+            "before": "2026-01-02T09:00:00.000004Z"
+          },
+          {
+            "action": "xafter",
+            "at": "2026-01-02T09:00:00.000002Z",
+            "count": 1
+          },
+          {
+            "action": "exdate",
+            "value": "2026-01-02T09:00:00.000001Z"
+          },
+          {
+            "action": "count"
+          },
+          {
+            "action": "contains",
+            "at": "2026-01-02T09:00:00.000003Z"
+          }
+        ]
+      },
+      "expected": [
+        false,
+        2,
+        [
+          "2026-01-02T09:00:00Z"
+        ],
+        [
+          "2026-01-02T09:00:00Z"
+        ],
+        1,
+        true
+      ]
+    },
+    {
+      "name": "unbounded-productive-prefix",
+      "input": {
+        "cache": false,
+        "steps": [
+          {
+            "action": "rrule",
+            "lines": [
+              "DTSTART:20260101T000000Z",
+              "RRULE:FREQ=SECONDLY"
+            ]
+          },
+          {
+            "action": "at",
+            "index": 5
+          },
+          {
+            "action": "xafter",
+            "at": "2026-01-01T00:00:01Z",
+            "count": 3
+          },
+          {
+            "action": "slice",
+            "start": 1,
+            "stop": 4
+          }
+        ]
+      },
+      "expected": [
+        "2026-01-01T00:00:05Z",
+        [
+          "2026-01-01T00:00:02Z",
+          "2026-01-01T00:00:03Z",
+          "2026-01-01T00:00:04Z"
+        ],
+        [
+          "2026-01-01T00:00:01Z",
+          "2026-01-01T00:00:02Z",
+          "2026-01-01T00:00:03Z"
+        ]
+      ]
+    },
+    {
+      "name": "uncached-prefix-before-error",
+      "input": {
+        "cache": false,
+        "steps": [
+          {
+            "action": "rrule",
+            "lines": [
+              "DTSTART:00010102T090000",
+              "RRULE:FREQ=MONTHLY;INTERVAL=-1;COUNT=3"
+            ]
+          },
+          {
+            "action": "rdate",
+            "value": "0001-01-01T09:00:00"
+          },
+          {
+            "action": "at",
+            "index": 0
+          },
+          {
+            "action": "at",
+            "index": -1
+          }
+        ]
+      },
+      "expected": [
+        "0001-01-01T09:00:00",
+        {
+          "error": "not enough values to unpack (expected 2, got 0)"
+        }
+      ]
+    },
+    {
+      "name": "cached-ahead-error",
+      "input": {
+        "cache": true,
+        "steps": [
+          {
+            "action": "rrule",
+            "lines": [
+              "DTSTART:00010102T090000",
+              "RRULE:FREQ=MONTHLY;INTERVAL=-1;COUNT=3"
+            ]
+          },
+          {
+            "action": "rdate",
+            "value": "0001-01-01T09:00:00"
+          },
+          {
+            "action": "at",
+            "index": 0
+          }
+        ]
+      },
+      "expected": [
+        {
+          "error": "not enough values to unpack (expected 2, got 0)"
+        }
+      ]
+    }
+  ]
+}

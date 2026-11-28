@@ -1,0 +1,404 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil repeated clocks on numeric and separated dates",
+  "source": "python-dateutil 2.8.2 rrulestr with a frozen process-local date",
+  "cases": [
+    {
+      "name": "a colon clock replaces the packed clock and clears seconds",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:20260331T012026T09:15",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-03-31",
+          "2026-04-01"
+        ]
+      },
+      "expected": [
+        "2026-03-31T09:15:00",
+        "2026-04-01T09:15:00"
+      ]
+    },
+    {
+      "name": "a trailing calendar field fails after a complete date",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:20260331T012026T09",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "Unknown string format: 20260331T012026T09"
+      }
+    },
+    {
+      "name": "a trailing number supplies the day after a partial date",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:MAR-2026T012026T09",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-03-09",
+          "2026-03-10"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2026-03-09T01:20:26",
+        "2026-03-10T01:20:26"
+      ]
+    },
+    {
+      "name": "a number read before the first clock supplies the calendar day",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:MAR2026T01.5T09:15.25",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-02"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2026-03-01T09:15:15",
+        "2026-03-02T09:15:15"
+      ]
+    },
+    {
+      "name": "a malformed short clock cannot be repaired by a later clock",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:20260331T01.5T09:15.25",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "Unknown string format: 20260331T01.5T09:15.25"
+      }
+    },
+    {
+      "name": "T merges with a clock unit that precedes it",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:20260331T9.5HT09:15.25",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "Unknown string format: 20260331T9.5HT09:15.25"
+      }
+    },
+    {
+      "name": "a replacement clock retains the prior numeric offset",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:20260331T012026+0300T09:15",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-03-31",
+          "2026-04-01"
+        ]
+      },
+      "expected": [
+        "2026-03-31T06:15:00Z",
+        "2026-04-01T06:15:00Z"
+      ]
+    },
+    {
+      "name": "the later signed offset replaces the earlier offset",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:20260331T012026+0300T09:15-0430",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-03-31",
+          "2026-04-01"
+        ]
+      },
+      "expected": [
+        "2026-03-31T13:45:00Z",
+        "2026-04-01T13:45:00Z"
+      ]
+    },
+    {
+      "name": "a retained UTC alias still resolves to UTC",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:20260331T012026GMT.T09:15-0430",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-03-31",
+          "2026-04-01"
+        ]
+      },
+      "expected": [
+        "2026-03-31T09:15:00Z",
+        "2026-04-01T09:15:00Z"
+      ]
+    },
+    {
+      "name": "a second zone name fails after a numeric offset",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:20260331T012026+0300T09:15Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "Unknown string format: 20260331T012026+0300T09:15Z"
+      }
+    },
+    {
+      "name": "a seconds update preserves a leading compact hour and minute",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:202603310120T45S",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-03-31",
+          "2026-04-01"
+        ]
+      },
+      "expected": [
+        "2026-03-31T01:20:45",
+        "2026-04-01T01:20:45"
+      ]
+    },
+    {
+      "name": "a clock on a joined date retains its offset and lower fields",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:20260331012026+0300T9H",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-03-31",
+          "2026-04-01"
+        ]
+      },
+      "expected": [
+        "2026-03-31T06:20:26Z",
+        "2026-04-01T06:20:26Z"
+      ]
+    },
+    {
+      "name": "a long number consumed after the month reports the year error",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:MAR-2026012026T09:15",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": {
+        "error": "year 2026012026 is out of range: MAR-2026012026T09:15"
+      }
+    },
+    {
+      "name": "a minute update uses the reference fraction and retained microseconds",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:20260331T000000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:31/MAR/2026T012026.500001T15.25M"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-03-31",
+          "2026-04-01"
+        ]
+      },
+      "expected": [
+        "2026-03-31T00:00:00",
+        "2026-03-31T01:15:15.500",
+        "2026-04-01T00:00:00"
+      ]
+    },
+    {
+      "name": "a trailing calendar field moves the date of the cutoff",
+      "input": {
+        "profile": "dateutil",
+        "dateutilParserYear": 2026,
+        "lines": [
+          "DTSTART:20260309T000000",
+          "RRULE:FREQ=DAILY;UNTIL=MAR-2026T012026T09"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2026-03-09"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilHost": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "localTime": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2026-03-09T00:00:00"
+      ]
+    },
+    {
+      "name": "an offset retained through a clock update participates in exact exclusions",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260331T000000Z",
+          "RRULE:FREQ=DAILY;COUNT=1",
+          "RDATE:2026-03-31T012026.500001+0330T09:15,2026-03-31T012026.5+0330T09:15",
+          "EXDATE:20260331T054500.5Z"
+        ],
+        "checkpoints": [
+          "2026-03-31"
+        ],
+        "through": "2026-03-31"
+      },
+      "expected": [
+        "2026-03-31T00:00:00Z",
+        "2026-03-31T05:45:00.500Z"
+      ]
+    },
+    {
+      "name": "a replacement offset changes the UTC window of an explicit date",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260331T000000Z",
+          "RRULE:FREQ=DAILY;COUNT=1",
+          "RDATE:20260331T01:20:26.5+0300T23:15-0430"
+        ],
+        "checkpoints": [
+          "2026-03-31",
+          "2026-04-01"
+        ],
+        "through": "2026-04-01"
+      },
+      "expected": [
+        "2026-03-31T00:00:00Z",
+        "2026-04-01T03:45:00.500Z"
+      ]
+    },
+    {
+      "name": "the default RFC reader requires exactly one clock per recurrence date",
+      "input": {
+        "lines": [
+          "DTSTART:20260331T012026T09:15",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "through": "2026-04-01"
+      },
+      "expected": {
+        "error": "Expected an iCalendar DATE or DATE-TIME"
+      }
+    }
+  ]
+}

@@ -1,0 +1,372 @@
+{
+  "type": "recurrence-profile",
+  "name": "RFC aligned late starts and timezone transition starts",
+  "source": "RFC 5545 \u00a7\u00a73.3.5, 3.3.10, verified Erratum 4271; independent Python Gregorian and zoneinfo enumeration",
+  "cases": [
+    {
+      "name": "monthly DTSTART can be the last selected time in the first period",
+      "input": {
+        "lines": [
+          "DTSTART:20200131T173000Z",
+          "RRULE:FREQ=MONTHLY;INTERVAL=1;COUNT=4;BYDAY=1MO,-1FR;BYMONTHDAY=1,2,3,8,9,15,-1,-2,-7;BYHOUR=9,17;BYSETPOS=1,1,-1"
+        ],
+        "through": "2024-12-31",
+        "checkpoints": [
+          "2020-01-31",
+          "2020-02-03",
+          "2020-02-28",
+          "2020-03-02",
+          "2020-12-31",
+          "2021-12-31",
+          "2022-12-31",
+          "2023-12-31"
+        ]
+      },
+      "expected": [
+        "2020-01-31T17:30:00Z",
+        "2020-02-03T09:30:00Z",
+        "2020-02-28T17:30:00Z",
+        "2020-03-02T09:30:00Z"
+      ]
+    },
+    {
+      "name": "monthly COUNT is consumed before exclusions with a late DTSTART",
+      "input": {
+        "lines": [
+          "DTSTART:20200131T173000Z",
+          "RRULE:FREQ=MONTHLY;INTERVAL=1;COUNT=4;BYDAY=1MO,-1FR;BYMONTHDAY=1,2,3,8,9,15,-1,-2,-7;BYHOUR=9,17;BYSETPOS=1,1,-1",
+          "RDATE:20200131T173003Z",
+          "EXDATE:20200228T173000Z"
+        ],
+        "through": "2024-12-31",
+        "checkpoints": [
+          "2020-01-31",
+          "2020-02-03",
+          "2020-03-02",
+          "2020-12-31",
+          "2021-12-31",
+          "2022-12-31",
+          "2023-12-31"
+        ]
+      },
+      "expected": [
+        "2020-01-31T17:30:00Z",
+        "2020-01-31T17:30:03Z",
+        "2020-02-03T09:30:00Z",
+        "2020-03-02T09:30:00Z"
+      ]
+    },
+    {
+      "name": "ordinary and ordinal weekdays retain their monthly ranking before a late start",
+      "input": {
+        "lines": [
+          "DTSTART:20230130T093000Z",
+          "RRULE:FREQ=MONTHLY;INTERVAL=1;COUNT=4;BYDAY=MO,2TU;BYMONTHDAY=1,2,3,8,9,15,-1,-2,-7;BYSETPOS=2,-1",
+          "RDATE:20230130T093003Z",
+          "EXDATE:20230424T093000Z"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2023-01-30",
+          "2023-02-27",
+          "2023-05-08",
+          "2023-12-31",
+          "2024-12-31",
+          "2025-12-31",
+          "2026-12-31"
+        ]
+      },
+      "expected": [
+        "2023-01-30T09:30:00Z",
+        "2023-01-30T09:30:03Z",
+        "2023-02-27T09:30:00Z",
+        "2023-05-08T09:30:00Z"
+      ]
+    },
+    {
+      "name": "yearly positive and negative positions include a late selected DTSTART",
+      "input": {
+        "lines": [
+          "DTSTART:20201225T173000Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=1;UNTIL=20241231T235959Z;BYMONTH=1,2,5,12;BYDAY=1MO,-1FR;BYHOUR=9,17;BYSETPOS=2,-1"
+        ],
+        "through": "2024-12-31",
+        "checkpoints": [
+          "2020-12-25",
+          "2020-12-31",
+          "2021-01-04",
+          "2021-12-31",
+          "2022-01-03",
+          "2022-12-30",
+          "2022-12-31",
+          "2023-01-02",
+          "2023-12-29",
+          "2023-12-31",
+          "2024-01-01",
+          "2024-12-27"
+        ]
+      },
+      "expected": [
+        "2020-12-25T17:30:00Z",
+        "2021-01-04T17:30:00Z",
+        "2021-12-31T17:30:00Z",
+        "2022-01-03T17:30:00Z",
+        "2022-12-30T17:30:00Z",
+        "2023-01-02T17:30:00Z",
+        "2023-12-29T17:30:00Z",
+        "2024-01-01T17:30:00Z",
+        "2024-12-27T17:30:00Z"
+      ]
+    },
+    {
+      "name": "two-year phase stays anchored after a late first-year selection",
+      "input": {
+        "lines": [
+          "DTSTART:20201230T093000Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=2;UNTIL=20241231T235959Z;BYDAY=-2SU,2SU,WE;BYYEARDAY=1,2,7,31,59,60,61,365,366,-1,-2,-7;BYSETPOS=1,1,-1",
+          "RDATE:20201230T093003Z",
+          "EXDATE:20240131T093000Z"
+        ],
+        "through": "2024-12-31",
+        "checkpoints": [
+          "2020-12-30",
+          "2020-12-31",
+          "2021-12-31",
+          "2022-03-02",
+          "2022-12-31",
+          "2023-12-31",
+          "2024-12-25"
+        ]
+      },
+      "expected": [
+        "2020-12-30T09:30:00Z",
+        "2020-12-30T09:30:03Z",
+        "2022-03-02T09:30:00Z",
+        "2024-12-25T09:30:00Z"
+      ]
+    },
+    {
+      "name": "year-day filters preserve last-position DTSTART and duplicate positions collapse",
+      "input": {
+        "lines": [
+          "DTSTART:20231231T093000Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=1;UNTIL=20271231T235959Z;BYDAY=-1SU,SU,5MO;BYYEARDAY=1,2,7,31,59,60,61,365,366,-1,-2,-7;BYSETPOS=1,1,-1",
+          "RDATE:20231231T093003Z",
+          "EXDATE:20260301T093000Z"
+        ],
+        "through": "2027-12-31",
+        "checkpoints": [
+          "2023-12-31",
+          "2024-01-07",
+          "2024-12-31",
+          "2025-03-02",
+          "2025-12-31",
+          "2026-12-31",
+          "2027-01-31",
+          "2027-02-28"
+        ]
+      },
+      "expected": [
+        "2023-12-31T09:30:00Z",
+        "2023-12-31T09:30:03Z",
+        "2024-01-07T09:30:00Z",
+        "2025-03-02T09:30:00Z",
+        "2027-01-31T09:30:00Z",
+        "2027-02-28T09:30:00Z"
+      ]
+    },
+    {
+      "name": "gap DTSTART can project after later minutely wall candidates",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T025900",
+          "RRULE:FREQ=MINUTELY;INTERVAL=13;BYSECOND=0,30;BYSETPOS=1,-1;COUNT=8"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-08T07:12:00Z",
+        "2026-03-08T07:12:30Z",
+        "2026-03-08T07:25:00Z",
+        "2026-03-08T07:25:30Z",
+        "2026-03-08T07:38:00Z",
+        "2026-03-08T07:38:30Z",
+        "2026-03-08T07:59:00Z",
+        "2026-03-08T07:59:30Z"
+      ]
+    },
+    {
+      "name": "gap DTSTART and explicit dates respect an inclusive UTC cutoff",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T023000",
+          "RRULE:FREQ=MINUTELY;INTERVAL=13;BYSECOND=0,30;BYSETPOS=1,-1;UNTIL=20260308T075900Z",
+          "RDATE:20260307T065943Z,20260308T070300Z",
+          "EXDATE:20260308T073000Z,20260308T070300Z"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-07",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-07T06:59:43Z",
+        "2026-03-08T07:09:00Z",
+        "2026-03-08T07:09:30Z",
+        "2026-03-08T07:22:00Z",
+        "2026-03-08T07:22:30Z",
+        "2026-03-08T07:30:30Z",
+        "2026-03-08T07:35:00Z",
+        "2026-03-08T07:35:30Z",
+        "2026-03-08T07:43:00Z",
+        "2026-03-08T07:43:30Z",
+        "2026-03-08T07:48:00Z",
+        "2026-03-08T07:48:30Z",
+        "2026-03-08T07:56:00Z",
+        "2026-03-08T07:56:30Z"
+      ]
+    },
+    {
+      "name": "an ambiguous DTSTART starts at the earlier occurrence",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261101T010000",
+          "RRULE:FREQ=HOURLY;INTERVAL=1;COUNT=8"
+        ],
+        "through": "2026-11-03",
+        "checkpoints": [
+          "2026-10-31",
+          "2026-11-01"
+        ]
+      },
+      "expected": [
+        "2026-11-01T05:00:00Z",
+        "2026-11-01T07:00:00Z",
+        "2026-11-01T08:00:00Z",
+        "2026-11-01T09:00:00Z",
+        "2026-11-01T10:00:00Z",
+        "2026-11-01T11:00:00Z",
+        "2026-11-01T12:00:00Z",
+        "2026-11-01T13:00:00Z"
+      ]
+    },
+    {
+      "name": "half-hour gap starts preserve clock positions and explicit exclusions",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Australia/Lord_Howe:20261004T022900",
+          "RRULE:FREQ=MINUTELY;INTERVAL=13;BYSECOND=0,30;BYSETPOS=1,-1;COUNT=8",
+          "RDATE:20261002T152943Z,20261003T153300Z",
+          "EXDATE:20261003T155900Z,20261003T153300Z"
+        ],
+        "through": "2026-10-05",
+        "checkpoints": [
+          "2026-10-02",
+          "2026-10-03"
+        ]
+      },
+      "expected": [
+        "2026-10-02T15:29:43Z",
+        "2026-10-03T15:42:00Z",
+        "2026-10-03T15:42:30Z",
+        "2026-10-03T15:55:00Z",
+        "2026-10-03T15:55:30Z",
+        "2026-10-03T15:59:30Z",
+        "2026-10-03T16:08:00Z",
+        "2026-10-03T16:08:30Z"
+      ]
+    },
+    {
+      "name": "half-hour fold starts use the earlier offset",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Australia/Lord_Howe:20260405T014500",
+          "RRULE:FREQ=HOURLY;INTERVAL=1;UNTIL=20260404T152900Z"
+        ],
+        "through": "2026-04-06",
+        "checkpoints": [
+          "2026-04-03",
+          "2026-04-04"
+        ]
+      },
+      "expected": [
+        "2026-04-04T14:45:00Z"
+      ]
+    },
+    {
+      "name": "a skipped civil DTSTART day consumes COUNT before duplicate instants collapse",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Apia:20111230T120000",
+          "RRULE:FREQ=DAILY;INTERVAL=1;COUNT=8"
+        ],
+        "through": "2012-01-07",
+        "checkpoints": [
+          "2011-12-29",
+          "2011-12-30",
+          "2011-12-31",
+          "2012-01-01",
+          "2012-01-02",
+          "2012-01-03",
+          "2012-01-04",
+          "2012-01-05"
+        ]
+      },
+      "expected": [
+        "2011-12-30T22:00:00Z",
+        "2011-12-31T22:00:00Z",
+        "2012-01-01T22:00:00Z",
+        "2012-01-02T22:00:00Z",
+        "2012-01-03T22:00:00Z",
+        "2012-01-04T22:00:00Z",
+        "2012-01-05T22:00:00Z"
+      ]
+    },
+    {
+      "name": "three-hour gap starts keep their original hourly phase",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Antarctica/Casey:20091018T033000",
+          "RRULE:FREQ=HOURLY;INTERVAL=1;COUNT=8",
+          "RDATE:20091016T175943Z,20091017T180300Z",
+          "EXDATE:20091017T193000Z,20091017T180300Z"
+        ],
+        "through": "2009-10-19",
+        "checkpoints": [
+          "2009-10-16",
+          "2009-10-17"
+        ]
+      },
+      "expected": [
+        "2009-10-16T17:59:43Z",
+        "2009-10-17T18:30:00Z",
+        "2009-10-17T20:30:00Z",
+        "2009-10-17T21:30:00Z",
+        "2009-10-17T22:30:00Z",
+        "2009-10-17T23:30:00Z"
+      ]
+    },
+    {
+      "name": "twenty-three-hour fold preserves textual DTSTART's first occurrence",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Kwajalein:19690930T235900",
+          "RRULE:FREQ=HOURLY;INTERVAL=1;UNTIL=19690930T132900Z"
+        ],
+        "through": "1969-10-02",
+        "checkpoints": [
+          "1969-09-29",
+          "1969-09-30"
+        ]
+      },
+      "expected": [
+        "1969-09-30T12:59:00Z"
+      ]
+    }
+  ]
+}

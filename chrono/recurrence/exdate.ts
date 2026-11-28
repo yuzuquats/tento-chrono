@@ -3,7 +3,13 @@ import { NaiveDateTime } from "../naive-datetime.ts";
 import { NaiveTime } from "../naive-time.ts";
 import { Result, err, ok } from "../result.ts";
 import { Tzname } from "../timezone.ts";
-import { icalPropertyName } from "./ical-attributes.ts";
+import {
+  formatICalParameter,
+  ICalAttributes,
+  icalPropertyName,
+  splitICalProperty,
+  unquoteICalParameter,
+} from "./ical-attributes.ts";
 import { IsoDate } from "./iso-date.ts";
 import { TentoMath } from "../utils.ts";
 import type { Option } from "../option.ts";
@@ -33,38 +39,14 @@ export class ExDate {
       return err(Error("String must start with EXDATE"));
     }
 
-    // Remove "EXDATE" prefix
-    let remaining = exdateString.substring(6);
-
-    // Parse parameters (everything before the colon)
-    let tzid: Option<Tzname> = null;
-    let valueType: Option<"DATE" | "DATE-TIME"> = null;
-    
-    // Check if there are parameters (starts with semicolon)
-    if (remaining.startsWith(";")) {
-      const colonIndex = remaining.indexOf(":");
-      if (colonIndex === -1) {
-        return err(Error("Invalid EXDATE format: missing colon after parameters"));
-      }
-      
-      const paramString = remaining.substring(1, colonIndex);
-      const dateString = remaining.substring(colonIndex + 1);
-      
-      // Parse parameters
-      const params = ExDate.parseParameters(paramString);
-      tzid = params.tzid;
-      valueType = params.valueType;
-      
-      remaining = dateString;
-    } else if (remaining.startsWith(":")) {
-      // No parameters, just dates
-      remaining = remaining.substring(1);
-    } else {
-      return err(Error("Invalid EXDATE format: expected ; or : after EXDATE"));
-    }
-
-    // Parse the dates (comma-separated)
-    const dateStrings = remaining.split(",");
+    const property = splitICalProperty(exdateString);
+    if (property == null) return err(Error("Invalid EXDATE format: missing property separator"));
+    const parameters = ICalAttributes.fromRawAttributes(property.attributes);
+    const writtenTzid = parameters.get("TZID");
+    const tzid = writtenTzid ? unquoteICalParameter(writtenTzid) as Tzname : null;
+    const value = unquoteICalParameter(parameters.get("VALUE") ?? "").toUpperCase();
+    const valueType = value === "DATE" || value === "DATE-TIME" ? value : null;
+    const dateStrings = property.value.split(",");
     const dates: IsoDate[] = [];
     
     for (const dateStr of dateStrings) {
@@ -72,15 +54,9 @@ export class ExDate {
       if (trimmed.length === 0) continue;
       
       // Parse based on value type
-      let parseResult: Result<IsoDate>;
-      
-      if (valueType === "DATE") {
-        // Date-only format (YYYYMMDD)
-        parseResult = ExDate.parseDateOnly(trimmed);
-      } else {
-        // Try to parse as full datetime or date
-        parseResult = IsoDate.parse(trimmed);
-      }
+      const parseResult = valueType === "DATE" && !/T/i.test(trimmed)
+        ? ExDate.parseDateOnly(trimmed)
+        : IsoDate.parse(trimmed);
       
       if (parseResult.isErr) {
         return err(Error(`Failed to parse date: ${trimmed} - ${parseResult.asErr()}`));
@@ -115,36 +91,6 @@ export class ExDate {
   }
 
   /**
-   * Parse parameters from an EXDATE parameter string
-   */
-  private static parseParameters(paramString: string): {
-    tzid: Option<Tzname>;
-    valueType: Option<"DATE" | "DATE-TIME">;
-  } {
-    let tzid: Option<Tzname> = null;
-    let valueType: Option<"DATE" | "DATE-TIME"> = null;
-    
-    const params = paramString.split(";");
-    for (const param of params) {
-      const [key, value] = param.split("=");
-      if (!key || !value) continue;
-      
-      const upperKey = key.toUpperCase();
-      
-      if (upperKey === "TZID") {
-        tzid = value as Tzname;
-      } else if (upperKey === "VALUE") {
-        const upperValue = value.toUpperCase();
-        if (upperValue === "DATE" || upperValue === "DATE-TIME") {
-          valueType = upperValue as "DATE" | "DATE-TIME";
-        }
-      }
-    }
-    
-    return { tzid, valueType };
-  }
-
-  /**
    * Parse a date-only string (YYYYMMDD format)
    */
   private static parseDateOnly(dateStr: string): Result<IsoDate> {
@@ -174,7 +120,7 @@ export class ExDate {
     // Add parameters
     const params: string[] = [];
     if (this.tzid) {
-      params.push(`TZID=${this.tzid}`);
+      params.push(`TZID=${formatICalParameter(this.tzid)}`);
     }
     if (this.valueType) {
       params.push(`VALUE=${this.valueType}`);

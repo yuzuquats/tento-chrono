@@ -1,0 +1,933 @@
+{
+  "type": "recurrence-profile",
+  "name": "Outlook Graph month and year intervals",
+  "source": "Microsoft Graph v1.0 calendarView, captured 2026-11-22",
+  "cases": [
+    {
+      "name": "month-end-bimonthly-day-31",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-01-31T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 31,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 2,
+              "month": 0,
+              "type": "absoluteMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-01-31",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2028-01-03",
+        "checkpoints": [
+          "2027-01-31",
+          "2027-03-31",
+          "2027-05-31",
+          "2027-07-31",
+          "2027-09-30"
+        ]
+      },
+      "expected": [
+        "2027-01-31T09:00:00Z",
+        "2027-03-31T09:00:00Z",
+        "2027-05-31T09:00:00Z",
+        "2027-07-31T09:00:00Z",
+        "2027-09-30T09:00:00Z"
+      ]
+    },
+    {
+      "name": "month-end-quarterly-day-31",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-01-31T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 31,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 3,
+              "month": 0,
+              "type": "absoluteMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-01-31",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2028-04-03",
+        "checkpoints": [
+          "2027-01-31",
+          "2027-04-30",
+          "2027-07-31",
+          "2027-10-31",
+          "2028-01-31"
+        ]
+      },
+      "expected": [
+        "2027-01-31T09:00:00Z",
+        "2027-04-30T09:00:00Z",
+        "2027-07-31T09:00:00Z",
+        "2027-10-31T09:00:00Z",
+        "2028-01-31T09:00:00Z"
+      ]
+    },
+    {
+      "name": "short-month-day-30-all-day",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-01-30T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 30,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "absoluteMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 4,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-01-30",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-07-03",
+        "checkpoints": [
+          "2027-01-30",
+          "2027-02-28",
+          "2027-03-30",
+          "2027-04-30"
+        ]
+      },
+      "expected": [
+        "2027-01-30",
+        "2027-02-28",
+        "2027-03-30",
+        "2027-04-30"
+      ]
+    },
+    {
+      "name": "short-month-day-29-edge",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-01-29T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 29,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "absoluteMonthly"
+            },
+            "range": {
+              "endDate": "2027-02-28",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-01-29",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2027-04-03",
+        "checkpoints": [
+          "2027-01-29",
+          "2027-02-28"
+        ]
+      },
+      "expected": [
+        "2027-01-29T09:00:00Z",
+        "2027-02-28T09:00:00Z"
+      ]
+    },
+    {
+      "name": "monthly-midnight-western-offset",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-02-01T04:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Eastern Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 31,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 3,
+              "month": 0,
+              "type": "absoluteMonthly"
+            },
+            "range": {
+              "endDate": "2027-10-31",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Eastern Standard Time",
+              "startDate": "2027-01-31",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2027-12-03",
+        "checkpoints": [
+          "2027-02-01",
+          "2027-05-01",
+          "2027-08-01",
+          "2027-11-01"
+        ]
+      },
+      "expected": [
+        "2027-02-01T04:30:00Z",
+        "2027-05-01T03:30:00Z",
+        "2027-08-01T03:30:00Z",
+        "2027-11-01T03:30:00Z"
+      ]
+    },
+    {
+      "name": "month-end-interval-five-no-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-01-31T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 31,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 5,
+              "month": 0,
+              "type": "absoluteMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-01-31",
+              "type": "noEnd"
+            }
+          }
+        },
+        "through": "2028-10-03",
+        "checkpoints": [
+          "2027-01-31",
+          "2027-06-30",
+          "2027-11-30",
+          "2028-04-30",
+          "2028-09-30"
+        ]
+      },
+      "expected": [
+        "2027-01-31T09:00:00Z",
+        "2027-06-30T09:00:00Z",
+        "2027-11-30T09:00:00Z",
+        "2028-04-30T09:00:00Z",
+        "2028-09-30T09:00:00Z"
+      ]
+    },
+    {
+      "name": "monthly-anchor-after-written-selector",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-03-15T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 15,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 2,
+              "month": 0,
+              "type": "absoluteMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 4,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-03-15",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2028-01-03",
+        "checkpoints": [
+          "2027-03-15",
+          "2027-05-15",
+          "2027-07-15",
+          "2027-09-15"
+        ]
+      },
+      "expected": [
+        "2027-03-15T09:00:00Z",
+        "2027-05-15T09:00:00Z",
+        "2027-07-15T09:00:00Z",
+        "2027-09-15T09:00:00Z"
+      ]
+    },
+    {
+      "name": "monthly-range-earlier-than-master",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-02-28T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 31,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 2,
+              "month": 0,
+              "type": "absoluteMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-02-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2028-01-03",
+        "checkpoints": [
+          "2027-02-28",
+          "2027-04-30",
+          "2027-06-30"
+        ]
+      },
+      "expected": [
+        "2027-02-28T09:00:00Z",
+        "2027-04-30T09:00:00Z",
+        "2027-06-30T09:00:00Z"
+      ]
+    },
+    {
+      "name": "relative-monthly-second-weekend",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-01-03T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "saturday",
+                "sunday"
+              ],
+              "firstDayOfWeek": "sunday",
+              "index": "second",
+              "interval": 3,
+              "month": 0,
+              "type": "relativeMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 4,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-01-03",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2028-02-03",
+        "checkpoints": [
+          "2027-01-03",
+          "2027-04-04",
+          "2027-07-04",
+          "2027-10-03"
+        ]
+      },
+      "expected": [
+        "2027-01-03T09:00:00Z",
+        "2027-04-04T09:00:00Z",
+        "2027-07-04T09:00:00Z",
+        "2027-10-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "relative-monthly-last-mixed-weekdays",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-01-29T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday",
+                "wednesday",
+                "friday"
+              ],
+              "firstDayOfWeek": "sunday",
+              "index": "last",
+              "interval": 2,
+              "month": 0,
+              "type": "relativeMonthly"
+            },
+            "range": {
+              "endDate": "2027-11-29",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-01-29",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2027-12-03",
+        "checkpoints": [
+          "2027-01-29",
+          "2027-03-31",
+          "2027-05-31",
+          "2027-07-30",
+          "2027-09-29",
+          "2027-11-29"
+        ]
+      },
+      "expected": [
+        "2027-01-29T09:00:00Z",
+        "2027-03-31T09:00:00Z",
+        "2027-05-31T09:00:00Z",
+        "2027-07-30T09:00:00Z",
+        "2027-09-29T09:00:00Z",
+        "2027-11-29T09:00:00Z"
+      ]
+    },
+    {
+      "name": "relative-monthly-fourth-mixed-weekdays",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-01-08T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday",
+                "wednesday",
+                "friday"
+              ],
+              "firstDayOfWeek": "sunday",
+              "index": "fourth",
+              "interval": 2,
+              "month": 0,
+              "type": "relativeMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 6,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-01-08",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2028-02-03",
+        "checkpoints": [
+          "2027-01-08",
+          "2027-03-08",
+          "2027-05-10",
+          "2027-07-09",
+          "2027-09-08",
+          "2027-11-08"
+        ]
+      },
+      "expected": [
+        "2027-01-08T09:00:00Z",
+        "2027-03-08T09:00:00Z",
+        "2027-05-10T09:00:00Z",
+        "2027-07-09T09:00:00Z",
+        "2027-09-08T09:00:00Z",
+        "2027-11-08T09:00:00Z"
+      ]
+    },
+    {
+      "name": "relative-monthly-first-weekend-no-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-01-02T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "saturday",
+                "sunday"
+              ],
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 5,
+              "month": 0,
+              "type": "relativeMonthly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-01-02",
+              "type": "noEnd"
+            }
+          }
+        },
+        "through": "2028-09-03",
+        "checkpoints": [
+          "2027-01-02",
+          "2027-06-05",
+          "2027-11-06",
+          "2028-04-01",
+          "2028-09-02"
+        ]
+      },
+      "expected": [
+        "2027-01-02T09:00:00Z",
+        "2027-06-05T09:00:00Z",
+        "2027-11-06T09:00:00Z",
+        "2028-04-01T09:00:00Z",
+        "2028-09-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "february-29-biennial",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2028-02-29T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 29,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 2,
+              "month": 2,
+              "type": "absoluteYearly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2028-02-29",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2032-03-03",
+        "checkpoints": [
+          "2028-02-29",
+          "2030-02-28",
+          "2032-02-29"
+        ]
+      },
+      "expected": [
+        "2028-02-29T09:00:00Z",
+        "2030-02-28T09:00:00Z",
+        "2032-02-29T09:00:00Z"
+      ]
+    },
+    {
+      "name": "february-29-four-year-alignment",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2028-02-29T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 29,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 4,
+              "month": 2,
+              "type": "absoluteYearly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2028-02-29",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2036-03-03",
+        "checkpoints": [
+          "2028-02-29",
+          "2032-02-29",
+          "2036-02-29"
+        ]
+      },
+      "expected": [
+        "2028-02-29T09:00:00Z",
+        "2032-02-29T09:00:00Z",
+        "2036-02-29T09:00:00Z"
+      ]
+    },
+    {
+      "name": "nonleap-annual-february-29",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-02-28T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 29,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 2,
+              "type": "absoluteYearly"
+            },
+            "range": {
+              "endDate": "2030-02-28",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-02-28",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2030-03-03",
+        "checkpoints": [
+          "2027-02-28",
+          "2028-02-29",
+          "2029-02-28",
+          "2030-02-28"
+        ]
+      },
+      "expected": [
+        "2027-02-28",
+        "2028-02-29",
+        "2029-02-28",
+        "2030-02-28"
+      ]
+    },
+    {
+      "name": "november-31-yearly-limit",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-11-30T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 31,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 2,
+              "month": 11,
+              "type": "absoluteYearly"
+            },
+            "range": {
+              "endDate": "2031-11-29",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-11-30",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2031-12-03",
+        "checkpoints": [
+          "2027-11-30",
+          "2029-11-30"
+        ]
+      },
+      "expected": [
+        "2027-11-30T09:00:00Z",
+        "2029-11-30T09:00:00Z"
+      ]
+    },
+    {
+      "name": "yearly-anchor-after-selected-month",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2029-02-15T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 15,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 2,
+              "month": 2,
+              "type": "absoluteYearly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2029-02-15",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2034-03-03",
+        "checkpoints": [
+          "2029-02-15",
+          "2031-02-15",
+          "2033-02-15"
+        ]
+      },
+      "expected": [
+        "2029-02-15T09:00:00Z",
+        "2031-02-15T09:00:00Z",
+        "2033-02-15T09:00:00Z"
+      ]
+    },
+    {
+      "name": "yearly-anchor-before-selected-month",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-02-15T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 15,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 2,
+              "month": 2,
+              "type": "absoluteYearly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-02-15",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2032-03-03",
+        "checkpoints": [
+          "2027-02-15",
+          "2029-02-15",
+          "2031-02-15"
+        ]
+      },
+      "expected": [
+        "2027-02-15T09:00:00Z",
+        "2029-02-15T09:00:00Z",
+        "2031-02-15T09:00:00Z"
+      ]
+    },
+    {
+      "name": "yearly-last-weekend-february",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-02-28T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "saturday",
+                "sunday"
+              ],
+              "firstDayOfWeek": "sunday",
+              "index": "last",
+              "interval": 2,
+              "month": 2,
+              "type": "relativeYearly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-02-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2032-03-03",
+        "checkpoints": [
+          "2027-02-28",
+          "2029-02-25",
+          "2031-02-23"
+        ]
+      },
+      "expected": [
+        "2027-02-28T09:00:00Z",
+        "2029-02-25T09:00:00Z",
+        "2031-02-23T09:00:00Z"
+      ]
+    },
+    {
+      "name": "yearly-third-mixed-weekdays",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-10-06T13:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Eastern Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday",
+                "wednesday",
+                "friday"
+              ],
+              "firstDayOfWeek": "sunday",
+              "index": "third",
+              "interval": 2,
+              "month": 10,
+              "type": "relativeYearly"
+            },
+            "range": {
+              "endDate": "2031-10-09",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Eastern Standard Time",
+              "startDate": "2027-10-06",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2031-11-03",
+        "checkpoints": [
+          "2027-10-06",
+          "2029-10-05",
+          "2031-10-06"
+        ]
+      },
+      "expected": [
+        "2027-10-06T13:00:00Z",
+        "2029-10-05T13:00:00Z",
+        "2031-10-06T13:00:00Z"
+      ]
+    },
+    {
+      "name": "yearly-fourth-weekend-no-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-06-13T09:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "saturday",
+                "sunday"
+              ],
+              "firstDayOfWeek": "sunday",
+              "index": "fourth",
+              "interval": 2,
+              "month": 6,
+              "type": "relativeYearly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-06-13",
+              "type": "noEnd"
+            }
+          }
+        },
+        "through": "2032-07-03",
+        "checkpoints": [
+          "2027-06-13",
+          "2029-06-10",
+          "2031-06-14"
+        ]
+      },
+      "expected": [
+        "2027-06-13T09:00:00Z",
+        "2029-06-10T09:00:00Z",
+        "2031-06-14T09:00:00Z"
+      ]
+    }
+  ]
+}

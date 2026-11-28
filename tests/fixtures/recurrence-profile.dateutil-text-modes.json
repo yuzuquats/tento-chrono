@@ -1,0 +1,356 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil explicit text modes",
+  "source": "python-dateutil 2.8.2 rrulestr with forceset, and unfold for continuation lines",
+  "cases": [
+    {
+      "name": "packed properties/unfold=False",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000 RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ],
+        "dateutilUnfold": false
+      },
+      "expected": [
+        "2026-01-02T09:00:00",
+        "2026-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "packed properties/unfold=True",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000 RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ],
+        "dateutilUnfold": true
+      },
+      "expected": {
+        "error": "Unknown string format: 20260102T090000 RRULE:FREQ=DAILY;COUNT=2"
+      }
+    },
+    {
+      "name": "frequency diagnostic preserves the final tab/unfold=False",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000 RRULE:FREQ=DAILY;COUNT=2\t"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ],
+        "dateutilUnfold": false
+      },
+      "expected": [
+        "2026-01-02T09:00:00",
+        "2026-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "frequency diagnostic preserves the final tab/unfold=True",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000 RRULE:FREQ=DAILY;COUNT=2\t"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ],
+        "dateutilUnfold": true
+      },
+      "expected": {
+        "error": "Unknown string format: 20260102T090000 RRULE:FREQ=DAILY;COUNT=2\t"
+      }
+    },
+    {
+      "name": "space-only continuation/unfold=False",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=2\u001f",
+          " "
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ],
+        "dateutilUnfold": false
+      },
+      "expected": [
+        "2026-01-02T09:00:00",
+        "2026-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "space-only continuation/unfold=True",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000",
+          "RRULE:FREQ=DAILY;COUNT=2\u001f",
+          " "
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ],
+        "dateutilUnfold": true
+      },
+      "expected": {
+        "error": "invalid 'COUNT': 2\u001f"
+      }
+    },
+    {
+      "name": "split rule key/unfold=False",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000",
+          "RRULE:FREQ=DAILY;CO",
+          " UNT=2"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ],
+        "dateutilUnfold": false
+      },
+      "expected": {
+        "error": "not enough values to unpack (expected 2, got 1)"
+      }
+    },
+    {
+      "name": "split rule key/unfold=True",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000",
+          "RRULE:FREQ=DAILY;CO",
+          " UNT=2"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ],
+        "dateutilUnfold": true
+      },
+      "expected": [
+        "2026-01-02T09:00:00",
+        "2026-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "indented property/unfold=False",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000",
+          " RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ],
+        "dateutilUnfold": false
+      },
+      "expected": [
+        "2026-01-02T09:00:00",
+        "2026-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "indented property/unfold=True",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000",
+          " RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ],
+        "dateutilUnfold": true
+      },
+      "expected": {
+        "error": "Unknown string format: 20260102T090000RRULE:FREQ=DAILY;COUNT=2"
+      }
+    },
+    {
+      "name": "separate rule and folded date/unfold=False",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T09",
+          " 0000",
+          "RRULE:FREQ=DAILY;COUNT=2\u001f"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ],
+        "dateutilUnfold": false
+      },
+      "expected": {
+        "error": "not enough values to unpack (expected 2, got 1)"
+      }
+    },
+    {
+      "name": "separate rule and folded date/unfold=True",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T09",
+          " 0000",
+          "RRULE:FREQ=DAILY;COUNT=2\u001f"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ],
+        "dateutilUnfold": true
+      },
+      "expected": {
+        "error": "invalid 'COUNT': 2\u001f"
+      }
+    },
+    {
+      "name": "tab-indented rule/unfold=False",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000",
+          "\tRRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ],
+        "dateutilUnfold": false
+      },
+      "expected": [
+        "2026-01-02T09:00:00",
+        "2026-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "tab-indented rule/unfold=True",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000",
+          "\tRRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ],
+        "dateutilUnfold": true
+      },
+      "expected": {
+        "error": "unsupported property: \tRRULE"
+      }
+    },
+    {
+      "name": "trailing space on frequency/unfold=False",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000",
+          "RRULE:COUNT=2;FREQ=DAILY "
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ],
+        "dateutilUnfold": false
+      },
+      "expected": [
+        "2026-01-02T09:00:00",
+        "2026-01-03T09:00:00"
+      ]
+    },
+    {
+      "name": "trailing space on frequency/unfold=True",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090000",
+          "RRULE:COUNT=2;FREQ=DAILY "
+        ],
+        "through": "2026-01-10",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-04"
+        ],
+        "dateutilUnfold": true
+      },
+      "expected": {
+        "error": "invalid 'FREQ': DAILY "
+      }
+    },
+    {
+      "name": "RFC folding remains available with the dateutil option present",
+      "input": {
+        "profile": "rfc5545",
+        "dateutilUnfold": false,
+        "through": "2026-01-04",
+        "checkpoints": [
+          "2026-01-02"
+        ],
+        "lines": [
+          "DTSTART:20260102T09",
+          " 0000Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    }
+  ]
+}

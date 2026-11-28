@@ -1,0 +1,403 @@
+{
+  "type": "vtimezone",
+  "name": "RFC 7808 timezone upper bound",
+  "source": "RFC 7808 sections 3.9 and 7.1",
+  "cases": [
+    {
+      "name": "UTC day ends at the exclusive bound",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Truncated",
+          "tzuntil;VALUE=date-time;X-IDENT=\"utc:end\":20260101T000000z",
+          "BEGIN:STANDARD",
+          "DTSTART:20250101T000000",
+          "TZOFFSETFROM:+0200",
+          "TZOFFSETTO:+0200",
+          "TZNAME:CAL",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2025-12-31",
+        "event": [
+          "DTSTART;TZID=X-Truncated:20260101T015959",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "outsideThrough": "2026-01-01"
+      },
+      "expected": {
+        "name": "X-Truncated",
+        "transitions": [
+          [
+            "2024-12-31T22:00:00Z",
+            7200,
+            7200,
+            "CAL"
+          ]
+        ],
+        "eventStarts": [
+          "2025-12-31T23:59:59Z"
+        ]
+      }
+    },
+    {
+      "name": "UTC cutoff day beginning at the exclusive bound",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Truncated",
+          "TZUNTIL:20260101T000000Z",
+          "BEGIN:STANDARD",
+          "DTSTART:20250101T000000",
+          "TZOFFSETFROM:+0200",
+          "TZOFFSETTO:+0200",
+          "TZNAME:CAL",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-01"
+      },
+      "expected": {
+        "error": "VTIMEZONE TZUNTIL does not cover the full UTC date"
+      }
+    },
+    {
+      "name": "cutoff day containing a partial supported window",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Truncated",
+          "TZUNTIL:20260101T120000Z",
+          "BEGIN:STANDARD",
+          "DTSTART:20250101T000000",
+          "TZOFFSETFROM:+0200",
+          "TZOFFSETTO:+0200",
+          "TZNAME:CAL",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-01"
+      },
+      "expected": {
+        "error": "VTIMEZONE TZUNTIL does not cover the full UTC date"
+      }
+    },
+    {
+      "name": "a cutoff one second before the next midnight",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Truncated",
+          "TZUNTIL:20251231T235959Z",
+          "BEGIN:STANDARD",
+          "DTSTART:20250101T000000",
+          "TZOFFSETFROM:+0200",
+          "TZOFFSETTO:+0200",
+          "TZNAME:CAL",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2025-12-31"
+      },
+      "expected": {
+        "error": "VTIMEZONE TZUNTIL does not cover the full UTC date"
+      }
+    },
+    {
+      "name": "date before a midday cutoff",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Truncated",
+          "TZUNTIL:20260101T120000Z",
+          "BEGIN:STANDARD",
+          "DTSTART:20250101T000000",
+          "TZOFFSETFROM:+0200",
+          "TZOFFSETTO:+0200",
+          "TZNAME:CAL",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2025-12-31"
+      },
+      "expected": {
+        "name": "X-Truncated",
+        "transitions": [
+          [
+            "2024-12-31T22:00:00Z",
+            7200,
+            7200,
+            "CAL"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "duplicated cutoff",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Truncated",
+          "TZUNTIL:20260101T000000Z",
+          "tzuntil:20260102T000000Z",
+          "BEGIN:STANDARD",
+          "DTSTART:20250101T000000",
+          "TZOFFSETFROM:+0200",
+          "TZOFFSETTO:+0200",
+          "TZNAME:CAL",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2025-12-31"
+      },
+      "expected": {
+        "error": "Duplicate VTIMEZONE TZUNTIL"
+      }
+    },
+    {
+      "name": "local cutoff lacks a UTC marker",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Truncated",
+          "TZUNTIL:20260101T000000",
+          "BEGIN:STANDARD",
+          "DTSTART:20250101T000000",
+          "TZOFFSETFROM:+0200",
+          "TZOFFSETTO:+0200",
+          "TZNAME:CAL",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2025-12-31"
+      },
+      "expected": {
+        "error": "VTIMEZONE TZUNTIL requires UTC DATE-TIME"
+      }
+    },
+    {
+      "name": "TZID on UTC cutoff",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Truncated",
+          "TZUNTIL;TZID=X-Truncated:20260101T000000Z",
+          "BEGIN:STANDARD",
+          "DTSTART:20250101T000000",
+          "TZOFFSETFROM:+0200",
+          "TZOFFSETTO:+0200",
+          "TZNAME:CAL",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2025-12-31"
+      },
+      "expected": {
+        "error": "TZID is invalid on UTC DATE-TIME"
+      }
+    },
+    {
+      "name": "conflicting declared value type",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Truncated",
+          "TZUNTIL;VALUE=DATE:20260101T000000Z",
+          "BEGIN:STANDARD",
+          "DTSTART:20250101T000000",
+          "TZOFFSETFROM:+0200",
+          "TZOFFSETTO:+0200",
+          "TZNAME:CAL",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2025-12-31"
+      },
+      "expected": {
+        "error": "TZUNTIL requires VALUE=DATE-TIME"
+      }
+    },
+    {
+      "name": "invalid cutoff date",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Truncated",
+          "TZUNTIL:20260230T000000Z",
+          "BEGIN:STANDARD",
+          "DTSTART:20250101T000000",
+          "TZOFFSETFROM:+0200",
+          "TZOFFSETTO:+0200",
+          "TZNAME:CAL",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2025-12-31"
+      },
+      "expected": {
+        "error": "Invalid iCalendar date or time"
+      }
+    },
+    {
+      "name": "an inclusion has a truncated timezone",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Truncated",
+          "tzuntil;VALUE=date-time;X-IDENT=\"utc:end\":20260101T000000z",
+          "BEGIN:STANDARD",
+          "DTSTART:20250101T000000",
+          "TZOFFSETFROM:+0200",
+          "TZOFFSETTO:+0200",
+          "TZNAME:CAL",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2025-12-31",
+        "outsideThrough": "2026-01-01",
+        "legacyStart": "2025-12-30T08:00:00Z",
+        "event": [
+          "DTSTART:20251230T080000Z",
+          "RRULE:FREQ=DAILY;COUNT=4",
+          "RDATE;TZID=X-Truncated:20251231T110000"
+        ]
+      },
+      "expected": {
+        "name": "X-Truncated",
+        "transitions": [
+          [
+            "2024-12-31T22:00:00Z",
+            7200,
+            7200,
+            "CAL"
+          ]
+        ],
+        "eventStarts": [
+          "2025-12-30T08:00:00Z",
+          "2025-12-31T08:00:00Z",
+          "2025-12-31T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "an exclusion has a truncated timezone",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Truncated",
+          "tzuntil;VALUE=date-time;X-IDENT=\"utc:end\":20260101T000000z",
+          "BEGIN:STANDARD",
+          "DTSTART:20250101T000000",
+          "TZOFFSETFROM:+0200",
+          "TZOFFSETTO:+0200",
+          "TZNAME:CAL",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2025-12-31",
+        "outsideThrough": "2026-01-01",
+        "legacyStart": "2025-12-30T08:00:00Z",
+        "event": [
+          "DTSTART:20251230T080000Z",
+          "RRULE:FREQ=DAILY;COUNT=4",
+          "EXDATE;TZID=X-Truncated:20251231T100000"
+        ]
+      },
+      "expected": {
+        "name": "X-Truncated",
+        "transitions": [
+          [
+            "2024-12-31T22:00:00Z",
+            7200,
+            7200,
+            "CAL"
+          ]
+        ],
+        "eventStarts": [
+          "2025-12-30T08:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "the compiled day can precede the provider cutoff",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Truncated",
+          "tzuntil;VALUE=date-time;X-IDENT=\"utc:end\":20270101T000000z",
+          "BEGIN:STANDARD",
+          "DTSTART:20250101T000000",
+          "TZOFFSETFROM:+0200",
+          "TZOFFSETTO:+0200",
+          "TZNAME:CAL",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2025-12-31",
+        "outsideThrough": "2026-01-01",
+        "event": [
+          "DTSTART;TZID=X-Truncated:20260101T015959",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ]
+      },
+      "expected": {
+        "name": "X-Truncated",
+        "transitions": [
+          [
+            "2024-12-31T22:00:00Z",
+            7200,
+            7200,
+            "CAL"
+          ]
+        ],
+        "eventStarts": [
+          "2025-12-31T23:59:59Z"
+        ]
+      }
+    },
+    {
+      "name": "a transition begins after the compiled day and before UNTIL",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:X-Covered",
+          "BEGIN:STANDARD",
+          "DTSTART:20250101T000000",
+          "TZOFFSETFROM:-0800",
+          "TZOFFSETTO:-0800",
+          "TZNAME:STD",
+          "END:STANDARD",
+          "BEGIN:DAYLIGHT",
+          "DTSTART:20260701T160000",
+          "TZOFFSETFROM:-0800",
+          "TZOFFSETTO:-0700",
+          "TZNAME:DST",
+          "END:DAYLIGHT",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-07-01",
+        "outsideThrough": "2026-07-02",
+        "legacyStart": "2026-06-30T17:00:00Z",
+        "event": [
+          "DTSTART;TZID=X-Covered:20260630T090000",
+          "RRULE:FREQ=DAILY;UNTIL=20261231T235959Z"
+        ]
+      },
+      "expected": {
+        "name": "X-Covered",
+        "transitions": [
+          [
+            "2025-01-01T08:00:00Z",
+            -28800,
+            -28800,
+            "STD"
+          ]
+        ],
+        "eventStarts": [
+          "2026-06-30T17:00:00Z",
+          "2026-07-01T17:00:00Z"
+        ]
+      }
+    }
+  ]
+}

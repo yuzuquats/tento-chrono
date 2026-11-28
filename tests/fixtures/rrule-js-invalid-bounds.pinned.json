@@ -1,0 +1,296 @@
+{
+  "type": "rrule-js-invalid-bounds",
+  "name": "rrule.js 2.8.1 bounded queries with Invalid Date",
+  "source": "Pinned rrule.js 2.8.1",
+  "cases": [
+    {
+      "name": "standalone-invalid-dates",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:01000101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "after": "0001-01-01T00:00:00Z",
+        "before": "2026-01-01T00:00:00Z",
+        "inclusive": false,
+        "rruleJsForceSet": false,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": {
+        "between": [
+          null,
+          null
+        ],
+        "before": "Invalid Date",
+        "after": "Invalid Date"
+      }
+    },
+    {
+      "name": "standalone-invalid-dates-before-first-wall-day",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:01000101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "after": "0001-01-01T00:00:00Z",
+        "before": "0099-01-01T00:00:00Z",
+        "inclusive": false,
+        "rruleJsForceSet": false,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": {
+        "between": [
+          null,
+          null
+        ],
+        "before": "Invalid Date",
+        "after": "Invalid Date"
+      }
+    },
+    {
+      "name": "standalone-invalid-dates-after-last-wall-day",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:01000101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "after": "0200-01-01T00:00:00Z",
+        "before": "2026-01-01T00:00:00Z",
+        "inclusive": false,
+        "rruleJsForceSet": false,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": {
+        "between": [
+          null,
+          null
+        ],
+        "before": "Invalid Date",
+        "after": "Invalid Date"
+      }
+    },
+    {
+      "name": "force-set-deduplicates-invalid-dates",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:01000101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "after": "0001-01-01T00:00:00Z",
+        "before": "2026-01-01T00:00:00Z",
+        "inclusive": false,
+        "rruleJsForceSet": true,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": {
+        "between": [
+          null
+        ],
+        "before": "Invalid Date",
+        "after": "Invalid Date"
+      }
+    },
+    {
+      "name": "explicit-invalid-exdate-excludes-between-only",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:01000101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE:01000101T090000Z"
+        ],
+        "after": "0001-01-01T00:00:00Z",
+        "before": "2026-01-01T00:00:00Z",
+        "inclusive": false,
+        "rruleJsForceSet": true,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": {
+        "between": [],
+        "before": "Invalid Date",
+        "after": "Invalid Date"
+      }
+    },
+    {
+      "name": "invalid-exrule-excludes-between-only",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:01000101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "after": "0001-01-01T00:00:00Z",
+        "before": "2026-01-01T00:00:00Z",
+        "inclusive": false,
+        "rruleJsForceSet": true,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": {
+        "between": [],
+        "before": "Invalid Date",
+        "after": "Invalid Date"
+      }
+    },
+    {
+      "name": "rrule-and-rdate-invalid-slots",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:01000101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:01000101T090000Z,01000102T090000Z"
+        ],
+        "after": "0001-01-01T00:00:00Z",
+        "before": "2026-01-01T00:00:00Z",
+        "inclusive": false,
+        "rruleJsForceSet": true,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": {
+        "between": [
+          null
+        ],
+        "before": "Invalid Date",
+        "after": "Invalid Date"
+      }
+    },
+    {
+      "name": "standalone-last-week-carry",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:99991231T093000",
+          "RRULE:FREQ=WEEKLY;BYDAY=FR,SU;COUNT=2"
+        ],
+        "after": "9999-12-31T00:00:00Z",
+        "before": "9999-12-31T23:59:59Z",
+        "inclusive": false,
+        "rruleJsForceSet": false,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": {
+        "between": [
+          "9999-12-31T14:30:00Z",
+          null
+        ],
+        "before": "Invalid Date",
+        "after": "9999-12-31T14:30:00Z"
+      }
+    },
+    {
+      "name": "force-set-last-week-carry",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:99991231T093000",
+          "RRULE:FREQ=WEEKLY;BYDAY=FR,SU;COUNT=2"
+        ],
+        "after": "9999-12-31T00:00:00Z",
+        "before": "9999-12-31T23:59:59Z",
+        "inclusive": false,
+        "rruleJsForceSet": true,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": {
+        "between": [
+          "9999-12-31T14:30:00Z",
+          null
+        ],
+        "before": "Invalid Date",
+        "after": "9999-12-31T14:30:00Z"
+      }
+    },
+    {
+      "name": "last-week-carry-after-search-bound",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:99991231T093000",
+          "RRULE:FREQ=WEEKLY;BYDAY=FR,SU;COUNT=2"
+        ],
+        "after": "9999-12-31T22:00:00Z",
+        "before": "9999-12-31T23:59:59Z",
+        "inclusive": false,
+        "rruleJsForceSet": false,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": {
+        "between": [
+          null
+        ],
+        "before": "Invalid Date",
+        "after": "Invalid Date"
+      }
+    },
+    {
+      "name": "mixed-set-sort-across-invalid-slots",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Asia/Tokyo:09991231T235959",
+          "RRULE:FREQ=SECONDLY;COUNT=4",
+          "RDATE:10000103T090000Z,09991231T220000Z",
+          "RRULE:FREQ=YEARLY;COUNT=2"
+        ],
+        "after": "0001-01-01T00:00:00Z",
+        "before": "2026-01-01T00:00:00Z",
+        "inclusive": false,
+        "rruleJsForceSet": true,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": {
+        "between": [
+          null,
+          "0999-12-31T14:41:01Z",
+          "0999-12-31T14:41:02Z",
+          "0999-12-31T14:41:03Z",
+          "1000-01-02T23:41:01Z",
+          "1000-12-31T14:41:00Z"
+        ],
+        "before": "1000-12-31T14:41:00Z",
+        "after": "Invalid Date"
+      }
+    },
+    {
+      "name": "mixed-set-sort-non-utc-host",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Asia/Tokyo:09991231T235959",
+          "RRULE:FREQ=SECONDLY;COUNT=4",
+          "RDATE:10000103T090000Z,09991231T220000Z",
+          "RRULE:FREQ=YEARLY;COUNT=2"
+        ],
+        "after": "0001-01-01T00:00:00Z",
+        "before": "2026-01-01T00:00:00Z",
+        "inclusive": true,
+        "rruleJsForceSet": true,
+        "rruleJsHostTimeZone": "America/Los_Angeles"
+      },
+      "expected": {
+        "between": [
+          null,
+          "1000-01-02T15:48:03Z",
+          "1000-12-31T06:48:02Z"
+        ],
+        "before": "1000-12-31T06:48:02Z",
+        "after": "Invalid Date"
+      }
+    },
+    {
+      "name": "valid-utc-ancient-control",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=UTC:01000101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "after": "0001-01-01T00:00:00Z",
+        "before": "2026-01-01T00:00:00Z",
+        "inclusive": false,
+        "rruleJsForceSet": false,
+        "rruleJsHostTimeZone": "UTC"
+      },
+      "expected": {
+        "between": [
+          "0100-01-01T09:00:00Z",
+          "0100-01-02T09:00:00Z"
+        ],
+        "before": "0100-01-02T09:00:00Z",
+        "after": "0100-01-01T09:00:00Z"
+      }
+    }
+  ]
+}

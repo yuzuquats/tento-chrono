@@ -1,0 +1,2210 @@
+{
+  "type": "recurrence-profile",
+  "name": "Outlook Graph historical New Zealand and Chatham Islands seasons",
+  "source": "Microsoft Graph v1.0 calendarView on a dedicated test calendar",
+  "cases": [
+    {
+      "name": "auckland-historical-1899-march-fold-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-03-16T14:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "New Zealand Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-03-17",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-03-29",
+        "checkpoints": [
+          "1899-03-16",
+          "1899-03-17",
+          "1899-03-18",
+          "1899-03-19",
+          "1899-03-20"
+        ]
+      },
+      "expected": [
+        "1899-03-16T14:00:00Z",
+        "1899-03-17T14:00:00Z",
+        "1899-03-18T15:00:00Z",
+        "1899-03-19T15:00:00Z",
+        "1899-03-20T15:00:00Z"
+      ]
+    },
+    {
+      "name": "auckland-historical-1967-march-fold-start",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-03-16T13:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "New Zealand Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-03-17",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-03-29",
+        "checkpoints": [
+          "1967-03-16",
+          "1967-03-17",
+          "1967-03-18",
+          "1967-03-19",
+          "1967-03-20"
+        ]
+      },
+      "expected": [
+        "1967-03-16T13:00:00Z",
+        "1967-03-17T13:00:00Z",
+        "1967-03-18T13:00:00Z",
+        "1967-03-19T14:00:00Z",
+        "1967-03-20T14:00:00Z"
+      ]
+    },
+    {
+      "name": "auckland-historical-1967-march-fold-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-03-16T14:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "New Zealand Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-03-17",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-03-29",
+        "checkpoints": [
+          "1967-03-16",
+          "1967-03-17",
+          "1967-03-18",
+          "1967-03-19",
+          "1967-03-20"
+        ]
+      },
+      "expected": [
+        "1967-03-16T14:00:00Z",
+        "1967-03-17T14:00:00Z",
+        "1967-03-18T15:00:00Z",
+        "1967-03-19T15:00:00Z",
+        "1967-03-20T15:00:00Z"
+      ]
+    },
+    {
+      "name": "auckland-historical-1967-october-gap-start",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-09-28T14:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "New Zealand Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-09-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-10-11",
+        "checkpoints": [
+          "1967-09-28",
+          "1967-09-29",
+          "1967-09-30",
+          "1967-10-01",
+          "1967-10-02"
+        ]
+      },
+      "expected": [
+        "1967-09-28T14:00:00Z",
+        "1967-09-29T14:00:00Z",
+        "1967-09-30T14:00:00Z",
+        "1967-10-01T13:00:00Z",
+        "1967-10-02T13:00:00Z"
+      ]
+    },
+    {
+      "name": "auckland-historical-1967-october-gap-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-09-28T15:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "New Zealand Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-09-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-10-11",
+        "checkpoints": [
+          "1967-09-28",
+          "1967-09-29",
+          "1967-09-30",
+          "1967-10-01",
+          "1967-10-02"
+        ]
+      },
+      "expected": [
+        "1967-09-28T15:00:00Z",
+        "1967-09-29T15:00:00Z",
+        "1967-09-30T14:00:00Z",
+        "1967-10-01T14:00:00Z",
+        "1967-10-02T14:00:00Z"
+      ]
+    },
+    {
+      "name": "auckland-historical-1989-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1989-09-29T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "New Zealand Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1989-09-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1989-10-11",
+        "checkpoints": [
+          "1989-09-29",
+          "1989-09-30",
+          "1989-10-01",
+          "1989-10-02"
+        ]
+      },
+      "expected": [
+        "1989-09-29T00:00:00Z",
+        "1989-09-30T00:00:00Z",
+        "1989-09-30T23:00:00Z",
+        "1989-10-01T23:00:00Z",
+        "1989-10-02T23:00:00Z"
+      ]
+    },
+    {
+      "name": "auckland-historical-yearly-1987-1992",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1987-10-03T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "New Zealand Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 4,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 10,
+              "type": "absoluteYearly"
+            },
+            "range": {
+              "endDate": "1992-10-04",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "1987-10-04",
+              "type": "endDate"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1992-10-06",
+        "checkpoints": [
+          "1987-10-03",
+          "1988-10-03",
+          "1989-10-03",
+          "1990-10-04",
+          "1991-10-04",
+          "1992-10-03"
+        ]
+      },
+      "expected": [
+        "1987-10-03T23:00:00Z",
+        "1988-10-03T23:00:00Z",
+        "1989-10-03T23:00:00Z",
+        "1990-10-04T00:00:00Z",
+        "1991-10-04T00:00:00Z",
+        "1992-10-03T23:00:00Z"
+      ]
+    },
+    {
+      "name": "auckland-historical-yearly-1900-2076",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1900-10-04T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "New Zealand Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 4,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 88,
+              "month": 10,
+              "type": "absoluteYearly"
+            },
+            "range": {
+              "endDate": "2076-10-04",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "1900-10-04",
+              "type": "endDate"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2076-10-06",
+        "checkpoints": [
+          "1900-10-04",
+          "1988-10-03",
+          "2076-10-03"
+        ]
+      },
+      "expected": [
+        "1900-10-04T00:00:00Z",
+        "1988-10-03T23:00:00Z",
+        "2076-10-03T23:00:00Z"
+      ]
+    },
+    {
+      "name": "chatham-historical-1899-march-fold-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-03-16T14:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Chatham Islands Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-03-17",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-03-29",
+        "checkpoints": [
+          "1899-03-16",
+          "1899-03-17",
+          "1899-03-18",
+          "1899-03-19",
+          "1899-03-20"
+        ]
+      },
+      "expected": [
+        "1899-03-16T14:00:00Z",
+        "1899-03-17T14:00:00Z",
+        "1899-03-18T15:00:00Z",
+        "1899-03-19T15:00:00Z",
+        "1899-03-20T15:00:00Z"
+      ]
+    },
+    {
+      "name": "chatham-historical-1967-march-fold-start",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-03-16T13:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Chatham Islands Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-03-17",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-03-29",
+        "checkpoints": [
+          "1967-03-16",
+          "1967-03-17",
+          "1967-03-18",
+          "1967-03-19",
+          "1967-03-20"
+        ]
+      },
+      "expected": [
+        "1967-03-16T13:00:00Z",
+        "1967-03-17T13:00:00Z",
+        "1967-03-18T13:00:00Z",
+        "1967-03-19T14:00:00Z",
+        "1967-03-20T14:00:00Z"
+      ]
+    },
+    {
+      "name": "chatham-historical-1967-march-fold-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-03-16T14:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Chatham Islands Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-03-17",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-03-29",
+        "checkpoints": [
+          "1967-03-16",
+          "1967-03-17",
+          "1967-03-18",
+          "1967-03-19",
+          "1967-03-20"
+        ]
+      },
+      "expected": [
+        "1967-03-16T14:00:00Z",
+        "1967-03-17T14:00:00Z",
+        "1967-03-18T15:00:00Z",
+        "1967-03-19T15:00:00Z",
+        "1967-03-20T15:00:00Z"
+      ]
+    },
+    {
+      "name": "chatham-historical-1967-october-gap-start",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-09-28T14:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Chatham Islands Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-09-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-10-11",
+        "checkpoints": [
+          "1967-09-28",
+          "1967-09-29",
+          "1967-09-30",
+          "1967-10-01",
+          "1967-10-02"
+        ]
+      },
+      "expected": [
+        "1967-09-28T14:00:00Z",
+        "1967-09-29T14:00:00Z",
+        "1967-09-30T14:00:00Z",
+        "1967-10-01T13:00:00Z",
+        "1967-10-02T13:00:00Z"
+      ]
+    },
+    {
+      "name": "chatham-historical-1967-october-gap-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-09-28T15:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Chatham Islands Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-09-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-10-11",
+        "checkpoints": [
+          "1967-09-28",
+          "1967-09-29",
+          "1967-09-30",
+          "1967-10-01",
+          "1967-10-02"
+        ]
+      },
+      "expected": [
+        "1967-09-28T15:00:00Z",
+        "1967-09-29T15:00:00Z",
+        "1967-09-30T14:00:00Z",
+        "1967-10-01T14:00:00Z",
+        "1967-10-02T14:00:00Z"
+      ]
+    },
+    {
+      "name": "chatham-historical-1989-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1989-09-28T23:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Chatham Islands Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1989-09-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1989-10-11",
+        "checkpoints": [
+          "1989-09-28",
+          "1989-09-29",
+          "1989-09-30",
+          "1989-10-01",
+          "1989-10-02"
+        ]
+      },
+      "expected": [
+        "1989-09-28T23:15:00Z",
+        "1989-09-29T23:15:00Z",
+        "1989-09-30T22:15:00Z",
+        "1989-10-01T22:15:00Z",
+        "1989-10-02T22:15:00Z"
+      ]
+    },
+    {
+      "name": "chatham-historical-yearly-1987-1992",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1987-10-03T22:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Chatham Islands Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 4,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 10,
+              "type": "absoluteYearly"
+            },
+            "range": {
+              "endDate": "1992-10-04",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "1987-10-04",
+              "type": "endDate"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1992-10-06",
+        "checkpoints": [
+          "1987-10-03",
+          "1988-10-03",
+          "1989-10-03",
+          "1990-10-03",
+          "1991-10-03",
+          "1992-10-03"
+        ]
+      },
+      "expected": [
+        "1987-10-03T22:15:00Z",
+        "1988-10-03T22:15:00Z",
+        "1989-10-03T22:15:00Z",
+        "1990-10-03T23:15:00Z",
+        "1991-10-03T23:15:00Z",
+        "1992-10-03T22:15:00Z"
+      ]
+    },
+    {
+      "name": "chatham-historical-yearly-1900-2076",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1900-10-03T23:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Chatham Islands Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 4,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 88,
+              "month": 10,
+              "type": "absoluteYearly"
+            },
+            "range": {
+              "endDate": "2076-10-04",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "1900-10-04",
+              "type": "endDate"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2076-10-06",
+        "checkpoints": [
+          "1900-10-03",
+          "1988-10-03",
+          "2076-10-03"
+        ]
+      },
+      "expected": [
+        "1900-10-03T23:15:00Z",
+        "1988-10-03T22:15:00Z",
+        "2076-10-03T22:15:00Z"
+      ]
+    },
+    {
+      "name": "auckland-historical-1899-summer",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-14T11:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "New Zealand Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-14",
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18"
+        ]
+      },
+      "expected": [
+        "1899-01-14T11:15:00Z",
+        "1899-01-15T11:15:00Z",
+        "1899-01-16T11:15:00Z",
+        "1899-01-17T11:15:00Z",
+        "1899-01-18T11:15:00Z"
+      ]
+    },
+    {
+      "name": "auckland-historical-1899-winter",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-07-14T12:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "New Zealand Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-07-27",
+        "checkpoints": [
+          "1899-07-14",
+          "1899-07-15",
+          "1899-07-16",
+          "1899-07-17",
+          "1899-07-18"
+        ]
+      },
+      "expected": [
+        "1899-07-14T12:15:00Z",
+        "1899-07-15T12:15:00Z",
+        "1899-07-16T12:15:00Z",
+        "1899-07-17T12:15:00Z",
+        "1899-07-18T12:15:00Z"
+      ]
+    },
+    {
+      "name": "auckland-historical-1928-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1928-03-01T13:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "New Zealand Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1928-03-02",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1928-03-14",
+        "checkpoints": [
+          "1928-03-01",
+          "1928-03-02",
+          "1928-03-03",
+          "1928-03-04",
+          "1928-03-05"
+        ]
+      },
+      "expected": [
+        "1928-03-01T13:30:00Z",
+        "1928-03-02T13:30:00Z",
+        "1928-03-03T13:30:00Z",
+        "1928-03-04T13:30:00Z",
+        "1928-03-05T13:30:00Z"
+      ]
+    },
+    {
+      "name": "auckland-historical-1946-winter",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1946-07-14T14:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "New Zealand Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1946-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1946-07-27",
+        "checkpoints": [
+          "1946-07-14",
+          "1946-07-15",
+          "1946-07-16",
+          "1946-07-17",
+          "1946-07-18"
+        ]
+      },
+      "expected": [
+        "1946-07-14T14:30:00Z",
+        "1946-07-15T14:30:00Z",
+        "1946-07-16T14:30:00Z",
+        "1946-07-17T14:30:00Z",
+        "1946-07-18T14:30:00Z"
+      ]
+    },
+    {
+      "name": "auckland-historical-1967-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-03-16T13:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "New Zealand Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-03-17",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-03-29",
+        "checkpoints": [
+          "1967-03-16",
+          "1967-03-17",
+          "1967-03-18",
+          "1967-03-19",
+          "1967-03-20"
+        ]
+      },
+      "expected": [
+        "1967-03-16T13:30:00Z",
+        "1967-03-17T13:30:00Z",
+        "1967-03-18T13:30:00Z",
+        "1967-03-19T14:30:00Z",
+        "1967-03-20T14:30:00Z"
+      ]
+    },
+    {
+      "name": "auckland-historical-1967-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-03-30T14:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "New Zealand Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-03-31",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-04-12",
+        "checkpoints": [
+          "1967-03-30",
+          "1967-03-31",
+          "1967-04-01",
+          "1967-04-02",
+          "1967-04-03"
+        ]
+      },
+      "expected": [
+        "1967-03-30T14:30:00Z",
+        "1967-03-31T14:30:00Z",
+        "1967-04-01T14:30:00Z",
+        "1967-04-02T14:30:00Z",
+        "1967-04-03T14:30:00Z"
+      ]
+    },
+    {
+      "name": "auckland-historical-1967-september",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-09-21T14:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "New Zealand Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-09-22",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-10-04",
+        "checkpoints": [
+          "1967-09-21",
+          "1967-09-22",
+          "1967-09-23",
+          "1967-09-24",
+          "1967-09-25"
+        ]
+      },
+      "expected": [
+        "1967-09-21T14:30:00Z",
+        "1967-09-22T14:30:00Z",
+        "1967-09-23T14:30:00Z",
+        "1967-09-24T14:30:00Z",
+        "1967-09-25T14:30:00Z"
+      ]
+    },
+    {
+      "name": "auckland-historical-1967-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-09-28T14:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "New Zealand Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-09-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-10-11",
+        "checkpoints": [
+          "1967-09-28",
+          "1967-09-29",
+          "1967-09-30",
+          "1967-10-01",
+          "1967-10-02"
+        ]
+      },
+      "expected": [
+        "1967-09-28T14:30:00Z",
+        "1967-09-29T14:30:00Z",
+        "1967-09-30T14:30:00Z",
+        "1967-10-01T13:30:00Z",
+        "1967-10-02T13:30:00Z"
+      ]
+    },
+    {
+      "name": "auckland-historical-1974-november",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1974-10-31T13:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "New Zealand Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1974-11-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1974-11-13",
+        "checkpoints": [
+          "1974-10-31",
+          "1974-11-01",
+          "1974-11-02",
+          "1974-11-03",
+          "1974-11-04"
+        ]
+      },
+      "expected": [
+        "1974-10-31T13:30:00Z",
+        "1974-11-01T13:30:00Z",
+        "1974-11-02T13:30:00Z",
+        "1974-11-03T13:30:00Z",
+        "1974-11-04T13:30:00Z"
+      ]
+    },
+    {
+      "name": "auckland-historical-1975-february",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1975-02-20T13:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "New Zealand Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1975-02-21",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1975-03-05",
+        "checkpoints": [
+          "1975-02-20",
+          "1975-02-21",
+          "1975-02-22",
+          "1975-02-23",
+          "1975-02-24"
+        ]
+      },
+      "expected": [
+        "1975-02-20T13:30:00Z",
+        "1975-02-21T13:30:00Z",
+        "1975-02-22T13:30:00Z",
+        "1975-02-23T13:30:00Z",
+        "1975-02-24T13:30:00Z"
+      ]
+    },
+    {
+      "name": "auckland-historical-1989-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1989-03-02T13:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "New Zealand Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1989-03-03",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1989-03-15",
+        "checkpoints": [
+          "1989-03-02",
+          "1989-03-03",
+          "1989-03-04",
+          "1989-03-05",
+          "1989-03-06"
+        ]
+      },
+      "expected": [
+        "1989-03-02T13:30:00Z",
+        "1989-03-03T13:30:00Z",
+        "1989-03-04T13:30:00Z",
+        "1989-03-05T13:30:00Z",
+        "1989-03-06T13:30:00Z"
+      ]
+    },
+    {
+      "name": "auckland-historical-1990-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1990-03-15T13:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "New Zealand Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1990-03-16",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1990-03-28",
+        "checkpoints": [
+          "1990-03-15",
+          "1990-03-16",
+          "1990-03-17",
+          "1990-03-18",
+          "1990-03-19"
+        ]
+      },
+      "expected": [
+        "1990-03-15T13:30:00Z",
+        "1990-03-16T13:30:00Z",
+        "1990-03-17T13:30:00Z",
+        "1990-03-18T14:30:00Z",
+        "1990-03-19T14:30:00Z"
+      ]
+    },
+    {
+      "name": "auckland-historical-2004-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2004-03-18T13:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "New Zealand Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2004-03-19",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2004-03-31",
+        "checkpoints": [
+          "2004-03-18",
+          "2004-03-19",
+          "2004-03-20",
+          "2004-03-21",
+          "2004-03-22"
+        ]
+      },
+      "expected": [
+        "2004-03-18T13:30:00Z",
+        "2004-03-19T13:30:00Z",
+        "2004-03-20T13:30:00Z",
+        "2004-03-21T14:30:00Z",
+        "2004-03-22T14:30:00Z"
+      ]
+    },
+    {
+      "name": "auckland-historical-2006-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2006-09-28T14:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "New Zealand Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2006-09-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2006-10-11",
+        "checkpoints": [
+          "2006-09-28",
+          "2006-09-29",
+          "2006-09-30",
+          "2006-10-01",
+          "2006-10-02"
+        ]
+      },
+      "expected": [
+        "2006-09-28T14:30:00Z",
+        "2006-09-29T14:30:00Z",
+        "2006-09-30T14:30:00Z",
+        "2006-10-01T13:30:00Z",
+        "2006-10-02T13:30:00Z"
+      ]
+    },
+    {
+      "name": "auckland-historical-2007-september",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2007-09-27T14:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "New Zealand Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2007-09-28",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2007-10-10",
+        "checkpoints": [
+          "2007-09-27",
+          "2007-09-28",
+          "2007-09-29",
+          "2007-09-30",
+          "2007-10-01"
+        ]
+      },
+      "expected": [
+        "2007-09-27T14:30:00Z",
+        "2007-09-28T14:30:00Z",
+        "2007-09-29T14:30:00Z",
+        "2007-09-30T13:30:00Z",
+        "2007-10-01T13:30:00Z"
+      ]
+    },
+    {
+      "name": "auckland-historical-2008-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2008-04-03T13:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "New Zealand Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "New Zealand Standard Time",
+              "startDate": "2008-04-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2008-04-16",
+        "checkpoints": [
+          "2008-04-03",
+          "2008-04-04",
+          "2008-04-05",
+          "2008-04-06",
+          "2008-04-07"
+        ]
+      },
+      "expected": [
+        "2008-04-03T13:30:00Z",
+        "2008-04-04T13:30:00Z",
+        "2008-04-05T13:30:00Z",
+        "2008-04-06T14:30:00Z",
+        "2008-04-07T14:30:00Z"
+      ]
+    },
+    {
+      "name": "chatham-historical-1899-summer",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-14T10:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Chatham Islands Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-14",
+          "1899-01-15",
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18"
+        ]
+      },
+      "expected": [
+        "1899-01-14T10:30:00Z",
+        "1899-01-15T10:30:00Z",
+        "1899-01-16T10:30:00Z",
+        "1899-01-17T10:30:00Z",
+        "1899-01-18T10:30:00Z"
+      ]
+    },
+    {
+      "name": "chatham-historical-1899-winter",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-07-14T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Chatham Islands Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-07-27",
+        "checkpoints": [
+          "1899-07-14",
+          "1899-07-15",
+          "1899-07-16",
+          "1899-07-17",
+          "1899-07-18"
+        ]
+      },
+      "expected": [
+        "1899-07-14T11:30:00Z",
+        "1899-07-15T11:30:00Z",
+        "1899-07-16T11:30:00Z",
+        "1899-07-17T11:30:00Z",
+        "1899-07-18T11:30:00Z"
+      ]
+    },
+    {
+      "name": "chatham-historical-1928-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1928-03-01T13:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Chatham Islands Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1928-03-02",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1928-03-14",
+        "checkpoints": [
+          "1928-03-01",
+          "1928-03-02",
+          "1928-03-03",
+          "1928-03-04",
+          "1928-03-05"
+        ]
+      },
+      "expected": [
+        "1928-03-01T13:30:00Z",
+        "1928-03-02T13:30:00Z",
+        "1928-03-03T13:30:00Z",
+        "1928-03-04T13:30:00Z",
+        "1928-03-05T13:30:00Z"
+      ]
+    },
+    {
+      "name": "chatham-historical-1946-winter",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1946-07-14T14:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Chatham Islands Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1946-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1946-07-27",
+        "checkpoints": [
+          "1946-07-14",
+          "1946-07-15",
+          "1946-07-16",
+          "1946-07-17",
+          "1946-07-18"
+        ]
+      },
+      "expected": [
+        "1946-07-14T14:30:00Z",
+        "1946-07-15T14:30:00Z",
+        "1946-07-16T14:30:00Z",
+        "1946-07-17T14:30:00Z",
+        "1946-07-18T14:30:00Z"
+      ]
+    },
+    {
+      "name": "chatham-historical-1967-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-03-16T13:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Chatham Islands Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-03-17",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-03-29",
+        "checkpoints": [
+          "1967-03-16",
+          "1967-03-17",
+          "1967-03-18",
+          "1967-03-19",
+          "1967-03-20"
+        ]
+      },
+      "expected": [
+        "1967-03-16T13:30:00Z",
+        "1967-03-17T13:30:00Z",
+        "1967-03-18T13:30:00Z",
+        "1967-03-19T14:30:00Z",
+        "1967-03-20T14:30:00Z"
+      ]
+    },
+    {
+      "name": "chatham-historical-1967-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-03-30T14:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Chatham Islands Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-03-31",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-04-12",
+        "checkpoints": [
+          "1967-03-30",
+          "1967-03-31",
+          "1967-04-01",
+          "1967-04-02",
+          "1967-04-03"
+        ]
+      },
+      "expected": [
+        "1967-03-30T14:30:00Z",
+        "1967-03-31T14:30:00Z",
+        "1967-04-01T14:30:00Z",
+        "1967-04-02T14:30:00Z",
+        "1967-04-03T14:30:00Z"
+      ]
+    },
+    {
+      "name": "chatham-historical-1967-september",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-09-21T14:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Chatham Islands Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-09-22",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-10-04",
+        "checkpoints": [
+          "1967-09-21",
+          "1967-09-22",
+          "1967-09-23",
+          "1967-09-24",
+          "1967-09-25"
+        ]
+      },
+      "expected": [
+        "1967-09-21T14:30:00Z",
+        "1967-09-22T14:30:00Z",
+        "1967-09-23T14:30:00Z",
+        "1967-09-24T14:30:00Z",
+        "1967-09-25T14:30:00Z"
+      ]
+    },
+    {
+      "name": "chatham-historical-1967-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-09-28T14:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Chatham Islands Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-09-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-10-11",
+        "checkpoints": [
+          "1967-09-28",
+          "1967-09-29",
+          "1967-09-30",
+          "1967-10-01",
+          "1967-10-02"
+        ]
+      },
+      "expected": [
+        "1967-09-28T14:30:00Z",
+        "1967-09-29T14:30:00Z",
+        "1967-09-30T14:30:00Z",
+        "1967-10-01T13:30:00Z",
+        "1967-10-02T13:30:00Z"
+      ]
+    },
+    {
+      "name": "chatham-historical-1974-november",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1974-10-31T13:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Chatham Islands Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1974-11-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1974-11-13",
+        "checkpoints": [
+          "1974-10-31",
+          "1974-11-01",
+          "1974-11-02",
+          "1974-11-03",
+          "1974-11-04"
+        ]
+      },
+      "expected": [
+        "1974-10-31T13:30:00Z",
+        "1974-11-01T13:30:00Z",
+        "1974-11-02T13:30:00Z",
+        "1974-11-03T13:30:00Z",
+        "1974-11-04T13:30:00Z"
+      ]
+    },
+    {
+      "name": "chatham-historical-1975-february",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1975-02-20T13:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Chatham Islands Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1975-02-21",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1975-03-05",
+        "checkpoints": [
+          "1975-02-20",
+          "1975-02-21",
+          "1975-02-22",
+          "1975-02-23",
+          "1975-02-24"
+        ]
+      },
+      "expected": [
+        "1975-02-20T13:30:00Z",
+        "1975-02-21T13:30:00Z",
+        "1975-02-22T13:30:00Z",
+        "1975-02-23T13:30:00Z",
+        "1975-02-24T13:30:00Z"
+      ]
+    },
+    {
+      "name": "chatham-historical-1989-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1989-03-02T13:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Chatham Islands Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1989-03-03",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1989-03-15",
+        "checkpoints": [
+          "1989-03-02",
+          "1989-03-03",
+          "1989-03-04",
+          "1989-03-05",
+          "1989-03-06"
+        ]
+      },
+      "expected": [
+        "1989-03-02T13:30:00Z",
+        "1989-03-03T13:30:00Z",
+        "1989-03-04T13:30:00Z",
+        "1989-03-05T13:30:00Z",
+        "1989-03-06T13:30:00Z"
+      ]
+    },
+    {
+      "name": "chatham-historical-1990-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1990-03-15T13:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Chatham Islands Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1990-03-16",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1990-03-28",
+        "checkpoints": [
+          "1990-03-15",
+          "1990-03-16",
+          "1990-03-17",
+          "1990-03-18",
+          "1990-03-19"
+        ]
+      },
+      "expected": [
+        "1990-03-15T13:30:00Z",
+        "1990-03-16T13:30:00Z",
+        "1990-03-17T13:30:00Z",
+        "1990-03-18T14:30:00Z",
+        "1990-03-19T14:30:00Z"
+      ]
+    },
+    {
+      "name": "chatham-historical-2004-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2004-03-18T13:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Chatham Islands Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2004-03-19",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2004-03-31",
+        "checkpoints": [
+          "2004-03-18",
+          "2004-03-19",
+          "2004-03-20",
+          "2004-03-21",
+          "2004-03-22"
+        ]
+      },
+      "expected": [
+        "2004-03-18T13:30:00Z",
+        "2004-03-19T13:30:00Z",
+        "2004-03-20T13:30:00Z",
+        "2004-03-21T14:30:00Z",
+        "2004-03-22T14:30:00Z"
+      ]
+    },
+    {
+      "name": "chatham-historical-2006-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2006-09-28T14:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Chatham Islands Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2006-09-29",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2006-10-11",
+        "checkpoints": [
+          "2006-09-28",
+          "2006-09-29",
+          "2006-09-30",
+          "2006-10-01",
+          "2006-10-02"
+        ]
+      },
+      "expected": [
+        "2006-09-28T14:30:00Z",
+        "2006-09-29T14:30:00Z",
+        "2006-09-30T14:30:00Z",
+        "2006-10-01T13:30:00Z",
+        "2006-10-02T13:30:00Z"
+      ]
+    },
+    {
+      "name": "chatham-historical-2007-september",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2007-09-27T14:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Chatham Islands Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2007-09-28",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2007-10-10",
+        "checkpoints": [
+          "2007-09-27",
+          "2007-09-28",
+          "2007-09-29",
+          "2007-09-30",
+          "2007-10-01"
+        ]
+      },
+      "expected": [
+        "2007-09-27T14:30:00Z",
+        "2007-09-28T14:30:00Z",
+        "2007-09-29T14:30:00Z",
+        "2007-09-30T13:30:00Z",
+        "2007-10-01T13:30:00Z"
+      ]
+    },
+    {
+      "name": "chatham-historical-2008-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2008-04-03T13:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Chatham Islands Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Chatham Islands Standard Time",
+              "startDate": "2008-04-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2008-04-16",
+        "checkpoints": [
+          "2008-04-03",
+          "2008-04-04",
+          "2008-04-05",
+          "2008-04-06",
+          "2008-04-07"
+        ]
+      },
+      "expected": [
+        "2008-04-03T13:30:00Z",
+        "2008-04-04T13:30:00Z",
+        "2008-04-05T13:30:00Z",
+        "2008-04-06T14:30:00Z",
+        "2008-04-07T14:30:00Z"
+      ]
+    },
+    {
+      "name": "rfc-auckland-retains-1928-offset",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Auckland:19280302T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1928-03-08",
+        "checkpoints": [
+          "1928-03-01",
+          "1928-03-02",
+          "1928-03-04",
+          "1928-03-05",
+          "1928-03-06"
+        ]
+      },
+      "expected": [
+        "1928-03-01T23:30:00Z",
+        "1928-03-02T23:30:00Z",
+        "1928-03-04T00:30:00Z",
+        "1928-03-05T00:30:00Z",
+        "1928-03-06T00:30:00Z"
+      ]
+    },
+    {
+      "name": "rfc-chatham-retains-1946-offset-change",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Pacific/Chatham:19451230T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1946-01-05",
+        "checkpoints": [
+          "1945-12-29",
+          "1945-12-30",
+          "1945-12-31",
+          "1946-01-01",
+          "1946-01-02"
+        ]
+      },
+      "expected": [
+        "1945-12-29T23:45:00Z",
+        "1945-12-30T23:45:00Z",
+        "1945-12-31T23:15:00Z",
+        "1946-01-01T23:15:00Z",
+        "1946-01-02T23:15:00Z"
+      ]
+    }
+  ]
+}

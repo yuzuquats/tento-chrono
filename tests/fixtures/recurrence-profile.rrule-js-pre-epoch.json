@@ -1,0 +1,562 @@
+{
+  "type": "recurrence-profile",
+  "name": "rrule.js signed millisecond remainder",
+  "source": "rrule.js 2.8.1 RRuleSet with external Date, TZ=UTC",
+  "cases": [
+    {
+      "name": "yearly midnight start skips a pre-start carry",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=YEARLY;COUNT=6"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "1969-12-29T00:00:00.125Z"
+        },
+        "through": "2110-01-01",
+        "checkpoints": [
+          "1969-12-29",
+          "1969-12-31",
+          "1970-01-01"
+        ]
+      },
+      "expected": [
+        "1970-12-28T23:59:59.125Z",
+        "1971-12-28T23:59:59.125Z",
+        "1972-12-28T23:59:59.125Z",
+        "1973-12-28T23:59:59.125Z",
+        "1974-12-28T23:59:59.125Z",
+        "1975-12-28T23:59:59.125Z"
+      ]
+    },
+    {
+      "name": "monthly preserves the signed clock after the epoch",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=MONTHLY;COUNT=6"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "1969-12-29T00:00:00.125Z"
+        },
+        "through": "2110-01-01",
+        "checkpoints": [
+          "1969-12-29",
+          "1969-12-31",
+          "1970-01-01"
+        ]
+      },
+      "expected": [
+        "1970-01-28T23:59:59.125Z",
+        "1970-03-28T23:59:59.125Z",
+        "1970-04-28T23:59:59.125Z",
+        "1970-05-28T23:59:59.125Z",
+        "1970-06-28T23:59:59.125Z",
+        "1970-07-28T23:59:59.125Z"
+      ]
+    },
+    {
+      "name": "fractional Monday can make the default weekday unreachable",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=WEEKLY;COUNT=6"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "1969-12-29T00:00:00.125Z"
+        },
+        "through": "2110-01-01",
+        "checkpoints": [
+          "1969-12-29",
+          "1969-12-31",
+          "1970-01-01"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "weekly set positions move back across the query boundary",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR;WKST=MO;BYHOUR=0,23;BYSETPOS=1,-1;COUNT=6"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "1969-12-29T00:00:00.125Z"
+        },
+        "through": "2110-01-01",
+        "checkpoints": [
+          "1969-12-29",
+          "1969-12-31",
+          "1970-01-01"
+        ]
+      },
+      "expected": [
+        "1969-12-30T23:59:59.125Z",
+        "1970-01-02T22:59:59.125Z",
+        "1970-01-06T23:59:59.125Z",
+        "1970-01-09T22:59:59.125Z",
+        "1970-01-13T23:59:59.125Z"
+      ]
+    },
+    {
+      "name": "daily uses the signed remainder on every day",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=6"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "1969-12-31T23:59:59.125Z"
+        },
+        "through": "2110-01-01",
+        "checkpoints": [
+          "1969-12-31",
+          "1970-01-01"
+        ]
+      },
+      "expected": [
+        "1970-01-01T23:59:58.125Z",
+        "1970-01-02T23:59:58.125Z",
+        "1970-01-03T23:59:58.125Z",
+        "1970-01-04T23:59:58.125Z",
+        "1970-01-05T23:59:58.125Z",
+        "1970-01-06T23:59:58.125Z"
+      ]
+    },
+    {
+      "name": "hourly discards its first pre-start candidate",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=HOURLY;COUNT=6"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "1969-12-31T23:59:59.125Z"
+        },
+        "through": "2110-01-01",
+        "checkpoints": [
+          "1969-12-31",
+          "1970-01-01"
+        ]
+      },
+      "expected": [
+        "1970-01-01T00:59:59Z",
+        "1970-01-01T01:59:59Z",
+        "1970-01-01T02:59:59Z",
+        "1970-01-01T03:59:59Z",
+        "1970-01-01T04:59:59Z",
+        "1970-01-01T05:59:59Z"
+      ]
+    },
+    {
+      "name": "minutely rebuilds its clock across the epoch",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=MINUTELY;COUNT=6"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "1969-12-31T23:59:59.125Z"
+        },
+        "through": "2110-01-01",
+        "checkpoints": [
+          "1969-12-31",
+          "1970-01-01"
+        ]
+      },
+      "expected": [
+        "1970-01-01T00:00:59Z",
+        "1970-01-01T00:01:59Z",
+        "1970-01-01T00:02:59Z",
+        "1970-01-01T00:03:59Z",
+        "1970-01-01T00:04:59Z",
+        "1970-01-01T00:05:59Z"
+      ]
+    },
+    {
+      "name": "secondly rebuilds its clock across the epoch",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=SECONDLY;COUNT=6"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "1969-12-31T23:59:59.125Z"
+        },
+        "through": "2110-01-01",
+        "checkpoints": [
+          "1969-12-31",
+          "1970-01-01"
+        ]
+      },
+      "expected": [
+        "1970-01-01T00:00:00Z",
+        "1970-01-01T00:00:01Z",
+        "1970-01-01T00:00:02Z",
+        "1970-01-01T00:00:03Z",
+        "1970-01-01T00:00:04Z",
+        "1970-01-01T00:00:05Z"
+      ]
+    },
+    {
+      "name": "minutely selects positions after applying the signed remainder",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=MINUTELY;BYSECOND=0,59;BYSETPOS=1,-1;COUNT=6"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "1969-12-31T23:59:59.125Z"
+        },
+        "through": "2110-01-01",
+        "checkpoints": [
+          "1969-12-31",
+          "1970-01-01"
+        ]
+      },
+      "expected": [
+        "1970-01-01T00:00:00Z",
+        "1970-01-01T00:00:59Z",
+        "1970-01-01T00:01:00Z",
+        "1970-01-01T00:01:59Z",
+        "1970-01-01T00:02:00Z",
+        "1970-01-01T00:02:59Z"
+      ]
+    },
+    {
+      "name": "yearly selectors on a pre-epoch leap date",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=YEARLY;BYMONTH=1,12;BYDAY=MO,WE;BYSETPOS=-1;COUNT=6"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "1960-02-29T08:30:00.500Z"
+        },
+        "through": "2110-01-01",
+        "checkpoints": [
+          "1960-02-29",
+          "1969-12-31",
+          "1970-01-01"
+        ]
+      },
+      "expected": [
+        "1960-12-28T08:29:59.500Z",
+        "1961-12-27T08:29:59.500Z",
+        "1962-12-31T08:29:59.500Z",
+        "1963-12-30T08:29:59.500Z",
+        "1964-12-30T08:29:59.500Z",
+        "1965-12-29T08:29:59.500Z"
+      ]
+    },
+    {
+      "name": "fractional year 0100 uses the literal year",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=6"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "0100-01-01T23:00:00.999Z"
+        },
+        "through": "2110-01-01",
+        "checkpoints": [
+          "0100-01-01",
+          "1969-12-31",
+          "1970-01-01"
+        ]
+      },
+      "expected": [
+        "0100-01-02T22:59:59.999Z",
+        "0100-01-03T22:59:59.999Z",
+        "0100-01-04T22:59:59.999Z",
+        "0100-01-05T22:59:59.999Z",
+        "0100-01-06T22:59:59.999Z",
+        "0100-01-07T22:59:59.999Z"
+      ]
+    },
+    {
+      "name": "whole second before epoch remains on its original clock",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=SECONDLY;COUNT=6"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "1969-12-31T23:59:59.000Z"
+        },
+        "through": "2110-01-01",
+        "checkpoints": [
+          "1969-12-31",
+          "1970-01-01"
+        ]
+      },
+      "expected": [
+        "1969-12-31T23:59:59Z",
+        "1970-01-01T00:00:00Z",
+        "1970-01-01T00:00:01Z",
+        "1970-01-01T00:00:02Z",
+        "1970-01-01T00:00:03Z",
+        "1970-01-01T00:00:04Z"
+      ]
+    },
+    {
+      "name": "positive epoch fraction stays positive",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=6"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "1970-01-01T00:00:00.001Z"
+        },
+        "through": "2110-01-01",
+        "checkpoints": [
+          "1969-12-31",
+          "1970-01-01"
+        ]
+      },
+      "expected": [
+        "1970-01-01T00:00:00.001Z",
+        "1970-01-02T00:00:00.001Z",
+        "1970-01-03T00:00:00.001Z",
+        "1970-01-04T00:00:00.001Z",
+        "1970-01-05T00:00:00.001Z",
+        "1970-01-06T00:00:00.001Z"
+      ]
+    },
+    {
+      "name": "zoned daily clock uses the signed remainder",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "1969-12-31T23:59:59.125",
+          "timeZone": "America/New_York"
+        },
+        "through": "2110-01-01",
+        "checkpoints": [
+          "1969-12-31",
+          "1970-01-01"
+        ]
+      },
+      "expected": [
+        "1970-01-02T04:59:58.125Z",
+        "1970-01-03T04:59:58.125Z",
+        "1970-01-04T04:59:58.125Z",
+        "1970-01-05T04:59:58.125Z",
+        "1970-01-06T04:59:58.125Z"
+      ]
+    },
+    {
+      "name": "zoned secondly clock rebuilds from a fractional start",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=SECONDLY;COUNT=5"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "1969-12-31T23:59:59.125",
+          "timeZone": "Asia/Tokyo"
+        },
+        "through": "2110-01-01",
+        "checkpoints": [
+          "1969-12-31",
+          "1970-01-01"
+        ]
+      },
+      "expected": [
+        "1969-12-31T15:00:00Z",
+        "1969-12-31T15:00:01Z",
+        "1969-12-31T15:00:02Z",
+        "1969-12-31T15:00:03Z",
+        "1969-12-31T15:00:04Z"
+      ]
+    },
+    {
+      "name": "weekly-unseen-overlapping-position",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=WEEKLY;BYDAY=MO,TU,FR;BYSETPOS=1,-1;COUNT=5"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "1969-12-29T00:00:00.125Z"
+        },
+        "through": "2110-01-01",
+        "checkpoints": [
+          "1969-12-29",
+          "1969-12-31",
+          "1970-01-01"
+        ]
+      },
+      "expected": [
+        "1969-12-29T23:59:59.125Z",
+        "1970-01-01T23:59:59.125Z",
+        "1970-01-05T23:59:59.125Z",
+        "1970-01-08T23:59:59.125Z"
+      ]
+    },
+    {
+      "name": "until-drops-prestart-second",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=SECONDLY;UNTIL=19700101T000001Z"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "1969-12-31T23:59:59.125Z"
+        },
+        "through": "2110-01-01",
+        "checkpoints": [
+          "1969-12-31",
+          "1970-01-01"
+        ]
+      },
+      "expected": [
+        "1970-01-01T00:00:00Z",
+        "1970-01-01T00:00:01Z"
+      ]
+    },
+    {
+      "name": "until-before-first-valid-daily",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=DAILY;UNTIL=19691231T235959Z"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "1969-12-31T00:00:00.125Z"
+        },
+        "through": "2110-01-01",
+        "checkpoints": [
+          "1969-12-31",
+          "1970-01-01"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "until-after-first-valid-daily",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=DAILY;UNTIL=19700101T000000Z"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "1969-12-31T00:00:00.125Z"
+        },
+        "through": "2110-01-01",
+        "checkpoints": [
+          "1969-12-31",
+          "1970-01-01"
+        ]
+      },
+      "expected": [
+        "1969-12-31T23:59:59.125Z"
+      ]
+    },
+    {
+      "name": "weekly-midnight-sunday-wkst",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=WEEKLY;WKST=SU;BYDAY=SU;COUNT=4"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "1969-12-28T00:00:00.900Z"
+        },
+        "through": "2110-01-01",
+        "checkpoints": [
+          "1969-12-28",
+          "1969-12-31",
+          "1970-01-01"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "weekly-midnight-sunday-wkst-with-friday",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=WEEKLY;WKST=SU;BYDAY=SU,FR;COUNT=4"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "1969-12-28T00:00:00.900Z"
+        },
+        "through": "2110-01-01",
+        "checkpoints": [
+          "1969-12-28",
+          "1969-12-31",
+          "1970-01-01"
+        ]
+      },
+      "expected": [
+        "1970-01-01T23:59:59.900Z",
+        "1970-01-08T23:59:59.900Z",
+        "1970-01-15T23:59:59.900Z"
+      ]
+    },
+    {
+      "name": "positive-and-exclusion-rules",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=SECONDLY;COUNT=6",
+          "RRULE:FREQ=MINUTELY;COUNT=3",
+          "EXRULE:FREQ=DAILY;COUNT=1",
+          "RDATE:19700101T000200Z",
+          "EXDATE:19700101T000002Z"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "1969-12-31T23:59:59.125Z"
+        },
+        "through": "2110-01-01",
+        "checkpoints": [
+          "1969-12-31",
+          "1970-01-01"
+        ]
+      },
+      "expected": [
+        "1970-01-01T00:00:00Z",
+        "1970-01-01T00:00:01Z",
+        "1970-01-01T00:00:03Z",
+        "1970-01-01T00:00:04Z",
+        "1970-01-01T00:00:05Z",
+        "1970-01-01T00:00:59Z",
+        "1970-01-01T00:01:59Z",
+        "1970-01-01T00:02:00Z",
+        "1970-01-01T00:02:59Z"
+      ]
+    },
+    {
+      "name": "weekly-cutover-caps",
+      "input": {
+        "lines": [
+          "RRULE:FREQ=WEEKLY;WKST=MO;BYDAY=MO,TU,WE;BYHOUR=0,23;BYSETPOS=1,-1;UNTIL=19700115T000000Z"
+        ],
+        "profile": "rrule-js",
+        "dtstart": {
+          "dateTime": "1969-12-30T00:00:00.125Z"
+        },
+        "through": "2110-01-01",
+        "checkpoints": [
+          "1969-12-30",
+          "1969-12-31",
+          "1970-01-01"
+        ]
+      },
+      "expected": [
+        "1969-12-31T22:59:59.125Z",
+        "1970-01-05T23:59:59.125Z",
+        "1970-01-07T22:59:59.125Z",
+        "1970-01-12T23:59:59.125Z",
+        "1970-01-14T22:59:59.125Z"
+      ]
+    }
+  ]
+}

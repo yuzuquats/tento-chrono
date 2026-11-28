@@ -1,0 +1,1084 @@
+{
+  "type": "google-instances-query",
+  "name": "Google Calendar Pacific yearly date rewind",
+  "source": "Google Calendar API events.instances",
+  "cases": [
+    {
+      "name": "date-rewind-pacific-after-first",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1690-01-15"
+          },
+          "end": {
+            "date": "1690-01-16"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=790791378;BYMONTH=1;BYMONTHDAY=15;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1690-01-15"
+          },
+          "end": {
+            "date": "1690-01-16"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=790791378;BYMONTH=1;BYMONTHDAY=15;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "captured": {
+            "start": "1800-01-01T07:52:58Z",
+            "end": "1811-01-15T07:52:59Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1811-01-15"
+        ]
+      }
+    },
+    {
+      "name": "date-rewind-pacific-after-first-date",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1690-01-15"
+          },
+          "end": {
+            "date": "1690-01-16"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=790791378;BYMONTH=1;BYMONTHDAY=15;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1690-01-15"
+          },
+          "end": {
+            "date": "1690-01-16"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=790791378;BYMONTH=1;BYMONTHDAY=15;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "captured": {
+            "start": "1800-01-01T07:52:58Z",
+            "end": "1811-01-16T07:52:58Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1811-01-15"
+        ]
+      }
+    },
+    {
+      "name": "date-rewind-pacific-after-local-midnight",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "captured": {
+            "start": "1746-01-01T07:52:58Z",
+            "end": "1892-01-05T08:00:01Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1746-01-05",
+          "1892-01-05"
+        ]
+      }
+    },
+    {
+      "name": "date-rewind-pacific-after-next-local-midnight",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "captured": {
+            "start": "1746-01-01T07:52:58Z",
+            "end": "1892-01-06T08:00:01Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1746-01-05",
+          "1892-01-05"
+        ]
+      }
+    },
+    {
+      "name": "date-rewind-pacific-at-first",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1690-01-15"
+          },
+          "end": {
+            "date": "1690-01-16"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=790791378;BYMONTH=1;BYMONTHDAY=15;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1690-01-15"
+          },
+          "end": {
+            "date": "1690-01-16"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=790791378;BYMONTH=1;BYMONTHDAY=15;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "captured": {
+            "start": "1800-01-01T07:52:58Z",
+            "end": "1811-01-15T07:52:58Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": []
+      }
+    },
+    {
+      "name": "date-rewind-pacific-before-local-midnight",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "captured": {
+            "start": "1746-01-01T07:52:58Z",
+            "end": "1892-01-05T07:59:59Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": []
+      }
+    },
+    {
+      "name": "date-rewind-pacific-before-next-local-midnight",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "captured": {
+            "start": "1746-01-01T07:52:58Z",
+            "end": "1892-01-06T07:59:59Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1746-01-05",
+          "1892-01-05"
+        ]
+      }
+    },
+    {
+      "name": "date-rewind-pacific-exdate-after",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12",
+            "EXDATE;VALUE=DATE:17460105"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE:17460105",
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "captured": {
+            "start": "1746-01-01T07:52:58Z",
+            "end": "1892-01-05T08:00:01Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1746-01-05",
+          "1892-01-05"
+        ]
+      }
+    },
+    {
+      "name": "date-rewind-pacific-exdate-before",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12",
+            "EXDATE;VALUE=DATE:17460105"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE:17460105",
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "captured": {
+            "start": "1746-01-01T07:52:58Z",
+            "end": "1892-01-05T07:59:59Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": []
+      }
+    },
+    {
+      "name": "date-rewind-pacific-local-midnight",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "captured": {
+            "start": "1746-01-01T07:52:58Z",
+            "end": "1892-01-05T08:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1746-01-05"
+        ]
+      }
+    },
+    {
+      "name": "date-rewind-pacific-next-local-midnight",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "captured": {
+            "start": "1746-01-01T07:52:58Z",
+            "end": "1892-01-06T08:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1746-01-05",
+          "1892-01-05"
+        ]
+      }
+    },
+    {
+      "name": "date-rewind-pacific-prior-to-first",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1690-01-15"
+          },
+          "end": {
+            "date": "1690-01-16"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=790791378;BYMONTH=1;BYMONTHDAY=15;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1690-01-15"
+          },
+          "end": {
+            "date": "1690-01-16"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=790791378;BYMONTH=1;BYMONTHDAY=15;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "captured": {
+            "start": "1800-01-01T07:52:58Z",
+            "end": "1811-01-15T07:52:57Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": []
+      }
+    },
+    {
+      "name": "date-rewind-pacific-rdate-after",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12",
+            "RDATE;VALUE=DATE:17460102"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RDATE;VALUE=DATE:17460102",
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "captured": {
+            "start": "1746-01-01T07:52:58Z",
+            "end": "1892-01-05T08:00:01Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1746-01-02",
+          "1746-01-05",
+          "1892-01-05"
+        ]
+      }
+    },
+    {
+      "name": "date-rewind-pacific-rdate-before",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12",
+            "RDATE;VALUE=DATE:17460102"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RDATE;VALUE=DATE:17460102",
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "captured": {
+            "start": "1746-01-01T07:52:58Z",
+            "end": "1892-01-05T07:59:59Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1746-01-02",
+          "1746-01-05"
+        ]
+      }
+    },
+    {
+      "name": "date-rewind-pacific-through-later-date",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1690-01-15"
+          },
+          "end": {
+            "date": "1690-01-16"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=790791378;BYMONTH=1;BYMONTHDAY=15;BYSETPOS=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1690-01-15"
+          },
+          "end": {
+            "date": "1690-01-16"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=790791378;BYMONTH=1;BYMONTHDAY=15;BYSETPOS=1"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "captured": {
+            "start": "1800-01-01T07:52:58Z",
+            "end": "2051-01-16T08:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1811-01-15",
+          "2051-01-15"
+        ]
+      }
+    },
+    {
+      "name": "date-rewind-pacific-utc-midnight",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "captured": {
+            "start": "1746-01-01T07:52:58Z",
+            "end": "1892-01-05T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": []
+      }
+    },
+    {
+      "name": "date-rewind-exdate-pacific-ordinary-lmt",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1746-01-05"
+          },
+          "end": {
+            "date": "1746-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=3",
+            "EXDATE;VALUE=DATE:17460106"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1746-01-05"
+          },
+          "end": {
+            "date": "1746-01-06"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE:17460106",
+            "RRULE:FREQ=DAILY;COUNT=3"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "captured": {
+            "start": "1746-01-01T07:52:58Z",
+            "end": "1746-01-10T07:52:58Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1746-01-05",
+          "1746-01-07"
+        ]
+      }
+    },
+    {
+      "name": "date-rewind-exdate-pacific-ordinary-standard",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1892-01-05"
+          },
+          "end": {
+            "date": "1892-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=3",
+            "EXDATE;VALUE=DATE:18920106"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1892-01-05"
+          },
+          "end": {
+            "date": "1892-01-06"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE:18920106",
+            "RRULE:FREQ=DAILY;COUNT=3"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "captured": {
+            "start": "1892-01-01T08:00:00Z",
+            "end": "1892-01-10T08:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1892-01-05",
+          "1892-01-07"
+        ]
+      }
+    },
+    {
+      "name": "date-rewind-exdate-pacific-wrapped-forward",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12",
+            "EXDATE;VALUE=DATE:18920105"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE:18920105",
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "captured": {
+            "start": "1746-01-01T07:52:58Z",
+            "end": "1892-01-05T07:59:59Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1746-01-05"
+        ]
+      }
+    },
+    {
+      "name": "date-rewind-exdate-pacific-wrapped-rewind",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12",
+            "EXDATE;VALUE=DATE:17460105"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE:17460105",
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "captured": {
+            "start": "1746-01-01T07:52:58Z",
+            "end": "1892-01-05T08:00:01Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1746-01-05",
+          "1892-01-05"
+        ]
+      }
+    },
+    {
+      "name": "date-rewind-exdate-pacific-wrapped-rewind-wide",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12",
+            "EXDATE;VALUE=DATE:17460105"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE:17460105",
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "America/Los_Angeles",
+        "windows": {
+          "captured": {
+            "start": "1580-01-01T07:52:58Z",
+            "end": "2099-01-31T08:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1580-01-05",
+          "1746-01-05",
+          "1892-01-05"
+        ]
+      }
+    },
+    {
+      "name": "date-rewind-exdate-utc-ordinary-lmt",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1746-01-05"
+          },
+          "end": {
+            "date": "1746-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=3",
+            "EXDATE;VALUE=DATE:17460106"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1746-01-05"
+          },
+          "end": {
+            "date": "1746-01-06"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE:17460106",
+            "RRULE:FREQ=DAILY;COUNT=3"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "1746-01-01T00:00:00Z",
+            "end": "1746-01-10T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1746-01-05",
+          "1746-01-07"
+        ]
+      }
+    },
+    {
+      "name": "date-rewind-exdate-utc-ordinary-standard",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1892-01-05"
+          },
+          "end": {
+            "date": "1892-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=3",
+            "EXDATE;VALUE=DATE:18920106"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1892-01-05"
+          },
+          "end": {
+            "date": "1892-01-06"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE:18920106",
+            "RRULE:FREQ=DAILY;COUNT=3"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "1892-01-01T00:00:00Z",
+            "end": "1892-01-10T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1892-01-05",
+          "1892-01-07"
+        ]
+      }
+    },
+    {
+      "name": "date-rewind-exdate-utc-wrapped-forward",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12",
+            "EXDATE;VALUE=DATE:18920105"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE:18920105",
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "1746-01-01T00:00:00Z",
+            "end": "1892-01-04T23:59:59Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1746-01-05"
+        ]
+      }
+    },
+    {
+      "name": "date-rewind-exdate-utc-wrapped-rewind",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12",
+            "EXDATE;VALUE=DATE:17460105"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE:17460105",
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "1746-01-01T00:00:00Z",
+            "end": "1892-01-05T00:00:01Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1746-01-05",
+          "1892-01-05"
+        ]
+      }
+    },
+    {
+      "name": "date-rewind-exdate-utc-wrapped-rewind-wide",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1639174492;COUNT=12",
+            "EXDATE;VALUE=DATE:17460105"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "1580-01-05"
+          },
+          "end": {
+            "date": "1580-01-06"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE:17460105",
+            "RRULE:FREQ=YEARLY;COUNT=12;INTERVAL=1639174492"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "1580-01-01T00:00:00Z",
+            "end": "2099-01-31T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "1580-01-05",
+          "1746-01-05",
+          "1892-01-05"
+        ]
+      }
+    }
+  ]
+}

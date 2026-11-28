@@ -1,5 +1,5 @@
 import { assertEquals, assertExists } from "@std/assert";
-import { naivedate, naivedatetime } from "../chrono/mod.ts";
+import { naivedate, naivedatetime, Weekday } from "../chrono/mod.ts";
 import { NaiveTime } from "../chrono/naive-time.ts";
 import { IsoDate } from "../chrono/recurrence/iso-date.ts";
 import { RRule } from "../chrono/recurrence/rrule.ts";
@@ -18,6 +18,60 @@ Deno.test({
     const rrule = RRule.parse(rule).exp();
     assertEquals(rule, rrule.toString());
   },
+});
+
+Deno.test("rrule/serialize reads the current scalar values and parameter order", () => {
+  const rule = RRule.parse("FREQ=DAILY;COUNT=5").exp();
+  const options = rule.inner.options!;
+  const order = rule.parameterOrder!;
+  options.count = 0;
+  assertEquals(rule.toString(), "RRULE:FREQ=DAILY;COUNT=0");
+
+  rule.inner.freq = "weekly";
+  options.interval = 2;
+  order[1] = "INTERVAL";
+  assertEquals(rule.toString(), "RRULE:FREQ=WEEKLY;INTERVAL=2");
+
+  order.push("INTERVAL", "COUNT");
+  assertEquals(rule.toString(), "RRULE:FREQ=WEEKLY;INTERVAL=2;COUNT=0");
+});
+
+Deno.test("rrule/serialize reads an accessor-backed frequency once on the general path", () => {
+  let reads = 0;
+  const rule = new RRule({
+    get freq() {
+      return ++reads === 1 ? "daily" : "weekly";
+    },
+  }, ["FREQ", "BYDAY"]);
+  assertEquals(new Proxy(rule, {}).toString(), "RRULE:FREQ=DAILY");
+  assertEquals(reads, 1);
+});
+
+Deno.test("rrule/serialize observes changes to the order during evaluation", () => {
+  const order = ["FREQ", "COUNT"];
+  const rule = new RRule({
+    freq: "daily",
+    options: {
+      get count() {
+        if (order.length === 2) order.push("INTERVAL");
+        return 5;
+      },
+      interval: 2,
+    },
+  }, order);
+  assertEquals(rule.toString(), "RRULE:FREQ=DAILY;COUNT=5;INTERVAL=2");
+
+  const indexedOrder = ["FREQ", "BYDAY"];
+  let reads = 0;
+  Object.defineProperty(indexedOrder, 1, {
+    get: () => ++reads === 1 ? "BYDAY" : "COUNT",
+  });
+  const indexedRule = new RRule({
+    freq: "daily",
+    options: { count: 5 },
+  }, indexedOrder);
+  assertEquals(indexedRule.toString(), "RRULE:FREQ=DAILY");
+  assertEquals(reads, 1);
 });
 
 Deno.test({
@@ -195,4 +249,45 @@ Deno.test({
     const rrule = "RRULE:FREQ=YEARLY";
     test_google_serde(rrule);
   },
+});
+
+Deno.test("rrule serializer follows updated parameter order and values", () => {
+  const order = ["COUNT", "FREQ", "COUNT", "INTERVAL"];
+  const options = { count: 2, interval: 3 };
+  const rule = new RRule({ freq: "daily", options }, order);
+  assertEquals(rule.toString(), "RRULE:FREQ=DAILY;COUNT=2;INTERVAL=3");
+
+  // Long custom orders also keep the first occurrence of a parameter.
+  order.splice(0, order.length, ...Array(16).fill("INTERVAL"), "COUNT", "FREQ");
+  options.count = 4;
+  assertEquals(rule.toString(), "RRULE:FREQ=DAILY;INTERVAL=3;COUNT=4");
+
+  order.splice(0, order.length, "COUNT");
+  assertEquals(rule.toString(), "RRULE:COUNT=4");
+  order.length = 0;
+  assertEquals(rule.toString(), "");
+});
+
+Deno.test("rrule serializer reads ordinal selectors after consuming plain selectors", () => {
+  let plainConsumed = false;
+  const byday = [Weekday.MON];
+  byday.map = (callback) => {
+    const mapped = [callback(Weekday.MON, 0, byday)];
+    Object.defineProperty(mapped, Symbol.iterator, {
+      *value() {
+        yield mapped[0];
+        plainConsumed = true;
+      },
+    });
+    return mapped;
+  };
+
+  const options = {
+    byday,
+    get bynthday() {
+      return plainConsumed ? [{ n: -1, weekday: Weekday.FRI }] : undefined;
+    },
+  };
+  const rule = new RRule({ freq: "monthly", options }, ["FREQ", "BYDAY"]);
+  assertEquals(rule.toString(), "RRULE:FREQ=MONTHLY;BYDAY=MO,-1FR");
 });

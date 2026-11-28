@@ -1,0 +1,135 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil checks UNTIL before DTSTART",
+  "source": "python-dateutil 2.8.2 rrulestr with forceset and an RFC 5545 control",
+  "cases": [
+    {
+      "name": "a later UTC candidate before DTSTART stops the New York gap rule",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T020000",
+          "RRULE:FREQ=DAILY;BYHOUR=1,2,3;BYMINUTE=0,15,30,45;UNTIL=20260308T060000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-11",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09",
+          "2026-03-10"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "the pre-start cutoff applies across the Lord Howe half-hour gap",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Australia/Lord_Howe:20261004T020000",
+          "RRULE:FREQ=DAILY;BYHOUR=1,2,3;BYMINUTE=0,15,30,45;UNTIL=20261003T150000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-10-07",
+        "checkpoints": [
+          "2026-10-02",
+          "2026-10-03",
+          "2026-10-04",
+          "2026-10-05",
+          "2026-10-06"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "pre-start cutoff checks leave the first admitted occurrence available to COUNT",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T020000",
+          "RRULE:FREQ=WEEKLY;BYHOUR=1,2,3;BYMINUTE=0,15,30,45;WKST=SU;BYDAY=SU,MO;UNTIL=20260308T070000Z;COUNT=1"
+        ],
+        "profile": "dateutil",
+        "through": "2026-03-11",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09",
+          "2026-03-10"
+        ]
+      },
+      "expected": [
+        "2026-03-08T06:00:00Z"
+      ]
+    },
+    {
+      "name": "an exclusion rule stops before reaching the first matching wall start",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=Europe/London:20260329T010000",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXRULE:FREQ=MONTHLY;BYHOUR=0,1,2;BYMINUTE=0,15,30,45;BYMONTHDAY=29,30;UNTIL=20260329T000000Z;COUNT=3",
+          "RDATE:20260329T000000Z"
+        ],
+        "profile": "dateutil",
+        "through": "2026-04-01",
+        "checkpoints": [
+          "2026-03-27",
+          "2026-03-28",
+          "2026-03-29",
+          "2026-03-30",
+          "2026-03-31"
+        ]
+      },
+      "expected": [
+        "2026-03-29T00:00:00Z",
+        "2026-03-30T00:00:00Z",
+        "2026-03-31T00:00:00Z"
+      ]
+    },
+    {
+      "name": "a pre-start EXRULE cutoff leaves an explicit UTC inclusion in the weekly set",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T020000",
+          "RRULE:FREQ=WEEKLY;BYDAY=SU,MO,FR;BYHOUR=0,1,2,3;BYMINUTE=30;BYSETPOS=-1,2;COUNT=2",
+          "EXRULE:FREQ=DAILY;BYHOUR=1,2;BYMINUTE=0,15,30,45;UNTIL=20260308T060000Z",
+          "RDATE:20260308T060000Z"
+        ],
+        "through": "2026-03-12",
+        "checkpoints": [
+          "2026-03-05",
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09",
+          "2026-03-10",
+          "2026-03-11"
+        ]
+      },
+      "expected": [
+        "2026-03-08T06:00:00Z",
+        "2026-03-08T07:30:00Z",
+        "2026-03-09T05:30:00Z"
+      ]
+    },
+    {
+      "name": "the RFC profile expands a gap start through its inclusive UTC cutoff",
+      "reference": "RFC 5545 \u00a73.3.5 and \u00a73.3.10, verified Erratum 4271",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260308T020000",
+          "RRULE:FREQ=DAILY;BYHOUR=1,2;BYMINUTE=0,15;UNTIL=20260308T070000Z"
+        ],
+        "through": "2026-03-09",
+        "checkpoints": [
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-08T07:00:00Z"
+      ]
+    }
+  ]
+}

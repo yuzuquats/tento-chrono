@@ -1,0 +1,529 @@
+{
+  "type": "google-instances-query",
+  "name": "Google timed point overlap",
+  "source": "Google Calendar API events.instances",
+  "cases": [
+    {
+      "name": "point",
+      "input": {
+        "master": {
+          "start": {
+            "dateTime": "2027-01-12T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-12T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=3"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "dateTime": "2027-01-12T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-12T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=3"
+          ]
+        },
+        "durationMs": 0,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "wide": {
+            "start": "2027-01-11T09:00:00Z",
+            "end": "2027-01-16T10:00:00+01:00"
+          },
+          "straddle": {
+            "start": "2027-01-12T08:59:59Z",
+            "end": "2027-01-12T10:00:01+01:00"
+          },
+          "max-at-start": {
+            "start": "2027-01-12T08:59:59Z",
+            "end": "2027-01-12T10:00:00+01:00"
+          },
+          "min-at-start": {
+            "start": "2027-01-12T09:00:00Z",
+            "end": "2027-01-12T10:00:01+01:00"
+          },
+          "max-fraction-after-start": {
+            "start": "2027-01-12T08:59:59Z",
+            "end": "2027-01-12T10:00:00.900000+01:00"
+          },
+          "min-fraction-after-start": {
+            "start": "2027-01-12T09:00:00.900000Z",
+            "end": "2027-01-12T10:00:02+01:00"
+          },
+          "straddle-end-second": {
+            "start": "2027-01-12T09:00:01Z",
+            "end": "2027-01-12T10:00:02+01:00"
+          },
+          "min-at-second-after-start": {
+            "start": "2027-01-12T09:00:02Z",
+            "end": "2027-01-12T10:00:04+01:00"
+          },
+          "same-raw-bound": {
+            "start": "2027-01-12T09:00:02Z",
+            "end": "2027-01-12T10:00:02+01:00"
+          },
+          "same-second": {
+            "start": "2027-01-12T09:00:02.100000Z",
+            "end": "2027-01-12T10:00:02.900000+01:00"
+          },
+          "reversed-second": {
+            "start": "2027-01-12T09:00:02.900000Z",
+            "end": "2027-01-12T10:00:02.100000+01:00"
+          },
+          "reversed-seconds": {
+            "start": "2027-01-12T09:00:04Z",
+            "end": "2027-01-12T10:00:02+01:00"
+          },
+          "equal-at-start": {
+            "start": "2027-01-12T09:00:00Z",
+            "end": "2027-01-12T10:00:00+01:00"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2027-01-12T09:00:00Z",
+          "2027-01-13T09:00:00Z",
+          "2027-01-14T09:00:00Z"
+        ],
+        "straddle": [
+          "2027-01-12T09:00:00Z"
+        ],
+        "max-at-start": [],
+        "min-at-start": [
+          "2027-01-12T09:00:00Z"
+        ],
+        "max-fraction-after-start": [],
+        "min-fraction-after-start": [
+          "2027-01-12T09:00:00Z"
+        ],
+        "straddle-end-second": [],
+        "min-at-second-after-start": [],
+        "same-raw-bound": [],
+        "same-second": [],
+        "reversed-second": [],
+        "reversed-seconds": [],
+        "equal-at-start": []
+      }
+    },
+    {
+      "name": "spanning-window-control",
+      "input": {
+        "master": {
+          "start": {
+            "dateTime": "2027-01-12T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-12T09:00:10Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=3"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "dateTime": "2027-01-12T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-12T09:00:10Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=3"
+          ]
+        },
+        "durationMs": 10000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "wide": {
+            "start": "2027-01-11T09:00:00Z",
+            "end": "2027-01-16T10:00:00+01:00"
+          },
+          "straddle": {
+            "start": "2027-01-12T08:59:59Z",
+            "end": "2027-01-12T10:00:01+01:00"
+          },
+          "max-at-start": {
+            "start": "2027-01-12T08:59:59Z",
+            "end": "2027-01-12T10:00:00+01:00"
+          },
+          "min-at-start": {
+            "start": "2027-01-12T09:00:00Z",
+            "end": "2027-01-12T10:00:01+01:00"
+          },
+          "max-fraction-after-start": {
+            "start": "2027-01-12T08:59:59Z",
+            "end": "2027-01-12T10:00:00.900000+01:00"
+          },
+          "min-fraction-after-start": {
+            "start": "2027-01-12T09:00:00.900000Z",
+            "end": "2027-01-12T10:00:02+01:00"
+          },
+          "straddle-end-second": {
+            "start": "2027-01-12T09:00:01Z",
+            "end": "2027-01-12T10:00:02+01:00"
+          },
+          "min-at-second-after-start": {
+            "start": "2027-01-12T09:00:02Z",
+            "end": "2027-01-12T10:00:04+01:00"
+          },
+          "same-raw-bound": {
+            "start": "2027-01-12T09:00:02Z",
+            "end": "2027-01-12T10:00:02+01:00"
+          },
+          "same-second": {
+            "start": "2027-01-12T09:00:02.100000Z",
+            "end": "2027-01-12T10:00:02.900000+01:00"
+          },
+          "reversed-second": {
+            "start": "2027-01-12T09:00:02.900000Z",
+            "end": "2027-01-12T10:00:02.100000+01:00"
+          },
+          "reversed-seconds": {
+            "start": "2027-01-12T09:00:04Z",
+            "end": "2027-01-12T10:00:02+01:00"
+          },
+          "equal-at-start": {
+            "start": "2027-01-12T09:00:00Z",
+            "end": "2027-01-12T10:00:00+01:00"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2027-01-12T09:00:00Z",
+          "2027-01-13T09:00:00Z",
+          "2027-01-14T09:00:00Z"
+        ],
+        "straddle": [
+          "2027-01-12T09:00:00Z"
+        ],
+        "max-at-start": [],
+        "min-at-start": [
+          "2027-01-12T09:00:00Z"
+        ],
+        "max-fraction-after-start": [],
+        "min-fraction-after-start": [
+          "2027-01-12T09:00:00Z"
+        ],
+        "straddle-end-second": [
+          "2027-01-12T09:00:00Z"
+        ],
+        "min-at-second-after-start": [
+          "2027-01-12T09:00:00Z"
+        ],
+        "same-raw-bound": [],
+        "same-second": [],
+        "reversed-second": [],
+        "reversed-seconds": [],
+        "equal-at-start": []
+      }
+    },
+    {
+      "name": "moved-point-from-span",
+      "input": {
+        "master": {
+          "start": {
+            "dateTime": "2027-01-12T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-12T09:00:10Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=3"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "dateTime": "2027-01-12T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-12T09:00:10Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=3"
+          ]
+        },
+        "durationMs": 10000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "wide": {
+            "start": "2027-01-11T09:05:00Z",
+            "end": "2027-01-16T10:05:00+01:00"
+          },
+          "straddle": {
+            "start": "2027-01-12T09:04:59Z",
+            "end": "2027-01-12T10:05:01+01:00"
+          },
+          "max-at-start": {
+            "start": "2027-01-12T09:04:59Z",
+            "end": "2027-01-12T10:05:00+01:00"
+          },
+          "min-at-start": {
+            "start": "2027-01-12T09:05:00Z",
+            "end": "2027-01-12T10:05:01+01:00"
+          },
+          "max-fraction-after-start": {
+            "start": "2027-01-12T09:04:59Z",
+            "end": "2027-01-12T10:05:00.900000+01:00"
+          },
+          "min-fraction-after-start": {
+            "start": "2027-01-12T09:05:00.900000Z",
+            "end": "2027-01-12T10:05:02+01:00"
+          },
+          "straddle-end-second": {
+            "start": "2027-01-12T09:05:01Z",
+            "end": "2027-01-12T10:05:02+01:00"
+          },
+          "min-at-second-after-start": {
+            "start": "2027-01-12T09:05:02Z",
+            "end": "2027-01-12T10:05:04+01:00"
+          },
+          "same-raw-bound": {
+            "start": "2027-01-12T09:05:02Z",
+            "end": "2027-01-12T10:05:02+01:00"
+          },
+          "same-second": {
+            "start": "2027-01-12T09:05:02.100000Z",
+            "end": "2027-01-12T10:05:02.900000+01:00"
+          },
+          "reversed-second": {
+            "start": "2027-01-12T09:05:02.900000Z",
+            "end": "2027-01-12T10:05:02.100000+01:00"
+          },
+          "reversed-seconds": {
+            "start": "2027-01-12T09:05:04Z",
+            "end": "2027-01-12T10:05:02+01:00"
+          },
+          "equal-at-start": {
+            "start": "2027-01-12T09:05:00Z",
+            "end": "2027-01-12T10:05:00+01:00"
+          },
+          "min-at-span-end": {
+            "start": "2027-01-12T09:05:10Z",
+            "end": "2027-01-12T10:05:11+01:00"
+          },
+          "min-just-before-span-end": {
+            "start": "2027-01-12T09:05:09Z",
+            "end": "2027-01-12T10:05:10+01:00"
+          },
+          "original-slot": {
+            "start": "2027-01-12T08:59:59Z",
+            "end": "2027-01-12T10:00:11+01:00"
+          }
+        },
+        "edits": [
+          {
+            "start": {
+              "dateTime": "2027-01-12T09:05:00Z",
+              "timeZone": "UTC"
+            },
+            "end": {
+              "dateTime": "2027-01-12T09:05:00Z",
+              "timeZone": "UTC"
+            },
+            "originalStartTime": {
+              "dateTime": "2027-01-12T09:00:00Z",
+              "timeZone": "UTC"
+            },
+            "status": "confirmed"
+          }
+        ]
+      },
+      "expected": {
+        "wide": [
+          "2027-01-13T09:00:00Z",
+          "2027-01-14T09:00:00Z",
+          "2027-01-12T09:05:00Z"
+        ],
+        "straddle": [
+          "2027-01-12T09:05:00Z"
+        ],
+        "max-at-start": [],
+        "min-at-start": [
+          "2027-01-12T09:05:00Z"
+        ],
+        "max-fraction-after-start": [],
+        "min-fraction-after-start": [
+          "2027-01-12T09:05:00Z"
+        ],
+        "straddle-end-second": [],
+        "min-at-second-after-start": [],
+        "same-raw-bound": [],
+        "same-second": [],
+        "reversed-second": [],
+        "reversed-seconds": [],
+        "equal-at-start": [],
+        "min-at-span-end": [],
+        "min-just-before-span-end": [],
+        "original-slot": []
+      }
+    },
+    {
+      "name": "moved-span-from-point",
+      "input": {
+        "master": {
+          "start": {
+            "dateTime": "2027-01-12T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-12T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=3"
+          ]
+        },
+        "submitted": {
+          "start": {
+            "dateTime": "2027-01-12T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-01-12T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=DAILY;COUNT=3"
+          ]
+        },
+        "durationMs": 0,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "wide": {
+            "start": "2027-01-11T09:05:00Z",
+            "end": "2027-01-16T10:05:00+01:00"
+          },
+          "straddle": {
+            "start": "2027-01-12T09:04:59Z",
+            "end": "2027-01-12T10:05:01+01:00"
+          },
+          "max-at-start": {
+            "start": "2027-01-12T09:04:59Z",
+            "end": "2027-01-12T10:05:00+01:00"
+          },
+          "min-at-start": {
+            "start": "2027-01-12T09:05:00Z",
+            "end": "2027-01-12T10:05:01+01:00"
+          },
+          "max-fraction-after-start": {
+            "start": "2027-01-12T09:04:59Z",
+            "end": "2027-01-12T10:05:00.900000+01:00"
+          },
+          "min-fraction-after-start": {
+            "start": "2027-01-12T09:05:00.900000Z",
+            "end": "2027-01-12T10:05:02+01:00"
+          },
+          "straddle-end-second": {
+            "start": "2027-01-12T09:05:01Z",
+            "end": "2027-01-12T10:05:02+01:00"
+          },
+          "min-at-second-after-start": {
+            "start": "2027-01-12T09:05:02Z",
+            "end": "2027-01-12T10:05:04+01:00"
+          },
+          "same-raw-bound": {
+            "start": "2027-01-12T09:05:02Z",
+            "end": "2027-01-12T10:05:02+01:00"
+          },
+          "same-second": {
+            "start": "2027-01-12T09:05:02.100000Z",
+            "end": "2027-01-12T10:05:02.900000+01:00"
+          },
+          "reversed-second": {
+            "start": "2027-01-12T09:05:02.900000Z",
+            "end": "2027-01-12T10:05:02.100000+01:00"
+          },
+          "reversed-seconds": {
+            "start": "2027-01-12T09:05:04Z",
+            "end": "2027-01-12T10:05:02+01:00"
+          },
+          "equal-at-start": {
+            "start": "2027-01-12T09:05:00Z",
+            "end": "2027-01-12T10:05:00+01:00"
+          },
+          "min-at-span-end": {
+            "start": "2027-01-12T09:05:10Z",
+            "end": "2027-01-12T10:05:11+01:00"
+          },
+          "min-just-before-span-end": {
+            "start": "2027-01-12T09:05:09Z",
+            "end": "2027-01-12T10:05:10+01:00"
+          },
+          "original-slot": {
+            "start": "2027-01-12T08:59:59Z",
+            "end": "2027-01-12T10:00:11+01:00"
+          }
+        },
+        "edits": [
+          {
+            "start": {
+              "dateTime": "2027-01-12T09:05:00Z",
+              "timeZone": "UTC"
+            },
+            "end": {
+              "dateTime": "2027-01-12T09:05:10Z",
+              "timeZone": "UTC"
+            },
+            "originalStartTime": {
+              "dateTime": "2027-01-12T09:00:00Z",
+              "timeZone": "UTC"
+            },
+            "status": "confirmed"
+          }
+        ]
+      },
+      "expected": {
+        "wide": [
+          "2027-01-13T09:00:00Z",
+          "2027-01-14T09:00:00Z",
+          "2027-01-12T09:05:00Z"
+        ],
+        "straddle": [
+          "2027-01-12T09:05:00Z"
+        ],
+        "max-at-start": [],
+        "min-at-start": [
+          "2027-01-12T09:05:00Z"
+        ],
+        "max-fraction-after-start": [],
+        "min-fraction-after-start": [
+          "2027-01-12T09:05:00Z"
+        ],
+        "straddle-end-second": [
+          "2027-01-12T09:05:00Z"
+        ],
+        "min-at-second-after-start": [
+          "2027-01-12T09:05:00Z"
+        ],
+        "same-raw-bound": [],
+        "same-second": [],
+        "reversed-second": [],
+        "reversed-seconds": [],
+        "equal-at-start": [],
+        "min-at-span-end": [],
+        "min-just-before-span-end": [
+          "2027-01-12T09:05:00Z"
+        ],
+        "original-slot": []
+      }
+    }
+  ]
+}

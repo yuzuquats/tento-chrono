@@ -1,0 +1,140 @@
+{
+  "type": "recurrence-profile",
+  "name": "RFC 5545 decimal recurrence bounds",
+  "source": "RFC 5545 \u00a73.3.10 and independent Gregorian window calculation",
+  "cases": [
+    {
+      "name": "a COUNT above the safe integer limit expands the ordinary window",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;COUNT=9007199254740992"
+        ],
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T00:00:00Z",
+        "2026-01-02T00:00:00Z",
+        "2026-01-03T00:00:00Z"
+      ]
+    },
+    {
+      "name": "a 310-digit COUNT preserves inclusion and exclusion precedence",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=MONTHLY;COUNT=9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999",
+          "RDATE:20260201T000001Z",
+          "EXDATE:20260101T000000Z"
+        ],
+        "through": "2026-03-01",
+        "checkpoints": [
+          "2026-02-01"
+        ]
+      },
+      "expected": [
+        "2026-02-01T00:00:00Z",
+        "2026-02-01T00:00:01Z",
+        "2026-03-01T00:00:00Z"
+      ]
+    },
+    {
+      "name": "an oversized yearly interval retains the first occurrence",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=9007199254740993;COUNT=3"
+        ],
+        "through": "2028-01-01",
+        "checkpoints": [
+          "2026-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T00:00:00Z"
+      ]
+    },
+    {
+      "name": "an oversized week step retains explicit inclusions",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=9007199254740992;COUNT=3",
+          "RDATE:20260108T000001Z",
+          "EXDATE:20260101T000000Z"
+        ],
+        "through": "2026-01-15",
+        "checkpoints": [
+          "2026-01-08"
+        ]
+      },
+      "expected": [
+        "2026-01-08T00:00:01Z"
+      ]
+    },
+    {
+      "name": "a 310-digit seconds step is dormant past DTSTART",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;COUNT=3"
+        ],
+        "through": "2026-01-01",
+        "checkpoints": []
+      },
+      "expected": [
+        "2026-01-01T00:00:00Z"
+      ]
+    },
+    {
+      "name": "leading zeros preserve a small positive COUNT",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;COUNT=0000002"
+        ],
+        "through": "2026-01-03",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T00:00:00Z",
+        "2026-01-02T00:00:00Z"
+      ]
+    },
+    {
+      "name": "an all-zero COUNT fails positive-decimal validation",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;COUNT=00000"
+        ],
+        "through": "2026-01-03",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "COUNT must be a positive integer"
+      }
+    },
+    {
+      "name": "the INTERVAL grammar does not allow a plus sign",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T000000Z",
+          "RRULE:FREQ=DAILY;INTERVAL=+1"
+        ],
+        "through": "2026-01-03",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "INTERVAL must be a positive integer"
+      }
+    }
+  ]
+}

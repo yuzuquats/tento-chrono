@@ -1,0 +1,182 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil content headers and empty values",
+  "source": "python-dateutil 2.8.2 rrulestr with forceset",
+  "cases": [
+    {
+      "name": "an empty start fails during the initial scan",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "DTSTART:",
+          "X-OTHER:20260308",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "error": "String does not contain a date: "
+      }
+    },
+    {
+      "name": "an empty RDATE follows inclusion rule validation",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=DAILY;X=1",
+          "RDATE:",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "error": "unknown parameter 'X'"
+      }
+    },
+    {
+      "name": "an empty RDATE is read before an empty EXRULE",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RDATE:",
+          "EXRULE:",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "error": "String does not contain a date: "
+      }
+    },
+    {
+      "name": "a literal colon ends a quoted RDATE parameter",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RDATE;X-NOTE=\"a:b\":20260308T090000Z",
+          "RDATE:20260309T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "error": "unsupported RDATE parm: X-NOTE=\"A"
+      }
+    },
+    {
+      "name": "a literal semicolon separates quoted EXDATE parameters",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "EXDATE;TZID=\"a;b\":20260308T090000",
+          "RDATE:20260309T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "error": "unsupported parm: B\""
+      }
+    },
+    {
+      "name": "a literal colon supplies the rest of the EXDATE value",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "EXDATE;TZID=\"a:b\":20260308T090000",
+          "RDATE:20260309T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "error": "Unknown string format: B\":20260308T090000"
+      }
+    },
+    {
+      "name": "a colonless EXDATE is parsed as a bare rule",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "EXDATE;VALUE=DATE",
+          "RDATE:20260309T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "error": "not enough values to unpack (expected 2, got 1)"
+      }
+    },
+    {
+      "name": "an extra equals sign fails in the inclusion rule",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2=3",
+          "RDATE:",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-03-10",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07"
+        ]
+      },
+      "expected": {
+        "error": "too many values to unpack (expected 2)"
+      }
+    },
+    {
+      "name": "an external DTSTART does not supply missing recurrence text",
+      "input": {
+        "profile": "dateutil",
+        "lines": [],
+        "dtstart": {
+          "dateTime": "2026-03-06T09:00:00Z"
+        },
+        "through": "2026-03-10",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "empty string"
+      }
+    }
+  ]
+}

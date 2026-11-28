@@ -1,0 +1,185 @@
+{
+  "type": "google-instances-query",
+  "name": "Google yearly ceiling controls with a one-year interval",
+  "source": "Google Calendar API events.instances",
+  "cases": [
+    {
+      "name": "google-wrap-ceiling-ordinal-time-partial-first-period-one-year-interval",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2099-06-03T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2099-06-03T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1;COUNT=4;BYMONTH=1,12;BYMONTHDAY=3"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2099-06-03T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2099-06-03T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=4;INTERVAL=1;BYMONTH=1,12;BYMONTHDAY=3"
+          ]
+        },
+        "durationMs": 900000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2080-01-01T00:00:00Z",
+            "end": "2102-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2099-06-03T09:00:00Z",
+          "2099-12-03T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "google-wrap-ceiling-ordinal-time-excluded-master-with-early-rdate-one-year-interval",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2100-01-03T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2100-01-03T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1;COUNT=4",
+            "EXDATE:21000103T090000Z",
+            "RDATE:20991230T090000Z"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2100-01-03T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2100-01-03T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE-TIME:21000103T090000Z",
+            "RDATE;VALUE=DATE-TIME:20991230T090000Z",
+            "RRULE:FREQ=YEARLY;COUNT=4;INTERVAL=1"
+          ]
+        },
+        "durationMs": 900000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2080-01-01T00:00:00Z",
+            "end": "2102-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2099-12-30T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "google-wrap-ceiling-ordinal-date-partial-first-period-one-year-interval",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "2099-06-03"
+          },
+          "end": {
+            "date": "2099-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1;COUNT=4;BYMONTH=1,12;BYMONTHDAY=3"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "2099-06-03"
+          },
+          "end": {
+            "date": "2099-06-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;COUNT=4;INTERVAL=1;BYMONTH=1,12;BYMONTHDAY=3"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2080-01-01T00:00:00Z",
+            "end": "2102-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2099-06-03",
+          "2099-12-03"
+        ]
+      }
+    },
+    {
+      "name": "google-wrap-ceiling-ordinal-date-excluded-master-with-early-rdate-one-year-interval",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "2100-01-03"
+          },
+          "end": {
+            "date": "2100-01-04"
+          },
+          "recurrence": [
+            "RRULE:FREQ=YEARLY;INTERVAL=1;COUNT=4",
+            "EXDATE;VALUE=DATE:21000103",
+            "RDATE;VALUE=DATE:20991230"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "2100-01-03"
+          },
+          "end": {
+            "date": "2100-01-04"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE:21000103",
+            "RDATE;VALUE=DATE:20991230",
+            "RRULE:FREQ=YEARLY;COUNT=4;INTERVAL=1"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2080-01-01T00:00:00Z",
+            "end": "2102-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2099-12-30"
+        ]
+      }
+    }
+  ]
+}

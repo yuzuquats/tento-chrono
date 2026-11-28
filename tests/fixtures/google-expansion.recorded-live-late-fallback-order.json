@@ -1,0 +1,103 @@
+{
+  "type": "google-expansion",
+  "name": "Google Calendar late-fallback-order google-expansion",
+  "source": "Google Calendar API events.instances",
+  "cases": [
+    {
+      "name": "google-late-fallback-order-date-no-exclusion",
+      "input": {
+        "start": "2100-01-03",
+        "rules": [
+          "RDATE;VALUE=DATE:21000102",
+          "RDATE;VALUE=DATE:21000104"
+        ],
+        "storedRecurrence": [
+          "RDATE;VALUE=DATE:21000102",
+          "RDATE;VALUE=DATE:21000104"
+        ],
+        "window": {
+          "start": "2099-12-29T00:00:00Z",
+          "end": "2100-01-06T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2100-01-02"
+        ]
+      }
+    },
+    {
+      "name": "google-late-fallback-order-date-rule-next",
+      "input": {
+        "start": "2100-01-03",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "storedRecurrence": [
+          "EXRULE:FREQ=DAILY;COUNT=1",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2099-12-29T00:00:00Z",
+          "end": "2100-01-06T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2100-01-04"
+        ]
+      }
+    },
+    {
+      "name": "google-late-fallback-order-time-no-exclusion",
+      "input": {
+        "start": "2100-01-03T09:00:00Z",
+        "end": "2100-01-03T09:15:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RDATE:21000102T090000Z",
+          "RDATE:21000104T090000Z"
+        ],
+        "storedRecurrence": [
+          "RDATE;VALUE=DATE-TIME:21000102T090000Z",
+          "RDATE;VALUE=DATE-TIME:21000104T090000Z"
+        ],
+        "window": {
+          "start": "2099-12-29T00:00:00Z",
+          "end": "2100-01-06T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2100-01-02T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "google-late-fallback-order-time-rule-next",
+      "input": {
+        "start": "2100-01-03T09:00:00Z",
+        "end": "2100-01-03T09:15:00Z",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "storedRecurrence": [
+          "EXRULE:FREQ=DAILY;COUNT=1",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "window": {
+          "start": "2099-12-29T00:00:00Z",
+          "end": "2100-01-06T00:00:00Z"
+        }
+      },
+      "expected": {
+        "google": [
+          "2100-01-04T09:00:00Z"
+        ]
+      }
+    }
+  ]
+}

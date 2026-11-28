@@ -1,0 +1,343 @@
+{
+  "type": "graph-calendar-view",
+  "name": "Graph calendarView minute projection and narrow overlap",
+  "source": "Microsoft Graph v1.0 calendarView",
+  "cases": [
+    {
+      "name": "fractional-cross-midnight",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-03-12T23:59:59.5000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-03-13T00:00:59.5000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "originalEndTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-03-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 60000,
+        "windows": {
+          "wide": {
+            "start": "2027-03-12T00:00:00Z",
+            "end": "2027-03-16T00:00:00Z"
+          },
+          "before-displayed-start": {
+            "start": "2027-03-13T23:58:59Z",
+            "end": "2027-03-13T23:59:00Z"
+          },
+          "first-displayed-second": {
+            "start": "2027-03-13T23:59:00Z",
+            "end": "2027-03-13T23:59:01Z"
+          },
+          "after-displayed-end": {
+            "start": "2027-03-14T00:00:00Z",
+            "end": "2027-03-14T00:00:00.500Z"
+          },
+          "after-displayed-end-plus-one-second": {
+            "start": "2027-03-14T00:00:01Z",
+            "end": "2027-03-14T00:00:02Z"
+          },
+          "after-submitted-end": {
+            "start": "2027-03-14T00:00:59.500Z",
+            "end": "2027-03-14T00:01:00Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2027-03-12T23:59:00Z",
+          "2027-03-13T23:59:00Z",
+          "2027-03-14T23:59:00Z"
+        ],
+        "before-displayed-start": [],
+        "first-displayed-second": [
+          "2027-03-13T23:59:00Z"
+        ],
+        "after-displayed-end": [
+          "2027-03-13T23:59:00Z"
+        ],
+        "after-displayed-end-plus-one-second": [],
+        "after-submitted-end": []
+      }
+    },
+    {
+      "name": "whole-minute-cross-midnight",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-03-12T23:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-03-13T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "originalEndTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-03-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 60000,
+        "windows": {
+          "wide": {
+            "start": "2027-03-12T00:00:00Z",
+            "end": "2027-03-16T00:00:00Z"
+          },
+          "before-displayed-start": {
+            "start": "2027-03-13T23:58:59Z",
+            "end": "2027-03-13T23:59:00Z"
+          },
+          "first-displayed-second": {
+            "start": "2027-03-13T23:59:00Z",
+            "end": "2027-03-13T23:59:01Z"
+          },
+          "after-displayed-end": {
+            "start": "2027-03-14T00:00:00Z",
+            "end": "2027-03-14T00:00:00.500Z"
+          },
+          "after-displayed-end-plus-one-second": {
+            "start": "2027-03-14T00:00:01Z",
+            "end": "2027-03-14T00:00:02Z"
+          },
+          "after-submitted-end": {
+            "start": "2027-03-14T00:00:59.500Z",
+            "end": "2027-03-14T00:01:00Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2027-03-12T23:59:00Z",
+          "2027-03-13T23:59:00Z",
+          "2027-03-14T23:59:00Z"
+        ],
+        "before-displayed-start": [],
+        "first-displayed-second": [
+          "2027-03-13T23:59:00Z"
+        ],
+        "after-displayed-end": [
+          "2027-03-13T23:59:00Z"
+        ],
+        "after-displayed-end-plus-one-second": [],
+        "after-submitted-end": []
+      }
+    },
+    {
+      "name": "fractional-rounded-duration-grows",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-03-12T23:59:59.5000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-03-13T00:01:00.1000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "originalEndTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-03-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "windows": {
+          "wide": {
+            "start": "2027-03-12T00:00:00Z",
+            "end": "2027-03-16T00:00:00Z"
+          },
+          "before-displayed-start": {
+            "start": "2027-03-13T23:58:59Z",
+            "end": "2027-03-13T23:59:00Z"
+          },
+          "first-displayed-second": {
+            "start": "2027-03-13T23:59:00Z",
+            "end": "2027-03-13T23:59:01Z"
+          },
+          "after-displayed-end": {
+            "start": "2027-03-14T00:00:00Z",
+            "end": "2027-03-14T00:00:00.500Z"
+          },
+          "after-displayed-end-plus-one-second": {
+            "start": "2027-03-14T00:00:01Z",
+            "end": "2027-03-14T00:00:02Z"
+          },
+          "next-minute-boundary": {
+            "start": "2027-03-14T00:01:00Z",
+            "end": "2027-03-14T00:01:01Z"
+          },
+          "one-second-after-next-minute": {
+            "start": "2027-03-14T00:01:01Z",
+            "end": "2027-03-14T00:01:02Z"
+          },
+          "after-submitted-end": {
+            "start": "2027-03-14T00:00:59.500Z",
+            "end": "2027-03-14T00:01:00Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2027-03-12T23:59:00Z",
+          "2027-03-13T23:59:00Z",
+          "2027-03-14T23:59:00Z"
+        ],
+        "before-displayed-start": [],
+        "first-displayed-second": [
+          "2027-03-13T23:59:00Z"
+        ],
+        "after-displayed-end": [
+          "2027-03-13T23:59:00Z"
+        ],
+        "after-displayed-end-plus-one-second": [
+          "2027-03-13T23:59:00Z"
+        ],
+        "next-minute-boundary": [
+          "2027-03-13T23:59:00Z"
+        ],
+        "one-second-after-next-minute": [],
+        "after-submitted-end": [
+          "2027-03-13T23:59:00Z"
+        ]
+      }
+    },
+    {
+      "name": "fractional-rounded-duration-shrinks",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-03-12T23:59:00.1000000",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2027-03-13T00:00:59.5000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "originalEndTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 3,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-03-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "windows": {
+          "wide": {
+            "start": "2027-03-12T00:00:00Z",
+            "end": "2027-03-16T00:00:00Z"
+          },
+          "before-displayed-start": {
+            "start": "2027-03-13T23:58:59Z",
+            "end": "2027-03-13T23:59:00Z"
+          },
+          "first-displayed-second": {
+            "start": "2027-03-13T23:59:00Z",
+            "end": "2027-03-13T23:59:01Z"
+          },
+          "after-displayed-end": {
+            "start": "2027-03-14T00:00:00Z",
+            "end": "2027-03-14T00:00:00.500Z"
+          },
+          "after-displayed-end-plus-one-second": {
+            "start": "2027-03-14T00:00:01Z",
+            "end": "2027-03-14T00:00:02Z"
+          },
+          "next-minute-boundary": {
+            "start": "2027-03-14T00:01:00Z",
+            "end": "2027-03-14T00:01:01Z"
+          },
+          "one-second-after-next-minute": {
+            "start": "2027-03-14T00:01:01Z",
+            "end": "2027-03-14T00:01:02Z"
+          },
+          "after-submitted-end": {
+            "start": "2027-03-14T00:00:59.500Z",
+            "end": "2027-03-14T00:01:00Z"
+          }
+        }
+      },
+      "expected": {
+        "wide": [
+          "2027-03-12T23:59:00Z",
+          "2027-03-13T23:59:00Z",
+          "2027-03-14T23:59:00Z"
+        ],
+        "before-displayed-start": [],
+        "first-displayed-second": [
+          "2027-03-13T23:59:00Z"
+        ],
+        "after-displayed-end": [
+          "2027-03-13T23:59:00Z"
+        ],
+        "after-displayed-end-plus-one-second": [],
+        "next-minute-boundary": [],
+        "one-second-after-next-minute": [],
+        "after-submitted-end": []
+      }
+    }
+  ]
+}

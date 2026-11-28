@@ -1,0 +1,496 @@
+{
+  "type": "dateutil-mutable-set",
+  "name": "dateutil 2.8.2 cached members of mutable sets",
+  "source": "python-dateutil 2.8.2 rruleset",
+  "cases": [
+    {
+      "name": "rrule-False-False",
+      "input": {
+        "cache": false,
+        "steps": [
+          {
+            "action": "rdate",
+            "value": "0001-01-01T09:00:00"
+          },
+          {
+            "action": "rrule",
+            "lines": [
+              "DTSTART:00010102T090000",
+              "RRULE:FREQ=MONTHLY;INTERVAL=-1;COUNT=3"
+            ],
+            "cache": false
+          },
+          {
+            "action": "prefix",
+            "length": 1
+          }
+        ]
+      },
+      "expected": [
+        [
+          "0001-01-01T09:00:00"
+        ]
+      ]
+    },
+    {
+      "name": "rrule-False-True",
+      "input": {
+        "cache": false,
+        "steps": [
+          {
+            "action": "rdate",
+            "value": "0001-01-01T09:00:00"
+          },
+          {
+            "action": "rrule",
+            "lines": [
+              "DTSTART:00010102T090000",
+              "RRULE:FREQ=MONTHLY;INTERVAL=-1;COUNT=3"
+            ],
+            "cache": true
+          },
+          {
+            "action": "prefix",
+            "length": 1
+          }
+        ]
+      },
+      "expected": [
+        {
+          "error": "not enough values to unpack (expected 2, got 0)"
+        }
+      ]
+    },
+    {
+      "name": "rrule-True-False",
+      "input": {
+        "cache": true,
+        "steps": [
+          {
+            "action": "rdate",
+            "value": "0001-01-01T09:00:00"
+          },
+          {
+            "action": "rrule",
+            "lines": [
+              "DTSTART:00010102T090000",
+              "RRULE:FREQ=MONTHLY;INTERVAL=-1;COUNT=3"
+            ],
+            "cache": false
+          },
+          {
+            "action": "prefix",
+            "length": 1
+          }
+        ]
+      },
+      "expected": [
+        {
+          "error": "not enough values to unpack (expected 2, got 0)"
+        }
+      ]
+    },
+    {
+      "name": "rrule-True-True",
+      "input": {
+        "cache": true,
+        "steps": [
+          {
+            "action": "rdate",
+            "value": "0001-01-01T09:00:00"
+          },
+          {
+            "action": "rrule",
+            "lines": [
+              "DTSTART:00010102T090000",
+              "RRULE:FREQ=MONTHLY;INTERVAL=-1;COUNT=3"
+            ],
+            "cache": true
+          },
+          {
+            "action": "prefix",
+            "length": 1
+          }
+        ]
+      },
+      "expected": [
+        {
+          "error": "not enough values to unpack (expected 2, got 0)"
+        }
+      ]
+    },
+    {
+      "name": "exrule-False-False",
+      "input": {
+        "cache": false,
+        "steps": [
+          {
+            "action": "rdate",
+            "value": "0001-01-01T09:00:00"
+          },
+          {
+            "action": "exrule",
+            "lines": [
+              "DTSTART:00010102T090000",
+              "RRULE:FREQ=MONTHLY;INTERVAL=-1;COUNT=3"
+            ],
+            "cache": false
+          },
+          {
+            "action": "prefix",
+            "length": 1
+          }
+        ]
+      },
+      "expected": [
+        [
+          "0001-01-01T09:00:00"
+        ]
+      ]
+    },
+    {
+      "name": "exrule-False-True",
+      "input": {
+        "cache": false,
+        "steps": [
+          {
+            "action": "rdate",
+            "value": "0001-01-01T09:00:00"
+          },
+          {
+            "action": "exrule",
+            "lines": [
+              "DTSTART:00010102T090000",
+              "RRULE:FREQ=MONTHLY;INTERVAL=-1;COUNT=3"
+            ],
+            "cache": true
+          },
+          {
+            "action": "prefix",
+            "length": 1
+          }
+        ]
+      },
+      "expected": [
+        {
+          "error": "not enough values to unpack (expected 2, got 0)"
+        }
+      ]
+    },
+    {
+      "name": "exrule-True-False",
+      "input": {
+        "cache": true,
+        "steps": [
+          {
+            "action": "rdate",
+            "value": "0001-01-01T09:00:00"
+          },
+          {
+            "action": "exrule",
+            "lines": [
+              "DTSTART:00010102T090000",
+              "RRULE:FREQ=MONTHLY;INTERVAL=-1;COUNT=3"
+            ],
+            "cache": false
+          },
+          {
+            "action": "prefix",
+            "length": 1
+          }
+        ]
+      },
+      "expected": [
+        [
+          "0001-01-01T09:00:00"
+        ]
+      ]
+    },
+    {
+      "name": "exrule-True-True",
+      "input": {
+        "cache": true,
+        "steps": [
+          {
+            "action": "rdate",
+            "value": "0001-01-01T09:00:00"
+          },
+          {
+            "action": "exrule",
+            "lines": [
+              "DTSTART:00010102T090000",
+              "RRULE:FREQ=MONTHLY;INTERVAL=-1;COUNT=3"
+            ],
+            "cache": true
+          },
+          {
+            "action": "prefix",
+            "length": 1
+          }
+        ]
+      },
+      "expected": [
+        {
+          "error": "not enough values to unpack (expected 2, got 0)"
+        }
+      ]
+    },
+    {
+      "name": "exrule-read-fails-before-inclusion-heap-compares-awareness",
+      "input": {
+        "cache": false,
+        "steps": [
+          {
+            "action": "rdate",
+            "value": "0001-01-01T09:00:00"
+          },
+          {
+            "action": "rrule",
+            "lines": [
+              "DTSTART:00010103T090000Z",
+              "RRULE:FREQ=DAILY;COUNT=2"
+            ],
+            "cache": false
+          },
+          {
+            "action": "exrule",
+            "lines": [
+              "DTSTART:00010102T090000",
+              "RRULE:FREQ=MONTHLY;INTERVAL=-1;COUNT=3"
+            ],
+            "cache": true
+          },
+          {
+            "action": "prefix",
+            "length": 1
+          }
+        ]
+      },
+      "expected": [
+        {
+          "error": "not enough values to unpack (expected 2, got 0)"
+        }
+      ]
+    },
+    {
+      "name": "completed-three-item-member-cache-is-shared",
+      "input": {
+        "cache": false,
+        "steps": [
+          {
+            "action": "rrule",
+            "lines": [
+              "DTSTART:20260110T090000",
+              "RRULE:FREQ=DAILY;COUNT=3"
+            ],
+            "cache": true
+          },
+          {
+            "action": "memberSlice",
+            "start": -1
+          },
+          {
+            "action": "prefix",
+            "length": 1
+          },
+          {
+            "action": "memberSlice",
+            "start": -1
+          }
+        ]
+      },
+      "expected": [
+        {
+          "error": "Indices for islice() must be None or an integer: 0 <= x <= sys.maxsize."
+        },
+        [
+          "2026-01-10T09:00:00"
+        ],
+        [
+          "2026-01-12T09:00:00"
+        ]
+      ]
+    },
+    {
+      "name": "exactly-ten-remains-partial-until-exhausted-in-set",
+      "input": {
+        "cache": false,
+        "steps": [
+          {
+            "action": "rrule",
+            "lines": [
+              "DTSTART:20260110T090000",
+              "RRULE:FREQ=DAILY;COUNT=10"
+            ],
+            "cache": true
+          },
+          {
+            "action": "prefix",
+            "length": 1
+          },
+          {
+            "action": "memberSlice",
+            "start": -1
+          },
+          {
+            "action": "count"
+          },
+          {
+            "action": "memberSlice",
+            "start": -1
+          }
+        ]
+      },
+      "expected": [
+        [
+          "2026-01-10T09:00:00"
+        ],
+        {
+          "error": "Indices for islice() must be None or an integer: 0 <= x <= sys.maxsize."
+        },
+        10,
+        [
+          "2026-01-19T09:00:00"
+        ]
+      ]
+    },
+    {
+      "name": "excluded-member-completes-on-set-prefetch",
+      "input": {
+        "cache": false,
+        "steps": [
+          {
+            "action": "rrule",
+            "lines": [
+              "DTSTART:20260110T090000",
+              "RRULE:FREQ=DAILY;COUNT=2"
+            ],
+            "cache": false
+          },
+          {
+            "action": "exrule",
+            "lines": [
+              "DTSTART:20260111T090000",
+              "RRULE:FREQ=DAILY;COUNT=3"
+            ],
+            "cache": true
+          },
+          {
+            "action": "memberSlice",
+            "start": -1
+          },
+          {
+            "action": "prefix",
+            "length": 1
+          },
+          {
+            "action": "memberSlice",
+            "start": -1
+          }
+        ]
+      },
+      "expected": [
+        {
+          "error": "Indices for islice() must be None or an integer: 0 <= x <= sys.maxsize."
+        },
+        [
+          "2026-01-10T09:00:00"
+        ],
+        [
+          "2026-01-13T09:00:00"
+        ]
+      ]
+    },
+    {
+      "name": "date-insertion-invalidates-outer-cache-without-resetting-member",
+      "input": {
+        "cache": true,
+        "steps": [
+          {
+            "action": "rrule",
+            "lines": [
+              "DTSTART:20260110T090000",
+              "RRULE:FREQ=DAILY;COUNT=3"
+            ],
+            "cache": true
+          },
+          {
+            "action": "prefix",
+            "length": 1
+          },
+          {
+            "action": "memberSlice",
+            "start": -1
+          },
+          {
+            "action": "exdate",
+            "value": "2026-01-10T09:00:00"
+          },
+          {
+            "action": "memberSlice",
+            "start": -1
+          },
+          {
+            "action": "all"
+          }
+        ]
+      },
+      "expected": [
+        [
+          "2026-01-10T09:00:00"
+        ],
+        [
+          "2026-01-12T09:00:00"
+        ],
+        [
+          "2026-01-12T09:00:00"
+        ],
+        [
+          "2026-01-11T09:00:00",
+          "2026-01-12T09:00:00"
+        ]
+      ]
+    },
+    {
+      "name": "member-late-failure-first-batch-visible",
+      "input": {
+        "cache": false,
+        "steps": [
+          {
+            "action": "rrule",
+            "lines": [
+              "DTSTART:99991220T090000",
+              "RRULE:FREQ=WEEKLY;WKST=MO;BYDAY=MO,TU,WE,TH,FR,SA,SU"
+            ],
+            "cache": true
+          },
+          {
+            "action": "prefix",
+            "length": 10
+          },
+          {
+            "action": "prefix",
+            "length": 11
+          }
+        ]
+      },
+      "expected": [
+        [
+          "9999-12-20T09:00:00",
+          "9999-12-21T09:00:00",
+          "9999-12-22T09:00:00",
+          "9999-12-23T09:00:00",
+          "9999-12-24T09:00:00",
+          "9999-12-25T09:00:00",
+          "9999-12-26T09:00:00",
+          "9999-12-27T09:00:00",
+          "9999-12-28T09:00:00",
+          "9999-12-29T09:00:00"
+        ],
+        {
+          "error": "year 10000 is out of range"
+        }
+      ]
+    }
+  ]
+}

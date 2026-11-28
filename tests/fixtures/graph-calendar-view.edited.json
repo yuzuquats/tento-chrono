@@ -1,0 +1,1742 @@
+{
+  "type": "graph-calendar-view",
+  "name": "Outlook calendarView edited windows",
+  "source": "Microsoft Graph v1.0 calendarView",
+  "cases": [
+    {
+      "name": "utc-timed",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-03-02T09:17:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday"
+              ],
+              "firstDayOfWeek": "monday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "weekly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2026-03-02",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 1200000,
+        "windows": {
+          "wide": {
+            "start": "2026-02-27T00:00:00Z",
+            "end": "2026-04-11T00:00:00Z"
+          },
+          "original-slot": {
+            "start": "2026-03-09T00:00:00Z",
+            "end": "2026-03-10T00:00:00Z"
+          },
+          "cancelled-slot": {
+            "start": "2026-03-16T00:00:00Z",
+            "end": "2026-03-17T00:00:00Z"
+          },
+          "moved-slot": {
+            "start": "2026-03-11T00:00:00Z",
+            "end": "2026-03-12T00:00:00Z"
+          },
+          "end-at-moved-start": {
+            "start": "2026-03-11T12:16:59Z",
+            "end": "2026-03-11T12:17:00Z"
+          },
+          "begin-at-moved-start": {
+            "start": "2026-03-11T12:17:00Z",
+            "end": "2026-03-11T12:17:01Z"
+          },
+          "begin-at-moved-end": {
+            "start": "2026-03-11T12:52:00Z",
+            "end": "2026-03-11T12:52:01Z"
+          },
+          "after-moved-end": {
+            "start": "2026-03-11T12:52:01Z",
+            "end": "2026-03-11T12:52:02Z"
+          }
+        },
+        "edits": [
+          {
+            "originalSlot": "2026-03-09T09:17:00Z",
+            "replacement": {
+              "start": "2026-03-11T12:17:00Z",
+              "end": "2026-03-11T12:52:00Z"
+            }
+          },
+          {
+            "originalSlot": "2026-03-16T09:17:00Z"
+          }
+        ]
+      },
+      "expected": {
+        "wide": [
+          "2026-03-02T09:17:00Z",
+          "2026-03-11T12:17:00Z",
+          "2026-03-23T09:17:00Z",
+          "2026-03-30T09:17:00Z"
+        ],
+        "original-slot": [],
+        "cancelled-slot": [],
+        "moved-slot": [
+          "2026-03-11T12:17:00Z"
+        ],
+        "end-at-moved-start": [],
+        "begin-at-moved-start": [
+          "2026-03-11T12:17:00Z"
+        ],
+        "begin-at-moved-end": [
+          "2026-03-11T12:17:00Z"
+        ],
+        "after-moved-end": []
+      }
+    },
+    {
+      "name": "pacific-timed",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-03-02T17:17:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Pacific Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday"
+              ],
+              "firstDayOfWeek": "monday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "weekly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Pacific Standard Time",
+              "startDate": "2026-03-02",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 1200000,
+        "windows": {
+          "wide": {
+            "start": "2026-02-27T00:00:00Z",
+            "end": "2026-04-11T00:00:00Z"
+          },
+          "original-slot": {
+            "start": "2026-03-16T00:00:00Z",
+            "end": "2026-03-17T00:00:00Z"
+          },
+          "cancelled-slot": {
+            "start": "2026-03-09T00:00:00Z",
+            "end": "2026-03-10T00:00:00Z"
+          },
+          "moved-slot": {
+            "start": "2026-03-14T00:00:00Z",
+            "end": "2026-03-15T00:00:00Z"
+          },
+          "end-at-moved-start": {
+            "start": "2026-03-14T17:16:59Z",
+            "end": "2026-03-14T17:17:00Z"
+          },
+          "begin-at-moved-start": {
+            "start": "2026-03-14T17:17:00Z",
+            "end": "2026-03-14T17:17:01Z"
+          },
+          "begin-at-moved-end": {
+            "start": "2026-03-14T17:52:00Z",
+            "end": "2026-03-14T17:52:01Z"
+          },
+          "after-moved-end": {
+            "start": "2026-03-14T17:52:01Z",
+            "end": "2026-03-14T17:52:02Z"
+          }
+        },
+        "edits": [
+          {
+            "originalSlot": "2026-03-16T16:17:00Z",
+            "replacement": {
+              "start": "2026-03-14T17:17:00Z",
+              "end": "2026-03-14T17:52:00Z"
+            }
+          },
+          {
+            "originalSlot": "2026-03-09T16:17:00Z"
+          }
+        ]
+      },
+      "expected": {
+        "wide": [
+          "2026-03-02T17:17:00Z",
+          "2026-03-14T17:17:00Z",
+          "2026-03-23T16:17:00Z",
+          "2026-03-30T16:17:00Z"
+        ],
+        "original-slot": [],
+        "cancelled-slot": [],
+        "moved-slot": [
+          "2026-03-14T17:17:00Z"
+        ],
+        "end-at-moved-start": [],
+        "begin-at-moved-start": [
+          "2026-03-14T17:17:00Z"
+        ],
+        "begin-at-moved-end": [
+          "2026-03-14T17:17:00Z"
+        ],
+        "after-moved-end": []
+      }
+    },
+    {
+      "name": "utc-all-day",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-03-02T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday"
+              ],
+              "firstDayOfWeek": "monday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "weekly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2026-03-02",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 172800000,
+        "windows": {
+          "wide": {
+            "start": "2026-02-27T00:00:00Z",
+            "end": "2026-04-11T00:00:00Z"
+          },
+          "original-slot": {
+            "start": "2026-03-09T00:00:00Z",
+            "end": "2026-03-10T00:00:00Z"
+          },
+          "cancelled-slot": {
+            "start": "2026-03-16T00:00:00Z",
+            "end": "2026-03-17T00:00:00Z"
+          },
+          "moved-slot": {
+            "start": "2026-03-11T00:00:00Z",
+            "end": "2026-03-12T00:00:00Z"
+          },
+          "end-at-moved-start": {
+            "start": "2026-03-10T23:59:59Z",
+            "end": "2026-03-11T00:00:00Z"
+          },
+          "begin-at-moved-start": {
+            "start": "2026-03-11T00:00:00Z",
+            "end": "2026-03-11T00:00:01Z"
+          },
+          "begin-at-moved-end": {
+            "start": "2026-03-13T00:00:00Z",
+            "end": "2026-03-13T00:00:01Z"
+          },
+          "after-moved-end": {
+            "start": "2026-03-13T00:00:01Z",
+            "end": "2026-03-13T00:00:02Z"
+          }
+        },
+        "edits": [
+          {
+            "originalSlot": "2026-03-09",
+            "replacement": {
+              "start": "2026-03-11",
+              "end": "2026-03-13"
+            }
+          },
+          {
+            "originalSlot": "2026-03-16"
+          }
+        ]
+      },
+      "expected": {
+        "wide": [
+          "2026-03-02T00:00:00Z",
+          "2026-03-11T00:00:00Z",
+          "2026-03-23T00:00:00Z",
+          "2026-03-30T00:00:00Z"
+        ],
+        "original-slot": [],
+        "cancelled-slot": [],
+        "moved-slot": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "end-at-moved-start": [],
+        "begin-at-moved-start": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "begin-at-moved-end": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "after-moved-end": []
+      }
+    },
+    {
+      "name": "line-islands-all-day",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-03-02T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday"
+              ],
+              "firstDayOfWeek": "monday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "weekly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Line Islands Standard Time",
+              "startDate": "2026-03-02",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 172800000,
+        "windows": {
+          "wide": {
+            "start": "2026-02-27T00:00:00Z",
+            "end": "2026-04-11T00:00:00Z"
+          },
+          "original-slot": {
+            "start": "2026-03-16T00:00:00Z",
+            "end": "2026-03-17T00:00:00Z"
+          },
+          "cancelled-slot": {
+            "start": "2026-03-09T00:00:00Z",
+            "end": "2026-03-10T00:00:00Z"
+          },
+          "moved-slot": {
+            "start": "2026-03-14T00:00:00Z",
+            "end": "2026-03-15T00:00:00Z"
+          },
+          "end-at-moved-start": {
+            "start": "2026-03-13T23:59:59Z",
+            "end": "2026-03-14T00:00:00Z"
+          },
+          "begin-at-moved-start": {
+            "start": "2026-03-14T00:00:00Z",
+            "end": "2026-03-14T00:00:01Z"
+          },
+          "begin-at-moved-end": {
+            "start": "2026-03-16T00:00:00Z",
+            "end": "2026-03-16T00:00:01Z"
+          },
+          "after-moved-end": {
+            "start": "2026-03-16T00:00:01Z",
+            "end": "2026-03-16T00:00:02Z"
+          }
+        },
+        "edits": [
+          {
+            "originalSlot": "2026-03-16",
+            "replacement": {
+              "start": "2026-03-14",
+              "end": "2026-03-16"
+            }
+          },
+          {
+            "originalSlot": "2026-03-09"
+          }
+        ]
+      },
+      "expected": {
+        "wide": [
+          "2026-03-02T00:00:00Z",
+          "2026-03-14T00:00:00Z",
+          "2026-03-23T00:00:00Z",
+          "2026-03-30T00:00:00Z"
+        ],
+        "original-slot": [],
+        "cancelled-slot": [],
+        "moved-slot": [
+          "2026-03-14T00:00:00Z"
+        ],
+        "end-at-moved-start": [
+          "2026-03-14T00:00:00Z"
+        ],
+        "begin-at-moved-start": [
+          "2026-03-14T00:00:00Z"
+        ],
+        "begin-at-moved-end": [],
+        "after-moved-end": []
+      }
+    },
+    {
+      "name": "line-islands-pacific-patch",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-03-02T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday"
+              ],
+              "firstDayOfWeek": "monday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "weekly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Line Islands Standard Time",
+              "startDate": "2026-03-02",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 172800000,
+        "windows": {
+          "wide": {
+            "start": "2026-02-27T00:00:00Z",
+            "end": "2026-04-11T00:00:00Z"
+          },
+          "original-slot": {
+            "start": "2026-03-16T00:00:00Z",
+            "end": "2026-03-17T00:00:00Z"
+          },
+          "cancelled-slot": {
+            "start": "2026-03-09T00:00:00Z",
+            "end": "2026-03-10T00:00:00Z"
+          },
+          "moved-slot": {
+            "start": "2026-03-14T00:00:00Z",
+            "end": "2026-03-15T00:00:00Z"
+          },
+          "end-at-moved-start": {
+            "start": "2026-03-13T23:59:59Z",
+            "end": "2026-03-14T00:00:00Z"
+          },
+          "begin-at-moved-start": {
+            "start": "2026-03-14T00:00:00Z",
+            "end": "2026-03-14T00:00:01Z"
+          },
+          "begin-at-moved-end": {
+            "start": "2026-03-16T00:00:00Z",
+            "end": "2026-03-16T00:00:01Z"
+          },
+          "after-moved-end": {
+            "start": "2026-03-16T00:00:01Z",
+            "end": "2026-03-16T00:00:02Z"
+          }
+        },
+        "edits": [
+          {
+            "originalSlot": "2026-03-16",
+            "replacement": {
+              "start": "2026-03-14",
+              "end": "2026-03-16"
+            }
+          },
+          {
+            "originalSlot": "2026-03-09"
+          }
+        ]
+      },
+      "expected": {
+        "wide": [
+          "2026-03-02T00:00:00Z",
+          "2026-03-14T00:00:00Z",
+          "2026-03-23T00:00:00Z",
+          "2026-03-30T00:00:00Z"
+        ],
+        "original-slot": [],
+        "cancelled-slot": [],
+        "moved-slot": [
+          "2026-03-14T00:00:00Z"
+        ],
+        "end-at-moved-start": [
+          "2026-03-14T00:00:00Z"
+        ],
+        "begin-at-moved-start": [
+          "2026-03-14T00:00:00Z"
+        ],
+        "begin-at-moved-end": [],
+        "after-moved-end": []
+      }
+    },
+    {
+      "name": "pacific-line-islands-patch",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-03-02T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday"
+              ],
+              "firstDayOfWeek": "monday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "weekly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Pacific Standard Time",
+              "startDate": "2026-03-02",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 172800000,
+        "windows": {
+          "wide": {
+            "start": "2026-02-27T00:00:00Z",
+            "end": "2026-04-11T00:00:00Z"
+          },
+          "original-slot": {
+            "start": "2026-03-09T00:00:00Z",
+            "end": "2026-03-10T00:00:00Z"
+          },
+          "cancelled-slot": {
+            "start": "2026-03-16T00:00:00Z",
+            "end": "2026-03-17T00:00:00Z"
+          },
+          "moved-slot": {
+            "start": "2026-03-11T00:00:00Z",
+            "end": "2026-03-12T00:00:00Z"
+          },
+          "end-at-moved-start": {
+            "start": "2026-03-10T23:59:59Z",
+            "end": "2026-03-11T00:00:00Z"
+          },
+          "begin-at-moved-start": {
+            "start": "2026-03-11T00:00:00Z",
+            "end": "2026-03-11T00:00:01Z"
+          },
+          "begin-at-moved-end": {
+            "start": "2026-03-13T00:00:00Z",
+            "end": "2026-03-13T00:00:01Z"
+          },
+          "after-moved-end": {
+            "start": "2026-03-13T00:00:01Z",
+            "end": "2026-03-13T00:00:02Z"
+          }
+        },
+        "edits": [
+          {
+            "originalSlot": "2026-03-09",
+            "replacement": {
+              "start": "2026-03-11",
+              "end": "2026-03-13"
+            }
+          },
+          {
+            "originalSlot": "2026-03-16"
+          }
+        ]
+      },
+      "expected": {
+        "wide": [
+          "2026-03-02T00:00:00Z",
+          "2026-03-11T00:00:00Z",
+          "2026-03-23T00:00:00Z",
+          "2026-03-30T00:00:00Z"
+        ],
+        "original-slot": [],
+        "cancelled-slot": [],
+        "moved-slot": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "end-at-moved-start": [],
+        "begin-at-moved-start": [],
+        "begin-at-moved-end": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "after-moved-end": [
+          "2026-03-11T00:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "utc-pacific-patch",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-03-02T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday"
+              ],
+              "firstDayOfWeek": "monday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "weekly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2026-03-02",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 172800000,
+        "windows": {
+          "wide": {
+            "start": "2026-02-27T00:00:00Z",
+            "end": "2026-04-11T00:00:00Z"
+          },
+          "original-slot": {
+            "start": "2026-03-09T00:00:00Z",
+            "end": "2026-03-10T00:00:00Z"
+          },
+          "cancelled-slot": {
+            "start": "2026-03-16T00:00:00Z",
+            "end": "2026-03-17T00:00:00Z"
+          },
+          "moved-slot": {
+            "start": "2026-03-11T00:00:00Z",
+            "end": "2026-03-12T00:00:00Z"
+          },
+          "end-at-moved-start": {
+            "start": "2026-03-10T23:59:59Z",
+            "end": "2026-03-11T00:00:00Z"
+          },
+          "begin-at-moved-start": {
+            "start": "2026-03-11T00:00:00Z",
+            "end": "2026-03-11T00:00:01Z"
+          },
+          "begin-at-moved-end": {
+            "start": "2026-03-13T00:00:00Z",
+            "end": "2026-03-13T00:00:01Z"
+          },
+          "after-moved-end": {
+            "start": "2026-03-13T00:00:01Z",
+            "end": "2026-03-13T00:00:02Z"
+          }
+        },
+        "edits": [
+          {
+            "originalSlot": "2026-03-09",
+            "replacement": {
+              "start": "2026-03-11",
+              "end": "2026-03-13"
+            }
+          },
+          {
+            "originalSlot": "2026-03-16"
+          }
+        ]
+      },
+      "expected": {
+        "wide": [
+          "2026-03-02T00:00:00Z",
+          "2026-03-11T00:00:00Z",
+          "2026-03-23T00:00:00Z",
+          "2026-03-30T00:00:00Z"
+        ],
+        "original-slot": [],
+        "cancelled-slot": [],
+        "moved-slot": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "end-at-moved-start": [],
+        "begin-at-moved-start": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "begin-at-moved-end": [
+          "2026-03-11T00:00:00Z"
+        ],
+        "after-moved-end": []
+      }
+    },
+    {
+      "name": "samoa-cancel-skipped",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 8,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 86400000,
+        "windows": {
+          "wide": {
+            "start": "2011-12-26T00:00:00Z",
+            "end": "2012-01-09T00:00:00Z"
+          },
+          "skipped-only": {
+            "start": "2012-01-02T00:00:00Z",
+            "end": "2012-01-02T00:00:01Z"
+          },
+          "regular-only": {
+            "start": "2012-01-02T10:00:01Z",
+            "end": "2012-01-02T10:00:02Z"
+          },
+          "both": {
+            "start": "2012-01-02T10:00:00Z",
+            "end": "2012-01-02T10:00:01Z"
+          }
+        },
+        "edits": [
+          {
+            "originalSlot": "2012-01-01"
+          }
+        ],
+        "allDayTimeZone": "Samoa Standard Time"
+      },
+      "expected": {
+        "wide": [
+          "2011-12-28T00:00:00Z",
+          "2011-12-29T00:00:00Z",
+          "2011-12-30T00:00:00Z",
+          "2011-12-31T00:00:00Z",
+          "2012-01-02T00:00:00Z",
+          "2012-01-03T00:00:00Z",
+          "2012-01-04T00:00:00Z"
+        ],
+        "skipped-only": [],
+        "regular-only": [
+          "2012-01-02T00:00:00Z"
+        ],
+        "both": [
+          "2012-01-02T00:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "samoa-cancel-regular",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-28T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 8,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 86400000,
+        "windows": {
+          "wide": {
+            "start": "2011-12-26T00:00:00Z",
+            "end": "2012-01-09T00:00:00Z"
+          },
+          "skipped-only": {
+            "start": "2012-01-02T00:00:00Z",
+            "end": "2012-01-02T00:00:01Z"
+          },
+          "regular-only": {
+            "start": "2012-01-02T10:00:01Z",
+            "end": "2012-01-02T10:00:02Z"
+          },
+          "both": {
+            "start": "2012-01-02T10:00:00Z",
+            "end": "2012-01-02T10:00:01Z"
+          }
+        },
+        "edits": [
+          {
+            "originalSlot": "2012-01-02"
+          }
+        ],
+        "allDayTimeZone": "Samoa Standard Time"
+      },
+      "expected": {
+        "wide": [
+          "2011-12-28T00:00:00Z",
+          "2011-12-29T00:00:00Z",
+          "2011-12-30T00:00:00Z",
+          "2011-12-31T00:00:00Z",
+          "2012-01-02T00:00:00Z",
+          "2012-01-03T00:00:00Z",
+          "2012-01-04T00:00:00Z"
+        ],
+        "skipped-only": [
+          "2012-01-02T00:00:00Z"
+        ],
+        "regular-only": [],
+        "both": [
+          "2012-01-02T00:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "samoa-timed-move",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-26T19:17:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday"
+              ],
+              "firstDayOfWeek": "monday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "weekly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-26",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 1200000,
+        "windows": {
+          "wide": {
+            "start": "2011-12-23T00:00:00Z",
+            "end": "2012-02-04T00:00:00Z"
+          },
+          "original-slot": {
+            "start": "2012-01-08T00:00:00Z",
+            "end": "2012-01-09T00:00:00Z"
+          },
+          "cancelled-slot": {
+            "start": "2012-01-01T00:00:00Z",
+            "end": "2012-01-02T00:00:00Z"
+          },
+          "moved-slot": {
+            "start": "2012-01-10T00:00:00Z",
+            "end": "2012-01-11T00:00:00Z"
+          },
+          "end-at-moved-start": {
+            "start": "2012-01-10T22:16:59Z",
+            "end": "2012-01-10T22:17:00Z"
+          },
+          "begin-at-moved-start": {
+            "start": "2012-01-10T22:17:00Z",
+            "end": "2012-01-10T22:17:01Z"
+          },
+          "begin-at-moved-end": {
+            "start": "2012-01-10T22:52:00Z",
+            "end": "2012-01-10T22:52:01Z"
+          },
+          "after-moved-end": {
+            "start": "2012-01-10T22:52:01Z",
+            "end": "2012-01-10T22:52:02Z"
+          },
+          "nominal-before-start": {
+            "start": "2012-01-11T22:16:59Z",
+            "end": "2012-01-11T22:17:00Z"
+          },
+          "nominal-after-start": {
+            "start": "2012-01-11T22:17:00Z",
+            "end": "2012-01-11T22:17:01Z"
+          },
+          "nominal-before-end": {
+            "start": "2012-01-11T22:51:59Z",
+            "end": "2012-01-11T22:52:00Z"
+          },
+          "nominal-after-end": {
+            "start": "2012-01-11T22:52:00Z",
+            "end": "2012-01-11T22:52:01Z"
+          },
+          "modern-midnight-before-start": {
+            "start": "2012-01-10T08:16:59Z",
+            "end": "2012-01-10T08:17:00Z"
+          },
+          "modern-midnight-after-start": {
+            "start": "2012-01-10T08:17:00Z",
+            "end": "2012-01-10T08:17:01Z"
+          },
+          "modern-midnight-before-end": {
+            "start": "2012-01-10T08:51:59Z",
+            "end": "2012-01-10T08:52:00Z"
+          },
+          "modern-midnight-after-end": {
+            "start": "2012-01-10T08:52:00Z",
+            "end": "2012-01-10T08:52:01Z"
+          },
+          "legacy-midnight-before-start": {
+            "start": "2012-01-11T08:16:59Z",
+            "end": "2012-01-11T08:17:00Z"
+          },
+          "legacy-midnight-after-start": {
+            "start": "2012-01-11T08:17:00Z",
+            "end": "2012-01-11T08:17:01Z"
+          },
+          "legacy-midnight-before-end": {
+            "start": "2012-01-11T08:51:59Z",
+            "end": "2012-01-11T08:52:00Z"
+          },
+          "legacy-midnight-after-end": {
+            "start": "2012-01-11T08:52:00Z",
+            "end": "2012-01-11T08:52:01Z"
+          }
+        },
+        "edits": [
+          {
+            "originalSlot": "2012-01-09T19:17:00Z",
+            "replacement": {
+              "start": "2012-01-09T22:17:00Z",
+              "end": "2012-01-09T22:52:00Z",
+              "selection": {
+                "start": "2012-01-10T22:17:00Z",
+                "end": "2012-01-10T22:52:00Z"
+              }
+            }
+          },
+          {
+            "originalSlot": "2012-01-02T19:17:00Z"
+          }
+        ]
+      },
+      "expected": {
+        "wide": [
+          "2011-12-26T19:17:00Z",
+          "2012-01-09T22:17:00Z",
+          "2012-01-15T19:17:00Z",
+          "2012-01-22T19:17:00Z"
+        ],
+        "original-slot": [],
+        "cancelled-slot": [],
+        "moved-slot": [
+          "2012-01-09T22:17:00Z"
+        ],
+        "end-at-moved-start": [],
+        "begin-at-moved-start": [
+          "2012-01-09T22:17:00Z"
+        ],
+        "begin-at-moved-end": [
+          "2012-01-09T22:17:00Z"
+        ],
+        "after-moved-end": [],
+        "nominal-before-start": [],
+        "nominal-after-start": [],
+        "nominal-before-end": [],
+        "nominal-after-end": [],
+        "modern-midnight-before-start": [],
+        "modern-midnight-after-start": [],
+        "modern-midnight-before-end": [],
+        "modern-midnight-after-end": [],
+        "legacy-midnight-before-start": [],
+        "legacy-midnight-after-start": [],
+        "legacy-midnight-before-end": [],
+        "legacy-midnight-after-end": []
+      }
+    },
+    {
+      "name": "samoa-all-day-move",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-26T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday"
+              ],
+              "firstDayOfWeek": "monday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "weekly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-26",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 172800000,
+        "windows": {
+          "wide": {
+            "start": "2011-12-23T00:00:00Z",
+            "end": "2012-02-04T00:00:00Z"
+          },
+          "original-slot": {
+            "start": "2012-01-09T00:00:00Z",
+            "end": "2012-01-10T00:00:00Z"
+          },
+          "cancelled-slot": {
+            "start": "2012-01-02T00:00:00Z",
+            "end": "2012-01-03T00:00:00Z"
+          },
+          "moved-slot": {
+            "start": "2012-01-11T00:00:00Z",
+            "end": "2012-01-12T00:00:00Z"
+          },
+          "end-at-moved-start": {
+            "start": "2012-01-10T23:59:59Z",
+            "end": "2012-01-11T00:00:00Z"
+          },
+          "begin-at-moved-start": {
+            "start": "2012-01-11T00:00:00Z",
+            "end": "2012-01-11T00:00:01Z"
+          },
+          "begin-at-moved-end": {
+            "start": "2012-01-13T00:00:00Z",
+            "end": "2012-01-13T00:00:01Z"
+          },
+          "after-moved-end": {
+            "start": "2012-01-13T00:00:01Z",
+            "end": "2012-01-13T00:00:02Z"
+          },
+          "nominal-before-start": {
+            "start": "2012-01-11T23:59:59Z",
+            "end": "2012-01-12T00:00:00Z"
+          },
+          "nominal-after-start": {
+            "start": "2012-01-12T00:00:00Z",
+            "end": "2012-01-12T00:00:01Z"
+          },
+          "nominal-before-end": {
+            "start": "2012-01-13T23:59:59Z",
+            "end": "2012-01-14T00:00:00Z"
+          },
+          "nominal-after-end": {
+            "start": "2012-01-14T00:00:00Z",
+            "end": "2012-01-14T00:00:01Z"
+          },
+          "modern-midnight-before-start": {
+            "start": "2012-01-10T09:59:59Z",
+            "end": "2012-01-10T10:00:00Z"
+          },
+          "modern-midnight-after-start": {
+            "start": "2012-01-10T10:00:00Z",
+            "end": "2012-01-10T10:00:01Z"
+          },
+          "modern-midnight-before-end": {
+            "start": "2012-01-12T09:59:59Z",
+            "end": "2012-01-12T10:00:00Z"
+          },
+          "modern-midnight-after-end": {
+            "start": "2012-01-12T10:00:00Z",
+            "end": "2012-01-12T10:00:01Z"
+          },
+          "legacy-midnight-before-start": {
+            "start": "2012-01-11T09:59:59Z",
+            "end": "2012-01-11T10:00:00Z"
+          },
+          "legacy-midnight-after-start": {
+            "start": "2012-01-11T10:00:00Z",
+            "end": "2012-01-11T10:00:01Z"
+          },
+          "legacy-midnight-before-end": {
+            "start": "2012-01-13T09:59:59Z",
+            "end": "2012-01-13T10:00:00Z"
+          },
+          "legacy-midnight-after-end": {
+            "start": "2012-01-13T10:00:00Z",
+            "end": "2012-01-13T10:00:01Z"
+          }
+        },
+        "edits": [
+          {
+            "originalSlot": "2012-01-09",
+            "replacement": {
+              "start": "2012-01-10",
+              "end": "2012-01-12"
+            }
+          },
+          {
+            "originalSlot": "2012-01-02"
+          }
+        ],
+        "allDayTimeZone": "Samoa Standard Time"
+      },
+      "expected": {
+        "wide": [
+          "2011-12-26T00:00:00Z",
+          "2012-01-10T00:00:00Z",
+          "2012-01-16T00:00:00Z",
+          "2012-01-23T00:00:00Z"
+        ],
+        "original-slot": [],
+        "cancelled-slot": [],
+        "moved-slot": [
+          "2012-01-10T00:00:00Z"
+        ],
+        "end-at-moved-start": [
+          "2012-01-10T00:00:00Z"
+        ],
+        "begin-at-moved-start": [
+          "2012-01-10T00:00:00Z"
+        ],
+        "begin-at-moved-end": [],
+        "after-moved-end": [],
+        "nominal-before-start": [
+          "2012-01-10T00:00:00Z"
+        ],
+        "nominal-after-start": [
+          "2012-01-10T00:00:00Z"
+        ],
+        "nominal-before-end": [],
+        "nominal-after-end": [],
+        "modern-midnight-before-start": [],
+        "modern-midnight-after-start": [
+          "2012-01-10T00:00:00Z"
+        ],
+        "modern-midnight-before-end": [
+          "2012-01-10T00:00:00Z"
+        ],
+        "modern-midnight-after-end": [
+          "2012-01-10T00:00:00Z"
+        ],
+        "legacy-midnight-before-start": [
+          "2012-01-10T00:00:00Z"
+        ],
+        "legacy-midnight-after-start": [
+          "2012-01-10T00:00:00Z"
+        ],
+        "legacy-midnight-before-end": [],
+        "legacy-midnight-after-end": []
+      }
+    },
+    {
+      "name": "samoa-before-splice-move",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-19T19:17:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday"
+              ],
+              "firstDayOfWeek": "monday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "weekly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-19",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 1200000,
+        "windows": {
+          "wide": {
+            "start": "2011-12-16T00:00:00Z",
+            "end": "2012-01-28T00:00:00Z"
+          },
+          "original-slot": {
+            "start": "2011-12-26T00:00:00Z",
+            "end": "2011-12-27T00:00:00Z"
+          },
+          "cancelled-slot": {
+            "start": "2012-01-15T00:00:00Z",
+            "end": "2012-01-16T00:00:00Z"
+          },
+          "moved-slot": {
+            "start": "2011-12-28T00:00:00Z",
+            "end": "2011-12-29T00:00:00Z"
+          },
+          "end-at-moved-start": {
+            "start": "2011-12-28T22:16:59Z",
+            "end": "2011-12-28T22:17:00Z"
+          },
+          "begin-at-moved-start": {
+            "start": "2011-12-28T22:17:00Z",
+            "end": "2011-12-28T22:17:01Z"
+          },
+          "begin-at-moved-end": {
+            "start": "2011-12-28T22:52:00Z",
+            "end": "2011-12-28T22:52:01Z"
+          },
+          "after-moved-end": {
+            "start": "2011-12-28T22:52:01Z",
+            "end": "2011-12-28T22:52:02Z"
+          }
+        },
+        "edits": [
+          {
+            "originalSlot": "2011-12-26T19:17:00Z",
+            "replacement": {
+              "start": "2011-12-28T22:17:00Z",
+              "end": "2011-12-28T22:52:00Z"
+            }
+          },
+          {
+            "originalSlot": "2012-01-16T19:17:00Z"
+          }
+        ]
+      },
+      "expected": {
+        "wide": [
+          "2011-12-19T19:17:00Z",
+          "2011-12-28T22:17:00Z",
+          "2012-01-01T19:17:00Z",
+          "2012-01-08T19:17:00Z"
+        ],
+        "original-slot": [],
+        "cancelled-slot": [],
+        "moved-slot": [
+          "2011-12-28T22:17:00Z"
+        ],
+        "end-at-moved-start": [],
+        "begin-at-moved-start": [
+          "2011-12-28T22:17:00Z"
+        ],
+        "begin-at-moved-end": [
+          "2011-12-28T22:17:00Z"
+        ],
+        "after-moved-end": []
+      }
+    },
+    {
+      "name": "samoa-across-splice-forward",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-19T19:17:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday"
+              ],
+              "firstDayOfWeek": "monday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "weekly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-19",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 1200000,
+        "windows": {
+          "wide": {
+            "start": "2011-12-16T00:00:00Z",
+            "end": "2012-01-28T00:00:00Z"
+          },
+          "original-slot": {
+            "start": "2011-12-26T00:00:00Z",
+            "end": "2011-12-27T00:00:00Z"
+          },
+          "cancelled-slot": {
+            "start": "2012-01-15T00:00:00Z",
+            "end": "2012-01-16T00:00:00Z"
+          },
+          "moved-slot": {
+            "start": "2012-01-01T00:00:00Z",
+            "end": "2012-01-02T00:00:00Z"
+          },
+          "end-at-moved-start": {
+            "start": "2012-01-01T11:16:59Z",
+            "end": "2012-01-01T11:17:00Z"
+          },
+          "begin-at-moved-start": {
+            "start": "2012-01-01T11:17:00Z",
+            "end": "2012-01-01T11:17:01Z"
+          },
+          "begin-at-moved-end": {
+            "start": "2012-01-01T11:52:00Z",
+            "end": "2012-01-01T11:52:01Z"
+          },
+          "after-moved-end": {
+            "start": "2012-01-01T11:52:01Z",
+            "end": "2012-01-01T11:52:02Z"
+          }
+        },
+        "edits": [
+          {
+            "originalSlot": "2011-12-26T19:17:00Z",
+            "replacement": {
+              "start": "2012-01-01T10:17:00Z",
+              "end": "2012-01-01T10:52:00Z",
+              "selection": {
+                "start": "2012-01-01T11:17:00Z",
+                "end": "2012-01-01T11:52:00Z"
+              }
+            }
+          },
+          {
+            "originalSlot": "2012-01-16T19:17:00Z"
+          }
+        ]
+      },
+      "expected": {
+        "wide": [
+          "2011-12-19T19:17:00Z",
+          "2012-01-01T10:17:00Z",
+          "2012-01-01T19:17:00Z",
+          "2012-01-08T19:17:00Z"
+        ],
+        "original-slot": [],
+        "cancelled-slot": [],
+        "moved-slot": [
+          "2012-01-01T10:17:00Z"
+        ],
+        "end-at-moved-start": [],
+        "begin-at-moved-start": [
+          "2012-01-01T10:17:00Z"
+        ],
+        "begin-at-moved-end": [
+          "2012-01-01T10:17:00Z"
+        ],
+        "after-moved-end": []
+      }
+    },
+    {
+      "name": "samoa-across-splice-backward",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-19T19:17:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday"
+              ],
+              "firstDayOfWeek": "monday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "weekly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-19",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 1200000,
+        "windows": {
+          "wide": {
+            "start": "2011-12-16T00:00:00Z",
+            "end": "2012-01-28T00:00:00Z"
+          },
+          "original-slot": {
+            "start": "2012-01-01T00:00:00Z",
+            "end": "2012-01-02T00:00:00Z"
+          },
+          "cancelled-slot": {
+            "start": "2012-01-15T00:00:00Z",
+            "end": "2012-01-16T00:00:00Z"
+          },
+          "moved-slot": {
+            "start": "2011-12-30T00:00:00Z",
+            "end": "2011-12-31T00:00:00Z"
+          },
+          "end-at-moved-start": {
+            "start": "2011-12-30T22:16:59Z",
+            "end": "2011-12-30T22:17:00Z"
+          },
+          "begin-at-moved-start": {
+            "start": "2011-12-30T22:17:00Z",
+            "end": "2011-12-30T22:17:01Z"
+          },
+          "begin-at-moved-end": {
+            "start": "2011-12-30T22:52:00Z",
+            "end": "2011-12-30T22:52:01Z"
+          },
+          "after-moved-end": {
+            "start": "2011-12-30T22:52:01Z",
+            "end": "2011-12-30T22:52:02Z"
+          }
+        },
+        "edits": [
+          {
+            "originalSlot": "2012-01-02T19:17:00Z",
+            "replacement": {
+              "start": "2011-12-30T22:17:00Z",
+              "end": "2011-12-30T22:52:00Z"
+            }
+          },
+          {
+            "originalSlot": "2012-01-16T19:17:00Z"
+          }
+        ]
+      },
+      "expected": {
+        "wide": [
+          "2011-12-19T19:17:00Z",
+          "2011-12-26T19:17:00Z",
+          "2011-12-30T22:17:00Z",
+          "2012-01-08T19:17:00Z"
+        ],
+        "original-slot": [],
+        "cancelled-slot": [],
+        "moved-slot": [
+          "2011-12-30T22:17:00Z"
+        ],
+        "end-at-moved-start": [],
+        "begin-at-moved-start": [
+          "2011-12-30T22:17:00Z"
+        ],
+        "begin-at-moved-end": [
+          "2011-12-30T22:17:00Z"
+        ],
+        "after-moved-end": []
+      }
+    },
+    {
+      "name": "samoa-gap-first-patch",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-19T19:17:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday"
+              ],
+              "firstDayOfWeek": "monday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "weekly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-19",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 1200000,
+        "windows": {
+          "wide": {
+            "start": "2011-12-16T00:00:00Z",
+            "end": "2012-01-28T00:00:00Z"
+          },
+          "original-slot": {
+            "start": "2011-12-26T00:00:00Z",
+            "end": "2011-12-27T00:00:00Z"
+          },
+          "cancelled-slot": {
+            "start": "2012-01-15T00:00:00Z",
+            "end": "2012-01-16T00:00:00Z"
+          },
+          "moved-slot": {
+            "start": "2012-01-01T00:00:00Z",
+            "end": "2012-01-02T00:00:00Z"
+          },
+          "end-at-moved-start": {
+            "start": "2012-01-01T11:16:59Z",
+            "end": "2012-01-01T11:17:00Z"
+          },
+          "begin-at-moved-start": {
+            "start": "2012-01-01T11:17:00Z",
+            "end": "2012-01-01T11:17:01Z"
+          },
+          "begin-at-moved-end": {
+            "start": "2012-01-01T11:52:00Z",
+            "end": "2012-01-01T11:52:01Z"
+          },
+          "after-moved-end": {
+            "start": "2012-01-01T11:52:01Z",
+            "end": "2012-01-01T11:52:02Z"
+          },
+          "selected-at-11": {
+            "start": "2012-01-01T11:17:00Z",
+            "end": "2012-01-01T11:17:01Z"
+          },
+          "selected-at-13": {
+            "start": "2012-01-01T13:17:00Z",
+            "end": "2012-01-01T13:17:01Z"
+          }
+        },
+        "edits": [
+          {
+            "originalSlot": "2011-12-26T19:17:00Z",
+            "replacement": {
+              "start": "2012-01-01T10:17:00Z",
+              "end": "2012-01-01T10:52:00Z",
+              "selection": {
+                "start": "2012-01-01T11:17:00Z",
+                "end": "2012-01-01T11:52:00Z"
+              }
+            }
+          },
+          {
+            "originalSlot": "2012-01-16T19:17:00Z"
+          }
+        ]
+      },
+      "expected": {
+        "wide": [
+          "2011-12-19T19:17:00Z",
+          "2012-01-01T10:17:00Z",
+          "2012-01-01T19:17:00Z",
+          "2012-01-08T19:17:00Z"
+        ],
+        "original-slot": [],
+        "cancelled-slot": [],
+        "moved-slot": [
+          "2012-01-01T10:17:00Z"
+        ],
+        "end-at-moved-start": [],
+        "begin-at-moved-start": [
+          "2012-01-01T10:17:00Z"
+        ],
+        "begin-at-moved-end": [
+          "2012-01-01T10:17:00Z"
+        ],
+        "after-moved-end": [],
+        "selected-at-11": [
+          "2012-01-01T10:17:00Z"
+        ],
+        "selected-at-13": []
+      }
+    },
+    {
+      "name": "samoa-gap-second-patch",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-12-19T19:17:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Samoa Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "monday"
+              ],
+              "firstDayOfWeek": "monday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "weekly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-12-19",
+              "type": "numbered"
+            }
+          }
+        },
+        "durationMs": 1200000,
+        "windows": {
+          "wide": {
+            "start": "2011-12-16T00:00:00Z",
+            "end": "2012-01-28T00:00:00Z"
+          },
+          "original-slot": {
+            "start": "2011-12-26T00:00:00Z",
+            "end": "2011-12-27T00:00:00Z"
+          },
+          "cancelled-slot": {
+            "start": "2012-01-15T00:00:00Z",
+            "end": "2012-01-16T00:00:00Z"
+          },
+          "moved-slot": {
+            "start": "2012-01-01T00:00:00Z",
+            "end": "2012-01-02T00:00:00Z"
+          },
+          "end-at-moved-start": {
+            "start": "2012-01-01T13:16:59Z",
+            "end": "2012-01-01T13:17:00Z"
+          },
+          "begin-at-moved-start": {
+            "start": "2012-01-01T13:17:00Z",
+            "end": "2012-01-01T13:17:01Z"
+          },
+          "begin-at-moved-end": {
+            "start": "2012-01-01T13:52:00Z",
+            "end": "2012-01-01T13:52:01Z"
+          },
+          "after-moved-end": {
+            "start": "2012-01-01T13:52:01Z",
+            "end": "2012-01-01T13:52:02Z"
+          },
+          "selected-at-11": {
+            "start": "2012-01-01T11:17:00Z",
+            "end": "2012-01-01T11:17:01Z"
+          },
+          "selected-at-13": {
+            "start": "2012-01-01T13:17:00Z",
+            "end": "2012-01-01T13:17:01Z"
+          }
+        },
+        "edits": [
+          {
+            "originalSlot": "2011-12-26T19:17:00Z",
+            "replacement": {
+              "start": "2012-01-01T10:17:00Z",
+              "end": "2012-01-01T10:52:00Z",
+              "selection": {
+                "start": "2012-01-01T13:17:00Z",
+                "end": "2012-01-01T13:52:00Z"
+              }
+            }
+          },
+          {
+            "originalSlot": "2012-01-16T19:17:00Z"
+          }
+        ]
+      },
+      "expected": {
+        "wide": [
+          "2011-12-19T19:17:00Z",
+          "2012-01-01T10:17:00Z",
+          "2012-01-01T19:17:00Z",
+          "2012-01-08T19:17:00Z"
+        ],
+        "original-slot": [],
+        "cancelled-slot": [],
+        "moved-slot": [
+          "2012-01-01T10:17:00Z"
+        ],
+        "end-at-moved-start": [],
+        "begin-at-moved-start": [
+          "2012-01-01T10:17:00Z"
+        ],
+        "begin-at-moved-end": [
+          "2012-01-01T10:17:00Z"
+        ],
+        "after-moved-end": [],
+        "selected-at-11": [],
+        "selected-at-13": [
+          "2012-01-01T10:17:00Z"
+        ]
+      }
+    }
+  ]
+}

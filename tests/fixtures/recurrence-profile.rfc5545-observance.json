@@ -1,0 +1,503 @@
+{
+  "type": "recurrence-profile",
+  "name": "RFC 5545 timezone observance onsets",
+  "source": "RFC 5545 sections 3.3.14 and 3.6.5 with an independent Gregorian calendar oracle",
+  "cases": [
+    {
+      "name": "STANDARD 1968 +005321 count with explicit dates",
+      "input": {
+        "lines": [
+          "BEGIN:STANDARD",
+          "DTSTART:19681110T001231",
+          "TZOFFSETFROM:+005321",
+          "TZOFFSETTO:+1100",
+          "RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=2SU;COUNT=4",
+          "RDATE:19691111T001231,19681110T001231",
+          "EXDATE:19681110T001231,19701107T231910Z",
+          "END:STANDARD"
+        ],
+        "profile": "rfc5545",
+        "through": "1972-01-01",
+        "checkpoints": [
+          "1968-11-09",
+          "1969-11-08",
+          "1970-11-07",
+          "1971-11-13"
+        ]
+      },
+      "expected": [
+        "1969-11-08T23:19:10Z",
+        "1969-11-10T23:19:10Z",
+        "1971-11-13T23:19:10Z"
+      ]
+    },
+    {
+      "name": "DAYLIGHT 2007 -0500 exact",
+      "input": {
+        "lines": [
+          "BEGIN:DAYLIGHT",
+          "DTSTART:20070311T001231",
+          "TZOFFSETFROM:-0500",
+          "TZOFFSETTO:-0400",
+          "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU;UNTIL=20100314T051231Z",
+          "END:DAYLIGHT"
+        ],
+        "profile": "rfc5545",
+        "through": "2011-01-01",
+        "checkpoints": [
+          "2007-03-11",
+          "2008-03-09",
+          "2009-03-08",
+          "2010-03-14"
+        ]
+      },
+      "expected": [
+        "2007-03-11T05:12:31Z",
+        "2008-03-09T05:12:31Z",
+        "2009-03-08T05:12:31Z",
+        "2010-03-14T05:12:31Z"
+      ]
+    },
+    {
+      "name": "DAYLIGHT 2007 -0500 one-second-before",
+      "input": {
+        "lines": [
+          "BEGIN:DAYLIGHT",
+          "DTSTART:20070311T001231",
+          "TZOFFSETFROM:-0500",
+          "TZOFFSETTO:-0400",
+          "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU;UNTIL=20100314T051230Z",
+          "END:DAYLIGHT"
+        ],
+        "profile": "rfc5545",
+        "through": "2011-01-01",
+        "checkpoints": [
+          "2007-03-11",
+          "2008-03-09",
+          "2009-03-08",
+          "2010-03-14"
+        ]
+      },
+      "expected": [
+        "2007-03-11T05:12:31Z",
+        "2008-03-09T05:12:31Z",
+        "2009-03-08T05:12:31Z"
+      ]
+    },
+    {
+      "name": "DAYLIGHT 2007 +235959 exact",
+      "input": {
+        "lines": [
+          "BEGIN:DAYLIGHT",
+          "DTSTART:20070311T001231",
+          "TZOFFSETFROM:+235959",
+          "TZOFFSETTO:-0400",
+          "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU;UNTIL=20100313T001232Z",
+          "END:DAYLIGHT"
+        ],
+        "profile": "rfc5545",
+        "through": "2011-01-01",
+        "checkpoints": [
+          "2007-03-10",
+          "2008-03-08",
+          "2009-03-07",
+          "2010-03-13"
+        ]
+      },
+      "expected": [
+        "2007-03-10T00:12:32Z",
+        "2008-03-08T00:12:32Z",
+        "2009-03-07T00:12:32Z",
+        "2010-03-13T00:12:32Z"
+      ]
+    },
+    {
+      "name": "STANDARD 2007 -124530 count",
+      "input": {
+        "lines": [
+          "BEGIN:STANDARD",
+          "DTSTART:20071111T001231",
+          "TZOFFSETFROM:-124530",
+          "TZOFFSETTO:+1100",
+          "RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=2SU;COUNT=4",
+          "END:STANDARD"
+        ],
+        "profile": "rfc5545",
+        "through": "2011-01-01",
+        "checkpoints": [
+          "2007-11-11",
+          "2008-11-09",
+          "2009-11-08",
+          "2010-11-14"
+        ]
+      },
+      "expected": [
+        "2007-11-11T12:58:01Z",
+        "2008-11-09T12:58:01Z",
+        "2009-11-08T12:58:01Z",
+        "2010-11-14T12:58:01Z"
+      ]
+    },
+    {
+      "name": "STANDARD 2050 +1030 exact with explicit dates",
+      "input": {
+        "lines": [
+          "BEGIN:STANDARD",
+          "DTSTART:20501113T001231",
+          "TZOFFSETFROM:+1030",
+          "TZOFFSETTO:+1100",
+          "RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=2SU;UNTIL=20531108T134231Z",
+          "RDATE:20511114T001231,20501113T001231",
+          "EXDATE:20501113T001231,20521109T134231Z",
+          "END:STANDARD"
+        ],
+        "profile": "rfc5545",
+        "through": "2054-01-01",
+        "checkpoints": [
+          "2050-11-12",
+          "2051-11-11",
+          "2052-11-09",
+          "2053-11-08"
+        ]
+      },
+      "expected": [
+        "2051-11-11T13:42:31Z",
+        "2051-11-13T13:42:31Z",
+        "2053-11-08T13:42:31Z"
+      ]
+    },
+    {
+      "name": "ordinary floating DTSTART requires local UNTIL",
+      "input": {
+        "lines": [
+          "DTSTART:20070311T020000",
+          "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU;UNTIL=20090308T070000Z"
+        ],
+        "profile": "rfc5545",
+        "through": "2010-01-01",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "UNTIL must match the DTSTART form"
+      }
+    },
+    {
+      "name": "observance requires UTC UNTIL",
+      "input": {
+        "lines": [
+          "BEGIN:DAYLIGHT",
+          "DTSTART:20070311T020000",
+          "TZOFFSETFROM:-0500",
+          "TZOFFSETTO:-0400",
+          "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU;UNTIL=20090308T070000",
+          "END:DAYLIGHT"
+        ],
+        "profile": "rfc5545",
+        "through": "2010-01-01",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "UNTIL must match the DTSTART form"
+      }
+    },
+    {
+      "name": "observance requires its local DTSTART",
+      "input": {
+        "lines": [
+          "BEGIN:DAYLIGHT",
+          "TZOFFSETFROM:-0500",
+          "TZOFFSETTO:-0400",
+          "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU;UNTIL=20090308T070000Z",
+          "END:DAYLIGHT"
+        ],
+        "profile": "rfc5545",
+        "through": "2010-01-01",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "Observance requires exactly one DTSTART"
+      }
+    },
+    {
+      "name": "observance rejects a UTC DTSTART",
+      "input": {
+        "lines": [
+          "BEGIN:DAYLIGHT",
+          "DTSTART:20070311T020000Z",
+          "TZOFFSETFROM:-0500",
+          "TZOFFSETTO:-0400",
+          "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU;UNTIL=20090308T070000Z",
+          "END:DAYLIGHT"
+        ],
+        "profile": "rfc5545",
+        "through": "2010-01-01",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "Observance DTSTART requires local DATE-TIME"
+      }
+    },
+    {
+      "name": "observance RDATE must be local",
+      "input": {
+        "lines": [
+          "BEGIN:DAYLIGHT",
+          "DTSTART:20070311T020000",
+          "TZOFFSETFROM:-0500",
+          "TZOFFSETTO:-0400",
+          "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU;UNTIL=20090308T070000Z",
+          "RDATE:20080401T020000Z",
+          "END:DAYLIGHT"
+        ],
+        "profile": "rfc5545",
+        "through": "2010-01-01",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "Observance RDATE requires local DATE-TIME"
+      }
+    },
+    {
+      "name": "observance requires TZOFFSETTO",
+      "input": {
+        "lines": [
+          "BEGIN:DAYLIGHT",
+          "DTSTART:20070311T020000",
+          "TZOFFSETFROM:-0500",
+          "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU;UNTIL=20090308T070000Z",
+          "END:DAYLIGHT"
+        ],
+        "profile": "rfc5545",
+        "through": "2010-01-01",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "Observance requires exactly one TZOFFSETTO"
+      }
+    },
+    {
+      "name": "observance rejects duplicate TZOFFSETFROM",
+      "input": {
+        "lines": [
+          "BEGIN:DAYLIGHT",
+          "DTSTART:20070311T020000",
+          "TZOFFSETFROM:-0500",
+          "TZOFFSETFROM:-0500",
+          "TZOFFSETTO:-0400",
+          "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU;UNTIL=20090308T070000Z",
+          "END:DAYLIGHT"
+        ],
+        "profile": "rfc5545",
+        "through": "2010-01-01",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "Observance requires exactly one TZOFFSETFROM"
+      }
+    },
+    {
+      "name": "observance rejects negative zero offset",
+      "input": {
+        "lines": [
+          "BEGIN:DAYLIGHT",
+          "DTSTART:20070311T020000",
+          "TZOFFSETFROM:-000000",
+          "TZOFFSETTO:-0400",
+          "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU;UNTIL=20090308T070000Z",
+          "END:DAYLIGHT"
+        ],
+        "profile": "rfc5545",
+        "through": "2010-01-01",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "Invalid TZOFFSETFROM"
+      }
+    },
+    {
+      "name": "observance rejects offset seconds 60",
+      "input": {
+        "lines": [
+          "BEGIN:DAYLIGHT",
+          "DTSTART:20070311T020000",
+          "TZOFFSETFROM:-0500",
+          "TZOFFSETTO:+005960",
+          "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU;UNTIL=20090308T070000Z",
+          "END:DAYLIGHT"
+        ],
+        "profile": "rfc5545",
+        "through": "2010-01-01",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "Invalid TZOFFSETTO"
+      }
+    },
+    {
+      "name": "observance rejects mismatched component ending",
+      "input": {
+        "lines": [
+          "BEGIN:DAYLIGHT",
+          "DTSTART:20070311T020000",
+          "TZOFFSETFROM:-0500",
+          "TZOFFSETTO:-0400",
+          "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU;UNTIL=20090308T070000Z",
+          "END:STANDARD"
+        ],
+        "profile": "rfc5545",
+        "through": "2010-01-01",
+        "checkpoints": []
+      },
+      "expected": {
+        "error": "Observance requires a matching END"
+      }
+    },
+    {
+      "name": "RFC New York STANDARD through 2006",
+      "input": {
+        "lines": [
+          "BEGIN:STANDARD",
+          "DTSTART:19671029T020000",
+          "RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU;UNTIL=20061029T060000Z",
+          "TZOFFSETFROM:-0400",
+          "TZOFFSETTO:-0500",
+          "TZNAME:EST",
+          "END:STANDARD"
+        ],
+        "profile": "rfc5545",
+        "through": "2008-01-01",
+        "checkpoints": [
+          "1970-01-01",
+          "1989-12-31",
+          "2006-10-29"
+        ]
+      },
+      "expected": [
+        "1967-10-29T06:00:00Z",
+        "1968-10-27T06:00:00Z",
+        "1969-10-26T06:00:00Z",
+        "1970-10-25T06:00:00Z",
+        "1971-10-31T06:00:00Z",
+        "1972-10-29T06:00:00Z",
+        "1973-10-28T06:00:00Z",
+        "1974-10-27T06:00:00Z",
+        "1975-10-26T06:00:00Z",
+        "1976-10-31T06:00:00Z",
+        "1977-10-30T06:00:00Z",
+        "1978-10-29T06:00:00Z",
+        "1979-10-28T06:00:00Z",
+        "1980-10-26T06:00:00Z",
+        "1981-10-25T06:00:00Z",
+        "1982-10-31T06:00:00Z",
+        "1983-10-30T06:00:00Z",
+        "1984-10-28T06:00:00Z",
+        "1985-10-27T06:00:00Z",
+        "1986-10-26T06:00:00Z",
+        "1987-10-25T06:00:00Z",
+        "1988-10-30T06:00:00Z",
+        "1989-10-29T06:00:00Z",
+        "1990-10-28T06:00:00Z",
+        "1991-10-27T06:00:00Z",
+        "1992-10-25T06:00:00Z",
+        "1993-10-31T06:00:00Z",
+        "1994-10-30T06:00:00Z",
+        "1995-10-29T06:00:00Z",
+        "1996-10-27T06:00:00Z",
+        "1997-10-26T06:00:00Z",
+        "1998-10-25T06:00:00Z",
+        "1999-10-31T06:00:00Z",
+        "2000-10-29T06:00:00Z",
+        "2001-10-28T06:00:00Z",
+        "2002-10-27T06:00:00Z",
+        "2003-10-26T06:00:00Z",
+        "2004-10-31T06:00:00Z",
+        "2005-10-30T06:00:00Z",
+        "2006-10-29T06:00:00Z"
+      ]
+    },
+    {
+      "name": "RFC New York DAYLIGHT includes an explicit 1975 onset",
+      "input": {
+        "lines": [
+          "BEGIN:DAYLIGHT",
+          "DTSTART:19740106T020000",
+          "RDATE:19750223T020000",
+          "TZOFFSETFROM:-0500",
+          "TZOFFSETTO:-0400",
+          "TZNAME:EDT",
+          "END:DAYLIGHT"
+        ],
+        "profile": "rfc5545",
+        "through": "1976-01-01",
+        "checkpoints": [
+          "1974-01-06",
+          "1975-02-22"
+        ]
+      },
+      "expected": [
+        "1974-01-06T07:00:00Z",
+        "1975-02-23T07:00:00Z"
+      ]
+    },
+    {
+      "name": "RFC New York DAYLIGHT after 2007",
+      "input": {
+        "lines": [
+          "BEGIN:DAYLIGHT",
+          "DTSTART:20070311T020000",
+          "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU",
+          "TZOFFSETFROM:-0500",
+          "TZOFFSETTO:-0400",
+          "TZNAME:EDT",
+          "END:DAYLIGHT"
+        ],
+        "profile": "rfc5545",
+        "through": "2010-12-31",
+        "checkpoints": [
+          "2008-03-08",
+          "2009-03-08"
+        ]
+      },
+      "expected": [
+        "2007-03-11T07:00:00Z",
+        "2008-03-09T07:00:00Z",
+        "2009-03-08T07:00:00Z",
+        "2010-03-14T07:00:00Z"
+      ]
+    },
+    {
+      "name": "observance preserves an independent exclusion TZID",
+      "input": {
+        "lines": [
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T090000",
+          "TZOFFSETFROM:+0200",
+          "TZOFFSETTO:+0100",
+          "EXDATE;TZID=X-RFC5545-OBSERVANCE:20260101T090000",
+          "END:STANDARD"
+        ],
+        "profile": "rfc5545",
+        "through": "2026-01-02",
+        "checkpoints": [
+          "2026-01-01"
+        ],
+        "rfcTimeZones": {
+          "X-RFC5545-OBSERVANCE": {
+            "name": "Test",
+            "transitions": [
+              {
+                "before": "1970-01-01T00:00:00+03:00",
+                "after": "1970-01-01T00:00:00+03:00",
+                "before_tz_abbr": "FIX",
+                "after_tz_abbr": "FIX"
+              }
+            ]
+          }
+        }
+      },
+      "expected": [
+        "2026-01-01T07:00:00Z"
+      ]
+    }
+  ]
+}

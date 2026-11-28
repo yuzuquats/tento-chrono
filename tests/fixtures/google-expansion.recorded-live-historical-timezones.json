@@ -1,0 +1,321 @@
+{
+  "type": "google-expansion",
+  "name": "Google Calendar historical timezone windows",
+  "source": "Google Calendar API events.instances",
+  "captureCliCommit": "8db8950f7cf894e781d289f6e513f5e53e6d587a",
+  "capturedAt": "2026-11-23T14:10:48.166901+00:00",
+  "cases": [
+    {
+      "name": "1899-Pacific-Honolulu",
+      "input": {
+        "start": "1899-01-04T16:00:00Z",
+        "timezone": "Pacific/Honolulu",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=Pacific/Honolulu:18990108T090000"
+        ],
+        "window": {
+          "start": "1899-01-01T00:00:00Z",
+          "end": "1899-01-11T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Pacific/Honolulu:18990108T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "1899-01-04T16:00:00Z",
+          "timezone": "Pacific/Honolulu"
+        }
+      },
+      "expected": {
+        "google": [
+          "1899-01-04T16:00:00Z",
+          "1899-01-05T16:00:00Z",
+          "1899-01-08T19:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "1882-Pacific-Honolulu",
+      "input": {
+        "start": "1882-01-04T16:00:00Z",
+        "timezone": "Pacific/Honolulu",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=Pacific/Honolulu:18820108T090000"
+        ],
+        "window": {
+          "start": "1882-01-01T00:00:00Z",
+          "end": "1882-01-11T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Pacific/Honolulu:18820108T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "1882-01-04T16:00:00Z",
+          "timezone": "Pacific/Honolulu"
+        }
+      },
+      "expected": {
+        "google": [
+          "1882-01-04T16:00:00Z",
+          "1882-01-05T16:00:00Z",
+          "1882-01-08T19:31:26Z"
+        ]
+      }
+    },
+    {
+      "name": "1882-America-New_York",
+      "input": {
+        "start": "1882-01-04T16:00:00Z",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=America/New_York:18820108T090000"
+        ],
+        "window": {
+          "start": "1882-01-01T00:00:00Z",
+          "end": "1882-01-11T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=America/New_York:18820108T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "1882-01-04T16:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "1882-01-04T16:00:00Z",
+          "1882-01-05T16:00:00Z",
+          "1882-01-08T13:56:02Z"
+        ]
+      }
+    },
+    {
+      "name": "1882-America-Los_Angeles",
+      "input": {
+        "start": "1882-01-04T16:00:00Z",
+        "timezone": "America/Los_Angeles",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=America/Los_Angeles:18820108T090000"
+        ],
+        "window": {
+          "start": "1882-01-01T00:00:00Z",
+          "end": "1882-01-11T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=America/Los_Angeles:18820108T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "1882-01-04T16:00:00Z",
+          "timezone": "America/Los_Angeles"
+        }
+      },
+      "expected": {
+        "google": [
+          "1882-01-04T16:00:00Z",
+          "1882-01-05T16:00:00Z",
+          "1882-01-08T16:52:58Z"
+        ]
+      }
+    },
+    {
+      "name": "1840-Europe-London",
+      "input": {
+        "start": "1840-01-04T16:00:00Z",
+        "timezone": "Europe/London",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=Europe/London:18400108T090000"
+        ],
+        "window": {
+          "start": "1840-01-01T00:00:00Z",
+          "end": "1840-01-11T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Europe/London:18400108T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "1840-01-04T16:00:00Z",
+          "timezone": "Europe/London"
+        }
+      },
+      "expected": {
+        "google": [
+          "1840-01-04T16:00:00Z",
+          "1840-01-05T16:00:00Z",
+          "1840-01-08T09:01:15Z"
+        ]
+      }
+    },
+    {
+      "name": "1890-Australia-Sydney",
+      "input": {
+        "start": "1890-01-04T16:00:00Z",
+        "timezone": "Australia/Sydney",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE;TZID=Australia/Sydney:18900108T090000"
+        ],
+        "window": {
+          "start": "1890-01-01T00:00:00Z",
+          "end": "1890-01-11T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Australia/Sydney:18900108T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "storedStart": {
+          "start": "1890-01-04T16:00:00Z",
+          "timezone": "Australia/Sydney"
+        }
+      },
+      "expected": {
+        "google": [
+          "1890-01-04T16:00:00Z",
+          "1890-01-05T16:00:00Z",
+          "1890-01-07T22:55:08Z"
+        ]
+      }
+    },
+    {
+      "name": "ny-1900-boundary",
+      "input": {
+        "start": "1899-12-30T17:01:00Z",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=5",
+          "RDATE;TZID=America/New_York:18991231T235958"
+        ],
+        "window": {
+          "start": "1899-12-30T00:00:00Z",
+          "end": "1900-01-06T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=America/New_York:18991231T235958",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "storedStart": {
+          "start": "1899-12-30T17:01:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "1899-12-30T17:01:00Z",
+          "1899-12-31T17:01:00Z",
+          "1900-01-01T04:59:58Z",
+          "1900-01-01T17:01:00Z",
+          "1900-01-02T17:01:00Z",
+          "1900-01-03T17:01:00Z"
+        ]
+      }
+    },
+    {
+      "name": "honolulu-1900-boundary",
+      "input": {
+        "start": "1899-12-30T20:01:00Z",
+        "timezone": "Pacific/Honolulu",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=5",
+          "RDATE;TZID=Pacific/Honolulu:18991231T132958"
+        ],
+        "window": {
+          "start": "1899-12-30T00:00:00Z",
+          "end": "1900-01-06T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=Pacific/Honolulu:18991231T132958",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "storedStart": {
+          "start": "1899-12-30T20:01:00Z",
+          "timezone": "Pacific/Honolulu"
+        }
+      },
+      "expected": {
+        "google": [
+          "1899-12-30T20:01:00Z",
+          "1899-12-31T20:01:00Z",
+          "1899-12-31T23:59:58Z",
+          "1900-01-01T20:01:00Z",
+          "1900-01-02T20:01:00Z",
+          "1900-01-03T20:01:00Z"
+        ]
+      }
+    },
+    {
+      "name": "ny-standard-time-fold",
+      "input": {
+        "start": "1883-11-17T17:01:00Z",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=5",
+          "RDATE;TZID=America/New_York:18831118T120100"
+        ],
+        "window": {
+          "start": "1883-11-17T00:00:00Z",
+          "end": "1883-11-24T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=America/New_York:18831118T120100",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "storedStart": {
+          "start": "1883-11-17T17:01:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "1883-11-17T17:01:00Z",
+          "1883-11-18T16:57:02Z",
+          "1883-11-18T17:04:58Z",
+          "1883-11-19T17:04:58Z",
+          "1883-11-20T17:04:58Z",
+          "1883-11-21T17:04:58Z"
+        ]
+      }
+    },
+    {
+      "name": "la-standard-time-fold",
+      "input": {
+        "start": "1883-11-17T20:01:00Z",
+        "timezone": "America/Los_Angeles",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=5",
+          "RDATE;TZID=America/Los_Angeles:18831118T120100"
+        ],
+        "window": {
+          "start": "1883-11-17T00:00:00Z",
+          "end": "1883-11-24T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=America/Los_Angeles:18831118T120100",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "storedStart": {
+          "start": "1883-11-17T20:01:00Z",
+          "timezone": "America/Los_Angeles"
+        }
+      },
+      "expected": {
+        "google": [
+          "1883-11-17T20:01:00Z",
+          "1883-11-18T19:53:58Z",
+          "1883-11-18T20:08:02Z",
+          "1883-11-19T20:08:02Z",
+          "1883-11-20T20:08:02Z",
+          "1883-11-21T20:08:02Z"
+        ]
+      }
+    }
+  ]
+}

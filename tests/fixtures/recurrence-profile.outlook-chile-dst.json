@@ -1,0 +1,805 @@
+{
+  "type": "recurrence-profile",
+  "name": "Outlook Graph Chilean timezone rules",
+  "source": "Microsoft Graph v1.0 calendarView, captured 2026-11-22 on a dedicated test calendar",
+  "cases": [
+    {
+      "name": "santiago-2015-winter",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2015-07-11T13:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Pacific SA Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2015-07-11",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2015-07-23",
+        "checkpoints": [
+          "2015-07-12",
+          "2015-07-14"
+        ]
+      },
+      "expected": [
+        "2015-07-11T13:30:00Z",
+        "2015-07-12T13:30:00Z",
+        "2015-07-13T13:30:00Z",
+        "2015-07-14T13:30:00Z",
+        "2015-07-15T13:30:00Z"
+      ]
+    },
+    {
+      "name": "santiago-2016-fall-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2016-05-14T02:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Pacific SA Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2016-05-13",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2016-05-25",
+        "checkpoints": [
+          "2016-05-15",
+          "2016-05-17"
+        ]
+      },
+      "expected": [
+        "2016-05-14T02:30:00Z",
+        "2016-05-15T02:30:00Z",
+        "2016-05-16T03:30:00Z",
+        "2016-05-17T03:30:00Z",
+        "2016-05-18T03:30:00Z"
+      ]
+    },
+    {
+      "name": "santiago-2016-spring-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2016-08-12T04:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Pacific SA Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2016-08-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2016-08-24",
+        "checkpoints": [
+          "2016-08-13",
+          "2016-08-15"
+        ]
+      },
+      "expected": [
+        "2016-08-12T04:30:00Z",
+        "2016-08-13T04:30:00Z",
+        "2016-08-14T04:30:00Z",
+        "2016-08-15T03:30:00Z",
+        "2016-08-16T03:30:00Z"
+      ]
+    },
+    {
+      "name": "santiago-2022-original-september-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2022-09-02T04:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Pacific SA Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2022-09-02",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2022-09-14",
+        "checkpoints": [
+          "2022-09-03",
+          "2022-09-05"
+        ]
+      },
+      "expected": [
+        "2022-09-02T04:30:00Z",
+        "2022-09-03T04:30:00Z",
+        "2022-09-04T04:30:00Z",
+        "2022-09-05T04:30:00Z",
+        "2022-09-06T04:30:00Z"
+      ]
+    },
+    {
+      "name": "santiago-2022-delayed-september-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2022-09-09T04:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Pacific SA Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2022-09-09",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2022-09-21",
+        "checkpoints": [
+          "2022-09-10",
+          "2022-09-12"
+        ]
+      },
+      "expected": [
+        "2022-09-09T04:30:00Z",
+        "2022-09-10T04:30:00Z",
+        "2022-09-11T04:30:00Z",
+        "2022-09-12T03:30:00Z",
+        "2022-09-13T03:30:00Z"
+      ]
+    },
+    {
+      "name": "magallanes-2016-winter",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2016-07-11T14:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Magallanes Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2016-07-11",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2016-07-23",
+        "checkpoints": [
+          "2016-07-12",
+          "2016-07-14"
+        ]
+      },
+      "expected": [
+        "2016-07-11T14:30:00Z",
+        "2016-07-12T14:30:00Z",
+        "2016-07-13T14:30:00Z",
+        "2016-07-14T14:30:00Z",
+        "2016-07-15T14:30:00Z"
+      ]
+    },
+    {
+      "name": "magallanes-2016-spring-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2016-08-12T04:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Magallanes Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2016-08-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2016-08-24",
+        "checkpoints": [
+          "2016-08-13",
+          "2016-08-15"
+        ]
+      },
+      "expected": [
+        "2016-08-12T04:30:00Z",
+        "2016-08-13T04:30:00Z",
+        "2016-08-14T04:30:00Z",
+        "2016-08-15T03:30:00Z",
+        "2016-08-16T03:30:00Z"
+      ]
+    },
+    {
+      "name": "magallanes-2017-fall",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2017-05-13T02:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Magallanes Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Magallanes Standard Time",
+              "startDate": "2017-05-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2017-05-24",
+        "checkpoints": [
+          "2017-05-14",
+          "2017-05-16"
+        ]
+      },
+      "expected": [
+        "2017-05-13T02:30:00Z",
+        "2017-05-14T02:30:00Z",
+        "2017-05-15T02:30:00Z",
+        "2017-05-16T02:30:00Z",
+        "2017-05-17T02:30:00Z"
+      ]
+    },
+    {
+      "name": "magallanes-2025-winter",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-07-11T13:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Magallanes Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Magallanes Standard Time",
+              "startDate": "2025-07-11",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-07-23",
+        "checkpoints": [
+          "2025-07-12",
+          "2025-07-14"
+        ]
+      },
+      "expected": [
+        "2025-07-11T13:30:00Z",
+        "2025-07-12T13:30:00Z",
+        "2025-07-13T13:30:00Z",
+        "2025-07-14T13:30:00Z",
+        "2025-07-15T13:30:00Z"
+      ]
+    },
+    {
+      "name": "santiago-2025-winter",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-07-11T14:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Pacific SA Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Pacific SA Standard Time",
+              "startDate": "2025-07-11",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-07-23",
+        "checkpoints": [
+          "2025-07-12",
+          "2025-07-14"
+        ]
+      },
+      "expected": [
+        "2025-07-11T14:30:00Z",
+        "2025-07-12T14:30:00Z",
+        "2025-07-13T14:30:00Z",
+        "2025-07-14T14:30:00Z",
+        "2025-07-15T14:30:00Z"
+      ]
+    },
+    {
+      "name": "utc-2016-control",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2016-07-11T10:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2016-07-11",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2016-07-23",
+        "checkpoints": [
+          "2016-07-12",
+          "2016-07-14"
+        ]
+      },
+      "expected": [
+        "2016-07-11T10:30:00Z",
+        "2016-07-12T10:30:00Z",
+        "2016-07-13T10:30:00Z",
+        "2016-07-14T10:30:00Z",
+        "2016-07-15T10:30:00Z"
+      ]
+    },
+    {
+      "name": "santiago-start-inside-2016-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2016-08-15T04:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Pacific SA Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Pacific SA Standard Time",
+              "startDate": "2016-08-15",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2016-08-26",
+        "checkpoints": [
+          "2016-08-16",
+          "2016-08-18"
+        ]
+      },
+      "expected": [
+        "2016-08-15T04:30:00Z",
+        "2016-08-16T04:30:00Z",
+        "2016-08-17T04:30:00Z",
+        "2016-08-18T04:30:00Z",
+        "2016-08-19T04:30:00Z"
+      ]
+    },
+    {
+      "name": "santiago-start-inside-2022-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2022-09-12T04:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Pacific SA Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Pacific SA Standard Time",
+              "startDate": "2022-09-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2022-09-23",
+        "checkpoints": [
+          "2022-09-13",
+          "2022-09-15"
+        ]
+      },
+      "expected": [
+        "2022-09-12T04:30:00Z",
+        "2022-09-13T04:30:00Z",
+        "2022-09-14T04:30:00Z",
+        "2022-09-15T04:30:00Z",
+        "2022-09-16T04:30:00Z"
+      ]
+    },
+    {
+      "name": "santiago-start-at-2022-gap-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2022-09-12T04:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Pacific SA Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Pacific SA Standard Time",
+              "startDate": "2022-09-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2022-09-23",
+        "checkpoints": [
+          "2022-09-13",
+          "2022-09-15"
+        ]
+      },
+      "expected": [
+        "2022-09-12T04:00:00Z",
+        "2022-09-13T04:00:00Z",
+        "2022-09-14T04:00:00Z",
+        "2022-09-15T04:00:00Z",
+        "2022-09-16T04:00:00Z"
+      ]
+    },
+    {
+      "name": "santiago-start-inside-2016-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2016-05-15T02:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Pacific SA Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2016-05-14",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2016-05-26",
+        "checkpoints": [
+          "2016-05-16",
+          "2016-05-18"
+        ]
+      },
+      "expected": [
+        "2016-05-15T02:30:00Z",
+        "2016-05-16T03:30:00Z",
+        "2016-05-17T03:30:00Z",
+        "2016-05-18T03:30:00Z",
+        "2016-05-19T03:30:00Z"
+      ]
+    },
+    {
+      "name": "magallanes-start-inside-2016-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2016-08-15T04:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Magallanes Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Magallanes Standard Time",
+              "startDate": "2016-08-15",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2016-08-26",
+        "checkpoints": [
+          "2016-08-16",
+          "2016-08-18"
+        ]
+      },
+      "expected": [
+        "2016-08-15T04:30:00Z",
+        "2016-08-16T04:30:00Z",
+        "2016-08-17T04:30:00Z",
+        "2016-08-18T04:30:00Z",
+        "2016-08-19T04:30:00Z"
+      ]
+    },
+    {
+      "name": "santiago-all-day-crossing-2022-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2022-09-09T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2022-09-09",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2022-09-21",
+        "checkpoints": [
+          "2022-09-10",
+          "2022-09-12"
+        ]
+      },
+      "expected": [
+        "2022-09-09",
+        "2022-09-10",
+        "2022-09-11",
+        "2022-09-12",
+        "2022-09-13"
+      ]
+    },
+    {
+      "name": "santiago-all-day-start-at-2022-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2022-09-12T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Pacific SA Standard Time",
+              "startDate": "2022-09-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2022-09-23",
+        "checkpoints": [
+          "2022-09-13",
+          "2022-09-15"
+        ]
+      },
+      "expected": [
+        "2022-09-12",
+        "2022-09-13",
+        "2022-09-14",
+        "2022-09-15",
+        "2022-09-16"
+      ]
+    },
+    {
+      "name": "magallanes-all-day-winter",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-07-11T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Magallanes Standard Time",
+              "startDate": "2025-07-11",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-07-23",
+        "checkpoints": [
+          "2025-07-12",
+          "2025-07-14"
+        ]
+      },
+      "expected": [
+        "2025-07-11",
+        "2025-07-12",
+        "2025-07-13",
+        "2025-07-14",
+        "2025-07-15"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,526 @@
+{
+  "type": "recurrence-profile",
+  "name": "dateutil recurring POSIX timezones",
+  "source": "python-dateutil 2.8.2 rrulestr and tz.gettz fallback, TZ=UTC",
+  "cases": [
+    {
+      "name": "unknown POSIX name uses April default daylight start",
+      "input": {
+        "profile": "dateutil",
+        "through": "2026-04-08",
+        "checkpoints": [
+          "2026-04-02",
+          "2026-04-03",
+          "2026-04-04",
+          "2026-04-05",
+          "2026-04-06",
+          "2026-04-07"
+        ],
+        "lines": [
+          "DTSTART;TZID=XST5XDT:20260404T023000",
+          "RRULE:FREQ=DAILY;COUNT=6"
+        ]
+      },
+      "expected": [
+        "2026-04-04T07:30:00Z",
+        "2026-04-05T06:30:00Z",
+        "2026-04-06T06:30:00Z",
+        "2026-04-07T06:30:00Z",
+        "2026-04-08T06:30:00Z"
+      ]
+    },
+    {
+      "name": "unknown POSIX name uses October default daylight end",
+      "input": {
+        "profile": "dateutil",
+        "through": "2026-10-28",
+        "checkpoints": [
+          "2026-10-22",
+          "2026-10-23",
+          "2026-10-24",
+          "2026-10-25",
+          "2026-10-26",
+          "2026-10-27"
+        ],
+        "lines": [
+          "DTSTART;TZID=XST5XDT:20261024T013000",
+          "RRULE:FREQ=DAILY;COUNT=6"
+        ]
+      },
+      "expected": [
+        "2026-10-24T05:30:00Z",
+        "2026-10-25T05:30:00Z",
+        "2026-10-26T06:30:00Z",
+        "2026-10-27T06:30:00Z",
+        "2026-10-28T06:30:00Z"
+      ]
+    },
+    {
+      "name": "explicit month-week-weekday rules use March transition",
+      "input": {
+        "profile": "dateutil",
+        "through": "2026-03-12",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09",
+          "2026-03-10",
+          "2026-03-11"
+        ],
+        "lines": [
+          "DTSTART;TZID=XST5XDT,M3.2.0,M11.1.0:20260308T000000",
+          "RRULE:FREQ=HOURLY;BYMINUTE=0,30;COUNT=14"
+        ]
+      },
+      "expected": [
+        "2026-03-08T05:00:00Z",
+        "2026-03-08T05:30:00Z",
+        "2026-03-08T06:00:00Z",
+        "2026-03-08T06:00:00Z",
+        "2026-03-08T06:30:00Z",
+        "2026-03-08T06:30:00Z",
+        "2026-03-08T07:00:00Z",
+        "2026-03-08T07:30:00Z",
+        "2026-03-08T08:00:00Z",
+        "2026-03-08T08:30:00Z",
+        "2026-03-08T09:00:00Z",
+        "2026-03-08T09:30:00Z",
+        "2026-03-08T10:00:00Z",
+        "2026-03-08T10:30:00Z"
+      ]
+    },
+    {
+      "name": "explicit rule fold compares UTC EXDATE by dateutil ambiguity",
+      "input": {
+        "profile": "dateutil",
+        "through": "2026-11-05",
+        "checkpoints": [
+          "2026-10-30",
+          "2026-10-31",
+          "2026-11-01",
+          "2026-11-02",
+          "2026-11-03",
+          "2026-11-04"
+        ],
+        "lines": [
+          "DTSTART;TZID=XST5XDT,M3.2.0,M11.1.0:20261101T000000",
+          "RRULE:FREQ=HOURLY;BYMINUTE=0,30;COUNT=14",
+          "EXDATE:20261101T053000Z",
+          "RDATE:20261101T053000Z"
+        ]
+      },
+      "expected": [
+        "2026-11-01T04:00:00Z",
+        "2026-11-01T04:30:00Z",
+        "2026-11-01T05:00:00Z",
+        "2026-11-01T05:30:00Z",
+        "2026-11-01T07:00:00Z",
+        "2026-11-01T07:30:00Z",
+        "2026-11-01T08:00:00Z",
+        "2026-11-01T08:30:00Z",
+        "2026-11-01T09:00:00Z",
+        "2026-11-01T09:30:00Z",
+        "2026-11-01T10:00:00Z",
+        "2026-11-01T10:30:00Z",
+        "2026-11-01T11:00:00Z",
+        "2026-11-01T11:30:00Z"
+      ]
+    },
+    {
+      "name": "same POSIX lookup key removes an ambiguous wall candidate",
+      "input": {
+        "profile": "dateutil",
+        "through": "2026-11-05",
+        "checkpoints": [
+          "2026-10-30",
+          "2026-10-31",
+          "2026-11-01",
+          "2026-11-02",
+          "2026-11-03",
+          "2026-11-04"
+        ],
+        "lines": [
+          "DTSTART;TZID=XST5XDT,M3.2.0,M11.1.0:20261101T000000",
+          "RRULE:FREQ=HOURLY;BYMINUTE=0,30;COUNT=14",
+          "EXDATE;TZID=XST5XDT,M3.2.0,M11.1.0:20261101T013000"
+        ]
+      },
+      "expected": [
+        "2026-11-01T04:00:00Z",
+        "2026-11-01T04:30:00Z",
+        "2026-11-01T05:00:00Z",
+        "2026-11-01T07:00:00Z",
+        "2026-11-01T07:30:00Z",
+        "2026-11-01T08:00:00Z",
+        "2026-11-01T08:30:00Z",
+        "2026-11-01T09:00:00Z",
+        "2026-11-01T09:30:00Z",
+        "2026-11-01T10:00:00Z",
+        "2026-11-01T10:30:00Z",
+        "2026-11-01T11:00:00Z",
+        "2026-11-01T11:30:00Z"
+      ]
+    },
+    {
+      "name": "southern annual rules cross the new year",
+      "input": {
+        "profile": "dateutil",
+        "through": "2027-01-03",
+        "checkpoints": [
+          "2026-12-28",
+          "2026-12-29",
+          "2026-12-30",
+          "2026-12-31",
+          "2027-01-01",
+          "2027-01-02"
+        ],
+        "lines": [
+          "DTSTART;TZID=XST-10XDT-11,M10.1.0,M4.1.0:20261230T090000",
+          "RRULE:FREQ=DAILY;COUNT=6"
+        ]
+      },
+      "expected": [
+        "2026-12-29T22:00:00Z",
+        "2026-12-30T22:00:00Z",
+        "2026-12-31T22:00:00Z",
+        "2027-01-01T22:00:00Z",
+        "2027-01-02T22:00:00Z",
+        "2027-01-03T22:00:00Z"
+      ]
+    },
+    {
+      "name": "southern annual rules end daylight time in April",
+      "input": {
+        "profile": "dateutil",
+        "through": "2026-04-08",
+        "checkpoints": [
+          "2026-04-02",
+          "2026-04-03",
+          "2026-04-04",
+          "2026-04-05",
+          "2026-04-06",
+          "2026-04-07"
+        ],
+        "lines": [
+          "DTSTART;TZID=XST-10XDT-11,M10.1.0,M4.1.0:20260404T023000",
+          "RRULE:FREQ=DAILY;COUNT=6"
+        ]
+      },
+      "expected": [
+        "2026-04-03T15:30:00Z",
+        "2026-04-04T16:30:00Z",
+        "2026-04-05T16:30:00Z",
+        "2026-04-06T16:30:00Z",
+        "2026-04-07T16:30:00Z",
+        "2026-04-08T16:30:00Z"
+      ]
+    },
+    {
+      "name": "negative daylight saving offset follows tzstr comparison rules",
+      "input": {
+        "profile": "dateutil",
+        "through": "2026-03-12",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09",
+          "2026-03-10",
+          "2026-03-11"
+        ],
+        "lines": [
+          "DTSTART;TZID=XST5XDT6,M3.2.0,M11.1.0:20260308T000000",
+          "RRULE:FREQ=HOURLY;BYMINUTE=0,30;COUNT=14"
+        ]
+      },
+      "expected": [
+        "2026-03-08T05:00:00Z",
+        "2026-03-08T05:30:00Z",
+        "2026-03-08T06:00:00Z",
+        "2026-03-08T06:30:00Z",
+        "2026-03-08T08:00:00Z",
+        "2026-03-08T08:30:00Z",
+        "2026-03-08T09:00:00Z",
+        "2026-03-08T09:30:00Z",
+        "2026-03-08T10:00:00Z",
+        "2026-03-08T10:30:00Z",
+        "2026-03-08T11:00:00Z",
+        "2026-03-08T11:30:00Z",
+        "2026-03-08T12:00:00Z",
+        "2026-03-08T12:30:00Z"
+      ]
+    },
+    {
+      "name": "civil Julian transition does not consume leap day",
+      "input": {
+        "profile": "dateutil",
+        "through": "2024-03-03",
+        "checkpoints": [
+          "2024-02-26",
+          "2024-02-27",
+          "2024-02-28",
+          "2024-02-29",
+          "2024-03-01",
+          "2024-03-02"
+        ],
+        "lines": [
+          "DTSTART;TZID=XST5XDT,J60,J300:20240228T023000",
+          "RRULE:FREQ=DAILY;COUNT=6"
+        ]
+      },
+      "expected": [
+        "2024-02-28T07:30:00Z",
+        "2024-02-29T07:30:00Z",
+        "2024-03-01T06:30:00Z",
+        "2024-03-02T06:30:00Z",
+        "2024-03-03T06:30:00Z"
+      ]
+    },
+    {
+      "name": "zero-based ordinal transition can happen on leap day",
+      "input": {
+        "profile": "dateutil",
+        "through": "2024-03-03",
+        "checkpoints": [
+          "2024-02-26",
+          "2024-02-27",
+          "2024-02-28",
+          "2024-02-29",
+          "2024-03-01",
+          "2024-03-02"
+        ],
+        "lines": [
+          "DTSTART;TZID=XST5XDT,59,300:20240228T023000",
+          "RRULE:FREQ=DAILY;COUNT=6"
+        ]
+      },
+      "expected": [
+        "2024-02-28T07:30:00Z",
+        "2024-02-29T06:30:00Z",
+        "2024-03-01T06:30:00Z",
+        "2024-03-02T06:30:00Z",
+        "2024-03-03T06:30:00Z"
+      ]
+    },
+    {
+      "name": "explicit fractional-hour offset and second-precision clock",
+      "input": {
+        "profile": "dateutil",
+        "through": "2026-10-08",
+        "checkpoints": [
+          "2026-10-02",
+          "2026-10-03",
+          "2026-10-04",
+          "2026-10-05",
+          "2026-10-06",
+          "2026-10-07"
+        ],
+        "dtstart": {
+          "dateTime": "2026-10-04T02:30:00",
+          "timeZone": "XST-1030XDT-11,M10.1.0/2:30:45,M4.1.0/2"
+        },
+        "lines": [
+          "RRULE:FREQ=HOURLY;BYMINUTE=0,30;COUNT=14"
+        ]
+      },
+      "expected": [
+        "2026-10-03T16:00:00Z",
+        "2026-10-03T16:00:00Z",
+        "2026-10-03T16:30:00Z",
+        "2026-10-03T17:00:00Z",
+        "2026-10-03T17:30:00Z",
+        "2026-10-03T18:00:00Z",
+        "2026-10-03T18:30:00Z",
+        "2026-10-03T19:00:00Z",
+        "2026-10-03T19:30:00Z",
+        "2026-10-03T20:00:00Z",
+        "2026-10-03T20:30:00Z",
+        "2026-10-03T21:00:00Z",
+        "2026-10-03T21:30:00Z",
+        "2026-10-03T22:00:00Z"
+      ]
+    },
+    {
+      "name": "externally encoded UTC start resolves in a recurring POSIX zone",
+      "input": {
+        "profile": "dateutil",
+        "through": "2026-03-12",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09",
+          "2026-03-10",
+          "2026-03-11"
+        ],
+        "dtstart": {
+          "dateTime": "2026-03-08T06:30:00Z",
+          "timeZone": "XST5XDT,M3.2.0,M11.1.0"
+        },
+        "lines": [
+          "RRULE:FREQ=HOURLY;BYMINUTE=0,30;COUNT=14"
+        ]
+      },
+      "expected": [
+        "2026-03-08T06:00:00Z",
+        "2026-03-08T06:30:00Z",
+        "2026-03-08T06:30:00Z",
+        "2026-03-08T07:00:00Z",
+        "2026-03-08T07:30:00Z",
+        "2026-03-08T08:00:00Z",
+        "2026-03-08T08:30:00Z",
+        "2026-03-08T09:00:00Z",
+        "2026-03-08T09:30:00Z",
+        "2026-03-08T10:00:00Z",
+        "2026-03-08T10:30:00Z",
+        "2026-03-08T11:00:00Z",
+        "2026-03-08T11:30:00Z",
+        "2026-03-08T12:00:00Z"
+      ]
+    },
+    {
+      "name": "terminal zero-based ordinal follows dateutil clamp in leap years",
+      "input": {
+        "profile": "dateutil",
+        "through": "2025-01-02",
+        "checkpoints": [
+          "2024-12-27",
+          "2024-12-28",
+          "2024-12-29",
+          "2024-12-30",
+          "2024-12-31",
+          "2025-01-01"
+        ],
+        "lines": [
+          "DTSTART;TZID=XST5XDT,365,60:20241229T023000",
+          "RRULE:FREQ=DAILY;COUNT=6"
+        ]
+      },
+      "expected": [
+        "2024-12-29T07:30:00Z",
+        "2024-12-30T06:30:00Z",
+        "2024-12-31T06:30:00Z",
+        "2025-01-01T06:30:00Z",
+        "2025-01-02T06:30:00Z"
+      ]
+    },
+    {
+      "name": "hyphenated month-week-weekday and last weekday",
+      "input": {
+        "profile": "dateutil",
+        "through": "2026-10-28",
+        "checkpoints": [
+          "2026-10-22",
+          "2026-10-23",
+          "2026-10-24",
+          "2026-10-25",
+          "2026-10-26",
+          "2026-10-27"
+        ],
+        "lines": [
+          "DTSTART;TZID=XST5XDT,M4-1-0,M10-5-0:20261024T013000",
+          "RRULE:FREQ=DAILY;COUNT=6"
+        ]
+      },
+      "expected": [
+        "2026-10-24T05:30:00Z",
+        "2026-10-25T05:30:00Z",
+        "2026-10-26T06:30:00Z",
+        "2026-10-27T06:30:00Z",
+        "2026-10-28T06:30:00Z"
+      ]
+    },
+    {
+      "name": "UTC UNTIL uses the resolved candidates across the POSIX spring gap",
+      "input": {
+        "profile": "dateutil",
+        "through": "2026-03-12",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09",
+          "2026-03-10",
+          "2026-03-11"
+        ],
+        "lines": [
+          "DTSTART;TZID=XST5XDT,M3.2.0,M11.1.0:20260308T000000",
+          "RRULE:FREQ=HOURLY;BYMINUTE=0,30;UNTIL=20260308T073000Z"
+        ]
+      },
+      "expected": [
+        "2026-03-08T05:00:00Z",
+        "2026-03-08T05:30:00Z",
+        "2026-03-08T06:00:00Z",
+        "2026-03-08T06:00:00Z",
+        "2026-03-08T06:30:00Z",
+        "2026-03-08T06:30:00Z",
+        "2026-03-08T07:00:00Z",
+        "2026-03-08T07:30:00Z"
+      ]
+    },
+    {
+      "name": "UTC UNTIL respects southern standard-time transition",
+      "input": {
+        "profile": "dateutil",
+        "through": "2026-04-09",
+        "checkpoints": [
+          "2026-04-03",
+          "2026-04-04",
+          "2026-04-05",
+          "2026-04-06",
+          "2026-04-07",
+          "2026-04-08"
+        ],
+        "lines": [
+          "DTSTART;TZID=XST-10XDT-11,M10.1.0,M4.1.0:20260405T010000",
+          "RRULE:FREQ=HOURLY;BYMINUTE=0,30;UNTIL=20260404T173000Z"
+        ]
+      },
+      "expected": [
+        "2026-04-04T14:00:00Z",
+        "2026-04-04T14:30:00Z",
+        "2026-04-04T16:00:00Z",
+        "2026-04-04T16:30:00Z",
+        "2026-04-04T17:00:00Z",
+        "2026-04-04T17:30:00Z"
+      ]
+    },
+    {
+      "name": "GMT exception only changes the standard POSIX offset",
+      "input": {
+        "profile": "dateutil",
+        "through": "2026-03-12",
+        "checkpoints": [
+          "2026-03-06",
+          "2026-03-07",
+          "2026-03-08",
+          "2026-03-09",
+          "2026-03-10",
+          "2026-03-11"
+        ],
+        "lines": [
+          "DTSTART;TZID=GMT+1DST-2,M3.2.0,M11.1.0:20260308T000000",
+          "RRULE:FREQ=HOURLY;BYMINUTE=0,30;COUNT=14"
+        ]
+      },
+      "expected": [
+        "2026-03-07T23:00:00Z",
+        "2026-03-07T23:30:00Z",
+        "2026-03-08T00:00:00Z",
+        "2026-03-08T00:00:00Z",
+        "2026-03-08T00:30:00Z",
+        "2026-03-08T00:30:00Z",
+        "2026-03-08T01:00:00Z",
+        "2026-03-08T01:30:00Z",
+        "2026-03-08T02:00:00Z",
+        "2026-03-08T02:30:00Z",
+        "2026-03-08T03:00:00Z",
+        "2026-03-08T03:30:00Z",
+        "2026-03-08T04:00:00Z",
+        "2026-03-08T04:30:00Z"
+      ]
+    }
+  ]
+}

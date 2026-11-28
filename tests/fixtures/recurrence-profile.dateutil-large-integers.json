@@ -1,0 +1,192 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil large recurrence integers",
+  "source": "python-dateutil 2.8.2 rrulestr with forceset",
+  "cases": [
+    {
+      "name": "an oversized yearly interval keeps the first eligible period",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=YEARLY;INTERVAL=9007199254740993;COUNT=3"
+        ],
+        "through": "2026-01-04",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z"
+      ]
+    },
+    {
+      "name": "a distant monthly step leaves a filtered first month empty",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=MONTHLY;INTERVAL=9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;COUNT=3;BYMONTH=2"
+        ],
+        "through": "2026-01-04",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "a 310-digit interval in a named zone preserves explicit additions",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXRULE:FREQ=DAILY;INTERVAL=9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;COUNT=3;BYHOUR=9;BYSETPOS=1",
+          "RDATE:20260101T101000Z"
+        ],
+        "through": "2026-01-04",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": [
+        "2026-01-01T10:10:00Z",
+        "2026-01-02T14:00:00Z"
+      ]
+    },
+    {
+      "name": "an even huge hour step can make a clock selector unreachable",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=9007199254740992;COUNT=3;BYHOUR=3"
+        ],
+        "through": "2026-01-04",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": {
+        "error": "Invalid rrule byxxx generates an empty set."
+      }
+    },
+    {
+      "name": "the adjacent odd step retains a different clock phase",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=HOURLY;INTERVAL=9007199254740993;COUNT=3;BYHOUR=3"
+        ],
+        "through": "2026-01-04",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "the exact seconds residue controls exclusion rule construction",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXRULE:FREQ=SECONDLY;INTERVAL=9007199254741056;COUNT=3;BYSECOND=2;BYMINUTE=1",
+          "RDATE:20260101T101000Z"
+        ],
+        "through": "2026-01-04",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02"
+        ]
+      },
+      "expected": {
+        "error": "Invalid rrule byxxx generates an empty set."
+      }
+    },
+    {
+      "name": "the final frequency governs an oversized interval at year 9999",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:99990101T090000Z",
+          "RRULE:FREQ=DAILY;INTERVAL=9007199254740992;FREQ=MINUTELY;UNTIL=99990102T090000Z;COUNT=1"
+        ],
+        "through": "9999-01-03",
+        "checkpoints": [
+          "9999-01-01"
+        ]
+      },
+      "expected": [
+        "9999-01-01T09:00:00Z"
+      ]
+    },
+    {
+      "name": "a huge positive count still honors UNTIL",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;UNTIL=20260101T090100Z",
+          "RDATE:20260102T090000Z"
+        ],
+        "through": "2026-01-02",
+        "checkpoints": [
+          "2026-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "an overflowing negative count contributes no rule starts",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=YEARLY;COUNT=-9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;UNTIL=20260101T090100Z",
+          "RDATE:20260102T090000Z"
+        ],
+        "through": "2026-01-02",
+        "checkpoints": [
+          "2026-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "an overflowing negative exclusion count removes no starts",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=SECONDLY;COUNT=3",
+          "EXRULE:FREQ=SECONDLY;COUNT=-9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999;UNTIL=20260101T090100Z",
+          "RDATE:20260102T090000Z"
+        ],
+        "through": "2026-01-02",
+        "checkpoints": [
+          "2026-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-01T09:00:01Z",
+        "2026-01-01T09:00:02Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    }
+  ]
+}

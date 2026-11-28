@@ -1,0 +1,135 @@
+{
+  "type": "recurrence-profile",
+  "name": "rrule.js 2.8.1 second rollover",
+  "source": "rrulestr 2.8.1 with forceset true, TZ=UTC",
+  "cases": [
+    {
+      "name": "daily-midnight-carry",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T235959Z",
+          "RRULE:FREQ=DAILY;BYSECOND=60;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-02T00:00:00Z",
+        "2026-01-03T00:00:00Z",
+        "2026-01-04T00:00:00Z"
+      ]
+    },
+    {
+      "name": "daily-duplicate-clock-positions-consume-count",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T235800Z",
+          "RRULE:FREQ=DAILY;BYMINUTE=58,59;BYSECOND=0,60;COUNT=4"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-01T23:58:00Z",
+        "2026-01-01T23:59:00Z",
+        "2026-01-02T00:00:00Z"
+      ]
+    },
+    {
+      "name": "monthly-period-keeps-spillover",
+      "input": {
+        "lines": [
+          "DTSTART:20260131T235959Z",
+          "RRULE:FREQ=MONTHLY;BYMONTHDAY=-1;BYSECOND=59,60;BYSETPOS=1,-1;COUNT=4"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-31T23:59:59Z",
+        "2026-02-01T00:00:00Z",
+        "2026-02-28T23:59:59Z",
+        "2026-03-01T00:00:00Z"
+      ]
+    },
+    {
+      "name": "hourly-carry-from-last-minute",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T235959Z",
+          "RRULE:FREQ=HOURLY;BYSECOND=60;COUNT=3"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-02T00:00:00Z",
+        "2026-01-02T01:00:00Z",
+        "2026-01-02T02:00:00Z"
+      ]
+    },
+    {
+      "name": "minutely-carry-and-dedup",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T235959Z",
+          "RRULE:FREQ=MINUTELY;BYSECOND=0,60;COUNT=4"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-02T00:00:00Z",
+        "2026-01-02T00:01:00Z"
+      ]
+    },
+    {
+      "name": "minutely-carry-respects-until",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T235900Z",
+          "RRULE:FREQ=MINUTELY;BYSECOND=60;UNTIL=20260102T000100Z"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-02T00:00:00Z",
+        "2026-01-02T00:01:00Z"
+      ]
+    },
+    {
+      "name": "zoned-spillover-is-excluded-by-ruleset",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260307T235959",
+          "RRULE:FREQ=DAILY;BYSECOND=60;COUNT=3",
+          "EXDATE;TZID=America/New_York:20260308T000000"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-03-09T04:00:00Z",
+        "2026-03-10T04:00:00Z"
+      ]
+    },
+    {
+      "name": "hourly-exrule-excludes-carried-starts",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T235900Z",
+          "RRULE:FREQ=MINUTELY;COUNT=4",
+          "EXRULE:FREQ=HOURLY;BYSECOND=60;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-01T23:59:00Z",
+        "2026-01-02T00:01:00Z",
+        "2026-01-02T00:02:00Z"
+      ]
+    }
+  ]
+}

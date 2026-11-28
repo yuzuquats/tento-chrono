@@ -1,0 +1,902 @@
+{
+  "type": "recurrence-profile",
+  "name": "Outlook Graph Central and West Asia, Yukon and Iran timezone rules",
+  "source": "Microsoft Graph v1.0 calendarView, captured 2026-11-22 on a dedicated test calendar",
+  "cases": [
+    {
+      "name": "windows-central-asia-2024-02-27-2259",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2024-02-27T16:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Asia Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2024-03-04",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Central Asia Standard Time",
+              "startDate": "2024-02-27",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2024-03-10",
+        "checkpoints": [
+          "2024-03-01"
+        ]
+      },
+      "expected": [
+        "2024-02-27T16:59:00Z",
+        "2024-02-28T16:59:00Z",
+        "2024-02-29T16:59:00Z",
+        "2024-03-01T16:59:00Z",
+        "2024-03-02T16:59:00Z",
+        "2024-03-03T16:59:00Z",
+        "2024-03-04T16:59:00Z"
+      ]
+    },
+    {
+      "name": "windows-central-asia-2024-02-27-2300",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2024-02-27T17:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Asia Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2024-03-04",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Central Asia Standard Time",
+              "startDate": "2024-02-27",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2024-03-10",
+        "checkpoints": [
+          "2024-03-01"
+        ]
+      },
+      "expected": [
+        "2024-02-27T17:00:00Z",
+        "2024-02-28T17:00:00Z",
+        "2024-02-29T17:00:00Z",
+        "2024-03-01T17:00:00Z",
+        "2024-03-02T17:00:00Z",
+        "2024-03-03T17:00:00Z",
+        "2024-03-04T17:00:00Z"
+      ]
+    },
+    {
+      "name": "windows-central-asia-2024-02-27-2359",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2024-02-27T17:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Asia Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2024-03-04",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Central Asia Standard Time",
+              "startDate": "2024-02-27",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2024-03-10",
+        "checkpoints": [
+          "2024-03-01"
+        ]
+      },
+      "expected": [
+        "2024-02-27T17:59:00Z",
+        "2024-02-28T17:59:00Z",
+        "2024-02-29T17:59:00Z",
+        "2024-03-01T17:59:00Z",
+        "2024-03-02T17:59:00Z",
+        "2024-03-03T17:59:00Z",
+        "2024-03-04T17:59:00Z"
+      ]
+    },
+    {
+      "name": "windows-central-asia-2024-02-27-0000",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2024-02-26T18:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Asia Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2024-03-04",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Central Asia Standard Time",
+              "startDate": "2024-02-27",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2024-03-10",
+        "checkpoints": [
+          "2024-02-29"
+        ]
+      },
+      "expected": [
+        "2024-02-26T18:00:00Z",
+        "2024-02-27T18:00:00Z",
+        "2024-02-28T18:00:00Z",
+        "2024-02-29T18:00:00Z",
+        "2024-03-01T18:00:00Z",
+        "2024-03-02T18:00:00Z",
+        "2024-03-03T18:00:00Z"
+      ]
+    },
+    {
+      "name": "windows-central-asia-2025-02-27-0930",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-02-27T03:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Central Asia Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2025-03-05",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Central Asia Standard Time",
+              "startDate": "2025-02-27",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2025-03-11",
+        "checkpoints": [
+          "2025-03-02"
+        ]
+      },
+      "expected": [
+        "2025-02-27T03:30:00Z",
+        "2025-02-28T03:30:00Z",
+        "2025-03-01T03:30:00Z",
+        "2025-03-02T03:30:00Z",
+        "2025-03-03T03:30:00Z",
+        "2025-03-04T03:30:00Z",
+        "2025-03-05T03:30:00Z"
+      ]
+    },
+    {
+      "name": "whitehorse-2020-03-06-0230",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2020-03-06T10:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Yukon Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2020-03-11",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "2020-03-06",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2020-03-18",
+        "checkpoints": [
+          "2020-03-09"
+        ]
+      },
+      "expected": [
+        "2020-03-06T10:30:00Z",
+        "2020-03-07T10:30:00Z",
+        "2020-03-08T10:30:00Z",
+        "2020-03-09T09:30:00Z",
+        "2020-03-10T09:30:00Z",
+        "2020-03-11T09:30:00Z"
+      ]
+    },
+    {
+      "name": "whitehorse-2020-10-30-0130",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2020-10-30T08:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Yukon Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2020-11-04",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "2020-10-30",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2020-11-11",
+        "checkpoints": [
+          "2020-11-02"
+        ]
+      },
+      "expected": [
+        "2020-10-30T08:30:00Z",
+        "2020-10-31T08:30:00Z",
+        "2020-11-01T08:30:00Z",
+        "2020-11-02T08:30:00Z",
+        "2020-11-03T08:30:00Z",
+        "2020-11-04T08:30:00Z"
+      ]
+    },
+    {
+      "name": "whitehorse-2021-03-12-0230",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2021-03-12T09:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Yukon Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2021-03-17",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Yukon Standard Time",
+              "startDate": "2021-03-12",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2021-03-24",
+        "checkpoints": [
+          "2021-03-15"
+        ]
+      },
+      "expected": [
+        "2021-03-12T09:30:00Z",
+        "2021-03-13T09:30:00Z",
+        "2021-03-14T09:30:00Z",
+        "2021-03-15T09:30:00Z",
+        "2021-03-16T09:30:00Z",
+        "2021-03-17T09:30:00Z"
+      ]
+    },
+    {
+      "name": "whitehorse-2021-11-05-0130",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2021-11-05T08:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Yukon Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2021-11-10",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Yukon Standard Time",
+              "startDate": "2021-11-05",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2021-11-17",
+        "checkpoints": [
+          "2021-11-08"
+        ]
+      },
+      "expected": [
+        "2021-11-05T08:30:00Z",
+        "2021-11-06T08:30:00Z",
+        "2021-11-07T08:30:00Z",
+        "2021-11-08T08:30:00Z",
+        "2021-11-09T08:30:00Z",
+        "2021-11-10T08:30:00Z"
+      ]
+    },
+    {
+      "name": "tehran-2022-03-20-0030",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2022-03-19T21:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Iran Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2022-03-25",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "2022-03-20",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2022-04-01",
+        "checkpoints": [
+          "2022-03-22"
+        ]
+      },
+      "expected": [
+        "2022-03-19T21:00:00Z",
+        "2022-03-20T21:00:00Z",
+        "2022-03-21T21:00:00Z",
+        "2022-03-22T20:00:00Z",
+        "2022-03-23T20:00:00Z",
+        "2022-03-24T20:00:00Z"
+      ]
+    },
+    {
+      "name": "tehran-2022-09-19-2330",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2022-09-19T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Iran Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2022-09-24",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "2022-09-19",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2022-10-01",
+        "checkpoints": [
+          "2022-09-22"
+        ]
+      },
+      "expected": [
+        "2022-09-19T19:00:00Z",
+        "2022-09-20T19:00:00Z",
+        "2022-09-21T19:00:00Z",
+        "2022-09-22T20:00:00Z",
+        "2022-09-23T20:00:00Z",
+        "2022-09-24T20:00:00Z"
+      ]
+    },
+    {
+      "name": "tehran-2023-03-20-0030",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2023-03-19T21:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Iran Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2023-03-25",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Iran Standard Time",
+              "startDate": "2023-03-20",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2023-04-01",
+        "checkpoints": [
+          "2023-03-22"
+        ]
+      },
+      "expected": [
+        "2023-03-19T21:00:00Z",
+        "2023-03-20T21:00:00Z",
+        "2023-03-21T21:00:00Z",
+        "2023-03-22T21:00:00Z",
+        "2023-03-23T21:00:00Z",
+        "2023-03-24T21:00:00Z"
+      ]
+    },
+    {
+      "name": "tehran-2023-09-19-2330",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2023-09-19T20:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Iran Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2023-09-24",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Iran Standard Time",
+              "startDate": "2023-09-19",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2023-10-01",
+        "checkpoints": [
+          "2023-09-22"
+        ]
+      },
+      "expected": [
+        "2023-09-19T20:00:00Z",
+        "2023-09-20T20:00:00Z",
+        "2023-09-21T20:00:00Z",
+        "2023-09-22T20:00:00Z",
+        "2023-09-23T20:00:00Z",
+        "2023-09-24T20:00:00Z"
+      ]
+    },
+    {
+      "name": "iana-almaty-2024-02-27-0000",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2024-02-26T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Asia/Almaty",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2024-03-04",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Qyzylorda Standard Time",
+              "startDate": "2024-02-27",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2024-03-10",
+        "checkpoints": [
+          "2024-02-29"
+        ]
+      },
+      "expected": [
+        "2024-02-26T19:00:00Z",
+        "2024-02-27T19:00:00Z",
+        "2024-02-28T19:00:00Z",
+        "2024-02-29T19:00:00Z",
+        "2024-03-01T19:00:00Z",
+        "2024-03-02T19:00:00Z",
+        "2024-03-03T19:00:00Z"
+      ]
+    },
+    {
+      "name": "iana-almaty-2024-02-27-2330",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2024-02-27T18:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Asia/Almaty",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2024-03-04",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Qyzylorda Standard Time",
+              "startDate": "2024-02-27",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2024-03-10",
+        "checkpoints": [
+          "2024-03-01"
+        ]
+      },
+      "expected": [
+        "2024-02-27T18:30:00Z",
+        "2024-02-28T18:30:00Z",
+        "2024-02-29T18:30:00Z",
+        "2024-03-01T18:30:00Z",
+        "2024-03-02T18:30:00Z",
+        "2024-03-03T18:30:00Z",
+        "2024-03-04T18:30:00Z"
+      ]
+    },
+    {
+      "name": "iana-almaty-2025-02-27-0000",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-02-26T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Asia/Almaty",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2025-03-05",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Qyzylorda Standard Time",
+              "startDate": "2025-02-27",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2025-03-11",
+        "checkpoints": [
+          "2025-03-01"
+        ]
+      },
+      "expected": [
+        "2025-02-26T19:00:00Z",
+        "2025-02-27T19:00:00Z",
+        "2025-02-28T19:00:00Z",
+        "2025-03-01T19:00:00Z",
+        "2025-03-02T19:00:00Z",
+        "2025-03-03T19:00:00Z",
+        "2025-03-04T19:00:00Z"
+      ]
+    },
+    {
+      "name": "iana-almaty-2025-02-27-2330",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-02-27T18:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Asia/Almaty",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2025-03-05",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Qyzylorda Standard Time",
+              "startDate": "2025-02-27",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2025-03-11",
+        "checkpoints": [
+          "2025-03-02"
+        ]
+      },
+      "expected": [
+        "2025-02-27T18:30:00Z",
+        "2025-02-28T18:30:00Z",
+        "2025-03-01T18:30:00Z",
+        "2025-03-02T18:30:00Z",
+        "2025-03-03T18:30:00Z",
+        "2025-03-04T18:30:00Z",
+        "2025-03-05T18:30:00Z"
+      ]
+    },
+    {
+      "name": "windows-west-asia-2024-02-27-0000",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2024-02-26T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "West Asia Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2024-03-04",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "West Asia Standard Time",
+              "startDate": "2024-02-27",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2024-03-10",
+        "checkpoints": [
+          "2024-02-29"
+        ]
+      },
+      "expected": [
+        "2024-02-26T19:00:00Z",
+        "2024-02-27T19:00:00Z",
+        "2024-02-28T19:00:00Z",
+        "2024-02-29T19:00:00Z",
+        "2024-03-01T19:00:00Z",
+        "2024-03-02T19:00:00Z",
+        "2024-03-03T19:00:00Z"
+      ]
+    },
+    {
+      "name": "windows-west-asia-2024-02-27-2330",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2024-02-27T18:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "West Asia Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2024-03-04",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "West Asia Standard Time",
+              "startDate": "2024-02-27",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2024-03-10",
+        "checkpoints": [
+          "2024-03-01"
+        ]
+      },
+      "expected": [
+        "2024-02-27T18:30:00Z",
+        "2024-02-28T18:30:00Z",
+        "2024-02-29T18:30:00Z",
+        "2024-03-01T18:30:00Z",
+        "2024-03-02T18:30:00Z",
+        "2024-03-03T18:30:00Z",
+        "2024-03-04T18:30:00Z"
+      ]
+    },
+    {
+      "name": "windows-west-asia-2025-02-27-0000",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-02-26T19:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "West Asia Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2025-03-05",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "West Asia Standard Time",
+              "startDate": "2025-02-27",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2025-03-11",
+        "checkpoints": [
+          "2025-03-01"
+        ]
+      },
+      "expected": [
+        "2025-02-26T19:00:00Z",
+        "2025-02-27T19:00:00Z",
+        "2025-02-28T19:00:00Z",
+        "2025-03-01T19:00:00Z",
+        "2025-03-02T19:00:00Z",
+        "2025-03-03T19:00:00Z",
+        "2025-03-04T19:00:00Z"
+      ]
+    },
+    {
+      "name": "windows-west-asia-2025-02-27-2330",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-02-27T18:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "West Asia Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2025-03-05",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "West Asia Standard Time",
+              "startDate": "2025-02-27",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2025-03-11",
+        "checkpoints": [
+          "2025-03-02"
+        ]
+      },
+      "expected": [
+        "2025-02-27T18:30:00Z",
+        "2025-02-28T18:30:00Z",
+        "2025-03-01T18:30:00Z",
+        "2025-03-02T18:30:00Z",
+        "2025-03-03T18:30:00Z",
+        "2025-03-04T18:30:00Z",
+        "2025-03-05T18:30:00Z"
+      ]
+    }
+  ]
+}

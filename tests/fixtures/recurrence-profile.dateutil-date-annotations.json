@@ -1,0 +1,286 @@
+{
+  "type": "recurrence-profile",
+  "name": "Dateutil weekday positions and offset annotations",
+  "source": "python-dateutil 2.8.2 rrulestr with forceset and unfold",
+  "cases": [
+    {
+      "name": "weekday can split the month and day",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:JAN\r\n  SUN 2 2026 09:30",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-02T09:30:00",
+        "2026-01-03T09:30:00"
+      ]
+    },
+    {
+      "name": "weekday after all calendar fields leaves an explicit day alone",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:JAN\r\n  2 2026 SUN 09:30",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-02T09:30:00",
+        "2026-01-03T09:30:00"
+      ]
+    },
+    {
+      "name": "weekday after the clock advances an inherited day",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:FEB\r\n  2026 09:00 FRI",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-03-06T09:00:00",
+        "2026-03-07T09:00:00"
+      ]
+    },
+    {
+      "name": "weekday between fields can supply an inherited day",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:FEB\r\n  FRI 2026 09:00"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-01T09:00:00",
+        "2026-01-02T09:00:00",
+        "2026-03-06T09:00:00"
+      ]
+    },
+    {
+      "name": "parenthesized unknown zone retains the numeric offset",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:FRI\r\n  2 JAN 2026 09:00:00 +0200 (CET)",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-02T07:00:00Z",
+        "2026-01-03T07:00:00Z"
+      ]
+    },
+    {
+      "name": "parenthesized UTC alias overrides the numeric offset",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE:FRI\r\n  2 JAN 2026 09:00:00 +0200 (UTC)"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z"
+      ]
+    },
+    {
+      "name": "parenthesized zone after PM preserves the adjusted clock",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "RDATE:2026-01-02\r\n  09:00 PM +0200 (CET)"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-02T19:00:00Z"
+      ]
+    },
+    {
+      "name": "parenthesized zone after a colon offset applies the cutoff",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;UNTIL=FRI\r\n  2 JAN 2026 09:00:00 +02:00 (GMT)"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": {
+        "error": "too many values to unpack (expected 2)"
+      }
+    },
+    {
+      "name": "two spaces before the annotation fail",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102\r\n  T09:00 +0200  (CET)",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": {
+        "error": "Unknown string format: 20260102 T09:00 +0200  (CET)"
+      }
+    },
+    {
+      "name": "weekday cannot join a numeric offset to its annotation",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:FEB\r\n  2026 09:30 +0200 FRI (CET)",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": {
+        "error": "Unknown string format: FEB 2026 09:30 +0200 FRI (CET)"
+      }
+    },
+    {
+      "name": "joined label without the jump token fails",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102\r\n  T09:00 +0200(CET)",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026
+      },
+      "expected": {
+        "error": "Unknown string format: 20260102 T09:00 +0200(CET)"
+      }
+    },
+    {
+      "name": "process-local EST takes precedence over the annotated offset",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:FRI\r\n  2 JAN 2026 09:00:00 -0400 (EST)",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-01-02",
+          "2026-03-06"
+        ],
+        "dateutilNow": "2026-01-31T12:00:00Z",
+        "dateutilParserYear": 2026,
+        "dateutilHost": {
+          "names": [
+            "EST",
+            "EST"
+          ],
+          "standardOffsetSeconds": -18000,
+          "daylightOffsetSeconds": -18000,
+          "localTime": [
+            [
+              -62135596800,
+              false,
+              -18000
+            ]
+          ]
+        }
+      },
+      "expected": [
+        "2026-01-02T14:00:00Z",
+        "2026-01-03T14:00:00Z"
+      ]
+    }
+  ]
+}

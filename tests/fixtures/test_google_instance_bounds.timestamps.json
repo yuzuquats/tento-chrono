@@ -1,0 +1,36 @@
+{
+  "type": "test_google_instance_bounds",
+  "name": "Google instance bound fractional timestamps",
+  "cases": [
+    {
+      "name": "reject a second fraction in timeMin",
+      "input": {
+        "timeMin": "2026-01-05T08:00:00.1.2Z",
+        "timeMax": "2026-01-06T10:00:00Z"
+      },
+      "expected": {
+        "error": "expected an ok value, got 'Error: DateTime.fromRfc3339: Invalid offset'"
+      }
+    },
+    {
+      "name": "reject a second fraction in timeMax",
+      "input": {
+        "timeMin": "2026-01-05T08:00:00Z",
+        "timeMax": "2026-01-06T05:00:00.1.2-05:00"
+      },
+      "expected": {
+        "error": "expected an ok value, got 'Error: DateTime.fromRfc3339: Invalid offset'"
+      }
+    },
+    {
+      "name": "truncate valid fractions before overlap selection",
+      "input": {
+        "timeMin": "2026-01-05T04:00:00.9999999-05:00",
+        "timeMax": "2026-01-06T09:00:00.9999999Z"
+      },
+      "expected": [
+        "2026-01-05T09:00:00Z"
+      ]
+    }
+  ]
+}

@@ -30,6 +30,19 @@ import { Ms } from "../chrono/units/ms.ts";
 import { TimePoint } from "../chrono/units/time-point.ts";
 import { MsSinceEpoch } from "../chrono/units/units.ts";
 
+Deno.test("same-day clock additions preserve normalization and the civil date", () => {
+  const date = NaiveDate.fromYmd1(2024, 2, 29).exp();
+  const start = new NaiveDateTime(date, new NaiveTime(-0));
+
+  for (const delta of [-0, 0.1, 1, Time.MS_PER_DAY - 1]) {
+    const shifted = start.add({ toMs: delta });
+    assert(shifted.date === date);
+    assert(shifted.time !== start.time);
+    assert(Object.is(shifted.time.toMs, TimePoint.ms(start.time.toMs + delta).time.toMs));
+  }
+  assertEquals(start.add({ days: 1 }).date.toString(), "2024-03-01");
+});
+
 Deno.test({
   name: "ndt/constructor",
   fn() {
@@ -667,4 +680,12 @@ Deno.test("DateTime.add clamps to the month's end too", () => {
   const dt = DateTime.fromRfc3339("2023-01-31T12:00:00Z").exp();
   assertEquals(dt.add({ mths: 1 }).toString(), "2023-02-28T12:00:00Z");
   assertEquals(dt.add({ mths: 1 }).date.isValid(), true);
+});
+
+Deno.test("add: constrain the day after both year and month shifts", () => {
+  const leapDay = NaiveDate.parse("2024-02-29").withTime();
+  assertEquals(leapDay.add({ yrs: 1, mths: 1 }).date.toString(), "2025-03-29");
+  const yearZero = NaiveDate.parse("0000-01-31").withTime();
+  const previous = yearZero.sub({ mths: 2 }).date;
+  assertEquals([previous.yr, previous.month1, previous.day1], [-1, 11, 30]);
 });

@@ -1,0 +1,731 @@
+{
+  "type": "google-instances-query",
+  "name": "Google Calendar late-fallback-exrule google-instances-query",
+  "source": "Google Calendar API events.instances",
+  "cases": [
+    {
+      "name": "google-late-fallback-exrule-date-alternate-earlier",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "2100-01-03"
+          },
+          "end": {
+            "date": "2100-01-04"
+          },
+          "recurrence": [
+            "RDATE:20991231T090000Z",
+            "RDATE;VALUE=DATE:21000104",
+            "EXRULE:FREQ=DAILY;COUNT=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "2100-01-03"
+          },
+          "end": {
+            "date": "2100-01-04"
+          },
+          "recurrence": [
+            "EXRULE:FREQ=DAILY;COUNT=1",
+            "RDATE;VALUE=DATE-TIME:20991231T090000Z",
+            "RDATE;VALUE=DATE:21000104"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2099-12-29T00:00:00Z",
+            "end": "2100-01-06T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2099-12-31"
+        ]
+      }
+    },
+    {
+      "name": "google-late-fallback-exrule-date-earlier",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "2100-01-03"
+          },
+          "end": {
+            "date": "2100-01-04"
+          },
+          "recurrence": [
+            "RDATE;VALUE=DATE:20991231",
+            "RDATE;VALUE=DATE:21000104",
+            "EXRULE:FREQ=DAILY;COUNT=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "2100-01-03"
+          },
+          "end": {
+            "date": "2100-01-04"
+          },
+          "recurrence": [
+            "EXRULE:FREQ=DAILY;COUNT=1",
+            "RDATE;VALUE=DATE:20991231",
+            "RDATE;VALUE=DATE:21000104"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2096-01-01T00:00:00Z",
+            "end": "2104-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2099-12-31"
+        ]
+      }
+    },
+    {
+      "name": "google-late-fallback-exrule-date-earlier-removed",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "2100-01-03"
+          },
+          "end": {
+            "date": "2100-01-04"
+          },
+          "recurrence": [
+            "RDATE;VALUE=DATE:20991231",
+            "RDATE;VALUE=DATE:21000104",
+            "EXDATE;VALUE=DATE:20991231",
+            "EXRULE:FREQ=DAILY;COUNT=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "2100-01-03"
+          },
+          "end": {
+            "date": "2100-01-04"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE:20991231",
+            "EXRULE:FREQ=DAILY;COUNT=1",
+            "RDATE;VALUE=DATE:20991231",
+            "RDATE;VALUE=DATE:21000104"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2099-12-29T00:00:00Z",
+            "end": "2100-01-06T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2100-01-04"
+        ]
+      }
+    },
+    {
+      "name": "google-late-fallback-exrule-date-exdate",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "2100-01-03"
+          },
+          "end": {
+            "date": "2100-01-04"
+          },
+          "recurrence": [
+            "RDATE;VALUE=DATE:21000104",
+            "EXDATE;VALUE=DATE:21000103"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "2100-01-03"
+          },
+          "end": {
+            "date": "2100-01-04"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE:21000103",
+            "RDATE;VALUE=DATE:21000104"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2099-12-29T00:00:00Z",
+            "end": "2100-01-06T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2100-01-04"
+        ]
+      }
+    },
+    {
+      "name": "google-late-fallback-exrule-date-match",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "2100-01-03"
+          },
+          "end": {
+            "date": "2100-01-04"
+          },
+          "recurrence": [
+            "RDATE;VALUE=DATE:21000104",
+            "EXRULE:FREQ=DAILY;COUNT=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "2100-01-03"
+          },
+          "end": {
+            "date": "2100-01-04"
+          },
+          "recurrence": [
+            "EXRULE:FREQ=DAILY;COUNT=1",
+            "RDATE;VALUE=DATE:21000104"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2099-12-29T00:00:00Z",
+            "end": "2100-01-06T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2100-01-04"
+        ]
+      }
+    },
+    {
+      "name": "google-late-fallback-exrule-date-match-until",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "2100-01-03"
+          },
+          "end": {
+            "date": "2100-01-04"
+          },
+          "recurrence": [
+            "RDATE;VALUE=DATE:21000104",
+            "EXRULE:FREQ=DAILY;UNTIL=21000103"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "2100-01-03"
+          },
+          "end": {
+            "date": "2100-01-04"
+          },
+          "recurrence": [
+            "EXRULE:FREQ=DAILY;UNTIL=21000103",
+            "RDATE;VALUE=DATE:21000104"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2099-12-29T00:00:00Z",
+            "end": "2100-01-06T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2100-01-04"
+        ]
+      }
+    },
+    {
+      "name": "google-late-fallback-exrule-date-nonmatch",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "2100-01-03"
+          },
+          "end": {
+            "date": "2100-01-04"
+          },
+          "recurrence": [
+            "RDATE;VALUE=DATE:21000104",
+            "EXRULE:FREQ=DAILY;BYMONTHDAY=4;COUNT=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "2100-01-03"
+          },
+          "end": {
+            "date": "2100-01-04"
+          },
+          "recurrence": [
+            "EXRULE:FREQ=DAILY;COUNT=1;BYMONTHDAY=4",
+            "RDATE;VALUE=DATE:21000104"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2099-12-29T00:00:00Z",
+            "end": "2100-01-06T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2100-01-03"
+        ]
+      }
+    },
+    {
+      "name": "google-late-fallback-exrule-date-rrule-and-match",
+      "input": {
+        "submitted": {
+          "start": {
+            "date": "2100-01-03"
+          },
+          "end": {
+            "date": "2100-01-04"
+          },
+          "recurrence": [
+            "RDATE;VALUE=DATE:21000104",
+            "RRULE:FREQ=DAILY;COUNT=1",
+            "EXRULE:FREQ=DAILY;COUNT=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "date": "2100-01-03"
+          },
+          "end": {
+            "date": "2100-01-04"
+          },
+          "recurrence": [
+            "EXRULE:FREQ=DAILY;COUNT=1",
+            "RDATE;VALUE=DATE:21000104",
+            "RRULE:FREQ=DAILY;COUNT=1"
+          ]
+        },
+        "durationMs": 86400000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2099-12-29T00:00:00Z",
+            "end": "2100-01-06T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2100-01-04"
+        ]
+      }
+    },
+    {
+      "name": "google-late-fallback-exrule-time-alternate-earlier",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2100-01-03T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2100-01-03T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RDATE;VALUE=DATE:20991231",
+            "RDATE:21000104T090000Z",
+            "EXRULE:FREQ=DAILY;COUNT=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2100-01-03T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2100-01-03T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "EXRULE:FREQ=DAILY;COUNT=1",
+            "RDATE;VALUE=DATE-TIME:21000104T090000Z",
+            "RDATE;VALUE=DATE:20991231"
+          ]
+        },
+        "durationMs": 900000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2099-12-29T00:00:00Z",
+            "end": "2100-01-06T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2099-12-31T00:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "google-late-fallback-exrule-time-earlier",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2100-01-03T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2100-01-03T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RDATE:20991231T090000Z",
+            "RDATE:21000104T090000Z",
+            "EXRULE:FREQ=DAILY;COUNT=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2100-01-03T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2100-01-03T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "EXRULE:FREQ=DAILY;COUNT=1",
+            "RDATE;VALUE=DATE-TIME:20991231T090000Z",
+            "RDATE;VALUE=DATE-TIME:21000104T090000Z"
+          ]
+        },
+        "durationMs": 900000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2096-01-01T00:00:00Z",
+            "end": "2104-01-01T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2099-12-31T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "google-late-fallback-exrule-time-earlier-removed",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2100-01-03T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2100-01-03T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RDATE:20991231T090000Z",
+            "RDATE:21000104T090000Z",
+            "EXDATE:20991231T090000Z",
+            "EXRULE:FREQ=DAILY;COUNT=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2100-01-03T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2100-01-03T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE-TIME:20991231T090000Z",
+            "EXRULE:FREQ=DAILY;COUNT=1",
+            "RDATE;VALUE=DATE-TIME:20991231T090000Z",
+            "RDATE;VALUE=DATE-TIME:21000104T090000Z"
+          ]
+        },
+        "durationMs": 900000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2099-12-29T00:00:00Z",
+            "end": "2100-01-06T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2100-01-04T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "google-late-fallback-exrule-time-exdate",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2100-01-03T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2100-01-03T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RDATE:21000104T090000Z",
+            "EXDATE:21000103T090000Z"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2100-01-03T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2100-01-03T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "EXDATE;VALUE=DATE-TIME:21000103T090000Z",
+            "RDATE;VALUE=DATE-TIME:21000104T090000Z"
+          ]
+        },
+        "durationMs": 900000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2099-12-29T00:00:00Z",
+            "end": "2100-01-06T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2100-01-04T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "google-late-fallback-exrule-time-match",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2100-01-03T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2100-01-03T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RDATE:21000104T090000Z",
+            "EXRULE:FREQ=DAILY;COUNT=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2100-01-03T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2100-01-03T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "EXRULE:FREQ=DAILY;COUNT=1",
+            "RDATE;VALUE=DATE-TIME:21000104T090000Z"
+          ]
+        },
+        "durationMs": 900000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2099-12-29T00:00:00Z",
+            "end": "2100-01-06T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2100-01-04T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "google-late-fallback-exrule-time-match-until",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2100-01-03T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2100-01-03T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RDATE:21000104T090000Z",
+            "EXRULE:FREQ=DAILY;UNTIL=21000104T000000Z"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2100-01-03T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2100-01-03T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "EXRULE:FREQ=DAILY;UNTIL=21000104T000000Z",
+            "RDATE;VALUE=DATE-TIME:21000104T090000Z"
+          ]
+        },
+        "durationMs": 900000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2099-12-29T00:00:00Z",
+            "end": "2100-01-06T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2100-01-04T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "google-late-fallback-exrule-time-nonmatch",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2100-01-03T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2100-01-03T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RDATE:21000104T090000Z",
+            "EXRULE:FREQ=DAILY;BYMONTHDAY=4;COUNT=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2100-01-03T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2100-01-03T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "EXRULE:FREQ=DAILY;COUNT=1;BYMONTHDAY=4",
+            "RDATE;VALUE=DATE-TIME:21000104T090000Z"
+          ]
+        },
+        "durationMs": 900000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2099-12-29T00:00:00Z",
+            "end": "2100-01-06T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2100-01-03T09:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "google-late-fallback-exrule-time-rrule-and-match",
+      "input": {
+        "submitted": {
+          "start": {
+            "dateTime": "2100-01-03T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2100-01-03T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "RDATE:21000104T090000Z",
+            "RRULE:FREQ=DAILY;COUNT=1",
+            "EXRULE:FREQ=DAILY;COUNT=1"
+          ]
+        },
+        "master": {
+          "start": {
+            "dateTime": "2100-01-03T09:00:00Z",
+            "timeZone": "UTC"
+          },
+          "end": {
+            "dateTime": "2100-01-03T09:15:00Z",
+            "timeZone": "UTC"
+          },
+          "recurrence": [
+            "EXRULE:FREQ=DAILY;COUNT=1",
+            "RDATE;VALUE=DATE-TIME:21000104T090000Z",
+            "RRULE:FREQ=DAILY;COUNT=1"
+          ]
+        },
+        "durationMs": 900000,
+        "calendarTimeZone": "UTC",
+        "windows": {
+          "captured": {
+            "start": "2099-12-29T00:00:00Z",
+            "end": "2100-01-06T00:00:00Z"
+          }
+        }
+      },
+      "expected": {
+        "captured": [
+          "2100-01-04T09:00:00Z"
+        ]
+      }
+    }
+  ]
+}

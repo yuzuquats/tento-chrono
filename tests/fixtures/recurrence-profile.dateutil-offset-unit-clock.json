@@ -1,0 +1,324 @@
+{
+  "type": "recurrence-profile",
+  "name": "dateutil offset fields and unit clocks",
+  "source": "python-dateutil 2.8.2 rrulestr, forceset=True, TZ=UTC",
+  "cases": [
+    {
+      "name": "one-digit offset hour and minute on DTSTART",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T09:30+2:3",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-02-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-05"
+        ]
+      },
+      "expected": [
+        "2026-01-02T07:27:00Z",
+        "2026-01-03T07:27:00Z",
+        "2026-01-04T07:27:00Z"
+      ]
+    },
+    {
+      "name": "one-digit negative offset minute rolls into next UTC day",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T23:30:30-12:3",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-02-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-05"
+        ]
+      },
+      "expected": [
+        "2026-01-03T11:33:30Z",
+        "2026-01-04T11:33:30Z",
+        "2026-01-05T11:33:30Z"
+      ]
+    },
+    {
+      "name": "fractional RDATE with one-digit offset minute",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:20260102T09:30:30.123456+02:3"
+        ],
+        "through": "2026-02-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-05"
+        ]
+      },
+      "expected": [
+        "2026-01-02T07:27:30.123Z"
+      ]
+    },
+    {
+      "name": "EXDATE short offset excludes matching UTC rule start",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T072730Z",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE:20260103T09:30:30+02:3"
+        ],
+        "through": "2026-02-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-05"
+        ]
+      },
+      "expected": [
+        "2026-01-02T07:27:30Z",
+        "2026-01-04T07:27:30Z"
+      ]
+    },
+    {
+      "name": "GMT-prefixed offset reverses sign with unpadded minutes",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T0900GMT+2:3",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-02-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-05"
+        ]
+      },
+      "expected": [
+        "2026-01-02T11:03:00Z",
+        "2026-01-03T11:03:00Z",
+        "2026-01-04T11:03:00Z"
+      ]
+    },
+    {
+      "name": "colon offset preserves separate tokens with leading zeros",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:20260102T0900+00002:003"
+        ],
+        "through": "2026-02-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-05"
+        ]
+      },
+      "expected": [
+        "2026-01-02T06:57:00Z"
+      ]
+    },
+    {
+      "name": "letter clock on extended DTSTART",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:2026-01-02T09H30M",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-02-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-05"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:30:00",
+        "2026-01-03T09:30:00",
+        "2026-01-04T09:30:00"
+      ]
+    },
+    {
+      "name": "one-digit hours and seconds without minutes",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T9H4S",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-02-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-05"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:04",
+        "2026-01-03T09:00:04",
+        "2026-01-04T09:00:04"
+      ]
+    },
+    {
+      "name": "letter clock decimal hours become whole minutes",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:20260102T09.51H2S+2:3"
+        ],
+        "through": "2026-02-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-05"
+        ]
+      },
+      "expected": [
+        "2026-01-02T07:27:02Z"
+      ]
+    },
+    {
+      "name": "fractional second token takes compact parse before unit",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:20260102T09H30M29.123S+2:3"
+        ],
+        "through": "2026-02-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-05"
+        ]
+      },
+      "expected": {
+        "error": "Unknown string format: 20260102T09H30M29.123S+2:3"
+      }
+    },
+    {
+      "name": "letter clock decimal minutes become whole seconds",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:20260102T09H3.5M"
+        ],
+        "through": "2026-02-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-05"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:03:30"
+      ]
+    },
+    {
+      "name": "letter clock retains fractional seconds before projection",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:20260102T09H30M29.123456S,20260102T09H30M29.123654S",
+          "EXDATE:20260102T09H30M29.123456S"
+        ],
+        "through": "2026-02-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-05"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:30:29.123"
+      ]
+    },
+    {
+      "name": "letter clock with short numeric offset",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T09H30M+2:3",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2026-02-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-05"
+        ]
+      },
+      "expected": [
+        "2026-01-02T07:27:00Z",
+        "2026-01-03T07:27:00Z",
+        "2026-01-04T07:27:00Z"
+      ]
+    },
+    {
+      "name": "letter clock excludes a rule start",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090304",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE:20260103T9H3M4S"
+        ],
+        "through": "2026-02-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-05"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:03:04",
+        "2026-01-04T09:03:04"
+      ]
+    },
+    {
+      "name": "letter clock inclusive UNTIL",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "DTSTART:20260102T090030",
+          "RRULE:FREQ=DAILY;UNTIL=20260104T9H30S"
+        ],
+        "through": "2026-02-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-05"
+        ]
+      },
+      "expected": [
+        "2026-01-02T09:00:30",
+        "2026-01-03T09:00:30",
+        "2026-01-04T09:00:30"
+      ]
+    },
+    {
+      "name": "mixed awareness after short offset parses",
+      "input": {
+        "profile": "dateutil",
+        "lines": [
+          "RDATE:20260102T0900",
+          "EXDATE:20260102T0900+2:3"
+        ],
+        "through": "2026-02-01",
+        "checkpoints": [
+          "2026-01-02",
+          "2026-01-03",
+          "2026-01-05"
+        ]
+      },
+      "expected": {
+        "expansionError": "can't compare offset-naive and offset-aware datetimes"
+      }
+    }
+  ]
+}

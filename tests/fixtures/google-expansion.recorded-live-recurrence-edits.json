@@ -1,0 +1,161 @@
+{
+  "type": "google-expansion",
+  "name": "Google Calendar quoted edit controls",
+  "source": "Google Calendar API events.instances",
+  "captureCliCommit": "8db8950f7cf894e781d289f6e513f5e53e6d587a",
+  "capturedAt": "2026-11-23T13:51:30.262489+00:00",
+  "cases": [
+    {
+      "name": "original",
+      "input": {
+        "start": "2026-03-06T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE;TZID=\"GMT+02:30\":20260307T163000",
+          "RDATE;TZID=\"GMT+02:30\":20260309T153000"
+        ],
+        "window": {
+          "start": "2026-03-05T00:00:00Z",
+          "end": "2026-03-12T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "EXDATE;TZID=\"GMT+02:30\":20260307T163000",
+          "RDATE;TZID=\"GMT+02:30\":20260309T153000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "storedStart": {
+          "start": "2026-03-06T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2026-03-06T14:00:00Z",
+          "2026-03-08T13:00:00Z",
+          "2026-03-09T13:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "shifted",
+      "input": {
+        "start": "2026-03-07T09:00:00-05:00",
+        "timezone": "America/New_York",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE;TZID=\"GMT+02:30\":20260308T153000",
+          "RDATE;TZID=\"GMT+02:30\":20260310T153000"
+        ],
+        "window": {
+          "start": "2026-03-05T00:00:00Z",
+          "end": "2026-03-12T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "EXDATE;TZID=\"GMT+02:30\":20260308T153000",
+          "RDATE;TZID=\"GMT+02:30\":20260310T153000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "storedStart": {
+          "start": "2026-03-07T14:00:00Z",
+          "timezone": "America/New_York"
+        }
+      },
+      "expected": {
+        "google": [
+          "2026-03-07T14:00:00Z",
+          "2026-03-09T13:00:00Z",
+          "2026-03-10T13:00:00Z"
+        ]
+      }
+    },
+    {
+      "name": "fixed-list-original",
+      "input": {
+        "start": "2027-01-04T09:00:00+00:00",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=1",
+          "RDATE;TZID=\"GMT+02:30\":20270108T000000,20270109T000000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-12T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=\"GMT+02:30\":20270108T000000,20270109T000000",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T09:00:00Z",
+          "timezone": "UTC"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T09:00:00Z",
+          "2027-01-07T21:30:00Z",
+          "2027-01-08T21:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "fixed-list-split-before",
+      "input": {
+        "start": "2027-01-04T09:00:00+00:00",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=1",
+          "RDATE;TZID=\"GMT+02:30\":20270108T000000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-12T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=\"GMT+02:30\":20270108T000000",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T09:00:00Z",
+          "timezone": "UTC"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T09:00:00Z",
+          "2027-01-07T21:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "fixed-list-split-following",
+      "input": {
+        "start": "2027-01-04T09:00:00+00:00",
+        "timezone": "UTC",
+        "rules": [
+          "RRULE:FREQ=DAILY;COUNT=1",
+          "RDATE;TZID=\"GMT+02:30\":20270109T000000"
+        ],
+        "window": {
+          "start": "2027-01-03T00:00:00Z",
+          "end": "2027-01-12T00:00:00Z"
+        },
+        "storedRecurrence": [
+          "RDATE;TZID=\"GMT+02:30\":20270109T000000",
+          "RRULE:FREQ=DAILY;COUNT=1"
+        ],
+        "storedStart": {
+          "start": "2027-01-04T09:00:00Z",
+          "timezone": "UTC"
+        }
+      },
+      "expected": {
+        "google": [
+          "2027-01-04T09:00:00Z",
+          "2027-01-08T21:30:00Z"
+        ]
+      }
+    }
+  ]
+}

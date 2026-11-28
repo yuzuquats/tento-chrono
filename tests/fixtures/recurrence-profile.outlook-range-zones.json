@@ -1,0 +1,4491 @@
+{
+  "type": "recurrence-profile",
+  "name": "Outlook Graph stored master range zones",
+  "source": "Microsoft Graph v1.0 calendarView operator-tester live captures, 2026-11-22",
+  "cases": [
+    {
+      "name": "timed-pacific-range-omitted",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-03-12T17:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Pacific Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Pacific Standard Time",
+              "startDate": "2027-03-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-03-24"
+      },
+      "expected": [
+        "2027-03-12T17:00:00Z",
+        "2027-03-13T17:00:00Z",
+        "2027-03-14T16:00:00Z",
+        "2027-03-15T16:00:00Z",
+        "2027-03-16T16:00:00Z"
+      ]
+    },
+    {
+      "name": "timed-pacific-range-same",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-03-12T17:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Pacific Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Pacific Standard Time",
+              "startDate": "2027-03-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-03-24"
+      },
+      "expected": [
+        "2027-03-12T17:00:00Z",
+        "2027-03-13T17:00:00Z",
+        "2027-03-14T16:00:00Z",
+        "2027-03-15T16:00:00Z",
+        "2027-03-16T16:00:00Z"
+      ]
+    },
+    {
+      "name": "timed-pacific-range-utc",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-03-12T17:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2027-03-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-03-24"
+      },
+      "expected": [
+        "2027-03-12T17:00:00Z",
+        "2027-03-13T17:00:00Z",
+        "2027-03-14T17:00:00Z",
+        "2027-03-15T17:00:00Z",
+        "2027-03-16T17:00:00Z"
+      ]
+    },
+    {
+      "name": "timed-pacific-range-eastern",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-03-12T17:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Eastern Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Eastern Standard Time",
+              "startDate": "2027-03-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-03-24"
+      },
+      "expected": [
+        "2027-03-12T17:00:00Z",
+        "2027-03-13T17:00:00Z",
+        "2027-03-14T16:00:00Z",
+        "2027-03-15T16:00:00Z",
+        "2027-03-16T16:00:00Z"
+      ]
+    },
+    {
+      "name": "timed-pacific-range-tokyo",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-03-11T17:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Tokyo Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Tokyo Standard Time",
+              "startDate": "2027-03-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-03-24"
+      },
+      "expected": [
+        "2027-03-11T17:00:00Z",
+        "2027-03-12T17:00:00Z",
+        "2027-03-13T17:00:00Z",
+        "2027-03-14T17:00:00Z",
+        "2027-03-15T17:00:00Z"
+      ]
+    },
+    {
+      "name": "timed-pacific-enddate-omitted",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-03-12T17:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Pacific Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2027-03-16",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Pacific Standard Time",
+              "startDate": "2027-03-12",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2027-03-24"
+      },
+      "expected": [
+        "2027-03-12T17:00:00Z",
+        "2027-03-13T17:00:00Z",
+        "2027-03-14T16:00:00Z",
+        "2027-03-15T16:00:00Z",
+        "2027-03-16T16:00:00Z"
+      ]
+    },
+    {
+      "name": "timed-pacific-enddate-pacific",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-03-12T17:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Pacific Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "2027-03-16",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "Pacific Standard Time",
+              "startDate": "2027-03-12",
+              "type": "endDate"
+            }
+          }
+        },
+        "through": "2027-03-24"
+      },
+      "expected": [
+        "2027-03-12T17:00:00Z",
+        "2027-03-13T17:00:00Z",
+        "2027-03-14T16:00:00Z",
+        "2027-03-15T16:00:00Z",
+        "2027-03-16T16:00:00Z"
+      ]
+    },
+    {
+      "name": "tokyo-pacific-civil-date-as-wire",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-03-12T16:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Pacific Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Pacific Standard Time",
+              "startDate": "2027-03-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-03-24"
+      },
+      "expected": [
+        "2027-03-12T16:30:00Z",
+        "2027-03-13T16:30:00Z",
+        "2027-03-14T15:30:00Z",
+        "2027-03-15T15:30:00Z",
+        "2027-03-16T15:30:00Z"
+      ]
+    },
+    {
+      "name": "tokyo-pacific-civil-date-as-range",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-03-11T16:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Pacific Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Pacific Standard Time",
+              "startDate": "2027-03-11",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-03-24"
+      },
+      "expected": [
+        "2027-03-11T16:30:00Z",
+        "2027-03-12T16:30:00Z",
+        "2027-03-13T16:30:00Z",
+        "2027-03-14T15:30:00Z",
+        "2027-03-15T15:30:00Z"
+      ]
+    },
+    {
+      "name": "utc-pacific-civil-date-as-range",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-03-12T01:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Pacific Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Pacific Standard Time",
+              "startDate": "2027-03-11",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-03-24"
+      },
+      "expected": [
+        "2027-03-12T01:30:00Z",
+        "2027-03-13T01:30:00Z",
+        "2027-03-14T01:30:00Z",
+        "2027-03-15T00:30:00Z",
+        "2027-03-16T00:30:00Z"
+      ]
+    },
+    {
+      "name": "utc-pacific-civil-date-as-wire",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-03-13T01:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Pacific Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Pacific Standard Time",
+              "startDate": "2027-03-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-03-24"
+      },
+      "expected": [
+        "2027-03-13T01:30:00Z",
+        "2027-03-14T01:30:00Z",
+        "2027-03-15T00:30:00Z",
+        "2027-03-16T00:30:00Z",
+        "2027-03-17T00:30:00Z"
+      ]
+    },
+    {
+      "name": "all-day-pacific-range-omitted",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-03-12T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Pacific Standard Time",
+              "startDate": "2027-03-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-03-24"
+      },
+      "expected": [
+        "2027-03-12",
+        "2027-03-13",
+        "2027-03-14",
+        "2027-03-15",
+        "2027-03-16"
+      ]
+    },
+    {
+      "name": "morocco-ramadan-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-02-13T02:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2026-02-13",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-02-25"
+      },
+      "expected": [
+        "2026-02-13T02:30:00Z",
+        "2026-02-14T02:30:00Z",
+        "2026-02-15T02:30:00Z",
+        "2026-02-16T02:30:00Z",
+        "2026-02-17T02:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-ramadan-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-03-20T02:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2026-03-20",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-04-01"
+      },
+      "expected": [
+        "2026-03-20T02:30:00Z",
+        "2026-03-21T02:30:00Z",
+        "2026-03-22T02:30:00Z",
+        "2026-03-23T01:30:00Z",
+        "2026-03-24T01:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-september-transition",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-09-18T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2026-09-18",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-09-30"
+      },
+      "expected": [
+        "2026-09-18T00:30:00Z",
+        "2026-09-19T00:30:00Z",
+        "2026-09-20T00:30:00Z",
+        "2026-09-21T01:30:00Z",
+        "2026-09-22T01:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-september-noon",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-09-18T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2026-09-18",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-09-30"
+      },
+      "expected": [
+        "2026-09-18T11:30:00Z",
+        "2026-09-19T11:30:00Z",
+        "2026-09-20T12:30:00Z",
+        "2026-09-21T12:30:00Z",
+        "2026-09-22T12:30:00Z"
+      ]
+    },
+    {
+      "name": "chatham-spring-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-09-23T14:20:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Chatham Islands Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Chatham Islands Standard Time",
+              "startDate": "2027-09-24",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-10-06"
+      },
+      "expected": [
+        "2027-09-23T14:20:00Z",
+        "2027-09-24T14:20:00Z",
+        "2027-09-25T14:20:00Z",
+        "2027-09-26T13:20:00Z",
+        "2027-09-27T13:20:00Z"
+      ]
+    },
+    {
+      "name": "chatham-fall-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-04-01T13:20:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Chatham Islands Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Chatham Islands Standard Time",
+              "startDate": "2027-04-02",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-04-14"
+      },
+      "expected": [
+        "2027-04-01T13:20:00Z",
+        "2027-04-02T13:20:00Z",
+        "2027-04-03T13:20:00Z",
+        "2027-04-04T14:20:00Z",
+        "2027-04-05T14:20:00Z"
+      ]
+    },
+    {
+      "name": "moscow-permanent-standard-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-10-23T21:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russian Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-10-24",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2014-11-05"
+      },
+      "expected": [
+        "2014-10-23T21:30:00Z",
+        "2014-10-24T21:30:00Z",
+        "2014-10-25T21:30:00Z",
+        "2014-10-26T22:30:00Z",
+        "2014-10-27T22:30:00Z"
+      ]
+    },
+    {
+      "name": "moscow-permanent-standard-noon",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2014-10-24T08:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Russian Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2014-10-24",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2014-11-05"
+      },
+      "expected": [
+        "2014-10-24T08:30:00Z",
+        "2014-10-25T08:30:00Z",
+        "2014-10-26T09:30:00Z",
+        "2014-10-27T09:30:00Z",
+        "2014-10-28T09:30:00Z"
+      ]
+    },
+    {
+      "name": "turkey-permanent-dst",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2016-10-27T23:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Turkey Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2016-10-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2016-11-09"
+      },
+      "expected": [
+        "2016-10-27T23:30:00Z",
+        "2016-10-28T23:30:00Z",
+        "2016-10-29T23:30:00Z",
+        "2016-10-30T23:30:00Z",
+        "2016-10-31T23:30:00Z"
+      ]
+    },
+    {
+      "name": "cairo-midnight-gap",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2023-04-26T22:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Egypt Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2023-04-27",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2023-05-09"
+      },
+      "expected": [
+        "2023-04-26T22:30:00Z",
+        "2023-04-27T22:30:00Z",
+        "2023-04-28T21:30:00Z",
+        "2023-04-29T21:30:00Z",
+        "2023-04-30T21:30:00Z"
+      ]
+    },
+    {
+      "name": "kiritimati-dateline",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1994-12-27T19:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Line Islands Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Line Islands Standard Time",
+              "startDate": "1994-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "1995-01-09"
+      },
+      "expected": [
+        "1994-12-27T19:30:00Z",
+        "1994-12-28T19:30:00Z",
+        "1994-12-29T19:30:00Z",
+        "1994-12-30T19:30:00Z",
+        "1994-12-31T19:30:00Z"
+      ]
+    },
+    {
+      "name": "kiritimati-dateline-all-day",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1994-12-28T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": true,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Line Islands Standard Time",
+              "startDate": "1994-12-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "1995-01-09"
+      },
+      "expected": [
+        "1994-12-28",
+        "1994-12-29",
+        "1994-12-30",
+        "1994-12-31",
+        "1995-01-01"
+      ]
+    },
+    {
+      "name": "morocco-feb-start",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-02-01T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2026-02-01",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-02-13"
+      },
+      "expected": [
+        "2026-02-01T12:30:00Z",
+        "2026-02-02T12:30:00Z",
+        "2026-02-03T12:30:00Z",
+        "2026-02-04T12:30:00Z",
+        "2026-02-05T12:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-feb-first-week",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-02-05T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2026-02-05",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-02-17"
+      },
+      "expected": [
+        "2026-02-05T12:30:00Z",
+        "2026-02-06T12:30:00Z",
+        "2026-02-07T12:30:00Z",
+        "2026-02-08T12:30:00Z",
+        "2026-02-09T12:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-feb-second-week",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-02-09T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2026-02-09",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-02-21"
+      },
+      "expected": [
+        "2026-02-09T12:30:00Z",
+        "2026-02-10T12:30:00Z",
+        "2026-02-11T12:30:00Z",
+        "2026-02-12T12:30:00Z",
+        "2026-02-13T12:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-feb-second-week-early",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-02-09T02:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2026-02-09",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-02-21"
+      },
+      "expected": [
+        "2026-02-09T02:30:00Z",
+        "2026-02-10T02:30:00Z",
+        "2026-02-11T02:30:00Z",
+        "2026-02-12T02:30:00Z",
+        "2026-02-13T02:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-feb-second-week-late",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-02-09T03:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2026-02-09",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-02-21"
+      },
+      "expected": [
+        "2026-02-09T03:30:00Z",
+        "2026-02-10T03:30:00Z",
+        "2026-02-11T03:30:00Z",
+        "2026-02-12T03:30:00Z",
+        "2026-02-13T03:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-feb-third-week",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-02-13T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2026-02-13",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-02-25"
+      },
+      "expected": [
+        "2026-02-13T12:30:00Z",
+        "2026-02-14T12:30:00Z",
+        "2026-02-15T12:30:00Z",
+        "2026-02-16T12:30:00Z",
+        "2026-02-17T12:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-march-start",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-03-20T01:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2026-03-20",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-04-01"
+      },
+      "expected": [
+        "2026-03-20T01:30:00Z",
+        "2026-03-21T01:30:00Z",
+        "2026-03-22T01:30:00Z",
+        "2026-03-23T00:30:00Z",
+        "2026-03-24T00:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-march-gap-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-03-20T03:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2026-03-20",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-04-01"
+      },
+      "expected": [
+        "2026-03-20T03:30:00Z",
+        "2026-03-21T03:30:00Z",
+        "2026-03-22T02:30:00Z",
+        "2026-03-23T02:30:00Z",
+        "2026-03-24T02:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-september-first",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-09-17T23:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2026-09-18",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-09-30"
+      },
+      "expected": [
+        "2026-09-17T23:30:00Z",
+        "2026-09-18T23:30:00Z",
+        "2026-09-19T23:30:00Z",
+        "2026-09-21T00:30:00Z",
+        "2026-09-22T00:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-september-last",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-09-18T01:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2026-09-18",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-09-30"
+      },
+      "expected": [
+        "2026-09-18T01:30:00Z",
+        "2026-09-19T01:30:00Z",
+        "2026-09-20T02:30:00Z",
+        "2026-09-21T02:30:00Z",
+        "2026-09-22T02:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-post-september",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-10-01T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2026-10-01",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-10-13"
+      },
+      "expected": [
+        "2026-10-01T12:30:00Z",
+        "2026-10-02T12:30:00Z",
+        "2026-10-03T12:30:00Z",
+        "2026-10-04T12:30:00Z",
+        "2026-10-05T12:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-following-january",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-01-12T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2027-01-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-01-24"
+      },
+      "expected": [
+        "2027-01-12T12:30:00Z",
+        "2027-01-13T12:30:00Z",
+        "2027-01-14T12:30:00Z",
+        "2027-01-15T12:30:00Z",
+        "2027-01-16T12:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-following-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-04-12T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2027-04-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-04-24"
+      },
+      "expected": [
+        "2027-04-12T12:30:00Z",
+        "2027-04-13T12:30:00Z",
+        "2027-04-14T12:30:00Z",
+        "2027-04-15T12:30:00Z",
+        "2027-04-16T12:30:00Z"
+      ]
+    },
+    {
+      "name": "line-islands-1975-02-07",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1975-02-06T19:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Line Islands Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Line Islands Standard Time",
+              "startDate": "1975-02-07",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "1975-02-19"
+      },
+      "expected": [
+        "1975-02-06T19:30:00Z",
+        "1975-02-07T19:30:00Z",
+        "1975-02-08T19:30:00Z",
+        "1975-02-09T19:30:00Z",
+        "1975-02-10T19:30:00Z"
+      ]
+    },
+    {
+      "name": "line-islands-1995-01-05",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1995-01-04T19:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Line Islands Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Line Islands Standard Time",
+              "startDate": "1995-01-05",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "1995-01-17"
+      },
+      "expected": [
+        "1995-01-04T19:30:00Z",
+        "1995-01-05T19:30:00Z",
+        "1995-01-06T19:30:00Z",
+        "1995-01-07T19:30:00Z",
+        "1995-01-08T19:30:00Z"
+      ]
+    },
+    {
+      "name": "line-islands-2005-01-05",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2005-01-04T19:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Line Islands Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Line Islands Standard Time",
+              "startDate": "2005-01-05",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2005-01-17"
+      },
+      "expected": [
+        "2005-01-04T19:30:00Z",
+        "2005-01-05T19:30:00Z",
+        "2005-01-06T19:30:00Z",
+        "2005-01-07T19:30:00Z",
+        "2005-01-08T19:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-previous-year",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-12-27T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-12-27",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-01-08"
+      },
+      "expected": [
+        "2025-12-27T10:30:00Z",
+        "2025-12-28T10:30:00Z",
+        "2025-12-29T10:30:00Z",
+        "2025-12-30T10:30:00Z",
+        "2025-12-31T10:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-cross-year-noon",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-12-29T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-12-29",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-01-10"
+      },
+      "expected": [
+        "2025-12-29T10:30:00Z",
+        "2025-12-30T10:30:00Z",
+        "2025-12-31T10:30:00Z",
+        "2026-01-01T11:30:00Z",
+        "2026-01-02T11:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-cross-year-midnight",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-12-29T21:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2025-12-29",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-01-10"
+      },
+      "expected": [
+        "2025-12-29T22:15:00Z",
+        "2025-12-30T22:15:00Z",
+        "2025-12-31T22:15:00Z",
+        "2026-01-01T23:15:00Z",
+        "2026-01-02T23:15:00Z"
+      ]
+    },
+    {
+      "name": "morocco-first-of-year",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-01-01T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2026-01-01",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-01-13"
+      },
+      "expected": [
+        "2026-01-01T12:30:00Z",
+        "2026-01-02T12:30:00Z",
+        "2026-01-03T12:30:00Z",
+        "2026-01-04T12:30:00Z",
+        "2026-01-05T12:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-middle-january",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-01-16T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2026-01-16",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-01-28"
+      },
+      "expected": [
+        "2026-01-16T12:30:00Z",
+        "2026-01-17T12:30:00Z",
+        "2026-01-18T12:30:00Z",
+        "2026-01-19T12:30:00Z",
+        "2026-01-20T12:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-march-gap-before",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-03-20T01:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2026-03-20",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-04-01"
+      },
+      "expected": [
+        "2026-03-20T01:59:00Z",
+        "2026-03-21T01:59:00Z",
+        "2026-03-22T01:59:00Z",
+        "2026-03-23T00:59:00Z",
+        "2026-03-24T00:59:00Z"
+      ]
+    },
+    {
+      "name": "morocco-march-gap-first",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-03-20T02:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2026-03-20",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-04-01"
+      },
+      "expected": [
+        "2026-03-20T02:00:00Z",
+        "2026-03-21T02:00:00Z",
+        "2026-03-22T02:00:00Z",
+        "2026-03-23T01:00:00Z",
+        "2026-03-24T01:00:00Z"
+      ]
+    },
+    {
+      "name": "morocco-march-gap-last",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-03-20T02:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2026-03-20",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-04-01"
+      },
+      "expected": [
+        "2026-03-20T02:59:00Z",
+        "2026-03-21T02:59:00Z",
+        "2026-03-22T02:59:00Z",
+        "2026-03-23T01:59:00Z",
+        "2026-03-24T01:59:00Z"
+      ]
+    },
+    {
+      "name": "morocco-september-fold-before",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-09-17T23:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2026-09-18",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-09-30"
+      },
+      "expected": [
+        "2026-09-17T23:59:00Z",
+        "2026-09-18T23:59:00Z",
+        "2026-09-19T23:59:00Z",
+        "2026-09-21T00:59:00Z",
+        "2026-09-22T00:59:00Z"
+      ]
+    },
+    {
+      "name": "morocco-september-fold-first",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-09-18T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2026-09-18",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-09-30"
+      },
+      "expected": [
+        "2026-09-18T00:00:00Z",
+        "2026-09-19T00:00:00Z",
+        "2026-09-20T00:00:00Z",
+        "2026-09-21T01:00:00Z",
+        "2026-09-22T01:00:00Z"
+      ]
+    },
+    {
+      "name": "morocco-september-fold-last",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-09-18T00:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2026-09-18",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-09-30"
+      },
+      "expected": [
+        "2026-09-18T00:59:00Z",
+        "2026-09-19T00:59:00Z",
+        "2026-09-20T00:59:00Z",
+        "2026-09-21T01:59:00Z",
+        "2026-09-22T01:59:00Z"
+      ]
+    },
+    {
+      "name": "morocco-september-fold-after",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-09-18T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2026-09-18",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-09-30"
+      },
+      "expected": [
+        "2026-09-18T01:00:00Z",
+        "2026-09-19T01:00:00Z",
+        "2026-09-20T02:00:00Z",
+        "2026-09-21T02:00:00Z",
+        "2026-09-22T02:00:00Z"
+      ]
+    },
+    {
+      "name": "morocco-midyear-2024",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2024-07-12T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2024-07-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2024-07-24"
+      },
+      "expected": [
+        "2024-07-12T11:30:00Z",
+        "2024-07-13T11:30:00Z",
+        "2024-07-14T11:30:00Z",
+        "2024-07-15T11:30:00Z",
+        "2024-07-16T11:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-december-2024",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2024-12-29T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2024-12-29",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-01-10"
+      },
+      "expected": [
+        "2024-12-29T11:30:00Z",
+        "2024-12-30T11:30:00Z",
+        "2024-12-31T11:30:00Z",
+        "2025-01-01T11:30:00Z",
+        "2025-01-02T11:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-ramadan-2025",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-03-10T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-03-10",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-03-22"
+      },
+      "expected": [
+        "2025-03-10T12:30:00Z",
+        "2025-03-11T12:30:00Z",
+        "2025-03-12T12:30:00Z",
+        "2025-03-13T12:30:00Z",
+        "2025-03-14T12:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-midyear-2025",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-07-12T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-07-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-07-24"
+      },
+      "expected": [
+        "2025-07-12T11:30:00Z",
+        "2025-07-13T11:30:00Z",
+        "2025-07-14T11:30:00Z",
+        "2025-07-15T11:30:00Z",
+        "2025-07-16T11:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-december-early",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-12-29T01:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-12-29",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-01-10"
+      },
+      "expected": [
+        "2025-12-29T00:15:00Z",
+        "2025-12-30T00:15:00Z",
+        "2025-12-31T00:15:00Z",
+        "2026-01-01T01:15:00Z",
+        "2026-01-02T01:15:00Z"
+      ]
+    },
+    {
+      "name": "morocco-december-predawn",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-12-29T03:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-12-29",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-01-10"
+      },
+      "expected": [
+        "2025-12-29T02:15:00Z",
+        "2025-12-30T02:15:00Z",
+        "2025-12-31T02:15:00Z",
+        "2026-01-01T03:15:00Z",
+        "2026-01-02T03:15:00Z"
+      ]
+    },
+    {
+      "name": "morocco-july-2027",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-07-12T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2027-07-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-07-24"
+      },
+      "expected": [
+        "2027-07-12T12:30:00Z",
+        "2027-07-13T12:30:00Z",
+        "2027-07-14T12:30:00Z",
+        "2027-07-15T12:30:00Z",
+        "2027-07-16T12:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-september-2027",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2027-09-17T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2027-09-17",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2027-09-29"
+      },
+      "expected": [
+        "2027-09-17T12:30:00Z",
+        "2027-09-18T12:30:00Z",
+        "2027-09-19T12:30:00Z",
+        "2027-09-20T12:30:00Z",
+        "2027-09-21T12:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-january-2028",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2028-01-12T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2028-01-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2028-01-24"
+      },
+      "expected": [
+        "2028-01-12T12:30:00Z",
+        "2028-01-13T12:30:00Z",
+        "2028-01-14T12:30:00Z",
+        "2028-01-15T12:30:00Z",
+        "2028-01-16T12:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-july-2028",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2028-07-12T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2028-07-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2028-07-24"
+      },
+      "expected": [
+        "2028-07-12T12:30:00Z",
+        "2028-07-13T12:30:00Z",
+        "2028-07-14T12:30:00Z",
+        "2028-07-15T12:30:00Z",
+        "2028-07-16T12:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-legacy-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-10-15T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-10-15",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-10-27"
+      },
+      "expected": [
+        "2025-10-15T10:30:00Z",
+        "2025-10-16T10:30:00Z",
+        "2025-10-17T10:30:00Z",
+        "2025-10-18T10:30:00Z",
+        "2025-10-19T10:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-legacy-november-start",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-11-01T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-11-01",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-11-13"
+      },
+      "expected": [
+        "2025-11-01T10:30:00Z",
+        "2025-11-02T10:30:00Z",
+        "2025-11-03T10:30:00Z",
+        "2025-11-04T10:30:00Z",
+        "2025-11-05T10:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-legacy-november-middle",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-11-15T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-11-15",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-11-27"
+      },
+      "expected": [
+        "2025-11-15T10:30:00Z",
+        "2025-11-16T10:30:00Z",
+        "2025-11-17T10:30:00Z",
+        "2025-11-18T10:30:00Z",
+        "2025-11-19T10:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-legacy-november-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-11-29T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-11-29",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-12-11"
+      },
+      "expected": [
+        "2025-11-29T10:30:00Z",
+        "2025-11-30T10:30:00Z",
+        "2025-12-01T10:30:00Z",
+        "2025-12-02T10:30:00Z",
+        "2025-12-03T10:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-legacy-december-start",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-12-01T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-12-01",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-12-13"
+      },
+      "expected": [
+        "2025-12-01T10:30:00Z",
+        "2025-12-02T10:30:00Z",
+        "2025-12-03T10:30:00Z",
+        "2025-12-04T10:30:00Z",
+        "2025-12-05T10:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-legacy-december-middle",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-12-15T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-12-15",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-12-27"
+      },
+      "expected": [
+        "2025-12-15T10:30:00Z",
+        "2025-12-16T10:30:00Z",
+        "2025-12-17T10:30:00Z",
+        "2025-12-18T10:30:00Z",
+        "2025-12-19T10:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-legacy-december-last",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-12-31T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-12-31",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-01-12"
+      },
+      "expected": [
+        "2025-12-31T10:30:00Z",
+        "2026-01-01T11:30:00Z",
+        "2026-01-02T11:30:00Z",
+        "2026-01-03T11:30:00Z",
+        "2026-01-04T11:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-legacy-last-midnight",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-12-31T21:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2025-12-31",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-01-12"
+      },
+      "expected": [
+        "2025-12-31T22:15:00Z",
+        "2026-01-01T23:15:00Z",
+        "2026-01-02T23:15:00Z",
+        "2026-01-03T23:15:00Z",
+        "2026-01-04T23:15:00Z"
+      ]
+    },
+    {
+      "name": "morocco-legacy-first-midnight",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-01-01T00:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2026-01-01",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-01-13"
+      },
+      "expected": [
+        "2026-01-01T00:15:00Z",
+        "2026-01-02T00:15:00Z",
+        "2026-01-03T00:15:00Z",
+        "2026-01-04T00:15:00Z",
+        "2026-01-05T00:15:00Z"
+      ]
+    },
+    {
+      "name": "morocco-legacy-last-late",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-12-31T22:50:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-12-31",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-01-12"
+      },
+      "expected": [
+        "2025-12-31T21:50:00Z",
+        "2026-01-01T22:50:00Z",
+        "2026-01-02T22:50:00Z",
+        "2026-01-03T22:50:00Z",
+        "2026-01-04T22:50:00Z"
+      ]
+    },
+    {
+      "name": "morocco-legacy-december-weekly",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-12-26T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "daysOfWeek": [
+                "friday"
+              ],
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "weekly"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-12-26",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-01-07"
+      },
+      "expected": [
+        "2025-12-26T10:30:00Z",
+        "2026-01-02T11:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-anchor-july-last",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-07-31T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-07-31",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-08-12"
+      },
+      "expected": [
+        "2025-07-31T11:30:00Z",
+        "2025-08-01T11:30:00Z",
+        "2025-08-02T11:30:00Z",
+        "2025-08-03T11:30:00Z",
+        "2025-08-04T11:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-anchor-aug-first",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-08-01T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-08-01",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-08-13"
+      },
+      "expected": [
+        "2025-08-01T11:30:00Z",
+        "2025-08-02T11:30:00Z",
+        "2025-08-03T11:30:00Z",
+        "2025-08-04T11:30:00Z",
+        "2025-08-05T11:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-anchor-aug-middle",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-08-15T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-08-15",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-08-27"
+      },
+      "expected": [
+        "2025-08-15T11:30:00Z",
+        "2025-08-16T11:30:00Z",
+        "2025-08-17T11:30:00Z",
+        "2025-08-18T11:30:00Z",
+        "2025-08-19T11:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-anchor-aug-last",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-08-31T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-08-31",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-09-12"
+      },
+      "expected": [
+        "2025-08-31T11:30:00Z",
+        "2025-09-01T11:30:00Z",
+        "2025-09-02T11:30:00Z",
+        "2025-09-03T11:30:00Z",
+        "2025-09-04T11:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-anchor-sept-first",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-09-01T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-09-01",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-09-13"
+      },
+      "expected": [
+        "2025-09-01T11:30:00Z",
+        "2025-09-02T11:30:00Z",
+        "2025-09-03T11:30:00Z",
+        "2025-09-04T11:30:00Z",
+        "2025-09-05T11:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-anchor-sept-middle",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-09-15T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-09-15",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-09-27"
+      },
+      "expected": [
+        "2025-09-15T11:30:00Z",
+        "2025-09-16T11:30:00Z",
+        "2025-09-17T11:30:00Z",
+        "2025-09-18T11:30:00Z",
+        "2025-09-19T11:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-anchor-sept-last",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-09-30T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-09-30",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-10-12"
+      },
+      "expected": [
+        "2025-09-30T10:30:00Z",
+        "2025-10-01T10:30:00Z",
+        "2025-10-02T10:30:00Z",
+        "2025-10-03T10:30:00Z",
+        "2025-10-04T10:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-anchor-oct-first",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-10-01T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-10-01",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-10-13"
+      },
+      "expected": [
+        "2025-10-01T10:30:00Z",
+        "2025-10-02T10:30:00Z",
+        "2025-10-03T10:30:00Z",
+        "2025-10-04T10:30:00Z",
+        "2025-10-05T10:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-anchor-dec-without-range",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-12-29T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-12-29",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-01-10"
+      },
+      "expected": [
+        "2025-12-29T10:30:00Z",
+        "2025-12-30T10:30:00Z",
+        "2025-12-31T10:30:00Z",
+        "2026-01-01T11:30:00Z",
+        "2026-01-02T11:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-anchor-dec-midnight-without-range",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-12-29T21:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2025-12-29",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-01-10"
+      },
+      "expected": [
+        "2025-12-29T22:15:00Z",
+        "2025-12-30T22:15:00Z",
+        "2025-12-31T22:15:00Z",
+        "2026-01-01T23:15:00Z",
+        "2026-01-02T23:15:00Z"
+      ]
+    },
+    {
+      "name": "morocco-anchor-dec-early-first",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-12-29T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-12-29",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-01-10"
+      },
+      "expected": [
+        "2025-12-28T23:00:00Z",
+        "2025-12-29T23:00:00Z",
+        "2025-12-30T23:00:00Z",
+        "2026-01-01T00:00:00Z",
+        "2026-01-02T00:00:00Z"
+      ]
+    },
+    {
+      "name": "morocco-anchor-dec-early-next",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-12-29T00:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-12-29",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-01-10"
+      },
+      "expected": [
+        "2025-12-28T23:30:00Z",
+        "2025-12-29T23:30:00Z",
+        "2025-12-30T23:30:00Z",
+        "2026-01-01T00:30:00Z",
+        "2026-01-02T00:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-cutover-sept-19",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-09-19T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-09-19",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-10-01"
+      },
+      "expected": [
+        "2025-09-19T11:30:00Z",
+        "2025-09-20T11:30:00Z",
+        "2025-09-21T11:30:00Z",
+        "2025-09-22T11:30:00Z",
+        "2025-09-23T11:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-cutover-sept-20",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-09-20T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-09-20",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-10-02"
+      },
+      "expected": [
+        "2025-09-20T11:30:00Z",
+        "2025-09-21T11:30:00Z",
+        "2025-09-22T11:30:00Z",
+        "2025-09-23T11:30:00Z",
+        "2025-09-24T11:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-cutover-sept-21",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-09-21T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-09-21",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-10-03"
+      },
+      "expected": [
+        "2025-09-21T10:30:00Z",
+        "2025-09-22T10:30:00Z",
+        "2025-09-23T10:30:00Z",
+        "2025-09-24T10:30:00Z",
+        "2025-09-25T10:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-cutover-sept-22",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-09-22T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-09-22",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-10-04"
+      },
+      "expected": [
+        "2025-09-22T10:30:00Z",
+        "2025-09-23T10:30:00Z",
+        "2025-09-24T10:30:00Z",
+        "2025-09-25T10:30:00Z",
+        "2025-09-26T10:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-cutover-sept-23",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-09-23T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-09-23",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-10-05"
+      },
+      "expected": [
+        "2025-09-23T10:30:00Z",
+        "2025-09-24T10:30:00Z",
+        "2025-09-25T10:30:00Z",
+        "2025-09-26T10:30:00Z",
+        "2025-09-27T10:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-cutover-sept-24",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-09-24T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-09-24",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-10-06"
+      },
+      "expected": [
+        "2025-09-24T10:30:00Z",
+        "2025-09-25T10:30:00Z",
+        "2025-09-26T10:30:00Z",
+        "2025-09-27T10:30:00Z",
+        "2025-09-28T10:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-cutover-sept-25",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-09-25T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-09-25",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-10-07"
+      },
+      "expected": [
+        "2025-09-25T10:30:00Z",
+        "2025-09-26T10:30:00Z",
+        "2025-09-27T10:30:00Z",
+        "2025-09-28T10:30:00Z",
+        "2025-09-29T10:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-cutover-sept-26",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-09-26T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-09-26",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-10-08"
+      },
+      "expected": [
+        "2025-09-26T10:30:00Z",
+        "2025-09-27T10:30:00Z",
+        "2025-09-28T10:30:00Z",
+        "2025-09-29T10:30:00Z",
+        "2025-09-30T10:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-cutover-sept-27",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-09-27T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-09-27",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-10-09"
+      },
+      "expected": [
+        "2025-09-27T10:30:00Z",
+        "2025-09-28T10:30:00Z",
+        "2025-09-29T10:30:00Z",
+        "2025-09-30T10:30:00Z",
+        "2025-10-01T10:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-cutover-sept-28",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-09-28T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-09-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-10-10"
+      },
+      "expected": [
+        "2025-09-28T10:30:00Z",
+        "2025-09-29T10:30:00Z",
+        "2025-09-30T10:30:00Z",
+        "2025-10-01T10:30:00Z",
+        "2025-10-02T10:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-cutover-sept-29",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-09-29T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-09-29",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-10-11"
+      },
+      "expected": [
+        "2025-09-29T10:30:00Z",
+        "2025-09-30T10:30:00Z",
+        "2025-10-01T10:30:00Z",
+        "2025-10-02T10:30:00Z",
+        "2025-10-03T10:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-cutover-sept-28-midnight",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-09-28T21:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2025-09-28",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-10-10"
+      },
+      "expected": [
+        "2025-09-28T22:15:00Z",
+        "2025-09-29T22:15:00Z",
+        "2025-09-30T22:15:00Z",
+        "2025-10-01T22:15:00Z",
+        "2025-10-02T22:15:00Z"
+      ]
+    },
+    {
+      "name": "morocco-cutover-sept-29-midnight",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-09-29T21:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2025-09-29",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-10-11"
+      },
+      "expected": [
+        "2025-09-29T22:15:00Z",
+        "2025-09-30T22:15:00Z",
+        "2025-10-01T22:15:00Z",
+        "2025-10-02T22:15:00Z",
+        "2025-10-03T22:15:00Z"
+      ]
+    },
+    {
+      "name": "morocco-cutover-jan-midnight-from-dec",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-12-31T00:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-12-31",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-01-12"
+      },
+      "expected": [
+        "2025-12-30T23:15:00Z",
+        "2026-01-01T00:15:00Z",
+        "2026-01-02T00:15:00Z",
+        "2026-01-03T00:15:00Z",
+        "2026-01-04T00:15:00Z"
+      ]
+    },
+    {
+      "name": "morocco-cutover-dec-2300-local",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-12-31T22:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-12-31",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-01-12"
+      },
+      "expected": [
+        "2025-12-31T21:00:00Z",
+        "2026-01-01T22:00:00Z",
+        "2026-01-02T22:00:00Z",
+        "2026-01-03T22:00:00Z",
+        "2026-01-04T22:00:00Z"
+      ]
+    },
+    {
+      "name": "morocco-clock-sept21-0000",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-09-20T23:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-09-21",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-10-03"
+      },
+      "expected": [
+        "2025-09-20T23:00:00Z",
+        "2025-09-21T23:00:00Z",
+        "2025-09-22T23:00:00Z",
+        "2025-09-23T23:00:00Z",
+        "2025-09-24T23:00:00Z"
+      ]
+    },
+    {
+      "name": "morocco-clock-sept21-0059",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-09-20T23:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-09-21",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-10-03"
+      },
+      "expected": [
+        "2025-09-20T23:59:00Z",
+        "2025-09-21T23:59:00Z",
+        "2025-09-22T23:59:00Z",
+        "2025-09-23T23:59:00Z",
+        "2025-09-24T23:59:00Z"
+      ]
+    },
+    {
+      "name": "morocco-clock-sept21-0100",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-09-21T00:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-09-21",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-10-03"
+      },
+      "expected": [
+        "2025-09-21T00:00:00Z",
+        "2025-09-22T00:00:00Z",
+        "2025-09-23T00:00:00Z",
+        "2025-09-24T00:00:00Z",
+        "2025-09-25T00:00:00Z"
+      ]
+    },
+    {
+      "name": "morocco-clock-sept21-0159",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-09-21T00:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-09-21",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-10-03"
+      },
+      "expected": [
+        "2025-09-21T00:59:00Z",
+        "2025-09-22T00:59:00Z",
+        "2025-09-23T00:59:00Z",
+        "2025-09-24T00:59:00Z",
+        "2025-09-25T00:59:00Z"
+      ]
+    },
+    {
+      "name": "morocco-clock-sept21-0200",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-09-21T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-09-21",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-10-03"
+      },
+      "expected": [
+        "2025-09-21T00:00:00Z",
+        "2025-09-22T00:00:00Z",
+        "2025-09-23T00:00:00Z",
+        "2025-09-24T00:00:00Z",
+        "2025-09-25T00:00:00Z"
+      ]
+    },
+    {
+      "name": "morocco-clock-sept21-0259",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-09-21T01:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-09-21",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-10-03"
+      },
+      "expected": [
+        "2025-09-21T00:59:00Z",
+        "2025-09-22T00:59:00Z",
+        "2025-09-23T00:59:00Z",
+        "2025-09-24T00:59:00Z",
+        "2025-09-25T00:59:00Z"
+      ]
+    },
+    {
+      "name": "morocco-clock-sept21-0300",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-09-21T02:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-09-21",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-10-03"
+      },
+      "expected": [
+        "2025-09-21T01:00:00Z",
+        "2025-09-22T01:00:00Z",
+        "2025-09-23T01:00:00Z",
+        "2025-09-24T01:00:00Z",
+        "2025-09-25T01:00:00Z"
+      ]
+    },
+    {
+      "name": "morocco-clock-sept20-midnight",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-09-19T23:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-09-20",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-10-02"
+      },
+      "expected": [
+        "2025-09-19T23:15:00Z",
+        "2025-09-20T23:15:00Z",
+        "2025-09-21T23:15:00Z",
+        "2025-09-22T23:15:00Z",
+        "2025-09-23T23:15:00Z"
+      ]
+    },
+    {
+      "name": "morocco-clock-sept22-midnight",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-09-22T21:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2025-09-22",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2025-10-04"
+      },
+      "expected": [
+        "2025-09-22T22:15:00Z",
+        "2025-09-23T22:15:00Z",
+        "2025-09-24T22:15:00Z",
+        "2025-09-25T22:15:00Z",
+        "2025-09-26T22:15:00Z"
+      ]
+    },
+    {
+      "name": "morocco-clock-jan1-last-first-hour",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-01-01T00:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2026-01-01",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-01-13"
+      },
+      "expected": [
+        "2026-01-01T00:59:00Z",
+        "2026-01-02T00:59:00Z",
+        "2026-01-03T00:59:00Z",
+        "2026-01-04T00:59:00Z",
+        "2026-01-05T00:59:00Z"
+      ]
+    },
+    {
+      "name": "morocco-clock-dec31-as-utc-first",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-12-31T01:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-12-31",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-01-12"
+      },
+      "expected": [
+        "2025-12-31T00:00:00Z",
+        "2026-01-01T01:00:00Z",
+        "2026-01-02T01:00:00Z",
+        "2026-01-03T01:00:00Z",
+        "2026-01-04T01:00:00Z"
+      ]
+    },
+    {
+      "name": "morocco-utc-wire-legacy-dawn",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-12-29T00:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-12-29",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-01-10"
+      },
+      "expected": [
+        "2025-12-28T23:15:00Z",
+        "2025-12-29T23:15:00Z",
+        "2025-12-30T23:15:00Z",
+        "2026-01-01T00:15:00Z",
+        "2026-01-02T00:15:00Z"
+      ]
+    },
+    {
+      "name": "morocco-utc-wire-legacy-early",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-12-29T01:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-12-29",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-01-10"
+      },
+      "expected": [
+        "2025-12-29T00:15:00Z",
+        "2025-12-30T00:15:00Z",
+        "2025-12-31T00:15:00Z",
+        "2026-01-01T01:15:00Z",
+        "2026-01-02T01:15:00Z"
+      ]
+    },
+    {
+      "name": "morocco-utc-wire-legacy-explicit-clock",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-12-29T21:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-12-29",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-01-10"
+      },
+      "expected": [
+        "2025-12-29T20:15:00Z",
+        "2025-12-30T20:15:00Z",
+        "2025-12-31T20:15:00Z",
+        "2026-01-01T21:15:00Z",
+        "2026-01-02T21:15:00Z"
+      ]
+    },
+    {
+      "name": "morocco-utc-wire-legacy-next-clock",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-12-29T22:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-12-29",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-01-10"
+      },
+      "expected": [
+        "2025-12-29T21:15:00Z",
+        "2025-12-30T21:15:00Z",
+        "2025-12-31T21:15:00Z",
+        "2026-01-01T22:15:00Z",
+        "2026-01-02T22:15:00Z"
+      ]
+    },
+    {
+      "name": "morocco-utc-wire-legacy-midday",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-12-29T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2025-12-29",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-01-10"
+      },
+      "expected": [
+        "2025-12-29T10:30:00Z",
+        "2025-12-30T10:30:00Z",
+        "2025-12-31T10:30:00Z",
+        "2026-01-01T11:30:00Z",
+        "2026-01-02T11:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-morocco-wire-utc-range",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2025-12-29T11:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2025-12-29",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-01-10"
+      },
+      "expected": [
+        "2025-12-29T11:30:00Z",
+        "2025-12-30T11:30:00Z",
+        "2025-12-31T11:30:00Z",
+        "2026-01-01T11:30:00Z",
+        "2026-01-02T11:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-utc-wire-2026-explicit-clock",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2026-01-12T21:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Morocco Standard Time",
+              "startDate": "2026-01-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2026-01-24"
+      },
+      "expected": [
+        "2026-01-12T21:15:00Z",
+        "2026-01-13T21:15:00Z",
+        "2026-01-14T21:15:00Z",
+        "2026-01-15T21:15:00Z",
+        "2026-01-16T21:15:00Z"
+      ]
+    }
+  ]
+}

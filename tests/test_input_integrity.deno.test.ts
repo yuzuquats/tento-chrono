@@ -23,6 +23,19 @@ Fixtures.load<string, string | null>(dir, "naive-date").run(
   (actual, expected) => assertEquals(actual, [expected, expected]),
 );
 
+Deno.test("checked civil date parsing distinguishes syntax and calendar bounds", () => {
+  assertEquals(NaiveDate.parse("2024-2-9").toString(), "2024-02-09");
+  for (const [text, message] of [
+    ["2024-02-2\n", "invalid date format"],
+    ["2024-02-0é", "invalid date format"],
+    ["2024-00-29", "month/bounds"],
+    ["1900-02-29", "day/bounds"],
+  ]) {
+    assertEquals(NaiveDate.fromRfc3339(text).expe().message, message);
+    assertEquals(NaiveDate.parseOpt(text), null);
+  }
+});
+
 Deno.test("checked civil dates require integer components", () => {
   for (const invalid of [NaN, Infinity, -Infinity, 1.5]) {
     assert(NaiveDate.fromYmd1(invalid, 1, 1).isErr, "year: " + invalid);

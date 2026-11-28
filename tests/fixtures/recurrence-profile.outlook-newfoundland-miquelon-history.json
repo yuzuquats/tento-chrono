@@ -1,0 +1,1937 @@
+{
+  "type": "recurrence-profile",
+  "name": "Outlook Graph Newfoundland and Saint Pierre historical seasons",
+  "source": "Microsoft Graph v1.0 calendarView on a dedicated test calendar",
+  "cases": [
+    {
+      "name": "newfoundland-windows-1967-april-0001",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-03-31T03:31:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Newfoundland Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-03-31",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-04-12",
+        "checkpoints": [
+          "1967-03-31",
+          "1967-04-01",
+          "1967-04-02",
+          "1967-04-03",
+          "1967-04-04"
+        ]
+      },
+      "expected": [
+        "1967-03-31T03:31:00Z",
+        "1967-04-01T03:31:00Z",
+        "1967-04-02T03:31:00Z",
+        "1967-04-03T02:31:00Z",
+        "1967-04-04T02:31:00Z"
+      ]
+    },
+    {
+      "name": "newfoundland-windows-1967-april-0100",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-03-31T04:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Newfoundland Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-03-31",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-04-12",
+        "checkpoints": [
+          "1967-03-31",
+          "1967-04-01",
+          "1967-04-02",
+          "1967-04-03",
+          "1967-04-04"
+        ]
+      },
+      "expected": [
+        "1967-03-31T04:30:00Z",
+        "1967-04-01T04:30:00Z",
+        "1967-04-02T04:30:00Z",
+        "1967-04-03T03:30:00Z",
+        "1967-04-04T03:30:00Z"
+      ]
+    },
+    {
+      "name": "newfoundland-windows-1967-april-0101",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-03-31T04:31:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Newfoundland Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-03-31",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-04-12",
+        "checkpoints": [
+          "1967-03-31",
+          "1967-04-01",
+          "1967-04-02",
+          "1967-04-03",
+          "1967-04-04"
+        ]
+      },
+      "expected": [
+        "1967-03-31T04:31:00Z",
+        "1967-04-01T04:31:00Z",
+        "1967-04-02T03:31:00Z",
+        "1967-04-03T03:31:00Z",
+        "1967-04-04T03:31:00Z"
+      ]
+    },
+    {
+      "name": "newfoundland-windows-1967-october-2300",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-10-28T01:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Newfoundland Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-10-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-11-08",
+        "checkpoints": [
+          "1967-10-28",
+          "1967-10-29",
+          "1967-10-30",
+          "1967-10-31",
+          "1967-11-01"
+        ]
+      },
+      "expected": [
+        "1967-10-28T01:30:00Z",
+        "1967-10-29T01:30:00Z",
+        "1967-10-30T02:30:00Z",
+        "1967-10-31T02:30:00Z",
+        "1967-11-01T02:30:00Z"
+      ]
+    },
+    {
+      "name": "newfoundland-windows-1967-october-2301",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-10-28T01:31:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Newfoundland Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-10-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-11-08",
+        "checkpoints": [
+          "1967-10-28",
+          "1967-10-29",
+          "1967-10-30",
+          "1967-10-31",
+          "1967-11-01"
+        ]
+      },
+      "expected": [
+        "1967-10-28T01:31:00Z",
+        "1967-10-29T01:31:00Z",
+        "1967-10-30T02:31:00Z",
+        "1967-10-31T02:31:00Z",
+        "1967-11-01T02:31:00Z"
+      ]
+    },
+    {
+      "name": "newfoundland-windows-1967-october-0001",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-10-27T02:31:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Newfoundland Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-10-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-11-08",
+        "checkpoints": [
+          "1967-10-27",
+          "1967-10-28",
+          "1967-10-29",
+          "1967-10-30",
+          "1967-10-31"
+        ]
+      },
+      "expected": [
+        "1967-10-27T02:31:00Z",
+        "1967-10-28T02:31:00Z",
+        "1967-10-29T03:31:00Z",
+        "1967-10-30T03:31:00Z",
+        "1967-10-31T03:31:00Z"
+      ]
+    },
+    {
+      "name": "newfoundland-windows-2011-transition-ends-0130",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-11-04T04:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Newfoundland Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-11-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2011-11-16",
+        "checkpoints": [
+          "2011-11-04",
+          "2011-11-05",
+          "2011-11-06",
+          "2011-11-07",
+          "2011-11-08"
+        ]
+      },
+      "expected": [
+        "2011-11-04T04:00:00Z",
+        "2011-11-05T04:00:00Z",
+        "2011-11-06T04:00:00Z",
+        "2011-11-07T05:00:00Z",
+        "2011-11-08T05:00:00Z"
+      ]
+    },
+    {
+      "name": "newfoundland-windows-yearly-1899-2075",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-03-14T15:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Newfoundland Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 14,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 88,
+              "month": 3,
+              "type": "absoluteYearly"
+            },
+            "range": {
+              "endDate": "2075-03-14",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-03-14",
+              "type": "endDate"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-03-15",
+        "checkpoints": [
+          "1899-03-14",
+          "1987-03-14",
+          "2075-03-14"
+        ]
+      },
+      "expected": [
+        "1899-03-14T15:30:00Z",
+        "1987-03-14T15:30:00Z",
+        "2075-03-14T14:30:00Z"
+      ]
+    },
+    {
+      "name": "miquelon-windows-1899-gap-start",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-03-31T05:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Saint Pierre Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-03-31",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-04-12",
+        "checkpoints": [
+          "1899-03-31",
+          "1899-04-01",
+          "1899-04-02",
+          "1899-04-03",
+          "1899-04-04"
+        ]
+      },
+      "expected": [
+        "1899-03-31T05:00:00Z",
+        "1899-04-01T05:00:00Z",
+        "1899-04-02T05:00:00Z",
+        "1899-04-03T04:00:00Z",
+        "1899-04-04T04:00:00Z"
+      ]
+    },
+    {
+      "name": "miquelon-windows-1967-gap-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-03-31T06:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Saint Pierre Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-03-31",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-04-12",
+        "checkpoints": [
+          "1967-03-31",
+          "1967-04-01",
+          "1967-04-02",
+          "1967-04-03",
+          "1967-04-04"
+        ]
+      },
+      "expected": [
+        "1967-03-31T06:00:00Z",
+        "1967-04-01T06:00:00Z",
+        "1967-04-02T05:00:00Z",
+        "1967-04-03T05:00:00Z",
+        "1967-04-04T05:00:00Z"
+      ]
+    },
+    {
+      "name": "miquelon-windows-1967-fold-end",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-10-27T04:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Saint Pierre Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-10-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-11-08",
+        "checkpoints": [
+          "1967-10-27",
+          "1967-10-28",
+          "1967-10-29",
+          "1967-10-30",
+          "1967-10-31"
+        ]
+      },
+      "expected": [
+        "1967-10-27T04:00:00Z",
+        "1967-10-28T04:00:00Z",
+        "1967-10-29T05:00:00Z",
+        "1967-10-30T05:00:00Z",
+        "1967-10-31T05:00:00Z"
+      ]
+    },
+    {
+      "name": "miquelon-windows-2075-fold",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-11-01T03:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Saint Pierre Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Saint Pierre Standard Time",
+              "startDate": "2075-11-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-11-13",
+        "checkpoints": [
+          "2075-11-01",
+          "2075-11-02",
+          "2075-11-03",
+          "2075-11-04",
+          "2075-11-05"
+        ]
+      },
+      "expected": [
+        "2075-11-01T03:30:00Z",
+        "2075-11-02T03:30:00Z",
+        "2075-11-03T03:30:00Z",
+        "2075-11-04T04:30:00Z",
+        "2075-11-05T04:30:00Z"
+      ]
+    },
+    {
+      "name": "miquelon-windows-yearly-1899-2075",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-03-14T15:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Saint Pierre Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 14,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 88,
+              "month": 3,
+              "type": "absoluteYearly"
+            },
+            "range": {
+              "endDate": "2075-03-14",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-03-14",
+              "type": "endDate"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-03-15",
+        "checkpoints": [
+          "1899-03-14",
+          "1987-03-14",
+          "2075-03-14"
+        ]
+      },
+      "expected": [
+        "1899-03-14T15:00:00Z",
+        "1987-03-14T15:00:00Z",
+        "2075-03-14T14:00:00Z"
+      ]
+    },
+    {
+      "name": "newfoundland-windows-yearly-1986-1990",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1986-04-15T14:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Newfoundland Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 15,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 4,
+              "type": "absoluteYearly"
+            },
+            "range": {
+              "endDate": "1990-04-15",
+              "numberOfOccurrences": 0,
+              "recurrenceTimeZone": "",
+              "startDate": "1986-04-15",
+              "type": "endDate"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1990-04-16",
+        "checkpoints": [
+          "1986-04-15",
+          "1987-04-15",
+          "1988-04-15",
+          "1989-04-15",
+          "1990-04-15"
+        ]
+      },
+      "expected": [
+        "1986-04-15T14:30:00Z",
+        "1987-04-15T14:30:00Z",
+        "1988-04-15T14:30:00Z",
+        "1989-04-15T14:30:00Z",
+        "1990-04-15T14:30:00Z"
+      ]
+    },
+    {
+      "name": "newfoundland-windows-1899-winter",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-16T03:29:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Newfoundland Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19",
+          "1899-01-20"
+        ]
+      },
+      "expected": [
+        "1899-01-16T03:29:00Z",
+        "1899-01-17T03:29:00Z",
+        "1899-01-18T03:29:00Z",
+        "1899-01-19T03:29:00Z",
+        "1899-01-20T03:29:00Z"
+      ]
+    },
+    {
+      "name": "newfoundland-windows-1899-summer",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-07-15T14:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Newfoundland Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-07-27",
+        "checkpoints": [
+          "1899-07-15",
+          "1899-07-16",
+          "1899-07-17",
+          "1899-07-18",
+          "1899-07-19"
+        ]
+      },
+      "expected": [
+        "1899-07-15T14:30:00Z",
+        "1899-07-16T14:30:00Z",
+        "1899-07-17T14:30:00Z",
+        "1899-07-18T14:30:00Z",
+        "1899-07-19T14:30:00Z"
+      ]
+    },
+    {
+      "name": "newfoundland-windows-1935-offset-reform",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1935-03-28T15:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Newfoundland Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1935-03-28",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1935-04-09",
+        "checkpoints": [
+          "1935-03-28",
+          "1935-03-29",
+          "1935-03-30",
+          "1935-03-31",
+          "1935-04-01"
+        ]
+      },
+      "expected": [
+        "1935-03-28T15:30:00Z",
+        "1935-03-29T15:30:00Z",
+        "1935-03-30T15:30:00Z",
+        "1935-03-31T15:30:00Z",
+        "1935-04-01T15:30:00Z"
+      ]
+    },
+    {
+      "name": "newfoundland-windows-1942-war-time",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1942-05-09T03:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Newfoundland Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1942-05-09",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1942-05-21",
+        "checkpoints": [
+          "1942-05-09",
+          "1942-05-10",
+          "1942-05-11",
+          "1942-05-12",
+          "1942-05-13"
+        ]
+      },
+      "expected": [
+        "1942-05-09T03:30:00Z",
+        "1942-05-10T03:30:00Z",
+        "1942-05-11T03:30:00Z",
+        "1942-05-12T03:30:00Z",
+        "1942-05-13T03:30:00Z"
+      ]
+    },
+    {
+      "name": "newfoundland-windows-1967-april-0000",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-03-31T03:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Newfoundland Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-03-31",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-04-12",
+        "checkpoints": [
+          "1967-03-31",
+          "1967-04-01",
+          "1967-04-02",
+          "1967-04-03",
+          "1967-04-04"
+        ]
+      },
+      "expected": [
+        "1967-03-31T03:30:00Z",
+        "1967-04-01T03:30:00Z",
+        "1967-04-02T03:30:00Z",
+        "1967-04-03T02:30:00Z",
+        "1967-04-04T02:30:00Z"
+      ]
+    },
+    {
+      "name": "newfoundland-windows-1967-april-0030",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-03-31T04:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Newfoundland Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-03-31",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-04-12",
+        "checkpoints": [
+          "1967-03-31",
+          "1967-04-01",
+          "1967-04-02",
+          "1967-04-03",
+          "1967-04-04"
+        ]
+      },
+      "expected": [
+        "1967-03-31T04:00:00Z",
+        "1967-04-01T04:00:00Z",
+        "1967-04-02T04:00:00Z",
+        "1967-04-03T03:00:00Z",
+        "1967-04-04T03:00:00Z"
+      ]
+    },
+    {
+      "name": "newfoundland-windows-1967-april-0130",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-03-31T05:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Newfoundland Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-03-31",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-04-12",
+        "checkpoints": [
+          "1967-03-31",
+          "1967-04-01",
+          "1967-04-02",
+          "1967-04-03",
+          "1967-04-04"
+        ]
+      },
+      "expected": [
+        "1967-03-31T05:00:00Z",
+        "1967-04-01T05:00:00Z",
+        "1967-04-02T04:00:00Z",
+        "1967-04-03T04:00:00Z",
+        "1967-04-04T04:00:00Z"
+      ]
+    },
+    {
+      "name": "newfoundland-windows-1967-april-0230",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-03-31T06:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Newfoundland Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-03-31",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-04-12",
+        "checkpoints": [
+          "1967-03-31",
+          "1967-04-01",
+          "1967-04-02",
+          "1967-04-03",
+          "1967-04-04"
+        ]
+      },
+      "expected": [
+        "1967-03-31T06:00:00Z",
+        "1967-04-01T06:00:00Z",
+        "1967-04-02T05:00:00Z",
+        "1967-04-03T05:00:00Z",
+        "1967-04-04T05:00:00Z"
+      ]
+    },
+    {
+      "name": "newfoundland-windows-1967-october-0000",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-10-27T02:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Newfoundland Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-10-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-11-08",
+        "checkpoints": [
+          "1967-10-27",
+          "1967-10-28",
+          "1967-10-29",
+          "1967-10-30",
+          "1967-10-31"
+        ]
+      },
+      "expected": [
+        "1967-10-27T02:30:00Z",
+        "1967-10-28T02:30:00Z",
+        "1967-10-29T02:30:00Z",
+        "1967-10-30T03:30:00Z",
+        "1967-10-31T03:30:00Z"
+      ]
+    },
+    {
+      "name": "newfoundland-windows-1967-october-0130",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-10-27T04:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Newfoundland Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-10-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-11-08",
+        "checkpoints": [
+          "1967-10-27",
+          "1967-10-28",
+          "1967-10-29",
+          "1967-10-30",
+          "1967-10-31"
+        ]
+      },
+      "expected": [
+        "1967-10-27T04:00:00Z",
+        "1967-10-28T04:00:00Z",
+        "1967-10-29T05:00:00Z",
+        "1967-10-30T05:00:00Z",
+        "1967-10-31T05:00:00Z"
+      ]
+    },
+    {
+      "name": "newfoundland-windows-1986-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1986-04-04T04:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Newfoundland Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1986-04-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1986-04-16",
+        "checkpoints": [
+          "1986-04-04",
+          "1986-04-05",
+          "1986-04-06",
+          "1986-04-07",
+          "1986-04-08"
+        ]
+      },
+      "expected": [
+        "1986-04-04T04:00:00Z",
+        "1986-04-05T04:00:00Z",
+        "1986-04-06T04:00:00Z",
+        "1986-04-07T03:00:00Z",
+        "1986-04-08T03:00:00Z"
+      ]
+    },
+    {
+      "name": "newfoundland-windows-1987-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1987-04-03T04:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Newfoundland Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1987-04-03",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1987-04-15",
+        "checkpoints": [
+          "1987-04-03",
+          "1987-04-04",
+          "1987-04-05",
+          "1987-04-06",
+          "1987-04-07"
+        ]
+      },
+      "expected": [
+        "1987-04-03T04:00:00Z",
+        "1987-04-04T04:00:00Z",
+        "1987-04-05T04:00:00Z",
+        "1987-04-06T03:00:00Z",
+        "1987-04-07T03:00:00Z"
+      ]
+    },
+    {
+      "name": "newfoundland-windows-1988-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1988-04-01T04:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Newfoundland Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1988-04-01",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1988-04-13",
+        "checkpoints": [
+          "1988-04-01",
+          "1988-04-02",
+          "1988-04-03",
+          "1988-04-04",
+          "1988-04-05"
+        ]
+      },
+      "expected": [
+        "1988-04-01T04:00:00Z",
+        "1988-04-02T04:00:00Z",
+        "1988-04-03T04:00:00Z",
+        "1988-04-04T03:00:00Z",
+        "1988-04-05T03:00:00Z"
+      ]
+    },
+    {
+      "name": "newfoundland-windows-2004-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2004-04-02T04:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Newfoundland Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2004-04-02",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2004-04-14",
+        "checkpoints": [
+          "2004-04-02",
+          "2004-04-03",
+          "2004-04-04",
+          "2004-04-05",
+          "2004-04-06"
+        ]
+      },
+      "expected": [
+        "2004-04-02T04:00:00Z",
+        "2004-04-03T04:00:00Z",
+        "2004-04-04T04:00:00Z",
+        "2004-04-05T03:00:00Z",
+        "2004-04-06T03:00:00Z"
+      ]
+    },
+    {
+      "name": "newfoundland-windows-2007-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2007-03-09T04:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Newfoundland Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2007-03-09",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2007-03-21",
+        "checkpoints": [
+          "2007-03-09",
+          "2007-03-10",
+          "2007-03-11",
+          "2007-03-12",
+          "2007-03-13"
+        ]
+      },
+      "expected": [
+        "2007-03-09T04:00:00Z",
+        "2007-03-10T04:00:00Z",
+        "2007-03-11T04:00:00Z",
+        "2007-03-12T03:00:00Z",
+        "2007-03-13T03:00:00Z"
+      ]
+    },
+    {
+      "name": "newfoundland-windows-2011-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-03-11T04:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Newfoundland Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-03-11",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2011-03-23",
+        "checkpoints": [
+          "2011-03-11",
+          "2011-03-12",
+          "2011-03-13",
+          "2011-03-14",
+          "2011-03-15"
+        ]
+      },
+      "expected": [
+        "2011-03-11T04:00:00Z",
+        "2011-03-12T04:00:00Z",
+        "2011-03-13T04:00:00Z",
+        "2011-03-14T03:00:00Z",
+        "2011-03-15T03:00:00Z"
+      ]
+    },
+    {
+      "name": "newfoundland-windows-2011-november",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2011-11-04T03:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Newfoundland Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2011-11-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2011-11-16",
+        "checkpoints": [
+          "2011-11-04",
+          "2011-11-05",
+          "2011-11-06",
+          "2011-11-07",
+          "2011-11-08"
+        ]
+      },
+      "expected": [
+        "2011-11-04T03:00:00Z",
+        "2011-11-05T03:00:00Z",
+        "2011-11-06T03:00:00Z",
+        "2011-11-07T04:00:00Z",
+        "2011-11-08T04:00:00Z"
+      ]
+    },
+    {
+      "name": "newfoundland-windows-2075-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-03-08T06:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Newfoundland Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Newfoundland Standard Time",
+              "startDate": "2075-03-08",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-03-20",
+        "checkpoints": [
+          "2075-03-08",
+          "2075-03-09",
+          "2075-03-10",
+          "2075-03-11",
+          "2075-03-12"
+        ]
+      },
+      "expected": [
+        "2075-03-08T06:00:00Z",
+        "2075-03-09T06:00:00Z",
+        "2075-03-10T06:00:00Z",
+        "2075-03-11T05:00:00Z",
+        "2075-03-12T05:00:00Z"
+      ]
+    },
+    {
+      "name": "miquelon-windows-1899-winter",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-01-16T02:59:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Saint Pierre Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-01-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-01-27",
+        "checkpoints": [
+          "1899-01-16",
+          "1899-01-17",
+          "1899-01-18",
+          "1899-01-19",
+          "1899-01-20"
+        ]
+      },
+      "expected": [
+        "1899-01-16T02:59:00Z",
+        "1899-01-17T02:59:00Z",
+        "1899-01-18T02:59:00Z",
+        "1899-01-19T02:59:00Z",
+        "1899-01-20T02:59:00Z"
+      ]
+    },
+    {
+      "name": "miquelon-windows-1899-summer",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1899-07-15T14:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Saint Pierre Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1899-07-15",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1899-07-27",
+        "checkpoints": [
+          "1899-07-15",
+          "1899-07-16",
+          "1899-07-17",
+          "1899-07-18",
+          "1899-07-19"
+        ]
+      },
+      "expected": [
+        "1899-07-15T14:00:00Z",
+        "1899-07-16T14:00:00Z",
+        "1899-07-17T14:00:00Z",
+        "1899-07-18T14:00:00Z",
+        "1899-07-19T14:00:00Z"
+      ]
+    },
+    {
+      "name": "miquelon-windows-1967-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-03-31T05:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Saint Pierre Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-03-31",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-04-12",
+        "checkpoints": [
+          "1967-03-31",
+          "1967-04-01",
+          "1967-04-02",
+          "1967-04-03",
+          "1967-04-04"
+        ]
+      },
+      "expected": [
+        "1967-03-31T05:30:00Z",
+        "1967-04-01T05:30:00Z",
+        "1967-04-02T05:30:00Z",
+        "1967-04-03T04:30:00Z",
+        "1967-04-04T04:30:00Z"
+      ]
+    },
+    {
+      "name": "miquelon-windows-1967-october",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1967-10-27T03:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Saint Pierre Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1967-10-27",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1967-11-08",
+        "checkpoints": [
+          "1967-10-27",
+          "1967-10-28",
+          "1967-10-29",
+          "1967-10-30",
+          "1967-10-31"
+        ]
+      },
+      "expected": [
+        "1967-10-27T03:30:00Z",
+        "1967-10-28T03:30:00Z",
+        "1967-10-29T03:30:00Z",
+        "1967-10-30T04:30:00Z",
+        "1967-10-31T04:30:00Z"
+      ]
+    },
+    {
+      "name": "miquelon-windows-1980-may",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1980-04-28T14:00:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Saint Pierre Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1980-04-28",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1980-05-10",
+        "checkpoints": [
+          "1980-04-28",
+          "1980-04-29",
+          "1980-04-30",
+          "1980-05-01",
+          "1980-05-02"
+        ]
+      },
+      "expected": [
+        "1980-04-28T14:00:00Z",
+        "1980-04-29T14:00:00Z",
+        "1980-04-30T14:00:00Z",
+        "1980-05-01T14:00:00Z",
+        "1980-05-02T14:00:00Z"
+      ]
+    },
+    {
+      "name": "miquelon-windows-1986-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1986-04-04T05:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Saint Pierre Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1986-04-04",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1986-04-16",
+        "checkpoints": [
+          "1986-04-04",
+          "1986-04-05",
+          "1986-04-06",
+          "1986-04-07",
+          "1986-04-08"
+        ]
+      },
+      "expected": [
+        "1986-04-04T05:30:00Z",
+        "1986-04-05T05:30:00Z",
+        "1986-04-06T05:30:00Z",
+        "1986-04-07T04:30:00Z",
+        "1986-04-08T04:30:00Z"
+      ]
+    },
+    {
+      "name": "miquelon-windows-1987-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "1987-04-03T05:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Saint Pierre Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "1987-04-03",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "1987-04-15",
+        "checkpoints": [
+          "1987-04-03",
+          "1987-04-04",
+          "1987-04-05",
+          "1987-04-06",
+          "1987-04-07"
+        ]
+      },
+      "expected": [
+        "1987-04-03T05:30:00Z",
+        "1987-04-04T05:30:00Z",
+        "1987-04-05T05:30:00Z",
+        "1987-04-06T04:30:00Z",
+        "1987-04-07T04:30:00Z"
+      ]
+    },
+    {
+      "name": "miquelon-windows-2006-april",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2006-03-31T05:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Saint Pierre Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2006-03-31",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2006-04-12",
+        "checkpoints": [
+          "2006-03-31",
+          "2006-04-01",
+          "2006-04-02",
+          "2006-04-03",
+          "2006-04-04"
+        ]
+      },
+      "expected": [
+        "2006-03-31T05:30:00Z",
+        "2006-04-01T05:30:00Z",
+        "2006-04-02T05:30:00Z",
+        "2006-04-03T04:30:00Z",
+        "2006-04-04T04:30:00Z"
+      ]
+    },
+    {
+      "name": "miquelon-windows-2007-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2007-03-09T05:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Saint Pierre Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Saint Pierre Standard Time",
+              "startDate": "2007-03-09",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2007-03-21",
+        "checkpoints": [
+          "2007-03-09",
+          "2007-03-10",
+          "2007-03-11",
+          "2007-03-12",
+          "2007-03-13"
+        ]
+      },
+      "expected": [
+        "2007-03-09T05:30:00Z",
+        "2007-03-10T05:30:00Z",
+        "2007-03-11T05:30:00Z",
+        "2007-03-12T04:30:00Z",
+        "2007-03-13T04:30:00Z"
+      ]
+    },
+    {
+      "name": "miquelon-windows-2075-march",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2075-03-08T05:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Saint Pierre Standard Time",
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "Saint Pierre Standard Time",
+              "startDate": "2075-03-08",
+              "type": "numbered"
+            }
+          },
+          "isAllDay": false
+        },
+        "through": "2075-03-20",
+        "checkpoints": [
+          "2075-03-08",
+          "2075-03-09",
+          "2075-03-10",
+          "2075-03-11",
+          "2075-03-12"
+        ]
+      },
+      "expected": [
+        "2075-03-08T05:30:00Z",
+        "2075-03-09T05:30:00Z",
+        "2075-03-10T05:30:00Z",
+        "2075-03-11T04:30:00Z",
+        "2075-03-12T04:30:00Z"
+      ]
+    },
+    {
+      "name": "rfc-newfoundland-retains-1935-offset-reform",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/St_Johns:19350328T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1935-04-03",
+        "checkpoints": [
+          "1935-03-28",
+          "1935-03-29",
+          "1935-03-30",
+          "1935-03-31",
+          "1935-04-01"
+        ]
+      },
+      "expected": [
+        "1935-03-28T15:30:52Z",
+        "1935-03-29T15:30:52Z",
+        "1935-03-30T15:30:00Z",
+        "1935-03-31T15:30:00Z",
+        "1935-04-01T15:30:00Z"
+      ]
+    },
+    {
+      "name": "rfc-miquelon-retains-1980-offset-reform",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/Miquelon:19800428T120000",
+          "RRULE:FREQ=DAILY;COUNT=5"
+        ],
+        "through": "1980-05-04",
+        "checkpoints": [
+          "1980-04-28",
+          "1980-04-29",
+          "1980-04-30",
+          "1980-05-01",
+          "1980-05-02"
+        ]
+      },
+      "expected": [
+        "1980-04-28T16:00:00Z",
+        "1980-04-29T16:00:00Z",
+        "1980-04-30T16:00:00Z",
+        "1980-05-01T15:00:00Z",
+        "1980-05-02T15:00:00Z"
+      ]
+    }
+  ]
+}

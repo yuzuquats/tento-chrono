@@ -84,6 +84,18 @@ Deno.test("malformed iCalendar times cannot suppress events or change UNTIL", as
   assertEquals(IsoDate.parse("20260101T09Z").exp().ical(), "20260101T090000Z");
 });
 
+Deno.test("compact iCalendar timestamps diagnose the civil date before the clock", () => {
+  const invalid = [
+    ["20261301T250000Z", "month/bounds"],
+    ["19000229T250000Z", "day/bounds"],
+    ["20000229T250000Z", "icaldate/time-out-of-range/input=20000229T250000Z"],
+  ];
+  for (const [stamp, message] of invalid) {
+    assertEquals(IsoDate.parse(stamp).expe().message, message);
+    assertEquals(IsoDate.parseRaw(stamp).expe().message, message);
+  }
+});
+
 Deno.test("a plain yearly rule stops at UNTIL without charging the following year", async () => {
   const start = at("2026-01-01T09:00:00Z");
   for (const until of ["20261231", "20261231T090000Z"]) {

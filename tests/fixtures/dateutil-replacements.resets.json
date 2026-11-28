@@ -1,0 +1,868 @@
+{
+  "type": "dateutil-replacements",
+  "name": "dateutil 2.8.2 constructor resets",
+  "source": "Python dateutil 2.8.2 rrule.replace",
+  "cases": [
+    {
+      "name": "naive reset uses host-local now",
+      "input": {
+        "lines": [
+          "DTSTART:20260115T090000",
+          "RRULE:FREQ=MONTHLY;COUNT=3"
+        ],
+        "steps": [
+          {
+            "dtstart": null
+          },
+          {
+            "dtstart": null
+          }
+        ],
+        "wkst": "MO",
+        "host": {
+          "names": [
+            "PST",
+            "PDT"
+          ],
+          "standardOffsetSeconds": -28800,
+          "daylightOffsetSeconds": -25200,
+          "transitions": [
+            [
+              0,
+              false,
+              -28800
+            ],
+            [
+              1772964000,
+              true,
+              -25200
+            ],
+            [
+              1793523600,
+              false,
+              -28800
+            ]
+          ]
+        },
+        "stepClocks": [
+          "2026-03-08T09:35:12.999Z",
+          "2026-03-08T10:35:12.032Z"
+        ]
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:20260115T090000\nRRULE:FREQ=MONTHLY;COUNT=3",
+          "starts": [
+            "2026-01-15T09:00:00",
+            "2026-02-15T09:00:00",
+            "2026-03-15T09:00:00"
+          ]
+        },
+        "changes": [
+          {
+            "text": "DTSTART:20260308T013512\nRRULE:FREQ=MONTHLY;COUNT=3",
+            "starts": [
+              "2026-03-08T01:35:12",
+              "2026-04-08T01:35:12",
+              "2026-05-08T01:35:12"
+            ]
+          },
+          {
+            "text": "DTSTART:20260308T033512\nRRULE:FREQ=MONTHLY;COUNT=3",
+            "starts": [
+              "2026-03-08T03:35:12",
+              "2026-04-08T03:35:12",
+              "2026-05-08T03:35:12"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "reset clears previous UTC awareness",
+      "input": {
+        "lines": [
+          "DTSTART:20260115T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "steps": [
+          {
+            "dtstart": null
+          },
+          {}
+        ],
+        "wkst": "MO",
+        "host": {
+          "names": [
+            "PST",
+            "PDT"
+          ],
+          "standardOffsetSeconds": -28800,
+          "daylightOffsetSeconds": -25200,
+          "transitions": [
+            [
+              0,
+              false,
+              -28800
+            ],
+            [
+              1772964000,
+              true,
+              -25200
+            ],
+            [
+              1793523600,
+              false,
+              -28800
+            ]
+          ]
+        },
+        "stepClocks": [
+          "2026-07-01T01:02:03.456Z",
+          null
+        ]
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:20260115T090000\nRRULE:FREQ=DAILY;COUNT=3",
+          "starts": [
+            "2026-01-15T09:00:00Z",
+            "2026-01-16T09:00:00Z",
+            "2026-01-17T09:00:00Z"
+          ]
+        },
+        "changes": [
+          {
+            "text": "DTSTART:20260630T180203\nRRULE:FREQ=DAILY;COUNT=3",
+            "starts": [
+              "2026-06-30T18:02:03",
+              "2026-07-01T18:02:03",
+              "2026-07-02T18:02:03"
+            ]
+          },
+          {
+            "text": "DTSTART:20260630T180203\nRRULE:FREQ=DAILY;COUNT=3",
+            "starts": [
+              "2026-06-30T18:02:03",
+              "2026-07-01T18:02:03",
+              "2026-07-02T18:02:03"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "reset preserves UTC UNTIL awareness",
+      "input": {
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=DAILY;UNTIL=20260309T235959Z"
+        ],
+        "steps": [
+          {
+            "dtstart": null
+          },
+          {
+            "dtstart": null,
+            "until": null,
+            "count": 3
+          }
+        ],
+        "wkst": "MO",
+        "host": {
+          "names": [
+            "PST",
+            "PDT"
+          ],
+          "standardOffsetSeconds": -28800,
+          "daylightOffsetSeconds": -25200,
+          "transitions": [
+            [
+              0,
+              false,
+              -28800
+            ],
+            [
+              1772964000,
+              true,
+              -25200
+            ],
+            [
+              1793523600,
+              false,
+              -28800
+            ]
+          ]
+        },
+        "stepClocks": [
+          "2026-03-06T19:12:45.500Z",
+          "2026-03-07T01:02:03.456Z"
+        ]
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:20260306T090000\nRRULE:FREQ=DAILY;UNTIL=20260309T235959",
+          "starts": [
+            "2026-03-06T09:00:00Z",
+            "2026-03-07T09:00:00Z",
+            "2026-03-08T09:00:00Z",
+            "2026-03-09T09:00:00Z"
+          ]
+        },
+        "changes": [
+          {
+            "text": "DTSTART:20260306T191245\nRRULE:FREQ=DAILY;UNTIL=20260309T235959",
+            "starts": [
+              "2026-03-06T19:12:45Z",
+              "2026-03-07T19:12:45Z",
+              "2026-03-08T19:12:45Z",
+              "2026-03-09T19:12:45Z"
+            ]
+          },
+          {
+            "text": "DTSTART:20260306T170203\nRRULE:FREQ=DAILY;COUNT=3",
+            "starts": [
+              "2026-03-06T17:02:03",
+              "2026-03-07T17:02:03",
+              "2026-03-08T17:02:03"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "reset uses inherited fixed-offset UNTIL",
+      "input": {
+        "lines": [
+          "DTSTART:20260306T090000Z",
+          "RRULE:FREQ=DAILY;UNTIL=20260309T235959+0545"
+        ],
+        "steps": [
+          {
+            "dtstart": null
+          },
+          {
+            "interval": 2
+          },
+          {
+            "dtstart": null
+          }
+        ],
+        "wkst": "MO",
+        "host": {
+          "names": [
+            "PST",
+            "PDT"
+          ],
+          "standardOffsetSeconds": -28800,
+          "daylightOffsetSeconds": -25200,
+          "transitions": [
+            [
+              0,
+              false,
+              -28800
+            ],
+            [
+              1772964000,
+              true,
+              -25200
+            ],
+            [
+              1793523600,
+              false,
+              -28800
+            ]
+          ]
+        },
+        "stepClocks": [
+          "2026-03-06T19:12:45.500Z",
+          null,
+          "2026-03-07T20:05:06Z"
+        ]
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:20260306T090000\nRRULE:FREQ=DAILY;UNTIL=20260309T235959",
+          "starts": [
+            "2026-03-06T09:00:00Z",
+            "2026-03-07T09:00:00Z",
+            "2026-03-08T09:00:00Z",
+            "2026-03-09T09:00:00Z"
+          ]
+        },
+        "changes": [
+          {
+            "text": "DTSTART:20260307T005745\nRRULE:FREQ=DAILY;UNTIL=20260309T235959",
+            "starts": [
+              "2026-03-06T19:12:45Z",
+              "2026-03-07T19:12:45Z",
+              "2026-03-08T19:12:45Z"
+            ]
+          },
+          {
+            "text": "DTSTART:20260307T005745\nRRULE:FREQ=DAILY;INTERVAL=2;UNTIL=20260309T235959",
+            "starts": [
+              "2026-03-06T19:12:45Z",
+              "2026-03-08T19:12:45Z"
+            ]
+          },
+          {
+            "text": "DTSTART:20260308T015006\nRRULE:FREQ=DAILY;INTERVAL=2;UNTIL=20260309T235959",
+            "starts": [
+              "2026-03-07T20:05:06Z"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "reset uses new offset cutoff",
+      "input": {
+        "lines": [
+          "DTSTART:20260306T090000",
+          "RRULE:FREQ=WEEKLY;COUNT=3"
+        ],
+        "steps": [
+          {
+            "dtstart": null,
+            "until": "20260409T235959-0330",
+            "count": null
+          }
+        ],
+        "wkst": "MO",
+        "host": {
+          "names": [
+            "PST",
+            "PDT"
+          ],
+          "standardOffsetSeconds": -28800,
+          "daylightOffsetSeconds": -25200,
+          "transitions": [
+            [
+              0,
+              false,
+              -28800
+            ],
+            [
+              1772964000,
+              true,
+              -25200
+            ],
+            [
+              1793523600,
+              false,
+              -28800
+            ]
+          ]
+        },
+        "stepClocks": [
+          "2026-03-06T19:12:45.500Z"
+        ]
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:20260306T090000\nRRULE:FREQ=WEEKLY;COUNT=3",
+          "starts": [
+            "2026-03-06T09:00:00",
+            "2026-03-13T09:00:00",
+            "2026-03-20T09:00:00"
+          ]
+        },
+        "changes": [
+          {
+            "text": "DTSTART:20260306T154245\nRRULE:FREQ=WEEKLY;UNTIL=20260409T235959",
+            "starts": [
+              "2026-03-06T19:12:45Z",
+              "2026-03-13T19:12:45Z",
+              "2026-03-20T19:12:45Z",
+              "2026-03-27T19:12:45Z",
+              "2026-04-03T19:12:45Z"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "reset selects wall cutoff when local UNTIL has a zero offset",
+      "input": {
+        "lines": [
+          "DTSTART:20260328T000000Z",
+          "RRULE:FREQ=HOURLY;UNTIL=20260329T003000GMT"
+        ],
+        "steps": [
+          {
+            "dtstart": null
+          },
+          {
+            "interval": 2
+          }
+        ],
+        "wkst": "MO",
+        "host": {
+          "names": [
+            "GMT",
+            "BST"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 3600,
+          "transitions": [
+            [
+              0,
+              false,
+              0
+            ],
+            [
+              1774746000,
+              true,
+              3600
+            ],
+            [
+              1792890000,
+              false,
+              0
+            ]
+          ]
+        },
+        "stepClocks": [
+          "2026-03-29T00:00:00Z",
+          null
+        ]
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:20260328T000000\nRRULE:FREQ=HOURLY;UNTIL=20260329T003000",
+          "starts": [
+            "2026-03-28T00:00:00Z",
+            "2026-03-28T01:00:00Z",
+            "2026-03-28T02:00:00Z",
+            "2026-03-28T03:00:00Z",
+            "2026-03-28T04:00:00Z",
+            "2026-03-28T05:00:00Z",
+            "2026-03-28T06:00:00Z",
+            "2026-03-28T07:00:00Z",
+            "2026-03-28T08:00:00Z",
+            "2026-03-28T09:00:00Z",
+            "2026-03-28T10:00:00Z",
+            "2026-03-28T11:00:00Z",
+            "2026-03-28T12:00:00Z",
+            "2026-03-28T13:00:00Z",
+            "2026-03-28T14:00:00Z",
+            "2026-03-28T15:00:00Z",
+            "2026-03-28T16:00:00Z",
+            "2026-03-28T17:00:00Z",
+            "2026-03-28T18:00:00Z",
+            "2026-03-28T19:00:00Z",
+            "2026-03-28T20:00:00Z",
+            "2026-03-28T21:00:00Z",
+            "2026-03-28T22:00:00Z",
+            "2026-03-28T23:00:00Z",
+            "2026-03-29T00:00:00Z"
+          ]
+        },
+        "changes": [
+          {
+            "text": "DTSTART:20260329T000000\nRRULE:FREQ=HOURLY;UNTIL=20260329T003000",
+            "starts": [
+              "2026-03-29T00:00:00Z"
+            ]
+          },
+          {
+            "text": "DTSTART:20260329T000000\nRRULE:FREQ=HOURLY;INTERVAL=2;UNTIL=20260329T003000",
+            "starts": [
+              "2026-03-29T00:00:00Z"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "aware reset on the second side of a local fall fold",
+      "input": {
+        "lines": [
+          "DTSTART:20261101T080000Z",
+          "RRULE:FREQ=HOURLY;UNTIL=20261101T040000PST"
+        ],
+        "steps": [
+          {
+            "dtstart": null
+          },
+          {
+            "interval": 2
+          }
+        ],
+        "wkst": "MO",
+        "host": {
+          "names": [
+            "PST",
+            "PDT"
+          ],
+          "standardOffsetSeconds": -28800,
+          "daylightOffsetSeconds": -25200,
+          "transitions": [
+            [
+              0,
+              false,
+              -28800
+            ],
+            [
+              1772964000,
+              true,
+              -25200
+            ],
+            [
+              1793523600,
+              false,
+              -28800
+            ]
+          ]
+        },
+        "stepClocks": [
+          "2026-11-01T09:30:00Z",
+          null
+        ]
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:20261101T080000\nRRULE:FREQ=HOURLY;UNTIL=20261101T040000",
+          "starts": [
+            "2026-11-01T08:00:00Z",
+            "2026-11-01T09:00:00Z",
+            "2026-11-01T10:00:00Z",
+            "2026-11-01T11:00:00Z",
+            "2026-11-01T12:00:00Z"
+          ]
+        },
+        "changes": [
+          {
+            "text": "DTSTART:20261101T013000\nRRULE:FREQ=HOURLY;UNTIL=20261101T040000",
+            "starts": [
+              "2026-11-01T08:30:00Z",
+              "2026-11-01T10:30:00Z",
+              "2026-11-01T11:30:00Z"
+            ]
+          },
+          {
+            "text": "DTSTART:20261101T013000\nRRULE:FREQ=HOURLY;INTERVAL=2;UNTIL=20261101T040000",
+            "starts": [
+              "2026-11-01T08:30:00Z",
+              "2026-11-01T11:30:00Z"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "local cutoff follows wall time across spring transition",
+      "input": {
+        "lines": [
+          "DTSTART:20260308T080000Z",
+          "RRULE:FREQ=HOURLY;UNTIL=20260308T040000PDT"
+        ],
+        "steps": [
+          {
+            "dtstart": null
+          }
+        ],
+        "wkst": "MO",
+        "host": {
+          "names": [
+            "PST",
+            "PDT"
+          ],
+          "standardOffsetSeconds": -28800,
+          "daylightOffsetSeconds": -25200,
+          "transitions": [
+            [
+              0,
+              false,
+              -28800
+            ],
+            [
+              1772964000,
+              true,
+              -25200
+            ],
+            [
+              1793523600,
+              false,
+              -28800
+            ]
+          ]
+        },
+        "stepClocks": [
+          "2026-03-08T09:30:00Z"
+        ]
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:20260308T080000\nRRULE:FREQ=HOURLY;UNTIL=20260308T040000",
+          "starts": [
+            "2026-03-08T08:00:00Z",
+            "2026-03-08T09:00:00Z",
+            "2026-03-08T10:00:00Z",
+            "2026-03-08T11:00:00Z"
+          ]
+        },
+        "changes": [
+          {
+            "text": "DTSTART:20260308T013000\nRRULE:FREQ=HOURLY;UNTIL=20260308T040000",
+            "starts": [
+              "2026-03-08T09:30:00Z",
+              "2026-03-08T09:30:00Z",
+              "2026-03-08T10:30:00Z"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "WKST reset uses supplied default",
+      "input": {
+        "lines": [
+          "DTSTART:20260103T090000",
+          "RRULE:FREQ=WEEKLY;INTERVAL=2;WKST=MO;BYDAY=SA,SU;COUNT=7"
+        ],
+        "steps": [
+          {
+            "wkst": null
+          },
+          {
+            "wkst": "WE"
+          },
+          {
+            "wkst": null
+          },
+          {}
+        ],
+        "wkst": "SU",
+        "host": {
+          "names": [
+            "UTC",
+            "UTC"
+          ],
+          "standardOffsetSeconds": 0,
+          "daylightOffsetSeconds": 0,
+          "transitions": [
+            [
+              0,
+              false,
+              0
+            ]
+          ]
+        },
+        "stepClocks": null
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:20260103T090000\nRRULE:FREQ=WEEKLY;INTERVAL=2;COUNT=7;BYDAY=SA,SU",
+          "starts": [
+            "2026-01-03T09:00:00",
+            "2026-01-04T09:00:00",
+            "2026-01-17T09:00:00",
+            "2026-01-18T09:00:00",
+            "2026-01-31T09:00:00",
+            "2026-02-01T09:00:00",
+            "2026-02-14T09:00:00"
+          ]
+        },
+        "changes": [
+          {
+            "text": "DTSTART:20260103T090000\nRRULE:FREQ=WEEKLY;INTERVAL=2;WKST=SU;COUNT=7;BYDAY=SA,SU",
+            "starts": [
+              "2026-01-03T09:00:00",
+              "2026-01-11T09:00:00",
+              "2026-01-17T09:00:00",
+              "2026-01-25T09:00:00",
+              "2026-01-31T09:00:00",
+              "2026-02-08T09:00:00",
+              "2026-02-14T09:00:00"
+            ]
+          },
+          {
+            "text": "DTSTART:20260103T090000\nRRULE:FREQ=WEEKLY;INTERVAL=2;WKST=WE;COUNT=7;BYDAY=SA,SU",
+            "starts": [
+              "2026-01-03T09:00:00",
+              "2026-01-04T09:00:00",
+              "2026-01-17T09:00:00",
+              "2026-01-18T09:00:00",
+              "2026-01-31T09:00:00",
+              "2026-02-01T09:00:00",
+              "2026-02-14T09:00:00"
+            ]
+          },
+          {
+            "text": "DTSTART:20260103T090000\nRRULE:FREQ=WEEKLY;INTERVAL=2;WKST=SU;COUNT=7;BYDAY=SA,SU",
+            "starts": [
+              "2026-01-03T09:00:00",
+              "2026-01-11T09:00:00",
+              "2026-01-17T09:00:00",
+              "2026-01-25T09:00:00",
+              "2026-01-31T09:00:00",
+              "2026-02-08T09:00:00",
+              "2026-02-14T09:00:00"
+            ]
+          },
+          {
+            "text": "DTSTART:20260103T090000\nRRULE:FREQ=WEEKLY;INTERVAL=2;WKST=SU;COUNT=7;BYDAY=SA,SU",
+            "starts": [
+              "2026-01-03T09:00:00",
+              "2026-01-11T09:00:00",
+              "2026-01-17T09:00:00",
+              "2026-01-25T09:00:00",
+              "2026-01-31T09:00:00",
+              "2026-02-08T09:00:00",
+              "2026-02-14T09:00:00"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "WKST and DTSTART reset together",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=WEEKLY;INTERVAL=2;WKST=WE;BYDAY=MO,TH;COUNT=5"
+        ],
+        "steps": [
+          {
+            "wkst": null,
+            "dtstart": null
+          }
+        ],
+        "wkst": "SA",
+        "host": {
+          "names": [
+            "PST",
+            "PDT"
+          ],
+          "standardOffsetSeconds": -28800,
+          "daylightOffsetSeconds": -25200,
+          "transitions": [
+            [
+              0,
+              false,
+              -28800
+            ],
+            [
+              1772964000,
+              true,
+              -25200
+            ],
+            [
+              1793523600,
+              false,
+              -28800
+            ]
+          ]
+        },
+        "stepClocks": [
+          "2026-03-06T19:12:45.500Z"
+        ]
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:20260101T090000\nRRULE:FREQ=WEEKLY;INTERVAL=2;WKST=WE;COUNT=5;BYDAY=MO,TH",
+          "starts": [
+            "2026-01-01T09:00:00",
+            "2026-01-05T09:00:00",
+            "2026-01-15T09:00:00",
+            "2026-01-19T09:00:00",
+            "2026-01-29T09:00:00"
+          ]
+        },
+        "changes": [
+          {
+            "text": "DTSTART:20260306T111245\nRRULE:FREQ=WEEKLY;INTERVAL=2;WKST=SA;COUNT=5;BYDAY=MO,TH",
+            "starts": [
+              "2026-03-16T11:12:45",
+              "2026-03-19T11:12:45",
+              "2026-03-30T11:12:45",
+              "2026-04-02T11:12:45",
+              "2026-04-13T11:12:45"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "without resets keep inherited WKST and DTSTART",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000",
+          "RRULE:FREQ=WEEKLY;INTERVAL=2;WKST=FR;BYDAY=FR,TH;COUNT=5"
+        ],
+        "steps": [
+          {
+            "interval": 3
+          },
+          {}
+        ],
+        "wkst": "SU",
+        "host": {
+          "names": [
+            "PST",
+            "PDT"
+          ],
+          "standardOffsetSeconds": -28800,
+          "daylightOffsetSeconds": -25200,
+          "transitions": [
+            [
+              0,
+              false,
+              -28800
+            ],
+            [
+              1772964000,
+              true,
+              -25200
+            ],
+            [
+              1793523600,
+              false,
+              -28800
+            ]
+          ]
+        },
+        "stepClocks": [
+          null,
+          null
+        ]
+      },
+      "expected": {
+        "original": {
+          "text": "DTSTART:20260101T090000\nRRULE:FREQ=WEEKLY;INTERVAL=2;WKST=FR;COUNT=5;BYDAY=TH,FR",
+          "starts": [
+            "2026-01-01T09:00:00",
+            "2026-01-09T09:00:00",
+            "2026-01-15T09:00:00",
+            "2026-01-23T09:00:00",
+            "2026-01-29T09:00:00"
+          ]
+        },
+        "changes": [
+          {
+            "text": "DTSTART:20260101T090000\nRRULE:FREQ=WEEKLY;INTERVAL=3;WKST=FR;COUNT=5;BYDAY=TH,FR",
+            "starts": [
+              "2026-01-01T09:00:00",
+              "2026-01-16T09:00:00",
+              "2026-01-22T09:00:00",
+              "2026-02-06T09:00:00",
+              "2026-02-12T09:00:00"
+            ]
+          },
+          {
+            "text": "DTSTART:20260101T090000\nRRULE:FREQ=WEEKLY;INTERVAL=3;WKST=FR;COUNT=5;BYDAY=TH,FR",
+            "starts": [
+              "2026-01-01T09:00:00",
+              "2026-01-16T09:00:00",
+              "2026-01-22T09:00:00",
+              "2026-02-06T09:00:00",
+              "2026-02-12T09:00:00"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

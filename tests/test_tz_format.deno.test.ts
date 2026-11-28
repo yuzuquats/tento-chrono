@@ -19,6 +19,33 @@ import { TimezoneRegion } from "../chrono/timezone-region.ts";
 import type { Tzname } from "../chrono/timezone.ts";
 import type { MsSinceEpoch } from "../chrono/units/units.ts";
 
+Deno.test("served timezone fixtures form continuous offset histories", async () => {
+  const directory = new URL("./timezones/2024b/", import.meta.url);
+  for await (const { name, isFile } of Deno.readDir(directory)) {
+    if (!isFile || !name.endsWith(".json")) continue;
+    const tzname = name.slice(0, -5).replaceAll("~", "/") as Tzname;
+    const entries: TimezoneRegion.Transition.Serialized[] = JSON.parse(
+      await Deno.readTextFile(new URL(name, directory)),
+    );
+    assert(entries.length > 0, tzname);
+    let previous: TimezoneRegion.Transition | undefined;
+    for (const entry of entries) {
+      const transition = TimezoneRegion.Transition.parse(entry, tzname);
+      const label = `${tzname} at ${entry.before}`;
+      assertEquals(transition.before.mse, transition.after.time.mse, label);
+      if (previous != null) {
+        assert(previous.before.mse < transition.before.mse, label);
+        assertEquals(
+          previous.after.time.tz.info.offset.toMs,
+          transition.before.time.tz.info.offset.toMs,
+          label,
+        );
+      }
+      previous = transition;
+    }
+  }
+});
+
 const STANDING = { before: "1900-01-01T10:00:00+10:00", before_tz_abbr: "+10", after: "1900-01-01T10:00:00+10:00", after_tz_abbr: "+10" };
 
 /** The zone service's own loader (`DYNAMIC_LOADER`, its decoder included) over a fetch that answers each name with `files`. */

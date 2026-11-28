@@ -1,0 +1,202 @@
+{
+  "type": "recurrence-profile",
+  "name": "rrule.js 2.8.1 DTSTART parameter handling",
+  "source": "rrule.js 2.8.1 rrulestr(forceset: true) with frozen Date",
+  "cases": [
+    {
+      "name": "ignore VALUE=DATE",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20260301",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-12",
+        "rruleJsNow": "2026-03-08T12:34:56Z",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-03",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-08T12:34:56Z",
+        "2026-03-09T12:34:56Z"
+      ]
+    },
+    {
+      "name": "ignore VALUE=DATE-TIME",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE-TIME:20260301T080000Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-12",
+        "rruleJsNow": "2026-03-08T12:34:56Z",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-03",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-08T12:34:56Z",
+        "2026-03-09T12:34:56Z"
+      ]
+    },
+    {
+      "name": "ignore X parameter",
+      "input": {
+        "lines": [
+          "DTSTART;X-NOTE=comment:20260301T080000Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-12",
+        "rruleJsNow": "2026-03-08T12:34:56Z",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-03",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-08T12:34:56Z",
+        "2026-03-09T12:34:56Z"
+      ]
+    },
+    {
+      "name": "ignore start before a recognized one",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20260301",
+          "DTSTART:20260303",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-12",
+        "rruleJsNow": "2026-03-08T12:34:56Z",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-03",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-03",
+        "2026-03-04"
+      ]
+    },
+    {
+      "name": "ignore start after a recognized one",
+      "input": {
+        "lines": [
+          "DTSTART:20260303",
+          "DTSTART;VALUE=DATE:20260301",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-12",
+        "rruleJsNow": "2026-03-08T12:34:56Z",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-03",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-03",
+        "2026-03-04"
+      ]
+    },
+    {
+      "name": "ignore date-time with multiple params",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE-TIME;TZID=America/New_York:20260301T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-12",
+        "rruleJsNow": "2026-03-08T12:34:56Z",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-03",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-08T12:34:56Z",
+        "2026-03-09T12:34:56Z"
+      ]
+    },
+    {
+      "name": "ignore start for explicit-date set",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20260301",
+          "RDATE:20260308T090000Z"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-12",
+        "rruleJsNow": "2026-03-08T12:34:56Z",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-03",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-08T09:00:00Z"
+      ]
+    },
+    {
+      "name": "ignore start in empty set",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20260301"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-12",
+        "rruleJsNow": "2026-03-08T12:34:56Z",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-03",
+          "2026-03-08"
+        ]
+      },
+      "expected": []
+    },
+    {
+      "name": "ignore start for exclusion rule",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20260301",
+          "RDATE:20260308T123456Z,20260310T090000Z",
+          "EXRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "profile": "rrule-js",
+        "rruleJsHostTimeZone": "UTC",
+        "through": "2026-03-12",
+        "rruleJsNow": "2026-03-08T12:34:56Z",
+        "checkpoints": [
+          "2026-03-01",
+          "2026-03-03",
+          "2026-03-08"
+        ]
+      },
+      "expected": [
+        "2026-03-10T09:00:00Z"
+      ]
+    }
+  ]
+}

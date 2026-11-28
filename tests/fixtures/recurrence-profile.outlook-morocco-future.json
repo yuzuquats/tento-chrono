@@ -1,0 +1,385 @@
+{
+  "type": "recurrence-profile",
+  "name": "Outlook Graph Windows Morocco future recurrence offsets",
+  "source": "Microsoft Graph v1.0 calendarView, captured 2026-11-22 on a dedicated test calendar",
+  "cases": [
+    {
+      "name": "morocco-january-2029",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2029-01-12T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2029-01-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2029-01-24",
+        "checkpoints": [
+          "2029-01-12",
+          "2029-01-14"
+        ]
+      },
+      "expected": [
+        "2029-01-12T12:30:00Z",
+        "2029-01-13T12:30:00Z",
+        "2029-01-14T12:30:00Z",
+        "2029-01-15T12:30:00Z",
+        "2029-01-16T12:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-february-2029",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2029-02-09T02:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2029-02-09",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2029-02-21",
+        "checkpoints": [
+          "2029-02-09",
+          "2029-02-11"
+        ]
+      },
+      "expected": [
+        "2029-02-09T02:30:00Z",
+        "2029-02-10T02:30:00Z",
+        "2029-02-11T02:30:00Z",
+        "2029-02-12T02:30:00Z",
+        "2029-02-13T02:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-march-2029",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2029-03-16T02:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2029-03-16",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2029-03-28",
+        "checkpoints": [
+          "2029-03-16",
+          "2029-03-18"
+        ]
+      },
+      "expected": [
+        "2029-03-16T02:30:00Z",
+        "2029-03-17T02:30:00Z",
+        "2029-03-18T02:30:00Z",
+        "2029-03-19T02:30:00Z",
+        "2029-03-20T02:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-july-2029",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2029-07-12T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2029-07-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2029-07-24",
+        "checkpoints": [
+          "2029-07-12",
+          "2029-07-14"
+        ]
+      },
+      "expected": [
+        "2029-07-12T12:30:00Z",
+        "2029-07-13T12:30:00Z",
+        "2029-07-14T12:30:00Z",
+        "2029-07-15T12:30:00Z",
+        "2029-07-16T12:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-january-2030",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2030-01-12T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2030-01-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2030-01-24",
+        "checkpoints": [
+          "2030-01-12",
+          "2030-01-14"
+        ]
+      },
+      "expected": [
+        "2030-01-12T12:30:00Z",
+        "2030-01-13T12:30:00Z",
+        "2030-01-14T12:30:00Z",
+        "2030-01-15T12:30:00Z",
+        "2030-01-16T12:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-july-2030",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2030-07-12T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2030-07-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2030-07-24",
+        "checkpoints": [
+          "2030-07-12",
+          "2030-07-14"
+        ]
+      },
+      "expected": [
+        "2030-07-12T12:30:00Z",
+        "2030-07-13T12:30:00Z",
+        "2030-07-14T12:30:00Z",
+        "2030-07-15T12:30:00Z",
+        "2030-07-16T12:30:00Z"
+      ]
+    },
+    {
+      "name": "morocco-july-2032",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2032-07-12T00:15:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2032-07-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2032-07-24",
+        "checkpoints": [
+          "2032-07-12",
+          "2032-07-14"
+        ]
+      },
+      "expected": [
+        "2032-07-12T00:15:00Z",
+        "2032-07-13T00:15:00Z",
+        "2032-07-14T00:15:00Z",
+        "2032-07-15T00:15:00Z",
+        "2032-07-16T00:15:00Z"
+      ]
+    },
+    {
+      "name": "morocco-july-2035",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2035-07-12T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "Morocco Standard Time",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "",
+              "startDate": "2035-07-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2035-07-24",
+        "checkpoints": [
+          "2035-07-12",
+          "2035-07-14"
+        ]
+      },
+      "expected": [
+        "2035-07-12T12:30:00Z",
+        "2035-07-13T12:30:00Z",
+        "2035-07-14T12:30:00Z",
+        "2035-07-15T12:30:00Z",
+        "2035-07-16T12:30:00Z"
+      ]
+    },
+    {
+      "name": "utc-july-2035",
+      "input": {
+        "graph": {
+          "start": {
+            "dateTime": "2035-07-12T12:30:00.0000000",
+            "timeZone": "UTC"
+          },
+          "originalStartTimeZone": "UTC",
+          "isAllDay": false,
+          "recurrence": {
+            "pattern": {
+              "dayOfMonth": 0,
+              "firstDayOfWeek": "sunday",
+              "index": "first",
+              "interval": 1,
+              "month": 0,
+              "type": "daily"
+            },
+            "range": {
+              "endDate": "0001-01-01",
+              "numberOfOccurrences": 5,
+              "recurrenceTimeZone": "UTC",
+              "startDate": "2035-07-12",
+              "type": "numbered"
+            }
+          }
+        },
+        "through": "2035-07-24",
+        "checkpoints": [
+          "2035-07-12",
+          "2035-07-14"
+        ]
+      },
+      "expected": [
+        "2035-07-12T12:30:00Z",
+        "2035-07-13T12:30:00Z",
+        "2035-07-14T12:30:00Z",
+        "2035-07-15T12:30:00Z",
+        "2035-07-16T12:30:00Z"
+      ]
+    }
+  ]
+}

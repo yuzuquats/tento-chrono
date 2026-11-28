@@ -1,0 +1,207 @@
+{
+  "type": "recurrence-profile",
+  "name": "RFC 5545 DATE clock selectors",
+  "source": "RFC 5545 \u00a73.3.10, dateutil 2.8.2 and Python Gregorian calendar after omitting clock selectors",
+  "cases": [
+    {
+      "name": "DATE daily ignores clocks and applies civil inclusions and exclusions",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20240101",
+          "RRULE:FREQ=DAILY;UNTIL=20240108;BYHOUR=6,14;BYMINUTE=0,30;BYSECOND=0,59",
+          "EXDATE;VALUE=DATE:20240101",
+          "RDATE;VALUE=DATE:20231230,20240301"
+        ],
+        "through": "2028-03-14",
+        "checkpoints": [
+          "2023-12-30",
+          "2024-01-01",
+          "2024-01-02",
+          "2024-01-05",
+          "2024-03-02",
+          "2024-12-31"
+        ]
+      },
+      "expected": [
+        "2023-12-30",
+        "2024-01-02",
+        "2024-01-03",
+        "2024-01-04",
+        "2024-01-05",
+        "2024-01-06",
+        "2024-01-07",
+        "2024-01-08",
+        "2024-03-01"
+      ]
+    },
+    {
+      "name": "DATE weekly BYSETPOS ranks whole days",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20240101",
+          "RRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR;WKST=SU;BYSETPOS=1,-1;UNTIL=20240108;BYHOUR=6,14;BYMINUTE=0,30;BYSECOND=0,59"
+        ],
+        "through": "2028-03-14",
+        "checkpoints": [
+          "2023-12-30",
+          "2024-01-01",
+          "2024-01-02",
+          "2024-01-05",
+          "2024-03-02",
+          "2024-12-31"
+        ]
+      },
+      "expected": [
+        "2024-01-01",
+        "2024-01-05",
+        "2024-01-08"
+      ]
+    },
+    {
+      "name": "DATE monthly COUNT stays independent of clock selectors",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20240101",
+          "RRULE:FREQ=MONTHLY;BYDAY=MO,FR;BYSETPOS=1,-1;COUNT=8;BYHOUR=6,14;BYMINUTE=0,30;BYSECOND=0,59"
+        ],
+        "through": "2028-03-14",
+        "checkpoints": [
+          "2023-12-30",
+          "2024-01-01",
+          "2024-01-02",
+          "2024-01-05",
+          "2024-03-02",
+          "2024-12-31"
+        ]
+      },
+      "expected": [
+        "2024-01-01",
+        "2024-01-29",
+        "2024-02-02",
+        "2024-02-26",
+        "2024-03-01",
+        "2024-03-29",
+        "2024-04-01",
+        "2024-04-29"
+      ]
+    },
+    {
+      "name": "DATE yearly positions ignore clocks across ISO week-year boundaries",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20240101",
+          "RRULE:FREQ=YEARLY;BYWEEKNO=1,13;BYDAY=MO,FR;BYSETPOS=1,-1;COUNT=8;BYHOUR=6,14;BYMINUTE=0,30;BYSECOND=0,59"
+        ],
+        "through": "2028-03-14",
+        "checkpoints": [
+          "2023-12-30",
+          "2024-01-01",
+          "2024-01-02",
+          "2024-01-05",
+          "2024-03-02",
+          "2024-12-31"
+        ]
+      },
+      "expected": [
+        "2024-01-01",
+        "2024-03-29",
+        "2024-12-30",
+        "2025-03-28",
+        "2025-12-29",
+        "2026-03-27",
+        "2027-01-04",
+        "2027-04-02"
+      ]
+    },
+    {
+      "name": "DATE hourly ignores clocks and removes the whole excluded day",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20240101",
+          "RRULE:FREQ=HOURLY;INTERVAL=19;COUNT=8;BYHOUR=6,14;BYMINUTE=0,30;BYSECOND=0,59",
+          "EXDATE;VALUE=DATE:20240101",
+          "RDATE;VALUE=DATE:20231230,20240301"
+        ],
+        "through": "2028-03-14",
+        "checkpoints": [
+          "2023-12-30",
+          "2024-01-01",
+          "2024-01-02",
+          "2024-01-05",
+          "2024-03-02",
+          "2024-12-31"
+        ]
+      },
+      "expected": [
+        "2023-12-30",
+        "2024-01-02",
+        "2024-01-03",
+        "2024-01-04",
+        "2024-01-05",
+        "2024-01-06",
+        "2024-03-01"
+      ]
+    },
+    {
+      "name": "DATE minutely excludes the DTSTART date after COUNT",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20240101",
+          "RRULE:FREQ=MINUTELY;INTERVAL=1439;COUNT=8;BYHOUR=6,14;BYMINUTE=0,30;BYSECOND=0,59",
+          "EXDATE;VALUE=DATE:20240101",
+          "RDATE;VALUE=DATE:20231230,20240301"
+        ],
+        "through": "2028-03-14",
+        "checkpoints": [
+          "2023-12-30",
+          "2024-01-01",
+          "2024-01-02",
+          "2024-01-05",
+          "2024-03-02",
+          "2024-12-31"
+        ]
+      },
+      "expected": [
+        "2023-12-30",
+        "2024-01-02",
+        "2024-01-03",
+        "2024-01-04",
+        "2024-01-05",
+        "2024-01-06",
+        "2024-01-07",
+        "2024-03-01"
+      ]
+    },
+    {
+      "name": "DATE secondly UNTIL includes the entire final day",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20240101",
+          "RRULE:FREQ=SECONDLY;INTERVAL=86399;UNTIL=20240108;BYHOUR=6,14;BYMINUTE=0,30;BYSECOND=0,59",
+          "EXDATE;VALUE=DATE:20240101",
+          "RDATE;VALUE=DATE:20231230,20240301"
+        ],
+        "through": "2028-03-14",
+        "checkpoints": [
+          "2023-12-30",
+          "2024-01-01",
+          "2024-01-02",
+          "2024-01-05",
+          "2024-03-02",
+          "2024-12-31"
+        ]
+      },
+      "expected": [
+        "2023-12-30",
+        "2024-01-02",
+        "2024-01-03",
+        "2024-01-04",
+        "2024-01-05",
+        "2024-01-06",
+        "2024-01-07",
+        "2024-01-08",
+        "2024-03-01"
+      ]
+    }
+  ]
+}

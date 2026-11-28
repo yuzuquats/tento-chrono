@@ -1,0 +1,602 @@
+{
+  "type": "recurrence-profile",
+  "name": "RFC 5545 recurrence requirements",
+  "source": "RFC 5545 normative requirements, indicated per case",
+  "cases": [
+    {
+      "name": "dtstart-rejects-duplicate-tzid",
+      "reference": "3.8.2.4",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York;tzid=America/Los_Angeles:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": {
+        "error": "Duplicate TZID parameter"
+      }
+    },
+    {
+      "name": "dtstart-rejects-duplicate-value",
+      "reference": "3.8.2.4",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE-TIME;value=DATE-TIME:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": {
+        "error": "Duplicate VALUE parameter"
+      }
+    },
+    {
+      "name": "rdate-rejects-duplicate-tzid",
+      "reference": "3.8.5.2",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RDATE;TZID=America/New_York;tzid=America/Los_Angeles:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": {
+        "error": "Duplicate TZID parameter"
+      }
+    },
+    {
+      "name": "rdate-rejects-duplicate-value",
+      "reference": "3.8.5.2",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RDATE;VALUE=DATE-TIME;value=DATE-TIME:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": {
+        "error": "Duplicate VALUE parameter"
+      }
+    },
+    {
+      "name": "exdate-rejects-duplicate-tzid",
+      "reference": "3.8.5.1",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "EXDATE;TZID=America/New_York;tzid=America/Los_Angeles:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": {
+        "error": "Duplicate TZID parameter"
+      }
+    },
+    {
+      "name": "exdate-rejects-duplicate-value",
+      "reference": "3.8.5.1",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "EXDATE;VALUE=DATE-TIME;value=DATE-TIME:20260101T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": {
+        "error": "Duplicate VALUE parameter"
+      }
+    },
+    {
+      "name": "setpos-count-and-exclusion-precedence",
+      "reference": "3.3.10, 3.8.5.1–3",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=MONTHLY;BYMONTHDAY=1,2;BYSETPOS=1,-1;COUNT=4",
+          "RDATE:20260101T090000Z,20260102T090000Z,20260301T090000Z",
+          "EXDATE:20260102T090000Z"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-02-01T09:00:00Z",
+        "2026-02-02T09:00:00Z",
+        "2026-03-01T09:00:00Z"
+      ]
+    },
+    {
+      "name": "interval-two-across-new-year-wkst-mo",
+      "reference": "3.3.10",
+      "input": {
+        "lines": [
+          "DTSTART:20241225T090000Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=WE,SU;COUNT=4;WKST=MO"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2024-12-25T09:00:00Z",
+        "2024-12-29T09:00:00Z",
+        "2025-01-08T09:00:00Z",
+        "2025-01-12T09:00:00Z"
+      ]
+    },
+    {
+      "name": "interval-two-across-new-year-wkst-su",
+      "reference": "3.3.10",
+      "input": {
+        "lines": [
+          "DTSTART:20241225T090000Z",
+          "RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=WE,SU;COUNT=4;WKST=SU"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2024-12-25T09:00:00Z",
+        "2025-01-05T09:00:00Z",
+        "2025-01-08T09:00:00Z",
+        "2025-01-19T09:00:00Z"
+      ]
+    },
+    {
+      "name": "utc-until-remains-inclusive-across-dst",
+      "reference": "3.3.10, 3.3.5",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260307T013000",
+          "RRULE:FREQ=DAILY;UNTIL=20260309T053000Z"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-03-07T06:30:00Z",
+        "2026-03-08T06:30:00Z",
+        "2026-03-09T05:30:00Z"
+      ]
+    },
+    {
+      "name": "secondly-interval-and-bysecond-across-midnight",
+      "reference": "3.3.10",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T235958Z",
+          "RRULE:FREQ=SECONDLY;INTERVAL=2;BYSECOND=0,58;COUNT=4"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": [
+        "2026-01-01T23:59:58Z",
+        "2026-01-02T00:00:00Z",
+        "2026-01-02T00:00:58Z",
+        "2026-01-02T00:01:00Z"
+      ]
+    },
+    {
+      "name": "reject-empty-tzid",
+      "reference": "3.2.19",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=:20260101T090000"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": {
+        "error": "Missing TZID parameter value"
+      }
+    },
+    {
+      "name": "reject-empty-value",
+      "reference": "3.2.20",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=:20260101T090000Z"
+        ],
+        "through": "2026-04-02"
+      },
+      "expected": {
+        "error": "Missing VALUE parameter value"
+      }
+    },
+    {
+      "name": "zoned-period-rejects-reversed-instants-in-gap",
+      "reference": "3.3.5, 3.3.9, 3.8.5.2",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260307T023000",
+          "RDATE;VALUE=PERIOD;TZID=America/New_York:20260308T023000/20260308T031500"
+        ],
+        "through": "2026-03-10"
+      },
+      "expected": {
+        "error": "RDATE period end must follow its start"
+      }
+    },
+    {
+      "name": "zoned-period-accepts-increasing-instants-in-gap",
+      "reference": "3.3.5, 3.3.9, 3.8.5.2",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260307T023000",
+          "RDATE;VALUE=PERIOD;TZID=America/New_York:20260308T031500/20260308T023000"
+        ],
+        "through": "2026-03-10"
+      },
+      "expected": [
+        "2026-03-07T07:30:00Z",
+        "2026-03-08T07:15:00Z"
+      ]
+    },
+    {
+      "name": "zoned-period-rejects-equal-instants-in-gap",
+      "reference": "3.3.5, 3.3.9, 3.8.5.2",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20260307T023000",
+          "RDATE;VALUE=PERIOD;TZID=America/New_York:20260308T023000/20260308T033000"
+        ],
+        "through": "2026-03-10"
+      },
+      "expected": {
+        "error": "RDATE period end must follow its start"
+      }
+    },
+    {
+      "name": "same-zone-fold-exdate-keeps-second-explicit-instant",
+      "reference": "3.3.5, 3.8.5.1–3",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261031T013000",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "EXDATE;TZID=America/New_York:20261101T013000",
+          "RDATE:20261101T063000Z"
+        ],
+        "through": "2026-11-05"
+      },
+      "expected": [
+        "2026-10-31T05:30:00Z",
+        "2026-11-01T06:30:00Z",
+        "2026-11-02T06:30:00Z"
+      ]
+    },
+    {
+      "name": "civil-exdate-wins-over-rule-and-rdate",
+      "reference": "3.3.4, 3.3.10, 3.8.5.1–3",
+      "input": {
+        "lines": [
+          "DTSTART;VALUE=DATE:20260101",
+          "RRULE:FREQ=DAILY;COUNT=3",
+          "RDATE;VALUE=DATE:20260102,20260104",
+          "EXDATE;VALUE=DATE:20260102"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01",
+        "2026-01-03",
+        "2026-01-04"
+      ]
+    },
+    {
+      "name": "alias-exdate-matches-the-first-fold-instant",
+      "reference": "3.3.5, 3.8.5.1",
+      "input": {
+        "lines": [
+          "DTSTART;TZID=America/New_York:20261101T013000",
+          "RRULE:FREQ=DAILY;COUNT=2",
+          "EXDATE;TZID=EST5EDT:20261101T013000"
+        ],
+        "through": "2026-11-05"
+      },
+      "expected": [
+        "2026-11-02T06:30:00Z"
+      ]
+    },
+    {
+      "name": "early-utc-year-is-literal",
+      "reference": "3.3.5",
+      "input": {
+        "lines": [
+          "DTSTART:00990228T090000Z",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "through": "2000-01-01"
+      },
+      "expected": [
+        "0099-02-28T09:00:00Z",
+        "0099-03-01T09:00:00Z",
+        "0099-03-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "external-utc-year-is-padded",
+      "reference": "3.3.4, 3.3.5",
+      "input": {
+        "dtstart": {
+          "dateTime": "0100-02-28T09:00:00Z"
+        },
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "0101-01-01"
+      },
+      "expected": [
+        "0100-02-28T09:00:00Z",
+        "0100-03-01T09:00:00Z"
+      ]
+    },
+    {
+      "name": "external-date-year-is-padded",
+      "reference": "3.3.4, 3.3.5",
+      "input": {
+        "dtstart": {
+          "date": "0099-12-31"
+        },
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "0101-01-01"
+      },
+      "expected": [
+        "0099-12-31",
+        "0100-01-01"
+      ]
+    },
+    {
+      "name": "external-floating-year-is-padded",
+      "reference": "3.3.4, 3.3.5",
+      "input": {
+        "dtstart": {
+          "dateTime": "0004-02-28T09:00:00"
+        },
+        "lines": [
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ],
+        "through": "0101-01-01"
+      },
+      "expected": [
+        "0004-02-28T09:00:00",
+        "0004-02-29T09:00:00"
+      ]
+    },
+    {
+      "name": "repeated-clock-selector-denotes-one-value",
+      "reference": "3.3.10, 3.8.5.3",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=9,9;COUNT=4"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z",
+        "2026-01-04T09:00:00Z"
+      ]
+    },
+    {
+      "name": "negative-position-outside-period-is-ignored",
+      "reference": "3.3.10",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=9,12;BYSETPOS=-3,1;COUNT=3"
+        ],
+        "through": "2026-02-01"
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z",
+        "2026-01-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "unreachable-weekday-ordinal-does-not-reject-rfc-rule",
+      "reference": "3.3.10",
+      "input": {
+        "lines": [
+          "DTSTART:20250106T090000Z",
+          "RRULE:FREQ=MONTHLY;BYDAY=1MO,53MO;COUNT=2"
+        ],
+        "through": "2025-03-01"
+      },
+      "expected": [
+        "2025-01-06T09:00:00Z",
+        "2025-02-03T09:00:00Z"
+      ]
+    },
+    {
+      "name": "bysecond-rejects-extra-digits",
+      "reference": "3.3.10",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;BYSECOND=000;COUNT=1"
+        ],
+        "through": "2026-01-04"
+      },
+      "expected": {
+        "error": "Invalid BYSECOND"
+      }
+    },
+    {
+      "name": "byminute-rejects-extra-digits",
+      "reference": "3.3.10",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;BYMINUTE=00,000;COUNT=1"
+        ],
+        "through": "2026-01-04"
+      },
+      "expected": {
+        "error": "Invalid BYMINUTE"
+      }
+    },
+    {
+      "name": "byhour-rejects-extra-digits",
+      "reference": "3.3.10",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=DAILY;BYHOUR=009;COUNT=1"
+        ],
+        "through": "2026-01-04"
+      },
+      "expected": {
+        "error": "Invalid BYHOUR"
+      }
+    },
+    {
+      "name": "bymonthday-rejects-extra-digits",
+      "reference": "3.3.10",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=MONTHLY;BYMONTHDAY=+001;COUNT=1"
+        ],
+        "through": "2026-01-04"
+      },
+      "expected": {
+        "error": "Invalid BYMONTHDAY"
+      }
+    },
+    {
+      "name": "byyearday-rejects-extra-digits",
+      "reference": "3.3.10",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=YEARLY;BYYEARDAY=-0365;COUNT=1"
+        ],
+        "through": "2026-01-04"
+      },
+      "expected": {
+        "error": "Invalid BYYEARDAY"
+      }
+    },
+    {
+      "name": "byweekno-rejects-extra-digits",
+      "reference": "3.3.10",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=YEARLY;BYWEEKNO=001;COUNT=1"
+        ],
+        "through": "2026-01-04"
+      },
+      "expected": {
+        "error": "Invalid BYWEEKNO"
+      }
+    },
+    {
+      "name": "bymonth-rejects-extra-digits",
+      "reference": "3.3.10",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=YEARLY;BYMONTH=001;COUNT=1"
+        ],
+        "through": "2026-01-04"
+      },
+      "expected": {
+        "error": "Invalid BYMONTH"
+      }
+    },
+    {
+      "name": "bysetpos-rejects-extra-digits",
+      "reference": "3.3.10",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=MONTHLY;BYSETPOS=+0001;BYDAY=TH;COUNT=1"
+        ],
+        "through": "2026-01-04"
+      },
+      "expected": {
+        "error": "Invalid BYSETPOS"
+      }
+    },
+    {
+      "name": "clock-selectors-accept-two-digits",
+      "reference": "3.3.10",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:BYSECOND=00;BYMINUTE=00;FREQ=DAILY;COUNT=02;BYHOUR=09"
+        ],
+        "through": "2026-01-04",
+        "checkpoints": [
+          "2026-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-01-02T09:00:00Z"
+      ]
+    },
+    {
+      "name": "year-day-and-setpos-accept-three-signed-digits",
+      "reference": "3.3.10",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=YEARLY;BYYEARDAY=+001,-001;BYSETPOS=+001,-001;COUNT=2"
+        ],
+        "through": "2026-12-31",
+        "checkpoints": [
+          "2026-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-12-31T09:00:00Z"
+      ]
+    },
+    {
+      "name": "month-and-monthday-accept-two-digits",
+      "reference": "3.3.10",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=YEARLY;BYMONTH=01,02;BYMONTHDAY=+01;COUNT=2"
+        ],
+        "through": "2026-02-01",
+        "checkpoints": [
+          "2026-01-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-02-01T09:00:00Z"
+      ]
+    },
+    {
+      "name": "bysetpos-ignores-unavailable-negative-position",
+      "reference": "3.3.10",
+      "input": {
+        "lines": [
+          "DTSTART:20260101T090000Z",
+          "RRULE:FREQ=MONTHLY;BYMONTHDAY=1,2;BYSETPOS=-10,1;COUNT=3"
+        ],
+        "through": "2026-04-01",
+        "checkpoints": [
+          "2026-01-01",
+          "2026-02-01"
+        ]
+      },
+      "expected": [
+        "2026-01-01T09:00:00Z",
+        "2026-02-01T09:00:00Z",
+        "2026-03-01T09:00:00Z"
+      ]
+    }
+  ]
+}

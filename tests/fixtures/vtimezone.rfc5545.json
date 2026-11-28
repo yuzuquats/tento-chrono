@@ -1,0 +1,733 @@
+{
+  "type": "vtimezone",
+  "name": "RFC 5545 calendar-defined timezone tables",
+  "source": "RFC 5545 §3.6.5 and Gregorian calendar arithmetic",
+  "cases": [
+    {
+      "name": "historical New York",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:America/New_York",
+          "LAST-MODIFIED:20050809T050000Z",
+          "BEGIN:DAYLIGHT",
+          "DTSTART:19670430T020000",
+          "RRULE:FREQ=YEARLY;BYMONTH=4;BYDAY=-1SU;UNTIL=19730429T070000Z",
+          "TZOFFSETFROM:-0500",
+          "TZOFFSETTO:-0400",
+          "TZNAME:EDT",
+          "END:DAYLIGHT",
+          "BEGIN:STANDARD",
+          "DTSTART:19671029T020000",
+          "RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU;UNTIL=20061029T060000Z",
+          "TZOFFSETFROM:-0400",
+          "TZOFFSETTO:-0500",
+          "TZNAME:EST",
+          "END:STANDARD",
+          "BEGIN:DAYLIGHT",
+          "DTSTART:19740106T020000",
+          "RDATE:19750223T020000",
+          "TZOFFSETFROM:-0500",
+          "TZOFFSETTO:-0400",
+          "TZNAME:EDT",
+          "END:DAYLIGHT",
+          "BEGIN:DAYLIGHT",
+          "DTSTART:19760425T020000",
+          "RRULE:FREQ=YEARLY;BYMONTH=4;BYDAY=-1SU;UNTIL=19860427T070000Z",
+          "TZOFFSETFROM:-0500",
+          "TZOFFSETTO:-0400",
+          "TZNAME:EDT",
+          "END:DAYLIGHT",
+          "BEGIN:DAYLIGHT",
+          "DTSTART:19870405T020000",
+          "RRULE:FREQ=YEARLY;BYMONTH=4;BYDAY=1SU;UNTIL=20060402T070000Z",
+          "TZOFFSETFROM:-0500",
+          "TZOFFSETTO:-0400",
+          "TZNAME:EDT",
+          "END:DAYLIGHT",
+          "BEGIN:DAYLIGHT",
+          "DTSTART:20070311T020000",
+          "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU",
+          "TZOFFSETFROM:-0500",
+          "TZOFFSETTO:-0400",
+          "TZNAME:EDT",
+          "END:DAYLIGHT",
+          "BEGIN:STANDARD",
+          "DTSTART:20071104T020000",
+          "RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU",
+          "TZOFFSETFROM:-0400",
+          "TZOFFSETTO:-0500",
+          "TZNAME:EST",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2012-12-31",
+        "event": [
+          "DTSTART;TZID=America/New_York:20061028T013000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "checkpoints": [
+          "2006-10-28",
+          "2006-10-29"
+        ]
+      },
+      "expected": {
+        "name": "America/New_York",
+        "transitions": [
+          ["1967-04-30T07:00:00Z", -18000, -14400, "EDT"],
+          ["1967-10-29T06:00:00Z", -14400, -18000, "EST"],
+          ["1968-04-28T07:00:00Z", -18000, -14400, "EDT"],
+          ["1968-10-27T06:00:00Z", -14400, -18000, "EST"],
+          ["1969-04-27T07:00:00Z", -18000, -14400, "EDT"],
+          ["1969-10-26T06:00:00Z", -14400, -18000, "EST"],
+          ["1970-04-26T07:00:00Z", -18000, -14400, "EDT"],
+          ["1970-10-25T06:00:00Z", -14400, -18000, "EST"],
+          ["1971-04-25T07:00:00Z", -18000, -14400, "EDT"],
+          ["1971-10-31T06:00:00Z", -14400, -18000, "EST"],
+          ["1972-04-30T07:00:00Z", -18000, -14400, "EDT"],
+          ["1972-10-29T06:00:00Z", -14400, -18000, "EST"],
+          ["1973-04-29T07:00:00Z", -18000, -14400, "EDT"],
+          ["1973-10-28T06:00:00Z", -14400, -18000, "EST"],
+          ["1974-01-06T07:00:00Z", -18000, -14400, "EDT"],
+          ["1974-10-27T06:00:00Z", -14400, -18000, "EST"],
+          ["1975-02-23T07:00:00Z", -18000, -14400, "EDT"],
+          ["1975-10-26T06:00:00Z", -14400, -18000, "EST"],
+          ["1976-04-25T07:00:00Z", -18000, -14400, "EDT"],
+          ["1976-10-31T06:00:00Z", -14400, -18000, "EST"],
+          ["1977-04-24T07:00:00Z", -18000, -14400, "EDT"],
+          ["1977-10-30T06:00:00Z", -14400, -18000, "EST"],
+          ["1978-04-30T07:00:00Z", -18000, -14400, "EDT"],
+          ["1978-10-29T06:00:00Z", -14400, -18000, "EST"],
+          ["1979-04-29T07:00:00Z", -18000, -14400, "EDT"],
+          ["1979-10-28T06:00:00Z", -14400, -18000, "EST"],
+          ["1980-04-27T07:00:00Z", -18000, -14400, "EDT"],
+          ["1980-10-26T06:00:00Z", -14400, -18000, "EST"],
+          ["1981-04-26T07:00:00Z", -18000, -14400, "EDT"],
+          ["1981-10-25T06:00:00Z", -14400, -18000, "EST"],
+          ["1982-04-25T07:00:00Z", -18000, -14400, "EDT"],
+          ["1982-10-31T06:00:00Z", -14400, -18000, "EST"],
+          ["1983-04-24T07:00:00Z", -18000, -14400, "EDT"],
+          ["1983-10-30T06:00:00Z", -14400, -18000, "EST"],
+          ["1984-04-29T07:00:00Z", -18000, -14400, "EDT"],
+          ["1984-10-28T06:00:00Z", -14400, -18000, "EST"],
+          ["1985-04-28T07:00:00Z", -18000, -14400, "EDT"],
+          ["1985-10-27T06:00:00Z", -14400, -18000, "EST"],
+          ["1986-04-27T07:00:00Z", -18000, -14400, "EDT"],
+          ["1986-10-26T06:00:00Z", -14400, -18000, "EST"],
+          ["1987-04-05T07:00:00Z", -18000, -14400, "EDT"],
+          ["1987-10-25T06:00:00Z", -14400, -18000, "EST"],
+          ["1988-04-03T07:00:00Z", -18000, -14400, "EDT"],
+          ["1988-10-30T06:00:00Z", -14400, -18000, "EST"],
+          ["1989-04-02T07:00:00Z", -18000, -14400, "EDT"],
+          ["1989-10-29T06:00:00Z", -14400, -18000, "EST"],
+          ["1990-04-01T07:00:00Z", -18000, -14400, "EDT"],
+          ["1990-10-28T06:00:00Z", -14400, -18000, "EST"],
+          ["1991-04-07T07:00:00Z", -18000, -14400, "EDT"],
+          ["1991-10-27T06:00:00Z", -14400, -18000, "EST"],
+          ["1992-04-05T07:00:00Z", -18000, -14400, "EDT"],
+          ["1992-10-25T06:00:00Z", -14400, -18000, "EST"],
+          ["1993-04-04T07:00:00Z", -18000, -14400, "EDT"],
+          ["1993-10-31T06:00:00Z", -14400, -18000, "EST"],
+          ["1994-04-03T07:00:00Z", -18000, -14400, "EDT"],
+          ["1994-10-30T06:00:00Z", -14400, -18000, "EST"],
+          ["1995-04-02T07:00:00Z", -18000, -14400, "EDT"],
+          ["1995-10-29T06:00:00Z", -14400, -18000, "EST"],
+          ["1996-04-07T07:00:00Z", -18000, -14400, "EDT"],
+          ["1996-10-27T06:00:00Z", -14400, -18000, "EST"],
+          ["1997-04-06T07:00:00Z", -18000, -14400, "EDT"],
+          ["1997-10-26T06:00:00Z", -14400, -18000, "EST"],
+          ["1998-04-05T07:00:00Z", -18000, -14400, "EDT"],
+          ["1998-10-25T06:00:00Z", -14400, -18000, "EST"],
+          ["1999-04-04T07:00:00Z", -18000, -14400, "EDT"],
+          ["1999-10-31T06:00:00Z", -14400, -18000, "EST"],
+          ["2000-04-02T07:00:00Z", -18000, -14400, "EDT"],
+          ["2000-10-29T06:00:00Z", -14400, -18000, "EST"],
+          ["2001-04-01T07:00:00Z", -18000, -14400, "EDT"],
+          ["2001-10-28T06:00:00Z", -14400, -18000, "EST"],
+          ["2002-04-07T07:00:00Z", -18000, -14400, "EDT"],
+          ["2002-10-27T06:00:00Z", -14400, -18000, "EST"],
+          ["2003-04-06T07:00:00Z", -18000, -14400, "EDT"],
+          ["2003-10-26T06:00:00Z", -14400, -18000, "EST"],
+          ["2004-04-04T07:00:00Z", -18000, -14400, "EDT"],
+          ["2004-10-31T06:00:00Z", -14400, -18000, "EST"],
+          ["2005-04-03T07:00:00Z", -18000, -14400, "EDT"],
+          ["2005-10-30T06:00:00Z", -14400, -18000, "EST"],
+          ["2006-04-02T07:00:00Z", -18000, -14400, "EDT"],
+          ["2006-10-29T06:00:00Z", -14400, -18000, "EST"],
+          ["2007-03-11T07:00:00Z", -18000, -14400, "EDT"],
+          ["2007-11-04T06:00:00Z", -14400, -18000, "EST"],
+          ["2008-03-09T07:00:00Z", -18000, -14400, "EDT"],
+          ["2008-11-02T06:00:00Z", -14400, -18000, "EST"],
+          ["2009-03-08T07:00:00Z", -18000, -14400, "EDT"],
+          ["2009-11-01T06:00:00Z", -14400, -18000, "EST"],
+          ["2010-03-14T07:00:00Z", -18000, -14400, "EDT"],
+          ["2010-11-07T06:00:00Z", -14400, -18000, "EST"],
+          ["2011-03-13T07:00:00Z", -18000, -14400, "EDT"],
+          ["2011-11-06T06:00:00Z", -14400, -18000, "EST"],
+          ["2012-03-11T07:00:00Z", -18000, -14400, "EDT"],
+          ["2012-11-04T06:00:00Z", -14400, -18000, "EST"]
+        ],
+        "eventStarts": [
+          "2006-10-28T05:30:00Z",
+          "2006-10-29T05:30:00Z",
+          "2006-10-30T06:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "one-time New York rules",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:America/New_York",
+          "LAST-MODIFIED:20050809T050000Z",
+          "BEGIN:STANDARD",
+          "DTSTART:20071104T020000",
+          "TZOFFSETFROM:-0400",
+          "TZOFFSETTO:-0500",
+          "TZNAME:EST",
+          "END:STANDARD",
+          "BEGIN:DAYLIGHT",
+          "DTSTART:20070311T020000",
+          "TZOFFSETFROM:-0500",
+          "TZOFFSETTO:-0400",
+          "TZNAME:EDT",
+          "END:DAYLIGHT",
+          "END:VTIMEZONE"
+        ],
+        "through": "2012-12-31"
+      },
+      "expected": {
+        "name": "America/New_York",
+        "transitions": [
+          ["2007-03-11T07:00:00Z", -18000, -14400, "EDT"],
+          ["2007-11-04T06:00:00Z", -14400, -18000, "EST"]
+        ]
+      }
+    },
+    {
+      "name": "ongoing New York rules",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:America/New_York",
+          "LAST-MODIFIED:20050809T050000Z",
+          "TZURL:http://zones.example.com/tz/America-New_York.ics",
+          "BEGIN:STANDARD",
+          "DTSTART:20071104T020000",
+          "RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU",
+          "TZOFFSETFROM:-0400",
+          "TZOFFSETTO:-0500",
+          "TZNAME:EST",
+          "END:STANDARD",
+          "BEGIN:DAYLIGHT",
+          "DTSTART:20070311T020000",
+          "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU",
+          "TZOFFSETFROM:-0500",
+          "TZOFFSETTO:-0400",
+          "TZNAME:EDT",
+          "END:DAYLIGHT",
+          "END:VTIMEZONE"
+        ],
+        "through": "2012-12-31",
+        "event": [
+          "DTSTART;TZID=America/New_York:20070310T023000",
+          "RRULE:FREQ=DAILY;COUNT=3"
+        ],
+        "checkpoints": [
+          "2007-03-10",
+          "2007-03-11"
+        ]
+      },
+      "expected": {
+        "name": "America/New_York",
+        "transitions": [
+          ["2007-03-11T07:00:00Z", -18000, -14400, "EDT"],
+          ["2007-11-04T06:00:00Z", -14400, -18000, "EST"],
+          ["2008-03-09T07:00:00Z", -18000, -14400, "EDT"],
+          ["2008-11-02T06:00:00Z", -14400, -18000, "EST"],
+          ["2009-03-08T07:00:00Z", -18000, -14400, "EDT"],
+          ["2009-11-01T06:00:00Z", -14400, -18000, "EST"],
+          ["2010-03-14T07:00:00Z", -18000, -14400, "EDT"],
+          ["2010-11-07T06:00:00Z", -14400, -18000, "EST"],
+          ["2011-03-13T07:00:00Z", -18000, -14400, "EDT"],
+          ["2011-11-06T06:00:00Z", -14400, -18000, "EST"],
+          ["2012-03-11T07:00:00Z", -18000, -14400, "EDT"],
+          ["2012-11-04T06:00:00Z", -14400, -18000, "EST"]
+        ],
+        "eventStarts": [
+          "2007-03-10T07:30:00Z",
+          "2007-03-11T07:30:00Z",
+          "2007-03-12T06:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "ended fictitious daylight",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:Fictitious",
+          "LAST-MODIFIED:19870101T000000Z",
+          "BEGIN:STANDARD",
+          "DTSTART:19671029T020000",
+          "RRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=10",
+          "TZOFFSETFROM:-0400",
+          "TZOFFSETTO:-0500",
+          "TZNAME:EST",
+          "END:STANDARD",
+          "BEGIN:DAYLIGHT",
+          "DTSTART:19870405T020000",
+          "RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=4;UNTIL=19980404T070000Z",
+          "TZOFFSETFROM:-0500",
+          "TZOFFSETTO:-0400",
+          "TZNAME:EDT",
+          "END:DAYLIGHT",
+          "END:VTIMEZONE"
+        ],
+        "through": "2012-12-31"
+      },
+      "expected": {
+        "name": "Fictitious",
+        "transitions": [
+          ["1967-10-29T06:00:00Z", -14400, -18000, "EST"],
+          ["1968-10-27T06:00:00Z", -18000, -18000, "EST"],
+          ["1969-10-26T06:00:00Z", -18000, -18000, "EST"],
+          ["1970-10-25T06:00:00Z", -18000, -18000, "EST"],
+          ["1971-10-31T06:00:00Z", -18000, -18000, "EST"],
+          ["1972-10-29T06:00:00Z", -18000, -18000, "EST"],
+          ["1973-10-28T06:00:00Z", -18000, -18000, "EST"],
+          ["1974-10-27T06:00:00Z", -18000, -18000, "EST"],
+          ["1975-10-26T06:00:00Z", -18000, -18000, "EST"],
+          ["1976-10-31T06:00:00Z", -18000, -18000, "EST"],
+          ["1977-10-30T06:00:00Z", -18000, -18000, "EST"],
+          ["1978-10-29T06:00:00Z", -18000, -18000, "EST"],
+          ["1979-10-28T06:00:00Z", -18000, -18000, "EST"],
+          ["1980-10-26T06:00:00Z", -18000, -18000, "EST"],
+          ["1981-10-25T06:00:00Z", -18000, -18000, "EST"],
+          ["1982-10-31T06:00:00Z", -18000, -18000, "EST"],
+          ["1983-10-30T06:00:00Z", -18000, -18000, "EST"],
+          ["1984-10-28T06:00:00Z", -18000, -18000, "EST"],
+          ["1985-10-27T06:00:00Z", -18000, -18000, "EST"],
+          ["1986-10-26T06:00:00Z", -18000, -18000, "EST"],
+          ["1987-04-05T07:00:00Z", -18000, -14400, "EDT"],
+          ["1987-10-25T06:00:00Z", -14400, -18000, "EST"],
+          ["1988-04-03T07:00:00Z", -18000, -14400, "EDT"],
+          ["1988-10-30T06:00:00Z", -14400, -18000, "EST"],
+          ["1989-04-02T07:00:00Z", -18000, -14400, "EDT"],
+          ["1989-10-29T06:00:00Z", -14400, -18000, "EST"],
+          ["1990-04-01T07:00:00Z", -18000, -14400, "EDT"],
+          ["1990-10-28T06:00:00Z", -14400, -18000, "EST"],
+          ["1991-04-07T07:00:00Z", -18000, -14400, "EDT"],
+          ["1991-10-27T06:00:00Z", -14400, -18000, "EST"],
+          ["1992-04-05T07:00:00Z", -18000, -14400, "EDT"],
+          ["1992-10-25T06:00:00Z", -14400, -18000, "EST"],
+          ["1993-04-04T07:00:00Z", -18000, -14400, "EDT"],
+          ["1993-10-31T06:00:00Z", -14400, -18000, "EST"],
+          ["1994-04-03T07:00:00Z", -18000, -14400, "EDT"],
+          ["1994-10-30T06:00:00Z", -14400, -18000, "EST"],
+          ["1995-04-02T07:00:00Z", -18000, -14400, "EDT"],
+          ["1995-10-29T06:00:00Z", -14400, -18000, "EST"],
+          ["1996-04-07T07:00:00Z", -18000, -14400, "EDT"],
+          ["1996-10-27T06:00:00Z", -14400, -18000, "EST"],
+          ["1997-04-06T07:00:00Z", -18000, -14400, "EDT"],
+          ["1997-10-26T06:00:00Z", -14400, -18000, "EST"],
+          ["1998-10-25T06:00:00Z", -18000, -18000, "EST"],
+          ["1999-10-31T06:00:00Z", -18000, -18000, "EST"],
+          ["2000-10-29T06:00:00Z", -18000, -18000, "EST"],
+          ["2001-10-28T06:00:00Z", -18000, -18000, "EST"],
+          ["2002-10-27T06:00:00Z", -18000, -18000, "EST"],
+          ["2003-10-26T06:00:00Z", -18000, -18000, "EST"],
+          ["2004-10-31T06:00:00Z", -18000, -18000, "EST"],
+          ["2005-10-30T06:00:00Z", -18000, -18000, "EST"],
+          ["2006-10-29T06:00:00Z", -18000, -18000, "EST"],
+          ["2007-10-28T06:00:00Z", -18000, -18000, "EST"],
+          ["2008-10-26T06:00:00Z", -18000, -18000, "EST"],
+          ["2009-10-25T06:00:00Z", -18000, -18000, "EST"],
+          ["2010-10-31T06:00:00Z", -18000, -18000, "EST"],
+          ["2011-10-30T06:00:00Z", -18000, -18000, "EST"],
+          ["2012-10-28T06:00:00Z", -18000, -18000, "EST"]
+        ]
+      }
+    },
+    {
+      "name": "replacement fictitious daylight",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:Fictitious",
+          "LAST-MODIFIED:19870101T000000Z",
+          "BEGIN:STANDARD",
+          "DTSTART:19671029T020000",
+          "RRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=10",
+          "TZOFFSETFROM:-0400",
+          "TZOFFSETTO:-0500",
+          "TZNAME:EST",
+          "END:STANDARD",
+          "BEGIN:DAYLIGHT",
+          "DTSTART:19870405T020000",
+          "RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=4;UNTIL=19980404T070000Z",
+          "TZOFFSETFROM:-0500",
+          "TZOFFSETTO:-0400",
+          "TZNAME:EDT",
+          "END:DAYLIGHT",
+          "BEGIN:DAYLIGHT",
+          "DTSTART:19990424T020000",
+          "RRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=4",
+          "TZOFFSETFROM:-0500",
+          "TZOFFSETTO:-0400",
+          "TZNAME:EDT",
+          "END:DAYLIGHT",
+          "END:VTIMEZONE"
+        ],
+        "through": "2012-12-31"
+      },
+      "expected": {
+        "name": "Fictitious",
+        "transitions": [
+          ["1967-10-29T06:00:00Z", -14400, -18000, "EST"],
+          ["1968-10-27T06:00:00Z", -18000, -18000, "EST"],
+          ["1969-10-26T06:00:00Z", -18000, -18000, "EST"],
+          ["1970-10-25T06:00:00Z", -18000, -18000, "EST"],
+          ["1971-10-31T06:00:00Z", -18000, -18000, "EST"],
+          ["1972-10-29T06:00:00Z", -18000, -18000, "EST"],
+          ["1973-10-28T06:00:00Z", -18000, -18000, "EST"],
+          ["1974-10-27T06:00:00Z", -18000, -18000, "EST"],
+          ["1975-10-26T06:00:00Z", -18000, -18000, "EST"],
+          ["1976-10-31T06:00:00Z", -18000, -18000, "EST"],
+          ["1977-10-30T06:00:00Z", -18000, -18000, "EST"],
+          ["1978-10-29T06:00:00Z", -18000, -18000, "EST"],
+          ["1979-10-28T06:00:00Z", -18000, -18000, "EST"],
+          ["1980-10-26T06:00:00Z", -18000, -18000, "EST"],
+          ["1981-10-25T06:00:00Z", -18000, -18000, "EST"],
+          ["1982-10-31T06:00:00Z", -18000, -18000, "EST"],
+          ["1983-10-30T06:00:00Z", -18000, -18000, "EST"],
+          ["1984-10-28T06:00:00Z", -18000, -18000, "EST"],
+          ["1985-10-27T06:00:00Z", -18000, -18000, "EST"],
+          ["1986-10-26T06:00:00Z", -18000, -18000, "EST"],
+          ["1987-04-05T07:00:00Z", -18000, -14400, "EDT"],
+          ["1987-10-25T06:00:00Z", -14400, -18000, "EST"],
+          ["1988-04-03T07:00:00Z", -18000, -14400, "EDT"],
+          ["1988-10-30T06:00:00Z", -14400, -18000, "EST"],
+          ["1989-04-02T07:00:00Z", -18000, -14400, "EDT"],
+          ["1989-10-29T06:00:00Z", -14400, -18000, "EST"],
+          ["1990-04-01T07:00:00Z", -18000, -14400, "EDT"],
+          ["1990-10-28T06:00:00Z", -14400, -18000, "EST"],
+          ["1991-04-07T07:00:00Z", -18000, -14400, "EDT"],
+          ["1991-10-27T06:00:00Z", -14400, -18000, "EST"],
+          ["1992-04-05T07:00:00Z", -18000, -14400, "EDT"],
+          ["1992-10-25T06:00:00Z", -14400, -18000, "EST"],
+          ["1993-04-04T07:00:00Z", -18000, -14400, "EDT"],
+          ["1993-10-31T06:00:00Z", -14400, -18000, "EST"],
+          ["1994-04-03T07:00:00Z", -18000, -14400, "EDT"],
+          ["1994-10-30T06:00:00Z", -14400, -18000, "EST"],
+          ["1995-04-02T07:00:00Z", -18000, -14400, "EDT"],
+          ["1995-10-29T06:00:00Z", -14400, -18000, "EST"],
+          ["1996-04-07T07:00:00Z", -18000, -14400, "EDT"],
+          ["1996-10-27T06:00:00Z", -14400, -18000, "EST"],
+          ["1997-04-06T07:00:00Z", -18000, -14400, "EDT"],
+          ["1997-10-26T06:00:00Z", -14400, -18000, "EST"],
+          ["1998-10-25T06:00:00Z", -18000, -18000, "EST"],
+          ["1999-04-24T07:00:00Z", -18000, -14400, "EDT"],
+          ["1999-04-25T07:00:00Z", -14400, -14400, "EDT"],
+          ["1999-10-31T06:00:00Z", -14400, -18000, "EST"],
+          ["2000-04-30T07:00:00Z", -18000, -14400, "EDT"],
+          ["2000-10-29T06:00:00Z", -14400, -18000, "EST"],
+          ["2001-04-29T07:00:00Z", -18000, -14400, "EDT"],
+          ["2001-10-28T06:00:00Z", -14400, -18000, "EST"],
+          ["2002-04-28T07:00:00Z", -18000, -14400, "EDT"],
+          ["2002-10-27T06:00:00Z", -14400, -18000, "EST"],
+          ["2003-04-27T07:00:00Z", -18000, -14400, "EDT"],
+          ["2003-10-26T06:00:00Z", -14400, -18000, "EST"],
+          ["2004-04-25T07:00:00Z", -18000, -14400, "EDT"],
+          ["2004-10-31T06:00:00Z", -14400, -18000, "EST"],
+          ["2005-04-24T07:00:00Z", -18000, -14400, "EDT"],
+          ["2005-10-30T06:00:00Z", -14400, -18000, "EST"],
+          ["2006-04-30T07:00:00Z", -18000, -14400, "EDT"],
+          ["2006-10-29T06:00:00Z", -14400, -18000, "EST"],
+          ["2007-04-29T07:00:00Z", -18000, -14400, "EDT"],
+          ["2007-10-28T06:00:00Z", -14400, -18000, "EST"],
+          ["2008-04-27T07:00:00Z", -18000, -14400, "EDT"],
+          ["2008-10-26T06:00:00Z", -14400, -18000, "EST"],
+          ["2009-04-26T07:00:00Z", -18000, -14400, "EDT"],
+          ["2009-10-25T06:00:00Z", -14400, -18000, "EST"],
+          ["2010-04-25T07:00:00Z", -18000, -14400, "EDT"],
+          ["2010-10-31T06:00:00Z", -14400, -18000, "EST"],
+          ["2011-04-24T07:00:00Z", -18000, -14400, "EDT"],
+          ["2011-10-30T06:00:00Z", -14400, -18000, "EST"],
+          ["2012-04-29T07:00:00Z", -18000, -14400, "EDT"],
+          ["2012-10-28T06:00:00Z", -14400, -18000, "EST"]
+        ]
+      }
+    },
+    {
+      "name": "calendar zone supersedes IANA and resolves exclusions",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:America/New_York",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0800",
+          "TZOFFSETTO:+0800",
+          "TZNAME:Calendar Standard",
+          "END:STANDARD",
+          "BEGIN:DAYLIGHT",
+          "DTSTART:20260102T020000",
+          "TZOFFSETFROM:+0800",
+          "TZOFFSETTO:+0830",
+          "TZNAME:Calendar Daylight",
+          "END:DAYLIGHT",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-04",
+        "event": [
+          "DTSTART;TZID=America/New_York:20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=4",
+          "EXDATE:20260103T003000Z"
+        ]
+      },
+      "expected": {
+        "name": "America/New_York",
+        "transitions": [
+          ["2025-12-31T16:00:00Z", 28800, 28800, "Calendar Standard"],
+          ["2026-01-01T18:00:00Z", 28800, 30600, "Calendar Daylight"]
+        ],
+        "eventStarts": [
+          "2026-01-01T01:00:00Z",
+          "2026-01-02T00:30:00Z",
+          "2026-01-04T00:30:00Z"
+        ]
+      }
+    },
+    {
+      "name": "calendar names decode text escapes and offsets retain seconds",
+      "input": {
+        "lines": [
+          "begin:vtimezone",
+          "tzid:Office\\, East\\;Floor\\n2",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:-043021",
+          "TZOFFSETTO:+001720",
+          "TZNAME:Calendar\\, East",
+          "END:STANDARD",
+          "end:vtimezone"
+        ],
+        "through": "2026-01-02",
+        "event": [
+          "DTSTART;TZID=\"Office, East;Floor^n2\":20260101T090000",
+          "RRULE:FREQ=DAILY;COUNT=2"
+        ]
+      },
+      "expected": {
+        "name": "Office, East;Floor\n2",
+        "transitions": [
+          ["2026-01-01T04:30:21Z", -16221, 1040, "Calendar, East"]
+        ],
+        "eventStarts": [
+          "2026-01-01T08:42:40Z",
+          "2026-01-02T08:42:40Z"
+        ]
+      }
+    },
+    {
+      "name": "offset spellings with zero seconds compare equally",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:America/New_York",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0800",
+          "TZOFFSETTO:+0800",
+          "TZNAME:Calendar Standard",
+          "END:STANDARD",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+080000",
+          "TZOFFSETTO:+080000",
+          "TZNAME:Second",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-03"
+      },
+      "expected": {
+        "name": "America/New_York",
+        "transitions": [
+          ["2025-12-31T16:00:00Z", 28800, 28800, "Calendar Standard"]
+        ]
+      }
+    },
+    {
+      "name": "requires an outer VTIMEZONE",
+      "input": {
+        "lines": [
+          "TZID:America/New_York",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0800",
+          "TZOFFSETTO:+0800",
+          "TZNAME:Calendar Standard",
+          "END:STANDARD",
+          "BEGIN:DAYLIGHT",
+          "DTSTART:20260102T020000",
+          "TZOFFSETFROM:+0800",
+          "TZOFFSETTO:+0830",
+          "TZNAME:Calendar Daylight",
+          "END:DAYLIGHT"
+        ],
+        "through": "2026-01-04"
+      },
+      "expected": {
+        "error": "Expected one VTIMEZONE component"
+      }
+    },
+    {
+      "name": "rejects duplicate TZID",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:America/New_York",
+          "TZID:America/New_York",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0800",
+          "TZOFFSETTO:+0800",
+          "TZNAME:Calendar Standard",
+          "END:STANDARD",
+          "BEGIN:DAYLIGHT",
+          "DTSTART:20260102T020000",
+          "TZOFFSETFROM:+0800",
+          "TZOFFSETTO:+0830",
+          "TZNAME:Calendar Daylight",
+          "END:DAYLIGHT",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-04"
+      },
+      "expected": {
+        "error": "VTIMEZONE requires exactly one TZID"
+      }
+    },
+    {
+      "name": "requires at least one observance",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:America/New_York",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-04"
+      },
+      "expected": {
+        "error": "VTIMEZONE requires at least one observance"
+      }
+    },
+    {
+      "name": "rejects unescaped TZID semicolon",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:Office;East",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0800",
+          "TZOFFSETTO:+0800",
+          "TZNAME:Calendar Standard",
+          "END:STANDARD",
+          "BEGIN:DAYLIGHT",
+          "DTSTART:20260102T020000",
+          "TZOFFSETFROM:+0800",
+          "TZOFFSETTO:+0830",
+          "TZNAME:Calendar Daylight",
+          "END:DAYLIGHT",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-04"
+      },
+      "expected": {
+        "error": "Invalid VTIMEZONE TZID"
+      }
+    },
+    {
+      "name": "rejects conflicting simultaneous offsets",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:America/New_York",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0800",
+          "TZOFFSETTO:+0800",
+          "TZNAME:Calendar Standard",
+          "END:STANDARD",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+080000",
+          "TZOFFSETTO:+0900",
+          "TZNAME:Second",
+          "END:STANDARD",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-04"
+      },
+      "expected": {
+        "error": "Conflicting VTIMEZONE onsets"
+      }
+    },
+    {
+      "name": "rejects mismatched observance marker",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:America/New_York",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0800",
+          "TZOFFSETTO:+0800",
+          "TZNAME:Calendar Standard",
+          "END:DAYLIGHT",
+          "BEGIN:DAYLIGHT",
+          "DTSTART:20260102T020000",
+          "TZOFFSETFROM:+0800",
+          "TZOFFSETTO:+0830",
+          "TZNAME:Calendar Daylight",
+          "END:DAYLIGHT",
+          "END:VTIMEZONE"
+        ],
+        "through": "2026-01-04"
+      },
+      "expected": {
+        "error": "Observance requires a matching END"
+      }
+    },
+    {
+      "name": "requires an onset in the covered window",
+      "input": {
+        "lines": [
+          "BEGIN:VTIMEZONE",
+          "TZID:America/New_York",
+          "BEGIN:STANDARD",
+          "DTSTART:20260101T000000",
+          "TZOFFSETFROM:+0800",
+          "TZOFFSETTO:+0800",
+          "TZNAME:Calendar Standard",
+          "END:STANDARD",
+          "BEGIN:DAYLIGHT",
+          "DTSTART:20260102T020000",
+          "TZOFFSETFROM:+0800",
+          "TZOFFSETTO:+0830",
+          "TZNAME:Calendar Daylight",
+          "END:DAYLIGHT",
+          "END:VTIMEZONE"
+        ],
+        "through": "2025-01-01"
+      },
+      "expected": {
+        "error": "No VTIMEZONE onset through 2025-01-01"
+      }
+    }
+  ]
+}
