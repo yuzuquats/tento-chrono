@@ -1,5 +1,6 @@
 import { Result, erm, ok } from "../result.ts";
 import { Time } from "../time.ts";
+import { readAsciiDigitPair } from "../utils.ts";
 import { Day } from "./day.ts";
 import { Hms } from "./hour-mins-secs.ts";
 import { Signed, Unit } from "./units.ts";
@@ -52,7 +53,17 @@ export namespace Ms {
       return erm(`Empty time string`);
     }
 
-    // Split by colon
+    const length = trimmed.length;
+    if (trimmed[2] === ":" && (length === 5 || (length === 8 && trimmed[5] === ":"))) {
+      const hours = readAsciiDigitPair(trimmed, 0);
+      const minutes = readAsciiDigitPair(trimmed, 3);
+      const seconds = length === 8 ? readAsciiDigitPair(trimmed, 6) : 0;
+      if (hours < 24 && minutes < 60 && seconds < 60) {
+        return ok((hours * Time.MS_PER_HR + minutes * Time.MS_PER_MIN + seconds * Time.MS_PER_SEC) as Ms);
+      }
+    }
+
+    // Variable-width fields and original diagnostics.
     const parts = trimmed.split(":");
     
     // Validate number of parts

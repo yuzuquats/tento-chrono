@@ -1,3 +1,4 @@
+import { formatDigitPair, readAsciiDigitPair } from "../utils.ts";
 import { Gecko } from "../impl.ts";
 import { GenericRange } from "../range.ts";
 import { Result, erm, ok } from "../result.ts";
@@ -28,7 +29,7 @@ import { NaiveDateTime } from "../naive-datetime.ts";
 import { Time } from "../time.ts";
 import { PartialDate } from "./partial-date.ts";
 import { TimeOfDay } from "./time-of-day.ts";
-import { Week, Yw1Like } from "./week.ts";
+import { Week, yw1, Yw1Like } from "./week.ts";
 import { YearMonth, YmLike } from "./year-month.ts";
 import { YearMonthDayFilter } from "./year-month-day-filter.ts";
 import type { Option, Optional } from "../option.ts";
@@ -200,47 +201,18 @@ class _YearMonthDay implements Ymd1Like {
   }
 
   _isoYw1(): Yw1Like {
-    // 1) Find the Monday of this year's ISO week #1
-    //    (the week containing Jan 4)
-    const jan4 = YearMonthDay.fromYmd1Exp(this.yr, 1, 4);
-    const jan4dowIso = jan4.dayOfWeek.isoDow1;
-
-    const thisYearFirstIsoMon = jan4.addDays(-(jan4dowIso - 1));
-
-    const diffDays = this.differenceInDays(thisYearFirstIsoMon);
-    let weekNumber = Math.floor(diffDays / 7) + 1;
-
-    // 2) If <1, spill into previous year's last ISO week
-    if (weekNumber < 1) {
-      const prevYear = this.yr - 1;
-      const prevJan4 = YearMonthDay.fromYmd1Exp(prevYear, 1, 4);
-      const pj4dowIso = prevJan4.dayOfWeek.isoDow1;
-      const prevYearFirstIsoMon = prevJan4.addDays(-(pj4dowIso - 1));
-      const diffDaysPrev = this.differenceInDays(prevYearFirstIsoMon);
-      return {
-        yr: prevYear,
-        wno: (Math.floor(diffDaysPrev / 7) + 1) as WeekOfYear1,
-      };
+    const year = this.yr;
+    if (!Number.isInteger(year)) this.assertValid();
+    // The epoch week's Monday is day -3, and its week index is 1.
+    const week = Math.floor((this.dse + 3) / 7) + 1;
+    const current = week - Week.weeksSinceEpoch(yw1(year, 1)) + 1;
+    if (current < 1) {
+      return yw1(year - 1, week - Week.weeksSinceEpoch(yw1(year - 1, 1)) + 1);
     }
-
-    // 3) Possibly spill into next year's first ISO week
-    //    e.g. 2024-12-30 is the Monday of 2025's week #1
-    const nextYear = this.yr + 1;
-    const nextJan4 = YearMonthDay.fromYmd1Exp(nextYear, 1, 4);
-    const nj4dowIso = nextJan4.dayOfWeek.isoDow1;
-    const nextYearFirstIsoMon = nextJan4.addDays(-(nj4dowIso - 1));
-    const diffDaysNext = this.differenceInDays(nextYearFirstIsoMon);
-    if (diffDaysNext >= 0) {
-      return {
-        yr: nextYear,
-        wno: 1 as WeekOfYear1,
-      };
+    if (current >= 53 && week >= Week.weeksSinceEpoch(yw1(year + 1, 1))) {
+      return yw1(year + 1, 1);
     }
-
-    return {
-      yr: this.yr,
-      wno: weekNumber as WeekOfYear1,
-    };
+    return yw1(year, current);
   }
 
   get isoYw1(): Yw1Like {
@@ -439,13 +411,22 @@ class _YearMonthDay implements Ymd1Like {
     step: DateUnit = DateUnit.days(1),
     options: Option<YearMonthDay.FilterPropsOptions> = null,
   ): Generator<YearMonthDay> {
+    return YearMonthDay.ndrange(this.rangeOptions(step, options));
+  }
+
+  /** @internal Pause between range periods when the cursor reaches its read window. */
+  scanRangeProps(props: YearMonthDay.FilterProps, window: YearMonthDay.RangeWindow): Generator<YearMonthDay | null> {
+    return YearMonthDay.ndscan(this.rangeOptions(props.step, props.options), window);
+  }
+
+  private rangeOptions(step: DateUnit, options: Option<YearMonthDay.FilterPropsOptions>): YearMonthDay.RangeOptions {
     const recurLimit = options?.recurLimit ?? 5_000;
     const start = this.castMaybeInValid();
     const filterr = options?.filter ?? YearMonthDay.Filter.identity();
     const filter = Array.isArray(filterr)
       ? YearMonthDay.Filter.compose(filterr)
       : filterr;
-    return YearMonthDay.ndrange({
+    return {
       start,
       step,
       filter,
@@ -455,7 +436,9 @@ class _YearMonthDay implements Ymd1Like {
       limit: options?.limit,
       weekStart: options?.weekStart ?? start.dayOfWeek,
       periodLookbehindDays: options?.periodLookbehindDays ?? undefined,
-    });
+      periodsOf: options?.periods ?? undefined,
+      allowBeforeStart: options?.allowBeforeStart === true,
+    };
   }
 
   /**
@@ -484,11 +467,9 @@ class _YearMonthDay implements Ymd1Like {
   }
 
   ical(): string {
-    return [
-      String(this.yr),
-      String(this.mth).padStart(2, "0"),
-      String(this.day).padStart(2, "0"),
-    ].join("");
+    const year = this.yr;
+    const formattedYear = year >= 0 && year < 1000 ? String(year).padStart(4, "0") : String(year);
+    return formattedYear + formatDigitPair(this.mth) + formatDigitPair(this.day);
   }
 
   format(): string {
@@ -514,6 +495,8 @@ export namespace YearMonthDay {
     recurLimit: number;
     onExhausted: () => void;
     filter: YearMonthDay.Filter | YearMonthDay.Filter[];
+    periods: (start: YearMonthDay.MaybeValid) => Iterable<YearMonthDay.MaybeValid>;
+    allowBeforeStart: boolean;
     weekStart: Weekday;
     periodLookbehindDays: number;
   }>;
@@ -554,10 +537,25 @@ export namespace YearMonthDay {
     return YearMonthDay.fromYmd1Unchecked(year, month1, day1).toResult();
   }
 
-  export function fromRfc3339(s: string): Result<YearMonthDay> {
+  function rfc3339Fields(s: string): Option<Ymd1Like> {
+    if (typeof s === "string" && s.length === 10 && s[4] === "-" && s[7] === "-") {
+      const yr = readAsciiDigitPair(s, 0) * 100 + readAsciiDigitPair(s, 2);
+      const mth = readAsciiDigitPair(s, 5);
+      const day = readAsciiDigitPair(s, 8);
+      if (!Number.isFinite(yr + mth + day)) return null;
+      return { yr, mth: mth as Month1, day: day as DayOfMonth1 };
+    }
     const match = /^(\d{4})-(\d{1,2})-(\d{1,2})$/.exec(s);
-    if (!match) return erm("invalid date format");
-    return YearMonthDay.fromYmd1Str(match[1], match[2], match[3]);
+    if (match == null) return null;
+    return { yr: Number(match[1]), mth: Number(match[2]) as Month1, day: Number(match[3]) as DayOfMonth1 };
+  }
+
+  export function fromRfc3339(s: string): Result<YearMonthDay> {
+    const fields = rfc3339Fields(s);
+    if (fields == null) return erm("invalid date format");
+    if (fields.mth < 1 || fields.mth > 12) return erm("month/bounds");
+    if (!YearMonth.isDayValid(fields, fields.day)) return erm("day/bounds");
+    return ok(new _YearMonthDay(fields, { isValid: true }).castValid());
   }
 
   export function parse(s: string): YearMonthDay {
@@ -566,7 +564,12 @@ export namespace YearMonthDay {
 
   export function parseOpt(s: Option<string>): Option<YearMonthDay> {
     if (!s) return null;
-    return YearMonthDay.fromRfc3339(s).asOk() ?? null;
+    const fields = rfc3339Fields(s);
+    // The matched fields are already decimal integers.
+    if (fields == null || fields.mth < 1 || fields.mth > 12 || !YearMonth.isDayValid(fields, fields.day)) {
+      return null;
+    }
+    return new _YearMonthDay(fields, { isValid: true }).castValid();
   }
 
   /**
@@ -719,17 +722,12 @@ export namespace YearMonthDay {
     }
   }
 
-  export function* ndrange({
-    start,
-    step,
-    recurLimit,
-    onExhausted,
-    filter,
-    end,
-    limit,
-    weekStart,
-    periodLookbehindDays = step.type === "year" ? 7 : 0,
-  }: {
+  /** @internal The inclusive civil-day bound of a date cursor's current read. */
+  export interface RangeWindow {
+    endDse: number;
+  }
+
+  export interface RangeOptions {
     start: YearMonthDay.MaybeValid;
     step: DateUnit;
     recurLimit: number;
@@ -739,7 +737,30 @@ export namespace YearMonthDay {
     limit: Option<number>;
     weekStart: Weekday;
     periodLookbehindDays?: number;
-  }): Generator<YearMonthDay> {
+    periodsOf?: (start: YearMonthDay.MaybeValid) => Iterable<YearMonthDay.MaybeValid>;
+    allowBeforeStart?: boolean;
+  }
+
+  export function* ndrange(options: RangeOptions): Generator<YearMonthDay> {
+    for (const day of ndscan(options)) {
+      if (day != null) yield day;
+    }
+  }
+
+  /** @internal A null step pauses the cursor without ending the date range. */
+  export function* ndscan({
+    start,
+    step,
+    recurLimit,
+    onExhausted,
+    filter,
+    end,
+    limit,
+    weekStart,
+    periodLookbehindDays = step.type === "year" ? 7 : 0,
+    periodsOf,
+    allowBeforeStart = false,
+  }: RangeOptions, window?: RangeWindow): Generator<YearMonthDay | null> {
     if (limit != null && limit <= 0) return;
     if (Number.isNaN(recurLimit)) throw new RangeError("recurLimit must not be NaN");
     if (recurLimit <= 0) { onExhausted?.(); return; }
@@ -760,15 +781,20 @@ export namespace YearMonthDay {
     // (BYMONTH=7;BYMONTHDAY=1 on a DAILY;INTERVAL=3 step) still reaches its
     // COUNT, and one that never matches (BYMONTH=2;BYMONTHDAY=30) ends.
     let idle = 0;
-    for (const i of YearMonthDay.ndsucc(iterStart, step, Number.MAX_SAFE_INTEGER)) {
-      if (end && firstDayOf(i, step.type).castValid().addDays(-periodLookbehindDays).cmpInvalid(end) > 0) return;
+    const candidates = periodsOf?.(iterStart) ?? YearMonthDay.ndsucc(iterStart, step, Number.MAX_SAFE_INTEGER);
+    for (const i of candidates) {
+      if (end != null || window != null) {
+        const earliest = firstDayOf(i, step.type).castValid().addDays(-periodLookbehindDays);
+        if (end != null && earliest.cmpInvalid(end) > 0) return;
+        while (window != null && earliest.dse > window.endDse) yield null;
+      }
       // Explicit required reads bound examined periods as well as output.
       if (onExhausted && ++periods > recurLimit) { onExhausted(); return; }
       let yielded = false;
       for (const [ndu, _] of filter([i, step.type])) {
         const nd = ndu.toResult().asOk();
         if (!nd) continue;
-        if (nd.cmpInvalid(start) < 0) continue;
+        if (nd.cmpInvalid(start) < 0 && !(allowBeforeStart && i.yr < start.yr)) continue;
         if (end && nd.cmpInvalid(end) > 0) continue;
         if (recurCnt >= recurLimit) { onExhausted?.(); return; }
         yield nd;
@@ -779,7 +805,7 @@ export namespace YearMonthDay {
         if (!onExhausted && recurCnt >= recurLimit) return;
       }
       if (yielded) idle = 0;
-      else if (++idle >= IDLE_PERIODS && end == null) { onExhausted?.(); return; }
+      else if (window == null && end == null && ++idle >= IDLE_PERIODS) { onExhausted?.(); return; }
 
     }
   }

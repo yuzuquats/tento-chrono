@@ -9,13 +9,113 @@ import { Duration } from "./units/duration.ts";
 import { DurationTime } from "./units/duration-time.ts";
 import { Ms } from "./units/ms.ts";
 import { TimeOfDay } from "./units/time-of-day.ts";
-import { DaysSinceEpoch, MsSinceEpoch } from "./units/units.ts";
+import { DayOfMonth1, DaysSinceEpoch, Month1, MsSinceEpoch } from "./units/units.ts";
+import { YearMonth } from "./units/year-month.ts";
 import { Weekday } from "./units/weekday.ts";
-import { YearMonthDay } from "./units/year-month-day.ts";
+import { YearMonthDay, Ymd1Like } from "./units/year-month-day.ts";
 import type { Option } from "./option.ts";
+import { readAsciiDigitPair } from "./utils.ts";
 
 const RFC3339_CACHE_MAX = 128;
-const _rfc3339Cache = new Map<string, Result<DateTime<FixedOffset>>>();
+// Keep recency in a linked list so a cache hit need not rewrite the map.
+interface Rfc3339CacheEntry {
+  text: string;
+  result: Result<DateTime<FixedOffset>>;
+  older: Rfc3339CacheEntry | undefined;
+  newer: Rfc3339CacheEntry | undefined;
+}
+const _rfc3339Cache = new Map<string, Rfc3339CacheEntry>();
+let oldestRfc3339: Rfc3339CacheEntry | undefined;
+let newestRfc3339: Rfc3339CacheEntry | undefined;
+
+function unlinkRfc3339(entry: Rfc3339CacheEntry): void {
+  if (entry.older) entry.older.newer = entry.newer;
+  else oldestRfc3339 = entry.newer;
+  if (entry.newer) entry.newer.older = entry.older;
+  else newestRfc3339 = entry.older;
+}
+
+function appendRfc3339(entry: Rfc3339CacheEntry): void {
+  entry.older = newestRfc3339;
+  entry.newer = undefined;
+  if (newestRfc3339) newestRfc3339.newer = entry;
+  else oldestRfc3339 = entry;
+  newestRfc3339 = entry;
+}
+const RFC3339_PENDING_SLOTS = 512;
+
+class Rfc3339Pending {
+  #keys = new Array<string | undefined>(RFC3339_PENDING_SLOTS).fill(undefined);
+  #lookups = new Uint32Array(RFC3339_PENDING_SLOTS);
+  #size = 0;
+  #collisions = new Map<string, number>();
+
+  get size(): number {
+    return this.#size + this.#collisions.size;
+  }
+
+  clear(): void {
+    const keys = this.#keys;
+    for (let i = 0; i < keys.length; i++) keys[i] = undefined;
+    this.#size = 0;
+    if (this.#collisions.size !== 0) this.#collisions.clear();
+  }
+
+  // The deferred key is distinct from all keys already in the table.
+  add(text: string, bucket: number, lookup: number): void {
+    if (this.#keys[bucket] === undefined) {
+      this.#keys[bucket] = text;
+      this.#lookups[bucket] = lookup;
+      this.#size++;
+    } else {
+      this.#collisions.set(text, lookup);
+    }
+  }
+
+  // A probationary match is removed whether we admit it or refresh its lookup.
+  take(text: string, bucket: number): number | undefined {
+    if (this.#keys[bucket] === text) {
+      this.#keys[bucket] = undefined;
+      this.#size--;
+      return this.#lookups[bucket];
+    }
+    const lookup = this.#collisions.get(text);
+    if (lookup !== undefined) this.#collisions.delete(text);
+    return lookup;
+  }
+}
+
+let rfc3339Pending: Rfc3339Pending | undefined;
+
+// Mix fields already read by the scanner. The table also compares the exact text.
+function rfc3339PendingBucket(
+  text: string,
+  year: number,
+  month: number,
+  day: number,
+  timeMs: number,
+): number {
+  return typeof text === "string"
+    ? (Math.imul((year * 372 + month * 31 + day) ^ timeMs, 0x9e3779b1) >>> 16) &
+      (RFC3339_PENDING_SLOTS - 1)
+    : 0;
+}
+
+let rfc3339Lookup = 0;
+// Keep the newest probationary key out of the map until another miss arrives.
+const lastPendingRfc3339 = {
+  text: undefined as string | undefined,
+  lookup: 0,
+  year: 0,
+  month: 0,
+  day: 0,
+  timeMs: 0,
+  bucket: 0,
+  timezone: undefined as LogicalTimezone<FixedOffset> | undefined,
+};
+let lastRfc3339OffsetKey = 0;
+let lastRfc3339OffsetZone: LogicalTimezone<FixedOffset> | undefined;
+let rfc3339OffsetZones: Map<number, LogicalTimezone<FixedOffset>> | undefined;
 
 /**
  * Represents a specific moment in time with associated timezone information.
@@ -423,6 +523,10 @@ export class DateTime<TzType extends string = any> {
   /**
    * Formats the DateTime as an RFC 3339 / ISO 8601 string.
    * Includes the date, time (with millisecond precision if non-zero), and timezone offset (Z for UTC or +/-HH:MM).
+   * Historical offsets with seconds are rounded to a minute, with the wall time adjusted to preserve the instant.
+   * If the nearest minute would produce a 24-hour offset or a year outside 0000–9999,
+   * use the other adjacent minute when it fits. If neither minute fits, format in UTC.
+   * UTC years outside 0000–9999 keep the extended year spelling, outside RFC 3339.
    * @returns The formatted string.
    *
    * @example
@@ -442,8 +546,24 @@ export class DateTime<TzType extends string = any> {
    * ```
    */
   rfc3339(): string {
-    // YYYY-MM-DD, "T", HH:MM:SS or HH:MM:SS.ms, Z or +/-HH:MM
-    return `${this.ndt.date.rfc3339()}T${this.ndt.time.toString()}${this.tz.rfc3339}`;
+    const offset = this.tz.info.offset;
+    if (offset.toMs % Time.MS_PER_MIN === 0 && Math.abs(offset.toMs) < Time.MS_PER_DAY) {
+      return `${this.ndt.date.rfc3339()}T${this.ndt.time.toString()}${this.tz.rfc3339}`;
+    }
+    const offsetMins = offset.toMinsF;
+    const lower = Math.floor(offsetMins);
+    const nearest = Math.round(offsetMins);
+    const adjacent = nearest === lower ? Math.ceil(offsetMins) : lower;
+    const epoch = this.mse;
+    for (const mins of [nearest, adjacent]) {
+      const rounded = Duration.Time.mins(mins);
+      if (Math.abs(rounded.toMs) >= Time.MS_PER_DAY) continue;
+      const wall = NaiveDateTime.fromMse((epoch + rounded.toMs) as MsSinceEpoch);
+      if (wall.date.yr >= 0 && wall.date.yr <= 9999) {
+        return `${wall.date.rfc3339()}T${wall.time.toString()}${rounded.asSignedHm()}`;
+      }
+    }
+    return this.toUtc().rfc3339();
   }
 
   /**
@@ -564,79 +684,240 @@ export namespace DateTime {
   ): Result<DateTime<FixedOffset>> {
     // LRU cache for repeated parses of the same string (common during
     // calendar cold start where cells share dates).
-    if (!tzname && !tzabbr) {
+    const cacheable = !tzname && !tzabbr;
+    const lookup = cacheable ? (rfc3339Lookup = (rfc3339Lookup + 1) >>> 0) : 0;
+    if (cacheable) {
+      if (lookup === 0) {
+        rfc3339Pending?.clear();
+        lastPendingRfc3339.text = undefined;
+      }
       const cached = _rfc3339Cache.get(rfc3339);
       if (cached) {
-        // Promote to end of Map (most recently used)
-        _rfc3339Cache.delete(rfc3339);
-        _rfc3339Cache.set(rfc3339, cached);
-        return cached;
+        if (cached !== newestRfc3339) {
+          unlinkRfc3339(cached);
+          appendRfc3339(cached);
+        }
+        return cached.result;
+      }
+      const pending = lastPendingRfc3339;
+      if (rfc3339 === pending.text && pending.text !== undefined && lookup === pending.lookup + 1) {
+        // Reuse validation, but keep the mutable date fields and caches independent.
+        const fields = {
+          yr: pending.year,
+          mth: pending.month as Month1,
+          day: pending.day as DayOfMonth1,
+        };
+        const result = buildRfc3339(fields, pending.timeMs, pending.timezone!);
+        replaceOldestRfc3339(rfc3339, result);
+        return result;
       }
     }
 
+    return scanRfc3339(rfc3339, false, cacheable ? lookup : undefined, tzname, tzabbr);
+  }
+
+  /**
+   * Reads the Unix epoch milliseconds encoded by a timestamp without creating
+   * a DateTime. Uses the same input grammar and millisecond rounding as
+   * `fromRfc3339`. A timestamp without an offset is read as UTC.
+   * The value is derived from the text independently of cached DateTimes.
+   */
+  export function epochFromRfc3339(rfc3339: string): Result<MsSinceEpoch> {
+    return scanRfc3339(rfc3339, true);
+  }
+
+  function scanRfc3339(rfc3339: string, epochOnly: true): Result<MsSinceEpoch>;
+  function scanRfc3339(
+    rfc3339: string,
+    epochOnly: false,
+    lookup: number | undefined,
+    tzname?: Option<string>,
+    tzabbr?: Option<string>,
+  ): Result<DateTime<FixedOffset>>;
+  function scanRfc3339(
+    rfc3339: string,
+    epochOnly: boolean,
+    lookup?: number,
+    tzname?: Option<string>,
+    tzabbr?: Option<string>,
+  ): Result<DateTime<FixedOffset> | MsSinceEpoch> {
     // Scan fixed fields without match arrays, field slices or offset splits.
     // Every separator/digit and the final cursor are checked before construction.
     const len = rfc3339.length;
-    const digits = (pos: number, n: number): number => {
-      let value = 0;
-      if (pos + n > len) return NaN;
-      for (let i = pos; i < pos + n; i++) {
-        const d = rfc3339.charCodeAt(i) - 48;
-        if (d < 0 || d > 9) return NaN;
-        value = value * 10 + d;
-      }
-      return value;
-    };
-    const year = digits(0, 4), month = digits(5, 2), day = digits(8, 2);
-    let h = 0, m = 0, sec = 0, fractionMs = 0, offset = "Z", cursor = 10;
+    const year = readAsciiDigitPair(rfc3339, 0) * 100 + readAsciiDigitPair(rfc3339, 2);
+    const month = readAsciiDigitPair(rfc3339, 5), day = readAsciiDigitPair(rfc3339, 8);
+    let h = 0, m = 0, sec = 0, fractionMs = 0, cursor = 10;
+    let offsetStart = 0, offsetKey = 0, offsetMs = 0;
     if (len < 10 || rfc3339[4] !== "-" || rfc3339[7] !== "-" ||
       !Number.isFinite(year + month + day)) return erm("DateTime.fromRfc3339: Invalid format");
     if (len > 10) {
       if ((rfc3339[10] !== "T" && rfc3339[10] !== "t") ||
         rfc3339[13] !== ":" || rfc3339[16] !== ":") return erm("DateTime.fromRfc3339: Invalid format");
-      h = digits(11, 2); m = digits(14, 2); sec = digits(17, 2); cursor = 19;
+      h = readAsciiDigitPair(rfc3339, 11);
+      m = readAsciiDigitPair(rfc3339, 14);
+      sec = readAsciiDigitPair(rfc3339, 17);
+      cursor = 19;
       if (!Number.isFinite(h + m + sec) || h > 23 || m > 59 || sec > 59) return erm("DateTime.fromRfc3339: Invalid time");
       if (rfc3339[cursor] === ".") {
-        const begin = cursor++;
-        while (cursor < len && rfc3339.charCodeAt(cursor) >= 48 && rfc3339.charCodeAt(cursor) <= 57) cursor++;
-        if (cursor === begin + 1) return erm("DateTime.fromRfc3339: Invalid fraction");
-        for (let i = 1; i <= 3; i++) {
-          fractionMs = fractionMs * 10 + (begin + i < cursor ? rfc3339.charCodeAt(begin + i) - 48 : 0);
+        const start = ++cursor;
+        const digits = readAsciiDigitPair(rfc3339, start);
+        const third = rfc3339.charCodeAt(start + 2) - 48;
+        const next = rfc3339.charCodeAt(start + 3) - 48;
+        if (digits >= 0 && third >= 0 && third <= 9 && !(next >= 0 && next <= 9)) {
+          fractionMs = digits * 10 + third;
+          cursor += 3;
+        } else {
+          for (; cursor < len; cursor++) {
+            const digit = rfc3339.charCodeAt(cursor) - 48;
+            if (digit < 0 || digit > 9) break;
+            const index = cursor - start;
+            if (index < 3) fractionMs = fractionMs * 10 + digit;
+            else if (index === 3 && digit >= 5) fractionMs++;
+          }
+          const length = cursor - start;
+          if (length === 0) return erm("DateTime.fromRfc3339: Invalid fraction");
+          if (length < 3) fractionMs *= length === 1 ? 100 : 10;
         }
-        if (begin + 4 < cursor && rfc3339.charCodeAt(begin + 4) >= 53) fractionMs++;
       }
       if (cursor < len) {
         const begin = cursor;
         const sign = rfc3339[cursor++];
         if (sign !== "Z" && sign !== "z") {
           if (sign !== "+" && sign !== "-") return erm("DateTime.fromRfc3339: Invalid offset");
-          const oh = digits(cursor, 2), om = digits(cursor + 3, 2);
+          const oh = readAsciiDigitPair(rfc3339, cursor), om = readAsciiDigitPair(rfc3339, cursor + 3);
           if (rfc3339[cursor + 2] !== ":" || !Number.isFinite(oh + om) || oh > 23 || om > 59) return erm("DateTime.fromRfc3339: Invalid offset");
           cursor += 5;
+          let os = -1;
           if (rfc3339[cursor] === ":") {
-            const os = digits(cursor + 1, 2);
+            os = readAsciiDigitPair(rfc3339, cursor + 1);
             if (!Number.isFinite(os) || os > 59) return erm("DateTime.fromRfc3339: Invalid offset");
             cursor += 3;
           }
+          const offsetSign = sign === "-" ? -1 : 1;
+          if (epochOnly) {
+            offsetMs = ((oh * 60 + om) * 60 + Math.max(os, 0)) * 1000 * offsetSign;
+          } else {
+            offsetStart = begin;
+            // Preserve the sign of zero and distinguish omitted seconds from :00.
+            offsetKey = ((oh * 60 + om) * 61 + os + 2) * offsetSign;
+          }
         }
-        offset = rfc3339.slice(begin, cursor);
       }
     }
     if (cursor !== len) return erm("DateTime.fromRfc3339: Invalid format");
-    const date = YearMonthDay.fromYmd1Unchecked(year, month, day).toResult();
-    if (date.isErr) return date.expeCast();
+    // The scanner has already checked that the civil fields are integers.
+    // Preserve the general validator's diagnostics for invalid fields.
+    const fields = { yr: year, mth: month as Month1, day: day as DayOfMonth1 };
+    if (month < 1 || month > 12 || day < 1 || (day > 28 && day > YearMonth.daysInMonth(fields))) {
+      return YearMonthDay.fromYmd1Unchecked(year, month, day).toResult().expeCast();
+    }
     let timeMs = (h * 3600 + m * 60 + sec) * 1000 + fractionMs;
     // At the upper RFC 3339 boundary, retain the closest representable timestamp.
     if (timeMs === Time.MS_PER_DAY && year === 9999 && month === 12 && day === 31) timeMs--;
-    // Rounding a fraction can carry through midnight into the following date.
-    const nd = timeMs >= Time.MS_PER_DAY ? date.exp().addDays(1) : date.exp();
-    const nt = new NaiveTime((timeMs % Time.MS_PER_DAY) as Ms);
-    const result = ok(new DateTime(new NaiveDateTime(nd, nt), LogicalTimezone.parse(offset, tzname, tzabbr)));
-    if (!tzname && !tzabbr) {
-      if (_rfc3339Cache.size >= RFC3339_CACHE_MAX) _rfc3339Cache.delete(_rfc3339Cache.keys().next().value!);
-      _rfc3339Cache.set(rfc3339, result);
+    if (epochOnly) {
+      return ok((Ymd1Like.daysSinceEpoch(fields) * Time.MS_PER_DAY + timeMs - offsetMs) as MsSinceEpoch);
+    }
+    let timezone: LogicalTimezone<FixedOffset> = Utc;
+    if (offsetStart !== 0) {
+      if (lookup !== undefined && lastRfc3339OffsetKey === offsetKey) {
+        timezone = lastRfc3339OffsetZone!;
+      } else {
+        if (lookup !== undefined && typeof rfc3339 === "string") {
+          const zones = rfc3339OffsetZones ??= new Map();
+          const cached = zones.get(offsetKey);
+          if (cached !== undefined) {
+            timezone = cached;
+          } else {
+            timezone = LogicalTimezone.parse(rfc3339.slice(offsetStart));
+            if (zones.size >= RFC3339_CACHE_MAX) zones.clear();
+            zones.set(offsetKey, timezone);
+          }
+        } else {
+          timezone = LogicalTimezone.parse(rfc3339.slice(offsetStart), tzname, tzabbr);
+        }
+        if (lookup !== undefined) {
+          lastRfc3339OffsetKey = offsetKey;
+          lastRfc3339OffsetZone = timezone;
+        }
+      }
+    }
+    const result = buildRfc3339(fields, timeMs, timezone);
+    if (lookup !== undefined) {
+      if (_rfc3339Cache.size >= RFC3339_CACHE_MAX) {
+        // Admitting a miss from an earlier scan can evict results that
+        // still have active reuse. Require a second lookup within one cache
+        // capacity and keep the pending keys bounded as well.
+        const pending = lastPendingRfc3339;
+        const deferred = pending.text === rfc3339;
+        const table = rfc3339Pending;
+        const tableSize = table?.size ?? 0;
+        // An immediate repeat can admit directly from the deferred snapshot.
+        const bucket = tableSize !== 0 || pending.text !== undefined
+          ? rfc3339PendingBucket(rfc3339, year, month, day, timeMs)
+          : -1;
+        const previous = deferred ? pending.lookup :
+          (tableSize === 0 ? undefined : table!.take(rfc3339, bucket));
+        if (previous == null || ((lookup - previous) >>> 0) > RFC3339_CACHE_MAX) {
+          if (!deferred) {
+            const size = tableSize + (pending.text == null ? 0 : 1);
+            if (previous == null && size >= RFC3339_CACHE_MAX) {
+              table!.clear();
+            } else if (pending.text != null) {
+              const pendingTable = rfc3339Pending ??= new Rfc3339Pending();
+              const priorBucket = pending.bucket >= 0 ? pending.bucket :
+                rfc3339PendingBucket(pending.text, pending.year, pending.month, pending.day, pending.timeMs);
+              pendingTable.add(pending.text, priorBucket, pending.lookup);
+            }
+          }
+          lastPendingRfc3339.text = rfc3339;
+          lastPendingRfc3339.lookup = lookup;
+          lastPendingRfc3339.year = year;
+          lastPendingRfc3339.month = month;
+          lastPendingRfc3339.day = day;
+          lastPendingRfc3339.timeMs = timeMs;
+          lastPendingRfc3339.bucket = bucket;
+          lastPendingRfc3339.timezone = timezone;
+          return result;
+        }
+        replaceOldestRfc3339(rfc3339, result);
+      } else {
+        cacheRfc3339(rfc3339, result);
+      }
     }
     return result;
+  }
+
+
+  function buildRfc3339(
+    fields: { yr: number; mth: Month1; day: DayOfMonth1 },
+    timeMs: number,
+    timezone: LogicalTimezone<FixedOffset>,
+  ): Result<DateTime<FixedOffset>> {
+    const date = new YearMonthDay.Class(fields, { isValid: true }).castValid();
+    // Rounding a fraction can carry through midnight into the following date.
+    const nd = timeMs >= Time.MS_PER_DAY ? date.addDays(1) : date;
+    const nt = new NaiveTime((timeMs % Time.MS_PER_DAY) as Ms);
+    return ok(new DateTime(new NaiveDateTime(nd, nt), timezone));
+  }
+
+  function cacheRfc3339(
+    text: string,
+    result: Result<DateTime<FixedOffset>>,
+  ): void {
+    const entry = { text, result, older: undefined, newer: undefined };
+    appendRfc3339(entry);
+    _rfc3339Cache.set(text, entry);
+  }
+
+  function replaceOldestRfc3339(text: string, result: Result<DateTime<FixedOffset>>): void {
+    if (lastPendingRfc3339.text === text) lastPendingRfc3339.text = undefined;
+    const oldest = oldestRfc3339!;
+    unlinkRfc3339(oldest);
+    _rfc3339Cache.delete(oldest.text);
+    oldest.text = text;
+    oldest.result = result;
+    appendRfc3339(oldest);
+    _rfc3339Cache.set(text, oldest);
   }
 
   /**

@@ -13,8 +13,9 @@ import { Month } from "./units/month.ts";
 import { YearMonth } from "./units/year-month.ts";
 import { Ms } from "./units/ms.ts";
 import { TimePoint } from "./units/time-point.ts";
-import { DaysSinceEpoch, MsSinceEpoch, Sign } from "./units/units.ts";
+import { DaysSinceEpoch, type Month0, MsSinceEpoch, Sign } from "./units/units.ts";
 import type { Option, Optional } from "./option.ts";
+import { readAsciiDigitPair } from "./utils.ts";
 
 /**
  * Represents a date and time without any associated timezone information.
@@ -47,21 +48,25 @@ export class NaiveDateTime {
    * @returns A new NaiveDateTime instance representing the result of the addition.
    */
   add(delta: NaiveDateTime.Parts.Opt, sign: Sign = 1): NaiveDateTime {
-    let ym: NaiveDate.MaybeValid = this.date;
-    if (delta.yrs) {
-      ym = ym.addYears(delta.yrs * sign);
+    let newDate = this.date;
+    if (delta.yrs || delta.mths) {
+      const target = YearMonth.add(this.date, {
+        yr: (delta.yrs || 0) * sign,
+        mth: ((delta.mths || 0) * sign) as Month0,
+      });
+      const day = this.date.day;
+      const clamped = day <= 28 ? day : Math.min(day, YearMonth.daysInMonth(target));
+      newDate = NaiveDate.fromYmd1Exp(target.yr, target.mth, clamped);
     }
-    if (delta.mths) {
-      ym = ym.addMonths(delta.mths * sign);
-    }
-    let newDate: NaiveDate = ym.isValid()
-      ? ym.castValid()
-      : NaiveDate.fromYmd1Exp(ym.yr, ym.mth, YearMonth.daysInMonth(ym));
     if (delta.wks) {
       newDate = newDate.addWeeks(delta.wks * sign);
     }
     const timeDeltaMs = Ms.resolve(delta) * sign;
-    const tp = TimePoint.ms(this.time.toMs + timeDeltaMs);
+    const clock = this.time.toMs + timeDeltaMs;
+    if (Number.isInteger(clock) && clock >= 0 && clock < Time.MS_PER_DAY) {
+      return new NaiveDateTime(newDate, new NaiveTime(clock || 0));
+    }
+    const tp = TimePoint.ms(clock);
     if (tp.days !== 0) {
       newDate = newDate.addDays(tp.days);
     }
@@ -176,6 +181,26 @@ export class NaiveDateTime {
  */
 export namespace NaiveDateTime {
   export function parse(s: string): Option<NaiveDateTime> {
+    const end = typeof s === "string" ? s.length - (s.endsWith("Z") ? 1 : 0) : 0;
+    if ((end === 19 || (end === 23 && s[19] === ".")) &&
+      s[4] === "-" && s[7] === "-" && s[10] === "T" && s[13] === ":" && s[16] === ":") {
+      const year = readAsciiDigitPair(s, 0) * 100 + readAsciiDigitPair(s, 2);
+      const month = readAsciiDigitPair(s, 5);
+      const day = readAsciiDigitPair(s, 8);
+      const hours = readAsciiDigitPair(s, 11);
+      const minutes = readAsciiDigitPair(s, 14);
+      const seconds = readAsciiDigitPair(s, 17);
+      const lastDigit = end === 23 ? s.charCodeAt(22) - 48 : 0;
+      const milliseconds = end === 23 ? readAsciiDigitPair(s, 20) * 10 + lastDigit : 0;
+      if (lastDigit >= 0 && lastDigit <= 9 &&
+        Number.isFinite(year + month + day + hours + minutes + seconds + milliseconds)) {
+        if (hours > 23 || minutes > 59 || seconds > 59) return null;
+        const date = NaiveDate.fromYmd1(year, month, day).asOk();
+        return date == null ? null
+          : new NaiveDateTime(date, new NaiveTime((hours * 3600 + minutes * 60 + seconds) * 1000 + milliseconds));
+      }
+    }
+
     // A trailing Z is accepted for callers using UTC timestamps as naive values.
     const match = /^(\d{4}-\d{1,2}-\d{1,2})T(\d{1,2}):(\d{1,2})(?::(\d{1,2})(?:\.(\d{1,3}))?)?Z?$/.exec(s);
     if (!match) return null;

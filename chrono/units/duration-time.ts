@@ -242,7 +242,9 @@ export class DurationTime
    * @returns New TimeUnit with the sum
    */
   add(delta: DurationTime.Parts.Opt): DurationTime {
-    return new DurationTime(this.toMs + DurationTime.from(delta).toMs);
+    return new DurationTime(
+      this.toMs + (delta instanceof DurationTime ? delta.toMs : Ms.resolve(delta)),
+    );
   }
 
   /**
@@ -251,7 +253,9 @@ export class DurationTime
    * @returns New TimeUnit with the difference
    */
   sub(delta: DurationTime.Parts.Opt): DurationTime {
-    return new DurationTime(this.toMs - DurationTime.from(delta).toMs);
+    return new DurationTime(
+      this.toMs - (delta instanceof DurationTime ? delta.toMs : Ms.resolve(delta)),
+    );
   }
 
   /**

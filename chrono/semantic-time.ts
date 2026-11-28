@@ -1,5 +1,6 @@
 import { DateTime } from "./datetime.ts";
 import { NaiveDate } from "./naive-date.ts";
+import { Time } from "./time.ts";
 import { Utc } from "./timezone.ts";
 import { TentoMath } from "./utils.ts";
 import type { Option } from "./option.ts";
@@ -27,7 +28,7 @@ export namespace SemanticTime {
 
   export function normalize(raw: string): string {
     if (raw.startsWith("pt-")) return raw.slice(3);
-    if (/^\d{4}-\d{1,2}-\d{1,2}$/.test(raw)) return `ymd-${raw}`;
+    if (raw.length <= 10 && /^\d{4}-\d{1,2}-\d{1,2}$/.test(raw)) return `ymd-${raw}`;
     return raw;
   }
 
@@ -65,9 +66,7 @@ export namespace SemanticTime {
   }
 
   export function partialDate(time: SemanticTime): Option<NaiveDate.Partial> {
-    const parsed = NaiveDate.Partial.parse(normalize(time));
-    if (!parsed.isOk) return null;
-    return parsed.asOk() ?? null;
+    return NaiveDate.Partial.parseOptional(normalize(time));
   }
 
   export function dateTime(time: SemanticTime): Option<DateTime<Utc>> {
@@ -78,9 +77,14 @@ export namespace SemanticTime {
   }
 
   export function dateKey(time: SemanticTime): Option<NaiveDate.Partial> {
-    const partial = partialDate(time);
+    const normalized = normalize(time);
+    const partial = NaiveDate.Partial.parseOptional(normalized);
     if (partial != null) return partial;
-    const point = dateTime(time);
-    return point == null ? null : NaiveDate.Partial.fromDate(point.date);
+    const point = DateTime.fromRfc3339(normalized).asOk();
+    if (point == null) return null;
+    // The UTC date depends only on the day carried by the written offset.
+    const carry = point.tz === Utc ? 0 :
+      Math.floor((point.time.toMs - point.tz.info.offset.toMs) / Time.MS_PER_DAY);
+    return NaiveDate.Partial.fromDate(carry === 0 ? point.date : point.date.addDays(carry));
   }
 }

@@ -15,6 +15,7 @@ import {
 import { Time } from "./time.ts";
 import { PlatformZone } from "./timezone-platform.ts";
 import { Epoch } from "./units/epoch.ts";
+import { Duration } from "./units/duration.ts";
 import { TimeOfDay } from "./units/time-of-day.ts";
 import { MsSinceEpoch } from "./units/units.ts";
 import type { Option } from "./option.ts";
@@ -81,6 +82,39 @@ function isJsonRecord(value: JsonValue): value is { [key: string]: JsonValue } {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
+const platformSources = new WeakMap<TimezoneRegion, Tzname>();
+const platformRecurrenceViews = new WeakMap<TimezoneRegion, Map<number, TimezoneRegion>>();
+const platformRecurrenceSources = new WeakMap<TimezoneRegion, TimezoneRegion>();
+const PLATFORM_YEAR_PADDING_MS = 4 * Time.MS_PER_DAY;
+const PLATFORM_YEAR_CACHE_SIZE = 8;
+
+function platformTransitions(
+  name: Tzname,
+  source: Tzname = name,
+  from?: number,
+  to?: number,
+): TimezoneRegion.Transition[] | undefined {
+  return PlatformZone.offsetTransitions(source, from, to)?.map(
+    ({ ms, before, after, beforeAbbr, afterAbbr }) => {
+      const mse = ms as MsSinceEpoch;
+      const fixed = (secs: number, tzabbr: string) =>
+        DateTime.fromMse(mse, new FixedTimezone(tzabbr, {
+          offset: Duration.Time.from({ secs }),
+          tzabbr,
+          tzname: name,
+        }));
+      return {
+        before: { mse, time: fixed(before, beforeAbbr), tzabbr: beforeAbbr },
+        after: { time: fixed(after, afterAbbr), tzabbr: afterAbbr },
+      };
+    },
+  );
+}
+
+function sameTransitionState(a: TimezoneRegion.Transition["after"], b: TimezoneRegion.Transition["after"]): boolean {
+  return a.tzabbr === b.tzabbr && a.time.tz.info.offset.toMs === b.time.tz.info.offset.toMs;
+}
+
 export class TimezoneRegion {
   readonly fullname: Tzname;
   readonly transitions: TimezoneRegion.Transition[];
@@ -104,6 +138,16 @@ export class TimezoneRegion {
    */
   readonly unserved: Option<TimezoneRegion.FromPlatformReason>;
   private tzs: Map<Tzabbr, FixedTimezone> = new Map();
+  #calendarInitialTimezone?: LogicalTimezone<FixedOffset>;
+  #calendarCoverageEnd?: number;
+  #recurrenceWindows?: {
+    transitionRange(start: number, end: number): TimezoneRegion.Transition[] | undefined;
+    start: number;
+    end: number;
+    retainBase: boolean;
+    platform?: true;
+    years: Map<number, TimezoneRegion>;
+  };
 
   constructor(
     fullname: Tzname,
@@ -117,6 +161,173 @@ export class TimezoneRegion {
     this.mismatch = mismatch;
     this.linkOf = linkOf;
     this.unserved = unserved;
+  }
+
+  /** @internal Exclusive compiled horizon for a timezone with TZUNTIL. */
+  get calendarCoverageEnd(): number | undefined {
+    return this.#calendarCoverageEnd;
+  }
+
+  /** @internal A calendar definition supplies its own offset before the first onset. */
+  static fromCalendarTransitions(
+    name: Tzname,
+    transitions: TimezoneRegion.Transition[],
+    coverageEnd?: number,
+  ): TimezoneRegion {
+    const region = new TimezoneRegion(name, transitions);
+    region.#calendarCoverageEnd = coverageEnd;
+    const initial = region.transitions[0]?.before.time.tz;
+    if (initial != null) region.#calendarInitialTimezone = region.asAsked(initial);
+    return region;
+  }
+
+  /** @internal Use the same platform source beyond the initial recurrence timezone window. */
+  static forPlatformRecurrence(
+    region: TimezoneRegion,
+    { extendServedPast = false, extendServedFuture = false }: {
+      extendServedPast?: boolean;
+      extendServedFuture?: boolean;
+    } = {},
+  ): TimezoneRegion {
+    if (region.#calendarInitialTimezone != null) return region;
+    const original = platformRecurrenceSources.get(region);
+    if (original != null) {
+      if (!extendServedPast && !extendServedFuture) return region;
+      region = original;
+    }
+    const platform = platformSources.get(region);
+    if (platform == null && !extendServedPast && !extendServedFuture) return region;
+    // Platform-derived tables have the same policy regardless of served options.
+    const cacheKey = platform == null ? Number(extendServedPast) + 2 * Number(extendServedFuture) : 0;
+    const cached = platformRecurrenceViews.get(region);
+    const existing = cached?.get(cacheKey);
+    if (existing != null) return existing;
+    const source = platform ?? region.fullname;
+    let start = PlatformZone.WINDOW_START_MS;
+    let end = PlatformZone.WINDOW_END_MS;
+    if (platform == null) {
+      // Retain the covered table and extend each side independently.
+      const at = PlatformZone.offsets(source);
+      if (at == null) return region;
+      start = -Infinity;
+      end = Infinity;
+      const first = region.transitions[0];
+      const last = region.transitions.at(-1);
+      if (
+        extendServedPast && first != null &&
+        at(first.before.mse - 1) * 1000 === first.before.time.tz.info.offset.toMs
+      ) start = first.before.mse;
+      if (extendServedFuture) {
+        const boundary = last == null ? PlatformZone.WINDOW_END_MS
+          : Math.max(PlatformZone.WINDOW_END_MS, Date.UTC(new Date(last.before.mse).getUTCFullYear() + 1, 0, 1));
+        const before = (boundary - 1) as MsSinceEpoch;
+        if (at(before) * 1000 === region.tzAtMse(before).info.offset.toMs) end = boundary;
+      }
+      if (!Number.isFinite(start) && !Number.isFinite(end)) return region;
+    }
+    const view = new TimezoneRegion(
+      region.fullname,
+      [...region.transitions],
+      region.mismatch,
+      region.linkOf,
+      region.unserved,
+    );
+    view.#recurrenceWindows = {
+      start,
+      end,
+      retainBase: platform == null,
+      platform: true,
+      years: new Map(),
+      transitionRange(from, to) {
+        return platformTransitions(region.fullname, source, from, to);
+      },
+    };
+    const views = cached ?? new Map<number, TimezoneRegion>();
+    views.set(cacheKey, view);
+    platformRecurrenceViews.set(region, views);
+    platformRecurrenceSources.set(view, region);
+    return view;
+  }
+
+  /** @internal Replace future recurrence offsets with a provider's annual transitions. */
+  static withFutureRecurrence(
+    region: TimezoneRegion,
+    firstYear: number,
+    transitionsOfYear: (year: number) => TimezoneRegion.Transition[],
+  ): TimezoneRegion {
+    const end = new Date(0).setUTCFullYear(firstYear, 0, 1);
+    const view = new TimezoneRegion(
+      region.fullname,
+      region.transitions.filter(({ before }) => before.mse < end),
+      region.mismatch,
+      region.linkOf,
+      region.unserved,
+    );
+    view.#recurrenceWindows = {
+      start: -Infinity,
+      end,
+      retainBase: true,
+      years: new Map(),
+      transitionRange(from, to) {
+        const transitions: TimezoneRegion.Transition[] = [];
+        const first = Math.max(firstYear, new Date(from).getUTCFullYear());
+        const last = new Date(Math.min(to, PlatformZone.DATE_MAX_MS)).getUTCFullYear();
+        // Keep the preceding year's final offset available in January.
+        for (let year = first; year <= last; year++) {
+          transitions.push(...transitionsOfYear(year));
+        }
+        return transitions;
+      },
+    };
+    return view;
+  }
+
+  #recurrenceWindow(start: number, end: number): TimezoneRegion | undefined {
+    const recurrence = this.#recurrenceWindows;
+    if (
+      recurrence == null ||
+      (start >= recurrence.start && end < recurrence.end)
+    ) return;
+    const { DATE_MIN_MS: min, DATE_MAX_MS: max } = PlatformZone;
+    const center = start + (end - start) / 2;
+    const year = new Date(Math.min(max, Math.max(min, center))).getUTCFullYear();
+    if (!Number.isFinite(year)) return;
+    const cached = recurrence.years.get(year);
+    if (cached != null) return cached;
+    // Use setUTCFullYear, which preserves years 0–99. The edge years'
+    // January boundaries can fall outside the inclusive Date range.
+    const midnight = new Date(0).setUTCFullYear(year, 0, 1);
+    const next = new Date(0).setUTCFullYear(year + 1, 0, 1);
+    const windowStart = Number.isNaN(midnight) ? min : Math.max(min, midnight - PLATFORM_YEAR_PADDING_MS);
+    const windowEnd = Number.isNaN(next) ? max + 1 : Math.min(max + 1, next + PLATFORM_YEAR_PADDING_MS);
+    const overlapsBase = recurrence.retainBase &&
+      windowStart <= recurrence.end && windowEnd > recurrence.start;
+    let transitions: TimezoneRegion.Transition[] | undefined;
+    if (overlapsBase) {
+      const earlier = windowStart < recurrence.start
+        ? recurrence.transitionRange(windowStart, recurrence.start)
+        : [];
+      // Read one second before the seam to capture a transition at the seam.
+      const later = windowEnd > recurrence.end
+        ? recurrence.transitionRange(recurrence.end - Time.MS_PER_SEC, windowEnd)
+        : [];
+      if (earlier == null || later == null) return;
+      transitions = [
+        ...earlier.filter(({ before }) => before.mse < recurrence.start),
+        ...this.transitions,
+        ...later.filter(({ before }) => before.mse >= recurrence.end),
+      ];
+    } else {
+      transitions = recurrence.transitionRange(windowStart, windowEnd);
+    }
+    if (transitions == null) return;
+    const window = new TimezoneRegion(this.fullname, transitions);
+    const oldest = recurrence.years.keys().next();
+    if (recurrence.years.size === PLATFORM_YEAR_CACHE_SIZE && !oldest.done) {
+      recurrence.years.delete(oldest.value);
+    }
+    recurrence.years.set(year, window);
+    return window;
   }
 
   static async local(): Promise<TimezoneRegion> {
@@ -138,6 +349,8 @@ export class TimezoneRegion {
   ]);
 
   activeTransition(mse: MsSinceEpoch): Option<TimezoneRegion.Transition> {
+    const window = this.#recurrenceWindow(mse, mse);
+    if (window != null) return window.activeTransition(mse);
     const found = this.bst(mse);
     if (found < 0) return null;
 
@@ -145,7 +358,12 @@ export class TimezoneRegion {
     return transition;
   }
 
-  /** Return the transition in force at start and subsequent entries through end, inclusive. */
+  /**
+   * Return the transition in force at start and subsequent entries through end, inclusive.
+   * Platform recurrence ranges clamp to the Date limits. With Temporal, work is
+   * proportional to the number of transitions returned. Older runtimes scan at
+   * weekly intervals, so wide ranges still take time proportional to their span.
+   */
   transitionsBetween({
     start,
     end,
@@ -153,13 +371,115 @@ export class TimezoneRegion {
     start: MsSinceEpoch;
     end: MsSinceEpoch;
   }): TimezoneRegion.Transition[] {
-    if (start > end) return [];
-    const startIdx = this.bst(start);
-    const endIdx = this.bst(end);
-    return this.transitions.slice(Math.max(0, startIdx), endIdx + 1);
+    return this.#transitionsInRange(start, end, true);
   }
 
-  private bst(target: MsSinceEpoch): number {
+  /** @internal Actual transitions in the bounded window around a recurrence cutoff. */
+  recurrenceTransitions(start: number, end: number): TimezoneRegion.Transition[] {
+    return this.#transitionsInRange(start, end, false);
+  }
+
+  #transitionsInRange(
+    start: number,
+    end: number,
+    includeActive: boolean,
+  ): TimezoneRegion.Transition[] {
+    if (start > end) return [];
+    const recurrence = this.#recurrenceWindows;
+    if (recurrence == null || !Number.isFinite(start) || !Number.isFinite(end)) {
+      return this.#tableTransitions(start, end, includeActive);
+    }
+    const { DATE_MIN_MS: min, DATE_MAX_MS: max } = PlatformZone;
+    start = Math.max(start, min);
+    end = Math.min(end, max);
+    if (start > end) return [];
+    if (start >= recurrence.start && end < recurrence.end && (includeActive || start > recurrence.start)) {
+      return this.#tableTransitions(start, end, includeActive);
+    }
+
+    // Reuse the cached padded year for short reads around recurrence
+    // cutoffs. Long platform ranges use the transition list directly.
+    const scanPlatform = recurrence.platform && end - start > 366 * Time.MS_PER_DAY;
+    const result: TimezoneRegion.Transition[] = [];
+    let from = start;
+    while (from <= end) {
+      const keepActive = includeActive && from === start;
+      const inBase = from >= recurrence.start && from < recurrence.end;
+      let boundary = from >= recurrence.end ? max + 1 : inBase ? recurrence.end : recurrence.start;
+      if (!inBase && scanPlatform) {
+        // Use one continuous platform read for this span. Start a second
+        // early so the actual onset at the boundary is visible.
+        if (keepActive) {
+          const active = this.activeTransition(from as MsSinceEpoch);
+          if (active != null) result.push(active);
+        }
+        const through = Math.min(end, boundary - 1);
+        const transitions = recurrence.transitionRange(Math.max(min, from - Time.MS_PER_SEC), through + 1);
+        // The first platform entry is the seed offset. An onset at start
+        // may already have been returned as the requested active entry.
+        for (let i = 1; transitions != null && i < transitions.length; i++) {
+          const tr = transitions[i]!;
+          if (tr.before.mse >= from && tr.before.mse !== result.at(-1)?.before.mse) result.push(tr);
+        }
+      } else {
+        if (!inBase) {
+          // Short platform reads and provider rules use the point-read years.
+          const year = new Date(from).getUTCFullYear();
+          const nextYear = new Date(0).setUTCFullYear(year + 1, 0, 1);
+          if (!Number.isNaN(nextYear)) boundary = Math.min(boundary, nextYear);
+        }
+        const through = Math.min(end, boundary - 1);
+        const region = this.#recurrenceWindow(from, from) ?? this;
+        for (const transition of region.#tableTransitions(from, through, keepActive)) {
+          if (inBase && from === recurrence.start && !keepActive && transition.before.mse === from &&
+              sameTransitionState(transition.before, transition.after)) {
+            const previous = this.activeTransition((from - 1) as MsSinceEpoch)?.after;
+            if (previous != null) {
+              if (sameTransitionState(previous, transition.after)) continue;
+              // A base seed can also land on a real change. Recover the
+              // preceding state from the span that actually covers it.
+              const { mse } = transition.before;
+              result.push({
+                ...transition,
+                before: { mse, time: DateTime.fromMse(mse, previous.time.tz), tzabbr: previous.tzabbr },
+              });
+              continue;
+            }
+          }
+          result.push(transition);
+        }
+      }
+      from = boundary;
+    }
+    return result;
+  }
+
+  #tableTransitions(
+    start: number,
+    end: number,
+    includeActive: boolean,
+  ): TimezoneRegion.Transition[] {
+    if (includeActive) {
+      const startIdx = this.bst(start);
+      const endIdx = this.bst(end);
+      return this.transitions.slice(Math.max(0, startIdx), endIdx + 1);
+    }
+    const transitions = this.transitions;
+    let lo = 0;
+    let hi = transitions.length;
+    while (lo < hi) {
+      const mid = (lo + hi) >>> 1;
+      if (transitions[mid]!.before.mse < start) lo = mid + 1;
+      else hi = mid;
+    }
+    const result: TimezoneRegion.Transition[] = [];
+    for (let i = lo; i < transitions.length && transitions[i]!.before.mse <= end; i++) {
+      result.push(transitions[i]!);
+    }
+    return result;
+  }
+
+  private bst(target: number): number {
     let left = 0;
     let right = this.transitions.length - 1;
     let result = -1;
@@ -315,17 +635,33 @@ export class TimezoneRegion {
    * - Spring-forward gap (non-existent local time): uses the pre-transition
    *   offset (exact gap size, including 30-minute transitions like Lord Howe).
    * - Valid post-transition times: uses the post-transition offset.
+   *
+   * An explicit recurrence start can prefer the first valid occurrence at
+   * or after its instant. If there is none, use the ordinary RFC result.
    */
-  toRfc5545WallClock(ndt: NaiveDateTime): DateTime<FixedOffset> {
-    return this.#recurrenceWallClock(ndt, false);
+  toRfc5545WallClock(ndt: NaiveDateTime, notBeforeMse?: number): DateTime<FixedOffset> {
+    return this.#recurrenceWallClock(ndt, false, notBeforeMse);
   }
 
-  /** dateutil's tz.gettz uses the later offset in a gap and the earlier one in a fold. */
+  /** @internal Project an RFC recurrence instant using the table's initial offset. */
+  toRfc5545LocalTime(instant: DateTime<any>): DateTime<FixedOffset> {
+    const region = this.#recurrenceWindow(instant.mse, instant.mse) ?? this;
+    const first = region.transitions[0];
+    return first != null && instant.mse < first.before.mse
+      ? instant.toTz(region.asAsked(first.before.time.tz))
+      : region.toTz(instant);
+  }
+
+  /** Resolve wall values as dateutil 2.8.2's TZif loader does at recurrence boundaries. */
   toDateutilWallClock(ndt: NaiveDateTime): DateTime<FixedOffset> {
     return this.#recurrenceWallClock(ndt, true);
   }
 
-  #recurrenceWallClock(ndt: NaiveDateTime, gapUsesLaterOffset: boolean): DateTime<FixedOffset> {
+  #recurrenceWallClock(
+    ndt: NaiveDateTime,
+    useDateutilCutoffs: boolean,
+    notBeforeMse = -Infinity,
+  ): DateTime<FixedOffset> {
     const dse = ndt.date.dse;
     const cached = this._rfc5545WallClockTzCache.get(dse);
     if (cached) return ndt.withTz(cached);
@@ -333,6 +669,8 @@ export class TimezoneRegion {
     const dayStartMse = ndt.date.withTime(TimeOfDay.fromHms({ hrs: 0 })).mse;
     const dayEndMse = dayStartMse + 24 * 60 * 60 * 1000;
     const windowMs = 36 * 60 * 60 * 1000;
+    const extended = this.#recurrenceWindow(dayStartMse - windowMs, dayEndMse + windowMs);
+    if (extended != null) return extended.#recurrenceWallClock(ndt, useDateutilCutoffs, notBeforeMse);
     const transitions = this.transitionsBetween({
       start: (dayStartMse - windowMs) as MsSinceEpoch,
       end: (dayEndMse + windowMs) as MsSinceEpoch,
@@ -347,6 +685,11 @@ export class TimezoneRegion {
     const wallMse = ndt.mse;
     let resolved: LogicalTimezone<any> = this.asAsked(transitions[0]!.before.time.tz);
     let hasTransitionOnDay = false;
+    let intervalStart = -Infinity;
+    let intervalZone = resolved;
+    let firstMatch: LogicalTimezone<any> | undefined;
+    let preferredMatch: LogicalTimezone<any> | undefined;
+    let gapZone: LogicalTimezone<any> | undefined;
     for (const tr of transitions) {
       const beforeWall = tr.before.time.ndt.mse;
       const afterWall = tr.after.time.ndt.mse;
@@ -355,12 +698,43 @@ export class TimezoneRegion {
       if (minWall < dayEndMse && cutoffWall >= dayStartMse) {
         hasTransitionOnDay = true;
       }
-      const cutoff = gapUsesLaterOffset && afterWall > beforeWall ? beforeWall : cutoffWall;
+      if (!useDateutilCutoffs && preferredMatch == null) {
+        // Local intervals can overlap across several nearby transitions.
+        // Check actual UTC intervals in order to select the first occurrence.
+        const candidate = wallMse - intervalZone.info.offset.toMs;
+        if (intervalStart <= candidate && candidate < tr.before.mse) {
+          firstMatch ??= intervalZone;
+          if (candidate >= notBeforeMse) preferredMatch = intervalZone;
+        }
+        if (gapZone == null && beforeWall <= wallMse && wallMse < afterWall) {
+          gapZone = intervalZone;
+        }
+        intervalStart = tr.before.mse;
+        intervalZone = this.asAsked(tr.after.time.tz);
+      }
+      let cutoff = cutoffWall;
+      if (useDateutilCutoffs && afterWall > beforeWall) {
+        if (afterWall - beforeWall < Time.MS_PER_DAY) {
+          cutoff = beforeWall;
+        } else if (this.fullname === "Pacific/Apia") {
+          // Apia's date-line jump kept its one-hour DST adjustment. TZif's
+          // standard-time boundary is 23:00 on the skipped day.
+          cutoff = afterWall - Time.MS_PER_HR;
+        }
+      }
       if (cutoff <= wallMse) {
         resolved = this.asAsked(tr.after.time.tz);
       }
     }
 
+    if (!useDateutilCutoffs) {
+      const candidate = wallMse - intervalZone.info.offset.toMs;
+      if (preferredMatch == null && candidate >= intervalStart) {
+        firstMatch ??= intervalZone;
+        if (candidate >= notBeforeMse) preferredMatch = intervalZone;
+      }
+      resolved = preferredMatch ?? firstMatch ?? gapZone ?? resolved;
+    }
     if (!hasTransitionOnDay) {
       this._rfc5545WallClockTzCache.set(dse, resolved);
     }
@@ -379,6 +753,8 @@ export class TimezoneRegion {
 
     const dayStart = dse * Time.MS_PER_DAY;
     const dayEnd = dayStart + Time.MS_PER_DAY;
+    const extended = this.#recurrenceWindow(dayStart - Time.MS_PER_DAY, dayEnd + Time.MS_PER_DAY);
+    if (extended != null) return extended.toWallClock(ndt);
     // A transition's UTC instant can fall on either side of the local date.
     const first = this.bst((dayStart - Time.MS_PER_DAY) as MsSinceEpoch);
     const last = this.bst((dayEnd + Time.MS_PER_DAY) as MsSinceEpoch);
@@ -409,13 +785,19 @@ export class TimezoneRegion {
   }
 
   toTz(dt: DateTime<any>): DateTime<FixedOffset> {
-    const tz = this.tzAtMse(dt.mse);
-    return dt.toTz(tz);
+    const mse = dt.mse;
+    if (this.#calendarCoverageEnd != null && mse >= this.#calendarCoverageEnd) {
+      throw new RangeError("VTIMEZONE table does not cover the requested instant");
+    }
+    return dt.toTz(this.tzAtMse(mse));
   }
 
   tzAtMse(mse: MsSinceEpoch): LogicalTimezone<any> {
     const transition = this.activeTransition(mse);
-    if (!transition) return this.asAsked(this.transitions[0]?.before.time.tz ?? Utc);
+    if (!transition) {
+      return this.#calendarInitialTimezone ??
+        this.asAsked(this.transitions[0]?.before.time.tz ?? Utc);
+    }
     const tzabbr = transition.after.tzabbr;
 
     // Remove all caching to avoid issues with GMT/BST sharing the same tzabbr
@@ -707,11 +1089,27 @@ export namespace TimezoneRegion {
    */
   export const PLATFORM_LOADER: Loader = {
     load: (tzname: Tzname) => {
-      const transitions = PlatformZone.transitions(tzname);
+      const transitions = platformTransitions(tzname);
       if (transitions == null) return Promise.reject(new Unserved(tzname, "not-found"));
-      return Promise.resolve(transitions.map((t) => Transition.parse(t, tzname)));
+      return Promise.resolve(transitions);
     },
   };
+
+  const platformRecurrenceZones = new Map<Tzname, TimezoneRegion>();
+
+  /** @internal Use the runtime timezone table independently of the configured loader. */
+  export function platformRecurrenceZone(tzname: Tzname): TimezoneRegion | null {
+    if (tzname === Tzname.UTC) return TimezoneRegion.UTC;
+    const cached = platformRecurrenceZones.get(tzname);
+    if (cached != null) return cached;
+    const transitions = platformTransitions(tzname);
+    if (transitions == null) return null;
+    const region = new TimezoneRegion(tzname, transitions);
+    platformSources.set(region, tzname);
+    const recurrence = TimezoneRegion.forPlatformRecurrence(region);
+    platformRecurrenceZones.set(tzname, recurrence);
+    return recurrence;
+  }
 
   let loader: Loader = PLATFORM_LOADER;
 
@@ -731,7 +1129,7 @@ export namespace TimezoneRegion {
     fallbackTz?: Tzname,
     source: FallbackSource = "other",
   ): Promise<TimezoneRegion> {
-    const region = await getOpt(tzname);
+    const region = answerCachedRegion(tzname) ?? await loadUncachedRegion(tzname);
     if (region != null) return region;
     if (fallbackTz == null) throw new RangeError(`Unable to load timezone "${tzname}"`);
 
@@ -882,18 +1280,26 @@ export namespace TimezoneRegion {
    * and never on a synchronous read path such as `getLoaded`).
    */
   export function getOpt(tzname: Tzname): Promise<TimezoneRegion | null> {
+    const cached = answerCachedRegion(tzname);
+    return cached == null ? loadUncachedRegion(tzname) : Promise.resolve(cached);
+  }
+
+  function answerCachedRegion(tzname: Tzname): TimezoneRegion | undefined {
     const existing = defaultCache.get(tzname);
     if (existing != null) {
       announceFromPlatform(existing);
-      return Promise.resolve(existing);
+      return existing;
     }
     const held = provisional.get(tzname);
     if (held != null) {
       // Answered at once; after the window the service is asked again in the background.
       if (Epoch.currentMse() >= held.retryAt && !resolving.has(tzname)) void startLoad(tzname).catch(() => null);
       announceFromPlatform(held.region);
-      return Promise.resolve(held.region);
+      return held.region;
     }
+  }
+
+  function loadUncachedRegion(tzname: Tzname): Promise<TimezoneRegion | null> {
     const retryAt = unloadable.get(tzname);
     if (retryAt != null) {
       if (Epoch.currentMse() < retryAt) return Promise.resolve(null);
@@ -1030,7 +1436,10 @@ export namespace TimezoneRegion {
   ): TimezoneRegion {
     if (target.unserved == null || target.fullname === tzname) return target;
     if (canonicalTzname(target.fullname) === canonical) return target;
-    return new TimezoneRegion(tzname, target.transitions, target.mismatch, target.linkOf, ownReason ?? target.unserved);
+    const region = new TimezoneRegion(tzname, target.transitions, target.mismatch, target.linkOf, ownReason ?? target.unserved);
+    const source = platformSources.get(target);
+    if (source != null) platformSources.set(region, source);
+    return region;
   }
 
   /**
@@ -1053,9 +1462,10 @@ export namespace TimezoneRegion {
       cacheServed(cacheAs, built, generation);
       return built;
     }
-    const transitions = PlatformZone.transitions(tzname);
+    const transitions = platformTransitions(tzname);
     if (transitions == null) return null;
-    const region = new TimezoneRegion(tzname, transitions.map((t) => Transition.parse(t, tzname)), null, null, reason);
+    const region = new TimezoneRegion(tzname, transitions, null, null, reason);
+    platformSources.set(region, tzname);
     if (reason === "no-answer" || generation !== loaderGeneration) return region;
     rebuiltUnreported.push(region);
     platformBuilt.set(tzname, region);
@@ -1106,17 +1516,21 @@ export namespace TimezoneRegion {
   }
 
   async function loadServed(tzname: Tzname, generation: number): Promise<TimezoneRegion> {
-    const transitions = await loader.load(tzname);
+    const selectedLoader = loader;
+    const transitions = await selectedLoader.load(tzname);
     if (transitions.length === 0) {
       // Every zone has an offset in force; an empty list is a zone the service has no data for.
       throw new Unserved(tzname, "no-transitions");
     }
     const served = new TimezoneRegion(tzname, transitions);
     const mismatch = offsetMismatch(served);
-    const rebuilt = mismatch == null ? null : PlatformZone.transitions(tzname);
+    const rebuilt = mismatch == null ? null : platformTransitions(tzname);
     const region = mismatch == null || rebuilt == null
       ? served
-      : new TimezoneRegion(tzname, rebuilt.map((t) => Transition.parse(t, tzname)), mismatch, served.linkOf);
+      : new TimezoneRegion(tzname, rebuilt, mismatch, served.linkOf);
+    if (selectedLoader === PLATFORM_LOADER || rebuilt != null) {
+      platformSources.set(region, tzname);
+    }
     if (generation !== loaderGeneration) return region;
     if (region.mismatch != null) rebuiltUnreported.push(region);
     cacheServed(tzname, region, generation);

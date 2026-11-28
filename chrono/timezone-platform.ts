@@ -14,13 +14,15 @@ export namespace PlatformZone {
   /** The window the zone service's files cover, and the one a rebuilt zone covers. */
   export const WINDOW_START_MS = Date.UTC(1900, 0, 1);
   export const WINDOW_END_MS = Date.UTC(2050, 0, 1);
+  export const DATE_MIN_MS = -8.64e15;
+  export const DATE_MAX_MS = 8.64e15;
 
   /**
    * The scan step of `transitions` on a platform without `Temporal`: every
    * offset change is found to the second, but two changes less than a step
    * apart that cancel out are not seen (no zone in tzdata has one since 1970).
    */
-  const STEP_MS = 7 * 86_400_000;
+  const STEP_SECONDS = 7 * 86_400;
 
   /**
    * `tzname`'s UTC offset in seconds at an instant (ms since the epoch); null
@@ -39,10 +41,12 @@ export namespace PlatformZone {
   /**
    * `tzname`'s transitions over `[fromMs, toMs)` as the zone service
    * serializes them, first the offset in force at `fromMs` (a transition to
-   * itself); null when the platform does not know the name. Each change is
+   * itself); null when the platform does not know the name. The timestamps
+   * use RFC 3339 minute offsets. Use `offsetTransitions` for exact offsets.
+   * Each change is
    * read from the platform's own transition list (`Temporal`: a few Intl
    * reads per change, about 1 ms for a zone with 250 changes); a platform
-   * without it scans the window in `STEP_MS` steps (about 7,800 Intl reads
+   * without it scans the window in weekly steps (about 7,800 Intl reads
    * for 1900-2050, 10-20 ms a zone).
    */
   export function transitions(
@@ -50,16 +54,29 @@ export namespace PlatformZone {
     fromMs: number = WINDOW_START_MS,
     toMs: number = WINDOW_END_MS,
   ): Option<TimezoneRegion.Transition.Serialized[]> {
+    return offsetTransitions(tzname, fromMs, toMs)?.map(
+      ({ ms, before, after, beforeAbbr, afterAbbr }) =>
+        serialized(ms, before, after, beforeAbbr, afterAbbr),
+    ) ?? null;
+  }
+
+  /** Native offset values, including the offset in force at the range start. */
+  export function offsetTransitions(
+    tzname: string,
+    fromMs: number = WINDOW_START_MS,
+    toMs: number = WINDOW_END_MS,
+  ) {
     const at = offsets(tzname);
     if (at == null) return null;
     const abbr = abbreviations(tzname);
     const changeAfter = listedChanges(tzname) ?? scannedChanges(at, fromMs);
     let prev = at(fromMs);
-    const out = [serialized(fromMs, prev, prev, abbr(fromMs), abbr(fromMs))];
+    const initialAbbr = abbr(fromMs);
+    const out = [{ ms: fromMs, before: prev, after: prev, beforeAbbr: initialAbbr, afterAbbr: initialAbbr }];
     for (let t = changeAfter(fromMs, toMs, prev); t != null; t = changeAfter(t, toMs, prev)) {
       const after = at(t);
       if (after === prev) continue;
-      out.push(serialized(t, prev, after, abbr(t - 1000), abbr(t)));
+      out.push({ ms: t, before: prev, after, beforeAbbr: abbr(Math.max(DATE_MIN_MS, t - 1000)), afterAbbr: abbr(t) });
       prev = after;
     }
     return out;
@@ -100,24 +117,26 @@ export namespace PlatformZone {
   }
 
   /**
-   * The next change found by scanning in `STEP_MS` steps on a grid from
-   * `gridMs` (a change found inside a step does not move the grid), then
-   * bisecting a step to the second.
+   * Scan weekly on a fixed grid, then bisect on whole epoch seconds.
+   * A change inside a step does not move the grid.
    */
   function scannedChanges(at: (ms: number) => number, gridMs: number): ChangeAfter {
+    const gridSecond = Math.floor(gridMs / 1000);
     return (from, toMs, prev) => {
-      for (let t = from; t < toMs; ) {
-        const next = Math.min(gridMs + (Math.floor((t - gridMs) / STEP_MS) + 1) * STEP_MS, toMs);
-        if (at(next) !== prev) {
-          // The first second in (t, next] at another offset: at(lo) is prev, at(hi) is not.
+      const scanEnd = Math.floor(Math.min(toMs, DATE_MAX_MS) / 1000);
+      for (let t = Math.floor(from / 1000); t < scanEnd; ) {
+        const next = Math.min(gridSecond + (Math.floor((t - gridSecond) / STEP_SECONDS) + 1) * STEP_SECONDS, scanEnd);
+        if (at(next * 1000) !== prev) {
+          // Keep lo at the old offset and hi at the new one until they are adjacent.
           let lo = t;
           let hi = next;
-          while (hi - lo > 1000) {
-            const mid = lo + Math.floor((hi - lo) / 2000) * 1000;
-            if (at(mid) === prev) lo = mid;
+          while (hi - lo > 1) {
+            const mid = lo + Math.floor((hi - lo) / 2);
+            if (at(mid * 1000) === prev) lo = mid;
             else hi = mid;
           }
-          return hi;
+          const onset = hi * 1000;
+          return onset > from && onset < toMs ? onset : null;
         }
         t = next;
       }
@@ -139,7 +158,6 @@ export namespace PlatformZone {
     return m[1] === "+" ? secs : -secs;
   }
 
-  /** One transition at `ms`, from `before` to `after` (seconds, written to the minute as RFC 3339 offsets are). */
   function serialized(
     ms: number,
     before: number,
@@ -147,13 +165,19 @@ export namespace PlatformZone {
     beforeAbbr: string,
     afterAbbr: string,
   ): TimezoneRegion.Transition.Serialized {
-    return { before: rfc3339(ms, before), before_tz_abbr: beforeAbbr, after: rfc3339(ms, after), after_tz_abbr: afterAbbr };
+    return {
+      before: dateTimeWithOffset(ms, before),
+      before_tz_abbr: beforeAbbr,
+      after: dateTimeWithOffset(ms, after),
+      after_tz_abbr: afterAbbr,
+    };
   }
 
-  function rfc3339(ms: number, offsetSecs: number): string {
+  function dateTimeWithOffset(ms: number, offsetSecs: number): string {
     const mins = Math.round(offsetSecs / 60);
     const abs = Math.abs(mins);
     const pad = (n: number) => String(n).padStart(2, "0");
-    return `${new Date(ms + mins * 60_000).toISOString().slice(0, 19)}${mins < 0 ? "-" : "+"}${pad(Math.floor(abs / 60))}:${pad(abs % 60)}`;
+    const local = new Date(ms + mins * 60_000).toISOString().replace(/(?:\.000)?Z$/, "");
+    return `${local}${mins < 0 ? "-" : "+"}${pad(Math.floor(abs / 60))}:${pad(abs % 60)}`;
   }
 }

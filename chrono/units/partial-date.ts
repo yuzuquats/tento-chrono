@@ -334,6 +334,7 @@ export namespace PartialDate {
    * different format (for example RFC3339). Recognized malformed partials
    * still use the regular parser; validation and permissive parsing stay equal. */
   export function parseOptional(s: string): Option<PartialDate> {
+    if (!s.startsWith("y")) return null;
     return parseRecognized(s)?.asOk() ?? null;
   }
 

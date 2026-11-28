@@ -1,3 +1,4 @@
+import { formatDigitPair } from "../utils.ts";
 // Use console.log instead of an application-specific logger in tento-chrono
 import { GenericRange } from "../range.ts";
 import { Result, erm, ok } from "../result.ts";
@@ -398,11 +399,7 @@ export class TimeOfDay {
   }
 
   ical(): string {
-    return [
-      String(this.hrs).padStart(2, "0"),
-      String(this.mins).padStart(2, "0"),
-      String(this.secs).padStart(2, "0"),
-    ].join("");
+    return formatDigitPair(this.hrs) + formatDigitPair(this.mins) + formatDigitPair(this.secs);
   }
 
   /**

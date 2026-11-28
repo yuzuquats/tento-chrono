@@ -7,6 +7,13 @@ import { YearMonthDay } from "./year-month-day.ts";
 
 export namespace Year {
   export function dseFromYear(year: number): DaysSinceEpoch {
+    // For four-digit calendar years the quotients cannot round across an integer.
+    if (Number.isInteger(year) && year >= 0 && year <= 9999) {
+      return (365 * (year - 1970) +
+        Math.floor((year - 1969) / 4) -
+        Math.floor((year - 1901) / 100) +
+        Math.floor((year - 1601) / 400)) as DaysSinceEpoch;
+    }
     return (365 * (year - 1970) +
       TentoMath.floorDiv(year - 1969, 4) -
       TentoMath.floorDiv(year - 1901, 100) +
@@ -26,6 +33,15 @@ export namespace Year {
   }
 
   export function isoStartMon(yr: number): YearMonthDay {
+    if (Number.isInteger(yr) && yr >= 0 && yr <= 9999) {
+      const weekday = Weekday.DOW1[Weekday.fromDse(Year.dseFromYear(yr)) - 1].isoDow;
+      // Keep January 1's populated day-number and weekday caches when it is Monday.
+      if (weekday !== 0) {
+        return weekday <= 3
+          ? YearMonthDay.fromYmd1Exp(yr - 1, 12, 32 - weekday)
+          : YearMonthDay.fromYmd1Exp(yr, 1, 8 - weekday);
+      }
+    }
     return YearMonth.isoStartMon({
       yr,
       mth: 1 as Month1,

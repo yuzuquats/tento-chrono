@@ -1,4 +1,5 @@
 import { NaiveDate } from "../naive-date.ts";
+import { Time } from "../time.ts";
 import { DateUnit } from "./date-unit.ts";
 import { Month } from "./month.ts";
 import type { PartialDate } from "./partial-date.ts";
@@ -12,6 +13,81 @@ import type { Option } from "../option.ts";
 export type YearMonthDayFilter = (
   partialdate: PartialDate.Tuple,
 ) => Generator<PartialDate.Tuple>;
+
+// Meeus/Jones/Butcher Gregorian computus.
+export function westernEaster(year: number): NaiveDate {
+  const goldenNumber = year % 19;
+  const century = Math.floor(year / 100);
+  const yearInCentury = year % 100;
+  const centuryLeapYears = Math.floor(century / 4);
+  const solarCorrection = Math.floor((century + 8) / 25);
+  const lunarCorrection = Math.floor((century - solarCorrection + 1) / 3);
+  const epact = (19 * goldenNumber + century - centuryLeapYears - lunarCorrection + 15) % 30;
+  const weekday = (32 + 2 * (century % 4) + 2 * Math.floor(yearInCentury / 4) - epact - yearInCentury % 4) % 7;
+  const correction = Math.floor((goldenNumber + 11 * epact + 22 * weekday) / 451);
+  const marchOffset = epact + weekday - 7 * correction + 114;
+  return NaiveDate.fromYmd1Exp(year, Math.floor(marchOffset / 31), marchOffset % 31 + 1);
+}
+
+/** Zero-based positions in a library year mask, including the trailing week. */
+export function libraryWeekIndices(
+  weeks: readonly (number | string)[],
+  weekStart: Weekday,
+  yearLength: number,
+  jan1Weekday: Weekday,
+  previousYearLength: number,
+  priorJan1Weekday?: Weekday,
+): Set<number> {
+  const firstWeekStart = (weekStart.dow - jan1Weekday.dow + 7) % 7;
+  const weekOneStart = firstWeekStart >= 4 ? firstWeekStart - 7 : firstWeekStart;
+  const weeksInYear = Math.floor((yearLength - weekOneStart + 3) / 7);
+  const days = new Set<number>();
+  const addWeek = (start: number) => {
+    for (let day = Math.max(0, start); day < start + 7; day++) {
+      days.add(day);
+    }
+  };
+
+  for (const requested of weeks) {
+    const week = typeof requested === "number" && requested < 0
+      ? requested + weeksInYear + 1
+      : Number(requested);
+    if (!(week > 0 && week <= weeksInYear)) continue;
+    const start = weekOneStart + Math.max(0, week - 1) * 7;
+    if (!Number.isInteger(start)) continue;
+    const length = 7 - ((start - weekOneStart) % 7 + 7) % 7;
+    for (let day = Math.max(0, start); day < start + length; day++) days.add(day);
+  }
+  const nextWeekOne = weekOneStart + weeksInYear * 7;
+  if (weeks.includes(1) && nextWeekOne < yearLength) addWeek(nextWeekOne);
+
+  if (weekOneStart > 0 && weeks.includes(-1)) {
+    addWeek(weekOneStart - 7);
+  } else if (weekOneStart > 0 && priorJan1Weekday != null) {
+    const priorFirstWeekStart = (weekStart.dow - priorJan1Weekday.dow + 7) % 7;
+    // Both libraries use the current year's remaining days in the second
+    // branch of the previous-year calculation.
+    const previousLastWeek = priorFirstWeekStart >= 4
+      ? 52 + Math.floor(((previousYearLength + 7 - priorFirstWeekStart) % 7) / 4)
+      : 52 + Math.floor(((yearLength - weekOneStart) % 7) / 4);
+    if (weeks.includes(previousLastWeek)) {
+      addWeek(weekOneStart - 7);
+    }
+  }
+  return days;
+}
+
+function week1Start(yr: number, wkst: Weekday): YearMonthDay {
+  const jan1 = YearMonthDay.fromYmd1Exp(yr, 1, 1);
+  const offset = (jan1.dayOfWeek.dow - wkst.dow + 7) % 7;
+  return offset <= 3 ? jan1.addDays(-offset) : jan1.addDays(7 - offset);
+}
+
+export function weekYearOf(date: NaiveDate, wkst: Weekday): number {
+  if (date.dse < week1Start(date.yr, wkst).dse) return date.yr - 1;
+  if (date.dse >= week1Start(date.yr + 1, wkst).dse) return date.yr + 1;
+  return date.yr;
+}
 
 export namespace YearMonthDayFilter {
   type Filter = YearMonthDayFilter;
@@ -578,7 +654,10 @@ export namespace YearMonthDayFilter {
   }
 
   /** Western Easter plus the dateutil rule's day offsets. */
-  export function byEaster(offsets: readonly number[], start?: NaiveDate): Filter {
+  export function byEaster(
+    offsets: readonly (number | string)[],
+    start?: NaiveDate,
+  ): Filter & { checkYear(year: number): void } {
     const datesByYear = new Map<number, NaiveDate[]>();
     function datesOf(year: number): NaiveDate[] {
       const saved = datesByYear.get(year);
@@ -588,17 +667,24 @@ export namespace YearMonthDayFilter {
       const maskLength = Year.length(year) + 7;
       const days = new Set<number>();
       for (const offset of offsets) {
-        const slot = easterIndex + offset;
+        const slot = typeof offset === "string" ? BigInt(easterIndex) + BigInt(offset) : easterIndex + offset;
         // dateutil indexes a year mask with seven trailing slots and permits negative indices.
-        const index = slot < 0 ? maskLength + slot : slot;
-        if (index < 0 || index >= maskLength) throw new RangeError("BYEASTER offset is outside the year mask");
+        if (typeof slot === "bigint" && (slot < -(1n << 63n) || slot >= 1n << 63n)) {
+          throw new RangeError("cannot fit 'int' into an index-sized integer");
+        }
+        const index = Number(slot) < 0 ? maskLength + Number(slot) : Number(slot);
+        if (index < 0 || index >= maskLength) {
+          throw new RangeError(typeof slot === "bigint"
+            ? "list assignment index out of range"
+            : "BYEASTER offset is outside the year mask");
+        }
         days.add(index);
       }
       const dates = [...days].sort((a, b) => a - b).map((day) => jan1.addDays(day));
       datesByYear.set(year, dates);
       return dates;
     }
-    return function* ([candidate, unit]) {
+    const select: Filter = function* ([candidate, unit]) {
       const first = unit === "year" ? NaiveDate.fromYmd1Exp(candidate.yr, 1, 1)
         : unit === "month" ? NaiveDate.fromYmd1Exp(candidate.yr, candidate.mth, 1)
         : candidate.castValid();
@@ -612,21 +698,96 @@ export namespace YearMonthDayFilter {
         if (day.dse >= lower.dse && day.dse < end.dse) yield [day, "day"];
       }
     };
+    return Object.assign(select, {
+      checkYear(year: number): void {
+        datesOf(year);
+      },
+    });
   }
 
-  // Meeus/Jones/Butcher Gregorian computus.
-  function westernEaster(year: number): NaiveDate {
-    const goldenNumber = year % 19;
-    const century = Math.floor(year / 100);
-    const yearInCentury = year % 100;
-    const centuryLeapYears = Math.floor(century / 4);
-    const solarCorrection = Math.floor((century + 8) / 25);
-    const lunarCorrection = Math.floor((century - solarCorrection + 1) / 3);
-    const epact = (19 * goldenNumber + century - centuryLeapYears - lunarCorrection + 15) % 30;
-    const weekday = (32 + 2 * (century % 4) + 2 * Math.floor(yearInCentury / 4) - epact - yearInCentury % 4) % 7;
-    const correction = Math.floor((goldenNumber + 11 * epact + 22 * weekday) / 451);
-    const marchOffset = epact + weekday - 7 * correction + 114;
-    return NaiveDate.fromYmd1Exp(year, Math.floor(marchOffset / 31), marchOffset % 31 + 1);
+  /** rrule.js matches one zero-based day index within each yearly period. */
+  export function byRruleJsEaster(offset: number): Filter {
+    let year: number | undefined;
+    let selected: NaiveDate | undefined;
+    return function* ([candidate, unit]) {
+      if (year !== candidate.yr) {
+        year = candidate.yr;
+        const easter = westernEaster(year);
+        const midnight = Date.UTC(year, easter.month1 - 1, easter.day1 + offset);
+        const dayIndex = (midnight - Date.UTC(year, 0, 1)) / Time.MS_PER_DAY;
+        selected = dayIndex >= 0 && dayIndex < Year.length(year)
+          ? NaiveDate.fromYmd1Exp(year, 1, 1).addDays(dayIndex)
+          : undefined;
+      }
+      if (
+        selected != null &&
+        (unit === "year" || (unit === "month" && selected.mth === candidate.mth) ||
+          (unit === "day" && selected.dse === candidate.dse))
+      ) yield [selected, "day"];
+    };
+  }
+
+  /** Expand week numbers within the selected recurrence year. */
+  export function byWeekOfRecurrenceYear(
+    weeks: readonly number[],
+    weekStart: Weekday,
+  ): Filter {
+    const selected = new Set(weeks);
+    return function* ([period]) {
+      const start = week1Start(period.yr, weekStart);
+      const yearWeeks = (week1Start(period.yr + 1, weekStart).dse - start.dse) / 7;
+      for (let ordinal = 1; ordinal <= yearWeeks; ordinal++) {
+        if (!selected.has(ordinal) && !selected.has(ordinal - yearWeeks - 1)) continue;
+        const offset = (ordinal - 1) * 7;
+        for (let day = 0; day < 7; day++) yield [start.addDays(offset + day), "day"];
+      }
+    };
+  }
+
+  /** The calendar-year week mask used by dateutil 2.8.2 and rrule.js 2.8.1. */
+  export function byLibraryWeekNo(
+    weeks: readonly number[],
+    weekStart: Weekday,
+    weeklyStart?: NaiveDate,
+  ): Filter {
+    const cached = new Map<number, readonly NaiveDate[]>();
+    function weekDays(year: number): readonly NaiveDate[] {
+      const prior = cached.get(year);
+      if (prior != null) return prior;
+
+      const jan1 = NaiveDate.fromYmd1Exp(year, 1, 1);
+      const yearLength = Year.length(year);
+      const previous = year > 1 ? NaiveDate.fromYmd1Exp(year - 1, 1, 1) : undefined;
+      const days = libraryWeekIndices(
+        weeks, weekStart, yearLength, jan1.dayOfWeek,
+        Year.length(year - 1), previous?.dayOfWeek,
+      );
+      const dates = [...days].sort((a, b) => a - b).map((day) => jan1.addDays(day));
+      cached.set(year, dates);
+      return dates;
+    }
+
+    return function* ([cand, unit]) {
+      if (weeklyStart != null && (unit === "week" || unit === "day")) {
+        const first = cand.castValid();
+        const elapsed = (first.dayOfWeek.dow - weekStart.dow + 7) % 7;
+        const anchor = first.dse - elapsed < weeklyStart.dse
+          ? weeklyStart
+          : first.addDays(-elapsed);
+        const end = first.dse + (unit === "week" ? 7 : 1);
+        for (const day of weekDays(anchor.yr)) {
+          if (day.dse >= first.dse && day.dse >= anchor.dse && day.dse < end) yield [day, "day"];
+        }
+        return;
+      }
+      for (const day of weekDays(cand.yr)) {
+        if (day.yr !== cand.yr) continue;
+        if (unit === "year" || (unit === "month" && day.mth === cand.mth) ||
+            (unit === "day" && day.dse === cand.dse)) {
+          yield [day, "day"];
+        }
+      }
+    };
   }
 
   export function byWeekNo(
@@ -724,12 +885,6 @@ export namespace YearMonthDayFilter {
     }
   }
 
-  function week1Start(yr: number, wkst: Weekday): YearMonthDay {
-    const jan1 = YearMonthDay.fromYmd1Exp(yr, 1, 1);
-    const offset = (jan1.dayOfWeek.dow - wkst.dow + 7) % 7;
-    return offset <= 3 ? jan1.addDays(-offset) : jan1.addDays(7 - offset);
-  }
-
   function* isoWeekDates(
     year: number,
     bounds: NaiveDate.Range,
@@ -778,9 +933,28 @@ export namespace YearMonthDayFilter {
   export function byNthWeekday(
     dayOfWeeks: Weekday.Nth[],
     simpleEqForDays: boolean = true,
+    ordinalPeriod?: "year" | "month",
   ): Filter {
-    return (partialdate: PartialDate.Tuple) =>
-      _byNthWeekday(partialdate, dayOfWeeks, simpleEqForDays);
+    if (ordinalPeriod == null) {
+      return (partialdate) => _byNthWeekday(partialdate, dayOfWeeks, simpleEqForDays);
+    }
+    return function* (partialdate: PartialDate.Tuple) {
+      const [start, unit] = partialdate;
+      if (unit !== "day" && unit !== "week") {
+        yield* _byNthWeekday(partialdate, dayOfWeeks, simpleEqForDays);
+        return;
+      }
+      const length = unit === "week" ? 7 : 1;
+      for (let i = 0; i < length; i++) {
+        const date = start.addDays(i);
+        for (const [ranked] of _byNthWeekday([date, ordinalPeriod], dayOfWeeks)) {
+          if (ranked.castValid().dse === date.dse) {
+            yield [date, "day"];
+            break;
+          }
+        }
+      }
+    };
   }
 
   function* _byNthWeekday(

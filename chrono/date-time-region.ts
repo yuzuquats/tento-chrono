@@ -6,6 +6,9 @@ import { TimezoneRegion } from "./timezone-region.ts";
 import { Duration } from "./units/duration.ts";
 import type { Optional } from "./option.ts";
 
+const instantWallClock = Symbol("resolved wall clock");
+type ResolvedRegion = DateTimeRegion & { readonly [instantWallClock]?: DateTime };
+
 /**
  * Represents a datetime in a specific timezone region.
  *
@@ -39,6 +42,7 @@ export class DateTimeRegion {
   static fromInstant(dt: DateTime, tz: TimezoneRegion): DateTimeRegion {
     const local = tz.toTz(dt);
     const result = new DateTimeRegion(local.ndt, tz);
+    Object.defineProperty(result, instantWallClock, { value: local, configurable: true });
     result.cache.wallclock = local;
     return result;
   }
@@ -56,6 +60,8 @@ export class DateTimeRegion {
   }
 
   asWallClock(): DateTime {
+    const resolved = (this as ResolvedRegion)[instantWallClock];
+    if (resolved != null) return resolved;
     if (this.cache.wallclock) return this.cache.wallclock;
     return (this.cache.wallclock = this.tz.toWallClock(this.ndt));
   }

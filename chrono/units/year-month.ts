@@ -86,15 +86,9 @@ export namespace YearMonth {
       // Calculate total months from year 0, month 1
       const totalMonths = newYr * 12 + newMth - 1;
 
-      // Calculate new year and month
+      // Derive the month from the same floor quotient, including before year zero.
       newYr = Math.floor(totalMonths / 12);
-      newMth = ((totalMonths % 12) + 1) as Month1;
-
-      // Handle negative month values
-      if (newMth <= 0) {
-        newMth = (newMth + 12) as Month1;
-        newYr--;
-      }
+      newMth = (totalMonths - newYr * 12 + 1) as Month1;
     }
     return {
       yr: newYr,

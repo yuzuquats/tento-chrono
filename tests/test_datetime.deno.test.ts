@@ -512,12 +512,12 @@ Deno.test({
     // Test parsing sub-minute offsets (historical timezone data like Africa/Monrovia)
     const dt1 = DateTime.fromRfc3339("1900-03-01T00:00:00-00:43:08").exp();
     assertEquals(dt1.tz.info.offset.toSecs, -(43 * 60 + 8)); // -43 minutes, -8 seconds
-    assertEquals(dt1.rfc3339(), "1900-03-01T00:00:00-00:43:08");
+    assertEquals(dt1.rfc3339(), "1900-03-01T00:00:08-00:43");
 
     // Test positive sub-minute offset
     const dt2 = DateTime.fromRfc3339("1918-04-15T02:00:00+01:24:36").exp();
     assertEquals(dt2.tz.info.offset.toSecs, 1 * 3600 + 24 * 60 + 36); // +1 hour, 24 minutes, 36 seconds
-    assertEquals(dt2.rfc3339(), "1918-04-15T02:00:00+01:24:36");
+    assertEquals(dt2.rfc3339(), "1918-04-15T02:00:24+01:25");
 
     // Verify round-trip works correctly
     const dt3 = DateTime.fromRfc3339("1901-10-16T00:00:00-10:39:04").exp();
@@ -635,4 +635,26 @@ Deno.test("toUtc relabels a +00:00 zone's time as Utc", () => {
   assertEquals(dt.toUtc().toString(), "2026-01-05T09:00:00Z");
   assertEquals(dt.toUtc().tz, Utc);
   assertEquals(dt.toUtc().eq(dt), true);
+});
+
+Deno.test("RFC3339 cache keeps reused results across a wider rotating stream", () => {
+  const timestamps = Array.from({ length: 256 }, (_, index) =>
+    new Date(Date.UTC(2087, 6, 3, 0, index)).toISOString()
+  );
+  const hot = timestamps.slice(0, 128);
+  const parse = (text: string) => DateTime.fromRfc3339(text).exp();
+  for (let pass = 0; pass < 3; pass++) hot.forEach(parse);
+
+  const first = parse(hot[0]);
+  for (let pass = 0; pass < 3; pass++) {
+    for (const text of timestamps) assertEquals(parse(text).mse, Date.parse(text));
+  }
+  assert(parse(hot[0]) === first);
+
+  // A new working set can still replace the previous one once it has reuse.
+  const recent = timestamps.slice(128);
+  for (let pass = 0; pass < 3; pass++) recent.forEach(parse);
+  const firstRecent = parse(recent[0]);
+  recent.forEach(parse);
+  assert(parse(recent[0]) === firstRecent);
 });

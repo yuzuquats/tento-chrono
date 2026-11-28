@@ -48,3 +48,17 @@ export namespace TentoMath {
     return n;
   }
 }
+
+const DIGIT_PAIRS = Array.from({ length: 100 }, (_, n) => String(n).padStart(2, "0"));
+
+/** @internal Format a numeric calendar field with at least two digits. */
+export function formatDigitPair(n: number): string {
+  return Number.isInteger(n) && n >= 0 && n < 100 ? DIGIT_PAIRS[n] : String(n).padStart(2, "0");
+}
+
+/** @internal Read exactly two ASCII decimal digits, or return NaN. */
+export function readAsciiDigitPair(text: string, index: number): number {
+  const tens = text.charCodeAt(index) - 48;
+  const ones = text.charCodeAt(index + 1) - 48;
+  return tens >= 0 && tens <= 9 && ones >= 0 && ones <= 9 ? tens * 10 + ones : NaN;
+}

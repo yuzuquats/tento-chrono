@@ -1,7 +1,8 @@
-import { assertEquals } from "@std/assert";
+import { assert, assertEquals } from "@std/assert";
 import {
   DateTime,
   DateTimeRegion,
+  type MsSinceEpoch,
   TimezoneRegion,
   Utc,
 } from "../chrono/mod.ts";
@@ -152,6 +153,145 @@ Deno.test("transition queries stop before or at the first table entry", () => {
   assertEquals(la.transitionsBetween({ start: between, end: between }), [first]);
   assertEquals(la.transitionsBetween({ start: second.before.mse, end: second.before.mse }), [second]);
   assertEquals(la.transitionsBetween({ start: between, end: before }), []);
+});
+
+Deno.test("platform recurrence range reads follow point offsets across UTC years", () => {
+  const ny = TimezoneRegion.platformRecurrenceZone("America/New_York" as Tzname)!;
+  const mse = (iso: string) => DateTime.epochFromRfc3339(iso).exp();
+  const cases = [
+    {
+      "start": "1899-12-31T00:00:00Z",
+      "end": "1900-01-02T00:00:00Z",
+      "transitions": [],
+    },
+    {
+      "start": "2075-01-01T00:00:00Z",
+      "end": "2075-12-31T23:59:59Z",
+      "transitions": ["2075-03-10T07:00:00Z", "2075-11-03T06:00:00Z"],
+    },
+    {
+      "start": "2074-12-01T00:00:00Z",
+      "end": "2076-11-01T06:00:00Z",
+      "transitions": [
+        "2075-03-10T07:00:00Z",
+        "2075-11-03T06:00:00Z",
+        "2076-03-08T07:00:00Z",
+        "2076-11-01T06:00:00Z",
+      ],
+    },
+    {
+      "start": "2049-12-31T23:59:59Z",
+      "end": "2050-03-13T07:00:00Z",
+      "transitions": ["2050-03-13T07:00:00Z"],
+    },
+  ];
+  for (const input of cases) {
+    const start = mse(input.start);
+    const end = mse(input.end);
+    const entries = ny.transitionsBetween({ start, end });
+    assertEquals(entries[0], ny.activeTransition(start), input.start);
+    assertEquals(entries.slice(1).map((t) => t.before.mse), input.transitions.map(mse), input.start);
+    for (const { before, after } of entries.slice(1)) {
+      assertEquals(after.time.tz.info.offset.toMs, ny.tzAtMse(before.mse).info.offset.toMs);
+    }
+    assertEquals(
+      ny.recurrenceTransitions(start, end).map((t) => t.before.mse),
+      input.transitions.map(mse),
+      input.start,
+    );
+  }
+});
+
+const fallbackRangeCases = [
+  {
+    "end": "2076-12-01T00:00:00.123Z",
+    "includesNovember": true,
+  },
+  {
+    "end": "2076-11-01T06:00:00Z",
+    "includesNovember": true,
+  },
+  {
+    "end": "2076-11-01T05:59:59.999Z",
+    "includesNovember": false,
+  },
+];
+for (const { end, includesNovember } of fallbackRangeCases) {
+  Deno.test(`platform fallback returns exact onsets through ${end}`, async () => {
+    // Run the synchronous scan in a worker so a stuck bisection can be stopped.
+    const module = new URL("../chrono/mod.ts", import.meta.url);
+    const script = `
+      import { TimezoneRegion } from ${JSON.stringify(module.href)};
+      Reflect.deleteProperty(globalThis, "Temporal");
+      const ny = TimezoneRegion.platformRecurrenceZone("America/New_York");
+      const start = Date.parse("2074-12-01T00:00:00.123Z");
+      const end = Date.parse(${JSON.stringify(end)});
+      const entries = ny.transitionsBetween({ start, end });
+      self.postMessage(entries.slice(1).map((entry) => entry.before.mse));
+    `;
+    const worker = new Worker(`data:application/javascript,${encodeURIComponent(script)}`, { type: "module" });
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    try {
+      const actual = await new Promise<number[]>((resolve, reject) => {
+        timer = setTimeout(() => reject(new Error("Fallback transition scan exceeded 4 seconds")), 4_000);
+        worker.onmessage = (event) => resolve(event.data);
+        worker.onerror = (event) => {
+          event.preventDefault();
+          reject(new Error(event.message));
+        };
+      });
+      const expected = [
+        "2075-03-10T07:00:00.000Z",
+        "2075-11-03T06:00:00.000Z",
+        "2076-03-08T07:00:00.000Z",
+      ];
+      if (includesNovember) expected.push("2076-11-01T06:00:00.000Z");
+      assertEquals(actual.map((ms) => new Date(ms).toISOString()), expected);
+    } finally {
+      clearTimeout(timer);
+      worker.terminate();
+    }
+  });
+}
+
+Deno.test("a served table keeps the real transition where platform extension meets it", () => {
+  const base = region(
+    "America/New_York",
+    ["1883-11-18T12:03:58-04:56:02", "1883-11-18T12:00:00-05:00"],
+  );
+  const extended = TimezoneRegion.forPlatformRecurrence(base, { extendServedPast: true });
+  const start = DateTime.epochFromRfc3339("1883-11-18T00:00:00Z").exp();
+  const [seam] = base.transitions;
+  assertEquals(extended.recurrenceTransitions(start, seam.before.mse), [seam]);
+  assertEquals(extended.recurrenceTransitions(seam.before.mse, seam.before.mse), [seam]);
+});
+
+Deno.test({
+  name: "platform recurrence ranges span the full Date range using the native transition list",
+  ignore: Reflect.get(globalThis, "Temporal") == null,
+  fn() {
+    const ny = TimezoneRegion.platformRecurrenceZone("America/New_York" as Tzname)!;
+    const limit = 8.64e15;
+    const began = performance.now();
+    const entries = ny.transitionsBetween({
+      start: (-limit - 1) as MsSinceEpoch,
+      end: (limit + 1) as MsSinceEpoch,
+    });
+    const elapsed = performance.now() - began;
+    assert(elapsed < 10_000, `full Date range took ${Math.round(elapsed)} ms`);
+    assertEquals(entries[0]?.before.mse, -limit);
+    assertEquals(entries[1]?.before.mse, Date.parse("1883-11-18T17:00:00Z"));
+    assertEquals(entries[1]?.after.time.tz.info.offset.toMs, -18_000_000);
+    for (const { before, after } of entries.slice(1)) {
+      assert(
+        before.time.tz.info.offset.toMs !== after.time.tz.info.offset.toMs ||
+          before.tzabbr !== after.tzabbr,
+        `synthetic transition at ${before.mse}`,
+      );
+    }
+    const last = entries.at(-1)!;
+    assertEquals(last.before.mse, Date.parse("+275760-03-09T07:00:00Z"));
+  },
 });
 
 Deno.test("wall-clock resolution and instant projection agree before the first transition", () => {
